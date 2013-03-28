@@ -639,14 +639,81 @@ char *buf_string(BUFFER *buffer)
     return buffer->string;
 }
 
-    
+/* stuff for recycling mobprograms */
+MPROG_LIST *mprog_free;
 
-	
+MPROG_LIST *new_mprog(void)
+{
+   static MPROG_LIST mp_zero;
+   MPROG_LIST *mp;
 
+   if (mprog_free == NULL)
+       mp = alloc_perm(sizeof(*mp));
+   else
+   {
+       mp = mprog_free;
+       mprog_free=mprog_free->next;
+   }
 
+   *mp = mp_zero;
+   mp->vnum             = 0;
+   mp->trig_type        = 0;
+   mp->code             = str_dup("");
+   VALIDATE(mp);
+   return mp;
+}
 
+void free_mprog(MPROG_LIST *mp)
+{
+   if (!IS_VALID(mp))
+      return;
 
+   INVALIDATE(mp);
+   mp->next = mprog_free;
+   mprog_free = mp;
+}
 
+HELP_AREA * had_free;
 
+HELP_AREA * new_had ( void )
+{
+	HELP_AREA * had;
+static	HELP_AREA   zHad;
 
+	if ( had_free )
+	{
+		had		= had_free;
+		had_free	= had_free->next;
+	}
+	else
+		had		= alloc_perm( sizeof( *had ) );
 
+	*had = zHad;
+
+	return had;
+}
+
+HELP_DATA * help_free;
+
+HELP_DATA * new_help ( void )
+{
+	HELP_DATA * help;
+
+	if ( help_free )
+	{
+		help		= help_free;
+		help_free	= help_free->next;
+	}
+	else
+		help		= alloc_perm( sizeof( *help ) );
+
+	return help;
+}
+
+void free_help(HELP_DATA *help)
+{
+	free_string(help->keyword);
+	free_string(help->text);
+	help->next = help_free;
+	help_free = help;
+}

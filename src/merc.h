@@ -67,7 +67,9 @@ typedef short   int			sh_int;
 typedef unsigned char			bool;
 #endif
 
-
+/* ea */
+#define MSL MAX_STRING_LENGTH
+#define MIL MAX_INPUT_LENGTH
 
 /*
  * Structure types.
@@ -81,6 +83,7 @@ typedef struct	descriptor_data		DESCRIPTOR_DATA;
 typedef struct	exit_data		EXIT_DATA;
 typedef struct	extra_descr_data	EXTRA_DESCR_DATA;
 typedef struct	help_data		HELP_DATA;
+typedef struct	help_area_data		HELP_AREA;
 typedef struct	kill_data		KILL_DATA;
 typedef struct	mem_data		MEM_DATA;
 typedef struct	mob_index_data		MOB_INDEX_DATA;
@@ -94,7 +97,8 @@ typedef struct	room_index_data		ROOM_INDEX_DATA;
 typedef struct	shop_data		SHOP_DATA;
 typedef struct	time_info_data		TIME_INFO_DATA;
 typedef struct	weather_data		WEATHER_DATA;
-
+typedef struct  mprog_list		MPROG_LIST;
+typedef struct  mprog_code		MPROG_CODE;
 
 
 /*
@@ -262,6 +266,9 @@ struct	descriptor_data
     int			outtop;
     char *		showstr_head;
     char *		showstr_point;
+    void *              pEdit;		/* OLC */
+    char **             pString;	/* OLC */
+    int			editor;		/* OLC */
 };
 
 
@@ -317,11 +324,21 @@ struct	con_app_type
 struct	help_data
 {
     HELP_DATA *	next;
+    HELP_DATA * next_area;
     sh_int	level;
     char *	keyword;
     char *	text;
 };
 
+struct help_area_data
+{
+	HELP_AREA *	next;
+	HELP_DATA *	first;
+	HELP_DATA *	last;
+	AREA_DATA *	area;
+	char *		filename;
+	bool		changed;
+};
 
 
 /*
@@ -1295,6 +1312,8 @@ struct	mob_index_data
     MOB_INDEX_DATA *	next;
     SPEC_FUN *		spec_fun;
     SHOP_DATA *		pShop;
+    MPROG_LIST *        mprogs;
+    AREA_DATA *		area;		/* OLC */
     sh_int		vnum;
     sh_int		group;
     bool		new_format;
@@ -1327,6 +1346,7 @@ struct	mob_index_data
     long		parts;
     sh_int		size;
     char *		material;
+    long		mprog_flags;
 };
 
 
@@ -1360,6 +1380,7 @@ struct	char_data
     CHAR_DATA *		fighting;
     CHAR_DATA *		reply;
     CHAR_DATA *		pet;
+    CHAR_DATA *		mprog_target;
     MEM_DATA *		memory;
     SPEC_FUN *		spec_fun;
     MOB_INDEX_DATA *	pIndexData;
@@ -1438,6 +1459,8 @@ struct	char_data
     sh_int		dam_type;
     sh_int		start_pos;
     sh_int		default_pos;
+
+    sh_int		mprog_delay;
 };
 
 
@@ -1471,6 +1494,7 @@ struct	pc_data
     bool              	confirm_delete;
     char *		alias[MAX_ALIAS];
     char * 		alias_sub[MAX_ALIAS];
+    int 		security;	/* OLC */ /* Builder security */
 };
 
 /* Data for generating characters -- only used during generation */
@@ -1520,6 +1544,7 @@ struct	obj_index_data
     OBJ_INDEX_DATA *	next;
     EXTRA_DESCR_DATA *	extra_descr;
     AFFECT_DATA *	affected;
+    AREA_DATA *		area;		/* OLC */
     bool		new_format;
     char *		name;
     char *		short_descr;
@@ -1590,6 +1615,9 @@ struct	exit_data
     sh_int		key;
     char *		keyword;
     char *		description;
+    EXIT_DATA *		next;		/* OLC */
+    int			rs_flags;	/* OLC */
+    int			orig_door;	/* OLC */
 };
 
 
@@ -1628,8 +1656,7 @@ struct	reset_data
 struct	area_data
 {
     AREA_DATA *		next;
-    RESET_DATA *	reset_first;
-    RESET_DATA *	reset_last;
+    HELP_AREA *		helps;
     char *		file_name;
     char *		name;
     char *		credits;
@@ -1640,6 +1667,10 @@ struct	area_data
     sh_int 		min_vnum;
     sh_int		max_vnum;
     bool		empty;
+    char *		builders;	/* OLC */ /* Listing of */
+    int			vnum;		/* OLC */ /* Area vnum  */
+    int			area_flags;	/* OLC */
+    int			security;	/* OLC */ /* Value 1-9  */
 };
 
 
@@ -1655,7 +1686,8 @@ struct	room_index_data
     EXTRA_DESCR_DATA *	extra_descr;
     AREA_DATA *		area;
     EXIT_DATA *		exit	[6];
-    EXIT_DATA * 	old_exit[6];
+    RESET_DATA *	reset_first;	/* OLC */
+    RESET_DATA *	reset_last;	/* OLC */
     char *		name;
     char *		description;
     char *		owner;
@@ -1725,7 +1757,42 @@ struct  group_type
     char *	spells[MAX_IN_GROUP];
 };
 
+/*
+ * MOBprog definitions
+ */                   
+#define TRIG_ACT	(A)
+#define TRIG_BRIBE	(B)
+#define TRIG_DEATH	(C)
+#define TRIG_ENTRY	(D)
+#define TRIG_FIGHT	(E)
+#define TRIG_GIVE	(F)
+#define TRIG_GREET	(G)
+#define TRIG_GRALL	(H)
+#define TRIG_KILL	(I)
+#define TRIG_HPCNT	(J)
+#define TRIG_RANDOM	(K)
+#define TRIG_SPEECH	(L)
+#define TRIG_EXIT	(M)
+#define TRIG_EXALL	(N)
+#define TRIG_DELAY	(O)
+#define TRIG_SURR	(P)
 
+struct mprog_list
+{
+    int			trig_type;
+    char *		trig_phrase;
+    sh_int		vnum;
+    char *  		code;
+    MPROG_LIST * 	next;
+    bool		valid;
+};
+
+struct mprog_code
+{
+    sh_int		vnum;
+    char *		code;
+    MPROG_CODE *	next;
+};
 
 /*
  * These are skill_lookup return values for common skills and spells.
@@ -1801,8 +1868,13 @@ extern sh_int  gsn_recall;
 #define IS_SET(flag, bit)	((flag) & (bit))
 #define SET_BIT(var, bit)	((var) |= (bit))
 #define REMOVE_BIT(var, bit)	((var) &= ~(bit))
-
-
+#define IS_NULLSTR(str)		((str) == NULL || (str)[0] == '\0')
+#define ENTRE(min,num,max)	( ((min) < (num)) && ((num) < (max)) )
+#define CHECK_POS(a, b, c)	{							\
+					(a) = (b);					\
+					if ( (a) < 0 )					\
+					bug( "CHECK_POS : " c " == %d < 0", a );	\
+				}							\
 
 /*
  * Character macros.
@@ -1840,6 +1912,13 @@ extern sh_int  gsn_recall;
 
 #define act(format,ch,arg1,arg2,type)\
 	act_new((format),(ch),(arg1),(arg2),(type),POS_RESTING)
+
+#define HAS_TRIGGER(ch,trig)	(IS_SET((ch)->pIndexData->mprog_flags,(trig)))
+#define IS_SWITCHED( ch )       ( ch->desc && ch->desc->original )
+#define IS_BUILDER(ch, Area)	( !IS_NPC(ch) && !IS_SWITCHED( ch ) &&	  \
+				( ch->pcdata->security >= Area->security  \
+				|| strstr( Area->builders, ch->name )	  \
+				|| strstr( Area->builders, "All" ) ) )
 
 /*
  * Object macros.
@@ -1914,6 +1993,8 @@ extern		CHAR_DATA	  *	char_list;
 extern		DESCRIPTOR_DATA   *	descriptor_list;
 extern		OBJ_DATA	  *	object_list;
 
+extern		MPROG_CODE	  *	mprog_list;
+
 extern		char			bug_buf		[];
 extern		time_t			current_time;
 extern		bool			fLogAll;
@@ -1922,6 +2003,7 @@ extern		KILL_DATA		kill_table	[];
 extern		char			log_buf		[];
 extern		TIME_INFO_DATA		time_info;
 extern		WEATHER_DATA		weather_info;
+extern		bool			MOBtrigger;
 
 /*
  * OS-dependent declarations.
@@ -2066,6 +2148,7 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 #define RID	ROOM_INDEX_DATA
 #define SF	SPEC_FUN
 #define AD	AFFECT_DATA
+#define MPC	MPROG_CODE
 
 /* act_comm.c */
 void  	check_sex	args( ( CHAR_DATA *ch) );
@@ -2086,6 +2169,7 @@ void	move_char	args( ( CHAR_DATA *ch, int door, bool follow ) );
 
 /* act_obj.c */
 bool can_loot		args( (CHAR_DATA *ch, OBJ_DATA *obj) );
+void	wear_obj	args( (CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace) );
 void    get_obj         args( ( CHAR_DATA *ch, OBJ_DATA *obj,
                             OBJ_DATA *container ) );
 
@@ -2111,8 +2195,12 @@ void	act		args( ( const char *format, CHAR_DATA *ch,
 void	act_new		args( ( const char *format, CHAR_DATA *ch, 
 			    const void *arg1, const void *arg2, int type,
 			    int min_pos) );
+void	printf_to_char	args( ( CHAR_DATA *, char *, ... ) );
+void	bugf		args( ( char *, ... ) );
 
 /* db.c */
+void	reset_area      args( ( AREA_DATA * pArea ) );		/* OLC */
+void	reset_room	args( ( ROOM_INDEX_DATA *pRoom ) );	/* OLC */
 char *	print_flags	args( ( int flag ));
 void	boot_db		args( ( void ) );
 void	area_update	args( ( void ) );
@@ -2125,6 +2213,7 @@ char *	get_extra_descr	args( ( const char *name, EXTRA_DESCR_DATA *ed ) );
 MID *	get_mob_index	args( ( int vnum ) );
 OID *	get_obj_index	args( ( int vnum ) );
 RID *	get_room_index	args( ( int vnum ) );
+MPC *	get_mprog_index args( ( int vnum ) );
 char	fread_letter	args( ( FILE *fp ) );
 int	fread_number	args( ( FILE *fp ) );
 long 	fread_flag	args( ( FILE *fp ) );
@@ -2185,15 +2274,12 @@ int	count_users	args( (OBJ_DATA *obj) );
 void 	deduct_cost	args( (CHAR_DATA *ch, int cost) );
 void	affect_enchant	args( (OBJ_DATA *obj) );
 int 	check_immune	args( (CHAR_DATA *ch, int dam_type) );
-int	liq_lookup	args( ( const char *name) );
 int 	material_lookup args( ( const char *name) );
 int	weapon_lookup	args( ( const char *name) );
 int	weapon_type	args( ( const char *name) );
 char 	*weapon_name	args( ( int weapon_Type) );
-int	item_lookup	args( ( const char *name) );
 char	*item_name	args( ( int item_type) ); 
 int	attack_lookup	args( ( const char *name) );
-int	race_lookup	args( ( const char *name) );
 long	wiznet_lookup	args( ( const char *name) );
 int	class_lookup	args( ( const char *name) );
 bool	is_clan		args( (CHAR_DATA *ch) );
@@ -2267,7 +2353,6 @@ char *	weapon_bit_name	args( ( int weapon_flags ) );
 char *  comm_bit_name	args( ( int comm_flags ) );
 char *	cont_bit_name	args( ( int cont_flags) );
 
-
 /* interp.c */
 void	interpret	args( ( CHAR_DATA *ch, char *argument ) );
 bool	is_number	args( ( char *arg ) );
@@ -2283,6 +2368,23 @@ int	slot_lookup	args( ( int slot ) );
 bool	saves_spell	args( ( int level, CHAR_DATA *victim, int dam_type ) );
 void	obj_cast_spell	args( ( int sn, int level, CHAR_DATA *ch,
 				    CHAR_DATA *victim, OBJ_DATA *obj ) );
+
+/* mob_prog.c */
+void	program_flow	args( ( sh_int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch,
+				const void *arg1, const void *arg2 ) );
+void	mp_act_trigger	args( ( char *argument, CHAR_DATA *mob, CHAR_DATA *ch,
+				const void *arg1, const void *arg2, int type ) );
+bool	mp_percent_trigger args( ( CHAR_DATA *mob, CHAR_DATA *ch, 				
+				const void *arg1, const void *arg2, int type ) );
+void	mp_bribe_trigger  args( ( CHAR_DATA *mob, CHAR_DATA *ch, int amount ) );
+bool	mp_exit_trigger   args( ( CHAR_DATA *ch, int dir ) );
+void	mp_give_trigger   args( ( CHAR_DATA *mob, CHAR_DATA *ch, OBJ_DATA *obj ) );
+void 	mp_greet_trigger  args( ( CHAR_DATA *ch ) );
+void	mp_hprct_trigger  args( ( CHAR_DATA *mob, CHAR_DATA *ch ) );
+
+/* mob_cmds.c */
+void	mob_interpret	args( ( CHAR_DATA *ch, char *argument ) );
+
 /* save.c */
 void	save_char_obj	args( ( CHAR_DATA *ch ) );
 bool	load_char_obj	args( ( DESCRIPTOR_DATA *d, char *name ) );
@@ -2313,6 +2415,26 @@ void	gain_exp	args( ( CHAR_DATA *ch, int gain ) );
 void	gain_condition	args( ( CHAR_DATA *ch, int iCond, int value ) );
 void	update_handler	args( ( void ) );
 
+/* string.c */
+void	string_edit	args( ( CHAR_DATA *ch, char **pString ) );
+void    string_append   args( ( CHAR_DATA *ch, char **pString ) );
+char *	string_replace	args( ( char * orig, char * old, char * new ) );
+void    string_add      args( ( CHAR_DATA *ch, char *argument ) );
+char *  format_string   args( ( char *oldstring /*, bool fSpace */ ) );
+char *  first_arg       args( ( char *argument, char *arg_first, bool fCase ) );
+char *	string_unpad	args( ( char * argument ) );
+char *	string_proper	args( ( char * argument ) );
+
+/* olc.c */
+bool	run_olc_editor	args( ( DESCRIPTOR_DATA *d ) );
+char	*olc_ed_name	args( ( CHAR_DATA *ch ) );
+char	*olc_ed_vnum	args( ( CHAR_DATA *ch ) );
+
+/* lookup.c */
+int	race_lookup	args( ( const char *name) );
+int	item_lookup	args( ( const char *name) );
+int	liq_lookup	args( ( const char *name) );
+
 #undef	CD
 #undef	MID
 #undef	OD
@@ -2320,3 +2442,59 @@ void	update_handler	args( ( void ) );
 #undef	RID
 #undef	SF
 #undef AD
+
+/*****************************************************************************
+ *                                    OLC                                    *
+ *****************************************************************************/
+
+/*
+ * Object defined in limbo.are
+ * Used in save.c to load objects that don't exist.
+ */
+#define OBJ_VNUM_DUMMY	30
+
+/*
+ * Area flags.
+ */
+#define         AREA_NONE       0
+#define         AREA_CHANGED    1	/* Area has been modified. */
+#define         AREA_ADDED      2	/* Area has been added to. */
+#define         AREA_LOADING    4	/* Used for counting in db.c */
+
+#define MAX_DIR	6
+#define NO_FLAG -99	/* Must not be used in flags or stats. */
+
+/*
+ * Global Constants
+ */
+extern	char *	const	dir_name        [];
+extern	const	sh_int	rev_dir         [];          /* sh_int - ROM OLC */
+extern	const	struct	spec_type	spec_table	[];
+
+/*
+ * Global variables
+ */
+extern		AREA_DATA *		area_first;
+extern		AREA_DATA *		area_last;
+extern		SHOP_DATA *		shop_last;
+
+extern		int			top_affect;
+extern		int			top_area;
+extern		int			top_ed;
+extern		int			top_exit;
+extern		int			top_help;
+extern		int			top_mob_index;
+extern		int			top_obj_index;
+extern		int			top_reset;
+extern		int			top_room;
+extern		int			top_shop;
+
+extern		int			top_vnum_mob;
+extern		int			top_vnum_obj;
+extern		int			top_vnum_room;
+
+extern		char			str_empty       [1];
+
+extern		MOB_INDEX_DATA *	mob_index_hash  [MAX_KEY_HASH];
+extern		OBJ_INDEX_DATA *	obj_index_hash  [MAX_KEY_HASH];
+extern		ROOM_INDEX_DATA *	room_index_hash [MAX_KEY_HASH];

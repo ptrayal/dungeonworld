@@ -754,6 +754,18 @@ void do_say( CHAR_DATA *ch, char *argument )
 
     act( "$n says '$T'", ch, NULL, argument, TO_ROOM );
     act( "You say '$T'", ch, NULL, argument, TO_CHAR );
+
+    if ( !IS_NPC(ch) )
+    {
+	CHAR_DATA *mob, *mob_next;
+	for ( mob = ch->in_room->people; mob != NULL; mob = mob_next )
+	{
+	    mob_next = mob->next_in_room;
+	    if ( IS_NPC(mob) && HAS_TRIGGER( mob, TRIG_SPEECH )
+	    &&   mob->position == mob->pIndexData->default_pos )
+		mp_act_trigger( argument, mob, ch, NULL, NULL, TRIG_SPEECH );
+	}
+    }
     return;
 }
 
@@ -894,6 +906,9 @@ void do_tell( CHAR_DATA *ch, char *argument )
     act_new("$n tells you '$t'",ch,argument,victim,TO_VICT,POS_DEAD);
     victim->reply	= ch;
 
+    if ( !IS_NPC(ch) && IS_NPC(victim) && HAS_TRIGGER(victim,TRIG_SPEECH) )
+	mp_act_trigger( argument, victim, ch, NULL, NULL, TRIG_SPEECH );
+
     return;
 }
 
@@ -1019,8 +1034,10 @@ void do_emote( CHAR_DATA *ch, char *argument )
         return;
     }
  
+    MOBtrigger = FALSE;
     act( "$n $T", ch, NULL, argument, TO_ROOM );
     act( "$n $T", ch, NULL, argument, TO_CHAR );
+    MOBtrigger = TRUE;
     return;
 }
 
@@ -1053,7 +1070,9 @@ void do_pmote( CHAR_DATA *ch, char *argument )
 
 	if ((letter = strstr(argument,vch->name)) == NULL)
 	{
+	    MOBtrigger = FALSE;
 	    act("$N $t",vch,argument,ch,TO_CHAR);
+	    MOBtrigger = TRUE;
 	    continue;
 	}
 
@@ -1103,7 +1122,9 @@ void do_pmote( CHAR_DATA *ch, char *argument )
 	    name = vch->name;
 	}
 
+	MOBtrigger = FALSE;
 	act("$N $t",vch,temp,ch,TO_CHAR);
+	MOBtrigger = TRUE;
     }
 	
     return;
@@ -1620,7 +1641,7 @@ void do_order( CHAR_DATA *ch, char *argument )
     argument = one_argument( argument, arg );
     one_argument(argument,arg2);
 
-    if (!str_cmp(arg2,"delete"))
+    if (!str_cmp(arg2,"delete") || !str_cmp(arg2,"mob"))
     {
         send_to_char("That will NOT be done.\n\r",ch);
         return;

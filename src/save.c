@@ -38,15 +38,15 @@
 #include <stdlib.h>
 #include "merc.h"
 #include "recycle.h"
-#include "lookup.h"
 #include "tables.h"
+#include "lookup.h"
  
 #if !defined(macintosh)
 extern  int     _filbuf         args( (FILE *) );
 #endif
 
 
-int rename(const char *oldfname, const char *newfname);
+/* int rename(const char *oldfname, const char *newfname); viene en stdio.h */
 
 char *print_flags(int flag)
 {
@@ -189,6 +189,7 @@ void fwrite_char( CHAR_DATA *ch, FILE *fp )
     fprintf( fp, "Levl %d\n",	ch->level		);
     if (ch->trust != 0)
 	fprintf( fp, "Tru  %d\n",	ch->trust	);
+    fprintf( fp, "Sec  %d\n",    ch->pcdata->security	);	/* OLC */
     fprintf( fp, "Plyd %d\n",
 	ch->played + (int) (current_time - ch->logon)	);
     fprintf( fp, "Not  %ld %ld %ld %ld %ld\n",		
@@ -568,6 +569,7 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
     ch->pcdata->condition[COND_THIRST]	= 48; 
     ch->pcdata->condition[COND_FULL]	= 48;
     ch->pcdata->condition[COND_HUNGER]	= 48;
+    ch->pcdata->security		= 0;	/* OLC */
 
     found = FALSE;
     fclose( fpReserve );
@@ -1052,6 +1054,7 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 	    KEY( "Sex",		ch->sex,		fread_number( fp ) );
 	    KEY( "ShortDescr",	ch->short_descr,	fread_string( fp ) );
 	    KEY( "ShD",		ch->short_descr,	fread_string( fp ) );
+	    KEY( "Sec",         ch->pcdata->security,	fread_number( fp ) );	/* OLC */
             KEY( "Silv",        ch->silver,             fread_number( fp ) );
 
 
@@ -1340,7 +1343,7 @@ void fread_pet( CHAR_DATA *ch, FILE *fp )
     }
 }
 
-
+extern	OBJ_DATA	*obj_free;
 
 void fread_obj( CHAR_DATA *ch, FILE *fp )
 {
@@ -1493,14 +1496,20 @@ void fread_obj( CHAR_DATA *ch, FILE *fp )
 
 	    if ( !str_cmp( word, "End" ) )
 	    {
-		if ( !fNest || !fVnum || obj->pIndexData == NULL)
+		if ( !fNest || ( fVnum && obj->pIndexData == NULL ) )
 		{
 		    bug( "Fread_obj: incomplete object.", 0 );
 		    free_obj(obj);
 		    return;
 		}
 		else
-		{
+	        {
+		    if ( !fVnum )
+		    {
+			free_obj( obj );
+			obj = create_object( get_obj_index( OBJ_VNUM_DUMMY ), 0 );
+		    }
+
 		    if (!new_format)
 		    {
 		    	obj->next	= object_list;

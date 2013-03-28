@@ -246,7 +246,13 @@ const	struct	cmd_type	cmd_table	[] =
     { "murde",		do_murde,	POS_FIGHTING,	 0,  LOG_NORMAL, 0 },
     { "murder",		do_murder,	POS_FIGHTING,	 5,  LOG_ALWAYS, 1 },
     { "rescue",		do_rescue,	POS_FIGHTING,	 0,  LOG_NORMAL, 0 },
+    { "surrender",	do_surrender,	POS_FIGHTING,    0,  LOG_NORMAL, 1 },
     { "trip",		do_trip,	POS_FIGHTING,    0,  LOG_NORMAL, 1 },
+
+    /*
+     * Mob command interpreter (placed here for faster scan...)
+     */
+    { "mob",		do_mob,		POS_DEAD,	 0,  LOG_NEVER,  0 },
 
     /*
      * Miscellaneous commands.
@@ -350,6 +356,22 @@ const	struct	cmd_type	cmd_table	[] =
     { "smote",		do_smote,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
     { "prefi",		do_prefi,	POS_DEAD,	IM,  LOG_NORMAL, 0 },
     { "prefix",		do_prefix,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
+    { "mpdump",		do_mpdump,	POS_DEAD,	IM,  LOG_NEVER,  1 },
+    { "mpstat",		do_mpstat,	POS_DEAD,	IM,  LOG_NEVER,  1 },
+
+    /*
+     * OLC
+     */
+    { "edit",		do_olc,		POS_DEAD,    0,  LOG_NORMAL, 1 },
+    { "asave",          do_asave,	POS_DEAD,    0,  LOG_NORMAL, 1 },
+    { "alist",		do_alist,	POS_DEAD,    0,  LOG_NORMAL, 1 },
+    { "resets",		do_resets,	POS_DEAD,    0,  LOG_NORMAL, 1 },
+    { "redit",		do_redit,	POS_DEAD,    0,	 LOG_NORMAL, 1 },
+    { "medit",		do_medit,	POS_DEAD,    0,	 LOG_NORMAL, 1 },
+    { "aedit",		do_aedit,	POS_DEAD,    0,  LOG_NORMAL, 1 },
+    { "oedit",		do_oedit,	POS_DEAD,    0,  LOG_NORMAL, 1 },
+    { "mpedit",		do_mpedit,	POS_DEAD,    0,  LOG_NORMAL, 1 },
+    { "hedit",		do_hedit,	POS_DEAD,    0,  LOG_NORMAL, 1 },
 
     /*
      * End of list.

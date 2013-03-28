@@ -112,35 +112,6 @@ int material_lookup (const char *name)
     return 0;
 }
 
-/* returns race number */
-int race_lookup (const char *name)
-{
-   int race;
-
-   for ( race = 0; race_table[race].name != NULL; race++)
-   {
-	if (LOWER(name[0]) == LOWER(race_table[race].name[0])
-	&&  !str_prefix( name,race_table[race].name))
-	    return race;
-   }
-
-   return 0;
-} 
-
-int liq_lookup (const char *name)
-{
-    int liq;
-
-    for ( liq = 0; liq_table[liq].liq_name != NULL; liq++)
-    {
-	if (LOWER(name[0]) == LOWER(liq_table[liq].liq_name[0])
-	&& !str_prefix(name,liq_table[liq].liq_name))
-	    return liq;
-    }
-
-    return -1;
-}
-
 int weapon_lookup (const char *name)
 {
     int type;
@@ -167,21 +138,6 @@ int weapon_type (const char *name)
     }
  
     return WEAPON_EXOTIC;
-}
-
-
-int item_lookup(const char *name)
-{
-    int type;
-
-    for (type = 0; item_table[type].name != NULL; type++)
-    {
-        if (LOWER(name[0]) == LOWER(item_table[type].name[0])
-        &&  !str_prefix(name,item_table[type].name))
-            return item_table[type].type;
-    }
- 
-    return -1;
 }
 
 char *item_name(int item_type)
@@ -1974,6 +1930,8 @@ void extract_char( CHAR_DATA *ch, bool fPull )
     {
 	if ( wch->reply == ch )
 	    wch->reply = NULL;
+	if ( ch->mprog_target == wch )
+	    wch->mprog_target = NULL;
     }
 
     if ( ch == char_list )

@@ -1027,7 +1027,8 @@ void do_look( CHAR_DATA *ch, char *argument )
 	/* 'look' or 'look auto' */
 	send_to_char( ch->in_room->name, ch );
 
-	if (IS_IMMORTAL(ch) && (IS_NPC(ch) || IS_SET(ch->act,PLR_HOLYLIGHT)))
+	if ( (IS_IMMORTAL(ch) && (IS_NPC(ch) || IS_SET(ch->act,PLR_HOLYLIGHT)))
+	||   IS_BUILDER(ch, ch->in_room->area) )
 	{
 	    sprintf(buf," [Room %d]",ch->in_room->vnum);
 	    send_to_char(buf,ch);

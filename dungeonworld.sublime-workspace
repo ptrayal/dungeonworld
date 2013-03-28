@@ -1,0 +1,450 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"file",
+				"file_name"
+			],
+			[
+				"Write",
+				"WriteNumber"
+			],
+			[
+				"show",
+				"showstr_point"
+			],
+			[
+				"IS",
+				"IS_NULLSTR"
+			],
+			[
+				"WRite",
+				"WriteNumber"
+			],
+			[
+				"WR",
+				"WriteLong"
+			],
+			[
+				"n",
+				"n"
+			],
+			[
+				"pr",
+				"profession"
+			],
+			[
+				"race",
+				"race_lookup"
+			],
+			[
+				"ST",
+				"STAT_STR"
+			],
+			[
+				"user",
+				"user"
+			],
+			[
+				"STAT",
+				"STAT_STA"
+			],
+			[
+				"stat",
+				"statcount"
+			],
+			[
+				"send",
+				"send_to_char"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Indentation: Reindent Lines"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/Brandon/Course_Development/aemud/src/Makefile",
+		"/E/Brandon/Course_Development/aemud/src/tables.h",
+		"/E/Brandon/Course_Development/aemud/src/tables.h.rej",
+		"/E/Brandon/Course_Development/aemud/src/Makefile.rej",
+		"/E/Brandon/Course_Development/aemud/src/comm.c",
+		"/E/Brandon/Course_Development/aemud/src/alias.c",
+		"/E/Brandon/Course_Development/aemud/src/ban.c",
+		"/E/Brandon/Course_Development/aemud/src/bit.c",
+		"/E/Brandon/Course_Development/aemud/src/board.c",
+		"/E/Brandon/Course_Development/aemud/src/const.c",
+		"/E/Brandon/Course_Development/aemud/src/db2.c",
+		"/E/Brandon/Course_Development/aemud/src/db.c",
+		"/E/Brandon/Course_Development/aemud/src/effects.c",
+		"/E/Brandon/Course_Development/aemud/src/flags.c",
+		"/E/Brandon/Course_Development/aemud/src/healer.c",
+		"/E/Brandon/Course_Development/aemud/src/hedit.c",
+		"/E/Brandon/Course_Development/aemud/src/lookup.c",
+		"/E/Brandon/Course_Development/aemud/src/mob_cmds.c",
+		"/E/Brandon/Course_Development/aemud/src/mob_prog.c",
+		"/E/Brandon/Course_Development/aemud/src/music.c",
+		"/E/Brandon/Course_Development/aemud/src/olc.c",
+		"/E/Brandon/Course_Development/aemud/src/olc_mpcode.c",
+		"/E/Brandon/Course_Development/aemud/src/olc_act.c",
+		"/E/Brandon/Course_Development/aemud/src/olc_save.c",
+		"/E/Brandon/Course_Development/aemud/src/protocol.c",
+		"/E/Brandon/Course_Development/aemud/src/wizutil.c",
+		"/E/Brandon/Course_Development/aemud/src/recycle.c",
+		"/E/Brandon/Course_Development/aemud/src/save.c",
+		"/E/Brandon/Course_Development/aemud/src/scan.c",
+		"/E/Brandon/Course_Development/aemud/src/string.c",
+		"/E/Brandon/Course_Development/aemud/src/wizlist.c",
+		"/E/Brandon/Course_Development/aemud/src/update.c",
+		"/E/Brandon/Course_Development/aemud/src/special.c",
+		"/E/Brandon/Course_Development/aemud/src/skills.c",
+		"/E/Brandon/Course_Development/aemud/src/magic2.c",
+		"/E/Brandon/Course_Development/aemud/src/magic.c",
+		"/E/Brandon/Course_Development/aemud/src/handler.c",
+		"/E/Brandon/Course_Development/aemud/src/interp.h",
+		"/E/Brandon/Course_Development/aemud/src/act_wiz.c",
+		"/E/Brandon/Course_Development/aemud/src/act_obj.c",
+		"/E/Brandon/Course_Development/aemud/src/act_move.c",
+		"/E/Brandon/Course_Development/aemud/src/act_info.c",
+		"/E/Brandon/Course_Development/aemud/src/interp.c",
+		"/E/Brandon/Course_Development/aemud/src/act_comm.c",
+		"/E/Brandon/Course_Development/aemud/src/act_enter.c",
+		"/E/Brandon/Course_Development/aemud/src/fight.c",
+		"/E/Brandon/Course_Development/aemud/src/merc.h",
+		"/E/Brandon/Course_Development/aemud/src/note.c",
+		"/E/Brandon/Course_Development/aemud/src/recycle.h",
+		"/E/Brandon/Course_Development/aemud/src/mem.c",
+		"/E/Brandon/Course_Development/aemud/src/protocol.h",
+		"/E/Brandon/Course_Development/aemud/src/colordef.h",
+		"/E/Brandon/Course_Development/aemud/src/merc.h.rej",
+		"/E/Brandon/Course_Development/aemud/src/save.c.rej",
+		"/E/Brandon/Course_Development/aemud/src/comm.c.rej",
+		"/E/Brandon/Course_Development/aemud/src/act_info.c.rej",
+		"/E/Brandon/Course_Development/aemud/src/act_comm.c.rej",
+		"/E/Brandon/Course_Development/Rom24/src/tables.h",
+		"/E/Brandon/Course_Development/Rom24/src/lookup.c",
+		"/E/Brandon/Course_Development/Rom24/src/lookup.h",
+		"/E/Brandon/Course_Development/Rom24/src/act_info.c",
+		"/E/Brandon/Course_Development/Rom24/src/save.c",
+		"/E/Brandon/Course_Development/Rom24/src/Makefile.rej",
+		"/E/Brandon/Course_Development/Rom24/src/tables.h.rej",
+		"/E/Brandon/Course_Development/Rom24/src/merc.h",
+		"/E/Brandon/Course_Development/Rom24/src/merc.h.rej",
+		"/E/Brandon/Course_Development/Rom24/src/Makefile",
+		"/C/Users/bmorris2/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/E/Brandon/Course_Development/ROM/src/Makefile",
+		"/E/Brandon/Course_Development/ROM/src/act_comm.c",
+		"/E/Brandon/Course_Development/ROM/src/tables.c",
+		"/E/Brandon/Course_Development/ROM/src/tables.h",
+		"/E/Brandon/Course_Development/ROM/src/interp.h",
+		"/E/Brandon/Course_Development/ROM/src/merc.h",
+		"/E/Brandon/Course_Development/ROM/src/tables.h.orig",
+		"/E/Brandon/Course_Development/ROM/src/tables.h.rej",
+		"/E/Brandon/Course_Development/ROM/src/save.c.rej",
+		"/E/Brandon/Course_Development/ROM/src/save.c",
+		"/E/Brandon/Course_Development/ROM/src/merc.h.orig",
+		"/E/Brandon/Course_Development/ROM/src/merc.h.rej",
+		"/E/Brandon/Course_Development/ROM/src/update.c.orig",
+		"/E/Brandon/Course_Development/ROM/src/interp.h.rej",
+		"/E/Brandon/Course_Development/ROM/src/db.c",
+		"/E/Brandon/Course_Development/ROM/src/db.c.rej",
+		"/E/Brandon/Course_Development/ROM/src/comm.c",
+		"/E/Brandon/Course_Development/ROM/src/comm.c.rej",
+		"/E/Brandon/Course_Development/ROM/src/act_comm.c.orig",
+		"/E/Brandon/Course_Development/ROM/src/Makefile.solaris",
+		"/E/Brandon/Course_Development/ROM/src/Makefile.rej",
+		"/E/Brandon/Course_Development/ROM/src/recycle.c",
+		"/E/Brandon/Course_Development/ROM/src/interp.c",
+		"/E/Brandon/Course_Development/ROM/src/recycle.h",
+		"/C/Users/bmorris2/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap",
+		"/E/Brandon/Course_Development/ROM/src/act_info.c",
+		"/E/Brandon/Course_Development/ROM/src/update.c",
+		"/E/Brandon/Course_Development/ROM/src/protocol.h",
+		"/E/Brandon/Course_Development/ROM/src/protocol.c",
+		"/E/Brandon/Course_Development/snippets/protocol/protocol.h",
+		"/E/Brandon/Course_Development/snippets/protocol/protocol.c",
+		"/E/Brandon/Course_Development/ROM/src/Makefile.linux",
+		"/E/Brandon/Course_Development/mud/src/makefile",
+		"/E/Brandon/Course_Development/mud/src/tables.c",
+		"/E/Brandon/Course_Development/mud/src/db.c",
+		"/E/Brandon/Course_Development/mud/src/twilight.h",
+		"/E/Brandon/Course_Development/mud/src/subcmds.c",
+		"/E/Brandon/Course_Development/mud/src/act_comm.c",
+		"/E/Brandon/Course_Development/mud/src/comm.c",
+		"/E/Brandon/Course_Development/mud/src/update.c",
+		"/E/Brandon/Course_Development/mud/src/recycle.c",
+		"/E/Brandon/Course_Development/mud/src/act_obj.c",
+		"/E/Brandon/Course_Development/mud/src/gsn.h",
+		"/E/Brandon/Course_Development/mud/src/act_wiz.c",
+		"/E/Brandon/Course_Development/mud/src/act_info.c",
+		"/E/Brandon/Course_Development/mud/src/act_move.c",
+		"/E/Brandon/Course_Development/mud/src/act_enter.c",
+		"/E/Brandon/Course_Development/mud/src/fight.c",
+		"/E/Brandon/Course_Development/mud/src/save.c",
+		"/E/Brandon/Course_Development/mud/src/olc_save.c",
+		"/E/Brandon/Course_Development/mud/src/projectdev",
+		"/E/Brandon/Course_Development/mud/src/handler.c",
+		"/E/Brandon/Course_Development/mud/src/lookup.h",
+		"/E/Brandon/Course_Development/aemud/Snippets/Completed/wizutil.v3",
+		"/E/Brandon/Course_Development/mud/src/magic.c",
+		"/E/Brandon/Course_Development/mud/src/olc_mpcode.c",
+		"/E/Brandon/Course_Development/mud/src/mob_prog.c",
+		"/E/Brandon/Course_Development/mud/src/olc_act.c",
+		"/E/Brandon/Course_Development/mud/src/tables.h",
+		"/E/Brandon/Course_Development/mud/src/interp.c"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"main",
+			"do_funct",
+			"do_function",
+			"do_quit",
+			"bool is_number",
+			"one_argument",
+			"multi_hit",
+			"multi_hit'",
+			"565",
+			"{2",
+			"ALLOC_PERM",
+			"ALLOC_MEM",
+			"free_mem",
+			"default_colour",
+			"free_string",
+			"new_buf_size",
+			"new_buf",
+			"__strcmp",
+			"__strcmp'",
+			"str_cmp",
+			"*buffer_list",
+			"BUFFER_list",
+			"Strn_cmp",
+			"3588",
+			"strlen",
+			"sprintf",
+			"strcpy",
+			"str_cpy",
+			"strlen",
+			"bool strlen",
+			"sprintf",
+			"void sprintf",
+			"str_cmp",
+			"pcdata",
+			"reboot",
+			"BUFFER",
+			"new_buf",
+			"buf_free",
+			"pcdata",
+			"EXTRA_DESCR_DATA",
+			"do_colour",
+			"do_dump",
+			"Note",
+			"new_help",
+			"logfmt",
+			"new_area",
+			"room",
+			"->name",
+			"area",
+			"Attempt to recyle invalid memory of size ",
+			"New Area",
+			"BUG: New Area",
+			"str_dup",
+			"db.c",
+			"do_score",
+			"write_to_buffer( d, echo_on_str, 0 );",
+			"d->fcommand",
+			"act( \"$n has entered the game.\", ch, NULL, NULL, TO_ROOM );",
+			"2000",
+			"200",
+			"struct	descriptor_data",
+			"GREEN",
+			"BOLD",
+			"NO_COLOR",
+			"NO COLOR",
+			"GREEN",
+			"NOAUCTION",
+			"lookup.h",
+			"tables.h",
+			"struct flag_type",
+			"flag_type",
+			"int sex_lookup",
+			"struct flag_type",
+			"flag_type",
+			"recval_table",
+			"bit_type",
+			"+extern	const	struct	bit_type	bitvector_type[];\n+extern	const	struct	recval_type	recval_table[];\nbit_type",
+			"MSL",
+			"KEY (\"Shd\"",
+			"RID",
+			"gen_data",
+			"new_gen_data",
+			"do_dump",
+			"fwrite_char",
+			"Attempt to recyle invalid memory",
+			"LEVEL",
+			"version",
+			"VERSION",
+			"fwrite_char",
+			"IS_NPC",
+			"logfmt",
+			"note",
+			"new_help",
+			"logfail",
+			"va_start",
+			"IS_NULLSTR",
+			"str_dup",
+			"void str_dup",
+			" str_dup",
+			"str_dup",
+			"do_Score",
+			"act_wiz",
+			"MAX_DIR",
+			"AC",
+			"do_score",
+			"write_to_buffer( d, echo_on_str, 0 );",
+			"New character.\\n\\rG",
+			"write_to_buffer( d, echo_off_str, 0 );",
+			"d->fcommand",
+			"write_to_buffer",
+			"read_from_descriptor",
+			"2000",
+			"pulse_msdp",
+			"update_handler",
+			"descriptor_data",
+			"SendMSSP",
+			"Toreador",
+			"ch->leader",
+			"master",
+			"male_names",
+			"void name_replace",
+			"void str",
+			"+str",
+			"++str",
+			"name_replacer",
+			"str_dup",
+			"void str_dup",
+			"void s"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"ROOM_VNUM_JAIL"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 145.0,
+	"status_bar_visible": true
+}

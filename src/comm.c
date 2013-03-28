@@ -56,6 +56,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h> /* OLC -- for close read write etc */
+#include <stdarg.h> /* printf_to_char */
 
 #include "merc.h"
 #include "interp.h"
@@ -173,11 +175,11 @@ int	listen		args( ( int s, int backlog ) );
 
 int	close		args( ( int fd ) );
 int	gettimeofday	args( ( struct timeval *tp, struct timezone *tzp ) );
-int	read		args( ( int fd, char *buf, int nbyte ) );
+/* int	read		args( ( int fd, char *buf, int nbyte ) ); */
 int	select		args( ( int width, fd_set *readfds, fd_set *writefds,
 			    fd_set *exceptfds, struct timeval *timeout ) );
 int	socket		args( ( int domain, int type, int protocol ) );
-int	write		args( ( int fd, char *buf, int nbyte ) );
+/* int	write		args( ( int fd, char *buf, int nbyte ) ); */ /* read,write in unistd.h */
 #endif
 
 #if	defined(macintosh)
@@ -305,7 +307,7 @@ bool		    wizlock;		/* Game is wizlocked		*/
 bool		    newlock;		/* Game is newlocked		*/
 char		    str_boot_time[MAX_INPUT_LENGTH];
 time_t		    current_time;	/* time of this pulse */	
-
+bool		    MOBtrigger = TRUE;  /* act() switch                 */
 
 
 /*
@@ -516,6 +518,9 @@ void game_loop_mac_msdos( void )
     dcon.next		= descriptor_list;
     dcon.showstr_head	= NULL;
     dcon.showstr_point	= NULL;
+    dcon.pEdit		= NULL;			/* OLC */
+    dcon.pString	= NULL;			/* OLC */
+    dcon.editor		= 0;			/* OLC */
     descriptor_list	= &dcon;
 
     /*
@@ -573,10 +578,23 @@ void game_loop_mac_msdos( void )
 		d->fcommand	= TRUE;
 		stop_idling( d->character );
 
-		if ( d->connected == CON_PLAYING )
-		    substitute_alias( d, d->incomm );
-		else
-		    nanny( d, d->incomm );
+	        /* OLC */
+	        if ( d->showstr_point )
+	            show_string( d, d->incomm );
+	        else
+	        if ( d->pString )
+	            string_add( d->character, d->incomm );
+	        else
+	            switch ( d->connected )
+	            {
+	                case CON_PLAYING:
+			    if ( !run_olc_editor( d ) )
+				substitute_alias( d, d->incomm );
+			    break;
+	                default:
+			    nanny( d, d->incomm );
+			    break;
+	            }
 
 		d->incomm[0]	= '\0';
 	    }
@@ -762,12 +780,23 @@ void game_loop_unix( int control )
 		d->fcommand	= TRUE;
 		stop_idling( d->character );
 
-		if (d->showstr_point)
-		    show_string(d,d->incomm);
-		else if ( d->connected == CON_PLAYING )
-		    substitute_alias( d, d->incomm );
-		else
+	/* OLC */
+	if ( d->showstr_point )
+	    show_string( d, d->incomm );
+	else
+	if ( d->pString )
+	    string_add( d->character, d->incomm );
+	else
+	    switch ( d->connected )
+	    {
+	        case CON_PLAYING:
+		    if ( !run_olc_editor( d ) )
+    		        substitute_alias( d, d->incomm );
+		    break;
+	        default:
 		    nanny( d, d->incomm );
+		    break;
+	    }
 
 		d->incomm[0]	= '\0';
 	    }
@@ -892,6 +921,9 @@ void init_descriptor( int control )
     dnew->showstr_head	= NULL;
     dnew->showstr_point = NULL;
     dnew->outsize	= 2000;
+    dnew->pEdit		= NULL;			/* OLC */
+    dnew->pString	= NULL;			/* OLC */
+    dnew->editor	= 0;			/* OLC */
     dnew->outbuf	= alloc_mem( dnew->outsize );
 
     size = sizeof(sock);
@@ -1221,11 +1253,14 @@ bool process_output( DESCRIPTOR_DATA *d, bool fPrompt )
     /*
      * Bust a prompt.
      */
-    if (!merc_down && d->showstr_point)
-	write_to_buffer(d,"[Hit Return to continue]\n\r",0);
-    else if (fPrompt && !merc_down && d->connected == CON_PLAYING)
-    {
-   	CHAR_DATA *ch;
+    if ( !merc_down )
+	if ( d->showstr_point )
+	    write_to_buffer( d, "[Hit Return to continue]\n\r", 0 );
+	else if ( fPrompt && d->pString && d->connected == CON_PLAYING )
+	    write_to_buffer( d, "> ", 2 );
+	else if ( fPrompt && d->connected == CON_PLAYING )
+	{
+	    CHAR_DATA *ch;
 	CHAR_DATA *victim;
 
 	ch = d->character;
@@ -1440,6 +1475,12 @@ void bust_a_prompt( CHAR_DATA *ch )
          case '%' :
             sprintf( buf2, "%%" );
             i = buf2; break;
+         case 'o' :
+            sprintf( buf2, "%s", olc_ed_name(ch) );
+            i = buf2; break;
+	 case 'O' :
+	    sprintf( buf2, "%s", olc_ed_vnum(ch) );
+	    i = buf2; break;
       }
       ++str;
       while( (*point = *i) != '\0' )
@@ -2146,7 +2187,7 @@ bool check_parse_name( char *name )
      * Reserved words.
      */
     if (is_exact_name(name,
-	"all auto immortal self someone something the you loner"))
+	"all auto immortal self someone something the you loner none"))
     {
 	return FALSE;
     }
@@ -2472,7 +2513,9 @@ void act_new( const char *format, CHAR_DATA *ch, const void *arg1,
  
     for ( ; to != NULL; to = to->next_in_room )
     {
-        if ( to->desc == NULL || to->position < min_pos )
+	if ( (!IS_NPC(to) && to->desc == NULL )
+	||   ( IS_NPC(to) && !HAS_TRIGGER(to, TRIG_ACT) )
+	||    to->position < min_pos )
             continue;
  
         if ( (type == TO_CHAR) && to != ch )
@@ -2551,10 +2594,14 @@ void act_new( const char *format, CHAR_DATA *ch, const void *arg1,
  
         *point++ = '\n';
         *point++ = '\r';
+	*point   = '\0';
         buf[0]   = UPPER(buf[0]);
+	if ( to->desc != NULL )
         write_to_buffer( to->desc, buf, point - buf );
+	else
+	if ( MOBtrigger )
+	    mp_act_trigger( buf, to, ch, arg1, arg2, TRIG_ACT );
     }
- 
     return;
 }
 
@@ -2570,3 +2617,27 @@ int gettimeofday( struct timeval *tp, void *tzp )
     tp->tv_usec = 0;
 }
 #endif
+
+/* source: EOD, by John Booth <???> */
+
+void printf_to_char (CHAR_DATA *ch, char *fmt, ...)
+{
+	char buf [MAX_STRING_LENGTH];
+	va_list args;
+	va_start (args, fmt);
+	vsprintf (buf, fmt, args);
+	va_end (args);
+	
+	send_to_char (buf, ch);
+}
+
+void bugf (char * fmt, ...)
+{
+	char buf [2*MSL];
+	va_list args;
+	va_start (args, fmt);
+	vsprintf (buf, fmt, args);
+	va_end (args);
+
+	bug (buf, 0);
+}

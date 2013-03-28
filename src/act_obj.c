@@ -721,6 +721,12 @@ void do_give( CHAR_DATA *ch, char *argument )
 	sprintf(buf,"You give $N %d %s.",amount, silver ? "silver" : "gold");
 	act( buf, ch, NULL, victim, TO_CHAR    );
 
+	/*
+	 * Bribe trigger
+	 */
+	if ( IS_NPC(victim) && HAS_TRIGGER( victim, TRIG_BRIBE ) )
+	    mp_bribe_trigger( victim, ch, silver ? amount : amount * 100 );
+
 	if (IS_NPC(victim) && IS_SET(victim->act,ACT_IS_CHANGER))
 	{
 	    int change;
@@ -816,9 +822,18 @@ void do_give( CHAR_DATA *ch, char *argument )
 
     obj_from_char( obj );
     obj_to_char( obj, victim );
+    MOBtrigger = FALSE;
     act( "$n gives $p to $N.", ch, obj, victim, TO_NOTVICT );
     act( "$n gives you $p.",   ch, obj, victim, TO_VICT    );
     act( "You give $p to $N.", ch, obj, victim, TO_CHAR    );
+    MOBtrigger = TRUE;
+
+    /*
+     * Give trigger
+     */
+    if ( IS_NPC(victim) && HAS_TRIGGER( victim, TRIG_GIVE ) )
+	mp_give_trigger( victim, ch, obj );
+
     return;
 }
 
