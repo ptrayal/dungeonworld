@@ -199,7 +199,7 @@ const 	struct	race_type	race_table	[]		=
 	"giant",		TRUE,
 	0,		0,		0,
 	0,		RES_FIRE|RES_COLD,	VULN_MENTAL|VULN_LIGHTNING,
-	A|H|M|V,	A|B|C|D|E|F|G|H|I|J|K
+	A|H|aa|V,	A|B|C|D|E|F|G|H|I|J|K
     },
 
     {
@@ -227,7 +227,7 @@ const 	struct	race_type	race_table	[]		=
 	"centipede",		FALSE,
 	0,		AFF_DARK_VISION,	0,
 	0,		RES_PIERCE|RES_COLD,	VULN_BASH,
- 	A|B|G|O,		A|C|K	
+ 	A|B|O,		A|C|K	
     },
 
     {
@@ -243,7 +243,7 @@ const 	struct	race_type	race_table	[]		=
 	IMM_COLD|IMM_POISON|IMM_HOLY|IMM_NEGATIVE|IMM_MENTAL|IMM_DISEASE
 	|IMM_DROWNING,	RES_BASH|RES_LIGHT,
 	VULN_SLASH|VULN_FIRE|VULN_ACID|VULN_LIGHTNING|VULN_ENERGY,
-	E|J|M|cc,	A|B|C|G|H|K
+	C|J,	A|B|C|G|H|K
     },
 
     { 	"dragon", 		FALSE, 
@@ -285,14 +285,14 @@ const 	struct	race_type	race_table	[]		=
 	"kobold",		FALSE,
 	0,		AFF_INFRARED,	0,
 	0,		RES_POISON,	VULN_MAGIC,
-	A|B|H|M|V,	A|B|C|D|E|F|G|H|I|J|K|Q
+	A|H|M|V,	A|B|C|D|E|F|G|H|I|J|K|Q
     },
 
     {
 	"lizard",		FALSE,
 	0,		0,		0,
 	0,		RES_POISON,	VULN_COLD,
-	A|G|X|cc,	A|C|D|E|F|H|K|Q|V
+	A|G|cc,	A|C|D|E|F|H|K|Q|V
     },
 
     {
@@ -300,7 +300,7 @@ const 	struct	race_type	race_table	[]		=
 	0,		AFF_INFRARED,		ASSIST_RACE|ASSIST_ALIGN,
 	IMM_CHARM|IMM_DISEASE|IMM_MENTAL|IMM_HOLY|IMM_NEGATIVE,
 			RES_FIRE|RES_COLD|RES_ACID,	0,
-	H,		A|B|C|G|H|J|K
+	H|R,		A|B|C|G|H|J|K
     },
 
     {
@@ -335,14 +335,14 @@ const 	struct	race_type	race_table	[]		=
 	"snake",		FALSE,
 	0,		0,		0,
 	0,		RES_POISON,	VULN_COLD,
-	A|G|X|Y|cc,	A|D|E|F|K|L|Q|V|X
+	A|G|cc,	A|D|E|F|K|L|Q|V|X
     },
  
     {
 	"song bird",		FALSE,
 	0,		AFF_FLYING,		OFF_FAST|OFF_DODGE,
 	0,		0,		0,
-	A|G|W,		A|C|D|E|F|H|K|P
+	A|G,		A|C|D|E|F|H|K|P
     },
 
     {
@@ -350,14 +350,14 @@ const 	struct	race_type	race_table	[]		=
 	0,		AFF_REGENERATION|AFF_INFRARED|AFF_DETECT_HIDDEN,
 	OFF_BERSERK,
  	0,	RES_CHARM|RES_BASH,	VULN_FIRE|VULN_ACID,
-	A|B|H|M|V,		A|B|C|D|E|F|G|H|I|J|K|U|V
+	A|H|aa,		A|B|C|D|E|F|G|H|I|J|K|U|V
     },
 
     {
 	"water fowl",		FALSE,
 	0,		AFF_SWIM|AFF_FLYING,	0,
 	0,		RES_DROWNING,		0,
-	A|G|W,		A|C|D|E|F|H|K|P
+	A|G,		A|C|D|E|F|H|K|P
     },		
   
     {
@@ -372,7 +372,7 @@ const 	struct	race_type	race_table	[]		=
 	0,		AFF_FLYING|AFF_DETECT_INVIS|AFF_DETECT_HIDDEN,
 	OFF_BASH|OFF_FAST|OFF_DODGE,
 	IMM_POISON,	0,	VULN_LIGHT,
-	A|B|G|Z,		A|C|D|E|F|H|J|K|Q|V|X
+	A|B|Z,		A|C|D|E|F|H|J|K|Q|V|X
     },
 
     {
