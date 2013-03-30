@@ -739,7 +739,7 @@ struct	kill_data
 #define FORM_MIST               (K)
 #define FORM_INTANGIBLE         (L)
  
-#define FORM_BIPED              (M)
+#define FORM_HUMANOID              (M)
 #define FORM_CENTAUR            (N)
 #define FORM_INSECT             (O)
 #define FORM_SPIDER             (P)
