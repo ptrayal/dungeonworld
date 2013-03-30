@@ -159,7 +159,7 @@ typedef enum
    eMSDP_MOVEMENT_MAX, 
    eMSDP_HITROLL, 
    eMSDP_DAMROLL, 
-   eMSDP_AC, 
+   // eMSDP_AC, 
    eMSDP_STR, 
    eMSDP_INT, 
    eMSDP_WIS, 
