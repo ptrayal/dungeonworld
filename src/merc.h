@@ -752,7 +752,7 @@ struct	kill_data
 #define FORM_REPTILE            (X)
 #define FORM_SNAKE              (Y)
 #define FORM_DRAGON             (Z)
-#define FORM_AMPHIBIAN          (aa)
+#define FORM_GIANT          (aa)
 #define FORM_FISH               (bb)
 #define FORM_COLD_BLOOD		(cc)	
  

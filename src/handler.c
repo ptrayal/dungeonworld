@@ -2769,7 +2769,7 @@ char *form_bit_name(int form_flags)
     if (form_flags & FORM_REPTILE	) strcat(buf, " reptile");
     if (form_flags & FORM_SNAKE		) strcat(buf, " snake");
     if (form_flags & FORM_DRAGON	) strcat(buf, " dragon");
-    if (form_flags & FORM_AMPHIBIAN	) strcat(buf, " amphibian");
+    if (form_flags & FORM_GIANT	) strcat(buf, " giant");
     if (form_flags & FORM_FISH		) strcat(buf, " fish");
     if (form_flags & FORM_COLD_BLOOD 	) strcat(buf, " cold_blooded");
 
