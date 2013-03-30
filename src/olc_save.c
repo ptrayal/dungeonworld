@@ -1099,10 +1099,12 @@ void do_asave( CHAR_DATA *ch, char *argument )
 	save_other_helps( ch );
 
 	if ( !str_cmp( buf, "None.\n\r" ) )
+    {
 		if ( ch )
 			send_to_char( buf, ch );
 		else
 			log_string( "None." );
+    }
 
 	return;
     }

@@ -92,11 +92,13 @@
 	},
 	"file_history":
 	[
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/protocol.h",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/magic2.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/mob_prog.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/merc.h",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/const.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/tables.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/handler.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/protocol.h",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/magic2.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/db.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/update.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/Makefile",
@@ -217,9 +219,7 @@
 		"/E/Brandon/Course_Development/mud/src/recycle.c",
 		"/E/Brandon/Course_Development/mud/src/act_obj.c",
 		"/E/Brandon/Course_Development/mud/src/gsn.h",
-		"/E/Brandon/Course_Development/mud/src/act_wiz.c",
-		"/E/Brandon/Course_Development/mud/src/act_info.c",
-		"/E/Brandon/Course_Development/mud/src/act_move.c"
+		"/E/Brandon/Course_Development/mud/src/act_wiz.c"
 	],
 	"find":
 	{
@@ -238,6 +238,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"CHK_MONEY",
+			"FORM_GIANT",
+			"FORM_AMPHIBIAN",
+			"FORM_INTANGIBLE",
+			"\n\nFORM_INTANGIBLE",
 			"variable_t",
 			"FORM_BIRD",
 			"FORM_WORM",
@@ -360,12 +365,7 @@
 			"logfail",
 			"va_start",
 			"IS_NULLSTR",
-			"str_dup",
-			"void str_dup",
-			" str_dup",
-			"str_dup",
-			"do_Score",
-			"act_wiz"
+			"str_dup"
 		],
 		"highlight": true,
 		"in_selection": false,
