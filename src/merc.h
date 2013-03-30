@@ -25,8 +25,6 @@
 *	ROM license, in the file Rom24/doc/rom.license			   *
 ***************************************************************************/
 
-#include "protocol.h"
-
 
 /*
  * Accommodate old non-Ansi compilers.
@@ -248,30 +246,29 @@ struct	weather_data
 /*
  * Descriptor (channel) structure.
  */
-struct  descriptor_data
+struct	descriptor_data
 {
-    DESCRIPTOR_DATA *   next;
-    DESCRIPTOR_DATA *   snoop_by;
-    CHAR_DATA *     character;
-    CHAR_DATA *     original;
-    bool        valid;
-    char *      host;
-    sh_int      descriptor;
-    sh_int      connected;
-    bool        fcommand;
-    char        inbuf       [4 * MAX_INPUT_LENGTH];
-    char        incomm      [MAX_INPUT_LENGTH];
-    char        inlast      [MAX_INPUT_LENGTH];
-    int         repeat;
-    char *      outbuf;
-    int         outsize;
-    int         outtop;
-    char *      showstr_head;
-    char *      showstr_point;
-    void *              pEdit;      /* OLC */
-    char **             pString;    /* OLC */
-    int         editor;     /* OLC */
-    protocol_t *        pProtocol; /* <--- Add this line */
+    DESCRIPTOR_DATA *	next;
+    DESCRIPTOR_DATA *	snoop_by;
+    CHAR_DATA *		character;
+    CHAR_DATA *		original;
+    bool		valid;
+    char *		host;
+    sh_int		descriptor;
+    sh_int		connected;
+    bool		fcommand;
+    char		inbuf		[4 * MAX_INPUT_LENGTH];
+    char		incomm		[MAX_INPUT_LENGTH];
+    char		inlast		[MAX_INPUT_LENGTH];
+    int			repeat;
+    char *		outbuf;
+    int			outsize;
+    int			outtop;
+    char *		showstr_head;
+    char *		showstr_point;
+    void *              pEdit;		/* OLC */
+    char **             pString;	/* OLC */
+    int			editor;		/* OLC */
 };
 
 
