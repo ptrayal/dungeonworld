@@ -741,7 +741,7 @@ struct	kill_data
  
 #define FORM_HUMANOID              (M)
 #define FORM_MONSTROUS_HUMANOID            (N)
-#define FORM_INSECT             (O)
+#define FORM_VERMIN             (O)
 #define FORM_SPIDER             (P)
 #define FORM_CRUSTACEAN         (Q)
 #define FORM_WORM               (R)
