@@ -737,7 +737,7 @@ struct	kill_data
 #define FORM_UNDEAD             (I)
 #define FORM_CONSTRUCT          (J)
 #define FORM_FEY                (K)
-#define FORM_INTANGIBLE         (L)
+#define FORM_INCORPOREAL         (L)
  
 #define FORM_HUMANOID              (M)
 #define FORM_MONSTROUS_HUMANOID            (N)

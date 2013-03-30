@@ -2756,7 +2756,7 @@ char *form_bit_name(int form_flags)
     if (form_flags & FORM_UNDEAD	) strcat(buf, " undead");
     if (form_flags & FORM_CONSTRUCT	) strcat(buf, " construct");
     if (form_flags & FORM_FEY		) strcat(buf, " fey");
-    if (form_flags & FORM_INTANGIBLE	) strcat(buf, " intangible");
+    if (form_flags & FORM_INCORPOREAL	) strcat(buf, " incorporeal");
     if (form_flags & FORM_HUMANOID		) strcat(buf, " humanoid");
     if (form_flags & FORM_MONSTROUS_HUMANOID	) strcat(buf, " monsterous humanoid");
     if (form_flags & FORM_VERMIN	) strcat(buf, " vermin");

@@ -232,7 +232,7 @@ const struct flag_type form_flags[] =
     {	"undead",		FORM_UNDEAD,		TRUE	},
     {	"construct",		FORM_CONSTRUCT,		TRUE	},
     {	"fey",			FORM_FEY,		TRUE	},
-    {	"intangible",		FORM_INTANGIBLE,	TRUE	},
+    {	"incorporeal",		FORM_INCORPOREAL,	TRUE	},
     {	"humanoid",		FORM_HUMANOID,		TRUE	},
     {	"monsterous humanoid",		FORM_MONSTROUS_HUMANOID,		TRUE	},
     {	"vermin",		FORM_VERMIN,		TRUE	},
