@@ -25,6 +25,7 @@
 *	ROM license, in the file Rom24/doc/rom.license			   *
 ***************************************************************************/
 
+#include "protocol.h"
 
 /*
  * Accommodate old non-Ansi compilers.
@@ -269,6 +270,7 @@ struct	descriptor_data
     void *              pEdit;		/* OLC */
     char **             pString;	/* OLC */
     int			editor;		/* OLC */
+    protocol_t *        pProtocol; /* <--- Add this line */
 };
 
 
