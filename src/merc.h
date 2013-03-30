@@ -745,7 +745,7 @@ struct	kill_data
 #define FORM_SPIDER             (P)
 #define FORM_CRUSTACEAN         (Q)
 #define FORM_WORM               (R)
-#define FORM_BLOB		(S)
+#define FORM_OOZE		(S)
  
 #define FORM_MAMMAL             (V)
 #define FORM_BIRD               (W)

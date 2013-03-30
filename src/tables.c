@@ -239,7 +239,7 @@ const struct flag_type form_flags[] =
     {	"spider",		FORM_SPIDER,		TRUE	},
     {	"crustacean",		FORM_CRUSTACEAN,	TRUE	},
     {	"worm",			FORM_WORM,		TRUE	},
-    {	"blob",			FORM_BLOB,		TRUE	},
+    {	"ooze",			FORM_OOZE,		TRUE	},
     {	"mammal",		FORM_MAMMAL,		TRUE	},
     {	"bird",			FORM_BIRD,		TRUE	},
     {	"reptile",		FORM_REPTILE,		TRUE	},
