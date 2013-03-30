@@ -744,7 +744,7 @@ struct	kill_data
 #define FORM_VERMIN             (O)
 #define FORM_MAGICAL_BEAST             (P)
 #define FORM_CRUSTACEAN         (Q)
-#define FORM_WORM               (R)
+#define FORM_OUTSIDER               (R)
 #define FORM_OOZE		(S)
  
 #define FORM_MAMMAL             (V)

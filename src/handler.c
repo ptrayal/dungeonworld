@@ -2762,7 +2762,7 @@ char *form_bit_name(int form_flags)
     if (form_flags & FORM_VERMIN	) strcat(buf, " vermin");
     if (form_flags & FORM_MAGICAL_BEAST	) strcat(buf, " magical beast");
     if (form_flags & FORM_CRUSTACEAN	) strcat(buf, " crustacean");
-    if (form_flags & FORM_WORM		) strcat(buf, " worm");
+    if (form_flags & FORM_OUTSIDER		) strcat(buf, " outsider");
     if (form_flags & FORM_OOZE		) strcat(buf, " ooze");
     if (form_flags & FORM_MAMMAL	) strcat(buf, " mammal");
     if (form_flags & FORM_BIRD		) strcat(buf, " bird");

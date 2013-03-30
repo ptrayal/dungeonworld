@@ -238,7 +238,7 @@ const struct flag_type form_flags[] =
     {	"vermin",		FORM_VERMIN,		TRUE	},
     {	"magical beast",		FORM_MAGICAL_BEAST,		TRUE	},
     {	"crustacean",		FORM_CRUSTACEAN,	TRUE	},
-    {	"worm",			FORM_WORM,		TRUE	},
+    {	"outsider",			FORM_OUTSIDER,		TRUE	},
     {	"ooze",			FORM_OOZE,		TRUE	},
     {	"mammal",		FORM_MAMMAL,		TRUE	},
     {	"bird",			FORM_BIRD,		TRUE	},
