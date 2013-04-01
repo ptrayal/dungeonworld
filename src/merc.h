@@ -2125,17 +2125,18 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 #define NULL_FILE	"/dev/null"		/* To reserve one stream */
 #endif
 
-#define AREA_LIST       "area.lst"  /* List of areas*/
-#define BUG_FILE        "bugs.txt" /* For 'bug' and bug()*/
-#define TYPO_FILE       "typos.txt" /* For 'typo'*/
-#define NOTE_FILE       "notes.not"/* For 'notes'*/
-#define IDEA_FILE	"ideas.not"
-#define PENALTY_FILE	"penal.not"
-#define NEWS_FILE	"news.not"
+#define AREA_LIST       "area.lst"          /* List of areas*/
+#define BUG_FILE        "../data/bugs.txt"  /* For 'bug' and bug()*/
+#define TYPO_FILE       "../data/typos.txt" /* For 'typo'*/
+#define NOTE_FILE       "notes.not"         /* For 'notes'*/
+#define IDEA_FILE       "ideas.not"
+#define PENALTY_FILE    "penal.not"
+#define NEWS_FILE       "news.not"
 #define CHANGES_FILE	"chang.not"
-#define SHUTDOWN_FILE   "shutdown.txt"/* For 'shutdown'*/
-#define BAN_FILE	"ban.txt"
-#define MUSIC_FILE	"music.txt"
+#define SHUTDOWN_FILE   "shutdown.txt"      /* For 'shutdown'*/
+#define BAN_FILE        "../data/ban.txt"
+#define MUSIC_FILE      "music.txt"
+ #define HELP_FILE      "../data/help.txt"   /* For undefined helps */
 
 
 

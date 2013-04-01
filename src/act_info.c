@@ -1750,8 +1750,11 @@ void do_help( CHAR_DATA *ch, char *argument )
     bool found = FALSE;
     char argall[MAX_INPUT_LENGTH],argone[MAX_INPUT_LENGTH];
     int level;
+    char nohelp[MAX_STRING_LENGTH];
 
     output = new_buf();
+
+    strcpy(nohelp, argument);
 
     if ( argument[0] == '\0' )
 	argument = "summary";
@@ -1800,8 +1803,11 @@ void do_help( CHAR_DATA *ch, char *argument )
 	}
     }
 
-    if (!found)
-    	send_to_char( "No help on that word.\n\r", ch );
+    if(!found)
+        {
+        send_to_char("No help on that word.\n\r", ch);
+        append_file( ch, HELP_FILE, nohelp );
+        }
     else
 	page_to_char(buf_string(output),ch);
     free_buf(output);
