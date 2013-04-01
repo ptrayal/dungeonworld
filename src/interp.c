@@ -794,25 +794,29 @@ void do_commands( CHAR_DATA *ch, char *argument )
 void do_wizhelp( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
-    int cmd;
-    int col;
- 
-    col = 0;
-    for ( cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++ )
-    {
-        if ( cmd_table[cmd].level >= LEVEL_HERO
-        &&   cmd_table[cmd].level <= get_trust( ch ) 
-        &&   cmd_table[cmd].show)
-	{
-	    sprintf( buf, "%-12s", cmd_table[cmd].name );
-	    send_to_char( buf, ch );
-	    if ( ++col % 6 == 0 )
-		send_to_char( "\n\r", ch );
-	}
-    }
- 
-    if ( col % 6 != 0 )
-	send_to_char( "\n\r", ch );
+    int cmd= 0;
+    int col= 0;
+    int clevel= 0;
+     
+    for( clevel = LEVEL_HERO + 1; clevel < MAX_LEVEL + 1; clevel++ )
+        {
+        for ( cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++ )
+            {
+            if ( cmd_table[cmd].level >= LEVEL_HERO
+            && cmd_table[cmd].level <= get_trust( ch )
+            && cmd_table[cmd].show
+            && cmd_table[cmd].level == clevel)
+                {
+                sprintf( buf, "[\tC%-3d\tn] %-12s", cmd_table[cmd].level, cmd_table[cmd].name );
+                send_to_char( buf, ch );
+                if ( ++col % 4 == 0 )
+                send_to_char( "\n\r", ch );
+                }
+            }
+        }
+     
+    if ( col % 4 != 0 )
+    send_to_char( "\n\r", ch );
     return;
 }
 
