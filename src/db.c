@@ -234,6 +234,7 @@ void	load_specials	args( ( FILE *fp ) );
 void	load_notes	args( ( void ) );
 void	load_bans	args( ( void ) );
 void	load_mobprogs	args( ( FILE *fp ) );
+void	load_wizlist args( ( void ) );
 
 void	fix_exits	args( ( void ) );
 void    fix_mobprogs	args( ( void ) );
@@ -402,6 +403,7 @@ void boot_db( void )
 	load_notes( );
 	load_bans();
 	load_songs();
+	load_wizlist();
 	}
 
 	return;

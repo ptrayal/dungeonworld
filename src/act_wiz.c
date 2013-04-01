@@ -2682,6 +2682,10 @@ void do_advance( CHAR_DATA *ch, char *argument )
 
 	send_to_char( "Lowering a player's level!\n\r", ch );
 	send_to_char( "**** OOOOHHHHHHHHHH  NNNNOOOO ****\n\r", victim );
+    if ((victim->level > HERO) || (level > HERO))
+    {
+        update_wizlist(victim, level);
+    }
 	temp_prac = victim->practice;
 	victim->level    = 1;
 	victim->exp      = exp_per_level(victim,victim->pcdata->points);
@@ -2699,6 +2703,10 @@ void do_advance( CHAR_DATA *ch, char *argument )
     {
 	send_to_char( "Raising a player's level!\n\r", ch );
 	send_to_char( "**** OOOOHHHHHHHHHH  YYYYEEEESSS ****\n\r", victim );
+    if ((victim->level > HERO) || (level > HERO))
+        {
+            update_wizlist(victim, level);
+        }
     }
 
     for ( iLevel = victim->level ; iLevel < level; iLevel++ )

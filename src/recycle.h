@@ -92,6 +92,12 @@ void	free_pcdata args( (PC_DATA *pcdata) );
 #undef PD
 #undef CD
 
+/* wizlist data recycling */
+#define WD WIZ_DATA
+WD *new_wiz args( (void) );
+void free_wiz args( (WIZ_DATA *ban) );
+#undef WD
+
 
 /* mob id and memory procedures */
 #define MD MEM_DATA

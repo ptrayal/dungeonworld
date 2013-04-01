@@ -628,11 +628,6 @@ void do_story(CHAR_DATA *ch, char *argument)
     do_function(ch, &do_help, "story");
 }
 
-void do_wizlist(CHAR_DATA *ch, char *argument)
-{
-    do_function(ch, &do_help, "wizlist");
-}
-
 /* RT this following section holds all the auto commands from ROM, as well as
    replacements for config */
 

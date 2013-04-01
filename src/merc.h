@@ -100,6 +100,7 @@ typedef struct	time_info_data		TIME_INFO_DATA;
 typedef struct	weather_data		WEATHER_DATA;
 typedef struct  mprog_list		MPROG_LIST;
 typedef struct  mprog_code		MPROG_CODE;
+typedef struct  wiz_data        WIZ_DATA;
 
 
 /*
@@ -189,6 +190,13 @@ struct buf_type
     char *      string; /* buffer's string */
 };
 
+struct wiz_data
+{
+    WIZ_DATA * next;
+    bool valid;
+    sh_int level;
+    char * name;
+};
 
 
 /*
@@ -2126,17 +2134,18 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 #define AREA_LIST       "area.lst"          /* List of areas*/
-#define BUG_FILE        "../data/bugs.txt"  /* For 'bug' and bug()*/
-#define TYPO_FILE       "../data/typos.txt" /* For 'typo'*/
 #define NOTE_FILE       "notes.not"         /* For 'notes'*/
 #define IDEA_FILE       "ideas.not"
 #define PENALTY_FILE    "penal.not"
 #define NEWS_FILE       "news.not"
 #define CHANGES_FILE	"chang.not"
 #define SHUTDOWN_FILE   "shutdown.txt"      /* For 'shutdown'*/
-#define BAN_FILE        "../data/ban.txt"
 #define MUSIC_FILE      "music.txt"
- #define HELP_FILE      "../data/help.txt"   /* For undefined helps */
+#define BAN_FILE        "../data/ban.txt"
+#define BUG_FILE        "../data/bugs.txt"  /* For 'bug' and bug()*/
+#define HELP_FILE       "../data/help.txt"   /* For undefined helps */
+#define TYPO_FILE       "../data/typos.txt" /* For 'typo'*/
+#define WIZ_FILE        "../data/wizlist.txt"
 
 
 

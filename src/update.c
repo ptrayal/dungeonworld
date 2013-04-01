@@ -49,6 +49,7 @@ void	char_update	args( ( void ) );
 void	obj_update	args( ( void ) );
 void	aggr_update	args( ( void ) );
 void	msdp_update	args( ( void ) ); /* <--- Add this line */
+void	update_wizlist args( ( CHAR_DATA *ch, int level ) );
 
 /* used for saving */
 
