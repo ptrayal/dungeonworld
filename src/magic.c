@@ -3232,16 +3232,12 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
     char buf[MAX_STRING_LENGTH];
     AFFECT_DATA *paf;
 
-    sprintf( buf,
-	"Object '%s' is type %s, extra flags %s.\n\rWeight is %d, value is %d, level is %d.\n\r",
+    sprintf( buf, "----- %s -----\n\r", obj->short_descr);
+    send_to_char( buf, ch);
 
-	obj->name,
-	item_name(obj->item_type),
-	extra_bit_name( obj->extra_flags ),
-	obj->weight / 10,
-	obj->cost,
-	obj->level
-	);
+    sprintf( buf, "Object '%s' is type %s, extra flags %s.\n\rWeight is %d, value is %d, level is %d.\n\r",
+	obj->name, item_name(obj->item_type), extra_bit_name( obj->extra_flags ), obj->weight / 10,
+	obj->cost, obj->level );
     send_to_char( buf, ch );
 
     switch ( obj->item_type )
