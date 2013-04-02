@@ -25,6 +25,16 @@
 *	ROM license, in the file Rom24/doc/rom.license			   *
 ***************************************************************************/
 
+
+/*
+ * Standard Includes.
+ */
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 #include "protocol.h"
 
 /*
@@ -2237,7 +2247,6 @@ long	flag_convert	args( ( char letter) );
 void *	alloc_mem	args( ( int sMem ) );
 void *	alloc_perm	args( ( int sMem ) );
 void	free_mem	args( ( void *pMem, int sMem ) );
-char *	str_dup		args( ( const char *str ) );
 void	free_string	args( ( char *pstr ) );
 int	number_fuzzy	args( ( int number ) );
 int	number_range	args( ( int from, int to ) );
@@ -2248,7 +2257,7 @@ long     number_mm       args( ( void ) );
 int	dice		args( ( int number, int size ) );
 int	interpolate	args( ( int level, int value_00, int value_32 ) );
 void	smash_tilde	args( ( char *str ) );
-bool	str_cmp		args( ( const char *astr, const char *bstr ) );
+// bool	str_cmp		args( ( const char *astr, const char *bstr ) );
 bool	str_prefix	args( ( const char *astr, const char *bstr ) );
 bool	str_infix	args( ( const char *astr, const char *bstr ) );
 bool	str_suffix	args( ( const char *astr, const char *bstr ) );
@@ -2257,6 +2266,9 @@ void	append_file	args( ( CHAR_DATA *ch, char *file, char *str ) );
 void	bug		args( ( const char *str, int param ) );
 void	log_string	args( ( const char *str ) );
 void	tail_chain	args( ( void ) );
+char *_str_dup args( (const char *str, const char *file, const char *function, int line) );
+const char *Format args( (const char *fmt, ...) );
+char *CapitalSentence args( (const char *str) );
 
 /* effect.c */
 void	acid_effect	args( (void *vo, int level, int dam, int target) );
@@ -2371,6 +2383,48 @@ bool	is_number	args( ( char *arg ) );
 int	number_argument	args( ( char *argument, char *arg ) );
 int	mult_argument	args( ( char *argument, char *arg) );
 char *	one_argument	args( ( char *argument, char *arg_first ) );
+
+// crazy like pinapple - David Simmerson
+#define str_cmp(astr, bstr) __strcmp(astr, bstr, __FILE__, __FUNCTION__, __LINE__)
+
+/*Thanks goto markanth for the BufPrintf function, and for the singly linked code.
+ LINK_SINGLE/UNLINK_SINGLE are awesome functions for handling your singly linked
+ lists, i use them for all of mine, courtesy of the firstmud mudbase. */
+#define UNLINK_SINGLE(pdata,pnext,type,list)   \
+        do                                         \
+        {                                          \
+            assert(pdata); \
+            if (list == pdata)                      \
+            {                                       \
+                list = pdata->pnext;                \
+            }                                       \
+            else                                    \
+            {                                       \
+                type *prev;                         \
+                for (prev = list; prev != NULL; prev = prev->pnext) \
+                {                                   \
+                    if (prev->pnext == pdata)       \
+                    {                               \
+                        prev->pnext = pdata->pnext;  \
+                        break;                      \
+                    }                               \
+                }                                   \
+                if (prev == NULL)                   \
+                {                                   \
+                    logfmt(#pdata " not found in " #list "."); \
+                }                                   \
+            }                                       \
+        } while(0)
+
+#define LINK_SINGLE(pdata,pnext,list) \
+        do \
+        {  \
+            assert(pdata); \
+            pdata->pnext = list;  \
+            list = pdata;  \
+        }  \
+        while (0)
+
 
 /* magic.c */
 int	find_spell	args( ( CHAR_DATA *ch, const char *name) );
@@ -2510,3 +2564,162 @@ extern		char			str_empty       [1];
 extern		MOB_INDEX_DATA *	mob_index_hash  [MAX_KEY_HASH];
 extern		OBJ_INDEX_DATA *	obj_index_hash  [MAX_KEY_HASH];
 extern		ROOM_INDEX_DATA *	room_index_hash [MAX_KEY_HASH];
+
+// Macro's by David Simmerson (Darien/Omega)
+extern bool logFail;                // so we can set this to log our purge_data failure
+// changed from calloc to malloc to see if this will affect it.
+#define ALLOC_DATA(pointer, datatype, elements)   \
+        do { \
+            if (!((pointer) = (datatype *) calloc ((elements), sizeof(datatype)))) \
+            { \
+                logfmt("Unable to calloc new data from file: %s function: %s, line: %d\t *** ABORTING ***", __FILE__, __FUNCTION__, __LINE__); \
+                abort(); \
+            } \
+        } \
+        while(0)
+
+#define PURGE_DATA(data) \
+        do { \
+            if(data) \
+            { \
+                free((void *)data); \
+            } \
+            else { \
+                if(logFail) { \
+                    log_string((char *)Format("clear_free_lists: unable to purge_data as it was NULL from: %s %s %d", __FILE__, __FUNCTION__, __LINE__)); \
+                } \
+            } \
+            data = NULL; \
+            } while(0)
+
+#define ReplaceString(pointer, str) \
+      do { \
+             const char *_Iu_Temp__String_RepStr = str; \
+                 PURGE_DATA(pointer); \
+                 pointer = str_dup(_Iu_Temp__String_RepStr); \
+        } while(0)
+
+#define Escape(data) \
+    do { \
+        if(!data) \
+            return; \
+    } while(0)
+
+#define CopyTo(to, from) \
+        do { \
+                  if(!IS_NULLSTR(from)) \
+                        to = str_dup(from); \
+        } while(0)
+
+#define str_dup(str) _str_dup(str, __FILE__, __FUNCTION__, __LINE__)
+
+/*
+ *
+ * How and why this works: We utilize several parts of this code to enforce a brand new standard when dealing with asserting.
+ * We can effectively drop a log to the cerr, as well as drop a real assert should we so please.
+ *
+ * If we want the system to crash, we can make it come to a boiling point(ie, where it will blow up), or if we want it to use
+ * the real-assert, we can.
+ *
+ *      Ultimately, we can get a somewhat data-trace from the assert, to the file, function, and line of code where we failed the assertion.
+ *      This will give us plenty of information, and hopefully lead to some answers to bad memory.
+ *
+ */
+//#define ASSERT_CRASH
+//#define REAL_ASSERT
+#ifdef ASSERT
+void AssertFailed ( const char *expression, const char *msg, const char *file, const char *baseFile, const char *function, int line );
+#if !defined (REAL_ASSERT)
+#define Assert(exp, errormsg) \
+        do { \
+            if (exp) \
+            ; \
+            else \
+            AssertFailed( #exp, #errormsg, __FILE__, __BASE_FILE__, __FUNCTION__, __LINE__ ); \
+        } while ( 0 )
+#else
+// this is a-little troubling
+#define Assert(exp, errormsg) \
+        do { \
+            if(exp) \
+            ; \
+            else { \
+                AssertFailed( #exp, #errormsg, __FILE__, __BASE_FILE__, __FUNCTION__, __LINE__); \
+                assert ( exp );
+\
+} \
+} while ( 0 )
+#endif
+#else
+#if defined (REAL_ASSERT)
+#define Assert(exp, errormsg) assert(exp)
+#else
+#if defined(ASSERT_CRASH)
+#define Assert(exp, errormsg)
+#else
+#define Assert(exp, errormsg) \
+        do { \
+            if(!(exp)) \
+            abort(); \
+        }while(0)
+#endif
+#endif
+#endif
+
+bool __strcmp(const char *astr, const char *bstr, const char *_file, const char *_function, int _line);
+
+
+// default delimiter
+#define DELIMITER "~"
+
+// String Values
+#define WriteToFile(fp, delimiter, key, value) \
+                do { \
+                        if(fp && !IS_NULLSTR(key)) { \
+                                if(!IS_NULLSTR(value)) \
+                                        fprintf(fp,"%s %s%s\n", key, value, delimiter ? DELIMITER:""); \
+                        } \
+                } while(0)
+
+// integer value's
+#define WriteNumber(fp, key, value) \
+do { \
+if(fp && !IS_NULLSTR(key)) \
+fprintf(fp, "%s %d\n",key, value); \
+} \
+while(0)
+
+// long values
+#define WriteLong(fp, key, value) \
+do { \
+if(fp && !IS_NULLSTR(key)) \
+fprintf(fp, "%s %ld\n",key, value); \
+} \
+while(0)
+
+#define GetName(Ch) (IS_NPC(Ch) ? (!IS_NULLSTR(Ch->short_descr) ? Ch->short_descr : "bad mob") : (!IS_NULLSTR(Ch->name) ? Ch->name : "Bad Name") )
+
+//This checks to make sure there is a character for whatever the command is.
+#define CheckCH(ch) \
+do { \
+    if(!ch) { \
+        log_string(Format("%s: NULL character data supplied!", __PRETTY_FUNCTION__)); \
+        return; \
+    } \
+} \
+while(0)
+
+// This is to replace checks like.  It's a more elegant way of doing it and logs it as well.
+//  if ( IS_NPC(ch) )
+//        return;
+#define CheckChNPC(ch) \
+   do { \
+      CheckCH(ch); \
+      if(IS_NPC(ch)) { \
+        send_to_char("No!",ch); \
+        log_string(Format("(NPCBLOCK)%s attempted to use %s!", GetName(ch), __PRETTY_FUNCTION__ ) ); \
+        return; \
+    } \
+} \
+while(0)
+

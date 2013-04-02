@@ -262,12 +262,10 @@ void fwrite_char( CHAR_DATA *ch, FILE *fp )
     else
     {
 	fprintf( fp, "Pass %s~\n",	ch->pcdata->pwd		);
-	if (ch->pcdata->bamfin[0] != '\0')
-	    fprintf( fp, "Bin  %s~\n",	ch->pcdata->bamfin);
-	if (ch->pcdata->bamfout[0] != '\0')
-		fprintf( fp, "Bout %s~\n",	ch->pcdata->bamfout);
+    fprintf( fp, "Bin  %s~\n",	ch->pcdata->bamfin);
+	fprintf( fp, "Bout %s~\n",	ch->pcdata->bamfout);
 	fprintf( fp, "Titl %s~\n",	ch->pcdata->title	);
-    	fprintf( fp, "Pnts %d\n",   	ch->pcdata->points      );
+   	fprintf( fp, "Pnts %d\n",   	ch->pcdata->points      );
 	fprintf( fp, "TSex %d\n",	ch->pcdata->true_sex	);
 	fprintf( fp, "LLev %d\n",	ch->pcdata->last_level	);
 	fprintf( fp, "HMVP %d %d %d\n", ch->pcdata->perm_hit, 

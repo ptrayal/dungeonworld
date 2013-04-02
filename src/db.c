@@ -25,17 +25,24 @@
 *	ROM license, in the file Rom24/doc/rom.license			   *
 ***************************************************************************/
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <ctype.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
+
+
 #if defined(macintosh)
 #include <types.h>
 #else
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <sys/stat.h>
 #endif
 
 #include "merc.h"
@@ -45,6 +52,10 @@
 #include "tables.h"
 #include "lookup.h"
 #include "olc.h"
+
+bool logFail = FALSE;           // this can be turned into a global value, it doesn't really need to be true
+                                // however if you want to log which pointers are NULL when cleared
+                                // then be my guest and change this value to true.
 
 #if !defined(macintosh)
 extern	int	_filbuf		args( (FILE *) );
@@ -3099,28 +3110,6 @@ void *alloc_perm( int sMem )
 }
 
 
-
-/*
- * Duplicate a string into dynamic memory.
- * Fread_strings are read-only and shared.
- */
-char *str_dup( const char *str )
-{
-	char *str_new;
-
-	if ( str[0] == '\0' )
-	return &str_empty[0];
-
-	if ( str >= string_space && str < top_string )
-	return (char *) str;
-
-	str_new = alloc_mem( strlen(str) + 1 );
-	strcpy( str_new, str );
-	return str_new;
-}
-
-
-
 /*
  * Free a string.
  * Null is legal here to simplify callers.
@@ -3542,36 +3531,30 @@ void smash_tilde( char *str )
 }
 
 
-
 /*
  * Compare strings, case insensitive.
  * Return TRUE if different
  *   (compatibility with historical functions).
  */
-bool str_cmp( const char *astr, const char *bstr )
+bool __strcmp(const char *astr, const char *bstr, const char *_file, const char *_function, int _line)
 {
-	if ( astr == NULL )
-	{
-	bug( "Str_cmp: null astr.", 0 );
-	return TRUE;
-	}
-
-	if ( bstr == NULL )
-	{
-	bug( "Str_cmp: null bstr.", 0 );
-	return TRUE;
-	}
-
-	for ( ; *astr || *bstr; astr++, bstr++ )
-	{
-	if ( LOWER(*astr) != LOWER(*bstr) )
-		return TRUE;
-	}
-
-	return FALSE;
+    if ( astr == NULL )
+    {
+        bug( Format("str_cmp: null astr from %s, %s %d",_file,_function, _line), 0 );
+        return TRUE;
+    }
+    if ( bstr == NULL )
+    {
+        bug( Format ("Str_cmp: null bstr from %s, %s %d",_file,_function, _line), 0 );
+        return TRUE;
+    }
+    for ( ; *astr || *bstr; astr++, bstr++ )
+    {
+        if ( LOWER(*astr) != LOWER(*bstr) )
+            return TRUE;
+    }
+    return FALSE;
 }
-
-
 
 /*
  * Compare strings, case insensitive, for prefix matching.
@@ -3786,4 +3769,121 @@ void log_string( const char *str )
 void tail_chain( void )
 {
 	return;
+}
+
+// Improved strdup capabilitys for logging / debugging by David Simmerson
+char *_str_dup(const char *str, const char *file, const char *function, int line)
+{
+    if(IS_NULLSTR(str))
+    {
+        log_string(Format("_str_dup: %s:%s:%d called with NULL values!", file, function, line ) );
+        return NULL;
+    }
+    return strdup(str);  // relay to our actual strdup!
+}
+
+// Format by David Simmerson
+const char *Format(const char *fmt, ...)
+{
+
+    static char textString[MSL*5] = {'\0'};
+
+    // -- empty the buffer properly to ensure no leaks.
+    memset(textString, '\0', sizeof(textString));
+
+    va_list args;
+    va_start ( args, fmt );
+    int length = vsnprintf ( textString, MSL*5, fmt, args );
+    va_end ( args );
+
+    if(length == 0) {
+        log_string("Format had a boo-boo! 0 length string returned!  Suspect will cause corruption and/or crash!");
+    }
+
+    return textString;
+}
+
+// CapitalSentence by David Simmerson
+char *CapitalSentence(const char *str)
+{
+    static char _buf[MSL*5]={'\0'};
+    bool didPeriod= false;
+    memset(_buf, 0, sizeof(_buf));
+    int _x = 0;
+    for(_x = 0; str[_x] != '\0'; _x++)
+    {
+        if(_x == 0) // first letter of the string is capitalized.
+            _buf[0] = UPPER(str[0]);
+        else
+        {
+            if(str[_x] == '.')
+            {
+                _buf[_x] = str[_x];
+                didPeriod = true;
+                continue;
+            }
+            // are we a letter that needs to be capitalized.
+            if(didPeriod && isalpha(str[_x]))
+            {
+                _buf[_x] = UPPER(str[_x]);
+                didPeriod = false;
+                continue;
+            }
+            // just a letter/number/etc, push it to the new buffer.
+            _buf[_x] = str[_x];
+        }
+    }
+    return (_buf);
+}
+
+#ifdef ASSERT
+void AssertLog(const std::string &str) {
+        closeReserve();
+FILE *fp = fopen("Assert.log", "a");
+if(fp) {
+fprintf(fp, "%s\n", str );
+} else {
+                fprintf(stdout, "%s\n", str);
+}
+fclose(fp); // just in-case.
+        openReserve();
+}
+void AssertFailed ( const char *expression, const char *msg, const char *file, const char *baseFile, const char *function, int line )
+{
+if ( !str_cmp ( file, baseFile ) ) {
+AssertLog(Format("Assert(%s)(%s) failed in file(%s), function(%s), line(%d)", expression, msg, file, function.c_str(), line ) );
+} else {
+AssertLog(Format("Assert(%s)(%s) failed in file(%s), included from file(%s), function(%s), line(%d)", expression, msg, file, baseFile, function, line ) );
+}
+// what this does: if ASSERT_CRASH is defined, we let the assert log, THEN continue! as if nothing bad is about to happen!
+// then we crash at the actual instance so we can get ourselves a nice core-file!
+// however, if ASSERT_CRASH is not defined, we will ABORT and simply log.
+// Note: some systems will leave a crash-log when aborting (dump core file)
+#if !defined (ASSERT_CRASH)
+// if REAL_ASSERT is defined we skip the abort because it will assert the expression (double logging, we know)
+// but it gives us a great opportunity to check out differences in results.  As well as create a new standard
+// to hold the code to.
+#if !defined(REAL_ASSERT)
+abort();
+#endif
+#endif
+}
+#endif
+
+void openReserve(void)
+{
+    if(fpReserve) return;
+    if ((fpReserve = fopen (NULL_FILE, "r")) == NULL)
+    {
+        perror (Format("%s : %s", __FUNCTION__, NULL_FILE ) );
+        exit (1);
+    }
+}
+void closeReserve(void)
+{
+    if(fpReserve)
+    {
+          fclose(fpReserve);
+    }
+    fpReserve = NULL;
 }
