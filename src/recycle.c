@@ -130,14 +130,11 @@ DESCRIPTOR_DATA *new_descriptor(void)
 
 void free_descriptor(DESCRIPTOR_DATA *d)
 {
-	if (!IS_VALID(d))
-	return;
+	Escape(d);
 
-	free_string( d->host );
-	free_mem( d->outbuf, d->outsize );
-	INVALIDATE(d);
-	d->next = descriptor_free;
-	descriptor_free = d;
+	PURGE_DATA( d->host );
+	PURGE_DATA( d->outbuf );
+	PURGE_DATA(d);
 }
 
 /* stuff for recycling gen_data */
@@ -572,17 +569,15 @@ BUFFER *new_buf_size(int size)
 
 void free_buf(BUFFER *buffer)
 {
-	if (!IS_VALID(buffer))
-	return;
+	Escape(buffer);
 
-	free_mem(buffer->string,buffer->size);
+	PURGE_DATA(buffer->string);
 	buffer->string = NULL;
 	buffer->size   = 0;
 	buffer->state  = BUFFER_FREED;
 	INVALIDATE(buffer);
 
-	buffer->next  = buf_free;
-	buf_free      = buffer;
+	PURGE_DATA(buffer);
 }
 
 
@@ -619,7 +614,7 @@ bool add_buf(BUFFER *buffer, char *string)
 	buffer->string	= alloc_mem(buffer->size);
 
 	strcpy(buffer->string,oldstr);
-	free_mem(oldstr,oldsize);
+	PURGE_DATA(oldstr);
 	}
 
 	strcat(buffer->string,string);

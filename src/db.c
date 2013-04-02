@@ -481,7 +481,7 @@ void load_area( FILE *fp )
 #define SKEY( string, field )                       \
 				if ( !str_cmp( word, string ) )     \
 				{                                   \
-					free_string( field );           \
+					PURGE_DATA( field );           \
 					field = fread_string( fp );     \
 					fMatch = TRUE;                  \
 					break;                          \
@@ -844,7 +844,7 @@ void load_old_obj( FILE *fp )
 
 	pObjIndex->short_descr[0]	= LOWER(pObjIndex->short_descr[0]);
 	pObjIndex->description[0]	= UPPER(pObjIndex->description[0]);
-	pObjIndex->material		= str_dup("");
+	pObjIndex->material		= NULL;
 
 	pObjIndex->item_type		= fread_number( fp );
 	pObjIndex->extra_flags		= fread_flag( fp );
@@ -1114,7 +1114,7 @@ void load_rooms( FILE *fp )
 	fBootDb = TRUE;
 
 	pRoomIndex			= alloc_perm( sizeof(*pRoomIndex) );
-	pRoomIndex->owner		= str_dup("");
+	pRoomIndex->owner		= NULL;
 	pRoomIndex->people		= NULL;
 	pRoomIndex->contents		= NULL;
 	pRoomIndex->extra_descr		= NULL;
@@ -1947,10 +1947,17 @@ CHAR_DATA *create_mobile( MOB_INDEX_DATA *pMobIndex )
 
 	mob->pIndexData	= pMobIndex;
 
+	// PURGE_DATA(mob->description);
+	// PURGE_DATA(mob->name);
+	// PURGE_DATA(mob->short_descr);
+	// PURGE_DATA(mob->long_descr);
+
 	mob->name		= str_dup( pMobIndex->player_name );    /* OLC */
 	mob->short_descr	= str_dup( pMobIndex->short_descr );    /* OLC */
+	if(!IS_NULLSTR(pMobIndex->long_descr))
 	mob->long_descr	= str_dup( pMobIndex->long_descr );     /* OLC */
-	mob->description	= str_dup( pMobIndex->description );    /* OLC */
+	if(!IS_NULLSTR(pMobIndex->description))
+		mob->description	= str_dup( pMobIndex->description );    /* OLC */
 	mob->id		= get_mob_id();
 	mob->spec_fun	= pMobIndex->spec_fun;
 	mob->prompt		= NULL;
@@ -2238,149 +2245,154 @@ void clone_mobile(CHAR_DATA *parent, CHAR_DATA *clone)
 /*
  * Create an instance of an object.
  */
-OBJ_DATA *create_object( OBJ_INDEX_DATA *pObjIndex, int level )
-{
-	AFFECT_DATA *paf;
-	OBJ_DATA *obj;
-	int i;
+ OBJ_DATA *create_object( OBJ_INDEX_DATA *pObjIndex, int level )
+ {
+ 	AFFECT_DATA *paf;
+ 	OBJ_DATA *obj;
+ 	int i;
 
-	if ( pObjIndex == NULL )
-	{
-	bug( "Create_object: NULL pObjIndex.", 0 );
-	exit( 1 );
-	}
+ 	if ( pObjIndex == NULL )
+ 	{
+ 		bug( "Create_object: NULL pObjIndex.", 0 );
+ 		exit( 1 );
+ 	}
 
-	obj = new_obj();
+ 	obj = new_obj();
 
-	obj->pIndexData	= pObjIndex;
-	obj->in_room	= NULL;
-	obj->enchanted	= FALSE;
+ 	obj->pIndexData	= pObjIndex;
+ 	obj->in_room	= NULL;
+ 	obj->enchanted	= FALSE;
 
-	if (pObjIndex->new_format)
-	obj->level = pObjIndex->level;
-	else
-	obj->level		= UMAX(0,level);
-	obj->wear_loc	= -1;
+ 	if (pObjIndex->new_format)
+ 		obj->level = pObjIndex->level;
+ 	else
+ 		obj->level		= UMAX(0,level);
+ 	obj->wear_loc	= -1;
 
 	obj->name		= str_dup( pObjIndex->name );           /* OLC */
 	obj->short_descr	= str_dup( pObjIndex->short_descr );    /* OLC */
-	obj->description	= str_dup( pObjIndex->description );    /* OLC */
-	obj->material	= str_dup(pObjIndex->material);
-	obj->item_type	= pObjIndex->item_type;
-	obj->extra_flags	= pObjIndex->extra_flags;
-	obj->wear_flags	= pObjIndex->wear_flags;
-	obj->value[0]	= pObjIndex->value[0];
-	obj->value[1]	= pObjIndex->value[1];
-	obj->value[2]	= pObjIndex->value[2];
-	obj->value[3]	= pObjIndex->value[3];
-	obj->value[4]	= pObjIndex->value[4];
-	obj->weight		= pObjIndex->weight;
-
-	if (level == -1 || pObjIndex->new_format)
-	obj->cost	= pObjIndex->cost;
+	if(!IS_NULLSTR(pObjIndex->description))
+		CopyTo( obj->description, pObjIndex->description);
 	else
-		obj->cost	= number_fuzzy( 10 )
-			* number_fuzzy( level ) * number_fuzzy( level );
+		obj->description = str_dup("This object needs a long description.");
+
+ 	if(!IS_NULLSTR(pObjIndex->material))
+ 		obj->material	= str_dup(pObjIndex->material);
+ 	obj->item_type	= pObjIndex->item_type;
+ 	obj->extra_flags	= pObjIndex->extra_flags;
+ 	obj->wear_flags	= pObjIndex->wear_flags;
+ 	obj->value[0]	= pObjIndex->value[0];
+ 	obj->value[1]	= pObjIndex->value[1];
+ 	obj->value[2]	= pObjIndex->value[2];
+ 	obj->value[3]	= pObjIndex->value[3];
+ 	obj->value[4]	= pObjIndex->value[4];
+ 	obj->weight		= pObjIndex->weight;
+
+ 	if (level == -1 || pObjIndex->new_format)
+ 		obj->cost	= pObjIndex->cost;
+ 	else
+ 		obj->cost	= number_fuzzy( 10 )
+ 	* number_fuzzy( level ) * number_fuzzy( level );
 
 	/*
 	 * Mess with object properties.
 	 */
-	switch ( obj->item_type )
-	{
-	default:
-	bug( "Read_object: vnum %d bad type.", pObjIndex->vnum );
-	break;
+	 switch ( obj->item_type )
+	 {
+	 	default:
+	 	bug( "Read_object: vnum %d bad type.", pObjIndex->vnum );
+	 	break;
 
-	case ITEM_LIGHT:
-	if (obj->value[2] == 999)
-		obj->value[2] = -1;
-	break;
+	 	case ITEM_LIGHT:
+	 	if (obj->value[2] == 999)
+	 		obj->value[2] = -1;
+	 	break;
 
-	case ITEM_FURNITURE:
-	case ITEM_TRASH:
-	case ITEM_CONTAINER:
-	case ITEM_DRINK_CON:
-	case ITEM_KEY:
-	case ITEM_FOOD:
-	case ITEM_BOAT:
-	case ITEM_CORPSE_NPC:
-	case ITEM_CORPSE_PC:
-	case ITEM_FOUNTAIN:
-	case ITEM_MAP:
-	case ITEM_CLOTHING:
-	case ITEM_PORTAL:
-	if (!pObjIndex->new_format)
-		obj->cost /= 5;
-	break;
+	 	case ITEM_FURNITURE:
+	 	case ITEM_TRASH:
+	 	case ITEM_CONTAINER:
+	 	case ITEM_DRINK_CON:
+	 	case ITEM_KEY:
+	 	case ITEM_FOOD:
+	 	case ITEM_BOAT:
+	 	case ITEM_CORPSE_NPC:
+	 	case ITEM_CORPSE_PC:
+	 	case ITEM_FOUNTAIN:
+	 	case ITEM_MAP:
+	 	case ITEM_CLOTHING:
+	 	case ITEM_PORTAL:
+	 	if (!pObjIndex->new_format)
+	 		obj->cost /= 5;
+	 	break;
 
-	case ITEM_TREASURE:
-	case ITEM_WARP_STONE:
-	case ITEM_ROOM_KEY:
-	case ITEM_GEM:
-	case ITEM_JEWELRY:
-	break;
+	 	case ITEM_TREASURE:
+	 	case ITEM_WARP_STONE:
+	 	case ITEM_ROOM_KEY:
+	 	case ITEM_GEM:
+	 	case ITEM_JEWELRY:
+	 	break;
 
-	case ITEM_JUKEBOX:
-	for (i = 0; i < 5; i++)
-	   obj->value[i] = -1;
-	break;
+	 	case ITEM_JUKEBOX:
+	 	for (i = 0; i < 5; i++)
+	 		obj->value[i] = -1;
+	 	break;
 
-	case ITEM_SCROLL:
-	if (level != -1 && !pObjIndex->new_format)
-		obj->value[0]	= number_fuzzy( obj->value[0] );
-	break;
+	 	case ITEM_SCROLL:
+	 	if (level != -1 && !pObjIndex->new_format)
+	 		obj->value[0]	= number_fuzzy( obj->value[0] );
+	 	break;
 
-	case ITEM_WAND:
-	case ITEM_STAFF:
-	if (level != -1 && !pObjIndex->new_format)
-	{
-		obj->value[0]	= number_fuzzy( obj->value[0] );
-		obj->value[1]	= number_fuzzy( obj->value[1] );
-		obj->value[2]	= obj->value[1];
-	}
-	if (!pObjIndex->new_format)
-		obj->cost *= 2;
-	break;
+	 	case ITEM_WAND:
+	 	case ITEM_STAFF:
+	 	if (level != -1 && !pObjIndex->new_format)
+	 	{
+	 		obj->value[0]	= number_fuzzy( obj->value[0] );
+	 		obj->value[1]	= number_fuzzy( obj->value[1] );
+	 		obj->value[2]	= obj->value[1];
+	 	}
+	 	if (!pObjIndex->new_format)
+	 		obj->cost *= 2;
+	 	break;
 
-	case ITEM_WEAPON:
-	if (level != -1 && !pObjIndex->new_format)
-	{
-		obj->value[1] = number_fuzzy( number_fuzzy( 1 * level / 4 + 2 ) );
-		obj->value[2] = number_fuzzy( number_fuzzy( 3 * level / 4 + 6 ) );
-	}
-	break;
+	 	case ITEM_WEAPON:
+	 	if (level != -1 && !pObjIndex->new_format)
+	 	{
+	 		obj->value[1] = number_fuzzy( number_fuzzy( 1 * level / 4 + 2 ) );
+	 		obj->value[2] = number_fuzzy( number_fuzzy( 3 * level / 4 + 6 ) );
+	 	}
+	 	break;
 
-	case ITEM_ARMOR:
-	if (level != -1 && !pObjIndex->new_format)
-	{
-		obj->value[0]	= number_fuzzy( level / 5 + 3 );
-		obj->value[1]	= number_fuzzy( level / 5 + 3 );
-		obj->value[2]	= number_fuzzy( level / 5 + 3 );
-	}
-	break;
+	 	case ITEM_ARMOR:
+	 	if (level != -1 && !pObjIndex->new_format)
+	 	{
+	 		obj->value[0]	= number_fuzzy( level / 5 + 3 );
+	 		obj->value[1]	= number_fuzzy( level / 5 + 3 );
+	 		obj->value[2]	= number_fuzzy( level / 5 + 3 );
+	 	}
+	 	break;
 
-	case ITEM_POTION:
-	case ITEM_PILL:
-	if (level != -1 && !pObjIndex->new_format)
-		obj->value[0] = number_fuzzy( number_fuzzy( obj->value[0] ) );
-	break;
+	 	case ITEM_POTION:
+	 	case ITEM_PILL:
+	 	if (level != -1 && !pObjIndex->new_format)
+	 		obj->value[0] = number_fuzzy( number_fuzzy( obj->value[0] ) );
+	 	break;
 
-	case ITEM_MONEY:
-	if (!pObjIndex->new_format)
-		obj->value[0]	= obj->cost;
-	break;
-	}
-  
-	for (paf = pObjIndex->affected; paf != NULL; paf = paf->next) 
-	if ( paf->location == APPLY_SPELL_AFFECT )
-		affect_to_obj(obj,paf);
-  
-	obj->next		= object_list;
-	object_list		= obj;
-	pObjIndex->count++;
+	 	case ITEM_MONEY:
+	 	if (!pObjIndex->new_format)
+	 		obj->value[0]	= obj->cost;
+	 	break;
+	 }
 
-	return obj;
-}
+	 for (paf = pObjIndex->affected; paf != NULL; paf = paf->next) 
+	 	if ( paf->location == APPLY_SPELL_AFFECT )
+	 		affect_to_obj(obj,paf);
+
+	 	obj->next		= object_list;
+	 	object_list		= obj;
+	 	pObjIndex->count++;
+
+	 	return obj;
+	 }
 
 /* duplicate an object exactly -- except contents */
 void clone_object(OBJ_DATA *parent, OBJ_DATA *clone)

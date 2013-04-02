@@ -195,7 +195,7 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
     {
 	if (prgpstrShow[iShow][0] == '\0')
 	{
-	    free_string(prgpstrShow[iShow]);
+	    PURGE_DATA(prgpstrShow[iShow]);
 	    continue;
 	}
 
@@ -228,8 +228,8 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
      * Clean up.
      */
     free_buf(output);
-    free_mem( prgpstrShow, count * sizeof(char *) );
-    free_mem( prgnShow,    count * sizeof(int)    );
+    PURGE_DATA( prgpstrShow );
+    PURGE_DATA( prgnShow );
 
     return;
 }

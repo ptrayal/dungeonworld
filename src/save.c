@@ -548,6 +548,11 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
     ch = new_char();
     ch->pcdata = new_pcdata();
 
+    PURGE_DATA(ch->pcdata->bamfin);
+    PURGE_DATA(ch->pcdata->pwd);
+    PURGE_DATA(ch->pcdata->bamfout);
+    PURGE_DATA(ch->pcdata->title);
+
     d->character			= ch;
     ch->desc				= d;
     ch->name				= str_dup( name );
@@ -558,10 +563,10 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 					| COMM_PROMPT;
     ch->prompt 				= str_dup("<%hhp %mm %vmv> ");
     ch->pcdata->confirm_delete		= FALSE;
-    ch->pcdata->pwd			= str_dup( "" );
-    ch->pcdata->bamfin			= str_dup( "" );
-    ch->pcdata->bamfout			= str_dup( "" );
-    ch->pcdata->title			= str_dup( "" );
+    ch->pcdata->pwd			= NULL;
+    ch->pcdata->bamfin			= NULL;
+    ch->pcdata->bamfout			= NULL;
+    ch->pcdata->title			= NULL;
     for (stat =0; stat < MAX_STATS; stat++)
 	ch->perm_stat[stat]		= 13;
     ch->pcdata->condition[COND_THIRST]	= 48; 

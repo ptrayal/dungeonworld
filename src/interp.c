@@ -535,16 +535,16 @@ void interpret( CHAR_DATA *ch, char *argument )
 /* function to keep argument safe in all commands -- no static strings */
 void do_function (CHAR_DATA *ch, DO_FUN *do_fun, char *argument)
 {
-    char *command_string;
+    // char *command_string;
     
     /* copy the string */
-    command_string = str_dup(argument);
+    // command_string = str_dup(argument);
     
     /* dispatch the command */
-    (*do_fun) (ch, command_string);
+    (*do_fun) (ch, argument);
     
     /* free the string */
-    free_string(command_string);
+    // PURGE_DATA(command_string);
 }
     
 bool check_social( CHAR_DATA *ch, char *command, char *argument )

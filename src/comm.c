@@ -1546,9 +1546,9 @@ void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
 		close_socket(d);
 		return;
 	}
-	outbuf      = alloc_mem( 2 * d->outsize );
+	ALLOCA_DATA(outbuf, char, 2 * d->outsize );
 	strncpy( outbuf, d->outbuf, d->outtop );
-	free_mem( d->outbuf, d->outsize );
+	PURGE_DATA( d->outbuf );
 	d->outbuf   = outbuf;
 	d->outsize *= 2;
 	}
@@ -2429,18 +2429,18 @@ void page_to_char( const char *txt, CHAR_DATA *ch )
 /* string pager */
 void show_string(struct descriptor_data *d, char *input)
 {
-	char buffer[4*MAX_STRING_LENGTH];
+	char buffer[4*MAX_STRING_LENGTH] = {'\0'};
 	char buf[MAX_INPUT_LENGTH];
 	register char *scan, *chk;
 	int lines = 0, toggle = 1;
-	int show_lines;
+	int show_lines = 0;
 
 	one_argument(input,buf);
 	if (buf[0] != '\0')
 	{
 	if (d->showstr_head)
 	{
-		free_mem(d->showstr_head,strlen(d->showstr_head));
+		PURGE_DATA(d->showstr_head);
 		d->showstr_head = 0;
 	}
 		d->showstr_point  = 0;
@@ -2468,7 +2468,7 @@ void show_string(struct descriptor_data *d, char *input)
 		{
 			if (d->showstr_head)
 				{
-					free_mem(d->showstr_head,strlen(d->showstr_head));
+					PURGE_DATA(d->showstr_head);
 					d->showstr_head = 0;
 				}
 				d->showstr_point  = 0;
