@@ -1545,7 +1545,7 @@ void spell_create_water( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 		char buf[MAX_STRING_LENGTH];
 
 		sprintf( buf, "%s water", obj->name );
-		free_string( obj->name );
+		PURGE_DATA( obj->name );
 		obj->name = str_dup( buf );
 	}
 	act( "$p is filled.", ch, obj, NULL, TO_CHAR );

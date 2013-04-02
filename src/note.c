@@ -409,7 +409,7 @@ void note_remove( CHAR_DATA *ch, NOTE_DATA *pnote, bool delete)
         /* Just a simple recipient removal? */
        if ( str_cmp( ch->name, pnote->sender ) && to_new[0] != '\0' )
        {
-	   free_string( pnote->to_list );
+	   PURGE_DATA( pnote->to_list );
 	   pnote->to_list = str_dup( to_new + 1 );
 	   return;
        }
@@ -793,7 +793,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 	add_buf(buffer,ch->pnote->text);
 	add_buf(buffer,argument);
 	add_buf(buffer,"\n\r");
-	free_string( ch->pnote->text );
+	PURGE_DATA( ch->pnote->text );
 	ch->pnote->text = str_dup( buf_string(buffer) );
 	free_buf(buffer);
 	send_to_char( "Ok.\n\r", ch );
@@ -834,14 +834,14 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 		else /* found the second one */
 		{
 		    buf[len + 1] = '\0';
-		    free_string(ch->pnote->text);
+		    PURGE_DATA(ch->pnote->text);
 		    ch->pnote->text = str_dup(buf);
 		    return;
 		}
 	    }
 	}
 	buf[0] = '\0';
-	free_string(ch->pnote->text);
+	PURGE_DATA(ch->pnote->text);
 	ch->pnote->text = str_dup(buf);
 	return;
     }
@@ -856,7 +856,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             return;
         }
 
-	free_string( ch->pnote->subject );
+	PURGE_DATA( ch->pnote->subject );
 	ch->pnote->subject = str_dup( argument );
 	send_to_char( "Ok.\n\r", ch );
 	return;
@@ -871,7 +871,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                 "You already have a different note in progress.\n\r",ch);
             return;
         }
-	free_string( ch->pnote->to_list );
+	PURGE_DATA( ch->pnote->to_list );
 	ch->pnote->to_list = str_dup( argument );
 	send_to_char( "Ok.\n\r", ch );
 	return;

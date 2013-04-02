@@ -693,7 +693,7 @@ AEDIT( aedit_name )
 	return FALSE;
     }
 
-    free_string( pArea->name );
+    PURGE_DATA( pArea->name );
     pArea->name = str_dup( argument );
 
     send_to_char( "Name set.\n\r", ch );
@@ -712,7 +712,7 @@ AEDIT( aedit_credits )
 	return FALSE;
     }
 
-    free_string( pArea->credits );
+    PURGE_DATA( pArea->credits );
     pArea->credits = str_dup( argument );
 
     send_to_char( "Credits set.\n\r", ch );
@@ -758,7 +758,7 @@ AEDIT( aedit_file )
 	}
     }    
 
-    free_string( pArea->file_name );
+    PURGE_DATA( pArea->file_name );
     strcat( file, ".are" );
     pArea->file_name = str_dup( file );
 
@@ -888,7 +888,7 @@ AEDIT( aedit_builder )
 
 	if ( pArea->builders[0] == '\0' )
 	{
-	    free_string( pArea->builders );
+	    PURGE_DATA( pArea->builders );
 	    pArea->builders = str_dup( "None" );
 	}
 	send_to_char( "Builder removed.\n\r", ch );
@@ -909,7 +909,7 @@ AEDIT( aedit_builder )
 	    strcat( buf, " " );
 	}
 	strcat( buf, name );
-	free_string( pArea->builders );
+	PURGE_DATA( pArea->builders );
 	pArea->builders = string_proper( str_dup( buf ) );
 
 	send_to_char( "Builder added.\n\r", ch );
@@ -1484,7 +1484,7 @@ bool change_exit( CHAR_DATA *ch, char *argument, int door )
 	   	return FALSE;
 	   }
 
-	free_string( pRoom->exit[door]->keyword );
+	PURGE_DATA( pRoom->exit[door]->keyword );
 
 	if (str_cmp(arg,"none"))
 		pRoom->exit[door]->keyword = str_dup( arg );
@@ -1778,7 +1778,7 @@ REDIT( redit_name )
 	return FALSE;
     }
 
-    free_string( pRoom->name );
+    PURGE_DATA( pRoom->name );
     pRoom->name = str_dup( argument );
 
     send_to_char( "Name set.\n\r", ch );
@@ -2979,7 +2979,7 @@ OEDIT( oedit_name )
 	return FALSE;
     }
 
-    free_string( pObj->name );
+    PURGE_DATA( pObj->name );
     pObj->name = str_dup( argument );
 
     send_to_char( "Name set.\n\r", ch);
@@ -3000,7 +3000,7 @@ OEDIT( oedit_short )
 	return FALSE;
     }
 
-    free_string( pObj->short_descr );
+    PURGE_DATA( pObj->short_descr );
     pObj->short_descr = str_dup( argument );
     pObj->short_descr[0] = LOWER( pObj->short_descr[0] );
 
@@ -3022,7 +3022,7 @@ OEDIT( oedit_long )
 	return FALSE;
     }
         
-    free_string( pObj->description );
+    PURGE_DATA( pObj->description );
     pObj->description = str_dup( argument );
     pObj->description[0] = UPPER( pObj->description[0] );
 
@@ -3436,7 +3436,7 @@ OEDIT( oedit_material )
 	return FALSE;
     }
 
-    free_string( pObj->material );
+    PURGE_DATA( pObj->material );
     pObj->material = str_dup( argument );
 
     send_to_char( "Material set.\n\r", ch);
@@ -3857,7 +3857,7 @@ MEDIT( medit_long )
 	return FALSE;
     }
 
-    free_string( pMob->long_descr );
+    PURGE_DATA( pMob->long_descr );
     strcat( argument, "\n\r" );
     pMob->long_descr = str_dup( argument );
     pMob->long_descr[0] = UPPER( pMob->long_descr[0]  );
@@ -3880,7 +3880,7 @@ MEDIT( medit_short )
 	return FALSE;
     }
 
-    free_string( pMob->short_descr );
+    PURGE_DATA( pMob->short_descr );
     pMob->short_descr = str_dup( argument );
 
     send_to_char( "Short description set.\n\r", ch);
@@ -3901,7 +3901,7 @@ MEDIT( medit_name )
 	return FALSE;
     }
 
-    free_string( pMob->player_name );
+    PURGE_DATA( pMob->player_name );
     pMob->player_name = str_dup( argument );
 
     send_to_char( "Name set.\n\r", ch);
@@ -4339,7 +4339,7 @@ MEDIT( medit_material )
 	return FALSE;
     }
 
-    free_string( pMob->material );
+    PURGE_DATA( pMob->material );
     pMob->material = str_dup( argument );
 
     send_to_char( "Material set.\n\r", ch);
@@ -4795,9 +4795,9 @@ REDIT( redit_owner )
 	return FALSE;
     }
 
-    free_string( pRoom->owner );
+    PURGE_DATA( pRoom->owner );
     if (!str_cmp(argument, "none"))
-    	pRoom->owner = str_dup("");
+    	pRoom->owner = NULL;
     else
 	pRoom->owner = str_dup( argument );
 

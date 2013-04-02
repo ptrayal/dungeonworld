@@ -126,10 +126,10 @@ AREA_DATA *new_area( void )
 
 void free_area( AREA_DATA *pArea )
 {
-    free_string( pArea->name );
-    free_string( pArea->file_name );
-    free_string( pArea->builders );
-    free_string( pArea->credits );
+    PURGE_DATA( pArea->name );
+    PURGE_DATA( pArea->file_name );
+    PURGE_DATA( pArea->builders );
+    PURGE_DATA( pArea->credits );
 
     pArea->next         =   area_free->next;
     area_free           =   pArea;
@@ -169,8 +169,8 @@ EXIT_DATA *new_exit( void )
 
 void free_exit( EXIT_DATA *pExit )
 {
-    free_string( pExit->keyword );
-    free_string( pExit->description );
+    PURGE_DATA( pExit->keyword );
+    PURGE_DATA( pExit->description );
 
     pExit->next         =   exit_free;
     exit_free           =   pExit;
@@ -225,9 +225,9 @@ void free_room_index( ROOM_INDEX_DATA *pRoom )
     EXTRA_DESCR_DATA *pExtra;
     RESET_DATA *pReset;
 
-    free_string( pRoom->name );
-    free_string( pRoom->description );
-    free_string( pRoom->owner );
+    PURGE_DATA( pRoom->name );
+    PURGE_DATA( pRoom->description );
+    PURGE_DATA( pRoom->owner );
 
     for ( door = 0; door < MAX_DIR; door++ )
     {
@@ -341,9 +341,9 @@ void free_obj_index( OBJ_INDEX_DATA *pObj )
     EXTRA_DESCR_DATA *pExtra;
     AFFECT_DATA *pAf;
 
-    free_string( pObj->name );
-    free_string( pObj->short_descr );
-    free_string( pObj->description );
+    PURGE_DATA( pObj->name );
+    PURGE_DATA( pObj->short_descr );
+    PURGE_DATA( pObj->description );
 
     for ( pAf = pObj->affected; pAf; pAf = pAf->next )
     {
@@ -429,10 +429,10 @@ MOB_INDEX_DATA *new_mob_index( void )
 
 void free_mob_index( MOB_INDEX_DATA *pMob )
 {
-    free_string( pMob->player_name );
-    free_string( pMob->short_descr );
-    free_string( pMob->long_descr );
-    free_string( pMob->description );
+    PURGE_DATA( pMob->player_name );
+    PURGE_DATA( pMob->short_descr );
+    PURGE_DATA( pMob->long_descr );
+    PURGE_DATA( pMob->description );
     free_mprog( pMob->mprogs );
 
     free_shop( pMob->pShop );
@@ -468,7 +468,7 @@ MPROG_CODE *new_mpcode(void)
 
 void free_mpcode(MPROG_CODE *pMcode)
 {
-    free_string(pMcode->code);
+    PURGE_DATA(pMcode->code);
     pMcode->next = mpcode_free;
     mpcode_free  = pMcode;
     return;

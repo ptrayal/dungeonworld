@@ -3045,47 +3045,6 @@ void *alloc_mem( int sMem )
 
 
 /*
- * Free some memory.
- * Recycle it back onto the free list for blocks of that size.
- */
-void free_mem( void *pMem, int sMem )
-{
-	int iList;
-	int *magic;
-
-	pMem -= sizeof(*magic);
-	magic = (int *) pMem;
-
-	if (*magic != MAGIC_NUM)
-	{
-		bug("Attempt to recyle invalid memory of size %d.",sMem);
-		bug((char*) pMem + sizeof(*magic),0);
-		return;
-	}
-
-	*magic = 0;
-	sMem += sizeof(*magic);
-
-	for ( iList = 0; iList < MAX_MEM_LIST; iList++ )
-	{
-		if ( sMem <= rgSizeList[iList] )
-			break;
-	}
-
-	if ( iList == MAX_MEM_LIST )
-	{
-		bug( "Free_mem: size %d too large.", sMem );
-		exit( 1 );
-	}
-
-	* ((void **) pMem) = rgFreeList[iList];
-	rgFreeList[iList]  = pMem;
-
-	return;
-}
-
-
-/*
  * Allocate some permanent memory.
  * Permanent memory is never freed,
  *   pointers into it may be copied safely.
@@ -3120,24 +3079,6 @@ void *alloc_perm( int sMem )
 	sAllocPerm += sMem;
 	return pMem;
 }
-
-
-/*
- * Free a string.
- * Null is legal here to simplify callers.
- * Read-only shared strings are not touched.
- */
-void free_string( char *pstr )
-{
-	if ( pstr == NULL
-	||   pstr == &str_empty[0]
-	|| ( pstr >= string_space && pstr < top_string ) )
-	return;
-
-	free_mem( pstr, strlen(pstr) + 1 );
-	return;
-}
-
 
 
 void do_areas( CHAR_DATA *ch, char *argument )

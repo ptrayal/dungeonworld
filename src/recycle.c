@@ -61,11 +61,11 @@ void free_note(NOTE_DATA *note)
 	if (!IS_VALID(note))
 	return;
 
-	free_string( note->text    );
-	free_string( note->subject );
-	free_string( note->to_list );
-	free_string( note->date    );
-	free_string( note->sender  );
+	PURGE_DATA( note->text    );
+	PURGE_DATA( note->subject );
+	PURGE_DATA( note->to_list );
+	PURGE_DATA( note->date    );
+	PURGE_DATA( note->sender  );
 	INVALIDATE(note);
 
 	note->next = note_free;
@@ -100,7 +100,7 @@ void free_ban(BAN_DATA *ban)
 	if (!IS_VALID(ban))
 	return;
 
-	free_string(ban->name);
+	PURGE_DATA(ban->name);
 	INVALIDATE(ban);
 
 	ban->next = ban_free;
@@ -194,8 +194,8 @@ void free_extra_descr(EXTRA_DESCR_DATA *ed)
 	if (!IS_VALID(ed))
 	return;
 
-	free_string(ed->keyword);
-	free_string(ed->description);
+	PURGE_DATA(ed->keyword);
+	PURGE_DATA(ed->description);
 	INVALIDATE(ed);
 	
 	ed->next = extra_descr_free;
@@ -279,10 +279,10 @@ void free_obj(OBJ_DATA *obj)
 	 }
 	 obj->extra_descr = NULL;
    
-	free_string( obj->name        );
-	free_string( obj->description );
-	free_string( obj->short_descr );
-	free_string( obj->owner     );
+	PURGE_DATA( obj->name        );
+	PURGE_DATA( obj->description );
+	PURGE_DATA( obj->short_descr );
+	PURGE_DATA( obj->owner     );
 	INVALIDATE(obj);
 
 	obj->next   = obj_free;
@@ -361,12 +361,12 @@ void free_char (CHAR_DATA *ch)
 	affect_remove(ch,paf);
 	}
 
-	free_string(ch->name);
-	free_string(ch->short_descr);
-	free_string(ch->long_descr);
-	free_string(ch->description);
-	free_string(ch->prompt);
-	free_string(ch->prefix);
+	PURGE_DATA(ch->name);
+	PURGE_DATA(ch->short_descr);
+	PURGE_DATA(ch->long_descr);
+	PURGE_DATA(ch->description);
+	PURGE_DATA(ch->prompt);
+	PURGE_DATA(ch->prefix);
 	free_note  (ch->pnote);
 	free_pcdata(ch->pcdata);
 
@@ -416,16 +416,16 @@ void free_pcdata(PC_DATA *pcdata)
 	if (!IS_VALID(pcdata))
 	return;
 
-	free_string(pcdata->pwd);
-	free_string(pcdata->bamfin);
-	free_string(pcdata->bamfout);
-	free_string(pcdata->title);
+	PURGE_DATA(pcdata->pwd);
+	PURGE_DATA(pcdata->bamfin);
+	PURGE_DATA(pcdata->bamfout);
+	PURGE_DATA(pcdata->title);
 	free_buf(pcdata->buffer);
 	
 	for (alias = 0; alias < MAX_ALIAS; alias++)
 	{
-	free_string(pcdata->alias[alias]);
-	free_string(pcdata->alias_sub[alias]);
+	PURGE_DATA(pcdata->alias[alias]);
+	PURGE_DATA(pcdata->alias_sub[alias]);
 	}
 	INVALIDATE(pcdata);
 	pcdata->next = pcdata_free;
@@ -516,24 +516,27 @@ int get_size (int val)
 	return -1;
 }
 
-BUFFER *new_buf()
+BUFFER *__new_buf( const char *file, const char *function, int line)
 {
 	BUFFER *buffer;
 
-	if (buf_free == NULL) 
-	buffer = alloc_perm(sizeof(*buffer));
-	else
-	{
-	buffer = buf_free;
-	buf_free = buf_free->next;
-	}
+	ALLOC_DATA(buffer, BUFFER, 1);
 
 	buffer->next	= NULL;
 	buffer->state	= BUFFER_SAFE;
 	buffer->size	= get_size(BASE_BUF);
 
-	buffer->string	= alloc_mem(buffer->size);
+	//  FOR DEBUGGIN PURPOSES
+	buffer->file = str_dup(file);
+	buffer->function = str_dup(function);
+	buffer->line = line;
+
+	ALLOC_DATA(buffer->string, char, buffer->size);
+
 	buffer->string[0]	= '\0';
+	top_buffer++;
+	LINK_SINGLE(buffer, next, buffer_list);
+
 	VALIDATE(buffer);
 
 	return buffer;
@@ -543,23 +546,20 @@ BUFFER *new_buf_size(int size)
 {
 	BUFFER *buffer;
  
-	if (buf_free == NULL)
-		buffer = alloc_perm(sizeof(*buffer));
-	else
-	{
-		buffer = buf_free;
-		buf_free = buf_free->next;
-	}
+	ALLOC_DATA(buffer, BUFFER, 1);
  
 	buffer->next        = NULL;
 	buffer->state       = BUFFER_SAFE;
 	buffer->size        = get_size(size);
+	buffer->file		= NULL;
+	buffer->function	= NULL;
+
 	if (buffer->size == -1)
 	{
 		bug("new_buf: buffer size %d too large.",size);
 		exit(1);
 	}
-	buffer->string      = alloc_mem(buffer->size);
+	ALLOC_DATA(buffer->string, char, buffer->size);
 	buffer->string[0]   = '\0';
 	VALIDATE(buffer);
  
@@ -571,24 +571,33 @@ void free_buf(BUFFER *buffer)
 {
 	Escape(buffer);
 
+	free(buffer->file);
+	buffer->file = NULL;
+	free(buffer->function);
+	buffer->function = NULL;
+
+	top_buffer--;
+	UNLINK_SINGLE(buffer, next, BUFFER, buffer_list);
+
+	PURGE_DATA(buffer->file);
+	PURGE_DATA(buffer->function);
 	PURGE_DATA(buffer->string);
 	buffer->string = NULL;
 	buffer->size   = 0;
 	buffer->state  = BUFFER_FREED;
-	INVALIDATE(buffer);
 
+	INVALIDATE(buffer);
 	PURGE_DATA(buffer);
 }
 
 
 bool add_buf(BUFFER *buffer, char *string)
 {
-	int len;
+	int len = 0;
 	char *oldstr;
-	int oldsize;
+	int oldsize = buffer->size;
 
 	oldstr = buffer->string;
-	oldsize = buffer->size;
 
 	if (buffer->state == BUFFER_OVERFLOW) /* don't waste time on bad strings! */
 	return FALSE;
@@ -597,28 +606,41 @@ bool add_buf(BUFFER *buffer, char *string)
 
 	while (len >= buffer->size) /* increase the buffer size */
 	{
-	buffer->size 	= get_size(buffer->size + 1);
-	{
-		if (buffer->size == -1) /* overflow */
+		buffer->size 	= get_size(buffer->size + 1);
 		{
-		buffer->size = oldsize;
-		buffer->state = BUFFER_OVERFLOW;
-		bug("buffer overflow past size %d",buffer->size);
-		return FALSE;
+		if (buffer->size == -1) /* overflow */
+			{
+				buffer->size = oldsize;
+				buffer->state = BUFFER_OVERFLOW;
+				bug("buffer overflow past size %d",buffer->size);
+				return FALSE;
+			}
 		}
-	}
 	}
 
 	if (buffer->size != oldsize)
 	{
-	buffer->string	= alloc_mem(buffer->size);
+		ALLOC_DATA(buffer->string, char, buffer->size);
 
-	strcpy(buffer->string,oldstr);
-	PURGE_DATA(oldstr);
+		strncpy(buffer->string,oldstr, buffer->size);
+		PURGE_DATA(oldstr);
 	}
 
-	strcat(buffer->string,string);
+	strncat(buffer->string,string, buffer->size);
 	return TRUE;
+}
+
+void BufPrintf ( BUFFER * buffer, char * fmt, ...)
+{
+	char buf[MSL] = {'\0'};
+	va_list args;
+
+	va_start (args, fmt);
+	vsnprintf( buf, sizeof(buf), fmt, args);
+	va_end (args);
+
+	add_buf(buffer, buf);
+	return;
 }
 
 
@@ -707,8 +729,8 @@ HELP_DATA * new_help ( void )
 
 void free_help(HELP_DATA *help)
 {
-	free_string(help->keyword);
-	free_string(help->text);
+	PURGE_DATA(help->keyword);
+	PURGE_DATA(help->text);
 	help->next = help_free;
 	help_free = help;
 }
@@ -741,7 +763,7 @@ void free_wiz(WIZ_DATA *wiz)
 	if (!IS_VALID(wiz))
 		return;
 
-	free_string(wiz->name);
+	PURGE_DATA(wiz->name);
 	INVALIDATE(wiz);
 
 	wiz->next = wiz_free;

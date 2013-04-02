@@ -1491,11 +1491,11 @@ void make_corpse( CHAR_DATA *ch )
     corpse->level = ch->level;
 
     sprintf( buf, corpse->short_descr, name );
-    free_string( corpse->short_descr );
+    PURGE_DATA( corpse->short_descr );
     corpse->short_descr = str_dup( buf );
 
     sprintf( buf, corpse->description, name );
-    free_string( corpse->description );
+    PURGE_DATA( corpse->description );
     corpse->description = str_dup( buf );
 
     for ( obj = ch->carrying; obj != NULL; obj = obj_next )
@@ -1635,11 +1635,11 @@ void death_cry( CHAR_DATA *ch )
 	obj->timer	= number_range( 4, 7 );
 
 	sprintf( buf, obj->short_descr, name );
-	free_string( obj->short_descr );
+	PURGE_DATA( obj->short_descr );
 	obj->short_descr = str_dup( buf );
 
 	sprintf( buf, obj->description, name );
-	free_string( obj->description );
+	PURGE_DATA( obj->description );
 	obj->description = str_dup( buf );
 
 	if (obj->item_type == ITEM_FOOD)

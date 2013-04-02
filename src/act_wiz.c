@@ -454,7 +454,7 @@ void do_bamfin( CHAR_DATA *ch, char *argument )
 	    return;
 	}
 	     
-	free_string( ch->pcdata->bamfin );
+	PURGE_DATA( ch->pcdata->bamfin );
 	ch->pcdata->bamfin = str_dup( argument );
 
         sprintf(buf,"Your poofin is now %s\n\r",ch->pcdata->bamfin);
@@ -484,7 +484,7 @@ void do_bamfout( CHAR_DATA *ch, char *argument )
             return;
         }
  
-        free_string( ch->pcdata->bamfout );
+        PURGE_DATA( ch->pcdata->bamfout );
         ch->pcdata->bamfout = str_dup( argument );
  
         sprintf(buf,"Your poofout is now %s\n\r",ch->pcdata->bamfout);
@@ -2265,12 +2265,10 @@ void do_return( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    send_to_char( 
-"You return to your original body. Type replay to see any missed tells.\n\r", 
-	ch );
+    send_to_char( "You return to your original body. Type replay to see any missed tells.\n\r", ch );
     if (ch->prompt != NULL)
     {
-	free_string(ch->prompt);
+	PURGE_DATA(ch->prompt);
 	ch->prompt = NULL;
     }
 
@@ -3789,28 +3787,28 @@ void do_string( CHAR_DATA *ch, char *argument )
 	    	send_to_char( "Not on PC's.\n\r", ch );
 	    	return;
 	    }
-	    free_string( victim->name );
+	    PURGE_DATA( victim->name );
 	    victim->name = str_dup( arg3 );
 	    return;
     	}
     	
     	if ( !str_prefix( arg2, "description" ) )
     	{
-    	    free_string(victim->description);
+    	    PURGE_DATA(victim->description);
     	    victim->description = str_dup(arg3);
     	    return;
     	}
 
     	if ( !str_prefix( arg2, "short" ) )
     	{
-	    free_string( victim->short_descr );
+	    PURGE_DATA( victim->short_descr );
 	    victim->short_descr = str_dup( arg3 );
 	    return;
     	}
 
     	if ( !str_prefix( arg2, "long" ) )
     	{
-	    free_string( victim->long_descr );
+	    PURGE_DATA( victim->long_descr );
 	    strcat(arg3,"\n\r");
 	    victim->long_descr = str_dup( arg3 );
 	    return;
@@ -3858,21 +3856,21 @@ void do_string( CHAR_DATA *ch, char *argument )
     	
         if ( !str_prefix( arg2, "name" ) )
     	{
-	    free_string( obj->name );
+	    PURGE_DATA( obj->name );
 	    obj->name = str_dup( arg3 );
 	    return;
     	}
 
     	if ( !str_prefix( arg2, "short" ) )
     	{
-	    free_string( obj->short_descr );
+	    PURGE_DATA( obj->short_descr );
 	    obj->short_descr = str_dup( arg3 );
 	    return;
     	}
 
     	if ( !str_prefix( arg2, "long" ) )
     	{
-	    free_string( obj->description );
+	    PURGE_DATA( obj->description );
 	    obj->description = str_dup( arg3 );
 	    return;
     	}
@@ -4406,7 +4404,7 @@ void do_prefix (CHAR_DATA *ch, char *argument)
 	}
 
 	send_to_char("Prefix removed.\r\n",ch);
-	free_string(ch->prefix);
+	PURGE_DATA(ch->prefix);
 	ch->prefix = str_dup("");
 	return;
     }
@@ -4414,7 +4412,7 @@ void do_prefix (CHAR_DATA *ch, char *argument)
     if (ch->prefix[0] != '\0')
     {
 	sprintf(buf,"Prefix changed to %s.\r\n",argument);
-	free_string(ch->prefix);
+	PURGE_DATA(ch->prefix);
     }
     else
     {

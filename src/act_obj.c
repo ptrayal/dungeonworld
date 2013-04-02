@@ -2607,13 +2607,12 @@ void do_buy( CHAR_DATA *ch, char *argument )
 	if ( arg[0] != '\0' )
 	{
 	    sprintf( buf, "%s %s", pet->name, arg );
-	    free_string( pet->name );
+	    PURGE_DATA( pet->name );
 	    pet->name = str_dup( buf );
 	}
 
-	sprintf( buf, "%sA neck tag says 'I belong to %s'.\n\r",
-	    pet->description, ch->name );
-	free_string( pet->description );
+	sprintf( buf, "%sA neck tag says 'I belong to %s'.\n\r", pet->description, ch->name );
+	PURGE_DATA( pet->description );
 	pet->description = str_dup( buf );
 
 	char_to_room( pet, ch->in_room );

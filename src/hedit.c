@@ -108,7 +108,7 @@ HEDIT(hedit_keyword)
 		return FALSE;
 	}
 
-	free_string(help->keyword);
+	PURGE_DATA(help->keyword);
 	help->keyword = str_dup(argument);
 
 	send_to_char( "Ok.\n\r", ch );

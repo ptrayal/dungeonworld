@@ -213,7 +213,7 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	}
 	add_buf(output,prgpstrShow[iShow]);
 	add_buf(output,"\n\r");
-	free_string( prgpstrShow[iShow] );
+	PURGE_DATA( prgpstrShow[iShow] );
     }
 
     if ( fShowNothing && nShow == 0 )
@@ -882,7 +882,7 @@ void do_prompt(CHAR_DATA *ch, char *argument)
 	
    }
  
-   free_string( ch->prompt );
+   PURGE_DATA( ch->prompt );
    ch->prompt = str_dup( buf );
    sprintf(buf,"Prompt set to %s\n\r",ch->prompt );
    send_to_char(buf,ch);
@@ -2379,7 +2379,7 @@ void set_title( CHAR_DATA *ch, char *title )
 	strcpy( buf, title );
     }
 
-    free_string( ch->pcdata->title );
+    PURGE_DATA( ch->pcdata->title );
     ch->pcdata->title = str_dup( buf );
     return;
 }
@@ -2442,7 +2442,7 @@ void do_description( CHAR_DATA *ch, char *argument )
                     else /* found the second one */
                     {
                         buf[len + 1] = '\0';
-			free_string(ch->description);
+			PURGE_DATA(ch->description);
 			ch->description = str_dup(buf);
 			send_to_char( "Your description is:\n\r", ch );
 			send_to_char( ch->description ? ch->description : 
@@ -2452,7 +2452,7 @@ void do_description( CHAR_DATA *ch, char *argument )
                 }
             }
             buf[0] = '\0';
-	    free_string(ch->description);
+	    PURGE_DATA(ch->description);
 	    ch->description = str_dup(buf);
 	    send_to_char("Description cleared.\n\r",ch);
 	    return;
@@ -2474,7 +2474,7 @@ void do_description( CHAR_DATA *ch, char *argument )
 
 	strcat( buf, argument );
 	strcat( buf, "\n\r" );
-	free_string( ch->description );
+	PURGE_DATA( ch->description );
 	ch->description = str_dup( buf );
     }
 
@@ -2745,7 +2745,7 @@ void do_password( CHAR_DATA *ch, char *argument )
 	}
     }
 
-    free_string( ch->pcdata->pwd );
+    PURGE_DATA( ch->pcdata->pwd );
     ch->pcdata->pwd = str_dup( pwdnew );
     save_char_obj( ch );
     send_to_char( "Ok.\n\r", ch );

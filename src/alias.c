@@ -183,7 +183,7 @@ void do_alias(CHAR_DATA *ch, char *argument)
 
 	if (!str_cmp(arg,rch->pcdata->alias[pos])) /* redefine an alias */
 	{
-	    free_string(rch->pcdata->alias_sub[pos]);
+	    PURGE_DATA(rch->pcdata->alias_sub[pos]);
 	    rch->pcdata->alias_sub[pos] = str_dup(argument);
 	    sprintf(buf,"%s is now realiased to '%s'.\n\r",arg,argument);
 	    send_to_char(buf,ch);
@@ -245,8 +245,8 @@ void do_unalias(CHAR_DATA *ch, char *argument)
 	if(!strcmp(arg,rch->pcdata->alias[pos]))
 	{
 	    send_to_char("Alias removed.\n\r",ch);
-	    free_string(rch->pcdata->alias[pos]);
-	    free_string(rch->pcdata->alias_sub[pos]);
+	    PURGE_DATA(rch->pcdata->alias[pos]);
+	    PURGE_DATA(rch->pcdata->alias_sub[pos]);
 	    rch->pcdata->alias[pos] = NULL;
 	    rch->pcdata->alias_sub[pos] = NULL;
 	    found = TRUE;

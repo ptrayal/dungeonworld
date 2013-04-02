@@ -724,7 +724,7 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 #define KEYS( literal, field, value )					\
 				if ( !str_cmp( word, literal ) )	\
 				{					\
-				    free_string(field);			\
+				    PURGE_DATA(field);			\
 				    field  = value;			\
 				    fMatch = TRUE;			\
 				    break;				\
@@ -1097,7 +1097,7 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 		&&  ch->pcdata->title[0] != '!' && ch->pcdata->title[0] != '?')
 		{
 		    sprintf( buf, " %s", ch->pcdata->title );
-		    free_string( ch->pcdata->title );
+		    PURGE_DATA( ch->pcdata->title );
 		    ch->pcdata->title = str_dup( buf );
 		}
 		fMatch = TRUE;

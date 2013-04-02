@@ -2219,6 +2219,7 @@ void	act_new		args( ( const char *format, CHAR_DATA *ch,
 			    int min_pos) );
 void	printf_to_char	args( ( CHAR_DATA *, char *, ... ) );
 void	bugf		args( ( char *, ... ) );
+void    logfmt  args( (char * fmt, ...) );
 
 /* db.c */
 void	reset_area      args( ( AREA_DATA * pArea ) );		/* OLC */
@@ -2246,8 +2247,6 @@ char *	fread_word	args( ( FILE *fp ) );
 long	flag_convert	args( ( char letter) );
 void *	alloc_mem	args( ( int sMem ) );
 void *	alloc_perm	args( ( int sMem ) );
-void	free_mem	args( ( void *pMem, int sMem ) );
-void	free_string	args( ( char *pstr ) );
 int	number_fuzzy	args( ( int number ) );
 int	number_range	args( ( int from, int to ) );
 int	number_percent	args( ( void ) );

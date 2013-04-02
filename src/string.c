@@ -105,7 +105,7 @@ char * string_replace( char * orig, char * old, char * new )
         xbuf[i] = '\0';
         strcat( xbuf, new );
         strcat( xbuf, &orig[i+strlen( old )] );
-        free_string( orig );
+        PURGE_DATA( orig );
     }
 
     return str_dup( xbuf );
@@ -142,7 +142,7 @@ void string_add( CHAR_DATA *ch, char *argument )
         if ( !str_cmp( arg1, ".c" ) )
         {
             send_to_char( "String cleared.\n\r", ch );
-	    free_string(*ch->desc->pString);
+	    PURGE_DATA(*ch->desc->pString);
 	    *ch->desc->pString = str_dup( "" );
             return;
         }
@@ -269,7 +269,7 @@ void string_add( CHAR_DATA *ch, char *argument )
 
     strcat( buf, argument );
     strcat( buf, "\n\r" );
-    free_string( *ch->desc->pString );
+    PURGE_DATA( *ch->desc->pString );
     *ch->desc->pString = str_dup( buf );
     return;
 }
@@ -429,7 +429,7 @@ char *format_string( char *oldstring /*, bool fSpace */)
   if (xbuf[strlen(xbuf)-2] != '\n')
     strcat(xbuf,"\n\r");
 
-  free_string(oldstring);
+  PURGE_DATA(oldstring);
   return(str_dup(xbuf));
 }
 
@@ -518,7 +518,7 @@ char * string_unpad( char * argument )
         *s = '\0';
     }
 
-    free_string( argument );
+    PURGE_DATA( argument );
     return str_dup( buf );
 }
 
@@ -580,7 +580,7 @@ char *string_linedel( char *string, int line )
 
 	buf[tmp] = '\0';
 
-	free_string(string);
+	PURGE_DATA(string);
 	return str_dup(buf);
 }
 
@@ -620,7 +620,7 @@ char *string_lineadd( char *string, char *newstr, int line )
 		buf[tmp] = '\0';
 	}
 
-	free_string(string);
+	PURGE_DATA(string);
 	return str_dup(buf);
 }
 

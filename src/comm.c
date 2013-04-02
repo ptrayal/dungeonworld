@@ -1520,46 +1520,46 @@ void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
 	/*
 	 * Find length in case caller didn't.
 	 */
-	if ( length <= 0 )
-	length = strlen(txt);
+	 if ( length <= 0 )
+	 	length = strlen(txt);
 
 	/*
 	 * Initial \n\r if needed.
 	 */
-	if ( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB )
-	{
-	d->outbuf[0]	= '\n';
-	d->outbuf[1]	= '\r';
-	d->outtop	= 2;
-	}
+	 if ( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB )
+	 {
+	 	d->outbuf[0]	= '\n';
+	 	d->outbuf[1]	= '\r';
+	 	d->outtop	= 2;
+	 }
 
 	/*
 	 * Expand the buffer as needed.
 	 */
-	while ( d->outtop + length >= d->outsize )
-	{
-	char *outbuf;
+	 while ( d->outtop + length >= d->outsize )
+	 {
+	 	char *outbuf;
 
-		if (d->outsize >= 32000)
-	{
-		bug("Buffer overflow. Closing.\n\r",0);
-		close_socket(d);
-		return;
-	}
-	ALLOCA_DATA(outbuf, char, 2 * d->outsize );
-	strncpy( outbuf, d->outbuf, d->outtop );
-	PURGE_DATA( d->outbuf );
-	d->outbuf   = outbuf;
-	d->outsize *= 2;
-	}
+	 	if (d->outsize >= 32000)
+	 	{
+	 		bug("Buffer overflow. Closing.\n\r",0);
+	 		close_socket(d);
+	 		return;
+	 	}
+	 	ALLOC_DATA(outbuf, char, 2 * d->outsize );
+	 	strncpy( outbuf, d->outbuf, d->outtop );
+	 	PURGE_DATA( d->outbuf );
+	 	d->outbuf   = outbuf;
+	 	d->outsize *= 2;
+	 }
 
 	/*
 	 * Copy.
 	 */
-	strncpy( d->outbuf + d->outtop, txt, length );
-	d->outtop += length;
-	return;
-}
+	 strncpy( d->outbuf + d->outtop, txt, length );
+	 d->outtop += length;
+	 return;
+	}
 
 
 
@@ -1831,7 +1831,7 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 		}
 	}
 
-	free_string( ch->pcdata->pwd );
+	PURGE_DATA( ch->pcdata->pwd );
 	ch->pcdata->pwd	= str_dup( pwdnew );
 	write_to_buffer( d, "Please retype password: ", 0 );
 	d->connected = CON_CONFIRM_NEW_PASSWORD;
@@ -2315,7 +2315,7 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
 	{
 		if ( fConn == FALSE )
 		{
-		free_string( d->character->pcdata->pwd );
+		PURGE_DATA( d->character->pcdata->pwd );
 		d->character->pcdata->pwd = str_dup( ch->pcdata->pwd );
 		}
 		else
@@ -2406,23 +2406,45 @@ void send_to_char( const char *txt, CHAR_DATA *ch )
  */
 void page_to_char( const char *txt, CHAR_DATA *ch )
 {
-	if ( txt == NULL || ch->desc == NULL)
-	return;
+	DESCRIPTOR_DATA *d;
+
+	if ( !ch || txt == NULL || ch->desc == NULL || IS_NULLSTR(txt))
+		return;
+
+	d = ch->desc;
 
 	if (ch->lines == 0 )
 	{
-	send_to_char(txt,ch);
-	return;
+		send_to_char(txt,ch);
+		return;
+	}
+
+	if(!IS_NULLSTR (d->showstr_head) )
+	{
+		char *fub;
+		int i = 0;
+		int size_new = strlen(txt) + strlen(d->showstr_head + 2);
+		ALLOC_DATA(fub, char, size_new);
+		fub[0] = '\0';
+		strncat( fub, d->showstr_head, size_new);
+		if (IS_NULLSTR(d->showstr_point) )
+			i = strlen(fub);
+		else
+			i = strlen(fub) - strlen(d->showstr_point);
+		strncat(fub, txt, size_new);
+		PURGE_DATA(d->showstr_head);
+		d->showstr_head = str_dup(fub);
+		d->showstr_point = (char *)d->showstr_head + i;
+		PURGE_DATA(fub);
+		fub = NULL;
+		return;
 	}
 	
-#if defined(macintosh)
-	send_to_char(txt,ch);
-#else
-	ch->desc->showstr_head = alloc_mem(strlen(txt) + 1);
-	strcpy(ch->desc->showstr_head,txt);
-	ch->desc->showstr_point = ch->desc->showstr_head;
+	if(!IS_NULLSTR(d->showstr_head))
+		PURGE_DATA(d->showstr_head);
+	d->showstr_head = str_dup(txt);
+	d->showstr_point = (char *)d->showstr_head;
 	show_string(ch->desc,"");
-#endif
 }
 
 
@@ -2636,6 +2658,17 @@ int gettimeofday( struct timeval *tp, void *tzp )
 	tp->tv_usec = 0;
 }
 #endif
+
+void logfmt (char * fmt, ...)
+{
+	char buf [2*MSL] = {'\0'};
+	va_list args;
+	va_start (args, fmt);
+	vsprintf (buf, fmt, args);
+	va_end (args);
+
+	log_string(buf);
+}
 
 /* source: EOD, by John Booth <???> */
 
