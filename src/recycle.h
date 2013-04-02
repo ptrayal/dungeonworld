@@ -110,8 +110,8 @@ MD	*find_memory args( (MEM_DATA *memory, long id) );
 
 /* buffer procedures */
 BUFFER	*__new_buf args( (const char *file, const char *function, int line) );
-#define new_buf() __new_buf(__FILE__,__FUNCTION__,__LINE__);
-void BufPrintf	args( (BUFFER * buffer, char * fmt, ...));
+#define new_buf() __new_buf(__FILE__, __FUNCTION__, __LINE__)
+void BufPrintf args(( BUFFER * buffer, char * fmt, ... ));
 
 void	free_buf args( (BUFFER *buffer) );
 bool	add_buf args( (BUFFER *buffer, char *string) );

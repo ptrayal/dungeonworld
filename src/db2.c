@@ -41,6 +41,7 @@
 #include "db.h"
 #include "tables.h"
 #include "lookup.h"
+#include "olc.h"
 
 extern int flag_lookup args((const char *name, const struct flag_type *flag_table));
 
@@ -221,7 +222,7 @@ void load_mobiles( FILE *fp )
         }
         fBootDb = TRUE;
  
-        pMobIndex                       = alloc_perm( sizeof(*pMobIndex) );
+        pMobIndex                       = new_mob_index();
         pMobIndex->vnum                 = vnum;
         pMobIndex->area                 = area_last;               /* OLC */
 	pMobIndex->new_format		= TRUE;
@@ -340,7 +341,7 @@ void load_mobiles( FILE *fp )
 		char *word;
 		int trigger = 0;
 		
-		pMprog              = alloc_perm(sizeof(*pMprog));
+		pMprog              = new_mprog();
 		word   		    = fread_word( fp );
 		if ( (trigger = flag_lookup( word, mprog_flags )) == NO_FLAG )
 		{
@@ -411,7 +412,7 @@ void load_objects( FILE *fp )
         }
         fBootDb = TRUE;
  
-        pObjIndex                       = alloc_perm( sizeof(*pObjIndex) );
+        pObjIndex                       = new_obj_index();
         pObjIndex->vnum                 = vnum;
         pObjIndex->area                 = area_last;            /* OLC */
         pObjIndex->new_format           = TRUE;
@@ -502,7 +503,7 @@ void load_objects( FILE *fp )
             {
                 AFFECT_DATA *paf;
  
-                paf                     = alloc_perm( sizeof(*paf) );
+                ALLOC_DATA(paf, AFFECT_DATA, 1);
 		paf->where		= TO_OBJECT;
                 paf->type               = -1;
                 paf->level              = pObjIndex->level;
@@ -519,7 +520,7 @@ void load_objects( FILE *fp )
             {
                 AFFECT_DATA *paf;
  
-                paf                     = alloc_perm( sizeof(*paf) );
+                ALLOC_DATA(paf, AFFECT_DATA, 1);
 		letter 			= fread_letter(fp);
 		switch (letter)
 	 	{
@@ -554,7 +555,7 @@ void load_objects( FILE *fp )
             {
                 EXTRA_DESCR_DATA *ed;
  
-                ed                      = alloc_perm( sizeof(*ed) );
+                ed                      = new_extra_descr();
                 ed->keyword             = fread_string( fp );
                 ed->description         = fread_string( fp );
                 ed->next                = pObjIndex->extra_descr;

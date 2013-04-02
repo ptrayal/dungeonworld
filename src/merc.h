@@ -112,6 +112,8 @@ typedef struct  mprog_list		MPROG_LIST;
 typedef struct  mprog_code		MPROG_CODE;
 typedef struct  wiz_data        WIZ_DATA;
 
+extern BUFFER *buffer_list;
+extern int top_buffer;
 
 /*
  * Function types.
@@ -198,6 +200,9 @@ struct buf_type
     sh_int      state;  /* error state of the buffer */
     sh_int      size;   /* size in k */
     char *      string; /* buffer's string */
+    char *file;
+    char *function;
+    int line;
 };
 
 struct wiz_data
@@ -2245,8 +2250,6 @@ char *  fread_string_eol args(( FILE *fp ) );
 void	fread_to_eol	args( ( FILE *fp ) );
 char *	fread_word	args( ( FILE *fp ) );
 long	flag_convert	args( ( char letter) );
-void *	alloc_mem	args( ( int sMem ) );
-void *	alloc_perm	args( ( int sMem ) );
 int	number_fuzzy	args( ( int number ) );
 int	number_range	args( ( int from, int to ) );
 int	number_percent	args( ( void ) );

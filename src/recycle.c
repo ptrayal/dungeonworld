@@ -32,99 +32,91 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #endif
+#include <stdarg.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+
 #include "merc.h"
 #include "recycle.h"
 
-/* stuff for recyling notes */
-NOTE_DATA *note_free;
+
+BUFFER *buffer_list;
+int top_buffer;
+
+
 
 NOTE_DATA *new_note()
 {
 	NOTE_DATA *note;
 
-	if (note_free == NULL)
-	note = alloc_perm(sizeof(*note));
-	else
-	{ 
-	note = note_free;
-	note_free = note_free->next;
-	}
-	VALIDATE(note);
+	ALLOC_DATA(note, NOTE_DATA, 1);
+
+	note->date = NULL;
+	note->sender = NULL;
+	note->to_list = NULL;
+	note->subject = NULL;
+	note->text = NULL;
+
 	return note;
 }
 
 void free_note(NOTE_DATA *note)
 {
-	if (!IS_VALID(note))
-	return;
+	Escape(note);
 
-	PURGE_DATA( note->text    );
-	PURGE_DATA( note->subject );
-	PURGE_DATA( note->to_list );
 	PURGE_DATA( note->date    );
 	PURGE_DATA( note->sender  );
-	INVALIDATE(note);
+	PURGE_DATA( note->subject );
+	PURGE_DATA( note->text    );
+	PURGE_DATA( note->to_list );
 
-	note->next = note_free;
-	note_free   = note;
+	PURGE_DATA( note );
 }
 
 	
-/* stuff for recycling ban structures */
-BAN_DATA *ban_free;
-
 BAN_DATA *new_ban(void)
 {
-	static BAN_DATA ban_zero;
 	BAN_DATA *ban;
 
-	if (ban_free == NULL)
-	ban = alloc_perm(sizeof(*ban));
-	else
-	{
-	ban = ban_free;
-	ban_free = ban_free->next;
-	}
+	ALLOC_DATA(ban, BAN_DATA, 1);
 
-	*ban = ban_zero;
-	VALIDATE(ban);
-	ban->name = &str_empty[0];
+	ban->name = NULL;
+	ban->ban_flags = 0;
+	ban->level = 0;
+
 	return ban;
 }
 
 void free_ban(BAN_DATA *ban)
 {
-	if (!IS_VALID(ban))
-	return;
+	Escape(ban);
 
 	PURGE_DATA(ban->name);
-	INVALIDATE(ban);
 
-	ban->next = ban_free;
-	ban_free = ban;
+	PURGE_DATA(ban);
 }
-
-/* stuff for recycling descriptors */
-DESCRIPTOR_DATA *descriptor_free;
 
 DESCRIPTOR_DATA *new_descriptor(void)
 {
-	static DESCRIPTOR_DATA d_zero;
 	DESCRIPTOR_DATA *d;
 
-	if (descriptor_free == NULL)
-	d = alloc_perm(sizeof(*d));
-	else
-	{
-	d = descriptor_free;
-	descriptor_free = descriptor_free->next;
-	}
-	
-	*d = d_zero;
-	VALIDATE(d);
+	ALLOC_DATA(d, DESCRIPTOR_DATA, 1);
+
+	d->connected		= CON_GET_NAME;
+	d->host				= NULL;
+	d->pEdit			= NULL;
+	d->pString			= NULL;
+	d->showstr_head		= NULL;
+	d->showstr_point	= NULL;
+	d->outsize			= 2000;
+	d->editor			= 0;
+	d->descriptor		= 0;
+	d->fcommand			= FALSE;
+	d->repeat			= 0;
+	d->outtop			= 0;
+	d->pProtocol			= NULL;
+	ALLOC_DATA(d->outbuf, char, d->outsize);
+
 	return d;
 }
 
@@ -132,127 +124,85 @@ void free_descriptor(DESCRIPTOR_DATA *d)
 {
 	Escape(d);
 
-	PURGE_DATA( d->host );
-	PURGE_DATA( d->outbuf );
+	PURGE_DATA(d->host );
+	PURGE_DATA(d->pEdit);
+	PURGE_DATA(d->pString);
+	PURGE_DATA(d->outbuf );
+	PURGE_DATA(d->showstr_head );
+	PURGE_DATA(d->showstr_point);
 	PURGE_DATA(d);
 }
 
-/* stuff for recycling gen_data */
-GEN_DATA *gen_data_free;
-
 GEN_DATA *new_gen_data(void)
 {
-	static GEN_DATA gen_zero;
 	GEN_DATA *gen;
 
-	if (gen_data_free == NULL)
-	gen = alloc_perm(sizeof(*gen));
-	else
-	{
-	gen = gen_data_free;
-	gen_data_free = gen_data_free->next;
-	}
-	*gen = gen_zero;
-	VALIDATE(gen);
+	ALLOC_DATA(gen, GEN_DATA, 1);
+
+	gen->points_chosen	= 0;
 	return gen;
 }
 
 void free_gen_data(GEN_DATA *gen)
 {
-	if (!IS_VALID(gen))
-	return;
-
-	INVALIDATE(gen);
-
-	gen->next = gen_data_free;
-	gen_data_free = gen;
-} 
-
-/* stuff for recycling extended descs */
-EXTRA_DESCR_DATA *extra_descr_free;
+	Escape(gen);
+	PURGE_DATA(gen);
+}
 
 EXTRA_DESCR_DATA *new_extra_descr(void)
 {
 	EXTRA_DESCR_DATA *ed;
 
-	if (extra_descr_free == NULL)
-	ed = alloc_perm(sizeof(*ed));
-	else
-	{
-	ed = extra_descr_free;
-	extra_descr_free = extra_descr_free->next;
-	}
+	ALLOC_DATA(ed, EXTRA_DESCR_DATA, 1);
 
-	ed->keyword = &str_empty[0];
-	ed->description = &str_empty[0];
-	VALIDATE(ed);
+	ed->keyword = NULL;
+	ed->description = NULL;
+
 	return ed;
 }
 
 void free_extra_descr(EXTRA_DESCR_DATA *ed)
 {
-	if (!IS_VALID(ed))
-	return;
+	Escape(ed);
 
 	PURGE_DATA(ed->keyword);
 	PURGE_DATA(ed->description);
-	INVALIDATE(ed);
-	
-	ed->next = extra_descr_free;
-	extra_descr_free = ed;
+	PURGE_DATA(ed);
 }
 
 
-/* stuff for recycling affects */
-AFFECT_DATA *affect_free;
-
 AFFECT_DATA *new_affect(void)
 {
-	static AFFECT_DATA af_zero;
 	AFFECT_DATA *af;
 
-	if (affect_free == NULL)
-	af = alloc_perm(sizeof(*af));
-	else
-	{
-	af = affect_free;
-	affect_free = affect_free->next;
-	}
+	ALLOC_DATA(af, AFFECT_DATA, 1);
 
-	*af = af_zero;
+	af->bitvector	= 0;
+	af->duration	= 0;
+	af->level		= 0;
+	af->location	= 0;
+	af->modifier	= 0;
+	af->type		= 0;
+	af->where		= 0;
 
-
-	VALIDATE(af);
 	return af;
 }
 
 void free_affect(AFFECT_DATA *af)
 {
-	if (!IS_VALID(af))
-	return;
-
-	INVALIDATE(af);
-	af->next = affect_free;
-	affect_free = af;
+	Escape(af);
+	PURGE_DATA(af);
 }
-
-/* stuff for recycling objects */
-OBJ_DATA *obj_free;
 
 OBJ_DATA *new_obj(void)
 {
-	static OBJ_DATA obj_zero;
 	OBJ_DATA *obj;
 
-	if (obj_free == NULL)
-	obj = alloc_perm(sizeof(*obj));
-	else
-	{
-	obj = obj_free;
-	obj_free = obj_free->next;
-	}
-	*obj = obj_zero;
-	VALIDATE(obj);
+	ALLOC_DATA(obj, OBJ_DATA, 1);
+
+	obj->name 			= NULL;
+	obj->description	= NULL;
+	obj->short_descr	= NULL;
 
 	return obj;
 }
@@ -262,8 +212,7 @@ void free_obj(OBJ_DATA *obj)
 	AFFECT_DATA *paf, *paf_next;
 	EXTRA_DESCR_DATA *ed, *ed_next;
 
-	if (!IS_VALID(obj))
-	return;
+	Escape(obj);
 
 	for (paf = obj->affected; paf != NULL; paf = paf_next)
 	{
@@ -282,39 +231,25 @@ void free_obj(OBJ_DATA *obj)
 	PURGE_DATA( obj->name        );
 	PURGE_DATA( obj->description );
 	PURGE_DATA( obj->short_descr );
-	PURGE_DATA( obj->owner     );
-	INVALIDATE(obj);
-
-	obj->next   = obj_free;
-	obj_free    = obj; 
+	obj->owner = NULL;
+	
+	PURGE_DATA(obj);
 }
 
 
-/* stuff for recyling characters */
-CHAR_DATA *char_free;
-
 CHAR_DATA *new_char (void)
 {
-	static CHAR_DATA ch_zero;
 	CHAR_DATA *ch;
-	int i;
+	int i = 0;
 
-	if (char_free == NULL)
-	ch = alloc_perm(sizeof(*ch));
-	else
-	{
-	ch = char_free;
-	char_free = char_free->next;
-	}
+	ALLOC_DATA(ch, CHAR_DATA, 1);
 
-	*ch				= ch_zero;
-	VALIDATE(ch);
-	ch->name                    = &str_empty[0];
-	ch->short_descr             = &str_empty[0];
-	ch->long_descr              = &str_empty[0];
-	ch->description             = &str_empty[0];
-	ch->prompt                  = &str_empty[0];
-	ch->prefix			= &str_empty[0];
+	ch->name                    = NULL;
+	ch->short_descr             = NULL;
+	ch->long_descr              = NULL;
+	ch->description             = NULL;
+	ch->prompt                  = NULL;
+	ch->prefix					= NULL;
 	ch->logon                   = current_time;
 	ch->lines                   = PAGELEN;
 	for (i = 0; i < 4; i++)
@@ -343,11 +278,10 @@ void free_char (CHAR_DATA *ch)
 	AFFECT_DATA *paf;
 	AFFECT_DATA *paf_next;
 
-	if (!IS_VALID(ch))
-	return;
+	Escape(ch);
 
 	if (IS_NPC(ch))
-	mobile_count--;
+		mobile_count--;
 
 	for (obj = ch->carrying; obj != NULL; obj = obj_next)
 	{
@@ -370,31 +304,18 @@ void free_char (CHAR_DATA *ch)
 	free_note  (ch->pnote);
 	free_pcdata(ch->pcdata);
 
-	ch->next = char_free;
-	char_free  = ch;
-
-	INVALIDATE(ch);
+	PURGE_DATA(ch);
 	return;
 }
 
-PC_DATA *pcdata_free;
 
 PC_DATA *new_pcdata(void)
 {
-	int alias;
+	int alias = 0;
 
-	static PC_DATA pcdata_zero;
 	PC_DATA *pcdata;
 
-	if (pcdata_free == NULL)
-	pcdata = alloc_perm(sizeof(*pcdata));
-	else
-	{
-	pcdata = pcdata_free;
-	pcdata_free = pcdata_free->next;
-	}
-
-	*pcdata = pcdata_zero;
+	ALLOC_DATA(pcdata, PC_DATA, 1);
 
 	for (alias = 0; alias < MAX_ALIAS; alias++)
 	{
@@ -402,19 +323,24 @@ PC_DATA *new_pcdata(void)
 	pcdata->alias_sub[alias] = NULL;
 	}
 
+	pcdata->bamfin			= NULL;
+	pcdata->bamfout			= NULL;
+	pcdata->pwd				= NULL;
+	pcdata->title			= NULL;
+	pcdata->security		= 0;
+	pcdata->true_sex		= 0;
+
 	pcdata->buffer = new_buf();
 	
-	VALIDATE(pcdata);
 	return pcdata;
 }
 	
 
 void free_pcdata(PC_DATA *pcdata)
 {
-	int alias;
+	int alias = 0;
 
-	if (!IS_VALID(pcdata))
-	return;
+    Escape(pcdata);
 
 	PURGE_DATA(pcdata->pwd);
 	PURGE_DATA(pcdata->bamfin);
@@ -427,9 +353,7 @@ void free_pcdata(PC_DATA *pcdata)
 	PURGE_DATA(pcdata->alias[alias]);
 	PURGE_DATA(pcdata->alias_sub[alias]);
 	}
-	INVALIDATE(pcdata);
-	pcdata->next = pcdata_free;
-	pcdata_free = pcdata;
+	PURGE_DATA(pcdata);
 
 	return;
 }
@@ -466,31 +390,21 @@ MEM_DATA *new_mem_data(void)
 {
 	MEM_DATA *memory;
   
-	if (mem_data_free == NULL)
-	memory = alloc_mem(sizeof(*memory));
-	else
-	{
-	memory = mem_data_free;
-	mem_data_free = mem_data_free->next;
-	}
+	ALLOC_DATA(memory, MEM_DATA, 1);
 
 	memory->next = NULL;
 	memory->id = 0;
 	memory->reaction = 0;
 	memory->when = 0;
-	VALIDATE(memory);
-
+	
 	return memory;
 }
 
 void free_mem_data(MEM_DATA *memory)
 {
-	if (!IS_VALID(memory))
-	return;
+	Escape(memory);
 
-	memory->next = mem_data_free;
-	mem_data_free = memory;
-	INVALIDATE(memory);
+	PURGE_DATA(memory);
 }
 
 
@@ -516,7 +430,7 @@ int get_size (int val)
 	return -1;
 }
 
-BUFFER *__new_buf( const char *file, const char *function, int line)
+BUFFER *__new_buf(const char *file, const char *function, int line)
 {
 	BUFFER *buffer;
 
@@ -526,9 +440,9 @@ BUFFER *__new_buf( const char *file, const char *function, int line)
 	buffer->state	= BUFFER_SAFE;
 	buffer->size	= get_size(BASE_BUF);
 
-	//  FOR DEBUGGIN PURPOSES
+	/*For debugging purposes*/
 	buffer->file = str_dup(file);
-	buffer->function = str_dup(function);
+	buffer->function= str_dup(function);
 	buffer->line = line;
 
 	ALLOC_DATA(buffer->string, char, buffer->size);
@@ -544,31 +458,31 @@ BUFFER *__new_buf( const char *file, const char *function, int line)
 
 BUFFER *new_buf_size(int size)
 {
-	BUFFER *buffer;
- 
-	ALLOC_DATA(buffer, BUFFER, 1);
- 
-	buffer->next        = NULL;
-	buffer->state       = BUFFER_SAFE;
-	buffer->size        = get_size(size);
-	buffer->file		= NULL;
-	buffer->function	= NULL;
+    BUFFER *buffer;
 
-	if (buffer->size == -1)
-	{
-		bug("new_buf: buffer size %d too large.",size);
-		exit(1);
-	}
-	ALLOC_DATA(buffer->string, char, buffer->size);
-	buffer->string[0]   = '\0';
-	VALIDATE(buffer);
- 
-	return buffer;
+    ALLOC_DATA(buffer, BUFFER, 1);
+
+    buffer->next        = NULL;
+    buffer->state       = BUFFER_SAFE;
+    buffer->size        = get_size(size);
+    buffer->file		= NULL;
+    buffer->function    = NULL;
+    if (buffer->size == -1)
+    {
+        bug("new_buf: buffer size %d too large.",size);
+        exit(1);
+    }
+    ALLOC_DATA(buffer->string, char, buffer->size);
+    buffer->string[0]   = '\0';
+    VALIDATE(buffer);
+
+    return buffer;
 }
 
 
 void free_buf(BUFFER *buffer)
 {
+
 	Escape(buffer);
 
 	free(buffer->file);
@@ -585,7 +499,6 @@ void free_buf(BUFFER *buffer)
 	buffer->string = NULL;
 	buffer->size   = 0;
 	buffer->state  = BUFFER_FREED;
-
 	INVALIDATE(buffer);
 	PURGE_DATA(buffer);
 }
@@ -600,7 +513,7 @@ bool add_buf(BUFFER *buffer, char *string)
 	oldstr = buffer->string;
 
 	if (buffer->state == BUFFER_OVERFLOW) /* don't waste time on bad strings! */
-	return FALSE;
+		return FALSE;
 
 	len = strlen(buffer->string) + strlen(string) + 1;
 
@@ -608,7 +521,7 @@ bool add_buf(BUFFER *buffer, char *string)
 	{
 		buffer->size 	= get_size(buffer->size + 1);
 		{
-		if (buffer->size == -1) /* overflow */
+			if (buffer->size == -1) /* overflow */
 			{
 				buffer->size = oldsize;
 				buffer->state = BUFFER_OVERFLOW;
@@ -630,16 +543,16 @@ bool add_buf(BUFFER *buffer, char *string)
 	return TRUE;
 }
 
-void BufPrintf ( BUFFER * buffer, char * fmt, ...)
+void BufPrintf ( BUFFER * buffer, char * fmt, ... )
 {
-	char buf[MSL] = {'\0'};
+    char buf[MSL]={'\0'};
 	va_list args;
 
-	va_start (args, fmt);
-	vsnprintf( buf, sizeof(buf), fmt, args);
-	va_end (args);
+	va_start ( args, fmt );
+	vsnprintf ( buf, sizeof(buf), fmt, args );
+	va_end ( args );
 
-	add_buf(buffer, buf);
+	add_buf ( buffer, buf );
 	return;
 }
 
@@ -656,116 +569,77 @@ char *buf_string(BUFFER *buffer)
 	return buffer->string;
 }
 
-/* stuff for recycling mobprograms */
-MPROG_LIST *mprog_free;
-
 MPROG_LIST *new_mprog(void)
 {
-   static MPROG_LIST mp_zero;
    MPROG_LIST *mp;
 
-   if (mprog_free == NULL)
-	   mp = alloc_perm(sizeof(*mp));
-   else
-   {
-	   mp = mprog_free;
-	   mprog_free=mprog_free->next;
-   }
+   ALLOC_DATA(mp, MPROG_LIST, 1);
 
-   *mp = mp_zero;
    mp->vnum             = 0;
    mp->trig_type        = 0;
-   mp->code             = str_dup("");
-   VALIDATE(mp);
+   mp->code             = NULL;
    return mp;
 }
 
 void free_mprog(MPROG_LIST *mp)
 {
-   if (!IS_VALID(mp))
-	  return;
+   Escape(mp);
 
-   INVALIDATE(mp);
-   mp->next = mprog_free;
-   mprog_free = mp;
+   PURGE_DATA(mp->code);
+   PURGE_DATA(mp->trig_phrase);
+   PURGE_DATA(mp);
 }
-
-HELP_AREA * had_free;
 
 HELP_AREA * new_had ( void )
 {
 	HELP_AREA * had;
-static	HELP_AREA   zHad;
-
-	if ( had_free )
-	{
-		had		= had_free;
-		had_free	= had_free->next;
-	}
-	else
-		had		= alloc_perm( sizeof( *had ) );
-
-	*had = zHad;
+	
+	ALLOC_DATA(had, HELP_AREA, 1);
 
 	return had;
 }
 
-HELP_DATA * help_free;
-
 HELP_DATA * new_help ( void )
 {
-	HELP_DATA * help;
+	HELP_DATA *help;
 
-	if ( help_free )
-	{
-		help		= help_free;
-		help_free	= help_free->next;
-	}
-	else
-		help		= alloc_perm( sizeof( *help ) );
+	ALLOC_DATA(help, HELP_DATA, 1);
 
+	help->level = 0;
+	help->keyword = NULL;
+	help->text = NULL;
+	
 	return help;
 }
 
 void free_help(HELP_DATA *help)
 {
+	Escape(help);
+
 	PURGE_DATA(help->keyword);
 	PURGE_DATA(help->text);
-	help->next = help_free;
-	help_free = help;
+	
+	PURGE_DATA( help );
 }
 
 // New stuff to recycle
-/* stuff for recycling wizlist structures */
-WIZ_DATA *wiz_free;
 
 WIZ_DATA *new_wiz(void)
 {
 	static WIZ_DATA wiz_zero;
 	WIZ_DATA *wiz;
 
-	if (wiz_free == NULL)
-		wiz = alloc_perm(sizeof(*wiz));
-	else
-	{
-		wiz = wiz_free;
-		wiz_free = wiz_free->next;
-	}
+	ALLOC_DATA(wiz, WIZ_DATA, 1);
 
 	*wiz = wiz_zero;
-	VALIDATE(wiz);
-	wiz->name = &str_empty[0];
+	wiz->name = NULL;
 	return wiz;
 }
 
 void free_wiz(WIZ_DATA *wiz)
 {
-	if (!IS_VALID(wiz))
-		return;
+	Escape(wiz);
 
 	PURGE_DATA(wiz->name);
-	INVALIDATE(wiz);
-
-	wiz->next = wiz_free;
-	wiz_free = wiz;
+	PURGE_DATA(wiz);	
 }

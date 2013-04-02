@@ -56,23 +56,13 @@ RESET_DATA *new_reset_data( void )
 {
     RESET_DATA *pReset;
 
-    if ( !reset_free )
-    {
-        pReset          =   alloc_perm( sizeof(*pReset) );
-        top_reset++;
-    }
-    else
-    {
-        pReset          =   reset_free;
-        reset_free      =   reset_free->next;
-    }
+    ALLOC_DATA(pReset, RESET_DATA, 1);
 
     pReset->next        =   NULL;
     pReset->command     =   'X';
     pReset->arg1        =   0;
     pReset->arg2        =   0;
     pReset->arg3        =   0;
-    pReset->arg4	=   0;
 
     return pReset;
 }
@@ -91,32 +81,22 @@ void free_reset_data( RESET_DATA *pReset )
 AREA_DATA *new_area( void )
 {
     AREA_DATA *pArea;
-    char buf[MAX_INPUT_LENGTH];
 
-    if ( !area_free )
-    {
-        pArea   =   alloc_perm( sizeof(*pArea) );
-        top_area++;
-    }
-    else
-    {
-        pArea       =   area_free;
-        area_free   =   area_free->next;
-    }
+    ALLOC_DATA(pArea, AREA_DATA, 1);
 
+    pArea->name = str_dup( "New Area");
+    pArea->builders = str_dup("None");
+    pArea->file_name    =   str_dup( (char *)Format("area%d.are", pArea->vnum) );
+    
     pArea->next             =   NULL;
-    pArea->name             =   str_dup( "New area" );
-/*    pArea->recall           =   ROOM_VNUM_TEMPLE;      ROM OLC */
+    /*    pArea->recall           =   ROOM_VNUM_TEMPLE;      ROM OLC */
     pArea->area_flags       =   AREA_ADDED;
     pArea->security         =   1;
-    pArea->builders         =   str_dup( "None" );
     pArea->min_vnum            =   0;
     pArea->max_vnum            =   0;
     pArea->age              =   0;
     pArea->nplayer          =   0;
     pArea->empty            =   TRUE;              /* ROM patch */
-    sprintf( buf, "area%d.are", pArea->vnum );
-    pArea->file_name        =   str_dup( buf );
     pArea->vnum             =   top_area-1;
 
     return pArea;
@@ -126,13 +106,14 @@ AREA_DATA *new_area( void )
 
 void free_area( AREA_DATA *pArea )
 {
+    Escape(pArea);
+
     PURGE_DATA( pArea->name );
     PURGE_DATA( pArea->file_name );
     PURGE_DATA( pArea->builders );
     PURGE_DATA( pArea->credits );
 
-    pArea->next         =   area_free->next;
-    area_free           =   pArea;
+    PURGE_DATA(pArea);
     return;
 }
 
@@ -142,24 +123,15 @@ EXIT_DATA *new_exit( void )
 {
     EXIT_DATA *pExit;
 
-    if ( !exit_free )
-    {
-        pExit           =   alloc_perm( sizeof(*pExit) );
-        top_exit++;
-    }
-    else
-    {
-        pExit           =   exit_free;
-        exit_free       =   exit_free->next;
-    }
+    ALLOC_DATA(pExit, EXIT_DATA, 1);
 
     pExit->u1.to_room   =   NULL;                  /* ROM OLC */
     pExit->next         =   NULL;
 /*  pExit->vnum         =   0;                        ROM OLC */
     pExit->exit_info    =   0;
     pExit->key          =   0;
-    pExit->keyword      =   &str_empty[0];
-    pExit->description  =   &str_empty[0];
+    pExit->keyword      =   NULL;
+    pExit->description  =   NULL;
     pExit->rs_flags     =   0;
 
     return pExit;
@@ -169,11 +141,12 @@ EXIT_DATA *new_exit( void )
 
 void free_exit( EXIT_DATA *pExit )
 {
+    Escape(pExit);
+
     PURGE_DATA( pExit->keyword );
     PURGE_DATA( pExit->description );
 
-    pExit->next         =   exit_free;
-    exit_free           =   pExit;
+    PURGE_DATA( pExit );
     return;
 }
 
@@ -181,18 +154,9 @@ void free_exit( EXIT_DATA *pExit )
 ROOM_INDEX_DATA *new_room_index( void )
 {
     ROOM_INDEX_DATA *pRoom;
-    int door;
+    int door = 0;
 
-    if ( !room_index_free )
-    {
-        pRoom           =   alloc_perm( sizeof(*pRoom) );
-        top_room++;
-    }
-    else
-    {
-        pRoom           =   room_index_free;
-        room_index_free =   room_index_free->next;
-    }
+    ALLOC_DATA(pRoom, ROOM_INDEX_DATA, 1);
 
     pRoom->next             =   NULL;
     pRoom->people           =   NULL;
@@ -203,9 +167,9 @@ ROOM_INDEX_DATA *new_room_index( void )
     for ( door=0; door < MAX_DIR; door++ )
         pRoom->exit[door]   =   NULL;
 
-    pRoom->name             =   &str_empty[0];
-    pRoom->description      =   &str_empty[0];
-    pRoom->owner	    =	&str_empty[0];
+    pRoom->name             =   str_dup( "Unnamed Room");
+    pRoom->description      =   str_dup( "None");
+    pRoom->owner	    =	NULL;
     pRoom->vnum             =   0;
     pRoom->room_flags       =   0;
     pRoom->light            =   0;
@@ -256,18 +220,9 @@ extern AFFECT_DATA *affect_free;
 SHOP_DATA *new_shop( void )
 {
     SHOP_DATA *pShop;
-    int buy;
+    int buy = 0;
 
-    if ( !shop_free )
-    {
-        pShop           =   alloc_perm( sizeof(*pShop) );
-        top_shop++;
-    }
-    else
-    {
-        pShop           =   shop_free;
-        shop_free       =   shop_free->next;
-    }
+    ALLOC_DATA(pShop, SHOP_DATA, 1);
 
     pShop->next         =   NULL;
     pShop->keeper       =   0;
@@ -287,8 +242,10 @@ SHOP_DATA *new_shop( void )
 
 void free_shop( SHOP_DATA *pShop )
 {
-    pShop->next = shop_free;
-    shop_free   = pShop;
+    Escape(pShop);
+    // UNLINK_SINGLE(pShop, next, SHOP_DATA, shop_list);
+
+    PURGE_DATA(pShop);
     return;
 }
 
@@ -297,24 +254,15 @@ void free_shop( SHOP_DATA *pShop )
 OBJ_INDEX_DATA *new_obj_index( void )
 {
     OBJ_INDEX_DATA *pObj;
-    int value;
+    int value = 0;
 
-    if ( !obj_index_free )
-    {
-        pObj           =   alloc_perm( sizeof(*pObj) );
-        top_obj_index++;
-    }
-    else
-    {
-        pObj            =   obj_index_free;
-        obj_index_free  =   obj_index_free->next;
-    }
+    ALLOC_DATA(pObj, OBJ_INDEX_DATA, 1);
 
     pObj->next          =   NULL;
     pObj->extra_descr   =   NULL;
     pObj->affected      =   NULL;
     pObj->area          =   NULL;
-    pObj->name          =   str_dup( "no name" );
+    pObj->name          =   str_dup( "(no name)" );
     pObj->short_descr   =   str_dup( "(no short description)" );
     pObj->description   =   str_dup( "(no description)" );
     pObj->vnum          =   0;
@@ -366,25 +314,16 @@ MOB_INDEX_DATA *new_mob_index( void )
 {
     MOB_INDEX_DATA *pMob;
 
-    if ( !mob_index_free )
-    {
-        pMob           =   alloc_perm( sizeof(*pMob) );
-        top_mob_index++;
-    }
-    else
-    {
-        pMob            =   mob_index_free;
-        mob_index_free  =   mob_index_free->next;
-    }
+    ALLOC_DATA(pMob, MOB_INDEX_DATA, 1);
 
     pMob->next          =   NULL;
     pMob->spec_fun      =   NULL;
     pMob->pShop         =   NULL;
     pMob->area          =   NULL;
-    pMob->player_name   =   str_dup( "no name" );
+    pMob->player_name   =   str_dup( "(no name)" );
     pMob->short_descr   =   str_dup( "(no short description)" );
     pMob->long_descr    =   str_dup( "(no long description)\n\r" );
-    pMob->description   =   &str_empty[0];
+    pMob->description   =   str_dup( "(no description)");
     pMob->vnum          =   0;
     pMob->count         =   0;
     pMob->killed        =   0;
@@ -429,6 +368,8 @@ MOB_INDEX_DATA *new_mob_index( void )
 
 void free_mob_index( MOB_INDEX_DATA *pMob )
 {
+    Escape(pMob);
+    
     PURGE_DATA( pMob->player_name );
     PURGE_DATA( pMob->short_descr );
     PURGE_DATA( pMob->long_descr );
@@ -448,19 +389,10 @@ MPROG_CODE *new_mpcode(void)
 {
      MPROG_CODE *NewCode;
 
-     if (!mpcode_free)
-     {
-         NewCode = alloc_perm(sizeof(*NewCode) );
-         top_mprog_index++;
-     }
-     else
-     {
-         NewCode     = mpcode_free;
-         mpcode_free = mpcode_free->next;
-     }
+     ALLOC_DATA(NewCode, MPROG_CODE, 1);
 
      NewCode->vnum    = 0;
-     NewCode->code    = str_dup("");
+     NewCode->code    = NULL;
      NewCode->next    = NULL;
 
      return NewCode;

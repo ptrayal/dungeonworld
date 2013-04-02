@@ -232,7 +232,7 @@ void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time)
         while ( isspace(letter) );
         ungetc( letter, fp );
  
-        pnote           = alloc_perm( sizeof(*pnote) );
+        ALLOC_DATA(pnote, NOTE_DATA, 1);
  
         if ( str_cmp( fread_word( fp ), "sender" ) )
             break;

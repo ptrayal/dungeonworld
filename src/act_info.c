@@ -144,8 +144,8 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
     count = 0;
     for ( obj = list; obj != NULL; obj = obj->next_content )
 	count++;
-    prgpstrShow	= alloc_mem( count * sizeof(char *) );
-    prgnShow    = alloc_mem( count * sizeof(int)    );
+    ALLOC_DATA(prgpstrShow, char*, (count *sizeof(char*)));
+    ALLOC_DATA(prgnShow, int, count);
     nShow	= 0;
 
     /*

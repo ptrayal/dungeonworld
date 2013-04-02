@@ -14,11 +14,31 @@ O_FILES = act_comm.o act_enter.o act_info.o act_move.o act_obj.o \
 
 rom: $(O_FILES)
 	rm -f rom
+	rm -f rom.exe
 	$(CC) $(L_FLAGS) -o rom $(O_FILES)
 
 .c.o: merc.h
 	$(CC) -c $(C_FLAGS) $<
 
+####################################################################################################
+# clean out our folder of any/all un-necessary files allowing us to ensure our directory is clean.
 clean:
 	@rm -f *.o
+	@echo ".o files removed from directory."
 	make
+####################################################################################################
+
+####################################################################################################
+# Wipes the directory clean of .o files and the executibles.  Helps ensure a clean directory.
+wipe:
+	@rm -f *.o rom
+	@rm -f rom.exe
+	@echo "Dungeon World is wiped."
+####################################################################################################
+
+
+####################################################################################################
+# Grab our u-name for giggles; used later on to detect possible support
+# for the game engine
+UNAME = $(shell uname -s)
+####################################################################################################

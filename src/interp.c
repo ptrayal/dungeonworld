@@ -287,7 +287,7 @@ const	struct	cmd_type	cmd_table	[] =
      * Immortal commands.
      */
     { "advance",	do_advance,	POS_DEAD,	ML,  LOG_ALWAYS, 1 },
-    { "dump",		do_dump,	POS_DEAD,	ML,  LOG_ALWAYS, 0 },
+    // { "dump",		do_dump,	POS_DEAD,	ML,  LOG_ALWAYS, 0 },
     { "trust",		do_trust,	POS_DEAD,	ML,  LOG_ALWAYS, 1 },
     { "violate",	do_violate,	POS_DEAD,	ML,  LOG_ALWAYS, 1 },
 

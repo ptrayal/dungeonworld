@@ -514,7 +514,7 @@ void game_loop_mac_msdos( void )
 	dcon.connected	= CON_GET_NAME;
 	dcon.host		= str_dup( "localhost" );
 	dcon.outsize	= 2000;
-	dcon.outbuf		= alloc_mem( dcon.outsize );
+	ALLOC_DATA(dcon.outbuf, DESCRIPTOR_DATA, dcon.outsize);
 	dcon.next		= descriptor_list;
 	dcon.showstr_head	= NULL;
 	dcon.showstr_point	= NULL;
@@ -920,17 +920,13 @@ void init_descriptor( int control )
 	 */
 	dnew = new_descriptor();
 
-	dnew->descriptor	= desc;
-	dnew->connected	= CON_GET_NAME;
-	dnew->showstr_head	= NULL;
-	dnew->showstr_point = NULL;
-	dnew->outsize	= 2000;
-	dnew->pEdit		= NULL;			/* OLC */
-	dnew->pString	= NULL;			/* OLC */
-	dnew->editor	= 0;			/* OLC */
-	dnew->outbuf	= alloc_mem( dnew->outsize );
-	dnew->pProtocol     = ProtocolCreate(); /* <--- Add this line */
+	assert(dnew); // if calloc fails, we should never see this, but, just incase.
 
+	dnew->descriptor = desc;
+
+	dnew->pProtocol     = ProtocolCreate();
+	assert(dnew->pProtocol); // if ProtocolCreate fails, then we have an issue, we will assert out!
+	
 	size = sizeof(sock);
 	if ( getpeername( desc, (struct sockaddr *) &sock, &size ) < 0 )
 	{
@@ -1513,53 +1509,59 @@ void bust_a_prompt( CHAR_DATA *ch )
 void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
 {
 
-	txt = ProtocolOutput( d, txt, &length );  /* <--- Add this line */
-	if ( d->pProtocol->WriteOOB > 0 )         /* <--- Add this line */
-		--d->pProtocol->WriteOOB;             /* <--- Add this line */
+	// don't write NULL data!
+	if(txt == NULL || txt == '\0')
+		return;
 
+	length = 0;
+
+    txt = ProtocolOutput( d, txt, &length );  /* <--- Add this line */
+    if ( d->pProtocol->WriteOOB > 0 )         /* <--- Add this line */
+        --d->pProtocol->WriteOOB;             /* <--- Add this line */
+//	const char *new_txt = txt;
 	/*
 	 * Find length in case caller didn't.
 	 */
-	 if ( length <= 0 )
-	 	length = strlen(txt);
+	if ( length <= 0 )
+		length = strlen(txt);
 
 	/*
 	 * Initial \n\r if needed.
 	 */
-	 if ( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB )
-	 {
-	 	d->outbuf[0]	= '\n';
-	 	d->outbuf[1]	= '\r';
-	 	d->outtop	= 2;
-	 }
+	if ( d->outtop == 0 && !d->fcommand && !d->pProtocol->WriteOOB )
+	{
+		d->outbuf[0]	= '\n';
+		d->outbuf[1]	= '\r';
+		d->outtop	= 2;
+	}
 
 	/*
 	 * Expand the buffer as needed.
 	 */
-	 while ( d->outtop + length >= d->outsize )
-	 {
-	 	char *outbuf;
+	while ( d->outtop + length >= d->outsize )
+	{
+		char *outbuf;
 
-	 	if (d->outsize >= 32000)
-	 	{
-	 		bug("Buffer overflow. Closing.\n\r",0);
-	 		close_socket(d);
-	 		return;
-	 	}
-	 	ALLOC_DATA(outbuf, char, 2 * d->outsize );
-	 	strncpy( outbuf, d->outbuf, d->outtop );
-	 	PURGE_DATA( d->outbuf );
-	 	d->outbuf   = outbuf;
-	 	d->outsize *= 2;
-	 }
+		if (d->outsize >= 32000)
+		{
+			bug("Buffer overflow. Closing.\n\r",0);
+			close_socket(d);
+			return;
+		}
+		ALLOC_DATA(outbuf, char, 2 * d->outsize);
+		strncpy( outbuf, d->outbuf, d->outtop );
+		PURGE_DATA(d->outbuf);
+		d->outbuf   = outbuf;
+		d->outsize *= 2;
+	}
 
 	/*
 	 * Copy.
 	 */
-	 strncpy( d->outbuf + d->outtop, txt, length );
-	 d->outtop += length;
-	 return;
-	}
+	strncpy( d->outbuf + d->outtop, txt, length );
+	d->outtop += length;
+	return;
+}
 
 
 
