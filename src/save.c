@@ -165,54 +165,57 @@ void save_char_obj( CHAR_DATA *ch )
 void fwrite_char( CHAR_DATA *ch, FILE *fp )
 {
     AFFECT_DATA *paf;
-    int sn, gn, pos;
+    int sn = 0, gn = 0, pos = 0;
 
-    fprintf( fp, "#%s\n", IS_NPC(ch) ? "MOB" : "PLAYER"	);
+    WriteToFile( fp, false, "#", IS_NPC(ch) ? "MOB" : "PLAYER"  );
 
-    fprintf( fp, "Name %s~\n",	ch->name		);
-    fprintf( fp, "Id   %ld\n", ch->id			);
-    fprintf( fp, "LogO %ld\n",	current_time		);
-    fprintf( fp, "Vers %d\n",   5			);
-    if (ch->short_descr[0] != '\0')
-      	fprintf( fp, "ShD  %s~\n",	ch->short_descr	);
-    if( ch->long_descr[0] != '\0')
-	fprintf( fp, "LnD  %s~\n",	ch->long_descr	);
-    if (ch->description[0] != '\0')
-    	fprintf( fp, "Desc %s~\n",	ch->description	);
-    if (ch->prompt != NULL || !str_cmp(ch->prompt,"<%hhp %mm %vmv> "))
-        fprintf( fp, "Prom %s~\n",      ch->prompt  	);
+    WriteToFile(fp, true, "Name", ch->name);
+    WriteLong(fp, "Id", ch->id);
+    WriteLong(fp, "LogO", current_time);
+    WriteNumber(fp, "Ver", 5);
+    
+    WriteToFile(fp, true, "ShD", ch->short_descr);
+    WriteToFile(fp, true, "LnD", ch->long_descr);
+    WriteToFile(fp, true, "Desc", ch->description);
+
+    WriteToFile(fp, true, "Prompt", ch->prompt);
+
     fprintf( fp, "Race %s~\n", pc_race_table[ch->race].name );
     if (ch->clan)
-    	fprintf( fp, "Clan %s~\n",clan_table[ch->clan].name);
-    fprintf( fp, "Sex  %d\n",	ch->sex			);
-    fprintf( fp, "Cla  %d\n",	ch->class		);
-    fprintf( fp, "Levl %d\n",	ch->level		);
-    if (ch->trust != 0)
-	fprintf( fp, "Tru  %d\n",	ch->trust	);
-    fprintf( fp, "Sec  %d\n",    ch->pcdata->security	);	/* OLC */
-    fprintf( fp, "Plyd %d\n",
-	ch->played + (int) (current_time - ch->logon)	);
+        WriteToFile(fp, true, "Clan", clan_table[ch->clan].name);
+   
+    WriteNumber(fp, "Sex", ch->sex);
+    WriteNumber(fp, "Cla", ch->class);
+    WriteNumber(fp, "Levl", ch->level);
+    WriteNumber(fp, "Tru", ch->trust);
+    WriteNumber(fp, "Sec", ch->pcdata->security);
+    WriteNumber(fp, "Playd", ch->played + (int) (current_time - ch->logon)  );
+
     fprintf( fp, "Not  %ld %ld %ld %ld %ld\n",		
 	ch->pcdata->last_note,ch->pcdata->last_idea,ch->pcdata->last_penalty,
 	ch->pcdata->last_news,ch->pcdata->last_changes	);
-    fprintf( fp, "Scro %d\n", 	ch->lines		);
-    fprintf( fp, "Room %d\n",
+    
+    WriteNumber(fp, "Scro", ch->lines);
+
+    WriteNumber(fp, "Room", 
         (  ch->in_room == get_room_index( ROOM_VNUM_LIMBO )
-        && ch->was_in_room != NULL )
-            ? ch->was_in_room->vnum
-            : ch->in_room == NULL ? 3001 : ch->in_room->vnum );
+         && ch->was_in_room != NULL )
+             ? ch->was_in_room->vnum
+             : ch->in_room == NULL ? 10000 : ch->in_room->vnum );
 
     fprintf( fp, "HMV  %d %d %d %d %d %d\n",
 	ch->hit, ch->max_hit, ch->mana, ch->max_mana, ch->move, ch->max_move );
+
     if (ch->gold > 0)
-      fprintf( fp, "Gold %ld\n",	ch->gold		);
+        WriteLong(fp, "Gold", ch->gold);
     else
-      fprintf( fp, "Gold %d\n", 0			); 
+        WriteNumber(fp, "Gold", 0);
     if (ch->silver > 0)
-	fprintf( fp, "Silv %ld\n",ch->silver		);
+        WriteLong(fp, "Silv", ch->silver);
     else
-	fprintf( fp, "Silv %d\n",0			);
-    fprintf( fp, "Exp  %d\n",	ch->exp			);
+        WriteNumber(fp, "Silv", 0);
+
+    WriteNumber(fp, "Exp", ch->exp);
     if (ch->act != 0)
 	fprintf( fp, "Act  %s\n",   print_flags(ch->act));
     if (ch->affected_by != 0)

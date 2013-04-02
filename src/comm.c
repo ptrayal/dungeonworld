@@ -1496,8 +1496,8 @@ void bust_a_prompt( CHAR_DATA *ch )
    }
    write_to_buffer( ch->desc, buf, point - buf );
 
-   if (ch->prefix[0] != '\0')
-		write_to_buffer(ch->desc,ch->prefix,0);
+   if (!IS_NULLSTR(ch->prefix))
+	   write_to_buffer(ch->desc,ch->prefix,0);
    return;
 }
 
