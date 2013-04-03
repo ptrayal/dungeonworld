@@ -216,18 +216,18 @@ void free_obj(OBJ_DATA *obj)
 
 	for (paf = obj->affected; paf != NULL; paf = paf_next)
 	{
-	paf_next = paf->next;
-	free_affect(paf);
+		paf_next = paf->next;
+		free_affect(paf);
 	}
 	obj->affected = NULL;
 
 	for (ed = obj->extra_descr; ed != NULL; ed = ed_next )
 	{
-	ed_next = ed->next;
-	free_extra_descr(ed);
-	 }
-	 obj->extra_descr = NULL;
-   
+		ed_next = ed->next;
+		free_extra_descr(ed);
+	}
+	obj->extra_descr = NULL;
+	
 	PURGE_DATA( obj->name        );
 	PURGE_DATA( obj->description );
 	PURGE_DATA( obj->short_descr );

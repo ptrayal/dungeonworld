@@ -2378,6 +2378,7 @@ char *	part_bit_name	args( ( int part_flags ) );
 char *	weapon_bit_name	args( ( int weapon_flags ) );
 char *  comm_bit_name	args( ( int comm_flags ) );
 char *	cont_bit_name	args( ( int cont_flags) );
+void purgeExtractedWorldData  args ( (void) );
 
 /* interp.c */
 void	interpret	args( ( CHAR_DATA *ch, char *argument ) );
