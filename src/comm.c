@@ -1257,85 +1257,85 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
  */
  bool process_output( DESCRIPTOR_DATA *d, bool fPrompt )
  {
- 	extern bool merc_down;
+	extern bool merc_down;
 
 	if ( d->pProtocol->WriteOOB ) /* <-- Add this, and the ";" and "else" */
 		; /* The last sent data was OOB, so do NOT draw the prompt */
- 	else if ( !merc_down )
- 		if ( d->showstr_point )
- 			write_to_buffer( d, "[Hit Return to continue]\n\r", 0 );
- 		else if ( fPrompt && d->pString && d->connected == CON_PLAYING )
- 			write_to_buffer( d, "> ", 2 );
- 		else if ( fPrompt && d->connected == CON_PLAYING )
- 		{
- 			CHAR_DATA *ch;
- 			CHAR_DATA *victim;
+	else if ( !merc_down )
+		if ( d->showstr_point )
+			write_to_buffer( d, "[Hit Return to continue]\n\r", 0 );
+		else if ( fPrompt && d->pString && d->connected == CON_PLAYING )
+			write_to_buffer( d, "> ", 2 );
+		else if ( fPrompt && d->connected == CON_PLAYING )
+		{
+			CHAR_DATA *ch;
+			CHAR_DATA *victim;
 
- 			ch = d->character;
+			ch = d->character;
 
 		/* battle prompt */
- 			if ((victim = ch->fighting) != NULL && can_see(ch,victim))
- 			{
- 				int percent;
- 				char wound[100];
- 				char buf[MAX_STRING_LENGTH];
- 				
- 				if (victim->max_hit > 0)
- 					percent = victim->hit * 100 / victim->max_hit;
- 				else
- 					percent = -1;
- 				
- 				if (percent >= 100)
- 					sprintf(wound,"is in excellent condition.");
- 				else if (percent >= 90)
- 					sprintf(wound,"has a few scratches.");
- 				else if (percent >= 75)
- 					sprintf(wound,"has some small wounds and bruises.");
- 				else if (percent >= 50)
- 					sprintf(wound,"has quite a few wounds.");
- 				else if (percent >= 30)
- 					sprintf(wound,"has some big nasty wounds and scratches.");
- 				else if (percent >= 15)
- 					sprintf(wound,"looks pretty hurt.");
- 				else if (percent >= 0)
- 					sprintf(wound,"is in awful condition.");
- 				else
- 					sprintf(wound,"is bleeding to death.");
- 				
- 				sprintf(buf,"%s %s \n\r", 
- 					IS_NPC(victim) ? victim->short_descr : victim->name,wound);
- 				buf[0] = UPPER(buf[0]);
- 				write_to_buffer( d, buf, 0);
- 			}
+			if ((victim = ch->fighting) != NULL && can_see(ch,victim))
+			{
+				int percent;
+				char wound[100];
+				char buf[MAX_STRING_LENGTH];
+				
+				if (victim->max_hit > 0)
+					percent = victim->hit * 100 / victim->max_hit;
+				else
+					percent = -1;
+				
+				if (percent >= 100)
+					sprintf(wound,"is in excellent condition.");
+				else if (percent >= 90)
+					sprintf(wound,"has a few scratches.");
+				else if (percent >= 75)
+					sprintf(wound,"has some small wounds and bruises.");
+				else if (percent >= 50)
+					sprintf(wound,"has quite a few wounds.");
+				else if (percent >= 30)
+					sprintf(wound,"has some big nasty wounds and scratches.");
+				else if (percent >= 15)
+					sprintf(wound,"looks pretty hurt.");
+				else if (percent >= 0)
+					sprintf(wound,"is in awful condition.");
+				else
+					sprintf(wound,"is bleeding to death.");
+				
+				sprintf(buf,"%s %s \n\r", 
+					IS_NPC(victim) ? victim->short_descr : victim->name,wound);
+				buf[0] = UPPER(buf[0]);
+				write_to_buffer( d, buf, 0);
+			}
 
 
- 			ch = d->original ? d->original : d->character;
- 			if (!IS_SET(ch->comm, COMM_COMPACT) )
- 				write_to_buffer( d, "\n\r", 2 );
+			ch = d->original ? d->original : d->character;
+			if (!IS_SET(ch->comm, COMM_COMPACT) )
+				write_to_buffer( d, "\n\r", 2 );
 
 
- 			if ( IS_SET(ch->comm, COMM_PROMPT) )
- 				bust_a_prompt( d->character );
+			if ( IS_SET(ch->comm, COMM_PROMPT) )
+				bust_a_prompt( d->character );
 
- 			if (IS_SET(ch->comm,COMM_TELNET_GA))
- 				write_to_buffer(d,go_ahead_str,0);
- 		}
+			if (IS_SET(ch->comm,COMM_TELNET_GA))
+				write_to_buffer(d,go_ahead_str,0);
+		}
 
 	/*
 	 * Short-circuit if nothing to write.
 	 */
 	 if ( d->outtop == 0 )
-	 	return TRUE;
+		return TRUE;
 
 	/*
 	 * Snoop-o-rama.
 	 */
 	 if ( d->snoop_by != NULL )
 	 {
-	 	if (d->character != NULL)
-	 		write_to_buffer( d->snoop_by, d->character->name,0);
-	 	write_to_buffer( d->snoop_by, "> ", 2 );
-	 	write_to_buffer( d->snoop_by, d->outbuf, d->outtop );
+		if (d->character != NULL)
+			write_to_buffer( d->snoop_by, d->character->name,0);
+		write_to_buffer( d->snoop_by, "> ", 2 );
+		write_to_buffer( d->snoop_by, d->outbuf, d->outtop );
 	 }
 
 	/*
@@ -1343,13 +1343,13 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 	 */
 	 if ( !write_to_descriptor( d->descriptor, d->outbuf, d->outtop ) )
 	 {
-	 	d->outtop = 0;
-	 	return FALSE;
+		d->outtop = 0;
+		return FALSE;
 	 }
 	 else
 	 {
-	 	d->outtop = 0;
-	 	return TRUE;
+		d->outtop = 0;
+		return TRUE;
 	 }
 	}
 
@@ -1359,146 +1359,144 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
  */
 void bust_a_prompt( CHAR_DATA *ch )
 {
-	char buf[MAX_STRING_LENGTH];
-	char buf2[MAX_STRING_LENGTH];
+	char buf[MAX_STRING_LENGTH]={'\0'};
+	char buf2[MAX_STRING_LENGTH]={'\0'};
 	const char *str;
 	const char *i;
 	char *point;
-	char doors[MAX_INPUT_LENGTH];
+	char doors[MAX_INPUT_LENGTH]={'\0'};
 	EXIT_DATA *pexit;
 	bool found;
 	const char *dir_name[] = {"N","E","S","W","U","D"};
-	int door;
- 
+	int door = 0;
+
 	point = buf;
 	str = ch->prompt;
 	if (str == NULL || str[0] == '\0')
 	{
-		sprintf( buf, "<%dhp %dm %dmv> %s",
-		ch->hit,ch->mana,ch->move,ch->prefix);
-	send_to_char(buf,ch);
-	return;
+		send_to_char(Format("<%dhp %dm %dmv> %s", ch->hit,ch->mana,ch->move,ch->prefix),ch);
+		return;
 	}
 
-   if (IS_SET(ch->comm,COMM_AFK))
-   {
-	send_to_char("<AFK> ",ch);
-	return;
-   }
+	if (IS_SET(ch->comm,COMM_AFK))
+	{
+		send_to_char("<AFK> ",ch);
+		return;
+	}
 
-   while( *str != '\0' )
-   {
-	  if( *str != '%' )
-	  {
-		 *point++ = *str++;
-		 continue;
-	  }
-	  ++str;
-	  switch( *str )
-	  {
-		 default :
+	while( *str != '\0' )
+	{
+		if( *str != '%' )
+		{
+			*point++ = *str++;
+			continue;
+		}
+		++str;
+		switch( *str )
+		{
+			default :
 			i = " "; break;
-	case 'e':
-		found = FALSE;
-		doors[0] = '\0';
-		for (door = 0; door < 6; door++)
-		{
-		if ((pexit = ch->in_room->exit[door]) != NULL
-		&&  pexit ->u1.to_room != NULL
-		&&  (can_see_room(ch,pexit->u1.to_room)
-		||   (IS_AFFECTED(ch,AFF_INFRARED) 
-		&&    !IS_AFFECTED(ch,AFF_BLIND)))
-		&&  !IS_SET(pexit->exit_info,EX_CLOSED))
-		{
-			found = TRUE;
-			strcat(doors,dir_name[door]);
-		}
-		}
-		if (!found)
-		strcat(buf,"none");
-		sprintf(buf2,"%s",doors);
-		i = buf2; break;
-	 case 'c' :
-		sprintf(buf2,"%s","\n\r");
-		i = buf2; break;
-		 case 'h' :
+			case 'e':
+			found = FALSE;
+			doors[0] = '\0';
+			for (door = 0; door < 6; door++)
+			{
+				if ((pexit = ch->in_room->exit[door]) != NULL
+					&&  pexit ->u1.to_room != NULL
+					&&  (can_see_room(ch,pexit->u1.to_room)
+						||   (IS_AFFECTED(ch,AFF_INFRARED) 
+							&&    !IS_AFFECTED(ch,AFF_BLIND)))
+					&&  !IS_SET(pexit->exit_info,EX_CLOSED))
+				{
+					found = TRUE;
+					strcat(doors,dir_name[door]);
+				}
+			}
+			if (!found)
+				strcat(buf,"none");
+			sprintf(buf2,"%s",doors);
+			i = buf2; break;
+			case 'c' :
+			sprintf(buf2,"%s","\n\r");
+			i = buf2; break;
+			case 'h' :
 			sprintf( buf2, "%d", ch->hit );
 			i = buf2; break;
-		 case 'H' :
+			case 'H' :
 			sprintf( buf2, "%d", ch->max_hit );
 			i = buf2; break;
-		 case 'm' :
+			case 'm' :
 			sprintf( buf2, "%d", ch->mana );
 			i = buf2; break;
-		 case 'M' :
+			case 'M' :
 			sprintf( buf2, "%d", ch->max_mana );
 			i = buf2; break;
-		 case 'v' :
+			case 'v' :
 			sprintf( buf2, "%d", ch->move );
 			i = buf2; break;
-		 case 'V' :
+			case 'V' :
 			sprintf( buf2, "%d", ch->max_move );
 			i = buf2; break;
-		 case 'x' :
+			case 'x' :
 			sprintf( buf2, "%d", ch->exp );
 			i = buf2; break;
-	 case 'X' :
-		sprintf(buf2, "%d", IS_NPC(ch) ? 0 :
-		(ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp);
-		i = buf2; break;
-		 case 'g' :
+			case 'X' :
+			sprintf(buf2, "%d", IS_NPC(ch) ? 0 :
+				(ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp);
+			i = buf2; break;
+			case 'g' :
 			sprintf( buf2, "%ld", ch->gold);
 			i = buf2; break;
-	 case 's' :
-		sprintf( buf2, "%ld", ch->silver);
-		i = buf2; break;
-		 case 'a' :
+			case 's' :
+			sprintf( buf2, "%ld", ch->silver);
+			i = buf2; break;
+			case 'a' :
 			if( ch->level > 9 )
-			   sprintf( buf2, "%d", ch->alignment );
+				sprintf( buf2, "%d", ch->alignment );
 			else
-			   sprintf( buf2, "%s", IS_GOOD(ch) ? "good" : IS_EVIL(ch) ?
-				"evil" : "neutral" );
+				sprintf( buf2, "%s", IS_GOOD(ch) ? "good" : IS_EVIL(ch) ?
+					"evil" : "neutral" );
 			i = buf2; break;
-		 case 'r' :
+			case 'r' :
 			if( ch->in_room != NULL )
-			   sprintf( buf2, "%s", 
-		((!IS_NPC(ch) && IS_SET(ch->act,PLR_HOLYLIGHT)) ||
-		 (!IS_AFFECTED(ch,AFF_BLIND) && !room_is_dark( ch->in_room )))
-		? ch->in_room->name : "darkness");
+				sprintf( buf2, "%s", 
+					((!IS_NPC(ch) && IS_SET(ch->act,PLR_HOLYLIGHT)) ||
+						(!IS_AFFECTED(ch,AFF_BLIND) && !room_is_dark( ch->in_room )))
+					? ch->in_room->name : "darkness");
 			else
-			   sprintf( buf2, " " );
+				sprintf( buf2, " " );
 			i = buf2; break;
-		 case 'R' :
+			case 'R' :
 			if( IS_IMMORTAL( ch ) && ch->in_room != NULL )
-			   sprintf( buf2, "%d", ch->in_room->vnum );
+				sprintf( buf2, "%d", ch->in_room->vnum );
 			else
-			   sprintf( buf2, " " );
+				sprintf( buf2, " " );
 			i = buf2; break;
-		 case 'z' :
+			case 'z' :
 			if( IS_IMMORTAL( ch ) && ch->in_room != NULL )
-			   sprintf( buf2, "%s", ch->in_room->area->name );
+				sprintf( buf2, "%s", ch->in_room->area->name );
 			else
-			   sprintf( buf2, " " );
+				sprintf( buf2, " " );
 			i = buf2; break;
-		 case '%' :
+			case '%' :
 			sprintf( buf2, "%%" );
 			i = buf2; break;
-		 case 'o' :
+			case 'o' :
 			sprintf( buf2, "%s", olc_ed_name(ch) );
 			i = buf2; break;
-	 case 'O' :
-		sprintf( buf2, "%s", olc_ed_vnum(ch) );
-		i = buf2; break;
-	  }
-	  ++str;
-	  while( (*point = *i) != '\0' )
-		 ++point, ++i;
-   }
-   write_to_buffer( ch->desc, buf, point - buf );
+			case 'O' :
+			sprintf( buf2, "%s", olc_ed_vnum(ch) );
+			i = buf2; break;
+		}
+		++str;
+		while( (*point = *i) != '\0' )
+			++point, ++i;
+	}
+	write_to_buffer( ch->desc, buf, point - buf );
 
-   if (!IS_NULLSTR(ch->prefix))
-	   write_to_buffer(ch->desc,ch->prefix,0);
-   return;
+	if (!IS_NULLSTR(ch->prefix))
+		write_to_buffer(ch->desc,ch->prefix,0);
+	return;
 }
 
 
@@ -1515,9 +1513,9 @@ void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
 
 	length = 0;
 
-    txt = ProtocolOutput( d, txt, &length );  /* <--- Add this line */
-    if ( d->pProtocol->WriteOOB > 0 )         /* <--- Add this line */
-        --d->pProtocol->WriteOOB;             /* <--- Add this line */
+	txt = ProtocolOutput( d, txt, &length );  /* <--- Add this line */
+	if ( d->pProtocol->WriteOOB > 0 )         /* <--- Add this line */
+		--d->pProtocol->WriteOOB;             /* <--- Add this line */
 //	const char *new_txt = txt;
 	/*
 	 * Find length in case caller didn't.
