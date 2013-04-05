@@ -1247,8 +1247,8 @@ REDIT( redit_show )
 bool change_exit( CHAR_DATA *ch, char *argument, int door )
 {
     ROOM_INDEX_DATA *pRoom;
-    char command[MAX_INPUT_LENGTH];
-    char arg[MAX_INPUT_LENGTH];
+    char command[MAX_INPUT_LENGTH]={'\0'};
+    char arg[MAX_INPUT_LENGTH]={'\0'};
     int  value;
 
     EDIT_ROOM(ch, pRoom);
