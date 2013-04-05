@@ -281,20 +281,17 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
 	{
 		if (IS_SET(victim->on->value[2],SLEEP_AT))
 		{
-		sprintf(message," is sleeping at %s.",
-			victim->on->short_descr);
+		sprintf(message," is sleeping at %s.", victim->on->short_descr);
 		strcat(buf,message);
 		}
 		else if (IS_SET(victim->on->value[2],SLEEP_ON))
 		{
-		sprintf(message," is sleeping on %s.",
-			victim->on->short_descr); 
+		sprintf(message," is sleeping on %s.", victim->on->short_descr); 
 		strcat(buf,message);
 		}
 		else
 		{
-		sprintf(message, " is sleeping in %s.",
-			victim->on->short_descr);
+		sprintf(message, " is sleeping in %s.",	victim->on->short_descr);
 		strcat(buf,message);
 		}
 	}
@@ -306,14 +303,12 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
 	{
 			if (IS_SET(victim->on->value[2],REST_AT))
 			{
-				sprintf(message," is resting at %s.",
-					victim->on->short_descr);
+				sprintf(message," is resting at %s.", victim->on->short_descr);
 				strcat(buf,message);
 			}
 			else if (IS_SET(victim->on->value[2],REST_ON))
 			{
-				sprintf(message," is resting on %s.",
-					victim->on->short_descr);
+				sprintf(message," is resting on %s.", victim->on->short_descr);
 				strcat(buf,message);
 			}
 			else 
@@ -2254,7 +2249,7 @@ void do_credits( CHAR_DATA *ch, char *argument )
 
 void do_where( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	CHAR_DATA *victim;
 	DESCRIPTOR_DATA *d;
@@ -2262,7 +2257,7 @@ void do_where( CHAR_DATA *ch, char *argument )
 
 	one_argument( argument, arg );
 
-	if ( arg[0] == '\0' )
+	if ( IS_NULLSTR(arg) )
 	{
 	send_to_char( "Players near you:\n\r", ch );
 	found = FALSE;
@@ -2325,27 +2320,27 @@ void do_consider( CHAR_DATA *ch, char *argument )
 
 	one_argument( argument, arg );
 
-	if ( arg[0] == '\0' )
+	if ( IS_NULLSTR(arg) )
 	{
-	send_to_char( "Consider killing whom?\n\r", ch );
-	return;
+		send_to_char( "Consider killing whom?\n\r", ch );
+		return;
 	}
 
 	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
 	{
-	send_to_char( "They're not here.\n\r", ch );
-	return;
+		send_to_char( "They're not here.\n\r", ch );
+		return;
 	}
 
 	if (is_safe(ch,victim))
 	{
-	send_to_char("Don't even think about it.\n\r",ch);
-	return;
+		send_to_char("Don't even think about it.\n\r",ch);
+		return;
 	}
 
 	diff = victim->level - ch->level;
 
-		 if ( diff <= -10 ) msg = "You can kill $N naked and weaponless.";
+	if ( diff <= -10 ) msg = "You can kill $N naked and weaponless.";
 	else if ( diff <=  -5 ) msg = "$N is no match for you.";
 	else if ( diff <=  -2 ) msg = "$N looks like an easy kill.";
 	else if ( diff <=   1 ) msg = "The perfect match!";
@@ -2358,25 +2353,24 @@ void do_consider( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void set_title( CHAR_DATA *ch, char *title )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	if ( IS_NPC(ch) )
 	{
-	bug( "Set_title: NPC.", 0 );
-	return;
+		bug( "Set_title: NPC.", 0 );
+		return;
 	}
 
 	if ( title[0] != '.' && title[0] != ',' && title[0] != '!' && title[0] != '?' )
 	{
-	buf[0] = ' ';
-	strcpy( buf+1, title );
+		buf[0] = ' ';
+		strcpy( buf+1, title );
 	}
 	else
 	{
-	strcpy( buf, title );
+		strcpy( buf, title );
 	}
 
 	PURGE_DATA( ch->pcdata->title );
@@ -2385,20 +2379,19 @@ void set_title( CHAR_DATA *ch, char *title )
 }
 
 
-
 void do_title( CHAR_DATA *ch, char *argument )
 {
 	if ( IS_NPC(ch) )
-	return;
+		return;
 
-	if ( argument[0] == '\0' )
+	if ( IS_NULLSTR(argument) )
 	{
-	send_to_char( "Change your title to what?\n\r", ch );
-	return;
+		send_to_char( "Change your title to what?\n\r", ch );
+		return;
 	}
 
 	if ( strlen(argument) > 45 )
-	argument[45] = '\0';
+		argument[45] = '\0';
 
 	smash_tilde( argument );
 	set_title( ch, argument );
@@ -2411,7 +2404,7 @@ void do_description( CHAR_DATA *ch, char *argument )
 {
 	char buf[MAX_STRING_LENGTH];
 
-	if ( argument[0] != '\0' )
+	if ( IS_NULLSTR(argument) )
 	{
 	buf[0] = '\0';
 	smash_tilde( argument );
@@ -2489,8 +2482,7 @@ void do_report( CHAR_DATA *ch, char *argument )
 {
 	char buf[MAX_INPUT_LENGTH];
 
-	sprintf( buf,
-	"You say 'I have %d/%d hp %d/%d mana %d/%d mv %d xp.'\n\r",
+	sprintf( buf, "You say 'I have %d/%d hp %d/%d mana %d/%d mv %d xp.'\n\r",
 	ch->hit,  ch->max_hit,
 	ch->mana, ch->max_mana,
 	ch->move, ch->max_move,
@@ -2517,107 +2509,99 @@ void do_practice( CHAR_DATA *ch, char *argument )
 	int sn;
 
 	if ( IS_NPC(ch) )
-	return;
+		return;
 
 	if ( argument[0] == '\0' )
 	{
-	int col;
+		int col;
 
-	col    = 0;
-	for ( sn = 0; sn < MAX_SKILL; sn++ )
-	{
-		if ( skill_table[sn].name == NULL )
-		break;
-		if ( ch->level < skill_table[sn].skill_level[ch->class] 
-		  || ch->pcdata->learned[sn] < 1 /* skill is not known */)
-		continue;
-
-		sprintf( buf, "%-18s %3d%%  ",
-		skill_table[sn].name, ch->pcdata->learned[sn] );
-		send_to_char( buf, ch );
-		if ( ++col % 3 == 0 )
-		send_to_char( "\n\r", ch );
-	}
-
-	if ( col % 3 != 0 )
-		send_to_char( "\n\r", ch );
-
-	sprintf( buf, "You have %d practice sessions left.\n\r",
-		ch->practice );
-	send_to_char( buf, ch );
-	}
-	else
-	{
-	CHAR_DATA *mob;
-	int adept;
-
-	if ( !IS_AWAKE(ch) )
-	{
-		send_to_char( "In your dreams, or what?\n\r", ch );
-		return;
-	}
-
-	for ( mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room )
-	{
-		if ( IS_NPC(mob) && IS_SET(mob->act, ACT_PRACTICE) )
-		break;
-	}
-
-	if ( mob == NULL )
-	{
-		send_to_char( "You can't do that here.\n\r", ch );
-		return;
-	}
-
-	if ( ch->practice <= 0 )
-	{
-		send_to_char( "You have no practice sessions left.\n\r", ch );
-		return;
-	}
-
-	if ( ( sn = find_spell( ch,argument ) ) < 0
-	|| ( !IS_NPC(ch)
-	&&   (ch->level < skill_table[sn].skill_level[ch->class] 
-	||    ch->pcdata->learned[sn] < 1 /* skill is not known */
-	||    skill_table[sn].rating[ch->class] == 0)))
-	{
-		send_to_char( "You can't practice that.\n\r", ch );
-		return;
-	}
-
-	adept = IS_NPC(ch) ? 100 : class_table[ch->class].skill_adept;
-
-	if ( ch->pcdata->learned[sn] >= adept )
-	{
-		sprintf( buf, "You are already learned at %s.\n\r",
-		skill_table[sn].name );
-		send_to_char( buf, ch );
-	}
-	else
-	{
-		ch->practice--;
-		ch->pcdata->learned[sn] += 
-		int_app[get_curr_stat(ch,STAT_INT)].learn / 
-			skill_table[sn].rating[ch->class];
-		if ( ch->pcdata->learned[sn] < adept )
+		col    = 0;
+		for ( sn = 0; sn < MAX_SKILL; sn++ )
 		{
-		act( "You practice $T.",
-			ch, NULL, skill_table[sn].name, TO_CHAR );
-		act( "$n practices $T.",
-			ch, NULL, skill_table[sn].name, TO_ROOM );
+			if ( skill_table[sn].name == NULL )
+				break;
+			if ( ch->level < skill_table[sn].skill_level[ch->class] 
+		  || ch->pcdata->learned[sn] < 1 /* skill is not known */)
+				continue;
+
+				send_to_char( Format("%-18s %3d%%  ", skill_table[sn].name, ch->pcdata->learned[sn]), ch );
+				if ( ++col % 3 == 0 )
+					send_to_char( "\n\r", ch );
+			}
+
+			if ( col % 3 != 0 )
+				send_to_char( "\n\r", ch );
+
+			send_to_char( Format ("You have %d practice sessions left.\n\r", ch->practice), ch );
 		}
 		else
 		{
-		ch->pcdata->learned[sn] = adept;
-		act( "You are now learned at $T.",
-			ch, NULL, skill_table[sn].name, TO_CHAR );
-		act( "$n is now learned at $T.",
-			ch, NULL, skill_table[sn].name, TO_ROOM );
+			CHAR_DATA *mob;
+			int adept;
+
+			if ( !IS_AWAKE(ch) )
+			{
+				send_to_char( "In your dreams, or what?\n\r", ch );
+				return;
+			}
+
+			for ( mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room )
+			{
+				if ( IS_NPC(mob) && IS_SET(mob->act, ACT_PRACTICE) )
+					break;
+			}
+
+			if ( mob == NULL )
+			{
+				send_to_char( "You can't do that here.\n\r", ch );
+				return;
+			}
+
+			if ( ch->practice <= 0 )
+			{
+				send_to_char( "You have no practice sessions left.\n\r", ch );
+				return;
+			}
+
+			if ( ( sn = find_spell( ch,argument ) ) < 0
+				|| ( !IS_NPC(ch)
+					&&   (ch->level < skill_table[sn].skill_level[ch->class] 
+	||    ch->pcdata->learned[sn] < 1 /* skill is not known */
+						||    skill_table[sn].rating[ch->class] == 0)))
+			{
+				send_to_char( "You can't practice that.\n\r", ch );
+				return;
+			}
+
+			adept = IS_NPC(ch) ? 100 : class_table[ch->class].skill_adept;
+
+			if ( ch->pcdata->learned[sn] >= adept )
+			{
+				sprintf( buf, "You are already learned at %s.\n\r",
+					skill_table[sn].name );
+				send_to_char( buf, ch );
+			}
+			else
+			{
+				ch->practice--;
+				ch->pcdata->learned[sn] += 
+				int_app[get_curr_stat(ch,STAT_INT)].learn / 
+				skill_table[sn].rating[ch->class];
+				if ( ch->pcdata->learned[sn] < adept )
+				{
+					act( "You practice $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
+					act( "$n practices $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
+				}
+				else
+				{
+					ch->pcdata->learned[sn] = adept;
+					act( "You are now learned at $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
+					act( "$n is now learned at $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
+				}
+			}
 		}
+		return;
 	}
-	}
-	return;
-}
 
 
 
@@ -2633,20 +2617,20 @@ void do_wimpy( CHAR_DATA *ch, char *argument )
 	one_argument( argument, arg );
 
 	if ( arg[0] == '\0' )
-	wimpy = ch->max_hit / 5;
+		wimpy = ch->max_hit / 5;
 	else
-	wimpy = atoi( arg );
+		wimpy = atoi( arg );
 
 	if ( wimpy < 0 )
 	{
-	send_to_char( "Your courage exceeds your wisdom.\n\r", ch );
-	return;
+		send_to_char( "Your courage exceeds your wisdom.\n\r", ch );
+		return;
 	}
 
 	if ( wimpy > ch->max_hit/2 )
 	{
-	send_to_char( "Such cowardice ill becomes you.\n\r", ch );
-	return;
+		send_to_char( "Such cowardice ill becomes you.\n\r", ch );
+		return;
 	}
 
 	ch->wimpy	= wimpy;
@@ -2726,8 +2710,7 @@ void do_password( CHAR_DATA *ch, char *argument )
 
 	if ( strlen(arg2) < 5 )
 	{
-	send_to_char(
-		"New password must be at least five characters long.\n\r", ch );
+	send_to_char( "New password must be at least five characters long.\n\r", ch );
 	return;
 	}
 
@@ -2739,8 +2722,7 @@ void do_password( CHAR_DATA *ch, char *argument )
 	{
 	if ( *p == '~' )
 	{
-		send_to_char(
-		"New password not acceptable, try again.\n\r", ch );
+		send_to_char( "New password not acceptable, try again.\n\r", ch );
 		return;
 	}
 	}
