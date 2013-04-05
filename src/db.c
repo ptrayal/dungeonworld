@@ -511,7 +511,7 @@ void new_load_area( FILE *fp )
 	pArea->file_name     = str_dup( strArea );
 	pArea->vnum         = top_area;
 	pArea->name         = str_dup( "New Area" );
-	pArea->builders     = str_dup( "" );
+	pArea->builders     = str_dup( "None" );
 	pArea->security     = 9;                    /* 9 -- Hugin */
 	pArea->min_vnum        = 0;
 	pArea->max_vnum        = 0;
