@@ -3229,11 +3229,11 @@ void spell_holy_word(int sn, int level, CHAR_DATA *ch, void *vo,int target)
 void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 {
 	OBJ_DATA *obj = (OBJ_DATA *) vo;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	AFFECT_DATA *paf;
 
-	sprintf( buf, "\tY----- \tW%s \tY-----\tn\n\r", obj->short_descr);
-	send_to_char( buf, ch);
+	send_to_char( Format("\tY----- \tW%s \tY-----\tn\n\r", obj->short_descr), ch);
+	send_to_char( Format("It is a %s\n\r\n\r", item_name(obj->item_type)), ch);
 
 	//    sprintf( buf, "Object '%s' is type %s, extra flags %s.\n\rWeight is %d, value is %d, level is %d.\n\r",
 	// obj->name, item_name(obj->item_type), extra_bit_name( obj->extra_flags ), obj->weight / 10,
@@ -3245,8 +3245,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		case ITEM_SCROLL: 
 		case ITEM_POTION:
 		case ITEM_PILL:
-		sprintf( buf, "Level %d spells of:", obj->value[0] );
-		send_to_char( buf, ch );
+		send_to_char( Format("Level %d spells of:", obj->value[0]), ch );
 
 		if ( obj->value[1] >= 0 && obj->value[1] < MAX_SKILL )
 		{
@@ -3315,7 +3314,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		break;
 		
 		case ITEM_WEAPON:
-		send_to_char("Weapon type is ",ch);
+		send_to_char("Weapon type is ", ch);
 		switch (obj->value[0])
 		{
 			case(WEAPON_EXOTIC) : send_to_char("exotic.\n\r",ch);	break;
@@ -3330,16 +3329,16 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 			default		: send_to_char("unknown.\n\r",ch);	break;
 		}
 		if (obj->pIndexData->new_format)
-			sprintf(buf,"Damage is %dd%d (average %d).\n\r",
-				obj->value[1],obj->value[2],
-				(1 + obj->value[2]) * obj->value[1] / 2);
+		{
+			send_to_char( Format("When used in melee combat, it causes %dd%d points of damage.\n\r", obj->value[1],obj->value[2]), ch);
+		}
 		else
-			sprintf( buf, "Damage is %d to %d (average %d).\n\r", obj->value[1], obj->value[2], ( obj->value[1] + obj->value[2] ) / 2 );
-		send_to_char( buf, ch );
+		{
+			send_to_char( Format("When used in melee combat, it causes damage betweeb %d to %d.\n\r", obj->value[1], obj->value[2]), ch); 
+		}
 		if (obj->value[4])  /* weapon flags */
 		{
-			sprintf(buf,"Weapons flags: %s\n\r",weapon_bit_name(obj->value[4]));
-			send_to_char(buf,ch);
+			send_to_char( Format("Weapons flags: %s\n\r",weapon_bit_name(obj->value[4])),ch);
 		}
 		break;
 
@@ -3356,36 +3355,29 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		{
 			if ( paf->location != APPLY_NONE && paf->modifier != 0 )
 			{
-				sprintf( buf, "Affects %s by %d.\n\r",
-					affect_loc_name( paf->location ), paf->modifier );
+				sprintf( buf, "Affects %s by %d.\n\r", affect_loc_name( paf->location ), paf->modifier );
 				send_to_char(buf,ch);
 				if (paf->bitvector)
 				{
 					switch(paf->where)
 					{
 						case TO_AFFECTS:
-						sprintf(buf,"Adds %s affect.\n",
-							affect_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
 						break;
 						case TO_OBJECT:
-						sprintf(buf,"Adds %s object flag.\n",
-							extra_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
 						break;
 						case TO_IMMUNE:
-						sprintf(buf,"Adds immunity to %s.\n",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"It grants immunity to %s.\n", imm_bit_name(paf->bitvector));
 						break;
 						case TO_RESIST:
-						sprintf(buf,"Adds resistance to %s.\n\r",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"It grants resistance to %s.\n\r", imm_bit_name(paf->bitvector));
 						break;
 						case TO_VULN:
-						sprintf(buf,"Adds vulnerability to %s.\n\r",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"It grants vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
 						break;
 						default:
-						sprintf(buf,"Unknown bit %d: %d\n\r",
-							paf->where,paf->bitvector);
+						sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
 						break;
 					}
 					send_to_char( buf, ch );
@@ -3397,9 +3389,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		{
 			if ( paf->location != APPLY_NONE && paf->modifier != 0 )
 			{
-				sprintf( buf, "Affects %s by %d",
-					affect_loc_name( paf->location ), paf->modifier );
-				send_to_char( buf, ch );
+				send_to_char( Format("Affects %s by %d", affect_loc_name( paf->location ), paf->modifier), ch );
 				if ( paf->duration > -1)
 					sprintf(buf,", %d hours.\n\r",paf->duration);
 				else
@@ -3410,32 +3400,25 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 					switch(paf->where)
 					{
 						case TO_AFFECTS:
-						sprintf(buf,"Adds %s affect.\n",
-							affect_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
 						break;
 						case TO_OBJECT:
-						sprintf(buf,"Adds %s object flag.\n",
-							extra_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
 						break;
 						case TO_WEAPON:
-						sprintf(buf,"Adds %s weapon flags.\n",
-							weapon_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s weapon flags.\n", weapon_bit_name(paf->bitvector));
 						break;
 						case TO_IMMUNE:
-						sprintf(buf,"Adds immunity to %s.\n",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"It grants immunity to %s.\n", imm_bit_name(paf->bitvector));
 						break;
 						case TO_RESIST:
-						sprintf(buf,"Adds resistance to %s.\n\r",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"It grants resistance to %s.\n\r", imm_bit_name(paf->bitvector));
 						break;
 						case TO_VULN:
-						sprintf(buf,"Adds vulnerability to %s.\n\r",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"It grants vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
 						break;
 						default:
-						sprintf(buf,"Unknown bit %d: %d\n\r",
-							paf->where,paf->bitvector);
+						sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
 						break;
 					}
 					send_to_char(buf,ch);
