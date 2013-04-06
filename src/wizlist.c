@@ -333,7 +333,6 @@ void update_wizlist(CHAR_DATA *ch, int level)
 void change_wizlist(CHAR_DATA *ch, bool add, int level, char *argument)
 {
 	char arg[MAX_INPUT_LENGTH];
-	WIZ_DATA *prev;
 	WIZ_DATA *curr;
 
 	one_argument( argument, arg );
@@ -357,6 +356,7 @@ void change_wizlist(CHAR_DATA *ch, bool add, int level, char *argument)
 	}
 	if ( !add )
 	{
+		WIZ_DATA *prev;
 		prev = NULL;
 		for ( curr = wiz_list; curr != NULL; prev = curr, curr = curr->next )
 		{

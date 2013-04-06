@@ -37,23 +37,23 @@ char *numlineas( char * );
  ****************************************************************************/
 void string_edit( CHAR_DATA *ch, char **pString )
 {
-    send_to_char( "-========- Entering EDIT Mode -=========-\n\r", ch );
-    send_to_char( "    Type .h on a new line for help\n\r", ch );
-    send_to_char( " Terminate with a ~ or @ on a blank line.\n\r", ch );
-    send_to_char( "-=======================================-\n\r", ch );
+		send_to_char( "-========- Entering EDIT Mode -=========-\n\r", ch );
+		send_to_char( "    Type .h on a new line for help\n\r", ch );
+		send_to_char( " Terminate with a ~ or @ on a blank line.\n\r", ch );
+		send_to_char( "-=======================================-\n\r", ch );
 
-    if ( *pString == NULL )
-    {
-        *pString = str_dup( "" );
-    }
-    else
-    {
-        **pString = '\0';
-    }
+		if ( *pString == NULL )
+		{
+				*pString = str_dup( "" );
+		}
+		else
+		{
+				**pString = '\0';
+		}
 
-    ch->desc->pString = pString;
+		ch->desc->pString = pString;
 
-    return;
+		return;
 }
 
 
@@ -65,24 +65,24 @@ void string_edit( CHAR_DATA *ch, char **pString )
  ****************************************************************************/
 void string_append( CHAR_DATA *ch, char **pString )
 {
-    send_to_char( "-=======- Entering APPEND Mode -========-\n\r", ch );
-    send_to_char( "    Type .h on a new line for help\n\r", ch );
-    send_to_char( " Terminate with a ~ or @ on a blank line.\n\r", ch );
-    send_to_char( "-=======================================-\n\r", ch );
+		send_to_char( "-=======- Entering APPEND Mode -========-\n\r", ch );
+		send_to_char( "    Type .h on a new line for help\n\r", ch );
+		send_to_char( " Terminate with a ~ or @ on a blank line.\n\r", ch );
+		send_to_char( "-=======================================-\n\r", ch );
 
-    if ( *pString == NULL )
-    {
-        *pString = str_dup( "" );
-    }
-    send_to_char( numlineas(*pString), ch );
+		if ( *pString == NULL )
+		{
+				*pString = str_dup( "" );
+		}
+		send_to_char( numlineas(*pString), ch );
 
 /* numlineas entrega el string con \n\r */
 /*  if ( *(*pString + strlen( *pString ) - 1) != '\r' )
 	send_to_char( "\n\r", ch ); */
 
-    ch->desc->pString = pString;
+		ch->desc->pString = pString;
 
-    return;
+		return;
 }
 
 
@@ -94,21 +94,21 @@ void string_append( CHAR_DATA *ch, char **pString )
  ****************************************************************************/
 char * string_replace( char * orig, char * old, char * new )
 {
-    char xbuf[MAX_STRING_LENGTH];
-    int i;
+		char xbuf[MAX_STRING_LENGTH];
+		
+		xbuf[0] = '\0';
+		strcpy( xbuf, orig );
+		if ( strstr( orig, old ) != NULL )
+		{
+				int i = 0;
+				i = strlen( orig ) - strlen( strstr( orig, old ) );
+				xbuf[i] = '\0';
+				strcat( xbuf, new );
+				strcat( xbuf, &orig[i+strlen( old )] );
+				PURGE_DATA( orig );
+		}
 
-    xbuf[0] = '\0';
-    strcpy( xbuf, orig );
-    if ( strstr( orig, old ) != NULL )
-    {
-        i = strlen( orig ) - strlen( strstr( orig, old ) );
-        xbuf[i] = '\0';
-        strcat( xbuf, new );
-        strcat( xbuf, &orig[i+strlen( old )] );
-        PURGE_DATA( orig );
-    }
-
-    return str_dup( xbuf );
+		return str_dup( xbuf );
 }
 
 
@@ -120,63 +120,63 @@ char * string_replace( char * orig, char * old, char * new )
  ****************************************************************************/
 void string_add( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+		char buf[MAX_STRING_LENGTH];
 
-    /*
-     * Thanks to James Seng
-     */
-    smash_tilde( argument );
+		/*
+		 * Thanks to James Seng
+		 */
+		smash_tilde( argument );
 
-    if ( *argument == '.' )
-    {
-        char arg1 [MAX_INPUT_LENGTH];
-        char arg2 [MAX_INPUT_LENGTH];
-        char arg3 [MAX_INPUT_LENGTH];
-        char tmparg3 [MAX_INPUT_LENGTH];
+		if ( *argument == '.' )
+		{
+				char arg1 [MAX_INPUT_LENGTH];
+				char arg2 [MAX_INPUT_LENGTH];
+				char arg3 [MAX_INPUT_LENGTH];
+				char tmparg3 [MAX_INPUT_LENGTH];
 
-        argument = one_argument( argument, arg1 );
-        argument = first_arg( argument, arg2, FALSE );
+				argument = one_argument( argument, arg1 );
+				argument = first_arg( argument, arg2, FALSE );
 	strcpy( tmparg3, argument );
-        argument = first_arg( argument, arg3, FALSE );
+				argument = first_arg( argument, arg3, FALSE );
 
-        if ( !str_cmp( arg1, ".c" ) )
-        {
-            send_to_char( "String cleared.\n\r", ch );
-	    PURGE_DATA(*ch->desc->pString);
-	    *ch->desc->pString = str_dup( "" );
-            return;
-        }
+				if ( !str_cmp( arg1, ".c" ) )
+				{
+						send_to_char( "String cleared.\n\r", ch );
+			PURGE_DATA(*ch->desc->pString);
+			*ch->desc->pString = str_dup( "" );
+						return;
+				}
 
-        if ( !str_cmp( arg1, ".s" ) )
-        {
-            send_to_char( "String so far:\n\r", ch );
-            send_to_char( numlineas(*ch->desc->pString), ch );
-            return;
-        }
+				if ( !str_cmp( arg1, ".s" ) )
+				{
+						send_to_char( "String so far:\n\r", ch );
+						send_to_char( numlineas(*ch->desc->pString), ch );
+						return;
+				}
 
-        if ( !str_cmp( arg1, ".r" ) )
-        {
-            if ( arg2[0] == '\0' )
-            {
-                send_to_char(
-                    "usage:  .r \"old string\" \"new string\"\n\r", ch );
-                return;
-            }
+				if ( !str_cmp( arg1, ".r" ) )
+				{
+						if ( arg2[0] == '\0' )
+						{
+								send_to_char(
+										"usage:  .r \"old string\" \"new string\"\n\r", ch );
+								return;
+						}
 
-            *ch->desc->pString =
-                string_replace( *ch->desc->pString, arg2, arg3 );
-            sprintf( buf, "'%s' replaced with '%s'.\n\r", arg2, arg3 );
-            send_to_char( buf, ch );
-            return;
-        }
+						*ch->desc->pString =
+								string_replace( *ch->desc->pString, arg2, arg3 );
+						sprintf( buf, "'%s' replaced with '%s'.\n\r", arg2, arg3 );
+						send_to_char( buf, ch );
+						return;
+				}
 
-        if ( !str_cmp( arg1, ".f" ) )
-        {
-            *ch->desc->pString = format_string( *ch->desc->pString );
-            send_to_char( "String formatted.\n\r", ch );
-            return;
-        }
-        
+				if ( !str_cmp( arg1, ".f" ) )
+				{
+						*ch->desc->pString = format_string( *ch->desc->pString );
+						send_to_char( "String formatted.\n\r", ch );
+						return;
+				}
+				
 	if ( !str_cmp( arg1, ".ld" ) )
 	{
 		*ch->desc->pString = string_linedel( *ch->desc->pString, atoi(arg2) );
@@ -199,32 +199,32 @@ void string_add( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
-        if ( !str_cmp( arg1, ".h" ) )
-        {
-            send_to_char( "Sedit help (commands on blank line):   \n\r", ch );
-            send_to_char( ".r 'old' 'new'   - replace a substring \n\r", ch );
-            send_to_char( "                   (requires '', \"\") \n\r", ch );
-            send_to_char( ".h               - get help (this info)\n\r", ch );
-            send_to_char( ".s               - show string so far  \n\r", ch );
-            send_to_char( ".f               - (word wrap) string  \n\r", ch );
-            send_to_char( ".c               - clear string so far \n\r", ch );
-            send_to_char( ".ld <num>        - delete line number <num>\n\r", ch );
-            send_to_char( ".li <num> <str>  - insert <str> on line <num>\n\r", ch );
-	    send_to_char( ".lr <num> <str>  - replace line <num> with <str>\n\r", ch );
-            send_to_char( "@                - end string          \n\r", ch );
-            return;
-        }
+				if ( !str_cmp( arg1, ".h" ) )
+				{
+						send_to_char( "Sedit help (commands on blank line):   \n\r", ch );
+						send_to_char( ".r 'old' 'new'   - replace a substring \n\r", ch );
+						send_to_char( "                   (requires '', \"\") \n\r", ch );
+						send_to_char( ".h               - get help (this info)\n\r", ch );
+						send_to_char( ".s               - show string so far  \n\r", ch );
+						send_to_char( ".f               - (word wrap) string  \n\r", ch );
+						send_to_char( ".c               - clear string so far \n\r", ch );
+						send_to_char( ".ld <num>        - delete line number <num>\n\r", ch );
+						send_to_char( ".li <num> <str>  - insert <str> on line <num>\n\r", ch );
+			send_to_char( ".lr <num> <str>  - replace line <num> with <str>\n\r", ch );
+						send_to_char( "@                - end string          \n\r", ch );
+						return;
+				}
 
-        send_to_char( "SEdit:  Invalid dot command.\n\r", ch );
-        return;
-    }
+				send_to_char( "SEdit:  Invalid dot command.\n\r", ch );
+				return;
+		}
 
-    if ( *argument == '~' || *argument == '@' )
-    {
+		if ( *argument == '~' || *argument == '@' )
+		{
 	if ( ch->desc->editor == ED_MPCODE ) /* para los mobprogs */
 	{
 		MOB_INDEX_DATA *mob;
-		int hash;
+		int hash = 0;
 		MPROG_LIST *mpl;
 		MPROG_CODE *mpc;
 
@@ -242,36 +242,36 @@ void string_add( CHAR_DATA *ch, char *argument )
 						}
 	}
 
-        ch->desc->pString = NULL;
-        return;
-    }
+				ch->desc->pString = NULL;
+				return;
+		}
 
-    strcpy( buf, *ch->desc->pString );
+		strcpy( buf, *ch->desc->pString );
 
-    /*
-     * Truncate strings to MAX_STRING_LENGTH.
-     * --------------------------------------
-     */
-    if ( strlen( buf ) + strlen( argument ) >= ( MAX_STRING_LENGTH - 4 ) )
-    {
-        send_to_char( "String too long, last line skipped.\n\r", ch );
+		/*
+		 * Truncate strings to MAX_STRING_LENGTH.
+		 * --------------------------------------
+		 */
+		if ( strlen( buf ) + strlen( argument ) >= ( MAX_STRING_LENGTH - 4 ) )
+		{
+				send_to_char( "String too long, last line skipped.\n\r", ch );
 
 	/* Force character out of editing mode. */
-        ch->desc->pString = NULL;
-        return;
-    }
+				ch->desc->pString = NULL;
+				return;
+		}
 
-    /*
-     * Ensure no tilde's inside string.
-     * --------------------------------
-     */
-    smash_tilde( argument );
+		/*
+		 * Ensure no tilde's inside string.
+		 * --------------------------------
+		 */
+		smash_tilde( argument );
 
-    strcat( buf, argument );
-    strcat( buf, "\n\r" );
-    PURGE_DATA( *ch->desc->pString );
-    *ch->desc->pString = str_dup( buf );
-    return;
+		strcat( buf, argument );
+		strcat( buf, "\n\r" );
+		PURGE_DATA( *ch->desc->pString );
+		*ch->desc->pString = str_dup( buf );
+		return;
 }
 
 
@@ -279,159 +279,282 @@ void string_add( CHAR_DATA *ch, char *argument )
 /*
  * Thanks to Kalgen for the new procedure (no more bug!)
  * Original wordwrap() written by Surreality.
+ * Modifications for color codes and blank lines by Geoff.
  */
 /*****************************************************************************
- Name:		format_string
- Purpose:	Special string formating and word-wrapping.
- Called by:	string_add(string.c) (many)olc_act.c
+ Name: format_string
+ Purpose: Special string formating and word-wrapping.
+ Called by: string_add(string.c) (many)olc_act.c
  ****************************************************************************/
-char *format_string( char *oldstring /*, bool fSpace */)
-{
-  char xbuf[MAX_STRING_LENGTH];
-  char xbuf2[MAX_STRING_LENGTH];
-  char *rdesc;
-  int i=0;
-  bool cap=TRUE;
-  
-  xbuf[0]=xbuf2[0]=0;
-  
-  i=0;
-  
-  for (rdesc = oldstring; *rdesc; rdesc++)
-  {
-    if (*rdesc=='\n')
-    {
-      if (xbuf[i-1] != ' ')
-      {
-        xbuf[i]=' ';
-        i++;
-      }
-    }
-    else if (*rdesc=='\r') ;
-    else if (*rdesc==' ')
-    {
-      if (xbuf[i-1] != ' ')
-      {
-        xbuf[i]=' ';
-        i++;
-      }
-    }
-    else if (*rdesc==')')
-    {
-      if (xbuf[i-1]==' ' && xbuf[i-2]==' ' && 
-          (xbuf[i-3]=='.' || xbuf[i-3]=='?' || xbuf[i-3]=='!'))
-      {
-        xbuf[i-2]=*rdesc;
-        xbuf[i-1]=' ';
-        xbuf[i]=' ';
-        i++;
-      }
-      else
-      {
-        xbuf[i]=*rdesc;
-        i++;
-      }
-    }
-    else if (*rdesc=='.' || *rdesc=='?' || *rdesc=='!') {
-      if (xbuf[i-1]==' ' && xbuf[i-2]==' ' && 
-          (xbuf[i-3]=='.' || xbuf[i-3]=='?' || xbuf[i-3]=='!')) {
-        xbuf[i-2]=*rdesc;
-        if (*(rdesc+1) != '\"')
-        {
-          xbuf[i-1]=' ';
-          xbuf[i]=' ';
-          i++;
-        }
-        else
-        {
-          xbuf[i-1]='\"';
-          xbuf[i]=' ';
-          xbuf[i+1]=' ';
-          i+=2;
-          rdesc++;
-        }
-      }
-      else
-      {
-        xbuf[i]=*rdesc;
-        if (*(rdesc+1) != '\"')
-        {
-          xbuf[i+1]=' ';
-          xbuf[i+2]=' ';
-          i += 3;
-        }
-        else
-        {
-          xbuf[i+1]='\"';
-          xbuf[i+2]=' ';
-          xbuf[i+3]=' ';
-          i += 4;
-          rdesc++;
-        }
-      }
-      cap = TRUE;
-    }
-    else
-    {
-      xbuf[i]=*rdesc;
-      if ( cap )
-        {
-          cap = FALSE;
-          xbuf[i] = UPPER( xbuf[i] );
-        }
-      i++;
-    }
-  }
-  xbuf[i]=0;
-  strcpy(xbuf2,xbuf);
-  
-  rdesc=xbuf2;
-  
-  xbuf[0]=0;
-  
-  for ( ; ; )
-  {
-    for (i=0; i<77; i++)
-    {
-      if (!*(rdesc+i)) break;
-    }
-    if (i<77)
-    {
-      break;
-    }
-    for (i=(xbuf[0]?76:73) ; i ; i--)
-    {
-      if (*(rdesc+i)==' ') break;
-    }
-    if (i)
-    {
-      *(rdesc+i)=0;
-      strcat(xbuf,rdesc);
-      strcat(xbuf,"\n\r");
-      rdesc += i+1;
-      while (*rdesc == ' ') rdesc++;
-    }
-    else
-    {
-      bug ("No spaces", 0);
-      *(rdesc+75)=0;
-      strcat(xbuf,rdesc);
-      strcat(xbuf,"-\n\r");
-      rdesc += 76;
-    }
-  }
-  while (*(rdesc+i) && (*(rdesc+i)==' '||
-                        *(rdesc+i)=='\n'||
-                        *(rdesc+i)=='\r'))
-    i--;
-  *(rdesc+i+1)=0;
-  strcat(xbuf,rdesc);
-  if (xbuf[strlen(xbuf)-2] != '\n')
-    strcat(xbuf,"\n\r");
+char *format_string (char *oldstring /*, bool fSpace */ )
+ {
+ 	char xbuf[MAX_STRING_LENGTH];
+ 	char xbuf2[MAX_STRING_LENGTH];
+ 	char *rdesc;
+ 	int i = 0;
+ 	int end_of_line;
+ 	bool cap = TRUE;
+ 	bool bFormat = TRUE;
 
-  PURGE_DATA(oldstring);
-  return(str_dup(xbuf));
-}
+ 	xbuf[0] = xbuf2[0] = 0;
+
+ 	i = 0;
+
+ 	for (rdesc = oldstring; *rdesc; rdesc++)
+ 	{
+
+ 		if (*rdesc != '`')
+ 		{
+ 			if (bFormat)
+ 			{
+ 				if (*rdesc == '\n')
+ 				{
+ 					if (*(rdesc + 1) == '\r' && *(rdesc + 2) == ' ' && *(rdesc + 3) == '\n' && xbuf[i - 1] != '\r')
+ 					{
+ 						xbuf[i] = '\n';
+ 						xbuf[i + 1] = '\r';
+ 						xbuf[i + 2] = '\n';
+ 						xbuf[i + 3] = '\r';
+ 						i += 4;
+ 						rdesc += 2;
+ 					}
+ 					else if (*(rdesc + 1) == '\r' && *(rdesc + 2) == ' ' && *(rdesc + 2) == '\n' && xbuf[i - 1] == '\r')
+ 					{
+ 						xbuf[i] = '\n';
+ 						xbuf[i + 1] = '\r';
+ 						i += 2;
+ 					}
+ 					else if (*(rdesc + 1) == '\r' && *(rdesc + 2) == '\n' && xbuf[i - 1] != '\r')
+ 					{
+ 						xbuf[i] = '\n';
+ 						xbuf[i + 1] = '\r';
+ 						xbuf[i + 2] = '\n';
+ 						xbuf[i + 3] = '\r';
+ 						i += 4;
+ 						rdesc += 1;
+ 					}
+ 					else if (*(rdesc + 1) == '\r' && *(rdesc + 2) == '\n' && xbuf[i - 1] == '\r')
+ 					{
+ 						xbuf[i] = '\n';
+ 						xbuf[i + 1] = '\r';
+ 						i += 2;
+ 					}
+ 					else if (xbuf[i - 1] != ' ' && xbuf[i - 1] != '\r')
+ 					{
+ 						xbuf[i] = ' ';
+ 						i++;
+ 					}
+ 				}
+ 				else if (*rdesc == '\r') ;
+ 				else if (*rdesc == 'i' && *(rdesc + 1) == '.' && *(rdesc + 2) == 'e' && *(rdesc + 3) == '.')
+ 				{
+ 					xbuf[i] = 'i';
+ 					xbuf[i + 1] = '.';
+ 					xbuf[i + 2] = 'e';
+ 					xbuf[i + 3] = '.';
+ 					i += 4;
+ 					rdesc += 3;
+ 				}
+ 				else if (*rdesc == ' ')
+ 				{
+ 					if (xbuf[i - 1] != ' ')
+ 					{
+ 						xbuf[i] = ' ';
+ 						i++;
+ 					}
+ 				}
+ 				else if (*rdesc == ')')
+ 				{
+ 					if (xbuf[i - 1] == ' ' && xbuf[i - 2] == ' '
+ 						&& (xbuf[i - 3] == '.' || xbuf[i - 3] == '?' || xbuf[i - 3] == '!'))
+ 					{
+ 						xbuf[i - 2] = *rdesc;
+ 						xbuf[i - 1] = ' ';
+ 						xbuf[i] = ' ';
+ 						i++;
+ 					}
+ 					else if (xbuf[i - 1] == ' ' && (xbuf[i - 2] == ',' || xbuf[i - 2] == ';'))
+ 					{
+ 						xbuf[i - 1] = *rdesc;
+ 						xbuf[i] = ' ';
+ 						i++;
+ 					}
+ 					else
+ 					{
+ 						xbuf[i] = *rdesc;
+ 						i++;
+ 					}
+ 				}
+ 				else if (*rdesc == ',' || *rdesc == ';')
+ 				{
+ 					if (xbuf[i - 1] == ' ')
+ 					{
+ 						xbuf[i - 1] = *rdesc;
+ 						xbuf[i] = ' ';
+ 						i++;
+ 					}
+ 					else
+ 					{
+ 						xbuf[i] = *rdesc;
+ 						if (*(rdesc + 1) != '\"')
+ 						{
+ 							xbuf[i + 1] = ' ';
+ 							i += 2;
+ 						}
+ 						else
+ 						{
+ 							xbuf[i + 1] = '\"';
+ 							xbuf[i + 2] = ' ';
+ 							i += 3;
+ 							rdesc++;
+ 						}
+ 					}
+
+ 				}
+ 				else if (*rdesc == '.' || *rdesc == '?' || *rdesc == '!')
+ 				{
+ 					if (xbuf[i - 1] == ' ' && xbuf[i - 2] == ' '
+ 						&& (xbuf[i - 3] == '.' || xbuf[i - 3] == '?' || xbuf[i - 3] == '!'))
+ 					{
+ 						xbuf[i - 2] = *rdesc;
+ 						if (*(rdesc + 1) != '\"')
+ 						{
+ 							xbuf[i - 1] = ' ';
+ 							xbuf[i] = ' ';
+ 							i++;
+ 						}
+ 						else
+ 						{
+ 							xbuf[i - 1] = '\"';
+ 							xbuf[i] = ' ';
+ 							xbuf[i + 1] = ' ';
+ 							i += 2;
+ 							rdesc++;
+ 						}
+ 					}
+ 					else
+ 					{
+ 						xbuf[i] = *rdesc;
+ 						if (*(rdesc + 1) != '\"')
+ 						{
+ 							xbuf[i + 1] = ' ';
+ 							xbuf[i + 2] = ' ';
+ 							i += 3;
+ 						}
+ 						else
+ 						{
+ 							xbuf[i + 1] = '\"';
+ 							xbuf[i + 2] = ' ';
+ 							xbuf[i + 3] = ' ';
+ 							i += 4;
+ 							rdesc++;
+ 						}
+ 					}
+ 					cap = TRUE;
+ 				}
+ 				else
+ 				{
+ 					xbuf[i] = *rdesc;
+ 					if (cap)
+ 					{
+ 						cap = FALSE;
+ 						xbuf[i] = UPPER (xbuf[i]);
+ 					}
+ 					i++;
+ 				}
+ 			}
+ 			else
+ 			{
+ 				xbuf[i] = *rdesc;
+ 				i++;
+ 			}
+ 		}
+ 		else
+ 		{
+ 			if (*(rdesc + 1) == 'Z')
+ 				bFormat = !bFormat;
+ 			xbuf[i] = *rdesc;
+ 			i++;
+ 			rdesc++;
+ 			xbuf[i] = *rdesc;
+ 			i++;
+ 		}
+ 	}
+ 	xbuf[i] = 0;
+ 	strcpy (xbuf2, xbuf);
+
+ 	rdesc = xbuf2;
+
+ 	xbuf[0] = 0;
+
+ 	for (;;)
+ 	{
+ 		end_of_line = 77;
+ 		for (i = 0; i < end_of_line; i++)
+ 		{
+ 			if (*(rdesc + i) == '`')
+ 			{
+ 				end_of_line += 2;
+ 				i++;
+ 			}
+
+ 			if (!*(rdesc + i))
+ 				break;
+
+ 			if (*(rdesc + i) == '\r')
+ 				end_of_line = i;
+ 		}
+ 		if (i < end_of_line)
+ 		{
+ 			break;
+ 		}
+ 		if (*(rdesc + i - 1) != '\r')
+ 		{
+ 			for (i = (xbuf[0] ? (end_of_line - 1) : (end_of_line - 4)); i; i--)
+ 			{
+ 				if (*(rdesc + i) == ' ')
+ 					break;
+ 			}
+ 			if (i)
+ 			{
+ 				*(rdesc + i) = 0;
+ 				strcat (xbuf, rdesc);
+ 				strcat (xbuf, "\n\r");
+ 				rdesc += i + 1;
+ 				while (*rdesc == ' ')
+ 					rdesc++;
+ 			}
+ 			else
+ 			{
+ 				bug ("`5Wrap_string: `@No spaces``", 0);
+ 				*(rdesc + (end_of_line - 2)) = 0;
+ 				strcat (xbuf, rdesc);
+ 				strcat (xbuf, "-\n\r");
+ 				rdesc += end_of_line - 1;
+ 			}
+ 		}
+ 		else
+ 		{
+ 			*(rdesc + i - 1) = 0;
+ 			strcat (xbuf, rdesc);
+ 			strcat (xbuf, "\r");
+ 			rdesc += i;
+ 			while (*rdesc == ' ')
+ 				rdesc++;
+ 		}
+ 	}
+ 	while (*(rdesc + i) && (*(rdesc + i) == ' ' ||
+ 		*(rdesc + i) == '\n' ||
+ 		*(rdesc + i) == '\r'))
+ 		i--;
+ 	*(rdesc + i + 1) = 0;
+ 	strcat (xbuf, rdesc);
+ 	if (xbuf[strlen (xbuf) - 2] != '\n')
+ 		strcat (xbuf, "\n\r");
+
+ 	PURGE_DATA (oldstring);
+ 	return (str_dup (xbuf));
+ }
 
 
 
@@ -444,47 +567,47 @@ char *format_string( char *oldstring /*, bool fSpace */)
 /*****************************************************************************
  Name:		first_arg
  Purpose:	Pick off one argument from a string and return the rest.
- 		Understands quates, parenthesis (barring ) ('s) and
- 		percentages.
+		Understands quates, parenthesis (barring ) ('s) and
+		percentages.
  Called by:	string_add(string.c)
  ****************************************************************************/
 char *first_arg( char *argument, char *arg_first, bool fCase )
 {
-    char cEnd;
+		char cEnd;
 
-    while ( *argument == ' ' )
+		while ( *argument == ' ' )
 	argument++;
 
-    cEnd = ' ';
-    if ( *argument == '\'' || *argument == '"'
-      || *argument == '%'  || *argument == '(' )
-    {
-        if ( *argument == '(' )
-        {
-            cEnd = ')';
-            argument++;
-        }
-        else cEnd = *argument++;
-    }
+		cEnd = ' ';
+		if ( *argument == '\'' || *argument == '"'
+			|| *argument == '%'  || *argument == '(' )
+		{
+				if ( *argument == '(' )
+				{
+						cEnd = ')';
+						argument++;
+				}
+				else cEnd = *argument++;
+		}
 
-    while ( *argument != '\0' )
-    {
+		while ( *argument != '\0' )
+		{
 	if ( *argument == cEnd )
 	{
-	    argument++;
-	    break;
+			argument++;
+			break;
 	}
-    if ( fCase ) *arg_first = LOWER(*argument);
-            else *arg_first = *argument;
+		if ( fCase ) *arg_first = LOWER(*argument);
+						else *arg_first = *argument;
 	arg_first++;
 	argument++;
-    }
-    *arg_first = '\0';
+		}
+		*arg_first = '\0';
 
-    while ( *argument == ' ' )
+		while ( *argument == ' ' )
 	argument++;
 
-    return argument;
+		return argument;
 }
 
 
@@ -495,31 +618,31 @@ char *first_arg( char *argument, char *arg_first, bool fCase )
  */
 char * string_unpad( char * argument )
 {
-    char buf[MAX_STRING_LENGTH];
-    char *s;
+		char buf[MAX_STRING_LENGTH];
+		char *s;
 
-    s = argument;
+		s = argument;
 
-    while ( *s == ' ' )
-        s++;
+		while ( *s == ' ' )
+				s++;
 
-    strcpy( buf, s );
-    s = buf;
+		strcpy( buf, s );
+		s = buf;
 
-    if ( *s != '\0' )
-    {
-        while ( *s != '\0' )
-            s++;
-        s--;
+		if ( *s != '\0' )
+		{
+				while ( *s != '\0' )
+						s++;
+				s--;
 
-        while( *s == ' ' )
-            s--;
-        s++;
-        *s = '\0';
-    }
+				while( *s == ' ' )
+						s--;
+				s++;
+				*s = '\0';
+		}
 
-    PURGE_DATA( argument );
-    return str_dup( buf );
+		PURGE_DATA( argument );
+		return str_dup( buf );
 }
 
 
@@ -530,25 +653,25 @@ char * string_unpad( char * argument )
  */
 char * string_proper( char * argument )
 {
-    char *s;
+		char *s;
 
-    s = argument;
+		s = argument;
 
-    while ( *s != '\0' )
-    {
-        if ( *s != ' ' )
-        {
-            *s = UPPER(*s);
-            while ( *s != ' ' && *s != '\0' )
-                s++;
-        }
-        else
-        {
-            s++;
-        }
-    }
+		while ( *s != '\0' )
+		{
+				if ( *s != ' ' )
+				{
+						*s = UPPER(*s);
+						while ( *s != ' ' && *s != '\0' )
+								s++;
+				}
+				else
+				{
+						s++;
+				}
+		}
 
-    return argument;
+		return argument;
 }
 
 char *string_linedel( char *string, int line )
