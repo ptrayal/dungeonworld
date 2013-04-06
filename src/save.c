@@ -561,7 +561,7 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 	ch->race				= race_lookup("human");
 	ch->act				= PLR_NOSUMMON;
 	ch->comm				= COMM_COMBINE 
-					| COMM_PROMPT;
+	| COMM_PROMPT;
 	ch->prompt 				= str_dup("<%hhp %mm %vmv> ");
 	ch->pcdata->confirm_delete		= FALSE;
 	ch->pcdata->pwd			= NULL;
@@ -569,7 +569,7 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 	ch->pcdata->bamfout			= NULL;
 	ch->pcdata->title			= NULL;
 	for (stat =0; stat < MAX_STATS; stat++)
-	ch->perm_stat[stat]		= 13;
+		ch->perm_stat[stat]		= 13;
 	ch->pcdata->condition[COND_THIRST]	= 48; 
 	ch->pcdata->condition[COND_FULL]	= 48;
 	ch->pcdata->condition[COND_HUNGER]	= 48;
@@ -583,52 +583,53 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 	sprintf( strsave, "%s%s%s", PLAYER_DIR, capitalize(name),".gz");
 	if ( ( fp = fopen( strsave, "r" ) ) != NULL )
 	{
-	fclose(fp);
-	sprintf(buf,"gzip -dfq %s",strsave);
-	system(buf);
+		char buf[100];
+		fclose(fp);
+		sprintf(buf,"gzip -dfq %s",strsave);
+		system(buf);
 	}
 	#endif
 
 	sprintf( strsave, "%s%s", PLAYER_DIR, capitalize( name ) );
 	if ( ( fp = fopen( strsave, "r" ) ) != NULL )
 	{
-	int iNest;
+		int iNest;
 
-	for ( iNest = 0; iNest < MAX_NEST; iNest++ )
-		rgObjNest[iNest] = NULL;
+		for ( iNest = 0; iNest < MAX_NEST; iNest++ )
+			rgObjNest[iNest] = NULL;
 
-	found = TRUE;
-	for ( ; ; )
-	{
-		char letter;
-		char *word;
-
-		letter = fread_letter( fp );
-		if ( letter == '*' )
+		found = TRUE;
+		for ( ; ; )
 		{
-		fread_to_eol( fp );
-		continue;
-		}
+			char letter;
+			char *word;
 
-		if ( letter != '#' )
-		{
-		bug( "Load_char_obj: # not found.", 0 );
-		break;
-		}
+			letter = fread_letter( fp );
+			if ( letter == '*' )
+			{
+				fread_to_eol( fp );
+				continue;
+			}
 
-		word = fread_word( fp );
-		if      ( !str_cmp( word, "PLAYER" ) ) fread_char ( ch, fp );
-		else if ( !str_cmp( word, "OBJECT" ) ) fread_obj  ( ch, fp );
-		else if ( !str_cmp( word, "O"      ) ) fread_obj  ( ch, fp );
-		else if ( !str_cmp( word, "PET"    ) ) fread_pet  ( ch, fp );
-		else if ( !str_cmp( word, "END"    ) ) break;
-		else
-		{
-		bug( "Load_char_obj: bad section.", 0 );
-		break;
+			if ( letter != '#' )
+			{
+				bug( "Load_char_obj: # not found.", 0 );
+				break;
+			}
+
+			word = fread_word( fp );
+			if      ( !str_cmp( word, "PLAYER" ) ) fread_char ( ch, fp );
+			else if ( !str_cmp( word, "OBJECT" ) ) fread_obj  ( ch, fp );
+			else if ( !str_cmp( word, "O"      ) ) fread_obj  ( ch, fp );
+			else if ( !str_cmp( word, "PET"    ) ) fread_pet  ( ch, fp );
+			else if ( !str_cmp( word, "END"    ) ) break;
+			else
+			{
+				bug( "Load_char_obj: bad section.", 0 );
+				break;
+			}
 		}
-	}
-	fclose( fp );
+		fclose( fp );
 	}
 
 	fpReserve = fopen( NULL_FILE, "r" );
@@ -637,26 +638,26 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 	/* initialize race */
 	if (found)
 	{
-	int i;
+		int i = 0;
 
-	if (ch->race == 0)
-		ch->race = race_lookup("human");
+		if (ch->race == 0)
+			ch->race = race_lookup("human");
 
-	ch->size = pc_race_table[ch->race].size;
+		ch->size = pc_race_table[ch->race].size;
 	ch->dam_type = 17; /*punch */
 
-	for (i = 0; i < 5; i++)
-	{
-		if (pc_race_table[ch->race].skills[i] == NULL)
-		break;
-		group_add(ch,pc_race_table[ch->race].skills[i],FALSE);
-	}
-	ch->affected_by = ch->affected_by|race_table[ch->race].aff;
-	ch->imm_flags	= ch->imm_flags | race_table[ch->race].imm;
-	ch->res_flags	= ch->res_flags | race_table[ch->race].res;
-	ch->vuln_flags	= ch->vuln_flags | race_table[ch->race].vuln;
-	ch->form	= race_table[ch->race].form;
-	ch->parts	= race_table[ch->race].parts;
+		for (i = 0; i < 5; i++)
+		{
+			if (pc_race_table[ch->race].skills[i] == NULL)
+				break;
+			group_add(ch,pc_race_table[ch->race].skills[i],FALSE);
+		}
+		ch->affected_by = ch->affected_by|race_table[ch->race].aff;
+		ch->imm_flags	= ch->imm_flags | race_table[ch->race].imm;
+		ch->res_flags	= ch->res_flags | race_table[ch->race].res;
+		ch->vuln_flags	= ch->vuln_flags | race_table[ch->race].vuln;
+		ch->form	= race_table[ch->race].form;
+		ch->parts	= race_table[ch->race].parts;
 	}
 
 	
@@ -664,22 +665,22 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 
 	if (found && ch->version < 2)  /* need to add the new skills */
 	{
-	group_add(ch,"rom basics",FALSE);
-	group_add(ch,class_table[ch->class].base_group,FALSE);
-	group_add(ch,class_table[ch->class].default_group,TRUE);
-	ch->pcdata->learned[gsn_recall] = 50;
+		group_add(ch,"rom basics",FALSE);
+		group_add(ch,class_table[ch->class].base_group,FALSE);
+		group_add(ch,class_table[ch->class].default_group,TRUE);
+		ch->pcdata->learned[gsn_recall] = 50;
 	}
- 
+
 	/* fix levels */
 	if (found && ch->version < 3 && (ch->level > 35 || ch->trust > 35))
 	{
-	switch (ch->level)
-	{
+		switch (ch->level)
+		{
 		case(40) : ch->level = 60;	break;  /* imp -> imp */
 		case(39) : ch->level = 58; 	break;	/* god -> supreme */
 		case(38) : ch->level = 56;  break;	/* deity -> god */
 		case(37) : ch->level = 53;  break;	/* angel -> demigod */
-	}
+		}
 
 		switch (ch->trust)
 		{
@@ -694,7 +695,7 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 	/* ream gold */
 	if (found && ch->version < 4)
 	{
-	ch->gold   /= 100;
+		ch->gold   /= 100;
 	}
 	return found;
 }
