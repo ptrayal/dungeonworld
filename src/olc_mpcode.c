@@ -196,7 +196,7 @@ MPEDIT (mpedit_create)
 MPEDIT(mpedit_show)
 {
     MPROG_CODE *pMcode;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
 
     EDIT_MPCODE(ch,pMcode);
 
@@ -228,7 +228,7 @@ MPEDIT( mpedit_list )
 {
     int count = 1;
     MPROG_CODE *mprg;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     BUFFER *buffer;
     bool fAll = !str_cmp(argument, "all");
     char blah;

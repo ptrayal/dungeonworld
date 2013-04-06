@@ -73,10 +73,8 @@ void do_gain(CHAR_DATA *ch, char *argument)
 
 		if (!str_prefix(arg,"list"))
 		{
-			char buf[MAX_STRING_LENGTH];
-			int col;
-
-			col = 0;
+			char buf[MSL]={'\0'};
+			int col = 0;
 
 			sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s\n\r",
 				"group","cost","group","cost","group","cost");
@@ -256,11 +254,11 @@ void do_spells(CHAR_DATA *ch, char *argument)
 {
 	BUFFER *buffer;
 	char arg[MAX_INPUT_LENGTH];
-	char spell_list[LEVEL_HERO + 1][MAX_STRING_LENGTH];
+	char spell_list[LEVEL_HERO + 1][MSL];
 	char spell_columns[LEVEL_HERO + 1];
 	int sn, level, min_lev = 1, max_lev = LEVEL_HERO, mana;
 	bool fAll = FALSE, found = FALSE;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
  
 	if (IS_NPC(ch))
 	  return;
@@ -376,11 +374,11 @@ void do_skills(CHAR_DATA *ch, char *argument)
 {
 	BUFFER *buffer;
 	char arg[MAX_INPUT_LENGTH];
-	char skill_list[LEVEL_HERO + 1][MAX_STRING_LENGTH];
+	char skill_list[LEVEL_HERO + 1][MSL];
 	char skill_columns[LEVEL_HERO + 1];
 	int sn, level, min_lev = 1, max_lev = LEVEL_HERO;
 	bool fAll = FALSE, found = FALSE;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
  
 	if (IS_NPC(ch))
 	  return;

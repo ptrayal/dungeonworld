@@ -72,8 +72,8 @@ int count_spool(CHAR_DATA *ch, NOTE_DATA *spool)
 
 void do_unread(CHAR_DATA *ch)
 {
-    char buf[MAX_STRING_LENGTH];
-    int count;
+    char buf[MSL]={'\0'};
+    int count = 0;
     bool found = FALSE;
 
     if (IS_NPC(ch))
@@ -540,13 +540,13 @@ void update_read(CHAR_DATA *ch, NOTE_DATA *pnote)
 void parse_note( CHAR_DATA *ch, char *argument, int type )
 {
     BUFFER *buffer;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     NOTE_DATA *pnote;
     NOTE_DATA **list;
     char *list_name;
-    int vnum;
-    int anum;
+    int vnum = 0;
+    int anum = 0;
 
     if ( IS_NPC(ch) )
 	return;

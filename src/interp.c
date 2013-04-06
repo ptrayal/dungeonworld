@@ -768,9 +768,9 @@ char *one_argument( char *argument, char *arg_first )
  */
 void do_commands( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
-    int cmd;
-    int col;
+    char buf[MSL]={'\0'};
+    int cmd = 0;
+    int col = 0;
  
     col = 0;
     for ( cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++ )
@@ -793,10 +793,10 @@ void do_commands( CHAR_DATA *ch, char *argument )
 
 void do_wizhelp( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
-    int cmd= 0;
-    int col= 0;
-    int clevel= 0;
+    char buf[MSL]={'\0'};
+    int cmd = 0;
+    int col = 0;
+    int clevel = 0;
      
     for( clevel = LEVEL_HERO + 1; clevel < MAX_LEVEL + 1; clevel++ )
         {

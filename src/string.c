@@ -94,7 +94,7 @@ void string_append( CHAR_DATA *ch, char **pString )
  ****************************************************************************/
 char * string_replace( char * orig, char * old, char * new )
 {
-		char xbuf[MAX_STRING_LENGTH];
+		char xbuf[MSL]={'\0'};
 		
 		xbuf[0] = '\0';
 		strcpy( xbuf, orig );
@@ -120,7 +120,7 @@ char * string_replace( char * orig, char * old, char * new )
  ****************************************************************************/
 void string_add( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 
 		/*
 		 * Thanks to James Seng
@@ -288,8 +288,8 @@ void string_add( CHAR_DATA *ch, char *argument )
  ****************************************************************************/
 char *format_string (char *oldstring /*, bool fSpace */ )
  {
- 	char xbuf[MAX_STRING_LENGTH];
- 	char xbuf2[MAX_STRING_LENGTH];
+ 	char xbuf[MSL]={'\0'};
+ 	char xbuf2[MSL]={'\0'};
  	char *rdesc;
  	int i = 0;
  	int end_of_line;
@@ -618,7 +618,7 @@ char *first_arg( char *argument, char *arg_first, bool fCase )
  */
 char * string_unpad( char * argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		char *s;
 
 		s = argument;
@@ -677,7 +677,7 @@ char * string_proper( char * argument )
 char *string_linedel( char *string, int line )
 {
 	char *strtmp = string;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	int cnt = 1, tmp = 0;
 
 	buf[0] = '\0';
@@ -712,7 +712,7 @@ char *string_lineadd( char *string, char *newstr, int line )
 	char *strtmp = string;
 	int cnt = 1, tmp = 0;
 	bool done = FALSE;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	buf[0] = '\0';
 
@@ -780,8 +780,9 @@ char *getline( char *str, char *buf )
 char *numlineas( char *string )
 {
 	int cnt = 1;
-	static char buf[MAX_STRING_LENGTH*2];
-	char buf2[MAX_STRING_LENGTH], tmpb[MAX_STRING_LENGTH];
+	static char buf[MSL*2]={'\0'};
+	char buf2[MSL]={'\0'};
+	char tmpb[MSL]={'\0'};
 
 	buf[0] = '\0';
 

@@ -62,7 +62,7 @@ int	save_number = 0;
  */
 void advance_level( CHAR_DATA *ch, bool hide )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	int add_hp;
 	int add_mana;
 	int add_move;
@@ -119,7 +119,7 @@ void advance_level( CHAR_DATA *ch, bool hide )
 
 void gain_exp( CHAR_DATA *ch, int gain )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	if ( IS_NPC(ch) || ch->level >= LEVEL_HERO )
 	return;
@@ -488,7 +488,7 @@ void mobile_update( void )
  */
 void weather_update( void )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	DESCRIPTOR_DATA *d;
 	int diff;
 
@@ -1164,7 +1164,7 @@ void msdp_update( void )
 	{
 	if ( d->character && d->connected == CON_PLAYING && !IS_NPC(d->character) )
 		{
-			char buf[MAX_STRING_LENGTH];
+			char buf[MSL]={'\0'};
 			CHAR_DATA *pOpponent = d->character->fighting;
 			ROOM_INDEX_DATA *pRoom = d->character->in_room;
 			AFFECT_DATA *paf;
@@ -1263,7 +1263,7 @@ void msdp_update( void )
 			buf[0] = '\0';
 			for ( paf = d->character->affected; paf; paf = paf->next )
 			{
-				char skill_buf[MAX_STRING_LENGTH];
+				char skill_buf[MSL]={'\0'};
 				sprintf( skill_buf, "%c%s%c%d",
 					(char)MSDP_VAR, skill_table[paf->type].name, 
 					(char)MSDP_VAL, paf->duration );

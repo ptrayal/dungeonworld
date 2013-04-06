@@ -130,8 +130,8 @@ int slot_lookup( int slot )
  */
 void say_spell( CHAR_DATA *ch, int sn )
 {
-	char buf  [MAX_STRING_LENGTH];
-	char buf2 [MAX_STRING_LENGTH];
+	char buf  [MSL]={'\0'};
+	char buf2 [MSL]={'\0'};
 	CHAR_DATA *rch;
 	char *pName;
 	int iSyl;
@@ -1542,7 +1542,7 @@ void spell_create_water( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 	obj->value[1] += water;
 	if ( !is_name( "water", obj->name ) )
 	{
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 
 		sprintf( buf, "%s water", obj->name );
 		PURGE_DATA( obj->name );
@@ -4359,8 +4359,8 @@ void spell_teleport( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 void spell_ventriloquate( int sn, int level, CHAR_DATA *ch,void *vo,int target)
 {
-	char buf1[MAX_STRING_LENGTH];
-	char buf2[MAX_STRING_LENGTH];
+	char buf1[MSL]={'\0'};
+	char buf2[MSL]={'\0'};
 	char speaker[MAX_INPUT_LENGTH];
 	CHAR_DATA *vch;
 

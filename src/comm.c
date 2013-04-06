@@ -890,7 +890,7 @@ void game_loop_unix( int control )
 #if defined(unix)
 void init_descriptor( int control )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	DESCRIPTOR_DATA *dnew;
 	struct sockaddr_in sock;
 	struct hostent *from;
@@ -1278,7 +1278,7 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 			{
 				int percent;
 				char wound[100];
-				char buf[MAX_STRING_LENGTH];
+				char buf[MSL]={'\0'};
 				
 				if (victim->max_hit > 0)
 					percent = victim->hit * 100 / victim->max_hit;
@@ -1359,8 +1359,8 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
  */
 void bust_a_prompt( CHAR_DATA *ch )
 {
-	char buf[MAX_STRING_LENGTH]={'\0'};
-	char buf2[MAX_STRING_LENGTH]={'\0'};
+	char buf[MSL]={'\0'};
+	char buf2[MSL]={'\0'};
 	const char *str;
 	const char *i;
 	char *point;
@@ -1601,7 +1601,7 @@ bool write_to_descriptor( int desc, char *txt, int length )
 void nanny( DESCRIPTOR_DATA *d, char *argument )
 {
 	DESCRIPTOR_DATA *d_old, *d_next;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	CHAR_DATA *ch;
 	char *pwdnew;
@@ -2517,7 +2517,7 @@ void act_new( const char *format, CHAR_DATA *ch, const void *arg1,
 	static char * const him_her [] = { "it",  "him", "her" };
 	static char * const his_her [] = { "its", "his", "her" };
  
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	char fname[MAX_INPUT_LENGTH];
 	CHAR_DATA *to;
 	CHAR_DATA *vch = (CHAR_DATA *) arg2;
@@ -2674,7 +2674,7 @@ void logfmt (char * fmt, ...)
 
 void printf_to_char (CHAR_DATA *ch, char *fmt, ...)
 {
-	char buf [MAX_STRING_LENGTH];
+	char buf [MSL]={'\0'};
 	va_list args;
 	va_start (args, fmt);
 	vsprintf (buf, fmt, args);
@@ -2685,7 +2685,7 @@ void printf_to_char (CHAR_DATA *ch, char *fmt, ...)
 
 void bugf (char * fmt, ...)
 {
-	char buf [2*MSL];
+	char buf [2*MSL]={'\0'};
 	va_list args;
 	va_start (args, fmt);
 	vsprintf (buf, fmt, args);

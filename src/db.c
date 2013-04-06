@@ -664,7 +664,7 @@ void load_old_mob( FILE *fp )
 	MOB_INDEX_DATA *pMobIndex;
 	/* for race updating */
 	int race;
-	char name[MAX_STRING_LENGTH];
+	char name[MSL]={'\0'};
 
 	if ( !area_last )   /* OLC */
 	{
@@ -1327,7 +1327,7 @@ void load_specials( FILE *fp )
 void fix_exits( void )
 {
 	extern const sh_int rev_dir [];
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	ROOM_INDEX_DATA *pRoomIndex;
 	ROOM_INDEX_DATA *to_room;
 	EXIT_DATA *pexit;
@@ -1540,7 +1540,7 @@ void fix_mobprogs( void )
 void area_update( void )
 {
 	AREA_DATA *pArea;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	for ( pArea = area_first; pArea != NULL; pArea = pArea->next )
 	{
@@ -1616,7 +1616,7 @@ void reset_room( ROOM_INDEX_DATA *pRoom )
 		OBJ_INDEX_DATA  *pObjIndex;
 		OBJ_INDEX_DATA  *pObjToIndex;
 		ROOM_INDEX_DATA *pRoomIndex;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	int count,limit=0;
 
 		switch ( pReset->command )
@@ -3007,7 +3007,7 @@ char *fread_word( FILE *fp )
  */
 void do_areas( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	AREA_DATA *pArea1;
 	AREA_DATA *pArea2;
 	int iArea;
@@ -3042,7 +3042,7 @@ void do_areas( CHAR_DATA *ch, char *argument )
 
 void do_memory( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	sprintf( buf, "Affects %5d\n\r", top_affect    ); send_to_char( buf, ch );
 	sprintf( buf, "Areas   %5d\n\r", top_area      ); send_to_char( buf, ch );
@@ -3517,7 +3517,7 @@ bool str_suffix( const char *astr, const char *bstr )
  */
 char *capitalize( const char *str )
 {
-	static char strcap[MAX_STRING_LENGTH];
+	static char strcap[MSL]={'\0'};
 	int i;
 
 	for ( i = 0; str[i] != '\0'; i++ )
@@ -3562,7 +3562,7 @@ void append_file( CHAR_DATA *ch, char *file, char *str )
  */
 void bug( const char *str, int param )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	if ( fpArea != NULL )
 	{

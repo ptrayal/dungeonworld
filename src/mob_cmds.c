@@ -95,7 +95,8 @@ void do_mob( CHAR_DATA *ch, char *argument )
  */
 void mob_interpret( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH], command[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
+    char command[MAX_INPUT_LENGTH];
     int cmd;
 
     argument = one_argument( argument, command );
@@ -760,7 +761,7 @@ void do_mptransfer( CHAR_DATA *ch, char *argument )
 {
     char             arg1[ MAX_INPUT_LENGTH ];
     char             arg2[ MAX_INPUT_LENGTH ];
-    char	     buf[MAX_STRING_LENGTH];
+    char	     buf[MSL]={'\0'};
     ROOM_INDEX_DATA *location;
     CHAR_DATA       *victim;
 
@@ -834,7 +835,7 @@ void do_mpgtransfer( CHAR_DATA *ch, char *argument )
 {
     char             arg1[ MAX_INPUT_LENGTH ];
     char             arg2[ MAX_INPUT_LENGTH ];
-    char	     buf[MAX_STRING_LENGTH];
+    char	     buf[MSL]={'\0'};
     CHAR_DATA       *who, *victim, *victim_next;
 
     argument = one_argument( argument, arg1 );

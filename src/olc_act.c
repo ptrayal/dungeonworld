@@ -237,7 +237,7 @@ void show_spec_cmds( CHAR_DATA *ch )
  ****************************************************************************/
 bool show_help( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     char spell[MAX_INPUT_LENGTH];
     int cnt;
@@ -608,7 +608,7 @@ AREA_DATA *get_vnum_area( int vnum )
 AEDIT( aedit_show )
 {
     AREA_DATA *pArea;
-    char buf  [MAX_STRING_LENGTH];
+    char buf  [MSL]={'\0'};
 
     EDIT_AREA(ch, pArea);
 
@@ -723,7 +723,7 @@ AEDIT( aedit_credits )
 AEDIT( aedit_file )
 {
     AREA_DATA *pArea;
-    char file[MAX_STRING_LENGTH];
+    char file[MSL]={'\0'};
     int i, length;
 
     EDIT_AREA(ch, pArea);
@@ -771,7 +771,7 @@ AEDIT( aedit_file )
 AEDIT( aedit_age )
 {
     AREA_DATA *pArea;
-    char age[MAX_STRING_LENGTH];
+    char age[MSL]={'\0'};
 
     EDIT_AREA(ch, pArea);
 
@@ -794,7 +794,7 @@ AEDIT( aedit_age )
 AEDIT( aedit_recall )
 {
     AREA_DATA *pArea;
-    char room[MAX_STRING_LENGTH];
+    char room[MSL]={'\0'};
     int  value;
 
     EDIT_AREA(ch, pArea);
@@ -826,8 +826,8 @@ AEDIT( aedit_recall )
 AEDIT( aedit_security )
 {
     AREA_DATA *pArea;
-    char sec[MAX_STRING_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char sec[MSL]={'\0'};
+    char buf[MSL]={'\0'};
     int  value;
 
     EDIT_AREA(ch, pArea);
@@ -865,8 +865,8 @@ AEDIT( aedit_security )
 AEDIT( aedit_builder )
 {
     AREA_DATA *pArea;
-    char name[MAX_STRING_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char name[MSL]={'\0'};
+    char buf[MSL]={'\0'};
 
     EDIT_AREA(ch, pArea);
 
@@ -925,8 +925,8 @@ AEDIT( aedit_builder )
 AEDIT( aedit_vnum )
 {
     AREA_DATA *pArea;
-    char lower[MAX_STRING_LENGTH];
-    char upper[MAX_STRING_LENGTH];
+    char lower[MSL]={'\0'};
+    char upper[MSL]={'\0'};
     int  ilower;
     int  iupper;
 
@@ -982,7 +982,7 @@ AEDIT( aedit_vnum )
 AEDIT( aedit_lvnum )
 {
     AREA_DATA *pArea;
-    char lower[MAX_STRING_LENGTH];
+    char lower[MSL]={'\0'};
     int  ilower;
     int  iupper;
 
@@ -1025,7 +1025,7 @@ AEDIT( aedit_lvnum )
 AEDIT( aedit_uvnum )
 {
     AREA_DATA *pArea;
-    char upper[MAX_STRING_LENGTH];
+    char upper[MSL]={'\0'};
     int  ilower;
     int  iupper;
 
@@ -1072,8 +1072,8 @@ AEDIT( aedit_uvnum )
 REDIT( redit_show )
 {
     ROOM_INDEX_DATA	*pRoom;
-    char		buf  [MAX_STRING_LENGTH];
-    char		buf1 [2*MAX_STRING_LENGTH];
+    char		buf  [MSL]={'\0'};
+    char		buf1 [2*MSL]={'\0'};
     OBJ_DATA		*obj;
     CHAR_DATA		*rch;
     int			door;
@@ -1182,7 +1182,7 @@ REDIT( redit_show )
 	if ( ( pexit = pRoom->exit[door] ) )
 	{
 	    char word[MAX_INPUT_LENGTH];
-	    char reset_state[MAX_STRING_LENGTH];
+	    char reset_state[MSL]={'\0'};
 	    char *state;
 	    int i, length;
 
@@ -1391,7 +1391,7 @@ bool change_exit( CHAR_DATA *ch, char *argument, int door )
 
     if ( !str_cmp( command, "dig" ) )
     {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	
 	if ( arg[0] == '\0' || !is_number( arg ) )
 	{
@@ -2198,7 +2198,7 @@ REDIT( redit_oreset )
  */
 void show_obj_values( CHAR_DATA *ch, OBJ_INDEX_DATA *obj )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
 
     switch( obj->item_type )
     {
@@ -2716,7 +2716,7 @@ bool set_obj_values( CHAR_DATA *ch, OBJ_INDEX_DATA *pObj, int value_num, char *a
 OEDIT( oedit_show )
 {
     OBJ_INDEX_DATA *pObj;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     AFFECT_DATA *paf;
     int cnt;
 
@@ -2805,8 +2805,8 @@ OEDIT( oedit_addaffect )
     int value;
     OBJ_INDEX_DATA *pObj;
     AFFECT_DATA *pAf;
-    char loc[MAX_STRING_LENGTH];
-    char mod[MAX_STRING_LENGTH];
+    char loc[MSL]={'\0'};
+    char mod[MSL]={'\0'};
 
     EDIT_OBJ(ch, pObj);
 
@@ -2846,10 +2846,10 @@ OEDIT( oedit_addapply )
     int value,bv,typ;
     OBJ_INDEX_DATA *pObj;
     AFFECT_DATA *pAf;
-    char loc[MAX_STRING_LENGTH];
-    char mod[MAX_STRING_LENGTH];
-    char type[MAX_STRING_LENGTH];
-    char bvector[MAX_STRING_LENGTH];
+    char loc[MSL]={'\0'};
+    char mod[MSL]={'\0'};
+    char type[MSL]={'\0'};
+    char bvector[MSL]={'\0'};
 
     EDIT_OBJ(ch, pObj);
 
@@ -2910,8 +2910,8 @@ OEDIT( oedit_delaffect )
     OBJ_INDEX_DATA *pObj;
     AFFECT_DATA *pAf;
     AFFECT_DATA *pAf_next;
-    char affect[MAX_STRING_LENGTH];
-    int  value;
+    char affect[MSL]={'\0'};
+    int  value = 0;
     int  cnt = 0;
 
     EDIT_OBJ(ch, pObj);
@@ -3496,7 +3496,7 @@ OEDIT( oedit_condition )
 MEDIT( medit_show )
 {
     MOB_INDEX_DATA *pMob;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     MPROG_LIST *list;
 
     EDIT_MOB(ch, pMob);
@@ -4564,7 +4564,7 @@ MEDIT( medit_race )
 
     if ( argument[0] == '?' )
     {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	send_to_char( "Available races are:", ch );
 
@@ -4674,7 +4674,7 @@ void show_liqlist(CHAR_DATA *ch)
 {
     int liq;
     BUFFER *buffer;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     
     buffer = new_buf();
     
@@ -4701,7 +4701,7 @@ void show_damlist(CHAR_DATA *ch)
 {
     int att;
     BUFFER *buffer;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     
     buffer = new_buf();
     
@@ -4725,8 +4725,8 @@ MEDIT( medit_group )
 {
     MOB_INDEX_DATA *pMob;
     MOB_INDEX_DATA *pMTemp;
-    char arg[MAX_STRING_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char arg[MSL]={'\0'};
+    char buf[MSL]={'\0'};
     int temp;
     BUFFER *buffer;
     bool found = FALSE;
@@ -4811,9 +4811,9 @@ MEDIT ( medit_addmprog )
   MOB_INDEX_DATA *pMob;
   MPROG_LIST *list;
   MPROG_CODE *code;
-  char trigger[MAX_STRING_LENGTH];
-  char phrase[MAX_STRING_LENGTH];
-  char num[MAX_STRING_LENGTH];
+  char trigger[MSL]={'\0'};
+  char phrase[MSL]={'\0'};
+  char num[MSL]={'\0'};
 
   EDIT_MOB(ch, pMob);
   argument=one_argument(argument, num);
@@ -4857,7 +4857,7 @@ MEDIT ( medit_delmprog )
     MOB_INDEX_DATA *pMob;
     MPROG_LIST *list;
     MPROG_LIST *list_next;
-    char mprog[MAX_STRING_LENGTH];
+    char mprog[MSL]={'\0'};
     int value;
     int cnt = 0;
 

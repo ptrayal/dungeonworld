@@ -105,7 +105,7 @@ void load_bans(void)
 bool check_ban(char *site,int type)
 {
     BAN_DATA *pban;
-    char host[MAX_STRING_LENGTH];
+    char host[MSL]={'\0'};
 
     strcpy(host,capitalize(site));
     host[0] = LOWER(host[0]);
@@ -135,7 +135,8 @@ bool check_ban(char *site,int type)
 
 void ban_site(CHAR_DATA *ch, char *argument, bool fPerm)
 {
-    char buf[MAX_STRING_LENGTH],buf2[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
+    char buf2[MSL]={'\0'};
     char arg1[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH];
     char *name;
     BUFFER *buffer;
@@ -266,7 +267,7 @@ void do_permban(CHAR_DATA *ch, char *argument)
 void do_allow( CHAR_DATA *ch, char *argument )                        
 {
     char arg[MAX_INPUT_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     BAN_DATA *prev;
     BAN_DATA *curr;
 

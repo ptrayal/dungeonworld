@@ -82,7 +82,7 @@ bool	check_blind		args( ( CHAR_DATA *ch ) );
 
 char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 {
-	static char buf[MAX_STRING_LENGTH];
+	static char buf[MSL]={'\0'};
 
 	buf[0] = '\0';
 
@@ -122,7 +122,7 @@ char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
  */
 void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNothing )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	BUFFER *output;
 	char **prgpstrShow;
 	int *prgnShow;
@@ -238,7 +238,8 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 
 void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
 {
-	char buf[MAX_STRING_LENGTH],message[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
+	char message[MSL]={'\0'};
 
 	buf[0] = '\0';
 
@@ -397,7 +398,7 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
 
 void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	OBJ_DATA *obj;
 	int iWear;
 	int percent;
@@ -576,7 +577,7 @@ void do_scroll(CHAR_DATA *ch, char *argument)
 /* RT does socials */
 void do_socials(CHAR_DATA *ch, char *argument)
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	int iSocial;
 	int col;
 	 
@@ -965,7 +966,7 @@ void do_nosummon(CHAR_DATA *ch, char *argument)
 
 void do_look( CHAR_DATA *ch, char *argument )
 {
-	char buf  [MAX_STRING_LENGTH];
+	char buf  [MSL]={'\0'};
 	char arg1 [MAX_INPUT_LENGTH];
 	char arg2 [MAX_INPUT_LENGTH];
 	char arg3 [MAX_INPUT_LENGTH];
@@ -1233,7 +1234,7 @@ void do_read (CHAR_DATA *ch, char *argument )
 
 void do_examine( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	OBJ_DATA *obj;
 
@@ -1304,7 +1305,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
 void do_exits( CHAR_DATA *ch, char *argument )
 {
 	extern char * const dir_name[];
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	EXIT_DATA *pexit;
 	bool found;
 	bool fAuto;
@@ -1365,7 +1366,7 @@ void do_exits( CHAR_DATA *ch, char *argument )
 
 void do_worth( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	if (IS_NPC(ch))
 	{
@@ -1388,7 +1389,7 @@ void do_worth( CHAR_DATA *ch, char *argument )
 
 void do_score( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	int i;
 
 	sprintf( buf,
@@ -1610,7 +1611,7 @@ void do_score( CHAR_DATA *ch, char *argument )
 void do_affects(CHAR_DATA *ch, char *argument )
 {
 	AFFECT_DATA *paf, *paf_last = NULL;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	
 	if ( ch->affected != NULL )
 	{
@@ -1670,7 +1671,7 @@ char *	const	month_name	[] =
 void do_time( CHAR_DATA *ch, char *argument )
 {
 	extern char str_boot_time[];
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	char *suf;
 	int day;
 
@@ -1703,7 +1704,7 @@ void do_time( CHAR_DATA *ch, char *argument )
 
 void do_weather( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	static char * const sky_look[4] =
 	{
@@ -1736,7 +1737,7 @@ void do_help( CHAR_DATA *ch, char *argument )
 	bool found = FALSE;
 	char argall[MAX_INPUT_LENGTH],argone[MAX_INPUT_LENGTH];
 	int level;
-	char nohelp[MAX_STRING_LENGTH];
+	char nohelp[MSL]={'\0'};
 
 	output = new_buf();
 
@@ -1805,7 +1806,7 @@ void do_whois (CHAR_DATA *ch, char *argument)
 {
 	char arg[MAX_INPUT_LENGTH];
 	BUFFER *output;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	DESCRIPTOR_DATA *d;
 	bool found = FALSE;
 
@@ -1884,8 +1885,8 @@ void do_whois (CHAR_DATA *ch, char *argument)
  */
 void do_who( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
-	char buf2[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
+	char buf2[MSL]={'\0'};
 	BUFFER *output;
 	DESCRIPTOR_DATA *d;
 	int iClass;
@@ -1922,7 +1923,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 	nNumber = 0;
 	for ( ;; )
 	{
-		char arg[MAX_STRING_LENGTH];
+		char arg[MSL]={'\0'};
  
 		argument = one_argument( argument, arg );
 		if ( arg[0] == '\0' )
@@ -2074,11 +2075,9 @@ void do_who( CHAR_DATA *ch, char *argument )
 
 void do_count ( CHAR_DATA *ch, char *argument )
 {
-	int count;
+	int count = 0;
 	DESCRIPTOR_DATA *d;
-	char buf[MAX_STRING_LENGTH];
-
-	count = 0;
+	char buf[MSL]={'\0'};
 
 	for ( d = descriptor_list; d != NULL; d = d->next )
 		if ( d->connected == CON_PLAYING && can_see( ch, d->character ) )
@@ -2402,7 +2401,7 @@ void do_title( CHAR_DATA *ch, char *argument )
 
 void do_description( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	if ( IS_NULLSTR(argument) )
 	{
@@ -2505,7 +2504,7 @@ void do_report( CHAR_DATA *ch, char *argument )
 
 void do_practice( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	int sn;
 
 	if ( IS_NPC(ch) )
@@ -2610,7 +2609,7 @@ void do_practice( CHAR_DATA *ch, char *argument )
  */
 void do_wimpy( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	int wimpy;
 

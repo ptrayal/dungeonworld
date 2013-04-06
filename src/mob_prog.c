@@ -863,8 +863,9 @@ void program_flow(
 {
     CHAR_DATA *rch = NULL;
     char *code, *line;
-    char buf[MAX_STRING_LENGTH];
-    char control[MAX_INPUT_LENGTH], data[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
+    char control[MAX_INPUT_LENGTH];
+    char data[MSL]={'\0'};
 
     static int call_level; /* Keep track of nested "mpcall"s */
 

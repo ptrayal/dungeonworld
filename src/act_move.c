@@ -1416,7 +1416,7 @@ void do_visible( CHAR_DATA *ch, char *argument )
 
 void do_recall( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
     ROOM_INDEX_DATA *location;
 
@@ -1485,7 +1485,7 @@ void do_recall( CHAR_DATA *ch, char *argument )
 
 void do_train( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *mob;
     sh_int stat = - 1;
     char *pOutput = NULL;

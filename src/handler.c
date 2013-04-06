@@ -2198,7 +2198,7 @@ void deduct_cost(CHAR_DATA *ch, int cost)
  */
 OBJ_DATA *create_money( int gold, int silver )
 {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	OBJ_DATA *obj;
 
 	if ( gold < 0 || silver < 0 || (gold == 0 && silver == 0) )

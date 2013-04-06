@@ -49,7 +49,7 @@ ROOM_INDEX_DATA *	find_location	args( ( CHAR_DATA *ch, char *arg ) );
 void do_wiznet( CHAR_DATA *ch, char *argument )
 {
     int flag;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
 
     if ( argument[0] == '\0' )
     {
@@ -177,7 +177,7 @@ void wiznet(char *string, CHAR_DATA *ch, OBJ_DATA *obj,
 void do_guild( CHAR_DATA *ch, char *argument )
 {
     char arg1[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
     int clan;
 
@@ -294,7 +294,8 @@ void do_outfit ( CHAR_DATA *ch, char *argument )
 /* RT nochannels command, for those spammers */
 void do_nochannels( CHAR_DATA *ch, char *argument )
 {
-    char arg[MAX_INPUT_LENGTH], buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
  
     one_argument( argument, arg );
@@ -344,7 +345,8 @@ void do_smote(CHAR_DATA *ch, char *argument )
 {
     CHAR_DATA *vch;
     char *letter,*name;
-    char last[MAX_INPUT_LENGTH], temp[MAX_STRING_LENGTH];
+    char last[MAX_INPUT_LENGTH];
+    char temp[MSL]={'\0'};
     int matches = 0;
  
     if ( !IS_NPC(ch) && IS_SET(ch->comm, COMM_NOEMOTE) )
@@ -435,7 +437,7 @@ void do_smote(CHAR_DATA *ch, char *argument )
 
 void do_bamfin( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
 
     if ( !IS_NPC(ch) )
     {
@@ -465,7 +467,7 @@ void do_bamfin( CHAR_DATA *ch, char *argument )
 
 void do_bamfout( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
  
     if ( !IS_NPC(ch) )
     {
@@ -497,7 +499,8 @@ void do_bamfout( CHAR_DATA *ch, char *argument )
 
 void do_deny( CHAR_DATA *ch, char *argument )
 {
-    char arg[MAX_INPUT_LENGTH],buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
 
     one_argument( argument, arg );
@@ -803,7 +806,7 @@ void do_transfer( CHAR_DATA *ch, char *argument )
 	    &&   d->character->in_room != NULL
 	    &&   can_see( ch, d->character ) )
 	    {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		sprintf( buf, "%s %s", d->character->name, arg2 );
 		do_function(ch, &do_transfer, buf );
 	    }
@@ -1100,7 +1103,7 @@ void do_stat ( CHAR_DATA *ch, char *argument )
 
 void do_rstat( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     ROOM_INDEX_DATA *location;
     OBJ_DATA *obj;
@@ -1203,7 +1206,7 @@ void do_rstat( CHAR_DATA *ch, char *argument )
 
 void do_ostat( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     AFFECT_DATA *paf;
     OBJ_DATA *obj;
@@ -1523,7 +1526,7 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 
 void do_mstat( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     AFFECT_DATA *paf;
     CHAR_DATA *victim;
@@ -1771,7 +1774,7 @@ void do_vnum(CHAR_DATA *ch, char *argument)
 void do_mfind( CHAR_DATA *ch, char *argument )
 {
     extern int top_mob_index;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     MOB_INDEX_DATA *pMobIndex;
     int vnum;
@@ -1822,7 +1825,7 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 void do_ofind( CHAR_DATA *ch, char *argument )
 {
     extern int top_obj_index;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     OBJ_INDEX_DATA *pObjIndex;
     int vnum;
@@ -1932,7 +1935,7 @@ void do_owhere(CHAR_DATA *ch, char *argument )
 
 void do_mwhere( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     BUFFER *buffer;
     CHAR_DATA *victim;
     bool found;
@@ -2010,7 +2013,7 @@ void do_reboo( CHAR_DATA *ch, char *argument )
 
 void do_reboot( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     extern bool merc_down;
     DESCRIPTOR_DATA *d,*d_next;
     CHAR_DATA *vch;
@@ -2042,7 +2045,7 @@ void do_shutdow( CHAR_DATA *ch, char *argument )
 
 void do_shutdown( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     extern bool merc_down;
     DESCRIPTOR_DATA *d,*d_next;
     CHAR_DATA *vch;
@@ -2104,7 +2107,7 @@ void do_snoop( CHAR_DATA *ch, char *argument )
     char arg[MAX_INPUT_LENGTH];
     DESCRIPTOR_DATA *d;
     CHAR_DATA *victim;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
 
     one_argument( argument, arg );
 
@@ -2183,7 +2186,8 @@ void do_snoop( CHAR_DATA *ch, char *argument )
 
 void do_switch( CHAR_DATA *ch, char *argument )
 {
-    char arg[MAX_INPUT_LENGTH], buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
 
     one_argument( argument, arg );
@@ -2254,7 +2258,7 @@ void do_switch( CHAR_DATA *ch, char *argument )
 
 void do_return( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
 
     if ( ch->desc == NULL )
 	return;
@@ -2388,7 +2392,7 @@ void do_clone(CHAR_DATA *ch, char *argument )
     {
 	CHAR_DATA *clone;
 	OBJ_DATA *new_obj;
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 
 	if (!IS_NPC(mob))
 	{
@@ -2467,7 +2471,7 @@ void do_mload( CHAR_DATA *ch, char *argument )
     char arg[MAX_INPUT_LENGTH];
     MOB_INDEX_DATA *pMobIndex;
     CHAR_DATA *victim;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     
     one_argument( argument, arg );
 
@@ -2626,7 +2630,7 @@ void do_purge( CHAR_DATA *ch, char *argument )
 
 void do_advance( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg1[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
     CHAR_DATA *victim;
@@ -2727,7 +2731,7 @@ void do_trust( CHAR_DATA *ch, char *argument )
 {
     char arg1[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
     int level;
 
@@ -2767,7 +2771,8 @@ void do_trust( CHAR_DATA *ch, char *argument )
 
 void do_restore( CHAR_DATA *ch, char *argument )
 {
-    char arg[MAX_INPUT_LENGTH], buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
     CHAR_DATA *vch;
     DESCRIPTOR_DATA *d;
@@ -2854,7 +2859,8 @@ void do_restore( CHAR_DATA *ch, char *argument )
  	
 void do_freeze( CHAR_DATA *ch, char *argument )
 {
-    char arg[MAX_INPUT_LENGTH],buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
 
     one_argument( argument, arg );
@@ -2968,7 +2974,8 @@ void do_log( CHAR_DATA *ch, char *argument )
 
 void do_noemote( CHAR_DATA *ch, char *argument )
 {
-    char arg[MAX_INPUT_LENGTH],buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
 
     one_argument( argument, arg );
@@ -3016,7 +3023,8 @@ void do_noemote( CHAR_DATA *ch, char *argument )
 
 void do_noshout( CHAR_DATA *ch, char *argument )
 {
-    char arg[MAX_INPUT_LENGTH],buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
 
     one_argument( argument, arg );
@@ -3069,7 +3077,8 @@ void do_noshout( CHAR_DATA *ch, char *argument )
 
 void do_notell( CHAR_DATA *ch, char *argument )
 {
-    char arg[MAX_INPUT_LENGTH],buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
 
     one_argument( argument, arg );
@@ -3173,7 +3182,7 @@ void do_newlock( CHAR_DATA *ch, char *argument )
 
 void do_slookup( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     int sn;
 
@@ -3508,7 +3517,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	class = class_lookup(arg3);
 	if ( class == -1 )
 	{
-	    char buf[MAX_STRING_LENGTH];
+	    char buf[MSL]={'\0'};
 
         	strcpy( buf, "Possible classes are: " );
         	for ( class = 0; class < MAX_CLASS; class++ )
@@ -4089,8 +4098,8 @@ void do_rset( CHAR_DATA *ch, char *argument )
 
 void do_sockets( CHAR_DATA *ch, char *argument )
 {
-    char buf[2 * MAX_STRING_LENGTH];
-    char buf2[MAX_STRING_LENGTH];
+    char buf[2 * MSL]={'\0'};
+    char buf2[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     DESCRIPTOR_DATA *d;
     int count;
@@ -4134,7 +4143,7 @@ void do_sockets( CHAR_DATA *ch, char *argument )
  */
 void do_force( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
 
@@ -4276,7 +4285,7 @@ void do_force( CHAR_DATA *ch, char *argument )
 void do_invis( CHAR_DATA *ch, char *argument )
 {
     int level;
-    char arg[MAX_STRING_LENGTH];
+    char arg[MSL]={'\0'};
 
     /* RT code for taking a level argument */
     one_argument( argument, arg );
@@ -4321,7 +4330,7 @@ void do_invis( CHAR_DATA *ch, char *argument )
 void do_incognito( CHAR_DATA *ch, char *argument )
 {
     int level;
-    char arg[MAX_STRING_LENGTH];
+    char arg[MSL]={'\0'};
  
     /* RT code for taking a level argument */
     one_argument( argument, arg );

@@ -39,7 +39,8 @@
 void substitute_alias(DESCRIPTOR_DATA *d, char *argument)
 {
 	CHAR_DATA *ch;
-	char buf[MAX_STRING_LENGTH],prefix[MAX_INPUT_LENGTH],name[MAX_INPUT_LENGTH];
+	char buf[MSL]={'\0'};
+	char prefix[MAX_INPUT_LENGTH],name[MAX_INPUT_LENGTH];
 	char *point;
 	int alias;
 
@@ -104,7 +105,8 @@ void do_alia(CHAR_DATA *ch, char *argument)
 void do_alias(CHAR_DATA *ch, char *argument)
 {
 	CHAR_DATA *rch;
-	char arg[MAX_INPUT_LENGTH],buf[MAX_STRING_LENGTH];
+	char arg[MAX_INPUT_LENGTH];
+	char buf[MSL]={'\0'};
 	int pos;
 
 	smash_tilde(argument);

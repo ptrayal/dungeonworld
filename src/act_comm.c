@@ -93,7 +93,7 @@ void do_delete( CHAR_DATA *ch, char *argument)
 
 void do_channels( CHAR_DATA *ch, char *argument)
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 
 		/* lists all channels and their status */
 		send_to_char("   channel     status\n\r",ch);
@@ -269,7 +269,7 @@ void do_replay (CHAR_DATA *ch, char *argument)
 /* RT auction rewritten in ROM style */
 void do_auction( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
 
 		if (argument[0] == '\0' )
@@ -324,7 +324,7 @@ void do_auction( CHAR_DATA *ch, char *argument )
 /* RT chat replaced with ROM gossip */
 void do_gossip( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
 		if (argument[0] == '\0' )
@@ -379,7 +379,7 @@ void do_gossip( CHAR_DATA *ch, char *argument )
 
 void do_grats( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
 		if (argument[0] == '\0' )
@@ -434,7 +434,7 @@ void do_grats( CHAR_DATA *ch, char *argument )
 
 void do_quote( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
 		if (argument[0] == '\0' )
@@ -490,7 +490,7 @@ void do_quote( CHAR_DATA *ch, char *argument )
 /* RT question channel */
 void do_question( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
 		if (argument[0] == '\0' )
@@ -545,7 +545,7 @@ void do_question( CHAR_DATA *ch, char *argument )
 /* RT answer channel - uses same line as questions */
 void do_answer( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
 		if (argument[0] == '\0' )
@@ -600,7 +600,7 @@ void do_answer( CHAR_DATA *ch, char *argument )
 /* RT music channel */
 void do_music( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
 		if (argument[0] == '\0' )
@@ -656,7 +656,7 @@ void do_music( CHAR_DATA *ch, char *argument )
 /* clan channels */
 void do_clantalk( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
 
 		if (!is_clan(ch) || clan_table[ch->clan].independent)
@@ -707,7 +707,7 @@ void do_clantalk( CHAR_DATA *ch, char *argument )
 
 void do_immtalk( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
 
 		if ( argument[0] == '\0' )
@@ -823,7 +823,8 @@ void do_shout( CHAR_DATA *ch, char *argument )
 
 void do_tell( CHAR_DATA *ch, char *argument )
 {
-		char arg[MAX_INPUT_LENGTH],buf[MAX_STRING_LENGTH];
+		char arg[MAX_INPUT_LENGTH];
+		char buf[MSL]={'\0'};
 		CHAR_DATA *victim;
 
 		if ( IS_SET(ch->comm, COMM_NOTELL) || IS_SET(ch->comm,COMM_DEAF))
@@ -917,7 +918,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
 void do_reply( CHAR_DATA *ch, char *argument )
 {
 		CHAR_DATA *victim;
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 
 		if ( IS_SET(ch->comm, COMM_NOTELL) )
 		{
@@ -1046,7 +1047,8 @@ void do_pmote( CHAR_DATA *ch, char *argument )
 {
 		CHAR_DATA *vch;
 		char *letter,*name;
-		char last[MAX_INPUT_LENGTH], temp[MAX_STRING_LENGTH];
+		char last[MAX_INPUT_LENGTH];
+		char temp[MSL]={'\0'};
 		int matches = 0;
 
 		if ( !IS_NPC(ch) && IS_SET(ch->comm, COMM_NOEMOTE) )
@@ -1630,7 +1632,7 @@ void die_follower( CHAR_DATA *ch )
 
 void do_order( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		char arg[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
 		CHAR_DATA *victim;
 		CHAR_DATA *och;
@@ -1717,7 +1719,7 @@ void do_order( CHAR_DATA *ch, char *argument )
 
 void do_group( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		char arg[MAX_INPUT_LENGTH];
 		CHAR_DATA *victim;
 
@@ -1808,7 +1810,7 @@ void do_group( CHAR_DATA *ch, char *argument )
  */
 void do_split( CHAR_DATA *ch, char *argument )
 {
-		char buf[MAX_STRING_LENGTH];
+		char buf[MSL]={'\0'};
 		char arg1[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
 		CHAR_DATA *gch;
 		int members;

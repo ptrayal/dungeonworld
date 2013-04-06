@@ -720,7 +720,7 @@ bool spec_cast_undead( CHAR_DATA *ch )
 
 bool spec_executioner( CHAR_DATA *ch )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
     CHAR_DATA *v_next;
     char *crime;
@@ -789,7 +789,7 @@ bool spec_fido( CHAR_DATA *ch )
 
 bool spec_guard( CHAR_DATA *ch )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
     CHAR_DATA *v_next;
     CHAR_DATA *ech;

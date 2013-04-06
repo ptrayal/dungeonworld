@@ -48,7 +48,7 @@ void song_update(void)
     CHAR_DATA *victim;
     ROOM_INDEX_DATA *room;
     DESCRIPTOR_DATA *d;
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char *line;
     int i;
 
@@ -243,7 +243,7 @@ void do_play(CHAR_DATA *ch, char *argument)
     if (!str_cmp(arg,"list"))
     {
 	BUFFER *buffer;
-  	char buf[MAX_STRING_LENGTH];
+  	char buf[MSL]={'\0'};
 	int col = 0;
 	bool artist = FALSE, match = FALSE;
 

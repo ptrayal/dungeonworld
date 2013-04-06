@@ -1212,7 +1212,7 @@ bool is_safe_spell(CHAR_DATA *ch, CHAR_DATA *victim, bool area )
  */
 void check_killer( CHAR_DATA *ch, CHAR_DATA *victim )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     /*
      * Follow charm thread to responsible character.
      * Attacking someone's charmed char is hostile!
@@ -1236,7 +1236,7 @@ void check_killer( CHAR_DATA *ch, CHAR_DATA *victim )
     {
 	if ( ch->master == NULL )
 	{
-	    char buf[MAX_STRING_LENGTH];
+	    char buf[MSL]={'\0'};
 
 	    sprintf( buf, "Check_killer: %s bad AFF_CHARM",
 		IS_NPC(ch) ? ch->short_descr : ch->name );
@@ -1447,7 +1447,7 @@ void stop_fighting( CHAR_DATA *ch, bool fBoth )
  */
 void make_corpse( CHAR_DATA *ch )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     OBJ_DATA *corpse;
     OBJ_DATA *obj;
     OBJ_DATA *obj_next;
@@ -1626,7 +1626,7 @@ void death_cry( CHAR_DATA *ch )
 
     if ( vnum != 0 )
     {
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	OBJ_DATA *obj;
 	char *name;
 
@@ -1712,7 +1712,7 @@ void raw_kill( CHAR_DATA *victim )
 
 void group_gain( CHAR_DATA *ch, CHAR_DATA *victim )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *gch;
     CHAR_DATA *lch;
     int xp;
@@ -2682,7 +2682,7 @@ void do_murde( CHAR_DATA *ch, char *argument )
 
 void do_murder( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     CHAR_DATA *victim;
 

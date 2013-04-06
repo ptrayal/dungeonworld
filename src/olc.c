@@ -478,7 +478,7 @@ void redit( CHAR_DATA *ch, char *argument )
 {
     AREA_DATA *pArea;
     ROOM_INDEX_DATA *pRoom;
-    char arg[MAX_STRING_LENGTH];
+    char arg[MSL]={'\0'};
     char command[MAX_INPUT_LENGTH];
     int  cmd;
 
@@ -535,7 +535,7 @@ void oedit( CHAR_DATA *ch, char *argument )
 {
     AREA_DATA *pArea;
     OBJ_INDEX_DATA *pObj;
-    char arg[MAX_STRING_LENGTH];
+    char arg[MSL]={'\0'};
     char command[MAX_INPUT_LENGTH];
     int  cmd;
 
@@ -593,7 +593,7 @@ void medit( CHAR_DATA *ch, char *argument )
     AREA_DATA *pArea;
     MOB_INDEX_DATA *pMob;
     char command[MAX_INPUT_LENGTH];
-    char arg[MAX_STRING_LENGTH];
+    char arg[MSL]={'\0'};
     int  cmd;
 
     smash_tilde( argument );
@@ -699,7 +699,7 @@ void do_aedit( CHAR_DATA *ch, char *argument )
 {
     AREA_DATA *pArea;
     int value;
-    char arg[MAX_STRING_LENGTH];
+    char arg[MSL]={'\0'};
 
     if ( IS_NPC(ch) )
     	return;
@@ -748,7 +748,7 @@ void do_aedit( CHAR_DATA *ch, char *argument )
 void do_redit( CHAR_DATA *ch, char *argument )
 {
     ROOM_INDEX_DATA *pRoom;
-    char arg1[MAX_STRING_LENGTH];
+    char arg1[MSL]={'\0'};
 
     if ( IS_NPC(ch) )
     	return;
@@ -828,7 +828,7 @@ void do_oedit( CHAR_DATA *ch, char *argument )
 {
     OBJ_INDEX_DATA *pObj;
     AREA_DATA *pArea;
-    char arg1[MAX_STRING_LENGTH];
+    char arg1[MSL]={'\0'};
     int value;
 
     if ( IS_NPC(ch) )
@@ -901,7 +901,7 @@ void do_medit( CHAR_DATA *ch, char *argument )
     MOB_INDEX_DATA *pMob;
     AREA_DATA *pArea;
     int value;
-    char arg1[MAX_STRING_LENGTH];
+    char arg1[MSL]={'\0'};
 
     argument = one_argument( argument, arg1 );
 

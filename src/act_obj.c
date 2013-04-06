@@ -655,7 +655,7 @@ void do_give( CHAR_DATA *ch, char *argument )
 {
     char arg1 [MAX_INPUT_LENGTH];
     char arg2 [MAX_INPUT_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
     OBJ_DATA  *obj;
 
@@ -956,7 +956,7 @@ void do_envenom(CHAR_DATA *ch, char *argument)
 void do_fill( CHAR_DATA *ch, char *argument )
 {
     char arg[MAX_INPUT_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     OBJ_DATA *obj;
     OBJ_DATA *fountain;
     bool found;
@@ -1023,7 +1023,8 @@ void do_fill( CHAR_DATA *ch, char *argument )
 
 void do_pour (CHAR_DATA *ch, char *argument)
 {
-    char arg[MAX_STRING_LENGTH],buf[MAX_STRING_LENGTH];
+    char arg[MSL]={'\0'};
+    char buf[MSL]={'\0'};
     OBJ_DATA *out, *in;
     CHAR_DATA *vch = NULL;
     int amount;
@@ -1390,15 +1391,13 @@ bool remove_obj( CHAR_DATA *ch, int iWear, bool fReplace )
  */
 void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
 
     if ( ch->level < obj->level )
     {
-	sprintf( buf, "You must be level %d to use this object.\n\r",
-	    obj->level );
+	sprintf( buf, "You must be level %d to use this object.\n\r",  obj->level );
 	send_to_char( buf, ch );
-	act( "$n tries to use $p, but is too inexperienced.",
-	    ch, obj, NULL, TO_ROOM );
+	act( "$n tries to use $p, but is too inexperienced.", ch, obj, NULL, TO_ROOM );
 	return;
     }
 
@@ -1754,7 +1753,7 @@ void do_remove( CHAR_DATA *ch, char *argument )
 void do_sacrifice( CHAR_DATA *ch, char *argument )
 {
     char arg[MAX_INPUT_LENGTH];
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     OBJ_DATA *obj;
     int silver;
     
@@ -2148,7 +2147,7 @@ void do_zap( CHAR_DATA *ch, char *argument )
 
 void do_steal( CHAR_DATA *ch, char *argument )
 {
-    char buf  [MAX_STRING_LENGTH];
+    char buf  [MSL]={'\0'};
     char arg1 [MAX_INPUT_LENGTH];
     char arg2 [MAX_INPUT_LENGTH];
     CHAR_DATA *victim;
@@ -2327,7 +2326,7 @@ void do_steal( CHAR_DATA *ch, char *argument )
  */
 CHAR_DATA *find_keeper( CHAR_DATA *ch )
 {
-    /*char buf[MAX_STRING_LENGTH];*/
+    /*char buf[MSL]={'\0'};*/
     CHAR_DATA *keeper;
     SHOP_DATA *pShop;
 
@@ -2518,7 +2517,7 @@ int get_cost( CHAR_DATA *keeper, OBJ_DATA *obj, bool fBuy )
 
 void do_buy( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     int cost,roll;
 
     if ( argument[0] == '\0' )
@@ -2530,7 +2529,7 @@ void do_buy( CHAR_DATA *ch, char *argument )
     if ( IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP) )
     {
 	char arg[MAX_INPUT_LENGTH];
-	char buf[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
 	CHAR_DATA *pet;
 	ROOM_INDEX_DATA *pRoomIndexNext;
 	ROOM_INDEX_DATA *in_room;
@@ -2757,7 +2756,7 @@ void do_buy( CHAR_DATA *ch, char *argument )
 
 void do_list( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
 
     if ( IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP) )
     {
@@ -2858,7 +2857,7 @@ void do_list( CHAR_DATA *ch, char *argument )
 
 void do_sell( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     CHAR_DATA *keeper;
     OBJ_DATA *obj;
@@ -2950,7 +2949,7 @@ void do_sell( CHAR_DATA *ch, char *argument )
 
 void do_value( CHAR_DATA *ch, char *argument )
 {
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     CHAR_DATA *keeper;
     OBJ_DATA *obj;

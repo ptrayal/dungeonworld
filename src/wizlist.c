@@ -136,8 +136,8 @@ void do_wizlist(CHAR_DATA *ch, char *argument)
 	char arg1[MAX_INPUT_LENGTH];
 	char arg2[MAX_INPUT_LENGTH];
 	char arg3[MAX_INPUT_LENGTH];
-	char buf[MAX_STRING_LENGTH];
-	char title[MAX_STRING_LENGTH];
+	char buf[MSL]={'\0'};
+	char title[MSL]={'\0'};
 	BUFFER *buffer;
 	int level = 0;
 	WIZ_DATA *pwiz;
