@@ -127,8 +127,8 @@ const struct olc_help_type help_table[] =
  ****************************************************************************/
 void show_flag_cmds( CHAR_DATA *ch, const struct flag_type *flag_table )
 {
-    char buf  [ MAX_STRING_LENGTH ];
-    char buf1 [ MAX_STRING_LENGTH ];
+    char buf  [ MSL ]={'\0'};
+    char buf1 [ MSL ]={'\0'};
     int  flag;
     int  col;
  
@@ -164,8 +164,8 @@ void show_flag_cmds( CHAR_DATA *ch, const struct flag_type *flag_table )
  ****************************************************************************/
 void show_skill_cmds( CHAR_DATA *ch, int tar )
 {
-    char buf  [ MAX_STRING_LENGTH ];
-    char buf1 [ MAX_STRING_LENGTH*2 ];
+    char buf  [ MSL ]={'\0'};
+    char buf1 [ MSL*2 ]={'\0'};
     int  sn;
     int  col;
  
@@ -205,8 +205,8 @@ void show_skill_cmds( CHAR_DATA *ch, int tar )
  ****************************************************************************/
 void show_spec_cmds( CHAR_DATA *ch )
 {
-    char buf  [ MAX_STRING_LENGTH ];
-    char buf1 [ MAX_STRING_LENGTH ];
+    char buf  [ MSL ]={'\0'};
+    char buf1 [ MSL ]={'\0'};
     int  spec;
     int  col;
  
@@ -333,7 +333,7 @@ REDIT( redit_rlist )
 {
     ROOM_INDEX_DATA	*pRoomIndex;
     AREA_DATA		*pArea;
-    char		buf  [ MAX_STRING_LENGTH   ];
+    char		buf  [ MSL ]={'\0'};
     BUFFER		*buf1;
     char		arg  [ MAX_INPUT_LENGTH    ];
     bool found;
@@ -378,7 +378,7 @@ REDIT( redit_mlist )
 {
     MOB_INDEX_DATA	*pMobIndex;
     AREA_DATA		*pArea;
-    char		buf  [ MAX_STRING_LENGTH   ];
+    char		buf  [ MSL ]={'\0'};
     BUFFER		*buf1;
     char		arg  [ MAX_INPUT_LENGTH    ];
     bool fAll, found;
@@ -434,7 +434,7 @@ REDIT( redit_olist )
 {
     OBJ_INDEX_DATA	*pObjIndex;
     AREA_DATA		*pArea;
-    char		buf  [ MAX_STRING_LENGTH   ];
+    char		buf  [ MSL ]={'\0'};
     BUFFER		*buf1;
     char		arg  [ MAX_INPUT_LENGTH    ];
     bool fAll, found;
@@ -1872,7 +1872,7 @@ REDIT( redit_mreset )
     char		arg2 [ MAX_INPUT_LENGTH ];
 
     RESET_DATA		*pReset;
-    char		output [ MAX_STRING_LENGTH ];
+    char		output [ MSL ]={'\0'};
 
     EDIT_ROOM(ch, pRoom);
 
@@ -2013,7 +2013,7 @@ REDIT( redit_oreset )
     int			olevel = 0;
 
     RESET_DATA		*pReset;
-    char		output [ MAX_STRING_LENGTH ];
+    char		output [ MSL ]={'\0'};
 
     EDIT_ROOM(ch, pRoom);
 
