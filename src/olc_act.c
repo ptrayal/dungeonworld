@@ -608,8 +608,7 @@ AEDIT( aedit_show )
 
 	EDIT_AREA(ch, pArea);
 
-	sprintf( buf, "Name:     [%5d] %s\n\r", pArea->vnum, pArea->name );
-	send_to_char( buf, ch );
+	send_to_char( Format("Name:     [%5d] %s\n\r", pArea->vnum, pArea->name), ch );
 
 #if 0  /* ROM OLC */
 	sprintf( buf, "Recall:   [%5d] %s\n\r", pArea->recall,
@@ -618,8 +617,7 @@ AEDIT( aedit_show )
 	send_to_char( buf, ch );
 #endif /* ROM */
 
-	sprintf( buf, "File:     %s\n\r", pArea->file_name );
-	send_to_char( buf, ch );
+	send_to_char( Format("File:     %s\n\r", pArea->file_name), ch );
 
 	sprintf( buf, "Vnums:    [%d-%d]\n\r", pArea->min_vnum, pArea->max_vnum );
 	send_to_char( buf, ch );
