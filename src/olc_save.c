@@ -991,7 +991,7 @@ void do_asave( CHAR_DATA *ch, char *argument )
 	smash_tilde( argument );
 	strcpy( arg1, argument );
 
-	if ( arg1[0] == '\0' )
+	if ( IS_NULLSTR(arg1) )
 	{
 	if (ch)
 	{
