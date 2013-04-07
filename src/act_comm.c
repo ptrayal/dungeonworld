@@ -53,7 +53,7 @@ void do_delete( CHAR_DATA *ch, char *argument)
 	
 	if (ch->pcdata->confirm_delete)
 	{
-		if (argument[0] != '\0')
+		if (!IS_NULLSTR(argument))
 		{
 			send_to_char("Delete status removed.\n\r",ch);
 			ch->pcdata->confirm_delete = FALSE;
@@ -74,7 +74,7 @@ void do_delete( CHAR_DATA *ch, char *argument)
 		}
 	}
 
-	if (argument[0] != '\0')
+	if (!IS_NULLSTR(argument))
 	{
 		send_to_char("Just type delete. No argument.\n\r",ch);
 		return;
@@ -272,7 +272,7 @@ void do_auction( CHAR_DATA *ch, char *argument )
 		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
 
-		if (argument[0] == '\0' )
+		if (IS_NULLSTR(argument))
 		{
 			if (IS_SET(ch->comm,COMM_NOAUCTION))
 			{
@@ -327,7 +327,7 @@ void do_gossip( CHAR_DATA *ch, char *argument )
 		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
-		if (argument[0] == '\0' )
+		if (IS_NULLSTR(argument))
 		{
 			if (IS_SET(ch->comm,COMM_NOGOSSIP))
 			{
@@ -382,7 +382,7 @@ void do_grats( CHAR_DATA *ch, char *argument )
 		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
-		if (argument[0] == '\0' )
+		if (IS_NULLSTR(argument) )
 		{
 			if (IS_SET(ch->comm,COMM_NOGRATS))
 			{
@@ -437,7 +437,7 @@ void do_quote( CHAR_DATA *ch, char *argument )
 		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
-		if (argument[0] == '\0' )
+		if (IS_NULLSTR(argument) )
 		{
 			if (IS_SET(ch->comm,COMM_NOQUOTE))
 			{
@@ -493,7 +493,7 @@ void do_question( CHAR_DATA *ch, char *argument )
 		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
-		if (argument[0] == '\0' )
+		if (IS_NULLSTR(argument) )
 		{
 			if (IS_SET(ch->comm,COMM_NOQUESTION))
 			{
@@ -548,7 +548,7 @@ void do_answer( CHAR_DATA *ch, char *argument )
 		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
-		if (argument[0] == '\0' )
+		if (IS_NULLSTR(argument) )
 		{
 			if (IS_SET(ch->comm,COMM_NOQUESTION))
 			{
@@ -603,7 +603,7 @@ void do_music( CHAR_DATA *ch, char *argument )
 		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
  
-		if (argument[0] == '\0' )
+		if (IS_NULLSTR(argument) )
 		{
 			if (IS_SET(ch->comm,COMM_NOMUSIC))
 			{
@@ -664,7 +664,7 @@ void do_clantalk( CHAR_DATA *ch, char *argument )
 	send_to_char("You aren't in a clan.\n\r",ch);
 	return;
 		}
-		if ( argument[0] == '\0' )
+		if ( IS_NULLSTR(argument) )
 		{
 			if (IS_SET(ch->comm,COMM_NOCLAN))
 			{
@@ -710,7 +710,7 @@ void do_immtalk( CHAR_DATA *ch, char *argument )
 		char buf[MSL]={'\0'};
 		DESCRIPTOR_DATA *d;
 
-		if ( argument[0] == '\0' )
+		if ( IS_NULLSTR(argument) )
 		{
 			if (IS_SET(ch->comm,COMM_NOWIZ))
 			{
@@ -746,7 +746,7 @@ void do_immtalk( CHAR_DATA *ch, char *argument )
 
 void do_say( CHAR_DATA *ch, char *argument )
 {
-		if ( argument[0] == '\0' )
+		if ( IS_NULLSTR(argument) )
 		{
 	send_to_char( "Say what?\n\r", ch );
 	return;
@@ -775,7 +775,7 @@ void do_shout( CHAR_DATA *ch, char *argument )
 {
 		DESCRIPTOR_DATA *d;
 
-		if (argument[0] == '\0' )
+		if (IS_NULLSTR(argument) )
 		{
 				if (IS_SET(ch->comm,COMM_SHOUTSOFF))
 				{
@@ -847,7 +847,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
 
 		argument = one_argument( argument, arg );
 
-		if ( arg[0] == '\0' || argument[0] == '\0' )
+		if ( IS_NULLSTR(arg) || IS_NULLSTR(argument) )
 		{
 	send_to_char( "Tell whom what?\n\r", ch );
 	return;
@@ -997,7 +997,7 @@ void do_yell( CHAR_DATA *ch, char *argument )
 				return;
 		}
  
-		if ( argument[0] == '\0' )
+		if ( IS_NULLSTR(argument) )
 		{
 	send_to_char( "Yell what?\n\r", ch );
 	return;
@@ -1029,7 +1029,7 @@ void do_emote( CHAR_DATA *ch, char *argument )
 				return;
 		}
  
-		if ( argument[0] == '\0' )
+		if ( IS_NULLSTR(argument) )
 		{
 				send_to_char( "Emote what?\n\r", ch );
 				return;
@@ -1057,7 +1057,7 @@ void do_pmote( CHAR_DATA *ch, char *argument )
 				return;
 		}
  
-		if ( argument[0] == '\0' )
+		if ( IS_NULLSTR(argument) )
 		{
 				send_to_char( "Emote what?\n\r", ch );
 				return;
@@ -1491,7 +1491,7 @@ void do_follow( CHAR_DATA *ch, char *argument )
 
 		one_argument( argument, arg );
 
-		if ( arg[0] == '\0' )
+		if ( IS_NULLSTR(arg) )
 		{
 	send_to_char( "Follow whom?\n\r", ch );
 	return;
@@ -1649,7 +1649,7 @@ void do_order( CHAR_DATA *ch, char *argument )
 				return;
 		}
 
-		if ( arg[0] == '\0' || argument[0] == '\0' )
+		if ( IS_NULLSTR(arg) || IS_NULLSTR(argument) )
 		{
 	send_to_char( "Order whom to do what?\n\r", ch );
 	return;
@@ -1725,7 +1725,7 @@ void do_group( CHAR_DATA *ch, char *argument )
 
 		one_argument( argument, arg );
 
-		if ( arg[0] == '\0' )
+		if ( IS_NULLSTR(arg) )
 		{
 	CHAR_DATA *gch;
 	CHAR_DATA *leader;
@@ -1821,7 +1821,7 @@ void do_split( CHAR_DATA *ch, char *argument )
 		argument = one_argument( argument, arg1 );
 				 one_argument( argument, arg2 );
 
-		if ( arg1[0] == '\0' )
+		if ( IS_NULLSTR(arg1) )
 		{
 	send_to_char( "Split how much?\n\r", ch );
 	return;
@@ -1829,7 +1829,7 @@ void do_split( CHAR_DATA *ch, char *argument )
 		
 		amount_silver = atoi( arg1 );
 
-		if (arg2[0] != '\0')
+		if (!IS_NULLSTR(arg2))
 	amount_gold = atoi(arg2);
 
 		if ( amount_gold < 0 || amount_silver < 0)
@@ -1932,7 +1932,7 @@ void do_gtell( CHAR_DATA *ch, char *argument )
 {
 		CHAR_DATA *gch;
 
-		if ( argument[0] == '\0' )
+		if ( IS_NULLSTR(argument) )
 		{
 	send_to_char( "Tell your group what?\n\r", ch );
 	return;

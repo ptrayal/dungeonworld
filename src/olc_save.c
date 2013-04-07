@@ -49,9 +49,9 @@
  ****************************************************************************/
 char *fix_string( const char *str )
 {
-	static char strfix[MAX_STRING_LENGTH * 2];
-	int i;
-	int o;
+	static char strfix[MSL * 2]={'\0'};
+	int i = 0;
+	int o = 0;
 
 	if ( str == NULL )
 		return '\0';
@@ -82,8 +82,8 @@ void save_area_list()
 
 	if ( ( fp = fopen( "area.lst", "w" ) ) == NULL )
 	{
-	bug( "Save_area_list: fopen", 0 );
-	perror( "area.lst" );
+		bug( "Save_area_list: fopen", 0 );
+		perror( "area.lst" );
 	}
 	else
 	{
@@ -93,21 +93,21 @@ void save_area_list()
 	 */
 	fprintf( fp, "social.are\n" );    /* ROM OLC */
 
-	for ( ha = had_list; ha; ha = ha->next )
-		if ( ha->area == NULL )
-			fprintf( fp, "%s\n", ha->filename );
+	 for ( ha = had_list; ha; ha = ha->next )
+	 	if ( ha->area == NULL )
+	 		fprintf( fp, "%s\n", ha->filename );
 
-	for( pArea = area_first; pArea; pArea = pArea->next )
-	{
-		fprintf( fp, "%s\n", pArea->file_name );
+	 	for( pArea = area_first; pArea; pArea = pArea->next )
+	 	{
+	 		fprintf( fp, "%s\n", pArea->file_name );
+	 	}
+
+	 	fprintf( fp, "$\n" );
+	 	fclose( fp );
+	 }
+
+	 return;
 	}
-
-	fprintf( fp, "$\n" );
-	fclose( fp );
-	}
-
-	return;
-}
 
 
 /*
@@ -128,44 +128,44 @@ char *fwrite_flag( long flags, char buf[] )
 
 	if ( flags == 0 )
 	{
-	strcpy( buf, "0" );
-	return buf;
+		strcpy( buf, "0" );
+		return buf;
 	}
 
 	/* 32 -- number of bits in a long */
 
 	for ( offset = 0, cp = buf; offset < 32; offset++ )
-	if ( flags & ( (long)1 << offset ) )
-	{
-		if ( offset <= 'Z' - 'A' )
-		*(cp++) = 'A' + offset;
-		else
-		*(cp++) = 'a' + offset - ( 'Z' - 'A' + 1 );
+		if ( flags & ( (long)1 << offset ) )
+		{
+			if ( offset <= 'Z' - 'A' )
+				*(cp++) = 'A' + offset;
+			else
+				*(cp++) = 'a' + offset - ( 'Z' - 'A' + 1 );
+		}
+
+		*cp = '\0';
+
+		return buf;
 	}
-
-	*cp = '\0';
-
-	return buf;
-}
 
 void save_mobprogs( FILE *fp, AREA_DATA *pArea )
 {
 	MPROG_CODE *pMprog;
-		int i;
+	int i = 0;
 
-		fprintf(fp, "#MOBPROGS\n");
+	fprintf(fp, "#MOBPROGS\n");
 
 	for( i = pArea->min_vnum; i <= pArea->max_vnum; i++ )
+	{
+		if ( (pMprog = get_mprog_index(i) ) != NULL)
 		{
-		  if ( (pMprog = get_mprog_index(i) ) != NULL)
-		{
-				  fprintf(fp, "#%d\n", i);
-				  fprintf(fp, "%s~\n", fix_string(pMprog->code));
+			fprintf(fp, "#%d\n", i);
+			fprintf(fp, "%s~\n", fix_string(pMprog->code));
 		}
-		}
+	}
 
-		fprintf(fp,"#0\n\n");
-		return;
+	fprintf(fp,"#0\n\n");
+	return;
 }
 
 /*****************************************************************************
@@ -192,29 +192,29 @@ void save_mobile( FILE *fp, MOB_INDEX_DATA *pMobIndex )
 	fprintf( fp, "%d ",		pMobIndex->level );
 	fprintf( fp, "%d ",		pMobIndex->hitroll );
 	fprintf( fp, "%dd%d+%d ",	pMobIndex->hit[DICE_NUMBER], 
-				pMobIndex->hit[DICE_TYPE], 
-				pMobIndex->hit[DICE_BONUS] );
+		pMobIndex->hit[DICE_TYPE], 
+		pMobIndex->hit[DICE_BONUS] );
 	fprintf( fp, "%dd%d+%d ",	pMobIndex->mana[DICE_NUMBER], 
-				pMobIndex->mana[DICE_TYPE], 
-				pMobIndex->mana[DICE_BONUS] );
+		pMobIndex->mana[DICE_TYPE], 
+		pMobIndex->mana[DICE_BONUS] );
 	fprintf( fp, "%dd%d+%d ",	pMobIndex->damage[DICE_NUMBER], 
-				pMobIndex->damage[DICE_TYPE], 
-				pMobIndex->damage[DICE_BONUS] );
+		pMobIndex->damage[DICE_TYPE], 
+		pMobIndex->damage[DICE_BONUS] );
 	fprintf( fp, "%s\n",	attack_table[pMobIndex->dam_type].name );
 	fprintf( fp, "%d %d %d %d\n",
-				pMobIndex->ac[AC_PIERCE] / 10, 
-				pMobIndex->ac[AC_BASH]   / 10, 
-				pMobIndex->ac[AC_SLASH]  / 10, 
-				pMobIndex->ac[AC_EXOTIC] / 10 );
+		pMobIndex->ac[AC_PIERCE] / 10, 
+		pMobIndex->ac[AC_BASH]   / 10, 
+		pMobIndex->ac[AC_SLASH]  / 10, 
+		pMobIndex->ac[AC_EXOTIC] / 10 );
 	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->off_flags,  buf ) );
 	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->imm_flags,  buf ) );
 	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->res_flags,  buf ) );
 	fprintf( fp, "%s\n",	fwrite_flag( pMobIndex->vuln_flags, buf ) );
 	fprintf( fp, "%s %s %s %ld\n",
-				position_table[pMobIndex->start_pos].short_name,
-				position_table[pMobIndex->default_pos].short_name,
-				sex_table[pMobIndex->sex].name,
-				pMobIndex->wealth );
+		position_table[pMobIndex->start_pos].short_name,
+		position_table[pMobIndex->default_pos].short_name,
+		sex_table[pMobIndex->sex].name,
+		pMobIndex->wealth );
 	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->form,  buf ) );
 	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->parts, buf ) );
 
@@ -247,9 +247,7 @@ void save_mobile( FILE *fp, MOB_INDEX_DATA *pMobIndex )
 
 	for (pMprog = pMobIndex->mprogs; pMprog; pMprog = pMprog->next)
 	{
-		fprintf(fp, "M %s %d %s~\n",
-		mprog_type_to_name(pMprog->trig_type), pMprog->vnum,
-				pMprog->trig_phrase);
+		fprintf(fp, "M %s %d %s~\n", mprog_type_to_name(pMprog->trig_type), pMprog->vnum, pMprog->trig_phrase);
 	}
 
 	return;
@@ -613,10 +611,10 @@ void save_specials( FILE *fp, AREA_DATA *pArea )
  */
 void save_door_resets( FILE *fp, AREA_DATA *pArea )
 {
-	int iHash;
+	int iHash = 0;
 	ROOM_INDEX_DATA *pRoomIndex;
 	EXIT_DATA *pExit;
-	int door;
+	int door = 0;
 
 	for( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )
 	{

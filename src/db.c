@@ -663,7 +663,7 @@ void load_old_mob( FILE *fp )
 {
 	MOB_INDEX_DATA *pMobIndex;
 	/* for race updating */
-	int race;
+	int race = 0;
 	char name[MSL]={'\0'};
 
 	if ( !area_last )   /* OLC */
@@ -674,47 +674,47 @@ void load_old_mob( FILE *fp )
 
 	for ( ; ; )
 	{
-	sh_int vnum;
-	char letter;
-	int iHash;
+		sh_int vnum;
+		char letter;
+		int iHash = 0;
 
-	letter				= fread_letter( fp );
-	if ( letter != '#' )
-	{
-		bug( "Load_mobiles: # not found.", 0 );
-		exit( 1 );
-	}
+		letter				= fread_letter( fp );
+		if ( letter != '#' )
+		{
+			bug( "Load_mobiles: # not found.", 0 );
+			exit( 1 );
+		}
 
-	vnum				= fread_number( fp );
-	if ( vnum == 0 )
-		break;
+		vnum				= fread_number( fp );
+		if ( vnum == 0 )
+			break;
 
-	fBootDb = FALSE;
-	if ( get_mob_index( vnum ) != NULL )
-	{
-		bug( "Load_mobiles: vnum %d duplicated.", vnum );
-		exit( 1 );
-	}
-	fBootDb = TRUE;
+		fBootDb = FALSE;
+		if ( get_mob_index( vnum ) != NULL )
+		{
+			bug( "Load_mobiles: vnum %d duplicated.", vnum );
+			exit( 1 );
+		}
+		fBootDb = TRUE;
 
-	pMobIndex			= new_mob_index();
-	pMobIndex->vnum			= vnum;
+		pMobIndex			= new_mob_index();
+		pMobIndex->vnum			= vnum;
 		pMobIndex->area                 = area_last;               /* OLC */
-	pMobIndex->new_format		= FALSE;
-	pMobIndex->player_name		= fread_string( fp );
-	pMobIndex->short_descr		= fread_string( fp );
-	pMobIndex->long_descr		= fread_string( fp );
-	pMobIndex->description		= fread_string( fp );
+		pMobIndex->new_format		= FALSE;
+		pMobIndex->player_name		= fread_string( fp );
+		pMobIndex->short_descr		= fread_string( fp );
+		pMobIndex->long_descr		= fread_string( fp );
+		pMobIndex->description		= fread_string( fp );
 
-	pMobIndex->long_descr[0]	= UPPER(pMobIndex->long_descr[0]);
-	pMobIndex->description[0]	= UPPER(pMobIndex->description[0]);
+		pMobIndex->long_descr[0]	= UPPER(pMobIndex->long_descr[0]);
+		pMobIndex->description[0]	= UPPER(pMobIndex->description[0]);
 
-	pMobIndex->act			= fread_flag( fp ) | ACT_IS_NPC;
-	pMobIndex->affected_by		= fread_flag( fp );
-	pMobIndex->pShop		= NULL;
-	pMobIndex->alignment		= fread_number( fp );
-	letter				= fread_letter( fp );
-	pMobIndex->level		= fread_number( fp );
+		pMobIndex->act			= fread_flag( fp ) | ACT_IS_NPC;
+		pMobIndex->affected_by		= fread_flag( fp );
+		pMobIndex->pShop		= NULL;
+		pMobIndex->alignment		= fread_number( fp );
+		letter				= fread_letter( fp );
+		pMobIndex->level		= fread_number( fp );
 
 	/*
 	 * The unused stuff is for imps who want to use the old-style
@@ -732,63 +732,63 @@ void load_old_mob( FILE *fp )
 					  fread_number( fp );	/* Unused */
 	/* '+'		*/		  fread_letter( fp );	/* Unused */
 					  fread_number( fp );	/* Unused */
-		pMobIndex->wealth               = fread_number( fp )/20;	
+	 pMobIndex->wealth               = fread_number( fp )/20;	
 	/* xp can't be used! */		  fread_number( fp );	/* Unused */
 	pMobIndex->start_pos		= fread_number( fp );	/* Unused */
 	pMobIndex->default_pos		= fread_number( fp );	/* Unused */
 
-	if (pMobIndex->start_pos < POS_SLEEPING)
-		pMobIndex->start_pos = POS_STANDING;
-	if (pMobIndex->default_pos < POS_SLEEPING)
-		pMobIndex->default_pos = POS_STANDING;
+	 if (pMobIndex->start_pos < POS_SLEEPING)
+	 	pMobIndex->start_pos = POS_STANDING;
+	 if (pMobIndex->default_pos < POS_SLEEPING)
+	 	pMobIndex->default_pos = POS_STANDING;
 
 	/*
 	 * Back to meaningful values.
 	 */
-	pMobIndex->sex			= fread_number( fp );
+	 pMobIndex->sex			= fread_number( fp );
 
 		/* compute the race BS */
-	one_argument(pMobIndex->player_name,name);
- 
-	if (name[0] == '\0' || (race =  race_lookup(name)) == 0)
-	{
-			/* fill in with blanks */
-			pMobIndex->race = race_lookup("human");
-			pMobIndex->off_flags = OFF_DODGE|OFF_DISARM|OFF_TRIP|ASSIST_VNUM;
-			pMobIndex->imm_flags = 0;
-			pMobIndex->res_flags = 0;
-			pMobIndex->vuln_flags = 0;
-			pMobIndex->form = FORM_EDIBLE|FORM_SENTIENT|FORM_HUMANOID|FORM_MAMMAL;
-			pMobIndex->parts = PART_HEAD|PART_ARMS|PART_LEGS|PART_HEART|
-							   PART_BRAINS|PART_GUTS;
-		}
-		else
-		{
-			pMobIndex->race = race;
-			pMobIndex->off_flags = OFF_DODGE|OFF_DISARM|OFF_TRIP|ASSIST_RACE|
-								   race_table[race].off;
-			pMobIndex->imm_flags = race_table[race].imm;
-			pMobIndex->res_flags = race_table[race].res;
-			pMobIndex->vuln_flags = race_table[race].vuln;
-			pMobIndex->form = race_table[race].form;
-			pMobIndex->parts = race_table[race].parts;
-		}
+	 one_argument(pMobIndex->player_name,name);
 
-	if ( letter != 'S' )
-	{
-		bug( "Load_mobiles: vnum %d non-S.", vnum );
-		exit( 1 );
-	}
+	 if (name[0] == '\0' || (race =  race_lookup(name)) == 0)
+	 {
+			/* fill in with blanks */
+	 	pMobIndex->race = race_lookup("human");
+	 	pMobIndex->off_flags = OFF_DODGE|OFF_DISARM|OFF_TRIP|ASSIST_VNUM;
+	 	pMobIndex->imm_flags = 0;
+	 	pMobIndex->res_flags = 0;
+	 	pMobIndex->vuln_flags = 0;
+	 	pMobIndex->form = FORM_EDIBLE|FORM_SENTIENT|FORM_HUMANOID|FORM_MAMMAL;
+	 	pMobIndex->parts = PART_HEAD|PART_ARMS|PART_LEGS|PART_HEART|
+	 	PART_BRAINS|PART_GUTS;
+	 }
+	 else
+	 {
+	 	pMobIndex->race = race;
+	 	pMobIndex->off_flags = OFF_DODGE|OFF_DISARM|OFF_TRIP|ASSIST_RACE|
+	 	race_table[race].off;
+	 	pMobIndex->imm_flags = race_table[race].imm;
+	 	pMobIndex->res_flags = race_table[race].res;
+	 	pMobIndex->vuln_flags = race_table[race].vuln;
+	 	pMobIndex->form = race_table[race].form;
+	 	pMobIndex->parts = race_table[race].parts;
+	 }
+
+	 if ( letter != 'S' )
+	 {
+	 	bug( "Load_mobiles: vnum %d non-S.", vnum );
+	 	exit( 1 );
+	 }
 
 	convert_mobile( pMobIndex );                           /* ROM OLC */
 
-	iHash			= vnum % MAX_KEY_HASH;
-	pMobIndex->next		= mob_index_hash[iHash];
-	mob_index_hash[iHash]	= pMobIndex;
-	top_mob_index++;
+	 iHash			= vnum % MAX_KEY_HASH;
+	 pMobIndex->next		= mob_index_hash[iHash];
+	 mob_index_hash[iHash]	= pMobIndex;
+	 top_mob_index++;
 		top_vnum_mob = top_vnum_mob < vnum ? vnum : top_vnum_mob;  /* OLC */
 		assign_area_vnum( vnum );                                  /* OLC */
-	kill_table[URANGE(0, pMobIndex->level, MAX_LEVEL-1)].number++;
+	 kill_table[URANGE(0, pMobIndex->level, MAX_LEVEL-1)].number++;
 	}
 
 	return;
@@ -991,84 +991,86 @@ void load_resets( FILE *fp )
 
 	if ( !area_last )
 	{
-	bug( "Load_resets: no #AREA seen yet.", 0 );
-	exit( 1 );
+		bug( "Load_resets: no #AREA seen yet.", 0 );
+		exit( 1 );
 	}
 
 	for ( ; ; )
 	{
-	char letter;
+		char letter;
 
-	if ( ( letter = fread_letter( fp ) ) == 'S' )
-		break;
+		if ( ( letter = fread_letter( fp ) ) == 'S' )
+			break;
 
-	if ( letter == '*' )
-	{
-		fread_to_eol( fp );
-		continue;
-	}
+		if ( letter == '*' )
+		{
+			fread_to_eol( fp );
+			continue;
+		}
 
-	pReset		= new_reset_data();
-	pReset->command	= letter;
+		pReset		= new_reset_data();
+		pReset->command	= letter;
 	/* if_flag */	  fread_number( fp );
-	pReset->arg1	= fread_number( fp );
-	pReset->arg2	= fread_number( fp );
-	pReset->arg3	= (letter == 'G' || letter == 'R')
-				? 0 : fread_number( fp );
-	pReset->arg4	= (letter == 'P' || letter == 'M')
-				? fread_number(fp) : 0;
-			  fread_to_eol( fp );
+		pReset->arg1	= fread_number( fp );
+		pReset->arg2	= fread_number( fp );
+		pReset->arg3	= (letter == 'G' || letter == 'R')
+		? 0 : fread_number( fp );
+		pReset->arg4	= (letter == 'P' || letter == 'M')
+		? fread_number(fp) : 0;
+		fread_to_eol( fp );
 
-	switch( pReset->command )
-	{
-		case 'M':
-		case 'O':
-		rVnum = pReset->arg3;
-		break;
-
-		case 'P':
-		case 'G':
-		case 'E':
-		break;
-
-		case 'D':
-		pRoomIndex = get_room_index( (rVnum = pReset->arg1) );
-		if ( pReset->arg2 < 0
-		||   pReset->arg2 >= MAX_DIR
-		|| !pRoomIndex
-		|| !( pexit = pRoomIndex->exit[pReset->arg2] )
-		|| !IS_SET( pexit->rs_flags, EX_ISDOOR ) )
+		switch( pReset->command )
 		{
-			bugf( "Load_resets: 'D': exit %d, room %d not door.", pReset->arg2, pReset->arg1 );
-			exit( 1 );
+			case 'M':
+			case 'O':
+			rVnum = pReset->arg3;
+			break;
+
+			case 'P':
+			case 'G':
+			case 'E':
+			break;
+
+			case 'D':
+			pRoomIndex = get_room_index( (rVnum = pReset->arg1) );
+			if ( pReset->arg2 < 0
+				||   pReset->arg2 >= MAX_DIR
+				|| !pRoomIndex
+				|| !( pexit = pRoomIndex->exit[pReset->arg2] )
+				|| !IS_SET( pexit->rs_flags, EX_ISDOOR ) )
+			{
+				bugf( "Load_resets: 'D': exit %d, room %d not door.", pReset->arg2, pReset->arg1 );
+				exit( 1 );
+			}
+
+			switch ( pReset->arg3 )
+			{
+				default: bug( "Load_resets: 'D': bad 'locks': %d." , pReset->arg3); break;
+				case 0: break;
+				case 1: SET_BIT( pexit->rs_flags, EX_CLOSED );
+				SET_BIT( pexit->exit_info, EX_CLOSED ); 
+				break;
+				case 2: SET_BIT( pexit->rs_flags, EX_CLOSED | EX_LOCKED );
+				SET_BIT( pexit->exit_info, EX_CLOSED | EX_LOCKED ); 
+				break;
+			}
+			break;
+
+			case 'R':
+			rVnum = pReset->arg1;
+			break;
 		}
 
-		switch ( pReset->arg3 )
+		if ( rVnum == -1 )
 		{
-			default: bug( "Load_resets: 'D': bad 'locks': %d." , pReset->arg3); break;
-			case 0: break;
-			case 1: SET_BIT( pexit->rs_flags, EX_CLOSED );
-				SET_BIT( pexit->exit_info, EX_CLOSED ); break;
-			case 2: SET_BIT( pexit->rs_flags, EX_CLOSED | EX_LOCKED );
-				SET_BIT( pexit->exit_info, EX_CLOSED | EX_LOCKED ); break;
+			bugf( "load_resets : rVnum == -1" );
+			exit(1);
 		}
-		break;
 
-		case 'R':
-		rVnum = pReset->arg1;
-		break;
-	}
-
-	if ( rVnum == -1 )
-	{
-		bugf( "load_resets : rVnum == -1" );
-		exit(1);
-	}
-
-	if ( pReset->command != 'D' )
-		new_reset( get_room_index(rVnum), pReset );
-	else
-		free_reset_data( pReset );
+		if ( pReset->command != 'D' )
+			new_reset( get_room_index(rVnum), pReset );
+		else
+			free_reset_data( pReset );
 	}
 
 	return;
@@ -1083,155 +1085,155 @@ void load_rooms( FILE *fp )
 
 	if ( area_last == NULL )
 	{
-	bug( "Load_resets: no #AREA seen yet.", 0 );
-	exit( 1 );
+		bug( "Load_resets: no #AREA seen yet.", 0 );
+		exit( 1 );
 	}
 
 	for ( ; ; )
 	{
-	sh_int vnum;
-	char letter;
-	int door;
-	int iHash;
+		sh_int vnum;
+		char letter;
+		int door = 0;
+		int iHash = 0;
 
-	letter				= fread_letter( fp );
-	if ( letter != '#' )
-	{
-		bug( "Load_rooms: # not found.", 0 );
-		exit( 1 );
-	}
-
-	vnum				= fread_number( fp );
-	if ( vnum == 0 )
-		break;
-
-	fBootDb = FALSE;
-	if ( get_room_index( vnum ) != NULL )
-	{
-		bug( "Load_rooms: vnum %d duplicated.", vnum );
-		exit( 1 );
-	}
-	fBootDb = TRUE;
-
-	pRoomIndex			= new_room_index();
-	pRoomIndex->owner		= NULL;
-	pRoomIndex->people		= NULL;
-	pRoomIndex->contents		= NULL;
-	pRoomIndex->extra_descr		= NULL;
-	pRoomIndex->area		= area_last;
-	pRoomIndex->vnum		= vnum;
-	pRoomIndex->name		= fread_string( fp );
-	pRoomIndex->description		= fread_string( fp );
-	/* Area number */		  fread_number( fp );
-	pRoomIndex->room_flags		= fread_flag( fp );
-	/* horrible hack */
-	if ( 3000 <= vnum && vnum < 3400)
-	   SET_BIT(pRoomIndex->room_flags,ROOM_LAW);
-	pRoomIndex->sector_type		= fread_number( fp );
-	pRoomIndex->light		= 0;
-	for ( door = 0; door <= 5; door++ )
-		pRoomIndex->exit[door] = NULL;
-
-	/* defaults */
-	pRoomIndex->heal_rate = 100;
-	pRoomIndex->mana_rate = 100;
-
-	for ( ; ; )
-	{
-		letter = fread_letter( fp );
-
-		if ( letter == 'S' )
-		break;
-
-		if ( letter == 'H') /* healing room */
-		pRoomIndex->heal_rate = fread_number(fp);
-	
-		else if ( letter == 'M') /* mana room */
-		pRoomIndex->mana_rate = fread_number(fp);
-
-	   else if ( letter == 'C') /* clan */
-	   {
-		if (pRoomIndex->clan)
+		letter				= fread_letter( fp );
+		if ( letter != '#' )
 		{
-			bug("Load_rooms: duplicate clan fields.",0);
-			exit(1);
-		}
-		pRoomIndex->clan = clan_lookup(fread_string(fp));
-		}
-	
-
-		else if ( letter == 'D' )
-		{
-		EXIT_DATA *pexit;
-		int locks;
-
-		door = fread_number( fp );
-		if ( door < 0 || door > 5 )
-		{
-			bug( "Fread_rooms: vnum %d has bad door number.", vnum );
+			bug( "Load_rooms: # not found.", 0 );
 			exit( 1 );
 		}
 
-		pexit			= new_exit();
-		pexit->description	= fread_string( fp );
-		pexit->keyword		= fread_string( fp );
-		pexit->exit_info	= 0;
+		vnum				= fread_number( fp );
+		if ( vnum == 0 )
+			break;
+
+		fBootDb = FALSE;
+		if ( get_room_index( vnum ) != NULL )
+		{
+			bug( "Load_rooms: vnum %d duplicated.", vnum );
+			exit( 1 );
+		}
+		fBootDb = TRUE;
+
+		pRoomIndex			= new_room_index();
+		pRoomIndex->owner		= NULL;
+		pRoomIndex->people		= NULL;
+		pRoomIndex->contents		= NULL;
+		pRoomIndex->extra_descr		= NULL;
+		pRoomIndex->area		= area_last;
+		pRoomIndex->vnum		= vnum;
+		pRoomIndex->name		= fread_string( fp );
+		pRoomIndex->description		= fread_string( fp );
+	/* Area number */		  fread_number( fp );
+		pRoomIndex->room_flags		= fread_flag( fp );
+	/* horrible hack */
+		if ( 3000 <= vnum && vnum < 3400)
+			SET_BIT(pRoomIndex->room_flags,ROOM_LAW);
+		pRoomIndex->sector_type		= fread_number( fp );
+		pRoomIndex->light		= 0;
+		for ( door = 0; door <= 5; door++ )
+			pRoomIndex->exit[door] = NULL;
+
+	/* defaults */
+		pRoomIndex->heal_rate = 100;
+		pRoomIndex->mana_rate = 100;
+
+		for ( ; ; )
+		{
+			letter = fread_letter( fp );
+
+			if ( letter == 'S' )
+				break;
+
+		if ( letter == 'H') /* healing room */
+			pRoomIndex->heal_rate = fread_number(fp);
+
+		else if ( letter == 'M') /* mana room */
+			pRoomIndex->mana_rate = fread_number(fp);
+
+	   else if ( letter == 'C') /* clan */
+			{
+				if (pRoomIndex->clan)
+				{
+					bug("Load_rooms: duplicate clan fields.",0);
+					exit(1);
+				}
+				pRoomIndex->clan = clan_lookup(fread_string(fp));
+			}
+
+
+			else if ( letter == 'D' )
+			{
+				EXIT_DATA *pexit;
+				int locks;
+
+				door = fread_number( fp );
+				if ( door < 0 || door > 5 )
+				{
+					bug( "Fread_rooms: vnum %d has bad door number.", vnum );
+					exit( 1 );
+				}
+
+				pexit			= new_exit();
+				pexit->description	= fread_string( fp );
+				pexit->keyword		= fread_string( fp );
+				pexit->exit_info	= 0;
 				pexit->rs_flags         = 0;                    /* OLC */
-		locks			= fread_number( fp );
-		pexit->key		= fread_number( fp );
-		pexit->u1.vnum		= fread_number( fp );
+				locks			= fread_number( fp );
+				pexit->key		= fread_number( fp );
+				pexit->u1.vnum		= fread_number( fp );
 		pexit->orig_door	= door;			/* OLC */
 
-		switch ( locks )
-		{
-		case 1: pexit->exit_info = EX_ISDOOR;               
-			pexit->rs_flags  = EX_ISDOOR;		     break;
-		case 2: pexit->exit_info = EX_ISDOOR | EX_PICKPROOF;
-			pexit->rs_flags  = EX_ISDOOR | EX_PICKPROOF; break;
-		case 3: pexit->exit_info = EX_ISDOOR | EX_NOPASS;    
-			pexit->rs_flags  = EX_ISDOOR | EX_NOPASS;    break;
-		case 4: pexit->exit_info = EX_ISDOOR|EX_NOPASS|EX_PICKPROOF;
-			pexit->rs_flags  = EX_ISDOOR|EX_NOPASS|EX_PICKPROOF;
-			break;
+				switch ( locks )
+				{
+					case 1: pexit->exit_info = EX_ISDOOR;               
+					pexit->rs_flags  = EX_ISDOOR;		     break;
+					case 2: pexit->exit_info = EX_ISDOOR | EX_PICKPROOF;
+					pexit->rs_flags  = EX_ISDOOR | EX_PICKPROOF; break;
+					case 3: pexit->exit_info = EX_ISDOOR | EX_NOPASS;    
+					pexit->rs_flags  = EX_ISDOOR | EX_NOPASS;    break;
+					case 4: pexit->exit_info = EX_ISDOOR|EX_NOPASS|EX_PICKPROOF;
+					pexit->rs_flags  = EX_ISDOOR|EX_NOPASS|EX_PICKPROOF;
+					break;
+				}
+
+				pRoomIndex->exit[door]	= pexit;
+				top_exit++;
+			}
+			else if ( letter == 'E' )
+			{
+				EXTRA_DESCR_DATA *ed;
+
+				ed			= new_extra_descr();
+				ed->keyword		= fread_string( fp );
+				ed->description		= fread_string( fp );
+				ed->next		= pRoomIndex->extra_descr;
+				pRoomIndex->extra_descr	= ed;
+				top_ed++;
+			}
+
+			else if (letter == 'O')
+			{
+				if (pRoomIndex->owner[0] != '\0')
+				{
+					bug("Load_rooms: duplicate owner.",0);
+					exit(1);
+				}
+
+				pRoomIndex->owner = fread_string(fp);
+			}
+
+			else
+			{
+				bug( "Load_rooms: vnum %d has flag not 'DES'.", vnum );
+				exit( 1 );
+			}
 		}
 
-		pRoomIndex->exit[door]	= pexit;
-		top_exit++;
-		}
-		else if ( letter == 'E' )
-		{
-		EXTRA_DESCR_DATA *ed;
-
-		ed			= new_extra_descr();
-		ed->keyword		= fread_string( fp );
-		ed->description		= fread_string( fp );
-		ed->next		= pRoomIndex->extra_descr;
-		pRoomIndex->extra_descr	= ed;
-		top_ed++;
-		}
-
-		else if (letter == 'O')
-		{
-		if (pRoomIndex->owner[0] != '\0')
-		{
-			bug("Load_rooms: duplicate owner.",0);
-			exit(1);
-		}
-
-		pRoomIndex->owner = fread_string(fp);
-		}
-
-		else
-		{
-		bug( "Load_rooms: vnum %d has flag not 'DES'.", vnum );
-		exit( 1 );
-		}
-	}
-
-	iHash			= vnum % MAX_KEY_HASH;
-	pRoomIndex->next	= room_index_hash[iHash];
-	room_index_hash[iHash]	= pRoomIndex;
-	top_room++;
+		iHash			= vnum % MAX_KEY_HASH;
+		pRoomIndex->next	= room_index_hash[iHash];
+		room_index_hash[iHash]	= pRoomIndex;
+		top_room++;
 		top_vnum_room = top_vnum_room < vnum ? vnum : top_vnum_room; /* OLC */
 		assign_area_vnum( vnum );                                    /* OLC */
 	}

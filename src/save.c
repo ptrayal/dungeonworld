@@ -110,27 +110,27 @@ void save_char_obj( CHAR_DATA *ch )
 	FILE *fp;
 
 	if ( IS_NPC(ch) )
-	return;
+		return;
 
 	if ( ch->desc != NULL && ch->desc->original != NULL )
-	ch = ch->desc->original;
+		ch = ch->desc->original;
 
 #if defined(unix)
 	/* create god log */
 	if (IS_IMMORTAL(ch) || ch->level >= LEVEL_IMMORTAL)
 	{
-	fclose(fpReserve);
-	sprintf(strsave, "%s%s",GOD_DIR, capitalize(ch->name));
-	if ((fp = fopen(strsave,"w")) == NULL)
-	{
-		bug("Save_char_obj: fopen",0);
-		perror(strsave);
-	}
+		fclose(fpReserve);
+		sprintf(strsave, "%s%s",GOD_DIR, capitalize(ch->name));
+		if ((fp = fopen(strsave,"w")) == NULL)
+		{
+			bug("Save_char_obj: fopen",0);
+			perror(strsave);
+		}
 
-	fprintf(fp,"Lev %2d Trust %2d  %s%s\n",
-		ch->level, get_trust(ch), ch->name, ch->pcdata->title);
-	fclose( fp );
-	fpReserve = fopen( NULL_FILE, "r" );
+		fprintf(fp,"Lev %2d Trust %2d  %s%s\n",
+			ch->level, get_trust(ch), ch->name, ch->pcdata->title);
+		fclose( fp );
+		fpReserve = fopen( NULL_FILE, "r" );
 	}
 #endif
 
@@ -138,18 +138,18 @@ void save_char_obj( CHAR_DATA *ch )
 	sprintf( strsave, "%s%s", PLAYER_DIR, capitalize( ch->name ) );
 	if ( ( fp = fopen( TEMP_FILE, "w" ) ) == NULL )
 	{
-	bug( "Save_char_obj: fopen", 0 );
-	perror( strsave );
+		bug( "Save_char_obj: fopen", 0 );
+		perror( strsave );
 	}
 	else
 	{
-	fwrite_char( ch, fp );
-	if ( ch->carrying != NULL )
-		fwrite_obj( ch, ch->carrying, fp, 0 );
+		fwrite_char( ch, fp );
+		if ( ch->carrying != NULL )
+			fwrite_obj( ch, ch->carrying, fp, 0 );
 	/* save the pets */
-	if (ch->pet != NULL && ch->pet->in_room == ch->in_room)
-		fwrite_pet(ch->pet,fp);
-	fprintf( fp, "#END\n" );
+		if (ch->pet != NULL && ch->pet->in_room == ch->in_room)
+			fwrite_pet(ch->pet,fp);
+		fprintf( fp, "#END\n" );
 	}
 	fclose( fp );
 	rename(TEMP_FILE,strsave);
