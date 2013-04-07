@@ -65,7 +65,7 @@ void mpedit( CHAR_DATA *ch, char *argument)
 	}
     }
 
-    if (command[0] == '\0')
+    if (IS_NULLSTR(command))
     {
         mpedit_show(ch, argument);
         return;
@@ -133,7 +133,7 @@ void do_mpedit(CHAR_DATA *ch, char *argument)
 
     if ( !str_cmp(command, "create") )
     {
-	if (argument[0] == '\0')
+	if (IS_NULLSTR(argument))
 	{
 		send_to_char( "Syntax : mpedit create [vnum]\n\r", ch );
 		return;
@@ -214,7 +214,7 @@ MPEDIT(mpedit_code)
     MPROG_CODE *pMcode;
     EDIT_MPCODE(ch, pMcode);
 
-    if (argument[0] =='\0')
+    if (IS_NULLSTR(argument))
     {
        string_append(ch, &pMcode->code);
        return TRUE;
