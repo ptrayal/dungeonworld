@@ -66,7 +66,7 @@ bool run_olc_editor( DESCRIPTOR_DATA *d )
 
 char *olc_ed_name( CHAR_DATA *ch )
 {
-    static char buf[10];
+    static char buf[10]={'\0'};
     
     buf[0] = '\0';
     switch (ch->desc->editor)
@@ -152,13 +152,12 @@ char *olc_ed_vnum( CHAR_DATA *ch )
  ****************************************************************************/
 void show_olc_cmds( CHAR_DATA *ch, const struct olc_cmd_type *olc_table )
 {
-    char buf  [ MAX_STRING_LENGTH ];
-    char buf1 [ MAX_STRING_LENGTH ];
-    int  cmd;
-    int  col;
+    char buf  [ MSL ]={'\0'};
+    char buf1 [ MSL ]={'\0'};
+    int  cmd = 0;
+    int  col = 0;
  
     buf1[0] = '\0';
-    col = 0;
     for (cmd = 0; olc_table[cmd].name != NULL; cmd++)
     {
 	sprintf( buf, "%-15.15s", olc_table[cmd].name );
@@ -437,7 +436,7 @@ void aedit( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    if ( command[0] == '\0' )
+    if ( IS_NULLSTR(command) )
     {
 	aedit_show( ch, argument );
 	return;
@@ -480,7 +479,7 @@ void redit( CHAR_DATA *ch, char *argument )
     ROOM_INDEX_DATA *pRoom;
     char arg[MSL]={'\0'};
     char command[MAX_INPUT_LENGTH];
-    int  cmd;
+    int  cmd = 0;
 
     EDIT_ROOM(ch, pRoom);
     pArea = pRoom->area;
@@ -502,7 +501,7 @@ void redit( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    if ( command[0] == '\0' )
+    if ( IS_NULLSTR(command) )
     {
 	redit_show( ch, argument );
 	return;
@@ -537,7 +536,7 @@ void oedit( CHAR_DATA *ch, char *argument )
     OBJ_INDEX_DATA *pObj;
     char arg[MSL]={'\0'};
     char command[MAX_INPUT_LENGTH];
-    int  cmd;
+    int  cmd = 0;
 
     smash_tilde( argument );
     strcpy( arg, argument );
@@ -559,7 +558,7 @@ void oedit( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    if ( command[0] == '\0' )
+    if ( IS_NULLSTR(command) )
     {
 	oedit_show( ch, argument );
 	return;
@@ -594,7 +593,7 @@ void medit( CHAR_DATA *ch, char *argument )
     MOB_INDEX_DATA *pMob;
     char command[MAX_INPUT_LENGTH];
     char arg[MSL]={'\0'};
-    int  cmd;
+    int  cmd = 0;
 
     smash_tilde( argument );
     strcpy( arg, argument );
@@ -616,7 +615,7 @@ void medit( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    if ( command[0] == '\0' )
+    if ( IS_NULLSTR(command) )
     {
         medit_show( ch, argument );
         return;
@@ -664,14 +663,14 @@ const struct editor_cmd_type editor_table[] =
 void do_olc( CHAR_DATA *ch, char *argument )
 {
     char command[MAX_INPUT_LENGTH];
-    int  cmd;
+    int  cmd = 0;
 
     if ( IS_NPC(ch) )
     	return;
 
     argument = one_argument( argument, command );
 
-    if ( command[0] == '\0' )
+    if ( IS_NULLSTR(command) )
     {
         do_help( ch, "olc" );
         return;
@@ -773,7 +772,7 @@ void do_redit( CHAR_DATA *ch, char *argument )
     else
     if ( !str_cmp( arg1, "create" ) )	/* redit create <vnum> */
     {
-	if ( argument[0] == '\0' || atoi( argument ) == 0 )
+	if ( IS_NULLSTR(argument) || atoi( argument ) == 0 )
 	{
 	    send_to_char( "Syntax:  edit room create [vnum]\n\r", ch );
 	    return;
@@ -829,7 +828,7 @@ void do_oedit( CHAR_DATA *ch, char *argument )
     OBJ_INDEX_DATA *pObj;
     AREA_DATA *pArea;
     char arg1[MSL]={'\0'};
-    int value;
+    int value = 0;
 
     if ( IS_NPC(ch) )
 	return;
@@ -860,7 +859,7 @@ void do_oedit( CHAR_DATA *ch, char *argument )
 	if ( !str_cmp( arg1, "create" ) )
 	{
 	    value = atoi( argument );
-	    if ( argument[0] == '\0' || value == 0 )
+	    if ( IS_NULLSTR(argument) || value == 0 )
 	    {
 		send_to_char( "Syntax:  edit object create [vnum]\n\r", ch );
 		return;
@@ -900,7 +899,7 @@ void do_medit( CHAR_DATA *ch, char *argument )
 {
     MOB_INDEX_DATA *pMob;
     AREA_DATA *pArea;
-    int value;
+    int value = 0;
     char arg1[MSL]={'\0'};
 
     argument = one_argument( argument, arg1 );
@@ -932,7 +931,7 @@ void do_medit( CHAR_DATA *ch, char *argument )
 	if ( !str_cmp( arg1, "create" ) )
 	{
 	    value = atoi( argument );
-	    if ( arg1[0] == '\0' || value == 0 )
+	    if ( IS_NULLSTR(arg1) || value == 0 )
 	    {
 		send_to_char( "Syntax:  edit mobile create [vnum]\n\r", ch );
 		return;
@@ -972,8 +971,8 @@ void display_resets( CHAR_DATA *ch )
     ROOM_INDEX_DATA	*pRoom;
     RESET_DATA		*pReset;
     MOB_INDEX_DATA	*pMob = NULL;
-    char 		buf   [ MAX_STRING_LENGTH ];
-    char 		final [ MAX_STRING_LENGTH ];
+    char 		buf   [ MSL ]={'\0'};
+    char 		final [ MSL ]={'\0'};
     int 		iReset = 0;
 
     EDIT_ROOM(ch, pRoom);
@@ -1254,7 +1253,7 @@ void do_resets( CHAR_DATA *ch, char *argument )
      * Display resets in current room.
      * -------------------------------
      */
-    if ( arg1[0] == '\0' )
+    if ( IS_NULLSTR(arg1) )
     {
 	if ( ch->in_room->reset_first )
 	{
@@ -1469,8 +1468,8 @@ void do_resets( CHAR_DATA *ch, char *argument )
  ****************************************************************************/
 void do_alist( CHAR_DATA *ch, char *argument )
 {
-    char buf    [ MAX_STRING_LENGTH ];
-    char result [ MAX_STRING_LENGTH*2 ];	/* May need tweaking. */
+    char buf    [ MSL ]={'\0'};
+    char result [ MSL*2 ]={'\0'};	/* May need tweaking. */
     AREA_DATA *pArea;
 
     if ( IS_NPC(ch) )
