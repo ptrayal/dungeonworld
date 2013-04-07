@@ -883,8 +883,7 @@ void do_groups(CHAR_DATA *ch, char *argument)
 	 if (gn == -1)
 	 {
 	send_to_char("No group of that name exist.\n\r",ch);
-	send_to_char(
-		"Type 'groups all' or 'info all' for a full listing.\n\r",ch);
+	send_to_char("Type 'groups all' or 'info all' for a full listing.\n\r",ch);
 	return;
 	 }
 
@@ -892,8 +891,7 @@ void do_groups(CHAR_DATA *ch, char *argument)
 	 {
 	if (group_table[gn].spells[sn] == NULL)
 		break;
-	sprintf(buf,"%-20s ",group_table[gn].spells[sn]);
-	send_to_char(buf,ch);
+	send_to_char(Format("%-20s ",group_table[gn].spells[sn]),ch);
 	if (++col % 3 == 0)
 		send_to_char("\n\r",ch);
 	 }
@@ -933,9 +931,7 @@ void check_improve( CHAR_DATA *ch, int sn, bool success, int multiplier )
 	chance = URANGE(5,100 - ch->pcdata->learned[sn], 95);
 	if (number_percent() < chance)
 	{
-		sprintf(buf,"You have become better at %s!\n\r",
-			skill_table[sn].name);
-		send_to_char(buf,ch);
+		send_to_char(Format("You have become better at %s!\n\r", skill_table[sn].name),ch);
 		ch->pcdata->learned[sn]++;
 		gain_exp(ch,2 * skill_table[sn].rating[ch->class]);
 	}
@@ -946,10 +942,7 @@ void check_improve( CHAR_DATA *ch, int sn, bool success, int multiplier )
 	chance = URANGE(5,ch->pcdata->learned[sn]/2,30);
 	if (number_percent() < chance)
 	{
-		sprintf(buf,
-		"You learn from your mistakes, and your %s skill improves.\n\r",
-		skill_table[sn].name);
-		send_to_char(buf,ch);
+		send_to_char(Format("You learn from your mistakes, and your %s skill improves.\n\r", skill_table[sn].name),ch);
 		ch->pcdata->learned[sn] += number_range(1,3);
 		ch->pcdata->learned[sn] = UMIN(ch->pcdata->learned[sn],100);
 		gain_exp(ch,2 * skill_table[sn].rating[ch->class]);

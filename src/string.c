@@ -163,10 +163,8 @@ void string_add( CHAR_DATA *ch, char *argument )
 								return;
 						}
 
-						*ch->desc->pString =
-								string_replace( *ch->desc->pString, arg2, arg3 );
-						sprintf( buf, "'%s' replaced with '%s'.\n\r", arg2, arg3 );
-						send_to_char( buf, ch );
+						*ch->desc->pString = string_replace( *ch->desc->pString, arg2, arg3 );
+						send_to_char( Format("'%s' replaced with '%s'.\n\r", arg2, arg3), ch );
 						return;
 				}
 
@@ -236,8 +234,7 @@ void string_add( CHAR_DATA *ch, char *argument )
 					for ( mpl = mob->mprogs; mpl; mpl = mpl->next )
 						if ( mpl->vnum == mpc->vnum )
 						{
-							sprintf( buf, "Updated mob %d.\n\r", mob->vnum );
-							send_to_char( buf, ch );
+							send_to_char( Format("Updated mob %d.\n\r", mob->vnum), ch );
 							mpl->code = mpc->code;
 						}
 	}
