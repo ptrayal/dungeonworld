@@ -71,9 +71,7 @@ void advance_level( CHAR_DATA *ch, bool hide )
 	ch->pcdata->last_level = 
 	( ch->played + (int) (current_time - ch->logon) ) / 3600;
 
-	sprintf( buf, "the %s",
-	title_table [ch->class] [ch->level] [ch->sex == SEX_FEMALE ? 1 : 0] );
-	set_title( ch, buf );
+	set_title( ch, Format("the %s", title_table [ch->class] [ch->level] [ch->sex == SEX_FEMALE ? 1 : 0]) );
 
 	add_hp	= con_app[get_curr_stat(ch,STAT_CON)].hitp + number_range(
 			class_table[ch->class].hp_min,
@@ -106,11 +104,8 @@ void advance_level( CHAR_DATA *ch, bool hide )
 
 	if (!hide)
 	{
-		sprintf(buf,
-		"You gain %d hit point%s, %d mana, %d move, and %d practice%s.\n\r",
-		add_hp, add_hp == 1 ? "" : "s", add_mana, add_move,
-		add_prac, add_prac == 1 ? "" : "s");
-	send_to_char( buf, ch );
+		send_to_char( Format("You gain %d hit point%s, %d mana, %d move, and %d practice%s.\n\r",
+		add_hp, add_hp == 1 ? "" : "s", add_mana, add_move, add_prac, add_prac == 1 ? "" : "s"), ch );
 	}
 	return;
 }   
@@ -122,20 +117,20 @@ void gain_exp( CHAR_DATA *ch, int gain )
 	char buf[MSL]={'\0'};
 
 	if ( IS_NPC(ch) || ch->level >= LEVEL_HERO )
-	return;
+		return;
 
 	ch->exp = UMAX( exp_per_level(ch,ch->pcdata->points), ch->exp + gain );
 	while ( ch->level < LEVEL_HERO && ch->exp >= 
-	exp_per_level(ch,ch->pcdata->points) * (ch->level+1) )
+		exp_per_level(ch,ch->pcdata->points) * (ch->level+1) )
 	{
-	send_to_char( "You raise a level!!  ", ch );
-	ch->level += 1;
-	sprintf(buf,"%s gained level %d",ch->name,ch->level);
-	log_string(buf);
-	sprintf(buf,"$N has attained level %d!",ch->level);
-	wiznet(buf,ch,NULL,WIZ_LEVELS,0,0);
-	advance_level(ch,FALSE);
-	save_char_obj(ch);
+		send_to_char( "You raise a level!!  ", ch );
+		ch->level += 1;
+		sprintf(buf,"%s gained level %d",ch->name,ch->level);
+		log_string(buf);
+		sprintf(buf,"$N has attained level %d!",ch->level);
+		wiznet(buf,ch,NULL,WIZ_LEVELS,0,0);
+		advance_level(ch,FALSE);
+		save_char_obj(ch);
 	}
 
 	return;

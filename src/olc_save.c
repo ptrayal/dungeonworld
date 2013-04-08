@@ -725,8 +725,7 @@ void save_resets( FILE *fp, AREA_DATA *pArea )
 							pLastMob ? pLastMob->short_descr : "!NO_MOB!" );
 						if ( !pLastMob )
 						{
-							sprintf( buf, "Save_resets: !NO_MOB! in [%s]", pArea->file_name );
-							bug( buf, 0 );
+							bug( Format("Save_resets: !NO_MOB! in [%s]", pArea->file_name), 0 );
 						}
 						break;
 
@@ -739,8 +738,7 @@ void save_resets( FILE *fp, AREA_DATA *pArea )
 							pLastMob ? pLastMob->short_descr : "!NO_MOB!" );
 						if ( !pLastMob )
 						{
-							sprintf( buf, "Save_resets: !NO_MOB! in [%s]", pArea->file_name );
-							bug( buf, 0 );
+							bug( Format("Save_resets: !NO_MOB! in [%s]", pArea->file_name), 0 );
 						}
 						break;
 
@@ -787,9 +785,7 @@ void save_resets( FILE *fp, AREA_DATA *pArea )
 					fprintf( fp, "G 0 %d 0\n", pReset->arg1 );
 					if ( !pLastMob )
 					{
-						sprintf( buf,
-							"Save_resets: !NO_MOB! in [%s]", pArea->file_name );
-						bug( buf, 0 );
+						bug( Format("Save_resets: !NO_MOB! in [%s]", pArea->file_name), 0 );
 					}
 					break;
 
@@ -799,9 +795,7 @@ void save_resets( FILE *fp, AREA_DATA *pArea )
 						pReset->arg3 );
 					if ( !pLastMob )
 					{
-						sprintf( buf,
-							"Save_resets: !NO_MOB! in [%s]", pArea->file_name );
-						bug( buf, 0 );
+						bug( Format("Save_resets: !NO_MOB! in [%s]", pArea->file_name), 0 );
 					}
 					break;
 

@@ -4414,7 +4414,7 @@ void do_prefix (CHAR_DATA *ch, char *argument)
 
 	send_to_char("Prefix removed.\r\n",ch);
 	PURGE_DATA(ch->prefix);
-	ch->prefix = str_dup("");
+	ch->prefix = NULL;
 	return;
     }
 

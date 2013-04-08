@@ -44,7 +44,7 @@ void string_edit( CHAR_DATA *ch, char **pString )
 
 		if ( *pString == NULL )
 		{
-				*pString = str_dup( "" );
+				*pString = NULL;
 		}
 		else
 		{
@@ -72,7 +72,7 @@ void string_append( CHAR_DATA *ch, char **pString )
 
 		if ( *pString == NULL )
 		{
-				*pString = str_dup( "" );
+				*pString = NULL;
 		}
 		send_to_char( numlineas(*pString), ch );
 
@@ -143,7 +143,7 @@ void string_add( CHAR_DATA *ch, char *argument )
 				{
 						send_to_char( "String cleared.\n\r", ch );
 			PURGE_DATA(*ch->desc->pString);
-			*ch->desc->pString = str_dup( "" );
+			*ch->desc->pString = NULL;
 						return;
 				}
 

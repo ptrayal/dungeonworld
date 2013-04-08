@@ -1390,9 +1390,9 @@ void fread_obj( CHAR_DATA *ch, FILE *fp )
 	if (obj == NULL)  /* either not found or old style */
 	{
 		obj = new_obj();
-		obj->name		= str_dup( "" );
-		obj->short_descr	= str_dup( "" );
-		obj->description	= str_dup( "" );
+		obj->name		= NULL;
+		obj->short_descr	= NULL;
+		obj->description	= NULL;
 	}
 
 	fNest		= FALSE;

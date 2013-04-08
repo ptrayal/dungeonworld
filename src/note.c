@@ -373,10 +373,10 @@ void note_attach( CHAR_DATA *ch, int type )
 
     pnote->next		= NULL;
     pnote->sender	= str_dup( ch->name );
-    pnote->date		= str_dup( "" );
-    pnote->to_list	= str_dup( "" );
-    pnote->subject	= str_dup( "" );
-    pnote->text		= str_dup( "" );
+    pnote->date		= NULL;
+    pnote->to_list	= NULL;
+    pnote->subject	= NULL;
+    pnote->text		= NULL;
     pnote->type		= type;
     ch->pnote		= pnote;
     return;

@@ -161,7 +161,7 @@ HEDIT(hedit_new)
 	help		= new_help();
 	help->level	= 0;
 	help->keyword	= str_dup(argument);
-	help->text	= str_dup( "" );
+	help->text	= str_dup( "(None)" );
 
 	if (help_last)
 		help_last->next	= help;

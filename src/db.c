@@ -2150,7 +2150,7 @@ CHAR_DATA *create_mobile( MOB_INDEX_DATA *pMobIndex )
 	mob->form		= pMobIndex->form;
 	mob->parts		= pMobIndex->parts;
 	mob->size		= SIZE_MEDIUM;
-	mob->material		= "";
+	mob->material		= "flesh";
 
 		for (i = 0; i < MAX_STATS; i ++)
 			mob->perm_stat[i] = 11 + mob->level/4;
