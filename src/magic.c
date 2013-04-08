@@ -3280,9 +3280,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 		case ITEM_WAND: 
 		case ITEM_STAFF: 
-		sprintf( buf, "Has %d charges of level %d",
-			obj->value[2], obj->value[0] );
-		send_to_char( buf, ch );
+		send_to_char( Format("Has %d charges of level %d", obj->value[2], obj->value[0]), ch );
 
 		if ( obj->value[3] >= 0 && obj->value[3] < MAX_SKILL )
 		{

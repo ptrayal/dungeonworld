@@ -1270,8 +1270,7 @@ void check_killer( CHAR_DATA *ch, CHAR_DATA *victim )
 
     send_to_char( "*** You are now a KILLER!! ***\n\r", ch );
     SET_BIT(ch->act, PLR_KILLER);
-    sprintf(buf,"$N is attempting to murder %s",victim->name);
-    wiznet(buf,ch,NULL,WIZ_FLAGS,0,0);
+    wiznet(Format("$N is attempting to murder %s",victim->name),ch,NULL,WIZ_FLAGS,0,0);
     save_char_obj( ch );
     return;
 }
@@ -1770,8 +1769,7 @@ void group_gain( CHAR_DATA *ch, CHAR_DATA *victim )
 */
 
 	xp = xp_compute( gch, victim, group_levels );  
-	sprintf( buf, "You receive %d experience points.\n\r", xp );
-	send_to_char( buf, gch );
+	send_to_char( Format("You receive %d experience points.\n\r", xp), gch );
 	gain_exp( gch, xp );
 
 	for ( obj = ch->carrying; obj != NULL; obj = obj_next )
