@@ -1439,12 +1439,9 @@ void fix_exits( void )
 		&&   pexit_rev->u1.to_room != pRoomIndex 
 		&&   (pRoomIndex->vnum < 1200 || pRoomIndex->vnum > 1299))
 		{
-			sprintf( buf, "Fix_exits: %d:%d -> %d:%d -> %d.",
-			pRoomIndex->vnum, door,
-			to_room->vnum,    rev_dir[door],
-			(pexit_rev->u1.to_room == NULL)
-				? 0 : pexit_rev->u1.to_room->vnum );
-			bug( buf, 0 );
+			bug( Format("Fix_exits: %d:%d -> %d:%d -> %d.",
+			pRoomIndex->vnum, door, to_room->vnum,    rev_dir[door],
+			(pexit_rev->u1.to_room == NULL) ? 0 : pexit_rev->u1.to_room->vnum), 0 );
 		}
 		}
 	}
@@ -1560,8 +1557,7 @@ void area_update( void )
 		ROOM_INDEX_DATA *pRoomIndex;
 
 		reset_area( pArea );
-		sprintf(buf,"%s has just been reset.",pArea->name);
-		wiznet(buf,NULL,NULL,WIZ_RESETS,0,0);
+		wiznet(Format("%s has just been reset.",pArea->name),NULL,NULL,WIZ_RESETS,0,0);
 	
 		pArea->age = number_range( 0, 3 );
 		pRoomIndex = get_room_index( ROOM_VNUM_SCHOOL );

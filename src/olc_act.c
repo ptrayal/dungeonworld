@@ -251,10 +251,7 @@ bool show_help( CHAR_DATA *ch, char *argument )
 	send_to_char( "[command]  [description]\n\r", ch );
 	for (cnt = 0; help_table[cnt].command != NULL; cnt++)
 	{
-		sprintf( buf, "%-10.10s -%s\n\r",
-			capitalize( help_table[cnt].command ),
-		help_table[cnt].desc );
-		send_to_char( buf, ch );
+		send_to_char( Format("%-10.10s -%s\n\r", capitalize( help_table[cnt].command ), help_table[cnt].desc), ch );
 	}
 	return FALSE;
 	}
@@ -348,8 +345,7 @@ REDIT( redit_rlist )
 	if ( ( pRoomIndex = get_room_index( vnum ) ) )
 	{
 		found = TRUE;
-		sprintf( buf, "[%5d] %-17.16s",
-			vnum, capitalize( pRoomIndex->name ) );
+		sprintf( buf, "[%5d] %-17.16s", vnum, capitalize( pRoomIndex->name ) );
 		add_buf( buf1, buf );
 		if ( ++col % 3 == 0 )
 			add_buf( buf1, "\n\r" );
@@ -401,8 +397,7 @@ REDIT( redit_mlist )
 		if ( fAll || is_name( arg, pMobIndex->player_name ) )
 		{
 		found = TRUE;
-		sprintf( buf, "[%5d] %-17.16s",
-			pMobIndex->vnum, capitalize( pMobIndex->short_descr ) );
+		sprintf( buf, "[%5d] %-17.16s", pMobIndex->vnum, capitalize( pMobIndex->short_descr ) );
 		add_buf( buf1, buf );
 		if ( ++col % 3 == 0 )
 			add_buf( buf1, "\n\r" );
@@ -458,8 +453,7 @@ REDIT( redit_olist )
 		|| flag_value( type_flags, arg ) == pObjIndex->item_type )
 		{
 		found = TRUE;
-		sprintf( buf, "[%5d] %-17.16s",
-			pObjIndex->vnum, capitalize( pObjIndex->short_descr ) );
+		sprintf( buf, "[%5d] %-17.16s", pObjIndex->vnum, capitalize( pObjIndex->short_descr ) );
 		add_buf( buf1, buf );
 		if ( ++col % 3 == 0 )
 			add_buf( buf1, "\n\r" );
@@ -619,26 +613,19 @@ AEDIT( aedit_show )
 
 	send_to_char( Format("File:     %s\n\r", pArea->file_name), ch );
 
-	sprintf( buf, "Vnums:    [%d-%d]\n\r", pArea->min_vnum, pArea->max_vnum );
-	send_to_char( buf, ch );
+	send_to_char( Format("Vnums:    [%d-%d]\n\r", pArea->min_vnum, pArea->max_vnum), ch );
 
-	sprintf( buf, "Age:      [%d]\n\r",	pArea->age );
-	send_to_char( buf, ch );
+	send_to_char( Format("Age:      [%d]\n\r",	pArea->age), ch );
 
-	sprintf( buf, "Players:  [%d]\n\r", pArea->nplayer );
-	send_to_char( buf, ch );
+	send_to_char( Format("Players:  [%d]\n\r", pArea->nplayer), ch );
 
-	sprintf( buf, "Security: [%d]\n\r", pArea->security );
-	send_to_char( buf, ch );
+	send_to_char( Format("Security: [%d]\n\r", pArea->security), ch );
 
-	sprintf( buf, "Builders: [%s]\n\r", pArea->builders );
-	send_to_char( buf, ch );
+	send_to_char( Format("Builders: [%s]\n\r", pArea->builders), ch );
 
-	sprintf( buf, "Credits : [%s]\n\r", pArea->credits );
-	send_to_char( buf, ch );
+	send_to_char( Format("Credits : [%s]\n\r", pArea->credits), ch );
 
-	sprintf( buf, "Flags:    [%s]\n\r", flag_string( area_flags, pArea->area_flags ) );
-	send_to_char( buf, ch );
+	send_to_char( Format("Flags:    [%s]\n\r", flag_string( area_flags, pArea->area_flags )), ch );
 
 	return FALSE;
 }
