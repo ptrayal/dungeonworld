@@ -2451,7 +2451,7 @@ void page_to_char( const char *txt, CHAR_DATA *ch )
 /* string pager */
 void show_string(struct descriptor_data *d, char *input)
 {
-	char buffer[4*MAX_STRING_LENGTH] = {'\0'};
+	char buffer[4*MSL] = {'\0'};
 	char buf[MAX_INPUT_LENGTH];
 	register char *scan, *chk;
 	int lines = 0, toggle = 1;

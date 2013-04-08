@@ -150,7 +150,7 @@ char *mprog_type_to_name( int type )
  */
 void do_mpstat( CHAR_DATA *ch, char *argument )
 {
-    char        arg[ MAX_STRING_LENGTH  ];
+    char        arg[ MSL ] = {'\0'};
     MPROG_LIST  *mprg;
     CHAR_DATA   *victim;
     int i;

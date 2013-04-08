@@ -2738,7 +2738,7 @@ char *fread_string( FILE *fp )
 	char c;
 
 	plast = top_string + sizeof(char *);
-	if ( plast > &string_space[MAX_STRING - MAX_STRING_LENGTH] )
+	if ( plast > &string_space[MAX_STRING - MSL] )
 	{
 	bug( "Fread_string: MAX_STRING %d exceeded.", MAX_STRING );
 	exit( 1 );
@@ -2850,7 +2850,7 @@ char *fread_string_eol( FILE *fp )
 	}
  
 	plast = top_string + sizeof(char *);
-	if ( plast > &string_space[MAX_STRING - MAX_STRING_LENGTH] )
+	if ( plast > &string_space[MAX_STRING - MSL] )
 	{
 		bug( "Fread_string: MAX_STRING %d exceeded.", MAX_STRING );
 		exit( 1 );
