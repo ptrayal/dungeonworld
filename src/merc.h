@@ -165,7 +165,7 @@ typedef void SPELL_FUN	args( ( int sn, int level, CHAR_DATA *ch, void *vo,
 #define	CREATOR			(MAX_LEVEL - 1)
 #define SUPREME			(MAX_LEVEL - 2)
 #define DEITY			(MAX_LEVEL - 3)
-#define GOD			(MAX_LEVEL - 4)
+#define GOD				(MAX_LEVEL - 4)
 #define IMMORTAL		(MAX_LEVEL - 5)
 #define DEMI			(MAX_LEVEL - 6)
 #define ANGEL			(MAX_LEVEL - 7)
