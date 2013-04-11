@@ -392,12 +392,12 @@ void cleanup_mud(void) {
         free_ban(pban);
     }
 
-	// will extract all the bans loaded into the game
-    log_string("Cleaning: mprog_list");
-    for(mprg = mprog_list; mprg != NULL; mprg = mprg->next) {
-        mprog_list = mprg->next;
-        free_mprog(mprg);
-    }
+	// // will extract all the bans loaded into the game
+ //    log_string("Cleaning: mprog_list");
+ //    for(mprg = mprog_list; mprg != NULL; mprg = mprg->next) {
+ //        mprog_list = mprg->next;
+ //        free_mprog(mprg);
+ //    }
 
 	// second (eliminating stragglers)
 	log_string("Cleaning: second purge");
