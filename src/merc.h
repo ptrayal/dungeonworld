@@ -328,7 +328,6 @@ struct	dex_app_type
 struct	con_app_type
 {
 	sh_int	hitp;
-	sh_int	shock;
 };
 
 
