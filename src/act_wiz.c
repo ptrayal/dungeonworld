@@ -4403,28 +4403,28 @@ void do_prefix (CHAR_DATA *ch, char *argument)
 {
 	char buf[MAX_INPUT_LENGTH];
 
-	if (argument[0] == '\0')
+	if (IS_NULLSTR(argument))
 	{
-	if (ch->prefix[0] == '\0')
-	{
-		send_to_char("You have no prefix to clear.\r\n",ch);
+		if (IS_NULLSTR(ch->prefix))
+		{
+			send_to_char("You have no prefix to clear.\r\n",ch);
+			return;
+		}
+
+		send_to_char("Prefix removed.\r\n",ch);
+		PURGE_DATA(ch->prefix);
+		ch->prefix = NULL;
 		return;
 	}
 
-	send_to_char("Prefix removed.\r\n",ch);
-	PURGE_DATA(ch->prefix);
-	ch->prefix = NULL;
-	return;
-	}
-
-	if (ch->prefix[0] != '\0')
+	if (!IS_NULLSTR(ch->prefix))
 	{
-	sprintf(buf,"Prefix changed to %s.\r\n",argument);
-	PURGE_DATA(ch->prefix);
+		sprintf(buf,"Prefix changed to %s.\r\n",argument);
+		PURGE_DATA(ch->prefix);
 	}
 	else
 	{
-	sprintf(buf,"Prefix set to %s.\r\n",argument);
+		sprintf(buf,"Prefix set to %s.\r\n",argument);
 	}
 
 	ch->prefix = str_dup(argument);
