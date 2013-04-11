@@ -2018,6 +2018,7 @@ extern		SHOP_DATA	  *	shop_first;
 extern		CHAR_DATA	  *	char_list;
 extern		DESCRIPTOR_DATA   *	descriptor_list;
 extern		OBJ_DATA	  *	object_list;
+extern      BAN_DATA      * ban_list;
 
 extern		MPROG_CODE	  *	mprog_list;
 

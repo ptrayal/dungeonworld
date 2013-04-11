@@ -355,6 +355,7 @@ void cleanup_mud(void) {
 	AREA_DATA *pArea, *pArea_next;
 	CHAR_DATA *ch, *ch_next;
 	OBJ_DATA *obj, *obj_next;
+	BAN_DATA *pban, *pban_next;
 	
 	// first call
 	log_string("Cleaning: initial purge");
@@ -381,6 +382,13 @@ void cleanup_mud(void) {
 		obj_next = obj->next;
 		extract_obj(obj);
 	}
+
+	// will extract all the bans loaded into the game
+    log_string("Cleaning: ban_list");
+    for(pban = ban_list; pban != NULL; pban = pban_next) {
+        pban_next = pban->next;
+        free_ban(pban);
+    }
 
 	// second (eliminating stragglers)
 	log_string("Cleaning: second purge");
