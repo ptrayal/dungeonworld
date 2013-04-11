@@ -234,7 +234,6 @@ void show_spec_cmds( CHAR_DATA *ch )
  ****************************************************************************/
 bool show_help( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	char spell[MAX_INPUT_LENGTH];
 	int cnt = 0;
@@ -598,7 +597,6 @@ AREA_DATA *get_vnum_area( int vnum )
 AEDIT( aedit_show )
 {
 	AREA_DATA *pArea;
-	char buf  [MSL]={'\0'};
 
 	EDIT_AREA(ch, pArea);
 

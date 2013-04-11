@@ -63,7 +63,6 @@ int	save_number = 0;
  */
 void advance_level( CHAR_DATA *ch, bool hide )
 {
-	char buf[MSL]={'\0'};
 	int add_hp;
 	int add_mana;
 	int add_move;
@@ -72,7 +71,7 @@ void advance_level( CHAR_DATA *ch, bool hide )
 	ch->pcdata->last_level = 
 	( ch->played + (int) (current_time - ch->logon) ) / 3600;
 
-	set_title( ch, Format("the %s", title_table [ch->class] [ch->level] [ch->sex == SEX_FEMALE ? 1 : 0]) );
+	set_title( ch, (char *)Format("the %s", title_table [ch->class] [ch->level] [ch->sex == SEX_FEMALE ? 1 : 0]) );
 
 	add_hp	= con_app[get_curr_stat(ch,STAT_CON)].hitp + number_range(
 			class_table[ch->class].hp_min,

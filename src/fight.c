@@ -1212,7 +1212,6 @@ bool is_safe_spell(CHAR_DATA *ch, CHAR_DATA *victim, bool area )
  */
 void check_killer( CHAR_DATA *ch, CHAR_DATA *victim )
 {
-    char buf[MSL]={'\0'};
     /*
      * Follow charm thread to responsible character.
      * Attacking someone's charmed char is hostile!
@@ -1270,7 +1269,7 @@ void check_killer( CHAR_DATA *ch, CHAR_DATA *victim )
 
     send_to_char( "*** You are now a KILLER!! ***\n\r", ch );
     SET_BIT(ch->act, PLR_KILLER);
-    wiznet(Format("$N is attempting to murder %s",victim->name),ch,NULL,WIZ_FLAGS,0,0);
+    wiznet((char *)Format("$N is attempting to murder %s",victim->name),ch,NULL,WIZ_FLAGS,0,0);
     save_char_obj( ch );
     return;
 }
@@ -1711,7 +1710,6 @@ void raw_kill( CHAR_DATA *victim )
 
 void group_gain( CHAR_DATA *ch, CHAR_DATA *victim )
 {
-    char buf[MSL]={'\0'};
     CHAR_DATA *gch;
     CHAR_DATA *lch;
     int xp;

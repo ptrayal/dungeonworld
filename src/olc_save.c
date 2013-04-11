@@ -665,7 +665,6 @@ void save_resets( FILE *fp, AREA_DATA *pArea )
 	MOB_INDEX_DATA *pLastMob = NULL;
 	OBJ_INDEX_DATA *pLastObj;
 	ROOM_INDEX_DATA *pRoom;
-	char buf[MSL]={'\0'};
 	int iHash = 0;
 
 	fprintf( fp, "#RESETS\n" );

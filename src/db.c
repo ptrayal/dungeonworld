@@ -1331,7 +1331,6 @@ void load_specials( FILE *fp )
 void fix_exits( void )
 {
 	extern const sh_int rev_dir [];
-	char buf[MSL]={'\0'};
 	ROOM_INDEX_DATA *pRoomIndex;
 	ROOM_INDEX_DATA *to_room;
 	EXIT_DATA *pexit;
@@ -1541,7 +1540,6 @@ void fix_mobprogs( void )
 void area_update( void )
 {
 	AREA_DATA *pArea;
-	char buf[MSL]={'\0'};
 
 	for ( pArea = area_first; pArea != NULL; pArea = pArea->next )
 	{
@@ -1559,7 +1557,7 @@ void area_update( void )
 		ROOM_INDEX_DATA *pRoomIndex;
 
 		reset_area( pArea );
-		wiznet(Format("%s has just been reset.",pArea->name),NULL,NULL,WIZ_RESETS,0,0);
+		wiznet((char *)Format("%s has just been reset.",pArea->name),NULL,NULL,WIZ_RESETS,0,0);
 	
 		pArea->age = number_range( 0, 3 );
 		pRoomIndex = get_room_index( ROOM_VNUM_SCHOOL );

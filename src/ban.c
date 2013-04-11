@@ -266,7 +266,6 @@ void do_permban(CHAR_DATA *ch, char *argument)
 void do_allow( CHAR_DATA *ch, char *argument )                        
 {
 	char arg[MAX_INPUT_LENGTH];
-	char buf[MSL]={'\0'};
 	BAN_DATA *prev;
 	BAN_DATA *curr;
 
