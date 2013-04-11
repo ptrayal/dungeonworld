@@ -1703,13 +1703,12 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 
 	sprintf( buf, "Short description: %s\n\rLong  description: %s",
 	victim->short_descr,
-	victim->long_descr[0] != '\0' ? victim->long_descr : "(none)\n\r" );
+	!IS_NULLSTR(victim->long_descr) ? victim->long_descr : "(none)\n\r" );
 	send_to_char( buf, ch );
 
 	if ( IS_NPC(victim) && victim->spec_fun != 0 )
 	{
-	sprintf(buf,"Mobile has special procedure %s.\n\r",
-		spec_name(victim->spec_fun));
+	sprintf(buf,"Mobile has special procedure %s.\n\r", spec_name(victim->spec_fun));
 	send_to_char(buf,ch);
 	}
 
