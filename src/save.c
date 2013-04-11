@@ -1026,7 +1026,7 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 		KEY( "Password",	ch->pcdata->pwd,	fread_string( fp ) );
 		KEY( "Pass",	ch->pcdata->pwd,	fread_string( fp ) );
 		KEY( "Played",	ch->played,		fread_number( fp ) );
-		KEY( "Plyd",	ch->played,		fread_number( fp ) );
+		KEY( "Playd",	ch->played,		fread_number( fp ) );
 		KEY( "Points",	ch->pcdata->points,	fread_number( fp ) );
 		KEY( "Pnts",	ch->pcdata->points,	fread_number( fp ) );
 		KEY( "Position",	ch->position,		fread_number( fp ) );
@@ -1110,7 +1110,7 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 
 	case 'V':
 		KEY( "Version",     ch->version,		fread_number ( fp ) );
-		KEY( "Vers",	ch->version,		fread_number ( fp ) );
+		KEY( "Ver",	ch->version,		fread_number ( fp ) );
 		if ( !str_cmp( word, "Vnum" ) )
 		{
 		ch->pIndexData = get_mob_index( fread_number( fp ) );
