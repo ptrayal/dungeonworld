@@ -50,6 +50,7 @@ void	obj_update	args( ( void ) );
 void	aggr_update	args( ( void ) );
 void	msdp_update	args( ( void ) ); /* <--- Add this line */
 void	update_wizlist args( ( CHAR_DATA *ch, int level ) );
+void purgeExtracted(void);
 
 /* used for saving */
 
@@ -1019,13 +1020,10 @@ void obj_update( void )
  */
 void aggr_update( void )
 {
-	CHAR_DATA *wch;
-	CHAR_DATA *wch_next;
-	CHAR_DATA *ch;
-	CHAR_DATA *ch_next;
-	CHAR_DATA *vch;
-	CHAR_DATA *vch_next;
-	CHAR_DATA *victim;
+	CHAR_DATA *wch, *wch_next, *ch, *ch_next, *vch, *vch_next, *victim;
+
+	wch = wch_next = ch = ch_next = vch = vch_next = victim = NULL; // chaining.
+
 
 	for ( wch = char_list; wch != NULL; wch = wch_next )
 	{
@@ -1146,6 +1144,7 @@ void update_handler( void )
 	}
 
 	aggr_update( );
+	purgeExtracted();
 	tail_chain( );
 	return;
 }

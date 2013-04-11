@@ -232,9 +232,11 @@ void load_mobiles( FILE *fp )
 		pMobIndex->long_descr           = fread_string( fp );
 		pMobIndex->description          = fread_string( fp );
 		pMobIndex->race		 			= race_lookup(fread_string( fp ));
-		
-		pMobIndex->long_descr[0]        = UPPER(pMobIndex->long_descr[0]);
-		pMobIndex->description[0]       = UPPER(pMobIndex->description[0]);
+
+		if(!IS_NULLSTR(pMobIndex->long_descr))		
+			pMobIndex->long_descr[0]        = UPPER(pMobIndex->long_descr[0]);
+		if(!IS_NULLSTR(pMobIndex->description))
+			pMobIndex->description[0]       = UPPER(pMobIndex->description[0]);
 		
 		pMobIndex->act                  = fread_flag( fp ) | ACT_IS_NPC	| race_table[pMobIndex->race].act;
 		pMobIndex->affected_by          = fread_flag( fp ) | race_table[pMobIndex->race].aff;

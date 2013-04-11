@@ -186,8 +186,8 @@ ROOM_INDEX_DATA *new_room_index( void )
 void free_room_index( ROOM_INDEX_DATA *pRoom )
 {
     int door;
-    EXTRA_DESCR_DATA *pExtra;
-    RESET_DATA *pReset;
+    EXTRA_DESCR_DATA *pExtra, *pExtra_next;
+    RESET_DATA *pReset, *pReset_next;
 
     PURGE_DATA( pRoom->name );
     PURGE_DATA( pRoom->description );
@@ -199,13 +199,15 @@ void free_room_index( ROOM_INDEX_DATA *pRoom )
             free_exit( pRoom->exit[door] );
     }
 
-    for ( pExtra = pRoom->extra_descr; pExtra; pExtra = pExtra->next )
+    for ( pExtra = pRoom->extra_descr; pExtra; pExtra = pExtra_next )
     {
+    	pExtra_next = pExtra->next;
         free_extra_descr( pExtra );
     }
 
-    for ( pReset = pRoom->reset_first; pReset; pReset = pReset->next )
+    for ( pReset = pRoom->reset_first; pReset; pReset = pReset_next)
     {
+    	pReset_next = pReset->next;
         free_reset_data( pReset );
     }
 
@@ -286,20 +288,22 @@ OBJ_INDEX_DATA *new_obj_index( void )
 
 void free_obj_index( OBJ_INDEX_DATA *pObj )
 {
-    EXTRA_DESCR_DATA *pExtra;
-    AFFECT_DATA *pAf;
+    EXTRA_DESCR_DATA *pExtra, *pExtra_next;
+    AFFECT_DATA *pAf, *pAf_next;
 
     PURGE_DATA( pObj->name );
     PURGE_DATA( pObj->short_descr );
     PURGE_DATA( pObj->description );
 
-    for ( pAf = pObj->affected; pAf; pAf = pAf->next )
+    for ( pAf = pObj->affected; pAf; pAf = pAf_next )
     {
+    	pAf_next = pAf->next;
         free_affect( pAf );
     }
 
-    for ( pExtra = pObj->extra_descr; pExtra; pExtra = pExtra->next )
+    for ( pExtra = pObj->extra_descr; pExtra; pExtra = pExtra_next )
     {
+    	pExtra_next = pExtra->next;
         free_extra_descr( pExtra );
     }
     

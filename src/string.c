@@ -745,7 +745,7 @@ char *string_lineadd( char *string, char *newstr, int line )
 }
 
 /* buf queda con la linea sin \n\r */
-char *getline( char *str, char *buf )
+char *get_line( char *str, char *buf )
 {
 	int tmp = 0;
 	bool found = FALSE;
@@ -785,7 +785,7 @@ char *numlineas( char *string )
 
 	while ( *string )
 	{
-		string = getline( string, tmpb );
+		string = get_line( string, tmpb );
 		sprintf( buf2, "%2d. %s\n\r", cnt++, tmpb );
 		strcat( buf, buf2 );
 	}

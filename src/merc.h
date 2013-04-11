@@ -36,6 +36,7 @@
 #include <unistd.h>
 
 #include "protocol.h"
+#define unix
 
 /*
  * Accommodate old non-Ansi compilers.

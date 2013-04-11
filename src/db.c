@@ -706,8 +706,10 @@ void load_old_mob( FILE *fp )
 		pMobIndex->long_descr		= fread_string( fp );
 		pMobIndex->description		= fread_string( fp );
 
-		pMobIndex->long_descr[0]	= UPPER(pMobIndex->long_descr[0]);
-		pMobIndex->description[0]	= UPPER(pMobIndex->description[0]);
+		if(!IS_NULLSTR(pMobIndex->long_descr))
+			pMobIndex->long_descr[0]	= UPPER(pMobIndex->long_descr[0]);
+		if(!IS_NULLSTR(pMobIndex->description))
+			pMobIndex->description[0]	= UPPER(pMobIndex->description[0]);
 
 		pMobIndex->act			= fread_flag( fp ) | ACT_IS_NPC;
 		pMobIndex->affected_by		= fread_flag( fp );
@@ -1214,7 +1216,7 @@ void load_rooms( FILE *fp )
 
 			else if (letter == 'O')
 			{
-				if (pRoomIndex->owner[0] != '\0')
+				if (!IS_NULLSTR(pRoomIndex->owner))
 				{
 					bug("Load_rooms: duplicate owner.",0);
 					exit(1);
@@ -2728,205 +2730,123 @@ long flag_convert(char letter )
  *   hash code is simply the string length.
  *   this function takes 40% to 50% of boot-up time.
  */
-char *fread_string( FILE *fp )
+char *fread_string( FILE * fp )
 {
-	char *plast;
-	char c;
+   static char buf[MSL *5] = {'\0'};
 
-	plast = top_string + sizeof(char *);
-	if ( plast > &string_space[MAX_STRING - MSL] )
-	{
-	bug( "Fread_string: MAX_STRING %d exceeded.", MAX_STRING );
-	exit( 1 );
-	}
+   /*
+    * extra 2 bytes on the end for \0
+    * and 1b slack 
+    */
+   size_t i = 0;
+   register char c;
+   bool sFull = false;
+   FILE *gfp = fp;
 
-	/*
-	 * Skip blanks.
-	 * Read first char.
-	 */
-	do
-	{
-	c = getc( fp );
-	}
-	while ( isspace(c) );
+   /*
+    * skip blanks 
+    */
+   do
+   {
+      c = getc( gfp );
+   }
+   while( isspace( c ) );
 
-	if ( ( *plast++ = c ) == '~' )
-	return &str_empty[0];
+   /*
+    * empty string 
+    */
+   if( c == '~' )
+      return NULL;
 
-	for ( ;; )
-	{
-		/*
-		 * Back off the char type lookup,
-		 *   it was too dirty for portability.
-		 *   -- Furey
-		 */
+   buf[i++] = c;
 
-	switch ( *plast = getc(fp) )
-	{
-		default:
-			plast++;
-			break;
- 
-		case EOF:
-	/* temp fix */
-			bug( "Fread_string: EOF", 0 );
+   for( ;; )
+   {
+      if( i >= MSL *5 && !sFull )
+      {
+         bugf("String [%20.20s...] exceeded [%d] LBUF *5", buf, MSL *5);
+         sFull = true;
+         abort();
+      }
+      switch ( c = getc( gfp ) )
+      {
+         default:
+            if( !sFull )
+            {
+               buf[i++] = c;
+            }
+            break;
+
+         case '\0':
+            abort(  );
+            break;
+
+         case '\n':
+            if( !sFull )
+            {
+               buf[i++] = '\n';
+               buf[i++] = '\r';
+            }
+            break;
+
+         case '\r':
+            break;
+
+         case '~':
+            buf[i] = '\0';
+
+	    if(buf[0] == '\0')
 		return NULL;
-			/* exit( 1 ); */
-			break;
- 
-		case '\n':
-			plast++;
-			*plast++ = '\r';
-			break;
- 
-		case '\r':
-			break;
- 
-		case '~':
-			plast++;
-		{
-		union
-		{
-			char *	pc;
-			char	rgc[sizeof(char *)];
-		} u1;
-		int ic;
-		int iHash;
-		char *pHash;
-		char *pHashPrev;
-		char *pString;
 
-		plast[-1] = '\0';
-		iHash     = UMIN( MAX_KEY_HASH - 1, plast - 1 - top_string );
-		for ( pHash = string_hash[iHash]; pHash; pHash = pHashPrev )
-		{
-			for ( ic = 0; ic < sizeof(char *); ic++ )
-			u1.rgc[ic] = pHash[ic];
-			pHashPrev = u1.pc;
-			pHash    += sizeof(char *);
+            if( !str_cmp( buf, "(null)" ) )
+               return NULL;
 
-			if ( top_string[sizeof(char *)] == pHash[0]
-			&&   !strcmp( top_string+sizeof(char *)+1, pHash+1 ) )
-			return pHash;
-		}
-
-		if ( fBootDb )
-		{
-			pString		= top_string;
-			top_string		= plast;
-			u1.pc		= string_hash[iHash];
-			for ( ic = 0; ic < sizeof(char *); ic++ )
-			pString[ic] = u1.rgc[ic];
-			string_hash[iHash]	= pString;
-
-			nAllocString += 1;
-			sAllocString += top_string - pString;
-			return pString + sizeof(char *);
-		}
-		else
-		{
-			return str_dup( top_string + sizeof(char *) );
-		}
-		}
-	}
-	}
+            return str_dup(buf);
+      }
+   }
 }
 
 char *fread_string_eol( FILE *fp )
 {
-	static bool char_special[256-EOF];
-	char *plast;
-	char c;
- 
-	if ( char_special[EOF-EOF] != TRUE )
-	{
-		char_special[EOF -  EOF] = TRUE;
-		char_special['\n' - EOF] = TRUE;
-		char_special['\r' - EOF] = TRUE;
-	}
- 
-	plast = top_string + sizeof(char *);
-	if ( plast > &string_space[MAX_STRING - MSL] )
-	{
-		bug( "Fread_string: MAX_STRING %d exceeded.", MAX_STRING );
-		exit( 1 );
-	}
- 
-	/*
-	 * Skip blanks.
-	 * Read first char.
-	 */
-	do
-	{
-		c = getc( fp );
-	}
-	while ( isspace(c) );
- 
-	if ( ( *plast++ = c ) == '\n')
-		return &str_empty[0];
- 
-	for ( ;; )
-	{
-		if ( !char_special[ ( *plast++ = getc( fp ) ) - EOF ] )
-			continue;
- 
-		switch ( plast[-1] )
-		{
-		default:
-			break;
- 
-		case EOF:
-			bug( "Fread_string_eol  EOF", 0 );
-			exit( 1 );
-			break;
- 
-		case '\n':  case '\r':
-			{
-				union
-				{
-					char *      pc;
-					char        rgc[sizeof(char *)];
-				} u1;
-				int ic;
-				int iHash;
-				char *pHash;
-				char *pHashPrev;
-				char *pString;
- 
-				plast[-1] = '\0';
-				iHash     = UMIN( MAX_KEY_HASH - 1, plast - 1 - top_string );
-				for ( pHash = string_hash[iHash]; pHash; pHash = pHashPrev )
-				{
-					for ( ic = 0; ic < sizeof(char *); ic++ )
-						u1.rgc[ic] = pHash[ic];
-					pHashPrev = u1.pc;
-					pHash    += sizeof(char *);
- 
-					if ( top_string[sizeof(char *)] == pHash[0]
-					&&   !strcmp( top_string+sizeof(char *)+1, pHash+1 ) )
-						return pHash;
-				}
- 
-				if ( fBootDb )
-				{
-					pString             = top_string;
-					top_string          = plast;
-					u1.pc               = string_hash[iHash];
-					for ( ic = 0; ic < sizeof(char *); ic++ )
-						pString[ic] = u1.rgc[ic];
-					string_hash[iHash]  = pString;
- 
-					nAllocString += 1;
-					sAllocString += top_string - pString;
-					return pString + sizeof(char *);
-				}
-				else
-				{
-					return str_dup( top_string + sizeof(char *) );
-				}
-			}
-		}
-	}
+   char buf[MSL * 5] = {'\0'};
+   char *ptr = buf;
+   FILE *gfp = fp;
+   int c;
+   do
+   {
+      c = getc( gfp );
+      *ptr = c;
+   }
+   while( isspace( c ) );
+   if( ( *ptr++ = c ) == '\n' )
+      return NULL;
+   for( ;; )
+      switch ( *ptr = getc( gfp ) )
+      {
+         default:
+            ptr++;
+            break;
+         case EOF:
+            bugf("Fread_string: EOF");
+            abort();
+            break;
+         case '\n':
+         case '\r':
+            *ptr = '\0';
+            if( fBootDb )
+            {
+               if( !str_cmp( buf, "(null)" ) )
+                  return NULL;
+
+               ptr = (char *)str_dup( buf );
+               return ptr;
+            }
+
+            if( !str_cmp( buf, "(null)" ) )
+               return NULL;
+
+            return str_dup( buf );
+      }
 }
 
 

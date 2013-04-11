@@ -343,7 +343,146 @@ bool	process_output		args( ( DESCRIPTOR_DATA *d, bool fPrompt ) );
 void	read_from_buffer	args( ( DESCRIPTOR_DATA *d ) );
 void	stop_idling		args( ( CHAR_DATA *ch ) );
 void    bust_a_prompt           args( ( CHAR_DATA *ch ) );
+void purgeExtracted(void);
 
+void cleanup_mud(void) {
+   	int iHash;
+   	int mob_count = 0, obj_count = 0, room_count = 0;
+ 	DESCRIPTOR_DATA *d, *d_next;
+   	OBJ_INDEX_DATA *obj_index;
+   	MOB_INDEX_DATA *mob_index;
+   	ROOM_INDEX_DATA *room_index;
+	AREA_DATA *pArea, *pArea_next;
+	CHAR_DATA *ch, *ch_next;
+	OBJ_DATA *obj, *obj_next;
+	
+	// first call
+	log_string("Cleaning: initial purge");
+	purgeExtracted();
+
+	// clear them out!
+	log_string("Cleaning: descriptors");
+	for(d = descriptor_list; d; d = d_next) {
+		d_next = d->next;
+		close_socket(d); // will extract players
+	}
+
+
+	// will extract NPC's and glitched players
+	log_string("Cleaning: char_list");
+	for(ch = char_list; ch != NULL; ch = ch_next) {
+		ch_next = ch->next;
+		extract_char(ch, true);
+	}
+
+	// will extract all the objects loaded into the game
+	log_string("Cleaning: obj_list");
+	for(obj = object_list; obj != NULL; obj = obj_next) {
+		obj_next = obj->next;
+		extract_obj(obj);
+	}
+
+	// second (eliminating stragglers)
+	log_string("Cleaning: second purge");
+	purgeExtracted();
+
+   log_string("Freeing Hash's.  THIS COULD TAKE AWHILE!");
+   for( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )
+   {
+      MOB_INDEX_DATA *next_mob_index;
+      OBJ_INDEX_DATA *next_obj_index;
+      ROOM_INDEX_DATA *next_room_index;
+      for( mob_index = mob_index_hash[iHash]; mob_index; mob_index = next_mob_index )
+      {
+         next_mob_index = mob_index->next;
+
+         if( mob_index == mob_index_hash[iHash] )
+            mob_index_hash[iHash] = mob_index->next;
+         else
+         {
+            MOB_INDEX_DATA *tmid;
+
+            for( tmid = mob_index_hash[iHash]; tmid; tmid = tmid->next )
+            {
+               if( tmid->next == mob_index )
+                  break;
+            }
+            if( !tmid )
+               bugf( "cleanup_mud: mid not in hash list %d", mob_index->vnum );
+            else
+               tmid->next = mob_index->next;
+         }
+
+         free_mob_index(mob_index);
+         mob_count++;
+      }
+      for( obj_index = obj_index_hash[iHash]; obj_index; obj_index = next_obj_index )
+      {
+         next_obj_index = obj_index->next;
+         if( obj_index == obj_index_hash[iHash] )
+            obj_index_hash[iHash] = obj_index->next;
+         else
+         {
+            OBJ_INDEX_DATA *toid;
+
+            for( toid = obj_index_hash[iHash]; toid; toid = toid->next )
+            {
+               if( toid->next == obj_index )
+                  break;
+            }
+            if( !toid )
+               bugf( "cleanup_mud: oid not in hash list %d", obj_index->vnum );
+            else
+               toid->next = obj_index->next;
+         }
+         free_obj_index(obj_index);
+         obj_count++;
+      }
+      for( room_index = room_index_hash[iHash]; room_index; room_index = next_room_index )
+      {
+         next_room_index = room_index->next;
+
+         if( room_index == room_index_hash[iHash] )
+            room_index_hash[iHash] = room_index->next;
+         else
+         {
+            ROOM_INDEX_DATA *trid;
+
+            for( trid = room_index_hash[iHash]; trid; trid = trid->next )
+	    {
+               if( trid->next == room_index )
+                  break;
+	    }
+
+            if( !trid )
+               bugf( "cleanup_mud: rid not in hash list %d", room_index->vnum );
+            else
+               trid->next = room_index->next;
+         }
+
+         free_room_index(room_index);
+         room_count++;
+      }
+   }
+
+
+	// cleanup area's.
+	log_string("Cleaning: areas");
+   for ( pArea = area_first; pArea != NULL; pArea = pArea_next )   {
+	pArea_next = pArea->next;
+	free_area(pArea);
+   }
+
+	log_string("Cleaning: final purge");
+    purgeExtracted();
+
+   log_string("------------------------------------------");
+   log_string("              HASH's FREED!               ");
+   log_string("------------------------------------------");
+   tail_chain();
+   return;
+
+}
 
 int main( int argc, char **argv )
 {
@@ -423,6 +562,8 @@ int main( int argc, char **argv )
 	close (control);
 #endif
 
+
+	cleanup_mud();
 	/*
 	 * That's all, folks.
 	 */
@@ -1030,8 +1171,10 @@ void close_socket( DESCRIPTOR_DATA *dclose )
 	}
 	else
 	{
-		free_char(dclose->original ? dclose->original : 
-		dclose->character );
+		// now uses extraction, not free_char directly, as that corrupts the char_list
+		extract_char(dclose->original ? dclose->original : dclose->character, true);
+		// corrupting the stack!
+		// free_char(dclose->original ? dclose->original : dclose->character );
 	}
 	}
 

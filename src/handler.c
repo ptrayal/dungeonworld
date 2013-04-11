@@ -49,6 +49,29 @@ CHAR_DATA *worldExtractedCharacters;
 OBJ_DATA *worldExtractedObjects;
 
 
+void purgeExtracted(void) {
+	CHAR_DATA *c, *cn;
+	OBJ_DATA *o, *on;
+	
+	for(c = worldExtractedCharacters; c != NULL; c = cn) {
+		cn = c->next;
+		UNLINK_SINGLE(c, next, CHAR_DATA, worldExtractedCharacters);
+		free_char(c);
+	}
+
+	worldExtractedCharacters = NULL;
+
+	for(o = worldExtractedObjects; o != NULL; o = on) {
+		on = o->next;
+		UNLINK_SINGLE(o, next, OBJ_DATA, worldExtractedObjects);
+		free_obj(o);
+	}
+	
+	worldExtractedObjects = NULL;
+	
+	return;
+}
+
 /* friend stuff -- for NPC's mostly */
 bool is_friend(CHAR_DATA *ch,CHAR_DATA *victim)
 {
@@ -1888,9 +1911,9 @@ void extract_char( CHAR_DATA *ch, bool fPull )
 	nuke_pets(ch);
 	ch->pet = NULL; /* just in case */
 
-	if ( fPull )
-
+	if ( fPull ) {
 		die_follower( ch );
+	}
 	
 	stop_fighting( ch, TRUE );
 
@@ -1953,7 +1976,8 @@ void extract_char( CHAR_DATA *ch, bool fPull )
 
 	if ( ch->desc != NULL )
 		ch->desc->character = NULL;
-	free_char( ch );
+
+	LINK_SINGLE(ch, next, worldExtractedCharacters);
 	return;
 }
 

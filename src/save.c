@@ -34,7 +34,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include <malloc.h>
+//#include <malloc.h>
 #include <stdlib.h>
 #include "merc.h"
 #include "recycle.h"
@@ -818,10 +818,10 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 		int sn;
 
 		paf = new_affect();
-
-		sn = skill_lookup(fread_word(fp));
+		const char *wordical = fread_word(fp);
+		sn = skill_lookup(wordical);
 		if (sn < 0)
-			bug("Fread_char: unknown skill.",0);
+			bug(Format("Fread_char: unknown skill (%s)", wordical), 0);
 		else
 			paf->type = sn;
 
@@ -1128,7 +1128,7 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 
 	if ( !fMatch )
 	{
-		bug( "Fread_char: no match.", 0 );
+		bug( Format("Fread_char: no match for word (%s)", word), 0 );
 		fread_to_eol( fp );
 	}
 	}
@@ -1672,7 +1672,7 @@ void fread_obj( CHAR_DATA *ch, FILE *fp )
 
 	if ( !fMatch )
 	{
-		bug( "Fread_obj: no match.", 0 );
+		bug( Format("Fread_obj: no match for word (%s)", word), 0 );
 		fread_to_eol( fp );
 	}
 	}
