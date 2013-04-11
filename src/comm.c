@@ -356,6 +356,7 @@ void cleanup_mud(void) {
 	CHAR_DATA *ch, *ch_next;
 	OBJ_DATA *obj, *obj_next;
 	BAN_DATA *pban, *pban_next;
+	MPROG_CODE *mprg, *mprog_list;
 	
 	// first call
 	log_string("Cleaning: initial purge");
@@ -383,11 +384,19 @@ void cleanup_mud(void) {
 		extract_obj(obj);
 	}
 
+	// needed to add extern information to merc.h
 	// will extract all the bans loaded into the game
     log_string("Cleaning: ban_list");
     for(pban = ban_list; pban != NULL; pban = pban_next) {
         pban_next = pban->next;
         free_ban(pban);
+    }
+
+	// will extract all the bans loaded into the game
+    log_string("Cleaning: mprog_list");
+    for(mprg = mprog_list; mprg != NULL; mprg = mprg->next) {
+        mprog_list = mprg->next;
+        free_mprog(mprg);
     }
 
 	// second (eliminating stragglers)
