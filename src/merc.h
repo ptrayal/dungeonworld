@@ -1182,7 +1182,7 @@ struct	kill_data
 #define SECT_MOUNTAIN		      5
 #define SECT_WATER_SWIM		      6
 #define SECT_WATER_NOSWIM	      7
-#define SECT_UNUSED		      8
+#define SECT_UNDERGROUND		      8
 #define SECT_AIR		      9
 #define SECT_DESERT		     10
 #define SECT_MAX		     11

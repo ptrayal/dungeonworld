@@ -408,7 +408,7 @@ const struct flag_type sector_flags[] =
     {	"mountain",	SECT_MOUNTAIN,		TRUE	},
     {	"swim",		SECT_WATER_SWIM,	TRUE	},
     {	"noswim",	SECT_WATER_NOSWIM,	TRUE	},
-    {   "unused",	SECT_UNUSED,		TRUE	},
+    {   "underground",	SECT_UNDERGROUND,		TRUE	},
     {	"air",		SECT_AIR,		TRUE	},
     {	"desert",	SECT_DESERT,		TRUE	},
     {	NULL,		0,			0	}
