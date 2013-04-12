@@ -2305,7 +2305,7 @@ void do_consider( CHAR_DATA *ch, char *argument )
 	char arg[MAX_INPUT_LENGTH];
 	CHAR_DATA *victim;
 	char *msg;
-	int diff;
+	int diff = 0;
 
 	one_argument( argument, arg );
 

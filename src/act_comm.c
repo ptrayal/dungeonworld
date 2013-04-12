@@ -93,109 +93,105 @@ void do_delete( CHAR_DATA *ch, char *argument)
 
 void do_channels( CHAR_DATA *ch, char *argument)
 {
-		char buf[MSL]={'\0'};
-
 		/* lists all channels and their status */
-		send_to_char("   channel     status\n\r",ch);
-		send_to_char("---------------------\n\r",ch);
- 
-		send_to_char("gossip         ",ch);
-		if (!IS_SET(ch->comm,COMM_NOGOSSIP))
-			send_to_char("ON\n\r",ch);
-		else
-			send_to_char("OFF\n\r",ch);
+	send_to_char("   channel     status\n\r",ch);
+	send_to_char("---------------------\n\r",ch);
 
-		send_to_char("auction        ",ch);
-		if (!IS_SET(ch->comm,COMM_NOAUCTION))
-			send_to_char("ON\n\r",ch);
-		else
-			send_to_char("OFF\n\r",ch);
-
-		send_to_char("music          ",ch);
-		if (!IS_SET(ch->comm,COMM_NOMUSIC))
-			send_to_char("ON\n\r",ch);
-		else
-			send_to_char("OFF\n\r",ch);
-
-		send_to_char("Q/A            ",ch);
-		if (!IS_SET(ch->comm,COMM_NOQUESTION))
-			send_to_char("ON\n\r",ch);
-		else
-			send_to_char("OFF\n\r",ch);
-
-		send_to_char("Quote          ",ch);
-		if (!IS_SET(ch->comm,COMM_NOQUOTE))
-	send_to_char("ON\n\r",ch);
-		else
-	send_to_char("OFF\n\r",ch);
-
-		send_to_char("grats          ",ch);
-		if (!IS_SET(ch->comm,COMM_NOGRATS))
-			send_to_char("ON\n\r",ch);
-		else
-			send_to_char("OFF\n\r",ch);
-
-		if (IS_IMMORTAL(ch))
-		{
-			send_to_char("god channel    ",ch);
-			if(!IS_SET(ch->comm,COMM_NOWIZ))
-				send_to_char("ON\n\r",ch);
-			else
-				send_to_char("OFF\n\r",ch);
-		}
-
-		send_to_char("shouts         ",ch);
-		if (!IS_SET(ch->comm,COMM_SHOUTSOFF))
-			send_to_char("ON\n\r",ch);
-		else
-			send_to_char("OFF\n\r",ch);
-
-		send_to_char("tells          ",ch);
-		if (!IS_SET(ch->comm,COMM_DEAF))
-	send_to_char("ON\n\r",ch);
-		else
-	send_to_char("OFF\n\r",ch);
-
-		send_to_char("quiet mode     ",ch);
-		if (IS_SET(ch->comm,COMM_QUIET))
-			send_to_char("ON\n\r",ch);
-		else
-			send_to_char("OFF\n\r",ch);
-
-		if (IS_SET(ch->comm,COMM_AFK))
-	send_to_char("You are AFK.\n\r",ch);
-
-		if (IS_SET(ch->comm,COMM_SNOOP_PROOF))
-	send_to_char("You are immune to snooping.\n\r",ch);
-	 
-		if (ch->lines != PAGELEN)
-		{
-	if (ch->lines)
-	{
-			sprintf(buf,"You display %d lines of scroll.\n\r",ch->lines+2);
-			send_to_char(buf,ch);
-	}
+	send_to_char("gossip         ",ch);
+	if (!IS_SET(ch->comm,COMM_NOGOSSIP))
+		send_to_char("ON\n\r",ch);
 	else
-			send_to_char("Scroll buffering is off.\n\r",ch);
-		}
+		send_to_char("OFF\n\r",ch);
 
-		if (ch->prompt != NULL)
+	send_to_char("auction        ",ch);
+	if (!IS_SET(ch->comm,COMM_NOAUCTION))
+		send_to_char("ON\n\r",ch);
+	else
+		send_to_char("OFF\n\r",ch);
+
+	send_to_char("music          ",ch);
+	if (!IS_SET(ch->comm,COMM_NOMUSIC))
+		send_to_char("ON\n\r",ch);
+	else
+		send_to_char("OFF\n\r",ch);
+
+	send_to_char("Q/A            ",ch);
+	if (!IS_SET(ch->comm,COMM_NOQUESTION))
+		send_to_char("ON\n\r",ch);
+	else
+		send_to_char("OFF\n\r",ch);
+
+	send_to_char("Quote          ",ch);
+	if (!IS_SET(ch->comm,COMM_NOQUOTE))
+		send_to_char("ON\n\r",ch);
+	else
+		send_to_char("OFF\n\r",ch);
+
+	send_to_char("grats          ",ch);
+	if (!IS_SET(ch->comm,COMM_NOGRATS))
+		send_to_char("ON\n\r",ch);
+	else
+		send_to_char("OFF\n\r",ch);
+
+	if (IS_IMMORTAL(ch))
+	{
+		send_to_char("god channel    ",ch);
+		if(!IS_SET(ch->comm,COMM_NOWIZ))
+			send_to_char("ON\n\r",ch);
+		else
+			send_to_char("OFF\n\r",ch);
+	}
+
+	send_to_char("shouts         ",ch);
+	if (!IS_SET(ch->comm,COMM_SHOUTSOFF))
+		send_to_char("ON\n\r",ch);
+	else
+		send_to_char("OFF\n\r",ch);
+
+	send_to_char("tells          ",ch);
+	if (!IS_SET(ch->comm,COMM_DEAF))
+		send_to_char("ON\n\r",ch);
+	else
+		send_to_char("OFF\n\r",ch);
+
+	send_to_char("quiet mode     ",ch);
+	if (IS_SET(ch->comm,COMM_QUIET))
+		send_to_char("ON\n\r",ch);
+	else
+		send_to_char("OFF\n\r",ch);
+
+	if (IS_SET(ch->comm,COMM_AFK))
+		send_to_char("You are AFK.\n\r",ch);
+
+	if (IS_SET(ch->comm,COMM_SNOOP_PROOF))
+		send_to_char("You are immune to snooping.\n\r",ch);
+
+	if (ch->lines != PAGELEN)
+	{
+		if (ch->lines)
 		{
-	sprintf(buf,"Your current prompt is: %s\n\r",ch->prompt);
-	send_to_char(buf,ch);
+			send_to_char( Format("You display %d lines of scroll.\n\r",ch->lines+2), ch);
 		}
+		else
+			send_to_char("Scroll buffering is off.\n\r",ch);
+	}
 
-		if (IS_SET(ch->comm,COMM_NOSHOUT))
-			send_to_char("You cannot shout.\n\r",ch);
+	if (ch->prompt != NULL)
+	{
+		send_to_char( Format("Your current prompt is: %s\n\r",ch->prompt),ch);
+	}
+
+	if (IS_SET(ch->comm,COMM_NOSHOUT))
+		send_to_char("You cannot shout.\n\r",ch);
 	
-		if (IS_SET(ch->comm,COMM_NOTELL))
-			send_to_char("You cannot use tell.\n\r",ch);
- 
-		if (IS_SET(ch->comm,COMM_NOCHANNELS))
-		 send_to_char("You cannot use channels.\n\r",ch);
+	if (IS_SET(ch->comm,COMM_NOTELL))
+		send_to_char("You cannot use tell.\n\r",ch);
 
-		if (IS_SET(ch->comm,COMM_NOEMOTE))
-			send_to_char("You cannot show emotions.\n\r",ch);
+	if (IS_SET(ch->comm,COMM_NOCHANNELS))
+		send_to_char("You cannot use channels.\n\r",ch);
+
+	if (IS_SET(ch->comm,COMM_NOEMOTE))
+		send_to_char("You cannot show emotions.\n\r",ch);
 
 }
 
@@ -269,27 +265,390 @@ void do_replay (CHAR_DATA *ch, char *argument)
 /* RT auction rewritten in ROM style */
 void do_auction( CHAR_DATA *ch, char *argument )
 {
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
+	DESCRIPTOR_DATA *d;
 
-		if (IS_NULLSTR(argument))
+	if (IS_NULLSTR(argument))
+	{
+		if (IS_SET(ch->comm,COMM_NOAUCTION))
 		{
-			if (IS_SET(ch->comm,COMM_NOAUCTION))
+			send_to_char("Auction channel is now ON.\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOAUCTION);
+		}
+		else
+		{
+			send_to_char("Auction channel is now OFF.\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOAUCTION);
+		}
+	}
+		else  /* auction message sent, turn auction on if it is off */
+	{
+		if (IS_SET(ch->comm,COMM_QUIET))
+		{
+			send_to_char("You must turn off quiet mode first.\n\r",ch);
+			return;
+		}
+
+		if (IS_SET(ch->comm,COMM_NOCHANNELS))
+		{
+			send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
+			return;
+		}
+
+		REMOVE_BIT(ch->comm,COMM_NOAUCTION);
+	}
+
+	send_to_char( Format("You auction '%s'\n\r", argument), ch );
+	for ( d = descriptor_list; d != NULL; d = d->next )
+	{
+		CHAR_DATA *victim;
+
+		victim = d->original ? d->original : d->character;
+
+		if ( d->connected == CON_PLAYING &&
+			d->character != ch &&
+			!IS_SET(victim->comm,COMM_NOAUCTION) &&
+			!IS_SET(victim->comm,COMM_QUIET) )
+		{
+			act_new("$n auctions '$t'", ch,argument,d->character,TO_VICT,POS_DEAD);
+		}
+	}
+}
+
+/* RT chat replaced with ROM gossip */
+void do_gossip( CHAR_DATA *ch, char *argument )
+{
+	DESCRIPTOR_DATA *d;
+
+	if (IS_NULLSTR(argument))
+	{
+		if (IS_SET(ch->comm,COMM_NOGOSSIP))
+		{
+			send_to_char("Gossip channel is now ON.\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOGOSSIP);
+		}
+		else
+		{
+			send_to_char("Gossip channel is now OFF.\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOGOSSIP);
+		}
+	}
+		else  /* gossip message sent, turn gossip on if it isn't already */
+	{
+		if (IS_SET(ch->comm,COMM_QUIET))
+		{
+			send_to_char("You must turn off quiet mode first.\n\r",ch);
+			return;
+		}
+
+		if (IS_SET(ch->comm,COMM_NOCHANNELS))
+		{
+			send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
+			return;
+
+		}
+
+		REMOVE_BIT(ch->comm,COMM_NOGOSSIP);
+
+		send_to_char( Format("You gossip '%s'\n\r", argument), ch );
+		for ( d = descriptor_list; d != NULL; d = d->next )
+		{
+			CHAR_DATA *victim;
+
+			victim = d->original ? d->original : d->character;
+
+			if ( d->connected == CON_PLAYING &&
+				d->character != ch &&
+				!IS_SET(victim->comm,COMM_NOGOSSIP) &&
+				!IS_SET(victim->comm,COMM_QUIET) )
 			{
-	send_to_char("Auction channel is now ON.\n\r",ch);
-	REMOVE_BIT(ch->comm,COMM_NOAUCTION);
-			}
-			else
-			{
-	send_to_char("Auction channel is now OFF.\n\r",ch);
-	SET_BIT(ch->comm,COMM_NOAUCTION);
+				act_new( "$n gossips '$t'", ch,argument, d->character, TO_VICT,POS_SLEEPING );
 			}
 		}
-		else  /* auction message sent, turn auction on if it is off */
-		{
-	if (IS_SET(ch->comm,COMM_QUIET))
+	}
+}
+
+void do_grats( CHAR_DATA *ch, char *argument )
+{
+	DESCRIPTOR_DATA *d;
+
+	if (IS_NULLSTR(argument) )
 	{
-		send_to_char("You must turn off quiet mode first.\n\r",ch);
+		if (IS_SET(ch->comm,COMM_NOGRATS))
+		{
+			send_to_char("Grats channel is now ON.\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOGRATS);
+		}
+		else
+		{
+			send_to_char("Grats channel is now OFF.\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOGRATS);
+		}
+	}
+		else  /* grats message sent, turn grats on if it isn't already */
+	{
+		if (IS_SET(ch->comm,COMM_QUIET))
+		{
+			send_to_char("You must turn off quiet mode first.\n\r",ch);
+			return;
+		}
+
+		if (IS_SET(ch->comm,COMM_NOCHANNELS))
+		{
+			send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
+			return;
+
+		}
+
+		REMOVE_BIT(ch->comm,COMM_NOGRATS);
+
+		send_to_char( Format("You grats '%s'\n\r", argument), ch );
+		for ( d = descriptor_list; d != NULL; d = d->next )
+		{
+			CHAR_DATA *victim;
+
+			victim = d->original ? d->original : d->character;
+
+			if ( d->connected == CON_PLAYING &&
+				d->character != ch &&
+				!IS_SET(victim->comm,COMM_NOGRATS) &&
+				!IS_SET(victim->comm,COMM_QUIET) )
+			{
+				act_new( "$n grats '$t'", ch,argument, d->character, TO_VICT,POS_SLEEPING );
+			}
+		}
+	}
+}
+
+void do_quote( CHAR_DATA *ch, char *argument )
+{
+	DESCRIPTOR_DATA *d;
+
+	if (IS_NULLSTR(argument) )
+	{
+		if (IS_SET(ch->comm,COMM_NOQUOTE))
+		{
+			send_to_char("Quote channel is now ON.\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOQUOTE);
+		}
+		else
+		{
+			send_to_char("Quote channel is now OFF.\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOQUOTE);
+		}
+	}
+		else  /* quote message sent, turn quote on if it isn't already */
+	{
+		if (IS_SET(ch->comm,COMM_QUIET))
+		{
+			send_to_char("You must turn off quiet mode first.\n\r",ch);
+			return;
+		}
+
+		if (IS_SET(ch->comm,COMM_NOCHANNELS))
+		{
+			send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
+			return;
+
+		}
+
+		REMOVE_BIT(ch->comm,COMM_NOQUOTE);
+
+		send_to_char( Format("You quote '%s'\n\r", argument), ch );
+		for ( d = descriptor_list; d != NULL; d = d->next )
+		{
+			CHAR_DATA *victim;
+
+			victim = d->original ? d->original : d->character;
+
+			if ( d->connected == CON_PLAYING &&
+				d->character != ch &&
+				!IS_SET(victim->comm,COMM_NOQUOTE) &&
+				!IS_SET(victim->comm,COMM_QUIET) )
+			{
+				act_new( "$n quotes '$t'", ch,argument, d->character, TO_VICT,POS_SLEEPING );
+			}
+		}
+	}
+}
+
+/* RT question channel */
+void do_question( CHAR_DATA *ch, char *argument )
+{
+	DESCRIPTOR_DATA *d;
+
+	if (IS_NULLSTR(argument) )
+	{
+		if (IS_SET(ch->comm,COMM_NOQUESTION))
+		{
+			send_to_char("Q/A channel is now ON.\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOQUESTION);
+		}
+		else
+		{
+			send_to_char("Q/A channel is now OFF.\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOQUESTION);
+		}
+	}
+		else  /* question sent, turn Q/A on if it isn't already */
+	{
+		if (IS_SET(ch->comm,COMM_QUIET))
+		{
+			send_to_char("You must turn off quiet mode first.\n\r",ch);
+			return;
+		}
+
+		if (IS_SET(ch->comm,COMM_NOCHANNELS))
+		{
+			send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
+			return;
+		}
+
+		REMOVE_BIT(ch->comm,COMM_NOQUESTION);
+
+		send_to_char( Format("You question '%s'\n\r", argument), ch );
+		for ( d = descriptor_list; d != NULL; d = d->next )
+		{
+			CHAR_DATA *victim;
+
+			victim = d->original ? d->original : d->character;
+
+			if ( d->connected == CON_PLAYING &&
+				d->character != ch &&
+				!IS_SET(victim->comm,COMM_NOQUESTION) &&
+				!IS_SET(victim->comm,COMM_QUIET) )
+			{
+				act_new("$n questions '$t'", ch,argument,d->character,TO_VICT,POS_SLEEPING);
+			}
+		}
+	}
+}
+
+/* RT answer channel - uses same line as questions */
+void do_answer( CHAR_DATA *ch, char *argument )
+{
+	DESCRIPTOR_DATA *d;
+
+	if (IS_NULLSTR(argument) )
+	{
+		if (IS_SET(ch->comm,COMM_NOQUESTION))
+		{
+			send_to_char("Q/A channel is now ON.\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOQUESTION);
+		}
+		else
+		{
+			send_to_char("Q/A channel is now OFF.\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOQUESTION);
+		}
+	}
+		else  /* answer sent, turn Q/A on if it isn't already */
+	{
+		if (IS_SET(ch->comm,COMM_QUIET))
+		{
+			send_to_char("You must turn off quiet mode first.\n\r",ch);
+			return;
+		}
+
+		if (IS_SET(ch->comm,COMM_NOCHANNELS))
+		{
+			send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
+			return;
+		}
+
+		REMOVE_BIT(ch->comm,COMM_NOQUESTION);
+
+		send_to_char( Format("You answer '%s'\n\r", argument), ch );
+		for ( d = descriptor_list; d != NULL; d = d->next )
+		{
+			CHAR_DATA *victim;
+
+			victim = d->original ? d->original : d->character;
+
+			if ( d->connected == CON_PLAYING &&
+				d->character != ch &&
+				!IS_SET(victim->comm,COMM_NOQUESTION) &&
+				!IS_SET(victim->comm,COMM_QUIET) )
+			{
+				act_new("$n answers '$t'", ch,argument,d->character,TO_VICT,POS_SLEEPING);
+			}
+		}
+	}
+}
+
+/* RT music channel */
+void do_music( CHAR_DATA *ch, char *argument )
+{
+	DESCRIPTOR_DATA *d;
+
+	if (IS_NULLSTR(argument) )
+	{
+		if (IS_SET(ch->comm,COMM_NOMUSIC))
+		{
+			send_to_char("Music channel is now ON.\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOMUSIC);
+		}
+		else
+		{
+			send_to_char("Music channel is now OFF.\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOMUSIC);
+		}
+	}
+		else  /* music sent, turn music on if it isn't already */
+	{
+		if (IS_SET(ch->comm,COMM_QUIET))
+		{
+			send_to_char("You must turn off quiet mode first.\n\r",ch);
+			return;
+		}
+
+		if (IS_SET(ch->comm,COMM_NOCHANNELS))
+		{
+			send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
+			return;
+		}
+
+		REMOVE_BIT(ch->comm,COMM_NOMUSIC);
+
+		send_to_char( Format("You MUSIC: '%s'\n\r", argument), ch );
+		for ( d = descriptor_list; d != NULL; d = d->next )
+		{
+			CHAR_DATA *victim;
+
+			victim = d->original ? d->original : d->character;
+
+			if ( d->connected == CON_PLAYING &&
+				d->character != ch &&
+				!IS_SET(victim->comm,COMM_NOMUSIC) &&
+				!IS_SET(victim->comm,COMM_QUIET) )
+			{
+				act_new("$n MUSIC: '$t'", ch,argument,d->character,TO_VICT,POS_SLEEPING);
+			}
+		}
+	}
+}
+
+/* clan channels */
+void do_clantalk( CHAR_DATA *ch, char *argument )
+{
+	DESCRIPTOR_DATA *d;
+
+	if (!is_clan(ch) || clan_table[ch->clan].independent)
+	{
+		send_to_char("You aren't in a clan.\n\r",ch);
+		return;
+	}
+	if ( IS_NULLSTR(argument) )
+	{
+		if (IS_SET(ch->comm,COMM_NOCLAN))
+		{
+			send_to_char("Clan channel is now ON\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOCLAN);
+		}
+		else
+		{
+			send_to_char("Clan channel is now OFF\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOCLAN);
+		}
 		return;
 	}
 
@@ -299,619 +658,230 @@ void do_auction( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
-	REMOVE_BIT(ch->comm,COMM_NOAUCTION);
-		}
+	REMOVE_BIT(ch->comm,COMM_NOCLAN);
 
-		sprintf( buf, "You auction '%s'\n\r", argument );
-		send_to_char( buf, ch );
-		for ( d = descriptor_list; d != NULL; d = d->next )
-		{
-	CHAR_DATA *victim;
-
-	victim = d->original ? d->original : d->character;
-
-	if ( d->connected == CON_PLAYING &&
-			 d->character != ch &&
-			 !IS_SET(victim->comm,COMM_NOAUCTION) &&
-			 !IS_SET(victim->comm,COMM_QUIET) )
+	send_to_char( Format("You clan '%s'\n\r", argument), ch );
+	for ( d = descriptor_list; d != NULL; d = d->next )
 	{
-			act_new("$n auctions '$t'",
-				ch,argument,d->character,TO_VICT,POS_DEAD);
+		if ( d->connected == CON_PLAYING &&
+			d->character != ch &&
+			is_same_clan(ch,d->character) &&
+			!IS_SET(d->character->comm,COMM_NOCLAN) &&
+			!IS_SET(d->character->comm,COMM_QUIET) )
+		{
+			act_new("$n clans '$t'",ch,argument,d->character,TO_VICT,POS_DEAD);
+		}
 	}
-		}
-}
 
-/* RT chat replaced with ROM gossip */
-void do_gossip( CHAR_DATA *ch, char *argument )
-{
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
- 
-		if (IS_NULLSTR(argument))
-		{
-			if (IS_SET(ch->comm,COMM_NOGOSSIP))
-			{
-				send_to_char("Gossip channel is now ON.\n\r",ch);
-				REMOVE_BIT(ch->comm,COMM_NOGOSSIP);
-			}
-			else
-			{
-				send_to_char("Gossip channel is now OFF.\n\r",ch);
-				SET_BIT(ch->comm,COMM_NOGOSSIP);
-			}
-		}
-		else  /* gossip message sent, turn gossip on if it isn't already */
-		{
-				if (IS_SET(ch->comm,COMM_QUIET))
-				{
-					send_to_char("You must turn off quiet mode first.\n\r",ch);
-					return;
-				}
- 
-				if (IS_SET(ch->comm,COMM_NOCHANNELS))
-				{
-					send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
-					return;
- 
-				}
-
-			REMOVE_BIT(ch->comm,COMM_NOGOSSIP);
- 
-			sprintf( buf, "You gossip '%s'\n\r", argument );
-			send_to_char( buf, ch );
-			for ( d = descriptor_list; d != NULL; d = d->next )
-			{
-				CHAR_DATA *victim;
- 
-				victim = d->original ? d->original : d->character;
- 
-				if ( d->connected == CON_PLAYING &&
-						 d->character != ch &&
-						 !IS_SET(victim->comm,COMM_NOGOSSIP) &&
-						 !IS_SET(victim->comm,COMM_QUIET) )
-				{
-					act_new( "$n gossips '$t'", 
-			 ch,argument, d->character, TO_VICT,POS_SLEEPING );
-				}
-			}
-		}
-}
-
-void do_grats( CHAR_DATA *ch, char *argument )
-{
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
- 
-		if (IS_NULLSTR(argument) )
-		{
-			if (IS_SET(ch->comm,COMM_NOGRATS))
-			{
-				send_to_char("Grats channel is now ON.\n\r",ch);
-				REMOVE_BIT(ch->comm,COMM_NOGRATS);
-			}
-			else
-			{
-				send_to_char("Grats channel is now OFF.\n\r",ch);
-				SET_BIT(ch->comm,COMM_NOGRATS);
-			}
-		}
-		else  /* grats message sent, turn grats on if it isn't already */
-		{
-				if (IS_SET(ch->comm,COMM_QUIET))
-				{
-					send_to_char("You must turn off quiet mode first.\n\r",ch);
-					return;
-				}
- 
-				if (IS_SET(ch->comm,COMM_NOCHANNELS))
-				{
-					send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
-					return;
- 
-				}
- 
-			REMOVE_BIT(ch->comm,COMM_NOGRATS);
- 
-			sprintf( buf, "You grats '%s'\n\r", argument );
-			send_to_char( buf, ch );
-			for ( d = descriptor_list; d != NULL; d = d->next )
-			{
-				CHAR_DATA *victim;
- 
-				victim = d->original ? d->original : d->character;
- 
-				if ( d->connected == CON_PLAYING &&
-						 d->character != ch &&
-						 !IS_SET(victim->comm,COMM_NOGRATS) &&
-						 !IS_SET(victim->comm,COMM_QUIET) )
-				{
-					act_new( "$n grats '$t'",
-									 ch,argument, d->character, TO_VICT,POS_SLEEPING );
-				}
-			}
-		}
-}
-
-void do_quote( CHAR_DATA *ch, char *argument )
-{
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
- 
-		if (IS_NULLSTR(argument) )
-		{
-			if (IS_SET(ch->comm,COMM_NOQUOTE))
-			{
-				send_to_char("Quote channel is now ON.\n\r",ch);
-				REMOVE_BIT(ch->comm,COMM_NOQUOTE);
-			}
-			else
-			{
-				send_to_char("Quote channel is now OFF.\n\r",ch);
-				SET_BIT(ch->comm,COMM_NOQUOTE);
-			}
-		}
-		else  /* quote message sent, turn quote on if it isn't already */
-		{
-				if (IS_SET(ch->comm,COMM_QUIET))
-				{
-					send_to_char("You must turn off quiet mode first.\n\r",ch);
-					return;
-				}
- 
-				if (IS_SET(ch->comm,COMM_NOCHANNELS))
-				{
-					send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
-					return;
- 
-				}
- 
-			REMOVE_BIT(ch->comm,COMM_NOQUOTE);
- 
-			sprintf( buf, "You quote '%s'\n\r", argument );
-			send_to_char( buf, ch );
-			for ( d = descriptor_list; d != NULL; d = d->next )
-			{
-				CHAR_DATA *victim;
- 
-				victim = d->original ? d->original : d->character;
- 
-				if ( d->connected == CON_PLAYING &&
-						 d->character != ch &&
-						 !IS_SET(victim->comm,COMM_NOQUOTE) &&
-						 !IS_SET(victim->comm,COMM_QUIET) )
-				{
-					act_new( "$n quotes '$t'",
-									 ch,argument, d->character, TO_VICT,POS_SLEEPING );
-				}
-			}
-		}
-}
-
-/* RT question channel */
-void do_question( CHAR_DATA *ch, char *argument )
-{
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
- 
-		if (IS_NULLSTR(argument) )
-		{
-			if (IS_SET(ch->comm,COMM_NOQUESTION))
-			{
-				send_to_char("Q/A channel is now ON.\n\r",ch);
-				REMOVE_BIT(ch->comm,COMM_NOQUESTION);
-			}
-			else
-			{
-				send_to_char("Q/A channel is now OFF.\n\r",ch);
-				SET_BIT(ch->comm,COMM_NOQUESTION);
-			}
-		}
-		else  /* question sent, turn Q/A on if it isn't already */
-		{
-				if (IS_SET(ch->comm,COMM_QUIET))
-				{
-					send_to_char("You must turn off quiet mode first.\n\r",ch);
-					return;
-				}
- 
-				if (IS_SET(ch->comm,COMM_NOCHANNELS))
-				{
-					send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
-					return;
-	}
- 
-				REMOVE_BIT(ch->comm,COMM_NOQUESTION);
- 
-			sprintf( buf, "You question '%s'\n\r", argument );
-			send_to_char( buf, ch );
-			for ( d = descriptor_list; d != NULL; d = d->next )
-			{
-				CHAR_DATA *victim;
- 
-				victim = d->original ? d->original : d->character;
- 
-				if ( d->connected == CON_PLAYING &&
-						 d->character != ch &&
-						 !IS_SET(victim->comm,COMM_NOQUESTION) &&
-						 !IS_SET(victim->comm,COMM_QUIET) )
-				{
-		act_new("$n questions '$t'",
-			ch,argument,d->character,TO_VICT,POS_SLEEPING);
-				}
-			}
-		}
-}
-
-/* RT answer channel - uses same line as questions */
-void do_answer( CHAR_DATA *ch, char *argument )
-{
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
- 
-		if (IS_NULLSTR(argument) )
-		{
-			if (IS_SET(ch->comm,COMM_NOQUESTION))
-			{
-				send_to_char("Q/A channel is now ON.\n\r",ch);
-				REMOVE_BIT(ch->comm,COMM_NOQUESTION);
-			}
-			else
-			{
-				send_to_char("Q/A channel is now OFF.\n\r",ch);
-				SET_BIT(ch->comm,COMM_NOQUESTION);
-			}
-		}
-		else  /* answer sent, turn Q/A on if it isn't already */
-		{
-				if (IS_SET(ch->comm,COMM_QUIET))
-				{
-					send_to_char("You must turn off quiet mode first.\n\r",ch);
-					return;
-				}
- 
-				if (IS_SET(ch->comm,COMM_NOCHANNELS))
-				{
-					send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
-					return;
-	}
- 
-				REMOVE_BIT(ch->comm,COMM_NOQUESTION);
- 
-			sprintf( buf, "You answer '%s'\n\r", argument );
-			send_to_char( buf, ch );
-			for ( d = descriptor_list; d != NULL; d = d->next )
-			{
-				CHAR_DATA *victim;
- 
-				victim = d->original ? d->original : d->character;
- 
-				if ( d->connected == CON_PLAYING &&
-						 d->character != ch &&
-						 !IS_SET(victim->comm,COMM_NOQUESTION) &&
-						 !IS_SET(victim->comm,COMM_QUIET) )
-				{
-		act_new("$n answers '$t'",
-			ch,argument,d->character,TO_VICT,POS_SLEEPING);
-				}
-			}
-		}
-}
-
-/* RT music channel */
-void do_music( CHAR_DATA *ch, char *argument )
-{
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
- 
-		if (IS_NULLSTR(argument) )
-		{
-			if (IS_SET(ch->comm,COMM_NOMUSIC))
-			{
-				send_to_char("Music channel is now ON.\n\r",ch);
-				REMOVE_BIT(ch->comm,COMM_NOMUSIC);
-			}
-			else
-			{
-				send_to_char("Music channel is now OFF.\n\r",ch);
-				SET_BIT(ch->comm,COMM_NOMUSIC);
-			}
-		}
-		else  /* music sent, turn music on if it isn't already */
-		{
-				if (IS_SET(ch->comm,COMM_QUIET))
-				{
-					send_to_char("You must turn off quiet mode first.\n\r",ch);
-					return;
-				}
- 
-				if (IS_SET(ch->comm,COMM_NOCHANNELS))
-				{
-					send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
-					return;
-	}
- 
-				REMOVE_BIT(ch->comm,COMM_NOMUSIC);
- 
-			sprintf( buf, "You MUSIC: '%s'\n\r", argument );
-			send_to_char( buf, ch );
-			sprintf( buf, "$n MUSIC: '%s'", argument );
-			for ( d = descriptor_list; d != NULL; d = d->next )
-			{
-				CHAR_DATA *victim;
- 
-				victim = d->original ? d->original : d->character;
- 
-				if ( d->connected == CON_PLAYING &&
-						 d->character != ch &&
-						 !IS_SET(victim->comm,COMM_NOMUSIC) &&
-						 !IS_SET(victim->comm,COMM_QUIET) )
-				{
-			act_new("$n MUSIC: '$t'",
-				ch,argument,d->character,TO_VICT,POS_SLEEPING);
-				}
-			}
-		}
-}
-
-/* clan channels */
-void do_clantalk( CHAR_DATA *ch, char *argument )
-{
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
-
-		if (!is_clan(ch) || clan_table[ch->clan].independent)
-		{
-	send_to_char("You aren't in a clan.\n\r",ch);
 	return;
-		}
-		if ( IS_NULLSTR(argument) )
-		{
-			if (IS_SET(ch->comm,COMM_NOCLAN))
-			{
-				send_to_char("Clan channel is now ON\n\r",ch);
-				REMOVE_BIT(ch->comm,COMM_NOCLAN);
-			}
-			else
-			{
-				send_to_char("Clan channel is now OFF\n\r",ch);
-				SET_BIT(ch->comm,COMM_NOCLAN);
-			}
-			return;
-		}
-
-				if (IS_SET(ch->comm,COMM_NOCHANNELS))
-				{
-				 send_to_char("The gods have revoked your channel priviliges.\n\r",ch);
-					return;
-				}
-
-				REMOVE_BIT(ch->comm,COMM_NOCLAN);
-
-			sprintf( buf, "You clan '%s'\n\r", argument );
-			send_to_char( buf, ch );
-			sprintf( buf, "$n clans '%s'", argument );
-		for ( d = descriptor_list; d != NULL; d = d->next )
-		{
-				if ( d->connected == CON_PLAYING &&
-						 d->character != ch &&
-			 is_same_clan(ch,d->character) &&
-						 !IS_SET(d->character->comm,COMM_NOCLAN) &&
-			 !IS_SET(d->character->comm,COMM_QUIET) )
-				{
-						act_new("$n clans '$t'",ch,argument,d->character,TO_VICT,POS_DEAD);
-				}
-		}
-
-		return;
 }
 
 void do_immtalk( CHAR_DATA *ch, char *argument )
 {
-		char buf[MSL]={'\0'};
-		DESCRIPTOR_DATA *d;
+	DESCRIPTOR_DATA *d;
 
-		if ( IS_NULLSTR(argument) )
-		{
-			if (IS_SET(ch->comm,COMM_NOWIZ))
-			{
-	send_to_char("Immortal channel is now ON\n\r",ch);
-	REMOVE_BIT(ch->comm,COMM_NOWIZ);
-			}
-			else
-			{
-	send_to_char("Immortal channel is now OFF\n\r",ch);
-	SET_BIT(ch->comm,COMM_NOWIZ);
-			} 
-			return;
-		}
-
-		REMOVE_BIT(ch->comm,COMM_NOWIZ);
-
-		sprintf( buf, "$n: %s", argument );
-		act_new("$n: $t",ch,argument,NULL,TO_CHAR,POS_DEAD);
-		for ( d = descriptor_list; d != NULL; d = d->next )
-		{
-	if ( d->connected == CON_PLAYING && 
-			 IS_IMMORTAL(d->character) && 
-						 !IS_SET(d->character->comm,COMM_NOWIZ) )
+	if ( IS_NULLSTR(argument) )
 	{
-			act_new("$n: $t",ch,argument,d->character,TO_VICT,POS_DEAD);
-	}
+		if (IS_SET(ch->comm,COMM_NOWIZ))
+		{
+			send_to_char("Immortal channel is now ON\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_NOWIZ);
 		}
-
+		else
+		{
+			send_to_char("Immortal channel is now OFF\n\r",ch);
+			SET_BIT(ch->comm,COMM_NOWIZ);
+		} 
 		return;
+	}
+
+	REMOVE_BIT(ch->comm,COMM_NOWIZ);
+
+	send_to_char( Format("[\tOImm Talk\tn] $n: %s", argument), ch);
+	act_new("[\tOImm Talk\tn] $n: $t",ch,argument,NULL,TO_CHAR,POS_DEAD);
+	for ( d = descriptor_list; d != NULL; d = d->next )
+	{
+		if ( d->connected == CON_PLAYING && 
+			IS_IMMORTAL(d->character) && 
+			!IS_SET(d->character->comm,COMM_NOWIZ) )
+		{
+			act_new("[\tOImm Talk\tn] $n: $t",ch,argument,d->character,TO_VICT,POS_DEAD);
+		}
+	}
+
+	return;
 }
 
 
 
 void do_say( CHAR_DATA *ch, char *argument )
 {
-		if ( IS_NULLSTR(argument) )
-		{
-	send_to_char( "Say what?\n\r", ch );
-	return;
-		}
-
-		act( "$n says '$T'", ch, NULL, argument, TO_ROOM );
-		act( "You say '$T'", ch, NULL, argument, TO_CHAR );
-
-		if ( !IS_NPC(ch) )
-		{
-	CHAR_DATA *mob, *mob_next;
-	for ( mob = ch->in_room->people; mob != NULL; mob = mob_next )
+	if ( IS_NULLSTR(argument) )
 	{
+		send_to_char( "Say what?\n\r", ch );
+		return;
+	}
+
+	act( "$n says '$T'", ch, NULL, argument, TO_ROOM );
+	act( "You say '$T'", ch, NULL, argument, TO_CHAR );
+
+	if ( !IS_NPC(ch) )
+	{
+		CHAR_DATA *mob, *mob_next;
+		for ( mob = ch->in_room->people; mob != NULL; mob = mob_next )
+		{
 			mob_next = mob->next_in_room;
 			if ( IS_NPC(mob) && HAS_TRIGGER( mob, TRIG_SPEECH )
-			&&   mob->position == mob->pIndexData->default_pos )
-		mp_act_trigger( argument, mob, ch, NULL, NULL, TRIG_SPEECH );
-	}
+				&&   mob->position == mob->pIndexData->default_pos )
+				mp_act_trigger( argument, mob, ch, NULL, NULL, TRIG_SPEECH );
 		}
-		return;
+	}
+	return;
 }
 
 
 
 void do_shout( CHAR_DATA *ch, char *argument )
 {
-		DESCRIPTOR_DATA *d;
+	DESCRIPTOR_DATA *d;
 
-		if (IS_NULLSTR(argument) )
-		{
-				if (IS_SET(ch->comm,COMM_SHOUTSOFF))
-				{
-						send_to_char("You can hear shouts again.\n\r",ch);
-						REMOVE_BIT(ch->comm,COMM_SHOUTSOFF);
-				}
-				else
-				{
-						send_to_char("You will no longer hear shouts.\n\r",ch);
-						SET_BIT(ch->comm,COMM_SHOUTSOFF);
-				}
-				return;
-		}
-
-		if ( IS_SET(ch->comm, COMM_NOSHOUT) )
-		{
-				send_to_char( "You can't shout.\n\r", ch );
-				return;
-		}
- 
-		REMOVE_BIT(ch->comm,COMM_SHOUTSOFF);
-
-		WAIT_STATE( ch, 12 );
-
-		act( "You shout '$T'", ch, NULL, argument, TO_CHAR );
-		for ( d = descriptor_list; d != NULL; d = d->next )
-		{
-	CHAR_DATA *victim;
-
-	victim = d->original ? d->original : d->character;
-
-	if ( d->connected == CON_PLAYING &&
-			 d->character != ch &&
-			 !IS_SET(victim->comm, COMM_SHOUTSOFF) &&
-			 !IS_SET(victim->comm, COMM_QUIET) ) 
+	if (IS_NULLSTR(argument) )
 	{
-			act("$n shouts '$t'",ch,argument,d->character,TO_VICT);
-	}
+		if (IS_SET(ch->comm,COMM_SHOUTSOFF))
+		{
+			send_to_char("You can hear shouts again.\n\r",ch);
+			REMOVE_BIT(ch->comm,COMM_SHOUTSOFF);
 		}
-
+		else
+		{
+			send_to_char("You will no longer hear shouts.\n\r",ch);
+			SET_BIT(ch->comm,COMM_SHOUTSOFF);
+		}
 		return;
+	}
+
+	if ( IS_SET(ch->comm, COMM_NOSHOUT) )
+	{
+		send_to_char( "You can't shout.\n\r", ch );
+		return;
+	}
+	
+	REMOVE_BIT(ch->comm,COMM_SHOUTSOFF);
+
+	WAIT_STATE( ch, 12 );
+
+	act( "You shout '$T'", ch, NULL, argument, TO_CHAR );
+	for ( d = descriptor_list; d != NULL; d = d->next )
+	{
+		CHAR_DATA *victim;
+
+		victim = d->original ? d->original : d->character;
+
+		if ( d->connected == CON_PLAYING &&
+			d->character != ch &&
+			!IS_SET(victim->comm, COMM_SHOUTSOFF) &&
+			!IS_SET(victim->comm, COMM_QUIET) ) 
+		{
+			act("$n shouts '$t'",ch,argument,d->character,TO_VICT);
+		}
+	}
+
+	return;
 }
 
 
 
 void do_tell( CHAR_DATA *ch, char *argument )
 {
-		char arg[MAX_INPUT_LENGTH];
-		char buf[MSL]={'\0'};
-		CHAR_DATA *victim;
+	char arg[MAX_INPUT_LENGTH];
+	char buf[MSL]={'\0'};
+	CHAR_DATA *victim;
 
-		if ( IS_SET(ch->comm, COMM_NOTELL) || IS_SET(ch->comm,COMM_DEAF))
-		{
-	send_to_char( "Your message didn't get through.\n\r", ch );
-	return;
-		}
+	if ( IS_SET(ch->comm, COMM_NOTELL) || IS_SET(ch->comm,COMM_DEAF))
+	{
+		send_to_char( "Your message didn't get through.\n\r", ch );
+		return;
+	}
 
-		if ( IS_SET(ch->comm, COMM_QUIET) )
-		{
-	send_to_char( "You must turn off quiet mode first.\n\r", ch);
-	return;
-		}
+	if ( IS_SET(ch->comm, COMM_QUIET) )
+	{
+		send_to_char( "You must turn off quiet mode first.\n\r", ch);
+		return;
+	}
 
-		if (IS_SET(ch->comm,COMM_DEAF))
-		{
-	send_to_char("You must turn off deaf mode first.\n\r",ch);
-	return;
-		}
+	if (IS_SET(ch->comm,COMM_DEAF))
+	{
+		send_to_char("You must turn off deaf mode first.\n\r",ch);
+		return;
+	}
 
-		argument = one_argument( argument, arg );
+	argument = one_argument( argument, arg );
 
-		if ( IS_NULLSTR(arg) || IS_NULLSTR(argument) )
-		{
-	send_to_char( "Tell whom what?\n\r", ch );
-	return;
-		}
+	if ( IS_NULLSTR(arg) || IS_NULLSTR(argument) )
+	{
+		send_to_char( "Tell whom what?\n\r", ch );
+		return;
+	}
 
 		/*
 		 * Can tell to PC's anywhere, but NPC's only in same room.
 		 * -- Furey
 		 */
-		if ( ( victim = get_char_world( ch, arg ) ) == NULL
-		|| ( IS_NPC(victim) && victim->in_room != ch->in_room ) )
-		{
-	send_to_char( "They aren't here.\n\r", ch );
-	return;
+		 if ( ( victim = get_char_world( ch, arg ) ) == NULL
+		 	|| ( IS_NPC(victim) && victim->in_room != ch->in_room ) )
+		 {
+		 	send_to_char( "They aren't here.\n\r", ch );
+		 	return;
+		 }
+
+		 if ( victim->desc == NULL && !IS_NPC(victim))
+		 {
+		 	act("$N seems to have misplaced $S link...try again later.",
+		 		ch,NULL,victim,TO_CHAR);
+		 	sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
+		 	buf[0] = UPPER(buf[0]);
+		 	add_buf(victim->pcdata->buffer,buf);
+		 	return;
+		 }
+
+		 if ( !(IS_IMMORTAL(ch) && ch->level > LEVEL_IMMORTAL) && !IS_AWAKE(victim) )
+		 {
+		 	act( "$E can't hear you.", ch, 0, victim, TO_CHAR );
+		 	return;
+		 }
+		 
+		 if ((IS_SET(victim->comm,COMM_QUIET) || IS_SET(victim->comm,COMM_DEAF))
+		 	&& !IS_IMMORTAL(ch))
+		 {
+		 	act( "$E is not receiving tells.", ch, 0, victim, TO_CHAR );
+		 	return;
+		 }
+
+		 if (IS_SET(victim->comm,COMM_AFK))
+		 {
+		 	if (IS_NPC(victim))
+		 	{
+		 		act("$E is AFK, and not receiving tells.",ch,NULL,victim,TO_CHAR);
+		 		return;
+		 	}
+
+		 	act("$E is AFK, but your tell will go through when $E returns.",
+		 		ch,NULL,victim,TO_CHAR);
+		 	sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
+		 	buf[0] = UPPER(buf[0]);
+		 	add_buf(victim->pcdata->buffer,buf);
+		 	return;
+		 }
+
+		 act( "You tell $N '$t'", ch, argument, victim, TO_CHAR );
+		 act_new("$n tells you '$t'",ch,argument,victim,TO_VICT,POS_DEAD);
+		 victim->reply	= ch;
+
+		 if ( !IS_NPC(ch) && IS_NPC(victim) && HAS_TRIGGER(victim,TRIG_SPEECH) )
+		 	mp_act_trigger( argument, victim, ch, NULL, NULL, TRIG_SPEECH );
+
+		 return;
 		}
-
-		if ( victim->desc == NULL && !IS_NPC(victim))
-		{
-	act("$N seems to have misplaced $S link...try again later.",
-			ch,NULL,victim,TO_CHAR);
-				sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
-				buf[0] = UPPER(buf[0]);
-				add_buf(victim->pcdata->buffer,buf);
-	return;
-		}
-
-		if ( !(IS_IMMORTAL(ch) && ch->level > LEVEL_IMMORTAL) && !IS_AWAKE(victim) )
-		{
-	act( "$E can't hear you.", ch, 0, victim, TO_CHAR );
-	return;
-		}
-	
-		if ((IS_SET(victim->comm,COMM_QUIET) || IS_SET(victim->comm,COMM_DEAF))
-		&& !IS_IMMORTAL(ch))
-		{
-	act( "$E is not receiving tells.", ch, 0, victim, TO_CHAR );
-		return;
-		}
-
-		if (IS_SET(victim->comm,COMM_AFK))
-		{
-	if (IS_NPC(victim))
-	{
-			act("$E is AFK, and not receiving tells.",ch,NULL,victim,TO_CHAR);
-			return;
-	}
-
-	act("$E is AFK, but your tell will go through when $E returns.",
-			ch,NULL,victim,TO_CHAR);
-	sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
-	buf[0] = UPPER(buf[0]);
-	add_buf(victim->pcdata->buffer,buf);
-	return;
-		}
-
-		act( "You tell $N '$t'", ch, argument, victim, TO_CHAR );
-		act_new("$n tells you '$t'",ch,argument,victim,TO_VICT,POS_DEAD);
-		victim->reply	= ch;
-
-		if ( !IS_NPC(ch) && IS_NPC(victim) && HAS_TRIGGER(victim,TRIG_SPEECH) )
-	mp_act_trigger( argument, victim, ch, NULL, NULL, TRIG_SPEECH );
-
-		return;
-}
 
 
 
