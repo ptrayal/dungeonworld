@@ -745,8 +745,7 @@ bool spec_executioner( CHAR_DATA *ch )
     if ( victim == NULL )
 	return FALSE;
 
-    sprintf( buf, "%s is a %s!  PROTECT THE INNOCENT!  MORE BLOOOOD!!!",
-	victim->name, crime );
+    sprintf( buf, "%s is a %s!  PROTECT THE INNOCENT!  MORE BLOOOOD!!!", victim->name, crime );
     REMOVE_BIT(ch->comm,COMM_NOSHOUT);
     do_function(ch, &do_yell, buf );
     multi_hit( ch, victim, TYPE_UNDEFINED );
@@ -826,8 +825,7 @@ bool spec_guard( CHAR_DATA *ch )
 
     if ( victim != NULL )
     {
-	sprintf( buf, "%s is a %s!  PROTECT THE INNOCENT!!  BANZAI!!",
-	    victim->name, crime );
+	sprintf( buf, "%s is a %s!  PROTECT THE INNOCENT!!  BANZAI!!", victim->name, crime );
  	REMOVE_BIT(ch->comm,COMM_NOSHOUT);
 	do_function(ch, &do_yell, buf );
 	multi_hit( ch, victim, TYPE_UNDEFINED );
@@ -836,8 +834,7 @@ bool spec_guard( CHAR_DATA *ch )
 
     if ( ech != NULL )
     {
-	act( "$n screams 'PROTECT THE INNOCENT!!  BANZAI!!",
-	    ch, NULL, NULL, TO_ROOM );
+	act( "$n screams 'PROTECT THE INNOCENT!!  BANZAI!!", ch, NULL, NULL, TO_ROOM );
 	multi_hit( ch, ech, TYPE_UNDEFINED );
 	return TRUE;
     }

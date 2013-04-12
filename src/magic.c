@@ -3232,8 +3232,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 	char buf[MAX_STRING_LENGTH];
 	AFFECT_DATA *paf;
 
-	sprintf( buf, "\tY----- \tW%s \tY-----\tn\n\r", obj->short_descr);
-	send_to_char( buf, ch);
+	send_to_char( Format("\tY----- \tW%s \tY-----\tn\n\r", obj->short_descr), ch);
 
 	//    sprintf( buf, "Object '%s' is type %s, extra flags %s.\n\rWeight is %d, value is %d, level is %d.\n\r",
 	// obj->name, item_name(obj->item_type), extra_bit_name( obj->extra_flags ), obj->weight / 10,
@@ -3245,8 +3244,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		case ITEM_SCROLL: 
 		case ITEM_POTION:
 		case ITEM_PILL:
-		sprintf( buf, "Level %d spells of:", obj->value[0] );
-		send_to_char( buf, ch );
+		send_to_char( Format("Level %d spells of:", obj->value[0]), ch );
 
 		if ( obj->value[1] >= 0 && obj->value[1] < MAX_SKILL )
 		{
