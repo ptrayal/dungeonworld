@@ -820,7 +820,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 	    return;
 	}
 
-	if (strlen(ch->pnote->text)+strlen(argument) >= 4096)
+	if (!IS_NULLSTR(ch->pnote->text) && strlen(ch->pnote->text)+strlen(argument) >= 4096)
 	{
 	    send_to_char( "Note too long.\n\r", ch );
 	    return;
