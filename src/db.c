@@ -247,6 +247,8 @@ void	load_bans	args( ( void ) );
 void	load_mobprogs	args( ( FILE *fp ) );
 void	load_wizlist args( ( void ) );
 
+void	reset_world args ( ( void ) );
+
 void	fix_exits	args( ( void ) );
 void    fix_mobprogs	args( ( void ) );
 
@@ -404,7 +406,8 @@ void boot_db( void )
 	fix_mobprogs( );
 	fBootDb	= FALSE;
 		convert_objects( );           /* ROM OLC */
-	area_update( );
+	// area_update( );
+	reset_world();
 	load_notes( );
 	load_bans();
 	load_songs();
@@ -1524,6 +1527,19 @@ void fix_mobprogs( void )
 		}
 	}
 	}
+}
+
+
+void reset_world(void)
+{
+	AREA_DATA *pArea, *pArea_next;
+
+	for ( pArea = area_first; pArea != NULL; pArea = pArea_next )
+	{
+		pArea_next = pArea->next;
+		reset_area( pArea );
+	}
+	return;
 }
 
 
