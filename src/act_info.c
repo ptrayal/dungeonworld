@@ -2248,7 +2248,6 @@ void do_credits( CHAR_DATA *ch, char *argument )
 
 void do_where( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	CHAR_DATA *victim;
 	DESCRIPTOR_DATA *d;
@@ -2273,9 +2272,7 @@ void do_where( CHAR_DATA *ch, char *argument )
 		&&   can_see( ch, victim ) )
 		{
 		found = TRUE;
-		sprintf( buf, "%-28s %s\n\r",
-			victim->name, victim->in_room->name );
-		send_to_char( buf, ch );
+		send_to_char( Format("%-28s %s\n\r", victim->name, victim->in_room->name), ch );
 		}
 	}
 	if ( !found )
@@ -2294,9 +2291,7 @@ void do_where( CHAR_DATA *ch, char *argument )
 		&&   is_name( arg, victim->name ) )
 		{
 		found = TRUE;
-		sprintf( buf, "%-28s %s\n\r",
-			PERS(victim, ch), victim->in_room->name );
-		send_to_char( buf, ch );
+		send_to_char( Format("%-28s %s\n\r", PERS(victim, ch), victim->in_room->name), ch );
 		break;
 		}
 	}
@@ -2437,8 +2432,7 @@ void do_description( CHAR_DATA *ch, char *argument )
 			PURGE_DATA(ch->description);
 			ch->description = str_dup(buf);
 			send_to_char( "Your description is:\n\r", ch );
-			send_to_char( ch->description ? ch->description : 
-				"(None).\n\r", ch );
+			send_to_char( ch->description ? ch->description : "(None).\n\r", ch );
 						return;
 					}
 				}
@@ -2504,7 +2498,6 @@ void do_report( CHAR_DATA *ch, char *argument )
 
 void do_practice( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
 	int sn;
 
 	if ( IS_NPC(ch) )
@@ -2576,9 +2569,7 @@ void do_practice( CHAR_DATA *ch, char *argument )
 
 			if ( ch->pcdata->learned[sn] >= adept )
 			{
-				sprintf( buf, "You are already learned at %s.\n\r",
-					skill_table[sn].name );
-				send_to_char( buf, ch );
+				send_to_char( Format("You are already learned at %s.\n\r", skill_table[sn].name), ch );
 			}
 			else
 			{
@@ -2609,13 +2600,12 @@ void do_practice( CHAR_DATA *ch, char *argument )
  */
 void do_wimpy( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	int wimpy;
 
 	one_argument( argument, arg );
 
-	if ( arg[0] == '\0' )
+	if (IS_NULLSTR(arg) )
 		wimpy = ch->max_hit / 5;
 	else
 		wimpy = atoi( arg );
@@ -2633,8 +2623,7 @@ void do_wimpy( CHAR_DATA *ch, char *argument )
 	}
 
 	ch->wimpy	= wimpy;
-	sprintf( buf, "Wimpy set to %d hit points.\n\r", wimpy );
-	send_to_char( buf, ch );
+	send_to_char( Format("Wimpy set to %d hit points.\n\r", wimpy), ch );
 	return;
 }
 
