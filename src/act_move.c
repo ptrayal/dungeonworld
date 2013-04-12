@@ -1416,7 +1416,6 @@ void do_visible( CHAR_DATA *ch, char *argument )
 
 void do_recall( CHAR_DATA *ch, char *argument )
 {
-    char buf[MSL]={'\0'};
     CHAR_DATA *victim;
     ROOM_INDEX_DATA *location;
 
@@ -1454,16 +1453,14 @@ void do_recall( CHAR_DATA *ch, char *argument )
 	{
 	    check_improve(ch,gsn_recall,FALSE,6);
 	    WAIT_STATE( ch, 4 );
-	    sprintf( buf, "You failed!.\n\r");
-	    send_to_char( buf, ch );
+	    send_to_char( "You failed!.\n\r", ch );
 	    return;
 	}
 
 	lose = (ch->desc != NULL) ? 25 : 50;
 	gain_exp( ch, 0 - lose );
 	check_improve(ch,gsn_recall,TRUE,4);
-	sprintf( buf, "You recall from combat!  You lose %d exps.\n\r", lose );
-	send_to_char( buf, ch );
+	send_to_char( Format("You recall from combat!  You lose %d exps.\n\r", lose), ch );
 	stop_fighting( ch, TRUE );
 	
     }
@@ -1511,8 +1508,7 @@ void do_train( CHAR_DATA *ch, char *argument )
 
     if ( argument[0] == '\0' )
     {
-	sprintf( buf, "You have %d training sessions.\n\r", ch->train );
-	send_to_char( buf, ch );
+	send_to_char( Format("You have %d training sessions.\n\r", ch->train), ch );
 	argument = "foo";
     }
 
