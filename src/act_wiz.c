@@ -133,17 +133,13 @@ void do_wiznet( CHAR_DATA *ch, char *argument )
    
 	if (IS_SET(ch->wiznet,wiznet_table[flag].flag))
 	{
-	sprintf(buf,"You will no longer see %s on wiznet.\n\r",
-			wiznet_table[flag].name);
-	send_to_char(buf,ch);
+	send_to_char( Format("You will no longer see %s on wiznet.\n\r", wiznet_table[flag].name),ch);
 	REMOVE_BIT(ch->wiznet,wiznet_table[flag].flag);
 		return;
 	}
 	else
 	{
-		sprintf(buf,"You will now see %s on wiznet.\n\r",
-		wiznet_table[flag].name);
-	send_to_char(buf,ch);
+		send_to_char( Format("You will now see %s on wiznet.\n\r", wiznet_table[flag].name),ch);
 		SET_BIT(ch->wiznet,wiznet_table[flag].flag);
 	return;
 	}
@@ -211,18 +207,13 @@ void do_guild( CHAR_DATA *ch, char *argument )
 
 	if (clan_table[clan].independent)
 	{
-	sprintf(buf,"They are now a %s.\n\r",clan_table[clan].name);
-	send_to_char(buf,ch);
-	sprintf(buf,"You are now a %s.\n\r",clan_table[clan].name);
-	send_to_char(buf,victim);
+	send_to_char( Format("They are now a %s.\n\r",clan_table[clan].name),ch);
+	send_to_char( Format("You are now a %s.\n\r",clan_table[clan].name),victim);
 	}
 	else
 	{
-	sprintf(buf,"They are now a member of clan %s.\n\r",
-		capitalize(clan_table[clan].name));
-	send_to_char(buf,ch);
-	sprintf(buf,"You are now a member of clan %s.\n\r",
-		capitalize(clan_table[clan].name));
+	send_to_char( Format("They are now a member of clan %s.\n\r", capitalize(clan_table[clan].name)),ch);
+	sprintf(buf,"You are now a member of clan %s.\n\r", capitalize(clan_table[clan].name));
 	}
 
 	victim->clan = clan;
@@ -437,30 +428,26 @@ void do_smote(CHAR_DATA *ch, char *argument )
 
 void do_bamfin( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
-
 	if ( !IS_NPC(ch) )
 	{
-	smash_tilde( argument );
+		smash_tilde( argument );
 
-	if (argument[0] == '\0')
-	{
-		sprintf(buf,"Your poofin is %s\n\r",ch->pcdata->bamfin);
-		send_to_char(buf,ch);
-		return;
-	}
+		if (IS_NULLSTR(argument))
+		{
+			send_to_char( Format("Your poofin is %s\n\r",ch->pcdata->bamfin),ch);
+			return;
+		}
 
-	if ( strstr(argument,ch->name) == NULL)
-	{
-		send_to_char("You must include your name.\n\r",ch);
-		return;
-	}
-		 
-	PURGE_DATA( ch->pcdata->bamfin );
-	ch->pcdata->bamfin = str_dup( argument );
+		if ( strstr(argument,ch->name) == NULL)
+		{
+			send_to_char("You must include your name.\n\r",ch);
+			return;
+		}
 
-		sprintf(buf,"Your poofin is now %s\n\r",ch->pcdata->bamfin);
-		send_to_char(buf,ch);
+		PURGE_DATA( ch->pcdata->bamfin );
+		ch->pcdata->bamfin = str_dup( argument );
+
+		send_to_char( Format("Your poofin is now %s\n\r",ch->pcdata->bamfin),ch);
 	}
 	return;
 }

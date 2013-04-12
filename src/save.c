@@ -891,8 +891,6 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 		break;
 
 	case 'B':
-		KEY( "Bamfin",	ch->pcdata->bamfin,	fread_string( fp ) );
-		KEY( "Bamfout",	ch->pcdata->bamfout,	fread_string( fp ) );
 		KEY( "Bin",		ch->pcdata->bamfin,	fread_string( fp ) );
 		KEY( "Bout",	ch->pcdata->bamfout,	fread_string( fp ) );
 		break;
