@@ -3311,31 +3311,28 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		break;
 		
 		case ITEM_WEAPON:
-		send_to_char("Weapon type is ",ch);
+		send_to_char("This weapon is ",ch);
 		switch (obj->value[0])
 		{
-			case(WEAPON_EXOTIC) : send_to_char("exotic.\n\r",ch);	break;
-			case(WEAPON_SWORD)  : send_to_char("sword.\n\r",ch);	break;	
-			case(WEAPON_DAGGER) : send_to_char("dagger.\n\r",ch);	break;
-			case(WEAPON_SPEAR)	: send_to_char("spear/staff.\n\r",ch);	break;
-			case(WEAPON_MACE) 	: send_to_char("mace/club.\n\r",ch);	break;
-			case(WEAPON_AXE)	: send_to_char("axe.\n\r",ch);		break;
-			case(WEAPON_FLAIL)	: send_to_char("flail.\n\r",ch);	break;
-			case(WEAPON_WHIP)	: send_to_char("whip.\n\r",ch);		break;
-			case(WEAPON_POLEARM): send_to_char("polearm.\n\r",ch);	break;
-			default		: send_to_char("unknown.\n\r",ch);	break;
+			case(WEAPON_EXOTIC) : send_to_char("an exotic weapon.\n\r",ch);	break;
+			case(WEAPON_SWORD)  : send_to_char("a sword.\n\r",ch);	break;	
+			case(WEAPON_DAGGER) : send_to_char("a dagger.\n\r",ch);	break;
+			case(WEAPON_SPEAR)	: send_to_char("a spear/staff.\n\r",ch);	break;
+			case(WEAPON_MACE) 	: send_to_char("a mace/club.\n\r",ch);	break;
+			case(WEAPON_AXE)	: send_to_char("an axe.\n\r",ch);		break;
+			case(WEAPON_FLAIL)	: send_to_char("a flail.\n\r",ch);	break;
+			case(WEAPON_WHIP)	: send_to_char("a whip.\n\r",ch);		break;
+			case(WEAPON_POLEARM): send_to_char("a polearm.\n\r",ch);	break;
+			default		: send_to_char("an unknown.\n\r",ch);	break;
 		}
 		if (obj->pIndexData->new_format)
-			sprintf(buf,"Damage is %dd%d (average %d).\n\r",
-				obj->value[1],obj->value[2],
-				(1 + obj->value[2]) * obj->value[1] / 2);
+			send_to_char( Format("When used in melee combat, it causes %dd%d points of damage.\n\r", obj->value[1], obj->value[2]), ch );
 		else
-			sprintf( buf, "Damage is %d to %d (average %d).\n\r", obj->value[1], obj->value[2], ( obj->value[1] + obj->value[2] ) / 2 );
-		send_to_char( buf, ch );
+			send_to_char( Format("Damage is %d to %d (average %d).\n\r", obj->value[1], obj->value[2], ( obj->value[1] + obj->value[2] ) / 2), ch );
+		
 		if (obj->value[4])  /* weapon flags */
 		{
-			sprintf(buf,"Weapons flags: %s\n\r",weapon_bit_name(obj->value[4]));
-			send_to_char(buf,ch);
+			send_to_char(Format("Weapons flags: %s\n\r",weapon_bit_name(obj->value[4])),ch);
 		}
 		break;
 
