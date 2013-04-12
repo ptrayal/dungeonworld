@@ -454,16 +454,14 @@ void do_bamfin( CHAR_DATA *ch, char *argument )
 
 void do_bamfout( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
  
 	if ( !IS_NPC(ch) )
 	{
 		smash_tilde( argument );
  
-		if (argument[0] == '\0')
+		if (IS_NULLSTR(argument))
 		{
-			sprintf(buf,"Your poofout is %s\n\r",ch->pcdata->bamfout);
-			send_to_char(buf,ch);
+			send_to_char( Format("Your poofout is %s\n\r",ch->pcdata->bamfout),ch);
 			return;
 		}
  
@@ -476,8 +474,7 @@ void do_bamfout( CHAR_DATA *ch, char *argument )
 		PURGE_DATA( ch->pcdata->bamfout );
 		ch->pcdata->bamfout = str_dup( argument );
  
-		sprintf(buf,"Your poofout is now %s\n\r",ch->pcdata->bamfout);
-		send_to_char(buf,ch);
+		send_to_char( Format("Your poofout is now %s\n\r",ch->pcdata->bamfout),ch);
 	}
 	return;
 }
@@ -1112,10 +1109,7 @@ void do_rstat( CHAR_DATA *ch, char *argument )
 	return;
 	}
 
-	sprintf( buf, "Name: '%s'\n\rArea: '%s'\n\r",
-	location->name,
-	location->area->name );
-	send_to_char( buf, ch );
+	send_to_char( Format("Name: '%s'\n\rArea: '%s'\n\r", location->name, location->area->name), ch );
 
 	sprintf( buf,
 	"Vnum: %d  Sector: %d  Light: %d  Healing: %d  Mana: %d\n\r",
@@ -1760,7 +1754,6 @@ void do_vnum(CHAR_DATA *ch, char *argument)
 void do_mfind( CHAR_DATA *ch, char *argument )
 {
 	extern int top_mob_index;
-	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	MOB_INDEX_DATA *pMobIndex;
 	int vnum;
@@ -1769,7 +1762,7 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 	bool found;
 
 	one_argument( argument, arg );
-	if ( arg[0] == '\0' )
+	if ( IS_NULLSTR(arg) )
 	{
 	send_to_char( "Find whom?\n\r", ch );
 	return;
@@ -1793,9 +1786,7 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 		if ( fAll || is_name( argument, pMobIndex->player_name ) )
 		{
 		found = TRUE;
-		sprintf( buf, "[%5d] %s\n\r",
-			pMobIndex->vnum, pMobIndex->short_descr );
-		send_to_char( buf, ch );
+		send_to_char( Format("[%5d] %s\n\r", pMobIndex->vnum, pMobIndex->short_descr), ch );
 		}
 	}
 	}
@@ -1811,7 +1802,6 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 void do_ofind( CHAR_DATA *ch, char *argument )
 {
 	extern int top_obj_index;
-	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	OBJ_INDEX_DATA *pObjIndex;
 	int vnum;
@@ -1820,10 +1810,10 @@ void do_ofind( CHAR_DATA *ch, char *argument )
 	bool found;
 
 	one_argument( argument, arg );
-	if ( arg[0] == '\0' )
+	if ( IS_NULLSTR(arg) )
 	{
-	send_to_char( "Find what?\n\r", ch );
-	return;
+		send_to_char( "Find what?\n\r", ch );
+		return;
 	}
 
 	fAll	= FALSE; /* !str_cmp( arg, "all" ); */
@@ -1836,26 +1826,24 @@ void do_ofind( CHAR_DATA *ch, char *argument )
 	 * Do you?
 	 * -- Furey
 	 */
-	for ( vnum = 0; nMatch < top_obj_index; vnum++ )
-	{
-	if ( ( pObjIndex = get_obj_index( vnum ) ) != NULL )
-	{
-		nMatch++;
-		if ( fAll || is_name( argument, pObjIndex->name ) )
-		{
-		found = TRUE;
-		sprintf( buf, "[%5d] %s\n\r",
-			pObjIndex->vnum, pObjIndex->short_descr );
-		send_to_char( buf, ch );
-		}
-	}
-	}
+	 for ( vnum = 0; nMatch < top_obj_index; vnum++ )
+	 {
+	 	if ( ( pObjIndex = get_obj_index( vnum ) ) != NULL )
+	 	{
+	 		nMatch++;
+	 		if ( fAll || is_name( argument, pObjIndex->name ) )
+	 		{
+	 			found = TRUE;
+	 			send_to_char( Format("[%5d] %s\n\r", pObjIndex->vnum, pObjIndex->short_descr), ch );
+	 		}
+	 	}
+	 }
 
-	if ( !found )
-	send_to_char( "No objects by that name.\n\r", ch );
+	 if ( !found )
+	 	send_to_char( "No objects by that name.\n\r", ch );
 
-	return;
-}
+	 return;
+	}
 
 
 void do_owhere(CHAR_DATA *ch, char *argument )
