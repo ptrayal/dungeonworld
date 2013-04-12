@@ -748,8 +748,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             }
         }
  
-	sprintf(buf,"There aren't that many %s.",list_name);
-	send_to_char(buf,ch);
+	send_to_char( Format("There aren't that many %s.",list_name),ch);
         return;
     }
  
@@ -829,7 +828,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
  	buffer = new_buf();
 
 	add_buf(buffer,ch->pnote->text);
-	add_buf(buffer,argument);
+	add_buf(buffer,IS_NULLSTR(argument) ? "" : argument);
 	add_buf(buffer,"\n\r");
 	PURGE_DATA( ch->pnote->text );
 	ch->pnote->text = str_dup( buf_string(buffer) );
