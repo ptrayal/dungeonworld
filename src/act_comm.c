@@ -697,7 +697,6 @@ void do_immtalk( CHAR_DATA *ch, char *argument )
 
 	REMOVE_BIT(ch->comm,COMM_NOWIZ);
 
-	send_to_char( Format("[\tOImm Talk\tn] $n: %s", argument), ch);
 	act_new("[\tOImm Talk\tn] $n: $t",ch,argument,NULL,TO_CHAR,POS_DEAD);
 	for ( d = descriptor_list; d != NULL; d = d->next )
 	{
@@ -765,7 +764,7 @@ void do_shout( CHAR_DATA *ch, char *argument )
 		send_to_char( "You can't shout.\n\r", ch );
 		return;
 	}
-	
+
 	REMOVE_BIT(ch->comm,COMM_SHOUTSOFF);
 
 	WAIT_STATE( ch, 12 );
@@ -849,7 +848,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
 		 	act( "$E can't hear you.", ch, 0, victim, TO_CHAR );
 		 	return;
 		 }
-		 
+
 		 if ((IS_SET(victim->comm,COMM_QUIET) || IS_SET(victim->comm,COMM_DEAF))
 		 	&& !IS_IMMORTAL(ch))
 		 {
@@ -1701,8 +1700,7 @@ void do_group( CHAR_DATA *ch, char *argument )
 	CHAR_DATA *leader;
 
 	leader = (ch->leader != NULL) ? ch->leader : ch;
-	sprintf( buf, "%s's group:\n\r", PERS(leader, ch) );
-	send_to_char( buf, ch );
+	send_to_char( Format("%s's group:\n\r", PERS(leader, ch)), ch );
 
 	for ( gch = char_list; gch != NULL; gch = gch->next )
 	{
