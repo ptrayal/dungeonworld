@@ -3279,7 +3279,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 		case ITEM_WAND: 
 		case ITEM_STAFF: 
-		send_to_char( Format("Has %d charges of level %d", obj->value[2], obj->value[0]), ch );
+			send_to_char( Format("Has %d charges of level %d", obj->value[2], obj->value[0]), ch );
 
 		if ( obj->value[3] >= 0 && obj->value[3] < MAX_SKILL )
 		{
@@ -3292,10 +3292,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		break;
 
 		case ITEM_DRINK_CON:
-		sprintf(buf,"It holds %s-colored %s.\n\r",
-			liq_table[obj->value[2]].liq_color,
-			liq_table[obj->value[2]].liq_name);
-		send_to_char(buf,ch);
+			send_to_char( Format("It holds %s-colored %s.\n\r", liq_table[obj->value[2]].liq_color, liq_table[obj->value[2]].liq_name), ch );
 		break;
 
 		case ITEM_CONTAINER:
@@ -3314,16 +3311,16 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		send_to_char("This weapon is ",ch);
 		switch (obj->value[0])
 		{
-			case(WEAPON_EXOTIC) : send_to_char("an exotic weapon.\n\r",ch);	break;
-			case(WEAPON_SWORD)  : send_to_char("a sword.\n\r",ch);	break;	
-			case(WEAPON_DAGGER) : send_to_char("a dagger.\n\r",ch);	break;
-			case(WEAPON_SPEAR)	: send_to_char("a spear/staff.\n\r",ch);	break;
-			case(WEAPON_MACE) 	: send_to_char("a mace/club.\n\r",ch);	break;
-			case(WEAPON_AXE)	: send_to_char("an axe.\n\r",ch);		break;
-			case(WEAPON_FLAIL)	: send_to_char("a flail.\n\r",ch);	break;
-			case(WEAPON_WHIP)	: send_to_char("a whip.\n\r",ch);		break;
-			case(WEAPON_POLEARM): send_to_char("a polearm.\n\r",ch);	break;
-			default		: send_to_char("an unknown.\n\r",ch);	break;
+			case(WEAPON_EXOTIC) : send_to_char("an exotic weapon. ",ch);	break;
+			case(WEAPON_SWORD)  : send_to_char("a sword. ",ch);	break;	
+			case(WEAPON_DAGGER) : send_to_char("a dagger. ",ch);	break;
+			case(WEAPON_SPEAR)	: send_to_char("a spear/staff. ",ch);	break;
+			case(WEAPON_MACE) 	: send_to_char("a mace/club. ",ch);	break;
+			case(WEAPON_AXE)	: send_to_char("an axe. ",ch);		break;
+			case(WEAPON_FLAIL)	: send_to_char("a flail. ",ch);	break;
+			case(WEAPON_WHIP)	: send_to_char("a whip. ",ch);		break;
+			case(WEAPON_POLEARM): send_to_char("a polearm. ",ch);	break;
+			default		: send_to_char("an unknown. ",ch);	break;
 		}
 		if (obj->pIndexData->new_format)
 			send_to_char( Format("When used in melee combat, it causes %dd%d points of damage.\n\r", obj->value[1], obj->value[2]), ch );
@@ -3337,8 +3334,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		break;
 
 		case ITEM_ARMOR:
-		sprintf( buf, 
-			"Armor class is %d pierce, %d bash, %d slash, and %d vs. magic.\n\r", 
+		sprintf( buf, "Armor class is %d pierce, %d bash, %d slash, and %d vs. magic.\n\r", 
 			obj->value[0], obj->value[1], obj->value[2], obj->value[3] );
 		send_to_char( buf, ch );
 		break;
@@ -3349,8 +3345,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		{
 			if ( paf->location != APPLY_NONE && paf->modifier != 0 )
 			{
-				sprintf( buf, "Affects %s by %d.\n\r",
-					affect_loc_name( paf->location ), paf->modifier );
+				sprintf( buf, "Affects %s by %d.\n\r", affect_loc_name( paf->location ), paf->modifier );
 				send_to_char(buf,ch);
 				if (paf->bitvector)
 				{
@@ -3448,11 +3443,11 @@ void spell_infravision( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 	if ( IS_AFFECTED(victim, AFF_INFRARED) )
 	{
-	if (victim == ch)
-	  send_to_char("You can already see in the dark.\n\r",ch);
-	else
-	  act("$N already has infravision.\n\r",ch,NULL,victim,TO_CHAR);
-	return;
+		if (victim == ch)
+			send_to_char("You can already see in the dark.\n\r",ch);
+		else
+			act("$N already has infravision.\n\r",ch,NULL,victim,TO_CHAR);
+		return;
 	}
 	act( "$n's eyes glow red.\n\r", ch, NULL, NULL, TO_ROOM );
 

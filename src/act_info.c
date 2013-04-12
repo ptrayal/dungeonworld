@@ -1743,60 +1743,60 @@ void do_help( CHAR_DATA *ch, char *argument )
 
 	strcpy(nohelp, argument);
 
-	if ( argument[0] == '\0' )
-	argument = "summary";
+	if ( IS_NULLSTR(argument) )
+		argument = "summary";
 
 	/* this parts handles help a b so that it returns help 'a b' */
 	argall[0] = '\0';
 	while (argument[0] != '\0' )
 	{
-	argument = one_argument(argument,argone);
-	if (argall[0] != '\0')
-		strcat(argall," ");
-	strcat(argall,argone);
+		argument = one_argument(argument,argone);
+		if (argall[0] != '\0')
+			strcat(argall," ");
+		strcat(argall,argone);
 	}
 
 	for ( pHelp = help_first; pHelp != NULL; pHelp = pHelp->next )
 	{
 		level = (pHelp->level < 0) ? -1 * pHelp->level - 1 : pHelp->level;
 
-	if (level > get_trust( ch ) )
-		continue;
+		if (level > get_trust( ch ) )
+			continue;
 
-	if ( is_name( argall, pHelp->keyword ) )
-	{
-		/* add seperator if found */
-		if (found)
-		add_buf(output,
-	"\n\r============================================================\n\r\n\r");
-		if ( pHelp->level >= 0 && str_cmp( argall, "imotd" ) )
+		if ( is_name( argall, pHelp->keyword ) )
 		{
-		add_buf(output,pHelp->keyword);
-		add_buf(output,"\n\r");
-		}
+		/* add seperator if found */
+			if (found)
+				add_buf(output,
+					"\n\r============================================================\n\r\n\r");
+			if ( pHelp->level >= 0 && str_cmp( argall, "imotd" ) )
+			{
+				add_buf(output,pHelp->keyword);
+				add_buf(output,"\n\r");
+			}
 
 		/*
 		 * Strip leading '.' to allow initial blanks.
 		 */
-		if ( pHelp->text[0] == '.' )
-		add_buf(output,pHelp->text+1);
-		else
-		add_buf(output,pHelp->text);
-		found = TRUE;
+		 if ( pHelp->text[0] == '.' )
+		 	add_buf(output,pHelp->text+1);
+		 else
+		 	add_buf(output,pHelp->text);
+		 found = TRUE;
 		/* small hack :) */
-		if (ch->desc != NULL && ch->desc->connected != CON_PLAYING 
-		&&  		    ch->desc->connected != CON_GEN_GROUPS)
-		break;
-	}
+		 if (ch->desc != NULL && ch->desc->connected != CON_PLAYING 
+		 	&&  		    ch->desc->connected != CON_GEN_GROUPS)
+		 	break;
+		}
 	}
 
 	if(!found)
-		{
+	{
 		send_to_char("No help on that word.\n\r", ch);
 		append_file( ch, HELP_FILE, nohelp );
-		}
+	}
 	else
-	page_to_char(buf_string(output),ch);
+		page_to_char(buf_string(output),ch);
 	free_buf(output);
 }
 
@@ -1811,68 +1811,68 @@ void do_whois (CHAR_DATA *ch, char *argument)
 	bool found = FALSE;
 
 	one_argument(argument,arg);
-  
-	if (arg[0] == '\0')
+
+	if (IS_NULLSTR(arg))
 	{
-	send_to_char("You must provide a name.\n\r",ch);
-	return;
+		send_to_char("You must provide a name.\n\r",ch);
+		return;
 	}
 
 	output = new_buf();
 
 	for (d = descriptor_list; d != NULL; d = d->next)
 	{
-	CHAR_DATA *wch;
-	char const *iclass;
+		CHAR_DATA *wch;
+		char const *iclass;
 
-	if (d->connected != CON_PLAYING || !can_see(ch,d->character))
-		continue;
-	
-	wch = ( d->original != NULL ) ? d->original : d->character;
+		if (d->connected != CON_PLAYING || !can_see(ch,d->character))
+			continue;
 
-	if (!can_see(ch,wch))
-		continue;
+		wch = ( d->original != NULL ) ? d->original : d->character;
 
-	if (!str_prefix(arg,wch->name))
-	{
-		found = TRUE;
-		
-		/* work out the printing */
-		iclass = class_table[wch->iclass].who_name;
-		switch(wch->level)
+		if (!can_see(ch,wch))
+			continue;
+
+		if (!str_prefix(arg,wch->name))
 		{
-		case MAX_LEVEL - 0 : iclass = "IMP"; 	break;
-		case MAX_LEVEL - 1 : iclass = "CRE";	break;
-		case MAX_LEVEL - 2 : iclass = "SUP";	break;
-		case MAX_LEVEL - 3 : iclass = "DEI";	break;
-		case MAX_LEVEL - 4 : iclass = "GOD";	break;
-		case MAX_LEVEL - 5 : iclass = "IMM";	break;
-		case MAX_LEVEL - 6 : iclass = "DEM";	break;
-		case MAX_LEVEL - 7 : iclass = "ANG";	break;
-		case MAX_LEVEL - 8 : iclass = "AVA";	break;
-		}
-	
+			found = TRUE;
+
+		/* work out the printing */
+			iclass = class_table[wch->iclass].who_name;
+			switch(wch->level)
+			{
+				case MAX_LEVEL - 0 : iclass = "IMP"; 	break;
+				case MAX_LEVEL - 1 : iclass = "CRE";	break;
+				case MAX_LEVEL - 2 : iclass = "SUP";	break;
+				case MAX_LEVEL - 3 : iclass = "DEI";	break;
+				case MAX_LEVEL - 4 : iclass = "GOD";	break;
+				case MAX_LEVEL - 5 : iclass = "IMM";	break;
+				case MAX_LEVEL - 6 : iclass = "DEM";	break;
+				case MAX_LEVEL - 7 : iclass = "ANG";	break;
+				case MAX_LEVEL - 8 : iclass = "AVA";	break;
+			}
+
 		/* a little formatting */
-		sprintf(buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
-		wch->level,
-		wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name
-					: "     ",
-		iclass,
-		 wch->incog_level >= LEVEL_HERO ? "(Incog) ": "",
-		 wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
-		 clan_table[wch->clan].who_name,
-		 IS_SET(wch->comm, COMM_AFK) ? "[AFK] " : "",
-			 IS_SET(wch->act,PLR_KILLER) ? "(KILLER) " : "",
-			 IS_SET(wch->act,PLR_THIEF) ? "(THIEF) " : "",
-		wch->name, IS_NPC(wch) ? "" : wch->pcdata->title);
-		add_buf(output,buf);
-	}
+			sprintf(buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
+				wch->level,
+				wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name
+				: "     ",
+				iclass,
+				wch->incog_level >= LEVEL_HERO ? "(Incog) ": "",
+				wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
+				clan_table[wch->clan].who_name,
+				IS_SET(wch->comm, COMM_AFK) ? "[AFK] " : "",
+				IS_SET(wch->act,PLR_KILLER) ? "(KILLER) " : "",
+				IS_SET(wch->act,PLR_THIEF) ? "(THIEF) " : "",
+				wch->name, IS_NPC(wch) ? "" : wch->pcdata->title);
+			add_buf(output,buf);
+		}
 	}
 
 	if (!found)
 	{
-	send_to_char("No one of that name is playing.\n\r",ch);
-	return;
+		send_to_char("No one of that name is playing.\n\r",ch);
+		return;
 	}
 
 	page_to_char(buf_string(output),ch);
@@ -1926,7 +1926,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 		char arg[MSL]={'\0'};
  
 		argument = one_argument( argument, arg );
-		if ( arg[0] == '\0' )
+		if ( IS_NULLSTR(arg) )
 			break;
  
 		if ( is_number( arg ) )
@@ -2077,23 +2077,18 @@ void do_count ( CHAR_DATA *ch, char *argument )
 {
 	int count = 0;
 	DESCRIPTOR_DATA *d;
-	char buf[MSL]={'\0'};
-
+	
 	for ( d = descriptor_list; d != NULL; d = d->next )
 		if ( d->connected == CON_PLAYING && can_see( ch, d->character ) )
-		count++;
+			count++;
 
-	max_on = UMAX(count,max_on);
+		max_on = UMAX(count,max_on);
 
-	if (max_on == count)
-		sprintf(buf,"There are %d characters on, the most so far today.\n\r",
-		count);
-	else
-	sprintf(buf,"There are %d characters on, the most on today was %d.\n\r",
-		count,max_on);
-
-	send_to_char(buf,ch);
-}
+		if (max_on == count)
+			send_to_char( Format("There are %d characters on, the most so far today.\n\r", count), ch );
+		else
+			send_to_char( Format("There are %d characters on, the most on today was %d.\n\r", count, max_on), ch);
+	}
 
 void do_inventory( CHAR_DATA *ch, char *argument )
 {
@@ -2114,24 +2109,24 @@ void do_equipment( CHAR_DATA *ch, char *argument )
 	found = FALSE;
 	for ( iWear = 0; iWear < MAX_WEAR; iWear++ )
 	{
-	if ( ( obj = get_eq_char( ch, iWear ) ) == NULL )
-		continue;
+		if ( ( obj = get_eq_char( ch, iWear ) ) == NULL )
+			continue;
 
-	send_to_char( where_name[iWear], ch );
-	if ( can_see_obj( ch, obj ) )
-	{
-		send_to_char( format_obj_to_char( obj, ch, TRUE ), ch );
-		send_to_char( "\n\r", ch );
-	}
-	else
-	{
-		send_to_char( "something.\n\r", ch );
-	}
-	found = TRUE;
+		send_to_char( where_name[iWear], ch );
+		if ( can_see_obj( ch, obj ) )
+		{
+			send_to_char( format_obj_to_char( obj, ch, TRUE ), ch );
+			send_to_char( "\n\r", ch );
+		}
+		else
+		{
+			send_to_char( "something.\n\r", ch );
+		}
+		found = TRUE;
 	}
 
 	if ( !found )
-	send_to_char( "Nothing.\n\r", ch );
+		send_to_char( "Nothing.\n\r", ch );
 
 	return;
 }
