@@ -1410,7 +1410,7 @@ void do_score( CHAR_DATA *ch, char *argument )
 	sprintf(buf, "Race: %s  Sex: %s  Class: %s\n\r",
 	race_table[ch->race].name,
 	ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female",
-	IS_NPC(ch) ? "mobile" : class_table[ch->class].name);
+	IS_NPC(ch) ? "mobile" : class_table[ch->iclass].name);
 	send_to_char(buf,ch);
 	
 
@@ -1823,7 +1823,7 @@ void do_whois (CHAR_DATA *ch, char *argument)
 	for (d = descriptor_list; d != NULL; d = d->next)
 	{
 	CHAR_DATA *wch;
-	char const *class;
+	char const *iclass;
 
 	if (d->connected != CON_PLAYING || !can_see(ch,d->character))
 		continue;
@@ -1838,18 +1838,18 @@ void do_whois (CHAR_DATA *ch, char *argument)
 		found = TRUE;
 		
 		/* work out the printing */
-		class = class_table[wch->class].who_name;
+		iclass = class_table[wch->iclass].who_name;
 		switch(wch->level)
 		{
-		case MAX_LEVEL - 0 : class = "IMP"; 	break;
-		case MAX_LEVEL - 1 : class = "CRE";	break;
-		case MAX_LEVEL - 2 : class = "SUP";	break;
-		case MAX_LEVEL - 3 : class = "DEI";	break;
-		case MAX_LEVEL - 4 : class = "GOD";	break;
-		case MAX_LEVEL - 5 : class = "IMM";	break;
-		case MAX_LEVEL - 6 : class = "DEM";	break;
-		case MAX_LEVEL - 7 : class = "ANG";	break;
-		case MAX_LEVEL - 8 : class = "AVA";	break;
+		case MAX_LEVEL - 0 : iclass = "IMP"; 	break;
+		case MAX_LEVEL - 1 : iclass = "CRE";	break;
+		case MAX_LEVEL - 2 : iclass = "SUP";	break;
+		case MAX_LEVEL - 3 : iclass = "DEI";	break;
+		case MAX_LEVEL - 4 : iclass = "GOD";	break;
+		case MAX_LEVEL - 5 : iclass = "IMM";	break;
+		case MAX_LEVEL - 6 : iclass = "DEM";	break;
+		case MAX_LEVEL - 7 : iclass = "ANG";	break;
+		case MAX_LEVEL - 8 : iclass = "AVA";	break;
 		}
 	
 		/* a little formatting */
@@ -1857,7 +1857,7 @@ void do_whois (CHAR_DATA *ch, char *argument)
 		wch->level,
 		wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name
 					: "     ",
-		class,
+		iclass,
 		 wch->incog_level >= LEVEL_HERO ? "(Incog) ": "",
 		 wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
 		 clan_table[wch->clan].who_name,
@@ -2002,7 +2002,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 	for ( d = descriptor_list; d != NULL; d = d->next )
 	{
 		CHAR_DATA *wch;
-		char const *class;
+		char const *iclass;
  
 		/*
 		 * Check for match against restrictions.
@@ -2019,7 +2019,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 		if ( wch->level < iLevelLower
 		||   wch->level > iLevelUpper
 		|| ( fImmortalOnly  && wch->level < LEVEL_IMMORTAL )
-		|| ( fClassRestrict && !rgfClass[wch->class] )
+		|| ( fClassRestrict && !rgfClass[wch->iclass] )
 		|| ( fRaceRestrict && !rgfRace[wch->race])
 	|| ( fClan && !is_clan(wch))
 	|| ( fClanRestrict && !rgfClan[wch->clan]))
@@ -2030,20 +2030,20 @@ void do_who( CHAR_DATA *ch, char *argument )
 		/*
 		 * Figure out what to print for class.
 	 */
-	class = class_table[wch->class].who_name;
+	iclass = class_table[wch->iclass].who_name;
 	switch ( wch->level )
 	{
 	default: break;
 			{
-				case MAX_LEVEL - 0 : class = "IMP";     break;
-				case MAX_LEVEL - 1 : class = "CRE";     break;
-				case MAX_LEVEL - 2 : class = "SUP";     break;
-				case MAX_LEVEL - 3 : class = "DEI";     break;
-				case MAX_LEVEL - 4 : class = "GOD";     break;
-				case MAX_LEVEL - 5 : class = "IMM";     break;
-				case MAX_LEVEL - 6 : class = "DEM";     break;
-				case MAX_LEVEL - 7 : class = "ANG";     break;
-				case MAX_LEVEL - 8 : class = "AVA";     break;
+				case MAX_LEVEL - 0 : iclass = "IMP";     break;
+				case MAX_LEVEL - 1 : iclass = "CRE";     break;
+				case MAX_LEVEL - 2 : iclass = "SUP";     break;
+				case MAX_LEVEL - 3 : iclass = "DEI";     break;
+				case MAX_LEVEL - 4 : iclass = "GOD";     break;
+				case MAX_LEVEL - 5 : iclass = "IMM";     break;
+				case MAX_LEVEL - 6 : iclass = "DEM";     break;
+				case MAX_LEVEL - 7 : iclass = "ANG";     break;
+				case MAX_LEVEL - 8 : iclass = "AVA";     break;
 			}
 	}
 
@@ -2054,7 +2054,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 		wch->level,
 		wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name 
 					: "     ",
-		class,
+		iclass,
 		wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
 		wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
 		clan_table[wch->clan].who_name,
@@ -2519,7 +2519,7 @@ void do_practice( CHAR_DATA *ch, char *argument )
 		{
 			if ( skill_table[sn].name == NULL )
 				break;
-			if ( ch->level < skill_table[sn].skill_level[ch->class] 
+			if ( ch->level < skill_table[sn].skill_level[ch->iclass] 
 		  || ch->pcdata->learned[sn] < 1 /* skill is not known */)
 				continue;
 
@@ -2564,15 +2564,15 @@ void do_practice( CHAR_DATA *ch, char *argument )
 
 			if ( ( sn = find_spell( ch,argument ) ) < 0
 				|| ( !IS_NPC(ch)
-					&&   (ch->level < skill_table[sn].skill_level[ch->class] 
+					&&   (ch->level < skill_table[sn].skill_level[ch->iclass] 
 	||    ch->pcdata->learned[sn] < 1 /* skill is not known */
-						||    skill_table[sn].rating[ch->class] == 0)))
+						||    skill_table[sn].rating[ch->iclass] == 0)))
 			{
 				send_to_char( "You can't practice that.\n\r", ch );
 				return;
 			}
 
-			adept = IS_NPC(ch) ? 100 : class_table[ch->class].skill_adept;
+			adept = IS_NPC(ch) ? 100 : class_table[ch->iclass].skill_adept;
 
 			if ( ch->pcdata->learned[sn] >= adept )
 			{
@@ -2585,7 +2585,7 @@ void do_practice( CHAR_DATA *ch, char *argument )
 				ch->practice--;
 				ch->pcdata->learned[sn] += 
 				int_app[get_curr_stat(ch,STAT_INT)].learn / 
-				skill_table[sn].rating[ch->class];
+				skill_table[sn].rating[ch->iclass];
 				if ( ch->pcdata->learned[sn] < adept )
 				{
 					act( "You practice $T.", ch, NULL, skill_table[sn].name, TO_CHAR );

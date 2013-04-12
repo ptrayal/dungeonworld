@@ -563,6 +563,17 @@ void clear_buf(BUFFER *buffer)
 	buffer->state     = BUFFER_SAFE;
 }
 
+void clear_buffer(void) {
+	BUFFER *buf, *buf_next;
+
+	log_string("Cleaning: buffer_list");
+	for(buf = buffer_list; buf; buf = buf_next) {
+		buf_next = buf->next;
+		free_buf(buf); // free_buf has UNLINK_SINGLE in it so we don't need to remove it from the list here
+	}
+	buffer_list = NULL;
+}
+
 
 char *buf_string(BUFFER *buffer)
 {

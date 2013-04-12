@@ -1590,7 +1590,7 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 	sprintf( buf,
 	"Lv: %d  Class: %s  Align: %d  Gold: %ld  Silver: %ld  Exp: %d\n\r",
 	victim->level,       
-	IS_NPC(victim) ? "mobile" : class_table[victim->class].name,            
+	IS_NPC(victim) ? "mobile" : class_table[victim->iclass].name,            
 	victim->alignment,
 	victim->gold, victim->silver, victim->exp );
 	send_to_char( buf, ch );
@@ -3505,7 +3505,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 
 	if ( !str_prefix( arg2, "class" ) )
 	{
-	int class;
+	int iclass;
 
 	if (IS_NPC(victim))
 	{
@@ -3513,17 +3513,17 @@ void do_mset( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
-	class = class_lookup(arg3);
-	if ( class == -1 )
+	iclass = class_lookup(arg3);
+	if ( iclass == -1 )
 	{
 		char buf[MSL]={'\0'};
 
 			strcpy( buf, "Possible classes are: " );
-			for ( class = 0; class < MAX_CLASS; class++ )
+			for ( iclass = 0; iclass < MAX_CLASS; iclass++ )
 			{
-					if ( class > 0 )
+					if ( iclass > 0 )
 						strcat( buf, " " );
-					strcat( buf, class_table[class].name );
+					strcat( buf, class_table[iclass].name );
 			}
 			strcat( buf, ".\n\r" );
 
@@ -3531,7 +3531,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
-	victim->class = class;
+	victim->iclass = iclass;
 	return;
 	}
 

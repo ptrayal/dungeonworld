@@ -98,11 +98,16 @@ typedef struct descriptor_data descriptor_t;
  Types.
  ******************************************************************************/
 
+#ifndef CPP
 typedef enum
 {
    false, 
    true
 } bool_t;
+#else
+	#define bool_t bool
+#endif
+
 
 typedef enum
 {

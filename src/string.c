@@ -92,7 +92,7 @@ void string_append( CHAR_DATA *ch, char **pString )
  Purpose:	Substitutes one string for another.
  Called by:	string_add(string.c) (aedit_builder)olc_act.c.
  ****************************************************************************/
-char * string_replace( char * orig, char * old, char * new )
+char * string_replace( char * orig, char * old, char * inew )
 {
 		char xbuf[MSL]={'\0'};
 		
@@ -103,7 +103,7 @@ char * string_replace( char * orig, char * old, char * new )
 				int i = 0;
 				i = strlen( orig ) - strlen( strstr( orig, old ) );
 				xbuf[i] = '\0';
-				strcat( xbuf, new );
+				strcat( xbuf, inew );
 				strcat( xbuf, &orig[i+strlen( old )] );
 				PURGE_DATA( orig );
 		}

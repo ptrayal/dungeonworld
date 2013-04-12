@@ -35,14 +35,6 @@ extern          int                     top_ed;
 extern          int                     top_room;
 extern		int			top_mprog_index;
 
-AREA_DATA		*	area_free;
-EXTRA_DESCR_DATA	*	extra_descr_free;
-EXIT_DATA		*	exit_free;
-ROOM_INDEX_DATA		*	room_index_free;
-OBJ_INDEX_DATA		*	obj_index_free;
-SHOP_DATA		*	shop_free;
-MOB_INDEX_DATA		*	mob_index_free;
-RESET_DATA		*	reset_free;
 HELP_DATA		*	help_free;
 
 HELP_DATA		*	help_last;
@@ -71,8 +63,7 @@ RESET_DATA *new_reset_data( void )
 
 void free_reset_data( RESET_DATA *pReset )
 {
-    pReset->next            = reset_free;
-    reset_free              = pReset;
+	PURGE_DATA(pReset);
     return;
 }
 
@@ -211,8 +202,7 @@ void free_room_index( ROOM_INDEX_DATA *pRoom )
         free_reset_data( pReset );
     }
 
-    pRoom->next     =   room_index_free;
-    room_index_free =   pRoom;
+	PURGE_DATA(pRoom);
     return;
 }
 
@@ -307,8 +297,8 @@ void free_obj_index( OBJ_INDEX_DATA *pObj )
         free_extra_descr( pExtra );
     }
     
-    pObj->next              = obj_index_free;
-    obj_index_free          = pObj;
+    
+    PURGE_DATA(pObj);
     return;
 }
 
@@ -382,12 +372,9 @@ void free_mob_index( MOB_INDEX_DATA *pMob )
 
     free_shop( pMob->pShop );
 
-    pMob->next              = mob_index_free;
-    mob_index_free          = pMob;
+	PURGE_DATA(pMob);
     return;
 }
-
-MPROG_CODE              *       mpcode_free;
 
 MPROG_CODE *new_mpcode(void)
 {
@@ -405,7 +392,6 @@ MPROG_CODE *new_mpcode(void)
 void free_mpcode(MPROG_CODE *pMcode)
 {
     PURGE_DATA(pMcode->code);
-    pMcode->next = mpcode_free;
-    mpcode_free  = pMcode;
+	PURGE_DATA(pMcode);
     return;
 }

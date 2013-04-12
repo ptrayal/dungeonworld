@@ -71,14 +71,14 @@ void advance_level( CHAR_DATA *ch, bool hide )
 	ch->pcdata->last_level = 
 	( ch->played + (int) (current_time - ch->logon) ) / 3600;
 
-	set_title( ch, (char *)Format("the %s", title_table [ch->class] [ch->level] [ch->sex == SEX_FEMALE ? 1 : 0]) );
+	set_title( ch, (char *)Format("the %s", title_table [ch->iclass] [ch->level] [ch->sex == SEX_FEMALE ? 1 : 0]) );
 
 	add_hp	= con_app[get_curr_stat(ch,STAT_CON)].hitp + number_range(
-			class_table[ch->class].hp_min,
-			class_table[ch->class].hp_max );
+			class_table[ch->iclass].hp_min,
+			class_table[ch->iclass].hp_max );
 	add_mana 	= number_range(2,(2*get_curr_stat(ch,STAT_INT)
 				  + get_curr_stat(ch,STAT_WIS))/5);
-	if (!class_table[ch->class].fMana)
+	if (!class_table[ch->iclass].fMana)
 	add_mana /= 2;
 	add_move	= number_range( 1, (get_curr_stat(ch,STAT_CON)
 				  + get_curr_stat(ch,STAT_DEX))/6 );
@@ -168,7 +168,7 @@ int hit_gain( CHAR_DATA *ch )
 	{
 		int number = 0;
 		gain = UMAX(3,get_curr_stat(ch,STAT_CON) - 3 + ch->level/2); 
-		gain += class_table[ch->class].hp_max - 10;
+		gain += class_table[ch->iclass].hp_max - 10;
 		number = number_percent();
 		if (number < get_skill(ch,gsn_fast_healing))
 		{
@@ -241,7 +241,7 @@ int mana_gain( CHAR_DATA *ch )
 			if (ch->mana < ch->max_mana)
 				check_improve(ch,gsn_meditation,TRUE,8);
 		}
-		if (!class_table[ch->class].fMana)
+		if (!class_table[ch->iclass].fMana)
 			gain /= 2;
 
 		switch ( ch->position )

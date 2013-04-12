@@ -345,19 +345,17 @@ void	stop_idling		args( ( CHAR_DATA *ch ) );
 void    bust_a_prompt           args( ( CHAR_DATA *ch ) );
 void purgeExtracted(void);
 
-void cleanup_mud(void) 
-{
-	int iHash;
-	int mob_count = 0, obj_count = 0, room_count = 0;
-	DESCRIPTOR_DATA *d, *d_next;
-	OBJ_INDEX_DATA *obj_index;
-	MOB_INDEX_DATA *mob_index;
-	ROOM_INDEX_DATA *room_index;
+void cleanup_mud(void) {
+   	int iHash;
+   	int mob_count = 0, obj_count = 0, room_count = 0;
+ 	DESCRIPTOR_DATA *d, *d_next;
+   	OBJ_INDEX_DATA *obj_index;
+   	MOB_INDEX_DATA *mob_index;
+   	ROOM_INDEX_DATA *room_index;
 	AREA_DATA *pArea, *pArea_next;
 	CHAR_DATA *ch, *ch_next;
 	OBJ_DATA *obj, *obj_next;
 	BAN_DATA *pban, *pban_next;
-	MPROG_CODE *mprg, *mprog_next;
 
 	// first call
 	log_string("Cleaning: initial purge");
@@ -387,118 +385,127 @@ void cleanup_mud(void)
 
 	// needed to add extern information to merc.h
 	// will extract all the bans loaded into the game
-	 log_string("Cleaning: ban_list");
-	 for(pban = ban_list; pban != NULL; pban = pban_next) {
-		  pban_next = pban->next;
-		  free_ban(pban);
-	 }
-
-	// will extract all the bans loaded into the game
-    log_string("Cleaning: mprog_list");
-    for(mprg = mprog_list; mprg != NULL; mprg = mprg->next) {
-        mprog_next = mprg->next;
-        free_mprog(mprg);
+    log_string("Cleaning: ban_list");
+    for(pban = ban_list; pban != NULL; pban = pban_next) {
+        pban_next = pban->next;
+        free_ban(pban);
     }
+
+	MPROG_CODE *mprog, *mprog_next;
+	extern MPROG_CODE *mprog_list;
+
+	log_string("Cleaning: mprog_list");
+	for(mprog = mprog_list; mprog != NULL; mprog = mprog_next) {
+		mprog_next = mprog->next;	// define what is next
+		UNLINK_SINGLE(mprog, next, MPROG_CODE, mprog_list); // remove from the global list
+		free_mpcode(mprog); // free the mprog
+	}
+	mprog_list = NULL;
+
+	// all sorts of clearing done by 3rd party functions.
+	clear_notes();
+	clear_wizlist();
+	clear_buffer();
 
 	// second (eliminating stragglers)
 	log_string("Cleaning: second purge");
 	purgeExtracted();
 
-	log_string("Freeing Hash's.  THIS COULD TAKE AWHILE!");
-	for( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )
-	{
-		MOB_INDEX_DATA *next_mob_index;
-		OBJ_INDEX_DATA *next_obj_index;
-		ROOM_INDEX_DATA *next_room_index;
-		for( mob_index = mob_index_hash[iHash]; mob_index; mob_index = next_mob_index )
-		{
-			next_mob_index = mob_index->next;
+   log_string("Freeing Hash's.  THIS COULD TAKE AWHILE!");
+   for( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )
+   {
+      MOB_INDEX_DATA *next_mob_index;
+      OBJ_INDEX_DATA *next_obj_index;
+      ROOM_INDEX_DATA *next_room_index;
+      for( mob_index = mob_index_hash[iHash]; mob_index; mob_index = next_mob_index )
+      {
+         next_mob_index = mob_index->next;
 
-			if( mob_index == mob_index_hash[iHash] )
-				mob_index_hash[iHash] = mob_index->next;
-			else
-			{
-				MOB_INDEX_DATA *tmid;
+         if( mob_index == mob_index_hash[iHash] )
+            mob_index_hash[iHash] = mob_index->next;
+         else
+         {
+            MOB_INDEX_DATA *tmid;
 
-				for( tmid = mob_index_hash[iHash]; tmid; tmid = tmid->next )
-				{
-					if( tmid->next == mob_index )
-						break;
-				}
-				if( !tmid )
-					bugf( "cleanup_mud: mid not in hash list %d", mob_index->vnum );
-				else
-					tmid->next = mob_index->next;
-			}
+            for( tmid = mob_index_hash[iHash]; tmid; tmid = tmid->next )
+            {
+               if( tmid->next == mob_index )
+                  break;
+            }
+            if( !tmid )
+               bugf( "cleanup_mud: mid not in hash list %d", mob_index->vnum );
+            else
+               tmid->next = mob_index->next;
+         }
 
-			free_mob_index(mob_index);
-			mob_count++;
-		}
-		for( obj_index = obj_index_hash[iHash]; obj_index; obj_index = next_obj_index )
-		{
-			next_obj_index = obj_index->next;
-			if( obj_index == obj_index_hash[iHash] )
-				obj_index_hash[iHash] = obj_index->next;
-			else
-			{
-				OBJ_INDEX_DATA *toid;
+         free_mob_index(mob_index);
+         mob_count++;
+      }
+      for( obj_index = obj_index_hash[iHash]; obj_index; obj_index = next_obj_index )
+      {
+         next_obj_index = obj_index->next;
+         if( obj_index == obj_index_hash[iHash] )
+            obj_index_hash[iHash] = obj_index->next;
+         else
+         {
+            OBJ_INDEX_DATA *toid;
 
-				for( toid = obj_index_hash[iHash]; toid; toid = toid->next )
-				{
-					if( toid->next == obj_index )
-						break;
-				}
-				if( !toid )
-					bugf( "cleanup_mud: oid not in hash list %d", obj_index->vnum );
-				else
-					toid->next = obj_index->next;
-			}
-			free_obj_index(obj_index);
-			obj_count++;
-		}
-		for( room_index = room_index_hash[iHash]; room_index; room_index = next_room_index )
-		{
-			next_room_index = room_index->next;
+            for( toid = obj_index_hash[iHash]; toid; toid = toid->next )
+            {
+               if( toid->next == obj_index )
+                  break;
+            }
+            if( !toid )
+               bugf( "cleanup_mud: oid not in hash list %d", obj_index->vnum );
+            else
+               toid->next = obj_index->next;
+         }
+         free_obj_index(obj_index);
+         obj_count++;
+      }
+      for( room_index = room_index_hash[iHash]; room_index; room_index = next_room_index )
+      {
+         next_room_index = room_index->next;
 
-			if( room_index == room_index_hash[iHash] )
-				room_index_hash[iHash] = room_index->next;
-			else
-			{
-				ROOM_INDEX_DATA *trid;
+         if( room_index == room_index_hash[iHash] )
+            room_index_hash[iHash] = room_index->next;
+         else
+         {
+            ROOM_INDEX_DATA *trid;
 
-				for( trid = room_index_hash[iHash]; trid; trid = trid->next )
-		 {
-					if( trid->next == room_index )
-						break;
-		 }
+            for( trid = room_index_hash[iHash]; trid; trid = trid->next )
+	    {
+               if( trid->next == room_index )
+                  break;
+	    }
 
-				if( !trid )
-					bugf( "cleanup_mud: rid not in hash list %d", room_index->vnum );
-				else
-					trid->next = room_index->next;
-			}
+            if( !trid )
+               bugf( "cleanup_mud: rid not in hash list %d", room_index->vnum );
+            else
+               trid->next = room_index->next;
+         }
 
-			free_room_index(room_index);
-			room_count++;
-		}
-	}
+         free_room_index(room_index);
+         room_count++;
+      }
+   }
 
 
 	// cleanup area's.
 	log_string("Cleaning: areas");
-	for ( pArea = area_first; pArea != NULL; pArea = pArea_next )   {
+   for ( pArea = area_first; pArea != NULL; pArea = pArea_next )   {
 	pArea_next = pArea->next;
 	free_area(pArea);
-	}
+   }
 
 	log_string("Cleaning: final purge");
-	 purgeExtracted();
+    purgeExtracted();
 
-	log_string("------------------------------------------");
-	log_string("              HASH's FREED!               ");
-	log_string("------------------------------------------");
-	tail_chain();
-	return;
+   log_string("------------------------------------------");
+   log_string("              HASH's FREED!               ");
+   log_string("------------------------------------------");
+   tail_chain();
+   return;
 
 }
 
@@ -540,8 +547,8 @@ int main( int argc, char **argv )
 	 */
 	if ( ( fpReserve = fopen( NULL_FILE, "r" ) ) == NULL )
 	{
-	perror( NULL_FILE );
-	exit( 1 );
+		perror( NULL_FILE );
+		exit( 1 );
 	}
 
 	/*
@@ -1079,12 +1086,12 @@ void init_descriptor( int control )
 	 */
 	dnew = new_descriptor();
 
-	assert(dnew); // if calloc fails, we should never see this, but, just incase.
+	Assert(dnew, "New Descriptor failed to provide a valid memory pointer"); // if calloc fails, we should never see this, but, just incase.
 
 	dnew->descriptor = desc;
 
 	dnew->pProtocol     = ProtocolCreate();
-	assert(dnew->pProtocol); // if ProtocolCreate fails, then we have an issue, we will assert out!
+	Assert(dnew->pProtocol, "ProtocolCreate Failed to provide a valid memory pointer"); // if ProtocolCreate fails, then we have an issue, we will assert out!
 	
 	size = sizeof(sock);
 	if ( getpeername( desc, (struct sockaddr *) &sock, &size ) < 0 )
@@ -1374,7 +1381,7 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 		sprintf( log_buf, "%s input spamming!", d->host );
 		log_string( log_buf );
 		wiznet("Spam spam spam $N spam spam spam spam spam!",
-				d->character,NULL,WIZ_SPAM,0,get_trust(d->character));
+			   d->character,NULL,WIZ_SPAM,0,get_trust(d->character));
 		if (d->incomm[0] == '!')
 			wiznet(d->inlast,d->character,NULL,WIZ_SPAM,0,
 			get_trust(d->character));
@@ -1423,6 +1430,7 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 	if ( d->pProtocol->WriteOOB ) /* <-- Add this, and the ";" and "else" */
 		; /* The last sent data was OOB, so do NOT draw the prompt */
 	else if ( !merc_down )
+	{
 		if ( d->showstr_point )
 			write_to_buffer( d, "\tW[\tOHit Return to continue\tW]\tn\n\r", 0 );
 		else if ( fPrompt && d->pString && d->connected == CON_PLAYING )
@@ -1481,7 +1489,8 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 			if (IS_SET(ch->comm,COMM_TELNET_GA))
 				write_to_buffer(d,go_ahead_str,0);
 		}
-
+	}
+	
 	/*
 	 * Short-circuit if nothing to write.
 	 */
@@ -2122,7 +2131,7 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 		return;
 	}
 
-		ch->class = iClass;
+		ch->iclass = iClass;
 
 	sprintf( log_buf, "%s@%s new player.", ch->name, d->host );
 	log_string( log_buf );
@@ -2150,7 +2159,7 @@ case CON_GET_ALIGNMENT:
 	write_to_buffer(d,"\n\r",0);
 
 		group_add(ch,"rom basics",FALSE);
-		group_add(ch,class_table[ch->class].base_group,FALSE);
+		group_add(ch,class_table[ch->iclass].base_group,FALSE);
 		ch->pcdata->learned[gsn_recall] = 50;
 	write_to_buffer(d,"Do you wish to customize this character?\n\r",0);
 	write_to_buffer(d,"Customization takes time, but allows a wider range of skills and abilities.\n\r",0);
@@ -2173,7 +2182,7 @@ case CON_DEFAULT_CHOICE:
 		d->connected = CON_GEN_GROUPS;
 		break;
 		case 'n': case 'N': 
-		group_add(ch,class_table[ch->class].default_group,TRUE);
+		group_add(ch,class_table[ch->iclass].default_group,TRUE);
 			write_to_buffer( d, "\n\r", 2 );
 		write_to_buffer(d,
 		"Please pick a weapon from the following choices:\n\r",0);
@@ -2298,7 +2307,7 @@ case CON_DEFAULT_CHOICE:
 	if ( ch->level == 0 )
 	{
 
-		ch->perm_stat[class_table[ch->class].attr_prime] += 3;
+		ch->perm_stat[class_table[ch->iclass].attr_prime] += 3;
 
 		ch->level	= 1;
 		ch->exp	= exp_per_level(ch,ch->pcdata->points);
@@ -2308,7 +2317,7 @@ case CON_DEFAULT_CHOICE:
 		ch->train	 = 3;
 		ch->practice = 5;
 		sprintf( buf, "the %s",
-		title_table [ch->class] [ch->level]
+		title_table [ch->iclass] [ch->level]
 		[ch->sex == SEX_FEMALE ? 1 : 0] );
 		set_title( ch, buf );
 
@@ -2346,7 +2355,7 @@ case CON_DEFAULT_CHOICE:
 		act("$n has entered the game.",ch->pet,NULL,NULL,TO_ROOM);
 	}
 
-	do_function(ch, &do_unread, "");
+	interpret(ch, "unread");
 	break;
 	}
 
@@ -2376,7 +2385,7 @@ bool check_parse_name( char *name )
 	{
 	if (LOWER(name[0]) == LOWER(clan_table[clan].name[0])
 	&&  !str_cmp(name,clan_table[clan].name))
-		return FALSE;
+	   return FALSE;
 	}
 	
 	if (str_cmp(capitalize(name),"Alander") && (!str_prefix("Alan",name)

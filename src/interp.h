@@ -1,3 +1,5 @@
+#ifndef _INTERP_H
+#define _INTERP_H
 /***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,	   *
  *  Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.   *
@@ -310,3 +312,5 @@ DECLARE_DO_FUN( do_medit	);
 DECLARE_DO_FUN( do_oedit	);
 DECLARE_DO_FUN( do_mpedit	);
 DECLARE_DO_FUN( do_hedit	);
+
+#endif // EOF

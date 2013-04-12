@@ -1,3 +1,5 @@
+#ifndef _LOOKUP_H
+#define _LOOKUP_H
 /***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,	   *
  *  Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.   *
@@ -33,3 +35,5 @@ int 	size_lookup	args( (const char *name) );
 int	flag_lookup	args( (const char *, const struct flag_type *) );
 HELP_DATA * help_lookup	args( (char *) );
 HELP_AREA * had_lookup	args( (char *) );
+
+#endif // eof

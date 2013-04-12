@@ -79,7 +79,7 @@ void save_wizlist(void)
 	FILE *fp;
 	bool found = FALSE;
 
-	fclose( fpReserve );
+	closeReserve();
 	if ( ( fp = fopen( WIZ_FILE, "w" ) ) == NULL )
 	{
 		perror( WIZ_FILE );
@@ -92,7 +92,7 @@ void save_wizlist(void)
 	}
 
 	fclose(fp);
-	fpReserve = fopen( NULL_FILE, "r" );
+	openReserve();
 	if (!found)
 		unlink(WIZ_FILE);
 }
@@ -382,3 +382,17 @@ void change_wizlist(CHAR_DATA *ch, bool add, int level, char *argument)
 	}
 	return;
 }
+
+
+void clear_wizlist(void) {
+	WIZ_DATA *wiz, *wiz_next;
+
+	log_string("Cleaning: wiz_list");
+	for(wiz = wiz_list; wiz; wiz = wiz_next) {
+		wiz_next = wiz->next;
+		UNLINK_SINGLE(wiz, next, WIZ_DATA, wiz_list);
+		free_wiz(wiz);
+	}
+	wiz_list = NULL;
+}
+

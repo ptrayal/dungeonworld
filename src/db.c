@@ -262,12 +262,6 @@ void boot_db( void )
 	 * Init some data space stuff.
 	 */
 	{
-	if ( ( string_space = calloc( 1, MAX_STRING ) ) == NULL )
-	{
-		bug( "Boot_db: can't alloc %d string space.", MAX_STRING );
-		exit( 1 );
-	}
-	top_string	= string_space;
 	fBootDb		= TRUE;
 	}
 
@@ -502,7 +496,6 @@ void load_area( FILE *fp )
 void new_load_area( FILE *fp )
 {
 	AREA_DATA *pArea;
-	char      *word;
 	bool      fMatch;
 
 	pArea               = new_area();
@@ -520,7 +513,7 @@ void new_load_area( FILE *fp )
 
 	for ( ; ; )
 	{
-	   word   = feof( fp ) ? "End" : fread_word( fp );
+	   const char *word   = feof( fp ) ? "End" : fread_word( fp );
 	   fMatch = FALSE;
 
 	   switch ( UPPER(word[0]) )
@@ -2179,7 +2172,7 @@ void clone_mobile(CHAR_DATA *parent, CHAR_DATA *clone)
 	clone->description	= str_dup(parent->description);
 	clone->group	= parent->group;
 	clone->sex		= parent->sex;
-	clone->class	= parent->class;
+	clone->iclass	= parent->iclass;
 	clone->race		= parent->race;
 	clone->level	= parent->level;
 	clone->trust	= 0;
@@ -3454,7 +3447,7 @@ void append_file( CHAR_DATA *ch, char *file, char *str )
 	if ( IS_NPC(ch) || str[0] == '\0' )
 	return;
 
-	fclose( fpReserve );
+	closeReserve();
 	if ( ( fp = fopen( file, "a" ) ) == NULL )
 	{
 	perror( file );
@@ -3467,7 +3460,7 @@ void append_file( CHAR_DATA *ch, char *file, char *str )
 	fclose( fp );
 	}
 
-	fpReserve = fopen( NULL_FILE, "r" );
+	openReserve();
 	return;
 }
 
@@ -3516,13 +3509,13 @@ void bug( const char *str, int param )
 	sprintf( buf + strlen(buf), str, param );
 	log_string( buf );
 /* RT removed due to bug-file spamming 
-	fclose( fpReserve );
+	closeReserve();
 	if ( ( fp = fopen( BUG_FILE, "a" ) ) != NULL )
 	{
 	fprintf( fp, "%s\n", buf );
 	fclose( fp );
 	}
-	fpReserve = fopen( NULL_FILE, "r" );
+	openReserve();
 */
 
 	return;
@@ -3631,15 +3624,15 @@ char *CapitalSentence(const char *str)
 
 #ifdef ASSERT
 void AssertLog(const std::string &str) {
-        closeReserve();
-FILE *fp = fopen("Assert.log", "a");
-if(fp) {
-fprintf(fp, "%s\n", str );
-} else {
-                fprintf(stdout, "%s\n", str);
-}
-fclose(fp); // just in-case.
-        openReserve();
+    closeReserve();
+	FILE *fp = fopen("Assert.log", "a");
+	if(fp) {
+		fprintf(fp, "%s\n", str );
+	} else {
+        fprintf(stdout, "%s\n", str);
+	}
+	fclose(fp); // just in-case.
+    openReserve();
 }
 void AssertFailed ( const char *expression, const char *msg, const char *file, const char *baseFile, const char *function, int line )
 {
@@ -3674,6 +3667,8 @@ void openReserve(void)
 }
 void closeReserve(void)
 {
+	if(!fpReserve)
+		return;
     if(fpReserve)
     {
           fclose(fpReserve);

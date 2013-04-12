@@ -1,3 +1,5 @@
+#ifndef _RECYCLE_H
+#define _RECYCLE_H
 /***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,	   *
  *  Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.   *
@@ -121,3 +123,14 @@ char	*buf_string args( (BUFFER *buffer) );
 HELP_AREA *	new_had		args( ( void ) );
 HELP_DATA *	new_help	args( ( void ) );
 void		free_help	args( ( HELP_DATA * ) );
+
+
+void free_mprog(MPROG_LIST *mp);
+void free_mob_index( MOB_INDEX_DATA *pMob );
+void free_obj_index( OBJ_INDEX_DATA *pObj );
+void free_mob_index( MOB_INDEX_DATA *pMob );
+void free_area( AREA_DATA *pArea );
+void free_mpcode(MPROG_CODE *pMcode);
+void free_room_index( ROOM_INDEX_DATA *pRoom );
+
+#endif

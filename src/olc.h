@@ -1,3 +1,5 @@
+#ifndef _OLC_H
+#define _OLC_H
 /***************************************************************************
  *  File: olc.h                                                            *
  *                                                                         *
@@ -324,3 +326,5 @@ MPROG_LIST      *new_mprog              args ( ( void ) );
 void            free_mprog              args ( ( MPROG_LIST *mp ) );
 MPROG_CODE	*new_mpcode		args ( (void) );
 void		free_mpcode		args ( ( MPROG_CODE *pMcode));
+
+#endif

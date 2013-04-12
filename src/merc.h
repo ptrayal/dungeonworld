@@ -1,3 +1,5 @@
+#ifndef _MERC_H
+#define _MERC_H
 /***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.   *
@@ -36,7 +38,11 @@
 #include <unistd.h>
 
 #include "protocol.h"
-// #define unix
+
+// for MAC OS support (Daves Computer compiling troubles :P)
+#ifndef unix
+	#define unix
+#endif
 
 /*
  * Accommodate old non-Ansi compilers.
@@ -76,7 +82,9 @@ typedef int				bool;
 #define unix
 #else
 typedef short   int			sh_int;
-typedef unsigned char			bool;
+#ifndef CPP
+	typedef unsigned char			bool;
+#endif
 #endif
 
 /* ea */
@@ -1431,7 +1439,7 @@ struct	char_data
 	sh_int		group;
 	sh_int		clan;
 	sh_int		sex;
-	sh_int		class;
+	sh_int		iclass;
 	sh_int		race;
 	sh_int		level;
 	sh_int		trust;
@@ -1930,7 +1938,13 @@ extern sh_int  gsn_recall;
 					(ch)->in_room->room_flags,		    \
 					ROOM_INDOORS))
 
-#define WAIT_STATE(ch, npulse)	((ch)->wait = UMAX((ch)->wait, (npulse)))
+#define WAIT_STATE(ch, npulse)	{ \
+	if(!IS_IMMORTAL((ch))) { \
+		((ch)->wait = UMAX((ch)->wait, (npulse))); \
+	} \
+} \
+while(0)
+	
 #define DAZE_STATE(ch, npulse)  ((ch)->daze = UMAX((ch)->daze, (npulse)))
 #define get_carry_weight(ch)	((ch)->carry_weight + (ch)->silver/10 +  \
 							  (ch)->gold * 2 / 5)
@@ -2287,9 +2301,9 @@ bool 	is_safe_spell	args( (CHAR_DATA *ch, CHAR_DATA *victim, bool area ) );
 void	violence_update	args( ( void ) );
 void	multi_hit	args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dt ) );
 bool	damage		args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam,
-					int dt, int class, bool show ) );
+					int dt, int iclass, bool show ) );
 bool    damage_old      args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam,
-								int dt, int class, bool show ) );
+								int dt, int iclass, bool show ) );
 void	update_pos	args( ( CHAR_DATA *victim ) );
 void	stop_fighting	args( ( CHAR_DATA *ch, bool fBoth ) );
 void	check_killer	args( ( CHAR_DATA *ch, CHAR_DATA *victim) );
@@ -2380,6 +2394,9 @@ char *	weapon_bit_name	args( ( int weapon_flags ) );
 char *  comm_bit_name	args( ( int comm_flags ) );
 char *	cont_bit_name	args( ( int cont_flags) );
 void purgeExtractedWorldData  args ( (void) );
+bool isDirectoryEmpty(const char *dirname);
+void openReserve(void);
+void closeReserve(void);
 
 /* interp.c */
 void	interpret	args( ( CHAR_DATA *ch, char *argument ) );
@@ -2488,7 +2505,7 @@ void	update_handler	args( ( void ) );
 /* string.c */
 void	string_edit	args( ( CHAR_DATA *ch, char **pString ) );
 void    string_append   args( ( CHAR_DATA *ch, char **pString ) );
-char *	string_replace	args( ( char * orig, char * old, char * new ) );
+char *	string_replace	args( ( char * orig, char * old, char * inew ) );
 void    string_add      args( ( CHAR_DATA *ch, char *argument ) );
 char *  format_string   args( ( char *oldstring /*, bool fSpace */ ) );
 char *  first_arg       args( ( char *argument, char *arg_first, bool fCase ) );
@@ -2504,6 +2521,12 @@ char	*olc_ed_vnum	args( ( CHAR_DATA *ch ) );
 int	race_lookup	args( ( const char *name) );
 int	item_lookup	args( ( const char *name) );
 int	liq_lookup	args( ( const char *name) );
+
+void clear_buffer(void);
+void clear_wizlist(void);
+void clear_notes(void);
+
+void update_wizlist(CHAR_DATA *ch, int level);
 
 #undef	CD
 #undef	MID
@@ -2727,3 +2750,5 @@ while(0)
 } \
 while(0)
 
+
+#endif // end of file

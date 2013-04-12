@@ -1,3 +1,5 @@
+#ifndef _MAGIC_H
+#define _MAGIC_H
 /***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,	   *
  *  Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.   *
@@ -128,3 +130,5 @@ DECLARE_SPELL_FUN(	spell_gas_breath	);
 DECLARE_SPELL_FUN(	spell_lightning_breath	);
 DECLARE_SPELL_FUN(	spell_general_purpose	);
 DECLARE_SPELL_FUN(	spell_high_explosive	);
+
+#endif // EOF

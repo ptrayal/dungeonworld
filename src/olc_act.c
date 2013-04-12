@@ -312,7 +312,7 @@ bool show_help( CHAR_DATA *ch, char *argument )
 		}
 		else
 		{
-		show_flag_cmds( ch, help_table[cnt].structure );
+		show_flag_cmds( ch, (const struct flag_type *)help_table[cnt].structure );
 		return FALSE;
 		}
 	}
@@ -2356,6 +2356,7 @@ void show_obj_values( CHAR_DATA *ch, OBJ_INDEX_DATA *obj )
 
 bool set_obj_values( CHAR_DATA *ch, OBJ_INDEX_DATA *pObj, int value_num, char *argument)
 {
+	int value = 0;
 	switch( pObj->item_type )
 	{
 		default:
@@ -2548,8 +2549,6 @@ bool set_obj_values( CHAR_DATA *ch, OBJ_INDEX_DATA *pObj, int value_num, char *a
 		case ITEM_CONTAINER:
 		switch ( value_num )
 		{
-		int value = 0;
-		
 		default:
 			do_help( ch, "ITEM_CONTAINER" );
 				return FALSE;

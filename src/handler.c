@@ -34,6 +34,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <dirent.h>
 #include "merc.h"
 #include "interp.h"
 #include "magic.h"
@@ -218,13 +219,13 @@ long wiznet_lookup (const char *name)
 /* returns class number */
 int class_lookup (const char *name)
 {
-   int class;
+   int iclass;
  
-   for ( class = 0; class < MAX_CLASS; class++)
+   for ( iclass = 0; iclass < MAX_CLASS; iclass++)
    {
-		if (LOWER(name[0]) == LOWER(class_table[class].name[0])
-		&&  !str_prefix( name,class_table[class].name))
-			return class;
+		if (LOWER(name[0]) == LOWER(class_table[iclass].name[0])
+		&&  !str_prefix( name,class_table[iclass].name))
+			return iclass;
    }
  
    return -1;
@@ -348,7 +349,7 @@ int get_skill(CHAR_DATA *ch, int sn)
 
 	else if (!IS_NPC(ch))
 	{
-	if (ch->level < skill_table[sn].skill_level[ch->class])
+	if (ch->level < skill_table[sn].skill_level[ch->iclass])
 		skill = 0;
 	else
 		skill = ch->pcdata->learned[sn];
@@ -720,7 +721,7 @@ int get_curr_stat( CHAR_DATA *ch, int stat )
 	{
 	max = pc_race_table[ch->race].max_stats[stat] + 4;
 
-	if (class_table[ch->class].attr_prime == stat)
+	if (class_table[ch->iclass].attr_prime == stat)
 		max += 2;
 
 	if ( ch->race == race_lookup("human"))
@@ -741,7 +742,7 @@ int get_max_train( CHAR_DATA *ch, int stat )
 	return 25;
 
 	max = pc_race_table[ch->race].max_stats[stat];
-	if (class_table[ch->class].attr_prime == stat)
+	if (class_table[ch->iclass].attr_prime == stat)
 	{	if (ch->race == race_lookup("human"))
 	   max += 3;
 	else
@@ -2586,7 +2587,7 @@ char *affect_bit_name( int vector )
 	if ( vector & AFF_SLOW          ) strcat( buf, " slow"          );
 	if ( vector & AFF_PLAGUE	    ) strcat( buf, " plague" 	    );
 	if ( vector & AFF_DARK_VISION   ) strcat( buf, " dark_vision"   );
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 
@@ -2620,7 +2621,7 @@ char *extra_bit_name( int extra_flags )
 	if ( extra_flags & ITEM_SELL_EXTRACT ) strcat( buf, " sell_extract" );
 	if ( extra_flags & ITEM_BURN_PROOF	 ) strcat( buf, " burn_proof"	);
 	if ( extra_flags & ITEM_NOUNCURSE	 ) strcat( buf, " no_uncurse"	);
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 /* return ascii name of an act vector */
@@ -2670,7 +2671,7 @@ char *act_bit_name( int act_flags )
 	if (act_flags & PLR_THIEF	) strcat(buf, " thief");
 	if (act_flags & PLR_KILLER	) strcat(buf, " killer");
 	}
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 char *comm_bit_name(int comm_flags)
@@ -2697,7 +2698,7 @@ char *comm_bit_name(int comm_flags)
 	if (comm_flags & COMM_NOCHANNELS	) strcat(buf, " no_channels");
 	
 
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 char *imm_bit_name(int imm_flags)
@@ -2729,7 +2730,7 @@ char *imm_bit_name(int imm_flags)
 	if (imm_flags & VULN_WOOD		) strcat(buf, " wood");
 	if (imm_flags & VULN_SILVER	) strcat(buf, " silver");
 
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 char *wear_bit_name(int wear_flags)
@@ -2755,7 +2756,7 @@ char *wear_bit_name(int wear_flags)
 	if (wear_flags & ITEM_NO_SAC	) strcat(buf, " nosac");
 	if (wear_flags & ITEM_WEAR_FLOAT	) strcat(buf, " float");
 
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 char *form_bit_name(int form_flags)
@@ -2790,7 +2791,7 @@ char *form_bit_name(int form_flags)
 	if (form_flags & FORM_FISH		) strcat(buf, " fish");
 	if (form_flags & FORM_COLD_BLOOD 	) strcat(buf, " cold_blooded");
 
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 char *part_bit_name(int part_flags)
@@ -2820,7 +2821,7 @@ char *part_bit_name(int part_flags)
 	if (part_flags & PART_HORNS		) strcat(buf, " horns");
 	if (part_flags & PART_SCALES	) strcat(buf, " scales");
 
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 char *weapon_bit_name(int weapon_flags)
@@ -2837,7 +2838,7 @@ char *weapon_bit_name(int weapon_flags)
 	if (weapon_flags & WEAPON_SHOCKING 	) strcat(buf, " shocking");
 	if (weapon_flags & WEAPON_POISON	) strcat(buf, " poison");
 
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 char *cont_bit_name( int cont_flags)
@@ -2851,7 +2852,7 @@ char *cont_bit_name( int cont_flags)
 	if (cont_flags & CONT_CLOSED	) strcat(buf, " closed");
 	if (cont_flags & CONT_LOCKED	) strcat(buf, " locked");
 
-	return (buf[0] != '\0' ) ? buf+1 : "none";
+	return (buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 
@@ -2883,7 +2884,7 @@ char *off_bit_name(int off_flags)
 	if (off_flags & ASSIST_GUARD	) strcat(buf, " assist_guard");
 	if (off_flags & ASSIST_VNUM		) strcat(buf, " assist_vnum");
 
-	return ( buf[0] != '\0' ) ? buf+1 : "none";
+	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
 void purgeExtractedWorldData(void)
@@ -2905,4 +2906,19 @@ void purgeExtractedWorldData(void)
 	}
 }
 
+bool isDirectoryEmpty(const char *dirname) {
+  int n = 0;
+  struct dirent *d;
+  DIR *dir = opendir(dirname);
+  if (dir == NULL) //Not a directory or doesn't exist
+    return 1;
+  while ((d = readdir(dir)) != NULL) {
+    if(++n > 2)
+      break;
+  }
+  closedir(dir);
+  if (n <= 2) //Directory Empty
+    return true;
 
+	return false;
+}

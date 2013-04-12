@@ -115,11 +115,21 @@ void save_char_obj( CHAR_DATA *ch )
 	if ( ch->desc != NULL && ch->desc->original != NULL )
 		ch = ch->desc->original;
 
+	if(isDirectoryEmpty(PLAYER_DIR)) {
+		// woah!  turn the player into a god!
+		send_to_char("\n\rFirst character - You are now the implementor!\n\r",ch);
+
+		// create a god character!
+		ch->level = MAX_LEVEL;
+		ch->trust = MAX_LEVEL;
+		ch->pcdata->security = 9;
+	}
+
 #if defined(unix)
 	/* create god log */
 	if (IS_IMMORTAL(ch) || ch->level >= LEVEL_IMMORTAL)
 	{
-		fclose(fpReserve);
+		closeReserve();
 		sprintf(strsave, "%s%s",GOD_DIR, capitalize(ch->name));
 		if ((fp = fopen(strsave,"w")) == NULL)
 		{
@@ -130,11 +140,11 @@ void save_char_obj( CHAR_DATA *ch )
 		fprintf(fp,"Lev %2d Trust %2d  %s%s\n",
 			ch->level, get_trust(ch), ch->name, ch->pcdata->title);
 		fclose( fp );
-		fpReserve = fopen( NULL_FILE, "r" );
+		openReserve();
 	}
 #endif
 
-	fclose( fpReserve );
+	closeReserve();
 	sprintf( strsave, "%s%s", PLAYER_DIR, capitalize( ch->name ) );
 	if ( ( fp = fopen( TEMP_FILE, "w" ) ) == NULL )
 	{
@@ -153,7 +163,7 @@ void save_char_obj( CHAR_DATA *ch )
 	}
 	fclose( fp );
 	rename(TEMP_FILE,strsave);
-	fpReserve = fopen( NULL_FILE, "r" );
+	openReserve();
 	return;
 }
 
@@ -185,7 +195,7 @@ void fwrite_char( CHAR_DATA *ch, FILE *fp )
 		WriteToFile(fp, true, "Clan", clan_table[ch->clan].name);
 
 	WriteNumber(fp, "Sex", ch->sex);
-	WriteNumber(fp, "Cla", ch->class);
+	WriteNumber(fp, "Cla", ch->iclass);
 	WriteNumber(fp, "Levl", ch->level);
 	WriteNumber(fp, "Tru", ch->trust);
 	WriteNumber(fp, "Sec", ch->pcdata->security);
@@ -576,7 +586,7 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 	ch->pcdata->security		= 0;	/* OLC */
 
 	found = FALSE;
-	fclose( fpReserve );
+	closeReserve();
 	
 	#if defined(unix)
 	/* decompress if .gz file exists */
@@ -632,7 +642,7 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 		fclose( fp );
 	}
 
-	fpReserve = fopen( NULL_FILE, "r" );
+	openReserve();
 
 
 	/* initialize race */
@@ -666,8 +676,8 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 	if (found && ch->version < 2)  /* need to add the new skills */
 	{
 		group_add(ch,"rom basics",FALSE);
-		group_add(ch,class_table[ch->class].base_group,FALSE);
-		group_add(ch,class_table[ch->class].default_group,TRUE);
+		group_add(ch,class_table[ch->iclass].base_group,FALSE);
+		group_add(ch,class_table[ch->iclass].default_group,TRUE);
 		ch->pcdata->learned[gsn_recall] = 50;
 	}
 
@@ -735,7 +745,6 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 void fread_char( CHAR_DATA *ch, FILE *fp )
 {
 	char buf[MSL]={'\0'};
-	char *word;
 	bool fMatch;
 	int count = 0;
 	int lastlogoff = current_time;
@@ -746,7 +755,7 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 
 	for ( ; ; )
 	{
-	word   = feof( fp ) ? "End" : fread_word( fp );
+	const char *word   = feof( fp ) ? "End" : fread_word( fp );
 	fMatch = FALSE;
 
 	switch ( UPPER(word[0]) )
@@ -889,8 +898,8 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 		break;
 
 	case 'C':
-		KEY( "Class",	ch->class,		fread_number( fp ) );
-		KEY( "Cla",		ch->class,		fread_number( fp ) );
+		KEY( "Class",	ch->iclass,		fread_number( fp ) );
+		KEY( "Cla",		ch->iclass,		fread_number( fp ) );
 		KEY( "Clan",	ch->clan,	clan_lookup(fread_string(fp)));
 
 		if ( !str_cmp( word, "Condition" ) || !str_cmp(word,"Cond"))
@@ -1137,24 +1146,24 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 /* load a pet from the forgotten reaches */
 void fread_pet( CHAR_DATA *ch, FILE *fp )
 {
-	char *word;
+	const char *first_word;
 	CHAR_DATA *pet;
 	bool fMatch;
 	int lastlogoff = current_time;
 	int percent;
 
 	/* first entry had BETTER be the vnum or we barf */
-	word = feof(fp) ? "END" : fread_word(fp);
-	if (!str_cmp(word,"Vnum"))
+	first_word = feof(fp) ? "END" : fread_word(fp);
+	if (!str_cmp(first_word,"Vnum"))
 	{
 		int vnum;
 		
 		vnum = fread_number(fp);
 		if (get_mob_index(vnum) == NULL)
-	{
+		{
 			bug("Fread_pet: bad vnum %d.",vnum);
-		pet = create_mobile(get_mob_index(MOB_VNUM_FIDO));
-	}
+			pet = create_mobile(get_mob_index(MOB_VNUM_FIDO));
+		}
 		else
 			pet = create_mobile(get_mob_index(vnum));
 	}
@@ -1166,7 +1175,7 @@ void fread_pet( CHAR_DATA *ch, FILE *fp )
 	
 	for ( ; ; )
 	{
-		word 	= feof(fp) ? "END" : fread_word(fp);
+		const char *word 	= feof(fp) ? "END" : fread_word(fp);
 		fMatch = FALSE;
 		
 		switch (UPPER(word[0]))
@@ -1353,7 +1362,7 @@ extern	OBJ_DATA	*obj_free;
 void fread_obj( CHAR_DATA *ch, FILE *fp )
 {
 	OBJ_DATA *obj;
-	char *word;
+	const char *first_word;
 	int iNest;
 	bool fMatch;
 	bool fNest;
@@ -1368,22 +1377,22 @@ void fread_obj( CHAR_DATA *ch, FILE *fp )
 	new_format = FALSE;
 	make_new = FALSE;
 
-	word   = feof( fp ) ? "End" : fread_word( fp );
-	if (!str_cmp(word,"Vnum" ))
+	first_word   = feof( fp ) ? "End" : fread_word( fp );
+	if (!str_cmp(first_word,"Vnum" ))
 	{
 		int vnum;
-	first = FALSE;  /* fp will be in right place */
+		first = FALSE;  /* fp will be in right place */
  
 		vnum = fread_number( fp );
 		if (  get_obj_index( vnum )  == NULL )
-	{
+		{
 			bug( "Fread_obj: bad vnum %d.", vnum );
-	}
+		}
 		else
-	{
+		{
 		obj = create_object(get_obj_index(vnum),-1);
 		new_format = TRUE;
-	}
+		}
 		
 	}
 
@@ -1401,6 +1410,7 @@ void fread_obj( CHAR_DATA *ch, FILE *fp )
 
 	for ( ; ; )
 	{
+		const char *word;
 	if (first)
 		first = FALSE;
 	else

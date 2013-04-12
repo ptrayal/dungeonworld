@@ -58,6 +58,46 @@ NOTE_DATA *penalty_list;
 NOTE_DATA *news_list;
 NOTE_DATA *changes_list;
 
+void clear_notes(void) {
+	NOTE_DATA *curr, *next;
+
+	log_string("Cleaning: note_list");
+	for(curr = note_list; curr; curr = next) {
+		next = curr->next;
+		free_note(curr);
+	}
+	note_list = NULL;
+
+	log_string("Cleaning: idea_list");
+	for(curr = idea_list; curr; curr = next) {
+		next = curr->next;
+		free_note(curr);
+	}
+	idea_list = NULL;
+
+	log_string("Cleaning: penalty_list");
+	for(curr = penalty_list; curr; curr = next) {
+		next = curr->next;
+		free_note(curr);
+	}
+	penalty_list = NULL;
+
+	log_string("Cleaning: news_list");
+	for(curr = news_list; curr; curr = next) {
+		next = curr->next;
+		free_note(curr);
+	}
+	news_list = NULL;
+
+	log_string("Cleaning: changes_list");
+	for(curr = changes_list; curr; curr = next) {
+		next = curr->next;
+		free_note(curr);
+	}
+	changes_list = NULL;
+
+}
+
 int count_spool(CHAR_DATA *ch, NOTE_DATA *spool)
 {
     int count = 0;
@@ -176,7 +216,7 @@ void save_notes(int type)
 	    break;
     }
 
-    fclose( fpReserve );
+	closeReserve();
     if ( ( fp = fopen( name, "w" ) ) == NULL )
     {
 	perror( name );
@@ -193,7 +233,7 @@ void save_notes(int type)
 	    fprintf( fp, "Text\n%s~\n",   pnote->text);
 	}
 	fclose( fp );
-	fpReserve = fopen( NULL_FILE, "r" );
+	openReserve();
    	return;
     }
 }
@@ -322,7 +362,7 @@ void append_note(NOTE_DATA *pnote)
 	last->next = pnote;
     }
 
-    fclose(fpReserve);
+	closeReserve();
     if ( ( fp = fopen(name, "a" ) ) == NULL )
     {
         perror(name);
@@ -337,7 +377,7 @@ void append_note(NOTE_DATA *pnote)
         fprintf( fp, "Text\n%s~\n", pnote->text);
         fclose( fp );
     }
-    fpReserve = fopen( NULL_FILE, "r" );
+    openReserve();
 }
 
 bool is_note_to( CHAR_DATA *ch, NOTE_DATA *pnote )
@@ -382,9 +422,7 @@ void note_attach( CHAR_DATA *ch, int type )
     return;
 }
 
-
-
-void note_remove( CHAR_DATA *ch, NOTE_DATA *pnote, bool delete)
+void note_remove( CHAR_DATA *ch, NOTE_DATA *pnote, bool idelete)
 {
     char to_new[MAX_INPUT_LENGTH];
     char to_one[MAX_INPUT_LENGTH];
@@ -392,7 +430,7 @@ void note_remove( CHAR_DATA *ch, NOTE_DATA *pnote, bool delete)
     NOTE_DATA **list;
     char *to_list;
 
-    if (!delete)
+    if (!idelete)
     {
 	/* make a new list */
         to_new[0]	= '\0';

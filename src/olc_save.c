@@ -916,7 +916,8 @@ void save_area( AREA_DATA *pArea )
 {
 	FILE *fp;
 
-	fclose( fpReserve );
+	closeReserve();
+
 	if ( !( fp = fopen( pArea->file_name, "w" ) ) )
 	{
 	bug( "Open_area: fopen", 0 );
@@ -945,7 +946,7 @@ void save_area( AREA_DATA *pArea )
 	fprintf( fp, "#$\n" );
 
 	fclose( fp );
-	fpReserve = fopen( NULL_FILE, "r" );
+	openReserve();
 	return;
 }
 
