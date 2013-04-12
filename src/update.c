@@ -63,25 +63,21 @@ int	save_number = 0;
  */
 void advance_level( CHAR_DATA *ch, bool hide )
 {
-	int add_hp;
-	int add_mana;
-	int add_move;
-	int add_prac;
+	int add_hp = 0;
+	int add_mana = 0;
+	int add_move = 0;
+	int add_prac = 0;
 
 	ch->pcdata->last_level = 
 	( ch->played + (int) (current_time - ch->logon) ) / 3600;
 
 	set_title( ch, (char *)Format("the %s", title_table [ch->iclass] [ch->level] [ch->sex == SEX_FEMALE ? 1 : 0]) );
 
-	add_hp	= con_app[get_curr_stat(ch,STAT_CON)].hitp + number_range(
-			class_table[ch->iclass].hp_min,
-			class_table[ch->iclass].hp_max );
-	add_mana 	= number_range(2,(2*get_curr_stat(ch,STAT_INT)
-				  + get_curr_stat(ch,STAT_WIS))/5);
+	add_hp	= con_app[get_curr_stat(ch,STAT_CON)].hitp + number_range( class_table[ch->iclass].hp_min, class_table[ch->iclass].hp_max );
+	add_mana 	= number_range(2,(2*get_curr_stat(ch,STAT_INT) + get_curr_stat(ch,STAT_WIS))/5);
 	if (!class_table[ch->iclass].fMana)
-	add_mana /= 2;
-	add_move	= number_range( 1, (get_curr_stat(ch,STAT_CON)
-				  + get_curr_stat(ch,STAT_DEX))/6 );
+		add_mana /= 2;
+	add_move	= number_range( 1, (get_curr_stat(ch,STAT_CON) + get_curr_stat(ch,STAT_DEX))/6 );
 	add_prac	= wis_app[get_curr_stat(ch,STAT_WIS)].practice;
 
 	add_hp = add_hp * 9/10;
@@ -105,8 +101,11 @@ void advance_level( CHAR_DATA *ch, bool hide )
 	if (!hide)
 	{
 		send_to_char( Format("You gain %d hit point%s, %d mana, %d move, and %d practice%s.\n\r",
-		add_hp, add_hp == 1 ? "" : "s", add_mana, add_move, add_prac, add_prac == 1 ? "" : "s"), ch );
+			add_hp, add_hp == 1 ? "" : "s", add_mana, add_move, add_prac, add_prac == 1 ? "" : "s"), ch );
 	}
+
+	// Log when a player advances a level.
+	log_string(Format("%s has advanced a level.", ch->name ) );
 	return;
 }   
 
