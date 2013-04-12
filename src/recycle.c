@@ -510,6 +510,9 @@ bool add_buf(BUFFER *buffer, char *string)
 	char *oldstr;
 	int oldsize = buffer->size;
 
+	if(IS_NULLSTR(string))
+		return false;
+
 	oldstr = buffer->string;
 
 	if (buffer->state == BUFFER_OVERFLOW) /* don't waste time on bad strings! */
