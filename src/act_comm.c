@@ -1688,87 +1688,84 @@ void do_order( CHAR_DATA *ch, char *argument )
 
 void do_group( CHAR_DATA *ch, char *argument )
 {
-		char buf[MSL]={'\0'};
-		char arg[MAX_INPUT_LENGTH];
-		CHAR_DATA *victim;
+	char arg[MAX_INPUT_LENGTH];
+	CHAR_DATA *victim;
 
-		one_argument( argument, arg );
+	one_argument( argument, arg );
 
-		if ( IS_NULLSTR(arg) )
-		{
-	CHAR_DATA *gch;
-	CHAR_DATA *leader;
-
-	leader = (ch->leader != NULL) ? ch->leader : ch;
-	send_to_char( Format("%s's group:\n\r", PERS(leader, ch)), ch );
-
-	for ( gch = char_list; gch != NULL; gch = gch->next )
+	if ( IS_NULLSTR(arg) )
 	{
+		CHAR_DATA *gch;
+		CHAR_DATA *leader;
+
+		leader = (ch->leader != NULL) ? ch->leader : ch;
+		send_to_char( Format("%s's group:\n\r", PERS(leader, ch)), ch );
+
+		for ( gch = char_list; gch != NULL; gch = gch->next )
+		{
 			if ( is_same_group( gch, ch ) )
 			{
-		sprintf( buf,
-		"[%2d %s] %-16s %4d/%4d hp %4d/%4d mana %4d/%4d mv %5d xp\n\r",
-				gch->level,
-				IS_NPC(gch) ? "Mob" : class_table[gch->iclass].who_name,
-				capitalize( PERS(gch, ch) ),
-				gch->hit,   gch->max_hit,
-				gch->mana,  gch->max_mana,
-				gch->move,  gch->max_move,
-				gch->exp    );
-		send_to_char( buf, ch );
+				send_to_char( Format("[%2d %s] %-16s %4d/%4d hp %4d/%4d mana %4d/%4d mv %5d xp\n\r",
+					gch->level,
+					IS_NPC(gch) ? "Mob" : class_table[gch->iclass].who_name,
+					capitalize( PERS(gch, ch) ),
+					gch->hit,   gch->max_hit,
+					gch->mana,  gch->max_mana,
+					gch->move,  gch->max_move,
+					gch->exp), ch );
 			}
-	}
-	return;
 		}
-
-		if ( ( victim = get_char_room( ch, arg ) ) == NULL )
-		{
-	send_to_char( "They aren't here.\n\r", ch );
-	return;
-		}
-
-		if ( ch->master != NULL || ( ch->leader != NULL && ch->leader != ch ) )
-		{
-	send_to_char( "But you are following someone else!\n\r", ch );
-	return;
-		}
-
-		if ( victim->master != ch && ch != victim )
-		{
-	act_new("$N isn't following you.",ch,NULL,victim,TO_CHAR,POS_SLEEPING);
-	return;
-		}
-		
-		if (IS_AFFECTED(victim,AFF_CHARM))
-		{
-				send_to_char("You can't remove charmed mobs from your group.\n\r",ch);
-				return;
-		}
-		
-		if (IS_AFFECTED(ch,AFF_CHARM))
-		{
-			act_new("You like your master too much to leave $m!",
-			ch,NULL,victim,TO_VICT,POS_SLEEPING);
-			return;
-		}
-
-		if ( is_same_group( victim, ch ) && ch != victim )
-		{
-	victim->leader = NULL;
-	act_new("$n removes $N from $s group.",
-			ch,NULL,victim,TO_NOTVICT,POS_RESTING);
-	act_new("$n removes you from $s group.",
-			ch,NULL,victim,TO_VICT,POS_SLEEPING);
-	act_new("You remove $N from your group.",
-			ch,NULL,victim,TO_CHAR,POS_SLEEPING);
-	return;
-		}
-
-		victim->leader = ch;
-		act_new("$N joins $n's group.",ch,NULL,victim,TO_NOTVICT,POS_RESTING);
-		act_new("You join $n's group.",ch,NULL,victim,TO_VICT,POS_SLEEPING);
-		act_new("$N joins your group.",ch,NULL,victim,TO_CHAR,POS_SLEEPING);
 		return;
+	}
+
+	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
+	{
+		send_to_char( "They aren't here.\n\r", ch );
+		return;
+	}
+
+	if ( ch->master != NULL || ( ch->leader != NULL && ch->leader != ch ) )
+	{
+		send_to_char( "But you are following someone else!\n\r", ch );
+		return;
+	}
+
+	if ( victim->master != ch && ch != victim )
+	{
+		act_new("$N isn't following you.",ch,NULL,victim,TO_CHAR,POS_SLEEPING);
+		return;
+	}
+
+	if (IS_AFFECTED(victim,AFF_CHARM))
+	{
+		send_to_char("You can't remove charmed mobs from your group.\n\r",ch);
+		return;
+	}
+
+	if (IS_AFFECTED(ch,AFF_CHARM))
+	{
+		act_new("You like your master too much to leave $m!",
+			ch,NULL,victim,TO_VICT,POS_SLEEPING);
+		return;
+	}
+
+	if ( is_same_group( victim, ch ) && ch != victim )
+	{
+		victim->leader = NULL;
+		act_new("$n removes $N from $s group.",
+			ch,NULL,victim,TO_NOTVICT,POS_RESTING);
+		act_new("$n removes you from $s group.",
+			ch,NULL,victim,TO_VICT,POS_SLEEPING);
+		act_new("You remove $N from your group.",
+			ch,NULL,victim,TO_CHAR,POS_SLEEPING);
+		return;
+	}
+
+	victim->leader = ch;
+	act_new("$N joins $n's group.",ch,NULL,victim,TO_NOTVICT,POS_RESTING);
+	act_new("You join $n's group.",ch,NULL,victim,TO_VICT,POS_SLEEPING);
+	act_new("$N joins your group.",ch,NULL,victim,TO_CHAR,POS_SLEEPING);
+	return;
 }
 
 
@@ -1778,120 +1775,114 @@ void do_group( CHAR_DATA *ch, char *argument )
  */
 void do_split( CHAR_DATA *ch, char *argument )
 {
-		char buf[MSL]={'\0'};
-		char arg1[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
-		CHAR_DATA *gch;
-		int members;
-		int amount_gold = 0, amount_silver = 0;
-		int share_gold, share_silver;
-		int extra_gold, extra_silver;
+	char buf[MSL]={'\0'};
+	char arg1[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
+	CHAR_DATA *gch;
+	int members;
+	int amount_gold = 0, amount_silver = 0;
+	int share_gold, share_silver;
+	int extra_gold, extra_silver;
 
-		argument = one_argument( argument, arg1 );
-				 one_argument( argument, arg2 );
+	argument = one_argument( argument, arg1 );
+	one_argument( argument, arg2 );
 
-		if ( IS_NULLSTR(arg1) )
-		{
-	send_to_char( "Split how much?\n\r", ch );
-	return;
-		}
-		
-		amount_silver = atoi( arg1 );
-
-		if (!IS_NULLSTR(arg2))
-	amount_gold = atoi(arg2);
-
-		if ( amount_gold < 0 || amount_silver < 0)
-		{
-	send_to_char( "Your group wouldn't like that.\n\r", ch );
-	return;
-		}
-
-		if ( amount_gold == 0 && amount_silver == 0 )
-		{
-	send_to_char( "You hand out zero coins, but no one notices.\n\r", ch );
-	return;
-		}
-
-		if ( ch->gold <  amount_gold || ch->silver < amount_silver)
-		{
-	send_to_char( "You don't have that much to split.\n\r", ch );
-	return;
-		}
-	
-		members = 0;
-		for ( gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room )
-		{
-	if ( is_same_group( gch, ch ) && !IS_AFFECTED(gch,AFF_CHARM))
-			members++;
-		}
-
-		if ( members < 2 )
-		{
-	send_to_char( "Just keep it all.\n\r", ch );
-	return;
-		}
-			
-		share_silver = amount_silver / members;
-		extra_silver = amount_silver % members;
-
-		share_gold   = amount_gold / members;
-		extra_gold   = amount_gold % members;
-
-		if ( share_gold == 0 && share_silver == 0 )
-		{
-	send_to_char( "Don't even bother, cheapskate.\n\r", ch );
-	return;
-		}
-
-		ch->silver	-= amount_silver;
-		ch->silver	+= share_silver + extra_silver;
-		ch->gold 	-= amount_gold;
-		ch->gold 	+= share_gold + extra_gold;
-
-		if (share_silver > 0)
-		{
-	sprintf(buf,
-			"You split %d silver coins. Your share is %d silver.\n\r",
-			amount_silver,share_silver + extra_silver);
-	send_to_char(buf,ch);
-		}
-
-		if (share_gold > 0)
-		{
-	sprintf(buf,
-			"You split %d gold coins. Your share is %d gold.\n\r",
-			 amount_gold,share_gold + extra_gold);
-	send_to_char(buf,ch);
-		}
-
-		if (share_gold == 0)
-		{
-	sprintf(buf,"$n splits %d silver coins. Your share is %d silver.",
-		amount_silver,share_silver);
-		}
-		else if (share_silver == 0)
-		{
-	sprintf(buf,"$n splits %d gold coins. Your share is %d gold.",
-		amount_gold,share_gold);
-		}
-		else
-		{
-	sprintf(buf,
-"$n splits %d silver and %d gold coins, giving you %d silver and %d gold.\n\r",
-	 amount_silver,amount_gold,share_silver,share_gold);
-		}
-
-		for ( gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room )
-		{
-	if ( gch != ch && is_same_group(gch,ch) && !IS_AFFECTED(gch,AFF_CHARM))
+	if ( IS_NULLSTR(arg1) )
 	{
+		send_to_char( "Split how much?\n\r", ch );
+		return;
+	}
+
+	amount_silver = atoi( arg1 );
+
+	if (!IS_NULLSTR(arg2))
+		amount_gold = atoi(arg2);
+
+	if ( amount_gold < 0 || amount_silver < 0)
+	{
+		send_to_char( "Your group wouldn't like that.\n\r", ch );
+		return;
+	}
+
+	if ( amount_gold == 0 && amount_silver == 0 )
+	{
+		send_to_char( "You hand out zero coins, but no one notices.\n\r", ch );
+		return;
+	}
+
+	if ( ch->gold <  amount_gold || ch->silver < amount_silver)
+	{
+		send_to_char( "You don't have that much to split.\n\r", ch );
+		return;
+	}
+	
+	members = 0;
+	for ( gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room )
+	{
+		if ( is_same_group( gch, ch ) && !IS_AFFECTED(gch,AFF_CHARM))
+			members++;
+	}
+
+	if ( members < 2 )
+	{
+		send_to_char( "Just keep it all.\n\r", ch );
+		return;
+	}
+
+	share_silver = amount_silver / members;
+	extra_silver = amount_silver % members;
+
+	share_gold   = amount_gold / members;
+	extra_gold   = amount_gold % members;
+
+	if ( share_gold == 0 && share_silver == 0 )
+	{
+		send_to_char( "Don't even bother, cheapskate.\n\r", ch );
+		return;
+	}
+
+	ch->silver	-= amount_silver;
+	ch->silver	+= share_silver + extra_silver;
+	ch->gold 	-= amount_gold;
+	ch->gold 	+= share_gold + extra_gold;
+
+	if (share_silver > 0)
+	{
+		send_to_char( Format("You split %d silver coins. Your share is %d silver.\n\r", amount_silver,share_silver + extra_silver), ch);
+	}
+
+	if (share_gold > 0)
+	{
+		send_to_char( Format("You split %d gold coins. Your share is %d gold.\n\r", amount_gold,share_gold + extra_gold), ch);
+	}
+
+	if (share_gold == 0)
+	{
+		sprintf(buf,"$n splits %d silver coins. Your share is %d silver.",
+			amount_silver,share_silver);
+	}
+	else if (share_silver == 0)
+	{
+		sprintf(buf,"$n splits %d gold coins. Your share is %d gold.",
+			amount_gold,share_gold);
+	}
+	else
+	{
+		sprintf(buf,
+			"$n splits %d silver and %d gold coins, giving you %d silver and %d gold.\n\r",
+			amount_silver,amount_gold,share_silver,share_gold);
+	}
+
+	for ( gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room )
+	{
+		if ( gch != ch && is_same_group(gch,ch) && !IS_AFFECTED(gch,AFF_CHARM))
+		{
 			act( buf, ch, NULL, gch, TO_VICT );
 			gch->gold += share_gold;
 			gch->silver += share_silver;
-	}
 		}
+	}
 
-		return;
+	return;
 }
 
 
