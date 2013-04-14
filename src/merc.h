@@ -36,7 +36,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
 #include "protocol.h"
 
 // for MAC OS support (Daves Computer compiling troubles :P)
@@ -2035,12 +2034,10 @@ extern      BAN_DATA      * ban_list;
 
 extern		MPROG_CODE	  *	mprog_list;
 
-extern		char			bug_buf		[];
 extern		time_t			current_time;
 extern		bool			fLogAll;
 extern		FILE *			fpReserve;
 extern		KILL_DATA		kill_table	[];
-extern		char			log_buf		[];
 extern		TIME_INFO_DATA		time_info;
 extern		WEATHER_DATA		weather_info;
 extern		bool			MOBtrigger;
@@ -2216,7 +2213,7 @@ void    get_obj         args( ( CHAR_DATA *ch, OBJ_DATA *obj,
 							OBJ_DATA *container ) );
 
 /* act_wiz.c */
-void wiznet		args( (char *string, CHAR_DATA *ch, OBJ_DATA *obj,
+void wiznet		args( (const char *string, CHAR_DATA *ch, OBJ_DATA *obj,
 				   long flag, long flag_skip, int min_level ) );
 /* alias.c */
 void 	substitute_alias args( (DESCRIPTOR_DATA *d, char *input) );
@@ -2251,7 +2248,6 @@ CD *	create_mobile	args( ( MOB_INDEX_DATA *pMobIndex ) );
 void	clone_mobile	args( ( CHAR_DATA *parent, CHAR_DATA *clone) );
 OD *	create_object	args( ( OBJ_INDEX_DATA *pObjIndex, int level ) );
 void	clone_object	args( ( OBJ_DATA *parent, OBJ_DATA *clone ) );
-void	clear_char	args( ( CHAR_DATA *ch ) );
 char *	get_extra_descr	args( ( const char *name, EXTRA_DESCR_DATA *ed ) );
 MID *	get_mob_index	args( ( int vnum ) );
 OID *	get_obj_index	args( ( int vnum ) );
@@ -2359,7 +2355,11 @@ void	obj_to_room	args( ( OBJ_DATA *obj, ROOM_INDEX_DATA *pRoomIndex ) );
 void	obj_to_obj	args( ( OBJ_DATA *obj, OBJ_DATA *obj_to ) );
 void	obj_from_obj	args( ( OBJ_DATA *obj ) );
 void	extract_obj	args( ( OBJ_DATA *obj ) );
-void	extract_char	args( ( CHAR_DATA *ch, bool fPull ) );
+
+// to allow for debugging
+void	_extract_char	args( ( CHAR_DATA *ch, bool fPull, const char *file, const char *function, int line ) );
+#define extract_char(ch, fPull) _extract_char( (ch), (fPull), __FILE__, __FUNCTION__, __LINE__ )
+
 CD *	get_char_room	args( ( CHAR_DATA *ch, char *argument ) );
 CD *	get_char_world	args( ( CHAR_DATA *ch, char *argument ) );
 OD *	get_obj_type	args( ( OBJ_INDEX_DATA *pObjIndexData ) );
@@ -2397,6 +2397,8 @@ void purgeExtractedWorldData  args ( (void) );
 bool isDirectoryEmpty(const char *dirname);
 void openReserve(void);
 void closeReserve(void);
+void buildDirectories();
+const char *getVersion ( void );
 
 /* interp.c */
 void	interpret	args( ( CHAR_DATA *ch, char *argument ) );

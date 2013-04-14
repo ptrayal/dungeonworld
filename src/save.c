@@ -898,8 +898,14 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 	case 'C':
 		KEY( "Class",	ch->iclass,		fread_number( fp ) );
 		KEY( "Cla",		ch->iclass,		fread_number( fp ) );
-		KEY( "Clan",	ch->clan,	clan_lookup(fread_string(fp)));
-
+		if(!str_cmp(word, "Clan")) { 	// prevented memory leak (Omega)
+			const char *c_name = fread_string(fp);
+			int c_num = clan_lookup(c_name);
+			PURGE_DATA(c_name);
+			ch->clan = c_num;
+			fMatch = true;
+			break;
+		}
 		if ( !str_cmp( word, "Condition" ) || !str_cmp(word,"Cond"))
 		{
 		ch->pcdata->condition[0] = fread_number( fp );
@@ -1045,8 +1051,14 @@ void fread_char( CHAR_DATA *ch, FILE *fp )
 		break;
 
 	case 'R':
-		KEY( "Race",        ch->race,	
-				race_lookup(fread_string( fp )) );
+		if(!str_cmp(word, "Race")) {
+			const char *r_name = fread_string(fp);
+			int r_num = race_lookup(r_name);
+			PURGE_DATA(r_name);
+			ch->race = r_num;
+			fMatch = true;
+			break;
+		}
 
 		if ( !str_cmp( word, "Room" ) )
 		{
@@ -1269,7 +1281,14 @@ void fread_pet( CHAR_DATA *ch, FILE *fp )
 			break;
 			 
 		 case 'C':
-			 KEY( "Clan",       pet->clan,       clan_lookup(fread_string(fp)));
+		 	if(!str_cmp(word, "Clan")) {
+		 		const char *c_name = fread_string(fp);
+		 		int c_num = clan_lookup(c_name);
+		 		PURGE_DATA(c_name);
+		 		pet->clan = c_num;
+		 		fMatch = true;
+		 		break;
+		 	}
 			 KEY( "Comm",	pet->comm,		fread_flag(fp));
 			 break;
 			 
@@ -1335,7 +1354,14 @@ void fread_pet( CHAR_DATA *ch, FILE *fp )
 			 break;
 			 
 	case 'R':
-			KEY( "Race",	pet->race, race_lookup(fread_string(fp)));
+			if(!str_cmp(word, "Race")) {
+				const char *r_name = fread_string(fp);
+				int r_num = race_lookup(r_name);
+				PURGE_DATA(r_name);
+				pet->race = r_num;
+				fMatch = true;
+				break;
+			}
 			break;
 		
 		case 'S' :

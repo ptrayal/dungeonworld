@@ -30,7 +30,7 @@
 /* this is a listing of all the commands and command related data */
 
 /* wrapper function for safe command execution */
-void do_function args((CHAR_DATA *ch, DO_FUN *do_fun, char *argument));
+void do_function args((CHAR_DATA *ch, DO_FUN *do_fun, const char *argument));
 
 /* for command types */
 #define ML 	MAX_LEVEL	/* implementor */

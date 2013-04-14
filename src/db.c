@@ -93,10 +93,8 @@ NOTE_DATA *		note_free;
 
 MPROG_CODE *		mprog_list;
 
-char			bug_buf		[2*MAX_INPUT_LENGTH];
 CHAR_DATA *		char_list;
 char *			help_greeting;
-char			log_buf		[2*MAX_INPUT_LENGTH];
 KILL_DATA		kill_table	[MAX_LEVEL];
 NOTE_DATA *		note_list;
 OBJ_DATA *		object_list;
@@ -413,6 +411,12 @@ void boot_db( void )
 	load_songs();
 	load_wizlist();
 	}
+
+    if ( !help_greeting )             /* Hugin */
+    {
+            bug( "boot_db: No help_greeting read.", 0 );
+            help_greeting = "By what name do you wish to be known ? ";
+    }
 
 	return;
 }
@@ -1538,6 +1542,7 @@ void reset_world(void)
 	{
 		pArea_next = pArea->next;
 		reset_area( pArea );
+		pArea->age = number_range( 0, 3 );	// potential glitch fix of broken ages (so the mud will update properly)
 	}
 	return;
 }
@@ -2447,41 +2452,6 @@ void clone_object(OBJ_DATA *parent, OBJ_DATA *clone)
 }
 
 
-
-/*
- * Clear a new character.
- */
-void clear_char( CHAR_DATA *ch )
-{
-	static CHAR_DATA ch_zero;
-	int i;
-
-	*ch				= ch_zero;
-	ch->name			= &str_empty[0];
-	ch->short_descr		= &str_empty[0];
-	ch->long_descr		= &str_empty[0];
-	ch->description		= &str_empty[0];
-	ch->prompt                  = &str_empty[0];
-	ch->logon			= current_time;
-	ch->lines			= PAGELEN;
-	for (i = 0; i < 4; i++)
-		ch->armor[i]		= 100;
-	ch->position		= POS_STANDING;
-	ch->hit			= 20;
-	ch->max_hit			= 20;
-	ch->mana			= 100;
-	ch->max_mana		= 100;
-	ch->move			= 100;
-	ch->max_move		= 100;
-	ch->on			= NULL;
-	for (i = 0; i < MAX_STATS; i ++)
-	{
-	ch->perm_stat[i] = 13; 
-	ch->mod_stat[i] = 0;
-	}
-	return;
-}
-
 /*
  * Get an extra description from a list.
  */
@@ -2494,8 +2464,6 @@ char *get_extra_descr( const char *name, EXTRA_DESCR_DATA *ed )
 	}
 	return NULL;
 }
-
-
 
 /*
  * Translates mob virtual number to its mob index struct.
@@ -3598,9 +3566,7 @@ const char *Format(const char *fmt, ...)
     int length = vsnprintf ( textString, MSL*5, fmt, args );
     va_end ( args );
 
-    if(length == 0) {
-        log_string("Format had a boo-boo! 0 length string returned!  Suspect will cause corruption and/or crash!");
-    }
+	Assert(length, "Format had a boo-boo, 0 length string returned, suspect will cause corruption and will now crash!");
 
     return textString;
 }
@@ -3639,7 +3605,7 @@ char *CapitalSentence(const char *str)
 }
 
 #ifdef ASSERT
-void AssertLog(const std::string &str) {
+void AssertLog(const char *str) {
     closeReserve();
 	FILE *fp = fopen("Assert.log", "a");
 	if(fp) {

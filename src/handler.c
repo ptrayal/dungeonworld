@@ -30,6 +30,7 @@
 #else
 #include <sys/types.h>
 #endif
+#include <sys/stat.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -40,6 +41,8 @@
 #include "magic.h"
 #include "recycle.h"
 #include "tables.h"
+#include "version.h"
+
 
 /*
  * Local functions.
@@ -1903,7 +1906,7 @@ void extract_obj( OBJ_DATA *obj )
 /*
  * Extract a char from the world.
  */
-void extract_char( CHAR_DATA *ch, bool fPull )
+void _extract_char( CHAR_DATA *ch, bool fPull, const char *file, const char *function, int line )
 {
 	CHAR_DATA *wch;
 	OBJ_DATA *obj;
@@ -1969,8 +1972,8 @@ void extract_char( CHAR_DATA *ch, bool fPull )
 		}
 
 		if ( prev == NULL )
-		{
-			bug( "Extract_char: char not found.", 0 );
+		{   // unbreak the system and allow further debugging
+			bug( Format("Extract_char: char not found: called from %s %s %d", file, function, line), 0 );
 			return;
 		}
 	}
@@ -2887,25 +2890,6 @@ char *off_bit_name(int off_flags)
 	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
-void purgeExtractedWorldData(void)
-{
-	CHAR_DATA *ch, *ch_next;
-	OBJ_DATA *obj, *obj_next;
-
-	for(ch = worldExtractedCharacters; ch; ch = ch_next)
-	{
-		ch_next = ch->next;
-		UNLINK_SINGLE(ch, next, CHAR_DATA, worldExtractedCharacters);
-		free_char(ch);
-	}
-	for(obj = worldExtractedObjects; obj; obj = obj_next)
-	{
-		obj_next = obj->next;
-		UNLINK_SINGLE(obj, next, OBJ_DATA, worldExtractedObjects);
-		free_obj(obj);
-	}
-}
-
 bool isDirectoryEmpty(const char *dirname) {
   int n = 0;
   struct dirent *d;
@@ -2921,4 +2905,71 @@ bool isDirectoryEmpty(const char *dirname) {
     return true;
 
 	return false;
+}
+
+const char *issueSystemCommand(const char *argument)
+{
+        FILE *read_fp;
+        static char buffer[MSL*2];
+        int chars_read;
+ 
+        if(IS_NULLSTR(argument)) {
+                return "issueSystemCommand: called without an empty argument.";
+        }
+
+        memset(buffer, '\0', sizeof(buffer));
+        read_fp = popen(argument, "r");
+ 
+        if(read_fp != NULL)
+        {
+                chars_read = fread(buffer, sizeof(char), MSL *2, read_fp);
+                if(chars_read > 0)
+                {
+                        return buffer;
+                }
+                pclose(read_fp);
+                read_fp = NULL;
+        }
+ 
+        return "Pipe failed to return appropriate system command!";
+}
+
+void buildDirectories()
+{
+	const char *directory_table[] = {
+		PLAYER_DIR,
+		GOD_DIR,
+		NULL
+	};
+	int dl = 0;
+	// build our directories!
+    for ( dl = 0; directory_table[dl] != NULL; dl++ ) {
+            struct stat st;
+            // does our directory exit ?  If not, MAKE IT!
+            if ( stat ( directory_table[dl], &st ) != 0 ) {
+                    issueSystemCommand ( Format("mkdir %s", directory_table[dl] ) );
+            }
+    }
+}
+
+const char *getVersion ( void ) {
+	static char versionNumber[200];
+	unsigned long x = 0;
+	int major, minor, revision;
+	major = minor = revision = 0;
+	while ( x < mudVersion ) { // sentinel will take care of this.
+		revision++;
+		if ( revision >= 100 ) {
+			revision = 0;
+			minor++;
+			if ( minor >= 100 ) {
+				major++;
+				minor = 0;
+			}
+		}
+		x++;
+	}
+	// create our version display string. x.y.z (build: w)
+	snprintf ( versionNumber, 200, "%02d.%02d.%02d (build: %ld)", major, minor, revision, mudVersion );
+	return versionNumber;
 }

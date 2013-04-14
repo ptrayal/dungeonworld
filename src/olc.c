@@ -24,6 +24,7 @@
 #include <string.h>
 #include <time.h>
 #include "merc.h"
+#include "recycle.h"
 #include "tables.h"
 #include "olc.h"
 
@@ -1373,12 +1374,20 @@ void do_resets( CHAR_DATA *ch, char *argument )
 		    OBJ_INDEX_DATA *temp;
 
 		    temp = get_obj_index(is_number(arg5) ? atoi(arg5) : 1);
+
+      		if (!temp) /* prevent the crash*/
+      		{
+          		send_to_char( "Couldn't find Object 2.\n\r",ch);
+          		return;      
+      		}
+
 		    if ( ( temp->item_type != ITEM_CONTAINER ) &&
 		         ( temp->item_type != ITEM_CORPSE_NPC ) )
 		     {
 		       send_to_char( "Object 2 is not a container.\n\r", ch);
 		       return;
 		     }
+
 		    pReset->command = 'P';
 		    pReset->arg2    = is_number( arg6 ) ? atoi( arg6 ) : 1;
 		    pReset->arg3    = is_number( arg5 ) ? atoi( arg5 ) : 1;
@@ -1468,29 +1477,30 @@ void do_resets( CHAR_DATA *ch, char *argument )
  ****************************************************************************/
 void do_alist( CHAR_DATA *ch, char *argument )
 {
-    char buf    [ MSL ]={'\0'};
-    char result [ MSL*2 ]={'\0'};	/* May need tweaking. */
     AREA_DATA *pArea;
-
+	BUFFER *output;
+	
     if ( IS_NPC(ch) )
     	return;
 
-    sprintf( result, "[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]\n\r",
-       "Num", "Area Name", "lvnum", "uvnum", "Filename", "Sec", "Builders" );
+	output = new_buf();
+	
+	add_buf(output, Format("[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]\n\r",
+       "Num", "Area Name", "lvnum", "uvnum", "Filename", "Sec", "Builders" ) );
 
     for ( pArea = area_first; pArea; pArea = pArea->next )
     {
-	sprintf( buf, "[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\n\r",
+		add_buf(output, Format("[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\n\r",
 	     pArea->vnum,
 	     pArea->name,
 	     pArea->min_vnum,
 	     pArea->max_vnum,
 	     pArea->file_name,
 	     pArea->security,
-	     pArea->builders );
-	     strcat( result, buf );
+	     pArea->builders ) );
     }
 
-    send_to_char( result, ch );
+	page_to_char(buf_string(output), ch);
+	free_buf(output);
     return;
 }

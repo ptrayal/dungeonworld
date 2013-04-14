@@ -99,6 +99,16 @@ void scan_list(ROOM_INDEX_DATA *scan_room, CHAR_DATA *ch, sh_int depth,
    CHAR_DATA *rch;
 
    if (scan_room == NULL) return;
+   
+/*
+ * this used to cause a mysterious crash here, finally realized it was
+ * 'door' being -1, and rev_dir seems to have a problem with that...
+ * only acted up when it was done in a room with "extra" exits - Mull
+ */
+   if ( door != -1 && scan_room->exit[rev_dir[door]] != NULL
+   && IS_SET(scan_room->exit[rev_dir[door]]->exit_info,EX_CLOSED) )
+      return;
+   
    for (rch=scan_room->people; rch != NULL; rch=rch->next_in_room)
    {
       if (rch == ch) continue;

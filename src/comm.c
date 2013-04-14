@@ -569,6 +569,8 @@ int main( int argc, char **argv )
 	}
 	}
 
+	buildDirectories();
+
 	/*
 	 * Run the game.
 	 */
@@ -581,8 +583,7 @@ int main( int argc, char **argv )
 #if defined(unix)
 	control = init_socket( port );
 	boot_db( );
-	sprintf( log_buf, "ROM is ready to rock on port %d.", port );
-	log_string( log_buf );
+	log_string( Format("DungeonWorld(%s) is now running on port %d", getVersion(), port) );
 	game_loop_unix( control );
 	close (control);
 #endif
@@ -596,8 +597,6 @@ int main( int argc, char **argv )
 	exit( 0 );
 	return 0;
 }
-
-
 
 #if defined(unix)
 int init_socket( int port )
@@ -1112,10 +1111,9 @@ void init_descriptor( int control )
 		( addr >> 24 ) & 0xFF, ( addr >> 16 ) & 0xFF,
 		( addr >>  8 ) & 0xFF, ( addr       ) & 0xFF
 		);
-	sprintf( log_buf, "Sock.sinaddr:  %s", buf );
-	log_string( log_buf );
-	from = gethostbyaddr( (char *) &sock.sin_addr,
-		sizeof(sock.sin_addr), AF_INET );
+
+	log_string( Format("Sock.sinaddr: %s", buf) );
+	from = gethostbyaddr( (char *) &sock.sin_addr, sizeof(sock.sin_addr), AF_INET );
 	dnew->host = str_dup( from ? from->h_name : buf );
 	}
 	
@@ -1185,8 +1183,7 @@ void close_socket( DESCRIPTOR_DATA *dclose )
 
 	if ( ( ch = dclose->character ) != NULL )
 	{
-	sprintf( log_buf, "Closing link to %s.", ch->name );
-	log_string( log_buf );
+	log_string( Format("Closing link to %s.", ch->name ) );
 	/* cut down on wiznet spam when rebooting */
 	if ( dclose->connected == CON_PLAYING && !merc_down)
 	{
@@ -1249,8 +1246,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 	iStart = 0;
 	if ( strlen(d->inbuf) >= sizeof(d->inbuf) - 10 )
 	{
-	sprintf( log_buf, "%s input overflow!", d->host );
-	log_string( log_buf );
+	log_string( Format("%s input overflow!", d->host) );
 	write_to_descriptor( d->descriptor,
 		"\n\r*** PUT A LID ON IT!!! ***\n\r", 0 );
 	return FALSE;
@@ -1274,30 +1270,29 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 #endif
 
 #if defined(MSDOS) || defined(unix)
-	for ( ; ; )
+	while(true)
 	{
-	int nRead;
+		int nRead;
 
-	nRead = read( d->descriptor, read_buf + iStart,
-		sizeof(read_buf) - 10 - iStart );
-	if ( nRead > 0 )
-	{
-		iStart += nRead;
-		if ( read_buf[iStart-1] == '\n' || read_buf[iStart-1] == '\r' )
-		break;
-	}
-	else if ( nRead == 0 )
-	{
-		log_string( "EOF encountered on read." );
-		return FALSE;
-	}
-	else if ( errno == EWOULDBLOCK )
-		break;
-	else
-	{
-		perror( "Read_from_descriptor" );
-		return FALSE;
-	}
+		nRead = read( d->descriptor, read_buf + iStart, sizeof(read_buf) - 10 - iStart );
+		if ( nRead > 0 )
+		{
+			iStart += nRead;
+			if ( read_buf[iStart-1] == '\n' || read_buf[iStart-1] == '\r' )
+				break;
+		}
+		else if ( nRead == 0 )
+		{
+			log_string( "EOF encountered on read." );
+			return FALSE;
+		}
+		else if ( errno == EWOULDBLOCK )
+			break;
+		else
+		{
+			perror( "Read_from_descriptor" );
+			return FALSE;
+		}
 	}
 #endif
 
@@ -1378,8 +1373,7 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 		if (++d->repeat >= 25 && d->character
 		&&  d->connected == CON_PLAYING)
 		{
-		sprintf( log_buf, "%s input spamming!", d->host );
-		log_string( log_buf );
+		log_string( Format("%s input spamming!", d->host) );
 		wiznet("Spam spam spam $N spam spam spam spam spam!",
 			   d->character,NULL,WIZ_SPAM,0,get_trust(d->character));
 		if (d->incomm[0] == '!')
@@ -1542,7 +1536,7 @@ void bust_a_prompt( CHAR_DATA *ch )
 
 	point = buf;
 	str = ch->prompt;
-	if (str == NULL || str[0] == '\0')
+	if (IS_NULLSTR(str))
 	{
 		send_to_char(Format("<%dhp %dm %dmv> %s", ch->hit,ch->mana,ch->move,ch->prefix),ch);
 		return;
@@ -1583,7 +1577,7 @@ void bust_a_prompt( CHAR_DATA *ch )
 				}
 			}
 			if (!found)
-				strcat(buf,"none");
+				strcpy(doors,"none");
 			sprintf(buf2,"%s",doors);
 			i = buf2; break;
 			case 'c' :
@@ -1763,36 +1757,21 @@ bool write_to_descriptor( int desc, char *txt, int length )
 	return TRUE;
 }
 
-
-
-/*
- * Deal with sockets that haven't logged in yet.
- */
-void nanny( DESCRIPTOR_DATA *d, char *argument )
-{
-	DESCRIPTOR_DATA *d_old, *d_next;
-	char buf[MSL]={'\0'};
-	char arg[MAX_INPUT_LENGTH];
-	CHAR_DATA *ch;
-	char *pwdnew;
-	char *p;
-	int iClass,race,i,weapon;
-	bool fOld;
-
-	while ( isspace(*argument) )
-	argument++;
-
-	ch = d->character;
-
-	switch ( d->connected )
-	{
-
-	default:
-	bug( "Nanny: bad d->connected %d.", d->connected );
+void nanny_unknown_state(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	// if it has a character
+	if(ch) {
+		bug(Format("Nanny: bad d->connected(%d) has character data! %p | argument '%s'.", d->connected, ch, IS_NULLSTR(argument) ? "{null}" : argument), 0);
+		send_to_char("Something has gone horribly wrong! Please reconnect!\n\r", ch);
+	}
+	else {
+		bug( Format("Nanny: bad d->connected(%d) | argument '%s'.", d->connected, IS_NULLSTR(argument) ? "{null}" : argument ), 0 );
+	}
 	close_socket( d );
 	return;
+}
 
-	case CON_GET_NAME:
+void nanny_get_name(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	bool fOld = false;
 	if ( argument[0] == '\0' )
 	{
 		close_socket( d );
@@ -1811,8 +1790,7 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 
 	if (IS_SET(ch->act, PLR_DENY))
 	{
-		sprintf( log_buf, "Denying access to %s@%s.", argument, d->host );
-		log_string( log_buf );
+		log_string( Format("Denying access to %s@%s.", argument, d->host) );
 		write_to_buffer( d, "You are denied access.\n\r", 0 );
 		close_socket( d );
 		return;
@@ -1859,31 +1837,94 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 
 		if (check_ban(d->host,BAN_NEWBIES))
 		{
-		write_to_buffer(d,
-			"New players are not allowed from your site.\n\r",0);
-		close_socket(d);
-		return;
+			write_to_buffer(d,"New players are not allowed from your site.\n\r",0);
+			close_socket(d);
+			return;
 		}
 	
-		sprintf( buf, "Did I get that right, %s (Y/N)? ", argument );
-		write_to_buffer( d, buf, 0 );
+		DESCRIPTOR_DATA *dt, *dt_next;
+		/* toast evil cheating bastards */
+		for (dt = descriptor_list; dt != NULL; dt = dt_next)
+		{
+			CHAR_DATA *tch;
+
+			dt_next = dt->next;
+			tch = dt->original ? dt->original : dt->character;
+			if(dt == d) continue;
+			
+			/*
+				Jist of whats to come; we are searching for identical name's used during creation.
+				until the character file is saved, you can make hundreds of people using the same name
+				and corrupt the system, this will detect that attempt, disconnect the users.
+				
+				This is just a small glitch fix. Hopefully it doesn't create any problems in the process
+				of de-glitching and preventing this exploit.
+			*/
+			
+			if(tch == ch) continue; // don't bugger with the same character data.
+			
+			// must be the same name as the character for the argument
+			if (tch && !str_cmp(tch->name, argument))
+			{
+				// find all of the same HOST using the SAME NAME then we know it isn't just two people trying the same
+				// name, which is a rare occurance to say the least.
+				if(!str_cmp(d->host, dt->host)) {
+					// search for other connections
+					DESCRIPTOR_DATA *o, *on;
+					for(o = descriptor_list; o != NULL; o = on) {
+						on = o->next;
+						if(o == d) continue;
+						if(o == dt) continue;
+												
+						if(!str_cmp(o->host, d->host)) {
+							// prevent corruption
+							if(o == dt_next)
+								dt_next = dt_next->next;
+							close_socket(o); // screw that noise.
+						}
+					}
+					
+					log_string(Format("Attempt to use the same name multiple times during creation has occured from host %s", dt->host));
+					write_to_buffer(dt, "Attempt to glitch the mud's character creation process has been logged!\n\r", 0);
+					close_socket(dt);
+					continue;
+				}
+
+				write_to_buffer(d, Format("Somebody is already in character creation using that name, please choose another.\n\rName: "), 0);
+				return;
+			} 
+		}
+	
+		write_to_buffer( d, Format("Did I get that right, %s (Y/N)? ", argument ), 0 );
 		d->connected = CON_CONFIRM_NEW_NAME;
 		return;
 	}
-	break;
+}
 
-	case CON_GET_OLD_PASSWORD:
+void nanny_get_old_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 #if defined(unix)
 	write_to_buffer( d, "\n\r", 2 );
 #endif
 
-	if ( strcmp( crypt( argument, ch->pcdata->pwd ), ch->pcdata->pwd ))
-	{
-		write_to_buffer( d, "Wrong password.\n\r", 0 );
-		close_socket( d );
+	// bigger problems then you want to imagine if this happens.
+	// oldschool rom would just let you login, however this problem
+	// only ever occurs if there is a pfile corruption, ie, didn't finish saving.
+	// so this lets them know there is a problem, they can contact the staff, and the
+	// staff can restore the pfile from a backup (if they have it)
+	//				-- just my two cents (Omega)
+	if(IS_NULLSTR(ch->pcdata->pwd)) {
+		write_to_buffer(d, "Your playerfile is corrupt!\n\rPlease contact the staff with character information so they may investigate.\n\rCheers -- The Staff\n\r", 0);
+		close_socket(d);
 		return;
-	}
- 
+	} else {
+		if ( strcmp( crypt( argument, ch->pcdata->pwd ), ch->pcdata->pwd ))
+		{
+			write_to_buffer( d, "Wrong password.\n\r", 0 );
+			close_socket( d );
+			return;
+		}
+ 	}
+ 	
 	ProtocolNoEcho( d, false );
 
 	if (check_playing(d,ch->name))
@@ -1892,9 +1933,8 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	if ( check_reconnect( d, ch->name, TRUE ) )
 		return;
 
-	sprintf( log_buf, "%s@%s has connected.", ch->name, d->host );
-	log_string( log_buf );
-	wiznet(log_buf,NULL,NULL,WIZ_SITES,0,get_trust(ch));
+	log_string( Format("%s@%s has connected.", ch->name, d->host) );
+	wiznet(Format("%s@%s has connected.", ch->name, d->host),NULL,NULL,WIZ_SITES,0,get_trust(ch));
 
 	if ( IS_IMMORTAL(ch) )
 	{
@@ -1906,15 +1946,15 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 		do_function(ch, &do_help, "motd" );
 		d->connected = CON_READ_MOTD;
 	}
-	break;
+	return;
+}
 
-/* RT code for breaking link */
- 
-	case CON_BREAK_CONNECT:
+void nanny_break_connect(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	DESCRIPTOR_DATA *d_old, *d_next;
 	switch( *argument )
 	{
 	case 'y' : case 'Y':
-			for ( d_old = descriptor_list; d_old != NULL; d_old = d_next )
+		for ( d_old = descriptor_list; d_old != NULL; d_old = d_next )
 		{
 		d_next = d_old->next;
 		if (d_old == d || d_old->character == NULL)
@@ -1951,16 +1991,36 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 		write_to_buffer(d,"Please type Y or N? ",0);
 		break;
 	}
-	break;
+}
 
-	case CON_CONFIRM_NEW_NAME:
+void nanny_confirm_new_name(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	DESCRIPTOR_DATA *dt, *dt_next;
 	switch ( *argument )
 	{
 	case 'y': case 'Y':
 		ProtocolNoEcho( d, true );
-		sprintf( buf, "New character.\n\rGive me a password for %s: ", ch->name );
-		write_to_buffer( d, buf, 0 );
+		write_to_buffer( d, Format("New character.\n\rGive me a password for %s: ", ch->name), 0 );
 		d->connected = CON_GET_NEW_PASSWORD;
+		for (dt = descriptor_list; dt != NULL; dt = dt_next)
+		{
+			CHAR_DATA *tch;
+
+			dt_next = dt->next;
+			tch = dt->original ? dt->original : dt->character;
+			if(dt == d) continue;
+			
+			if(!str_cmp(tch->name, d->character->name)) {
+				write_to_buffer(d, "Someone is already building a character with that name, please choose another: ", 0);
+				if ( d->character != NULL )
+				{
+					free_char( d->character );
+					d->character = NULL;
+				}
+				d->connected = CON_GET_NAME;
+				return;
+			}
+		}
+
 		break;
 
 	case 'n': case 'N':
@@ -1974,9 +2034,12 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 		write_to_buffer( d, "Please type Yes or No? ", 0 );
 		break;
 	}
-	break;
+} // end of my brackets
 
-	case CON_GET_NEW_PASSWORD:
+void nanny_get_new_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	char *pwdnew;
+	char *p;
+	
 #if defined(unix)
 	write_to_buffer( d, "\n\r", 2 );
 #endif
@@ -2005,9 +2068,10 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	ch->pcdata->pwd	= str_dup( pwdnew );
 	write_to_buffer( d, "Please retype password: ", 0 );
 	d->connected = CON_CONFIRM_NEW_PASSWORD;
-	break;
+}
 
-	case CON_CONFIRM_NEW_PASSWORD:
+void nanny_confirm_new_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	int race;
 #if defined(unix)
 	write_to_buffer( d, "\n\r", 2 );
 #endif
@@ -2032,9 +2096,14 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	write_to_buffer(d,"\n\r",0);
 	write_to_buffer(d,"What is your race (help for more information)? ",0);
 	d->connected = CON_GET_NEW_RACE;
-	break;
+}
 
-	case CON_GET_NEW_RACE:
+void nanny_get_new_race(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	int race, i;
+	char arg[MIL];
+	
+	race = i = 0;
+	
 	one_argument(argument,arg);
 
 	if (!strcmp(arg,"help"))
@@ -2046,7 +2115,7 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 		do_function(ch, &do_help, argument);
 			write_to_buffer(d,
 		"What is your race (help for more information)? ",0);
-		break;
+		return;
 	}
 
 	race = race_lookup(argument);
@@ -2062,10 +2131,9 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 				write_to_buffer(d,race_table[race].name,0);
 				write_to_buffer(d," ",1);
 			}
-			write_to_buffer(d,"\n\r",0);
-			write_to_buffer(d,
-		"What is your race? (help for more information) ",0);
-		break;
+			write_to_buffer(d, "\n\r",0);
+			write_to_buffer(d, "What is your race? (help for more information) ",0);
+			return;
 	}
 
 		ch->race = race;
@@ -2092,10 +2160,11 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 
 		write_to_buffer( d, "What is your sex (M/F)? ", 0 );
 		d->connected = CON_GET_NEW_SEX;
-		break;
-		
+}
 
-	case CON_GET_NEW_SEX:
+void nanny_get_new_sex(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	char class_buf[MSL] = {'\0'};
+	
 	switch ( argument[0] )
 	{
 	case 'm': case 'M': ch->sex = SEX_MALE;    
@@ -2108,21 +2177,22 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 		write_to_buffer( d, "That's not a sex.\n\rWhat IS your sex? ", 0 );
 		return;
 	}
+	int iClass = 0;
 
-	strcpy( buf, "Select a class [" );
-	for ( iClass = 0; iClass < MAX_CLASS; iClass++ )
+	strcpy( class_buf, "Select a class [" );
+	for (iClass = 0; iClass < MAX_CLASS; iClass++ )
 	{
 		if ( iClass > 0 )
-		strcat( buf, " " );
-		strcat( buf, class_table[iClass].name );
+		strcat( class_buf, " " );
+		strcat( class_buf, class_table[iClass].name );
 	}
-	strcat( buf, "]: " );
-	write_to_buffer( d, buf, 0 );
+	strcat( class_buf, "]: " );
+	write_to_buffer( d, class_buf, 0 );
 	d->connected = CON_GET_NEW_CLASS;
-	break;
+}
 
-	case CON_GET_NEW_CLASS:
-	iClass = class_lookup(argument);
+void nanny_get_new_class(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+	int iClass = class_lookup(argument);
 
 	if ( iClass == -1 )
 	{
@@ -2131,20 +2201,18 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 		return;
 	}
 
-		ch->iclass = iClass;
-
-	sprintf( log_buf, "%s@%s new player.", ch->name, d->host );
-	log_string( log_buf );
+	ch->iclass = iClass;
+	log_string( Format("%s@%s new player.", ch->name, d->host ) );
 	wiznet("Newbie alert!  $N sighted.",ch,NULL,WIZ_NEWBIE,0,0);
-		wiznet(log_buf,NULL,NULL,WIZ_SITES,0,get_trust(ch));
+	wiznet((char *)Format("%s@%s new player.", ch->name, d->host ),NULL,NULL,WIZ_SITES,0,get_trust(ch));
 
 	write_to_buffer( d, "\n\r", 2 );
 	write_to_buffer( d, "You may be good, neutral, or evil.\n\r",0);
 	write_to_buffer( d, "Which alignment (G/N/E)? ",0);
 	d->connected = CON_GET_ALIGNMENT;
-	break;
+}
 
-case CON_GET_ALIGNMENT:
+void nanny_get_alignment(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	switch( argument[0])
 	{
 		case 'g' : case 'G' : ch->alignment = 750;  break;
@@ -2165,9 +2233,9 @@ case CON_GET_ALIGNMENT:
 	write_to_buffer(d,"Customization takes time, but allows a wider range of skills and abilities.\n\r",0);
 	write_to_buffer(d,"Customize (Y/N)? ",0);
 	d->connected = CON_DEFAULT_CHOICE;
-	break;
+}
 
-case CON_DEFAULT_CHOICE:
+void nanny_default_choice(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	write_to_buffer(d,"\n\r",2);
 		switch ( argument[0] )
 		{
@@ -2186,39 +2254,47 @@ case CON_DEFAULT_CHOICE:
 			write_to_buffer( d, "\n\r", 2 );
 		write_to_buffer(d,
 		"Please pick a weapon from the following choices:\n\r",0);
-		buf[0] = '\0';
+		char choice_buf[MSL] = {'\0'};
+		int i = 0;
+		
 		for ( i = 0; weapon_table[i].name != NULL; i++)
 		if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
 		{
-			strcat(buf,weapon_table[i].name);
-			strcat(buf," ");
+			strcat(choice_buf,weapon_table[i].name);
+			strcat(choice_buf," ");
 		}
-		strcat(buf,"\n\rYour choice? ");
-		write_to_buffer(d,buf,0);
+		strcat(choice_buf,"\n\rYour choice? ");
+		write_to_buffer(d,choice_buf,0);
 			d->connected = CON_PICK_WEAPON;
 			break;
 		default:
 			write_to_buffer( d, "Please answer (Y/N)? ", 0 );
 			return;
 		}
-	break;
+}
 
-	case CON_PICK_WEAPON:
+void nanny_pick_weapon(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	write_to_buffer(d,"\n\r",2);
-	weapon = weapon_lookup(argument);
+	int weapon = weapon_lookup(argument), i = 0;
 	if (weapon == -1 || ch->pcdata->learned[*weapon_table[weapon].gsn] <= 0)
 	{
 		write_to_buffer(d,
 		"That's not a valid selection. Choices are:\n\r",0);
-			buf[0] = '\0';
-			for ( i = 0; weapon_table[i].name != NULL; i++)
+			char weapon_buf[MSL] = {'\0'};
+			
+			for ( i = 0; weapon_table[i].name != NULL; i++) {
 				if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
 				{
-					strcat(buf,weapon_table[i].name);
-			strcat(buf," ");
+					if(IS_NULLSTR(weapon_buf))
+						strcpy(weapon_buf, weapon_table[i].name);
+					else
+						strcat(weapon_buf,weapon_table[i].name);
+	
+					strcat(weapon_buf," ");
 				}
-			strcat(buf,"\n\rYour choice? ");
-			write_to_buffer(d,buf,0);
+			}
+			strcat(weapon_buf,"\n\rYour choice? ");
+			write_to_buffer(d,weapon_buf,0);
 		return;
 	}
 
@@ -2226,81 +2302,75 @@ case CON_DEFAULT_CHOICE:
 	write_to_buffer(d,"\n\r",2);
 	do_function(ch, &do_help, "motd");
 	d->connected = CON_READ_MOTD;
-	break;
+}
 
-	case CON_GEN_GROUPS:
-	send_to_char("\n\r",ch);
+void nanny_gen_groups(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
+		char gen_buf[MSL] = {'\0'};
+		
+		send_to_char("\n\r",ch);
 
 		if (!str_cmp(argument,"done"))
 		{
 		if (ch->pcdata->points == pc_race_table[ch->race].points)
 		{
 			send_to_char("You didn't pick anything.\n\r",ch);
-		break;
+			return;
 		}
 
 		if (ch->pcdata->points <= 40 + pc_race_table[ch->race].points)
 		{
-		sprintf(buf,
-			"You must take at least %d points of skills and groups",
-			40 + pc_race_table[ch->race].points);
-		send_to_char(buf, ch);
-		break;
+
+			send_to_char(Format("You must take at least %d points of skills and groups", 40 + pc_race_table[ch->race].points), ch);
+			return;
 		}
 
-		sprintf(buf,"Creation points: %d\n\r",ch->pcdata->points);
-		send_to_char(buf,ch);
-		sprintf(buf,"Experience per level: %d\n\r",
-				exp_per_level(ch,ch->gen_data->points_chosen));
+		send_to_char(Format("Creation points: %d\n\r",ch->pcdata->points),ch);
+		sprintf(gen_buf,"Experience per level: %d\n\r", exp_per_level(ch,ch->gen_data->points_chosen));
 		if (ch->pcdata->points < 40)
-		ch->train = (40 - ch->pcdata->points + 1) / 2;
-		free_gen_data(ch->gen_data);
-		ch->gen_data = NULL;
-		send_to_char(buf,ch);
+			ch->train = (40 - ch->pcdata->points + 1) / 2;
+			free_gen_data(ch->gen_data);
+			ch->gen_data = NULL;
+			send_to_char(gen_buf,ch);
 			write_to_buffer( d, "\n\r", 2 );
 			write_to_buffer(d,
 				"Please pick a weapon from the following choices:\n\r",0);
-			buf[0] = '\0';
-			for ( i = 0; weapon_table[i].name != NULL; i++)
+			gen_buf[0] = '\0';
+			int i = 0;
+			
+			for ( i = 0; weapon_table[i].name != NULL; i++) {
 				if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
 				{
-					strcat(buf,weapon_table[i].name);
-			strcat(buf," ");
+					if(IS_NULLSTR(gen_buf))
+						strcpy(gen_buf, weapon_table[i].name);
+					else
+						strcat(gen_buf,weapon_table[i].name);
+					strcat(gen_buf," ");
 				}
-			strcat(buf,"\n\rYour choice? ");
-			write_to_buffer(d,buf,0);
+			}
+			strcat(gen_buf,"\n\rYour choice? ");
+			write_to_buffer(d,gen_buf,0);
 			d->connected = CON_PICK_WEAPON;
-			break;
+			return;
 		}
 
 		if (!parse_gen_groups(ch,argument))
-		send_to_char(
-		"Choices are: list,learned,premise,add,drop,info,help, and done.\n\r"
-		,ch);
+		send_to_char("Choices are: list,learned,premise,add,drop,info,help, and done.\n\r",ch);
 
 		do_function(ch, &do_help, "menu choice");
-		break;
+}
 
-	case CON_READ_IMOTD:
+void nanny_read_imotd(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	write_to_buffer(d,"\n\r",2);
-		do_function(ch, &do_help, "motd");
-		d->connected = CON_READ_MOTD;
-	break;
+	do_function(ch, &do_help, "motd");
+	d->connected = CON_READ_MOTD;
+}
 
-	case CON_READ_MOTD:
-		if ( ch->pcdata == NULL || ch->pcdata->pwd[0] == '\0')
-		{
-			write_to_buffer( d, "Warning! Null password!\n\r",0 );
-			write_to_buffer( d, "Please report old password with bug.\n\r",0);
-			write_to_buffer( d,
-				"Type 'password null <new password>' to fix.\n\r",0);
-		}
+void nanny_read_motd(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 
-	write_to_buffer( d, 
-	"\n\rWelcome to ROM 2.4.  Please do not feed the mobiles.\n\r",
-		0 );
+	write_to_buffer( d, Format("\n\rWelcome to DungeonWorld (%s)\n\r", getVersion()), 0 );
 	ch->next	= char_list;
 	char_list	= ch;
+	
 	d->connected	= CON_PLAYING;
 	reset_char(ch);
 
@@ -2316,10 +2386,8 @@ case CON_DEFAULT_CHOICE:
 		ch->move	= ch->max_move;
 		ch->train	 = 3;
 		ch->practice = 5;
-		sprintf( buf, "the %s",
-		title_table [ch->iclass] [ch->level]
-		[ch->sex == SEX_FEMALE ? 1 : 0] );
-		set_title( ch, buf );
+
+		set_title( ch, (char *)Format("the %s", title_table [ch->iclass] [ch->level][ch->sex == SEX_FEMALE ? 1 : 0] ) );
 
 		do_function (ch, &do_outfit,"");
 		obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP),0),ch);
@@ -2342,7 +2410,7 @@ case CON_DEFAULT_CHOICE:
 		char_to_room( ch, get_room_index( ROOM_VNUM_TEMPLE ) );
 	}
 
-	act( "$n has entered the game.", ch, NULL, NULL, TO_ROOM );
+	act( "$n has entered into DungeonWorld.", ch, NULL, NULL, TO_ROOM );
 	MXPSendTag( d, "<VERSION>" );  /* <--- Add this line */
 	do_function(ch, &do_look, "auto" );
 
@@ -2352,11 +2420,41 @@ case CON_DEFAULT_CHOICE:
 	if (ch->pet != NULL)
 	{
 		char_to_room(ch->pet,ch->in_room);
-		act("$n has entered the game.",ch->pet,NULL,NULL,TO_ROOM);
+		act("$n has entered into DungeonWorld.",ch->pet,NULL,NULL,TO_ROOM);
 	}
 
 	interpret(ch, "unread");
-	break;
+}
+
+/* Deal with sockets that haven't logged in yet. */
+void nanny( DESCRIPTOR_DATA *d, char *argument )
+{
+	CHAR_DATA *ch;
+
+	while ( isspace(*argument) )
+		argument++;
+
+	ch = d->character;
+
+	switch ( d->connected )
+	{
+
+	default:	nanny_unknown_state(d, ch, argument); break;
+	case CON_GET_NAME: nanny_get_name(d, ch, argument); break;
+	case CON_GET_OLD_PASSWORD: nanny_get_old_password(d, ch, argument); break;
+	case CON_BREAK_CONNECT: nanny_break_connect(d,  ch, argument); break;/* RT code for breaking link */
+	case CON_CONFIRM_NEW_NAME: nanny_confirm_new_name(d,  ch, argument); break;
+	case CON_GET_NEW_PASSWORD: nanny_get_new_password(d,  ch, argument); break;
+	case CON_CONFIRM_NEW_PASSWORD: nanny_confirm_new_password(d,  ch, argument); break;
+	case CON_GET_NEW_RACE: nanny_get_new_race(d,  ch, argument); break;
+	case CON_GET_NEW_SEX: nanny_get_new_sex(d,  ch, argument); break;
+	case CON_GET_NEW_CLASS: nanny_get_new_class(d,  ch, argument); break;
+	case CON_GET_ALIGNMENT: nanny_get_alignment(d,  ch, argument); break;
+	case CON_DEFAULT_CHOICE: nanny_default_choice(d,  ch, argument); break;
+	case CON_PICK_WEAPON: nanny_pick_weapon(d,  ch, argument); break;
+	case CON_GEN_GROUPS: nanny_gen_groups(d,  ch, argument); break;
+	case CON_READ_IMOTD: nanny_read_imotd(d,  ch, argument); break;
+	case CON_READ_MOTD: nanny_read_motd(d,  ch, argument); break;
 	}
 
 	return;
@@ -2498,10 +2596,8 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
 			"Reconnecting. Type replay to see missed tells.\n\r", ch );
 		act( "$n has reconnected.", ch, NULL, NULL, TO_ROOM );
 
-		sprintf( log_buf, "%s@%s reconnected.", ch->name, d->host );
-		log_string( log_buf );
-		wiznet("$N groks the fullness of $S link.",
-			ch,NULL,WIZ_LINKS,0,0);
+		log_string( Format("%s@%s reconnected.", ch->name, d->host ) );
+		wiznet("$N groks the fullness of $S link.",ch,NULL,WIZ_LINKS,0,0);
 		d->connected = CON_PLAYING;
 		MXPSendTag( d, "<VERSION>" );  /* <--- Add this line */
 		}
@@ -2566,7 +2662,7 @@ void stop_idling( CHAR_DATA *ch )
  */
 void send_to_char( const char *txt, CHAR_DATA *ch )
 {
-	if ( txt != NULL && ch->desc != NULL )
+	if ( !IS_NULLSTR(txt) && ch->desc != NULL )
 		write_to_buffer( ch->desc, txt, strlen(txt) );
 	return;
 }
@@ -2578,7 +2674,7 @@ void page_to_char( const char *txt, CHAR_DATA *ch )
 {
 	DESCRIPTOR_DATA *d;
 
-	if ( !ch || txt == NULL || ch->desc == NULL || IS_NULLSTR(txt))
+	if ( !ch || ch->desc == NULL || IS_NULLSTR(txt))
 		return;
 
 	d = ch->desc;
@@ -2700,7 +2796,7 @@ void act_new( const char *format, CHAR_DATA *ch, const void *arg1,
 	/*
 	 * Discard null and zero-length messages.
 	 */
-	if ( format == NULL || format[0] == '\0' )
+	if ( IS_NULLSTR(format))
 		return;
 
 	/* discard null rooms and chars */
@@ -2805,7 +2901,7 @@ void act_new( const char *format, CHAR_DATA *ch, const void *arg1,
  
 		*point++ = '\n';
 		*point++ = '\r';
-	*point   = '\0';
+		*point   = '\0';
 		buf[0]   = UPPER(buf[0]);
 	if ( to->desc != NULL )
 		write_to_buffer( to->desc, buf, point - buf );
@@ -2832,6 +2928,9 @@ int gettimeofday( struct timeval *tp, void *tzp )
 void logfmt (char * fmt, ...)
 {
 	char buf [2*MSL] = {'\0'};
+	
+	if(IS_NULLSTR(fmt)) return;
+	
 	va_list args;
 	va_start (args, fmt);
 	vsprintf (buf, fmt, args);
@@ -2845,6 +2944,9 @@ void logfmt (char * fmt, ...)
 void printf_to_char (CHAR_DATA *ch, char *fmt, ...)
 {
 	char buf [MSL]={'\0'};
+
+	if(IS_NULLSTR(fmt)) return;	
+
 	va_list args;
 	va_start (args, fmt);
 	vsprintf (buf, fmt, args);
@@ -2856,6 +2958,9 @@ void printf_to_char (CHAR_DATA *ch, char *fmt, ...)
 void bugf (char * fmt, ...)
 {
 	char buf [2*MSL]={'\0'};
+
+	if(IS_NULLSTR(fmt)) return;	
+
 	va_list args;
 	va_start (args, fmt);
 	vsprintf (buf, fmt, args);

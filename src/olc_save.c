@@ -959,7 +959,7 @@ void save_area( AREA_DATA *pArea )
 void do_asave( CHAR_DATA *ch, char *argument )
 {
 	char arg1 [MAX_INPUT_LENGTH];
-	AREA_DATA *pArea;
+	AREA_DATA *pArea, *pArea_next;
 	FILE *fp;
 	int value, sec;
 
@@ -974,8 +974,9 @@ void do_asave( CHAR_DATA *ch, char *argument )
 
 /*    {
 	save_area_list();
-	for( pArea = area_first; pArea; pArea = pArea->next )
+	for( pArea = area_first; pArea; pArea = pArea_next )
 	{
+		pArea_next = pArea->next;
 		save_area( pArea );
 		REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
 	}
@@ -1031,8 +1032,9 @@ void do_asave( CHAR_DATA *ch, char *argument )
 	if ( !str_cmp( "world", arg1 ) )
 	{
 	save_area_list();
-	for( pArea = area_first; pArea; pArea = pArea->next )
+	for( pArea = area_first; pArea; pArea = pArea_next )
 	{
+		pArea_next = pArea->next;
 		/* Builder must be assigned this area. */
 		if ( ch && !IS_BUILDER( ch, pArea ) )
 		continue;
@@ -1064,8 +1066,9 @@ void do_asave( CHAR_DATA *ch, char *argument )
 
 	sprintf( buf, "None.\n\r" );
 
-	for( pArea = area_first; pArea; pArea = pArea->next )
+	for( pArea = area_first; pArea; pArea = pArea_next )
 	{
+		pArea_next = pArea->next;
 		/* Builder must be assigned this area. */
 		if ( ch && !IS_BUILDER( ch, pArea ) )
 		continue;

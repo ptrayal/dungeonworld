@@ -86,8 +86,8 @@ char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 
 	buf[0] = '\0';
 
-	if ((fShort && (obj->short_descr == NULL || obj->short_descr[0] == '\0'))
-	||  (obj->description == NULL || obj->description[0] == '\0'))
+	if ((fShort && (IS_NULLSTR(obj->short_descr)))
+	||  (IS_NULLSTR(obj->description)))
 	return buf;
 
 	if ( IS_OBJ_STAT(obj, ITEM_INVIS)     )   strcat( buf, "(Invis) "     );
@@ -102,15 +102,18 @@ char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 
 	if ( fShort )
 	{
-	if ( obj->short_descr != NULL )
+	if ( !IS_NULLSTR(obj->short_descr))
 		strcat( buf, obj->short_descr );
 	}
 	else
 	{
-	if ( obj->description != NULL)
+	if ( !IS_NULLSTR(obj->description))
 		strcat( buf, obj->description );
 	}
 
+	if (strlen(buf)<=0)
+    	strcpy(buf, Format("This object has no description(Virtual Number: %d). Please inform the staff immediately", obj->pIndexData->vnum));
+ 
 	return buf;
 }
 
@@ -918,7 +921,7 @@ void do_noloot(CHAR_DATA *ch, char *argument)
 
 void do_nofollow(CHAR_DATA *ch, char *argument)
 {
-	if (IS_NPC(ch))
+	if (IS_NPC(ch) || IS_AFFECTED( ch, AFF_CHARM ))
 	  return;
  
 	if (IS_SET(ch->act,PLR_NOFOLLOW))
@@ -2470,11 +2473,12 @@ void do_report( CHAR_DATA *ch, char *argument )
 {
 	char buf[MAX_INPUT_LENGTH];
 
-	sprintf( buf, "You say 'I have %d/%d hp %d/%d mana %d/%d mv %d xp.'\n\r",
+
+	do_function(ch, &do_say, Format("I have %d/%d hp, %d/%d mana, %d/%d mv, and %d experience.",
 	ch->hit,  ch->max_hit,
 	ch->mana, ch->max_mana,
 	ch->move, ch->max_move,
-	ch->exp   );
+	ch->exp   ) );
 
 	send_to_char( buf, ch );
 

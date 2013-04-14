@@ -407,8 +407,6 @@ void free_mem_data(MEM_DATA *memory)
 	PURGE_DATA(memory);
 }
 
-
-
 /* buffer sizes */
 const int buf_size[MAX_BUF_LIST] =
 {
@@ -504,7 +502,7 @@ void free_buf(BUFFER *buffer)
 }
 
 
-bool add_buf(BUFFER *buffer, char *string)
+bool add_buf(BUFFER *buffer, const char *string)
 {
 	int len = 0;
 	char *oldstr;
@@ -559,7 +557,6 @@ void BufPrintf ( BUFFER * buffer, char * fmt, ... )
 	return;
 }
 
-
 void clear_buf(BUFFER *buffer)
 {
 	buffer->string[0] = '\0';
@@ -576,7 +573,6 @@ void clear_buffer(void) {
 	}
 	buffer_list = NULL;
 }
-
 
 char *buf_string(BUFFER *buffer)
 {

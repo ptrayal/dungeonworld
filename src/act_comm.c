@@ -1406,8 +1406,7 @@ void do_quit( CHAR_DATA *ch, char *argument )
 		send_to_char( 
 	"Alas, all good things must come to an end.\n\r",ch);
 		act( "$n has left the game.", ch, NULL, NULL, TO_ROOM );
-		sprintf( log_buf, "%s has quit.", ch->name );
-		log_string( log_buf );
+		log_string( Format("%s has quit.", ch->name ) );
 		 wiznet("$N rejoins the real world.",ch,NULL,WIZ_LOGINS,0,get_trust(ch));
 
 		/*
@@ -1418,20 +1417,20 @@ void do_quit( CHAR_DATA *ch, char *argument )
 		d = ch->desc;
 		extract_char( ch, TRUE );
 		if ( d != NULL )
-	close_socket( d );
+			close_socket( d );
 
 		/* toast evil cheating bastards */
 		for (d = descriptor_list; d != NULL; d = d_next)
 		{
-	CHAR_DATA *tch;
+			CHAR_DATA *tch;
 
-	d_next = d->next;
-	tch = d->original ? d->original : d->character;
-	if (tch && tch->id == id)
-	{
-			extract_char(tch,TRUE);
-			close_socket(d);
-	} 
+			d_next = d->next;
+			tch = d->original ? d->original : d->character;
+			if (tch && tch->id == id)
+			{
+				extract_char(tch,TRUE);
+				close_socket(d);
+			} 
 		}
 
 		return;
@@ -1442,7 +1441,7 @@ void do_quit( CHAR_DATA *ch, char *argument )
 void do_save( CHAR_DATA *ch, char *argument )
 {
 		if ( IS_NPC(ch) )
-	return;
+			return;
 
 		save_char_obj( ch );
 		send_to_char("Saving. Remember that ROM has automatic saving now.\n\r", ch);
@@ -1499,7 +1498,7 @@ void do_follow( CHAR_DATA *ch, char *argument )
 		REMOVE_BIT(ch->act,PLR_NOFOLLOW);
 		
 		if ( ch->master != NULL )
-	stop_follower( ch );
+			stop_follower( ch );
 
 		add_follower( ch, victim );
 		return;

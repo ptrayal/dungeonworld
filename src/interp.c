@@ -461,9 +461,8 @@ void interpret( CHAR_DATA *ch, char *argument )
     ||   fLogAll
     ||   cmd_table[cmd].log == LOG_ALWAYS )
     {
-	sprintf( log_buf, "Log %s: %s", ch->name, logline );
-	wiznet(log_buf,ch,NULL,WIZ_SECURE,0,get_trust(ch));
-	log_string( log_buf );
+	wiznet(Format("Log %s: %s", ch->name, logline ),ch,NULL,WIZ_SECURE,0,get_trust(ch));
+	log_string( Format("Log %s: %s", ch->name, logline ) );
     }
 
     if ( ch->desc != NULL && ch->desc->snoop_by != NULL )
@@ -533,7 +532,7 @@ void interpret( CHAR_DATA *ch, char *argument )
 }
 
 /* function to keep argument safe in all commands -- no static strings */
-void do_function (CHAR_DATA *ch, DO_FUN *do_fun, char *argument)
+void do_function (CHAR_DATA *ch, DO_FUN *do_fun, const char *argument)
 {
     // char *command_string;
     
@@ -541,7 +540,7 @@ void do_function (CHAR_DATA *ch, DO_FUN *do_fun, char *argument)
     // command_string = str_dup(argument);
     
     /* dispatch the command */
-    (*do_fun) (ch, argument);
+    (*do_fun) (ch, (char *)argument);
     
     /* free the string */
     // PURGE_DATA(command_string);

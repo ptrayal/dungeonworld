@@ -874,11 +874,11 @@ bool damage(CHAR_DATA *ch,CHAR_DATA *victim,int dam,int dt,int dam_type, bool sh
 
 	if ( !IS_NPC(victim) )
 	{
-		sprintf( log_buf, "%s killed by %s at %d",
-		victim->name,
-		(IS_NPC(ch) ? ch->short_descr : ch->name),
-		ch->in_room->vnum );
-		log_string( log_buf );
+
+		log_string( Format("%s killed by %s at %d",
+			victim->name,
+			(IS_NPC(ch) ? ch->short_descr : ch->name),
+			ch->in_room->vnum ) );
 
 		/*
 		 * Dying penalty:
@@ -890,15 +890,16 @@ bool damage(CHAR_DATA *ch,CHAR_DATA *victim,int dam,int dt,int dam_type, bool sh
 					 * victim->level - victim->exp)/3) + 50 );
 	}
 
-		sprintf( log_buf, "%s got toasted by %s at %s [room %d]",
+		if (IS_NPC(victim))
+			wiznet(Format("%s got toasted by %s at %s [room %d]",
 			(IS_NPC(victim) ? victim->short_descr : victim->name),
 			(IS_NPC(ch) ? ch->short_descr : ch->name),
-			ch->in_room->name, ch->in_room->vnum);
- 
-		if (IS_NPC(victim))
-			wiznet(log_buf,NULL,NULL,WIZ_MOBDEATHS,0,0);
+			ch->in_room->name, ch->in_room->vnum),NULL,NULL,WIZ_MOBDEATHS,0,0);
 		else
-			wiznet(log_buf,NULL,NULL,WIZ_DEATHS,0,0);
+			wiznet(Format("%s got toasted by %s at %s [room %d]",
+			(IS_NPC(victim) ? victim->short_descr : victim->name),
+			(IS_NPC(ch) ? ch->short_descr : ch->name),
+			ch->in_room->name, ch->in_room->vnum),NULL,NULL,WIZ_DEATHS,0,0);
 
 	/*
 	 * Death trigger
@@ -1451,7 +1452,7 @@ void make_corpse( CHAR_DATA *ch )
 	name		= ch->short_descr;
 	corpse		= create_object(get_obj_index(OBJ_VNUM_CORPSE_NPC), 0);
 	corpse->timer	= number_range( 3, 6 );
-	if ( ch->gold > 0 )
+	if ( ch->gold > 0 || ch->silver > 0)
 	{
 		obj_to_obj( create_money( ch->gold, ch->silver ), corpse );
 		ch->gold = 0;
@@ -1697,7 +1698,7 @@ void raw_kill( CHAR_DATA *victim )
 	victim->hit		= UMAX( 1, victim->hit  );
 	victim->mana	= UMAX( 1, victim->mana );
 	victim->move	= UMAX( 1, victim->move );
-/*  save_char_obj( victim ); we're stable enough to not need this :) */
+    save_char_obj( victim ); /* we're stable enough to not need this :) - But we should have it while we upgrade memory.*/
 	return;
 }
 

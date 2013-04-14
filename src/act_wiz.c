@@ -146,7 +146,7 @@ void do_wiznet( CHAR_DATA *ch, char *argument )
 
 }
 
-void wiznet(char *string, CHAR_DATA *ch, OBJ_DATA *obj,
+void wiznet(const char *string, CHAR_DATA *ch, OBJ_DATA *obj,
 		long flag, long flag_skip, int min_level) 
 {
 	DESCRIPTOR_DATA *d;
@@ -4403,4 +4403,5 @@ void do_prefix (CHAR_DATA *ch, char *argument)
 	}
 
 	ch->prefix = str_dup(argument);
+	send_to_char(buf, ch);
 }

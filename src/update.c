@@ -792,7 +792,7 @@ void char_update( void )
 			for ( vch = ch->in_room->people; vch != NULL; vch = vch->next_in_room)
 			{
 				if (!saves_spell(plague.level - 2,vch,DAM_DISEASE) 
-		&&  !IS_IMMORTAL(vch)
+				&&  !IS_IMMORTAL(vch)
 				&&  !IS_AFFECTED(vch,AFF_PLAGUE) && number_bits(4) == 0)
 				{
 					send_to_char("You feel hot and feverish.\n\r",vch);
