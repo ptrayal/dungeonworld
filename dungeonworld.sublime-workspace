@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"NULL",
+				"NULL"
+			],
+			[
 				"arg",
 				"arg"
 			],
@@ -42,10 +46,6 @@
 			[
 				"showstr",
 				"showstr_point"
-			],
-			[
-				"NULL",
-				"NULL"
 			],
 			[
 				"pObj",
@@ -148,47 +148,50 @@
 	},
 	"file_history":
 	[
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/skills.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/merc.h",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/version.h",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/Makefile",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/string.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/save.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/olc.h",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/scan.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/recycle.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/music.h",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/mem.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/healer.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/db.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/magic.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/db2.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/fight.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/act_wiz.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/ban.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/olc_act.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/olc_save.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/olc.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/save.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/note.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/hedit.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/tables.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/update.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/wizlist.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/mob_cmds.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/comm.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/skills.c",
+		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/music.h",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/act_comm.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/olc_mpcode.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/olc_save.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/db.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/db2.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/wizlist.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/update.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/special.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/note.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/music.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/mob_prog.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/mob_cmds.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/magic.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/interp.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/handler.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/fight.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/comm.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/ban.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/alias.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/act_wiz.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/act_obj.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/act_move.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/act_info.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/recycle.h",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/merc.h",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/mem.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/hedit.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/const.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/tables.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/protocol.h",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/magic2.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/Makefile",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/protocol.c",
-		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/scan.c",
 		"/E/Brandon/Course_Development/aemud/src/Makefile",
 		"/E/Brandon/Course_Development/aemud/src/tables.h",
 		"/E/Brandon/Course_Development/aemud/src/tables.h.rej",
@@ -272,10 +275,7 @@
 		"/E/Brandon/Course_Development/ROM/src/update.c.orig",
 		"/E/Brandon/Course_Development/ROM/src/interp.h.rej",
 		"/E/Brandon/Course_Development/ROM/src/db.c",
-		"/E/Brandon/Course_Development/ROM/src/db.c.rej",
-		"/E/Brandon/Course_Development/ROM/src/comm.c",
-		"/E/Brandon/Course_Development/ROM/src/comm.c.rej",
-		"/E/Brandon/Course_Development/ROM/src/act_comm.c.orig"
+		"/E/Brandon/Course_Development/ROM/src/db.c.rej"
 	],
 	"find":
 	{
@@ -283,7 +283,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 			""
@@ -294,6 +294,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"../gods",
+			"/rom",
+			"/area/rom",
+			"/area//rom",
+			"/area//rom'",
+			"MAX_STRING_LENGTH",
+			"EXIT_DATA",
+			"free_exit",
+			"sprintf",
+			"delete",
+			"sprintf",
+			"sprinf",
+			"\"\"",
+			"sprintf",
+			"springf",
+			"MAX_STRING_LENGTH",
 			"sprintf",
 			"int ",
 			"\\0",
@@ -405,23 +421,7 @@
 			"Note",
 			"new_help",
 			"logfmt",
-			"new_area",
-			"room",
-			"->name",
-			"area",
-			"Attempt to recyle invalid memory of size ",
-			"New Area",
-			"BUG: New Area",
-			"str_dup",
-			"db.c",
-			"do_score",
-			"write_to_buffer( d, echo_on_str, 0 );",
-			"d->fcommand",
-			"act( \"$n has entered the game.\", ch, NULL, NULL, TO_ROOM );",
-			"2000",
-			"200",
-			"struct	descriptor_data",
-			"GREEN"
+			"new_area"
 		],
 		"highlight": true,
 		"in_selection": false,
