@@ -2900,32 +2900,29 @@ char *fread_word( FILE *fp )
  */
 void do_areas( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
 	AREA_DATA *pArea1;
 	AREA_DATA *pArea2;
 	int iArea;
 	int iAreaHalf;
 
-	if (argument[0] != '\0')
+	if (!IS_NULLSTR(argument))
 	{
-	send_to_char("No argument is used with this command.\n\r",ch);
-	return;
+		send_to_char("No argument is used with this command.\n\r",ch);
+		return;
 	}
 
 	iAreaHalf = (top_area + 1) / 2;
 	pArea1    = area_first;
 	pArea2    = area_first;
 	for ( iArea = 0; iArea < iAreaHalf; iArea++ )
-	pArea2 = pArea2->next;
+		pArea2 = pArea2->next;
 
 	for ( iArea = 0; iArea < iAreaHalf; iArea++ )
 	{
-	sprintf( buf, "%-39s%-39s\n\r",
-		pArea1->credits, (pArea2 != NULL) ? pArea2->credits : "" );
-	send_to_char( buf, ch );
-	pArea1 = pArea1->next;
-	if ( pArea2 != NULL )
-		pArea2 = pArea2->next;
+		send_to_char( Format("%-39s%-39s\n\r", pArea1->credits, (pArea2 != NULL) ? pArea2->credits : ""), ch );
+		pArea1 = pArea1->next;
+		if ( pArea2 != NULL )
+			pArea2 = pArea2->next;
 	}
 
 	return;
@@ -2935,31 +2932,22 @@ void do_areas( CHAR_DATA *ch, char *argument )
 
 void do_memory( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
+	
+	send_to_char( Format("\tW---------- \tG%s \tW----------\tn\n\r", MUD_NAME), ch);
 
-	sprintf( buf, "Affects %5d\n\r", top_affect    ); send_to_char( buf, ch );
-	sprintf( buf, "Areas   %5d\n\r", top_area      ); send_to_char( buf, ch );
-	sprintf( buf, "ExDes   %5d\n\r", top_ed        ); send_to_char( buf, ch );
-	sprintf( buf, "Exits   %5d\n\r", top_exit      ); send_to_char( buf, ch );
-	sprintf( buf, "Helps   %5d\n\r", top_help      ); send_to_char( buf, ch );
-	sprintf( buf, "Socials %5d\n\r", social_count  ); send_to_char( buf, ch );
-	sprintf( buf, "Mobs    %5d(%d new format)\n\r", top_mob_index,newmobs ); 
-	send_to_char( buf, ch );
-	sprintf( buf, "(in use)%5d\n\r", mobile_count  ); send_to_char( buf, ch );
-	sprintf( buf, "Objs    %5d(%d new format)\n\r", top_obj_index,newobjs ); 
-	send_to_char( buf, ch );
-	sprintf( buf, "Resets  %5d\n\r", top_reset     ); send_to_char( buf, ch );
-	sprintf( buf, "Rooms   %5d\n\r", top_room      ); send_to_char( buf, ch );
-	sprintf( buf, "Shops   %5d\n\r", top_shop      ); send_to_char( buf, ch );
-
-	sprintf( buf, "Strings %5d strings of %7d bytes (max %d).\n\r",
-	nAllocString, sAllocString, MAX_STRING );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Perms   %5d blocks  of %7d bytes.\n\r",
-	nAllocPerm, sAllocPerm );
-	send_to_char( buf, ch );
-
+	send_to_char( Format("Affects %5d\n\r", top_affect), ch );
+	send_to_char( Format("Areas   %5d\n\r", top_area), ch );
+	send_to_char( Format("ExDes   %5d\n\r", top_ed), ch );
+	send_to_char( Format("Exits   %5d\n\r", top_exit), ch );
+	send_to_char( Format("Mobs    %5d(%d new format)\n\r", top_mob_index,newmobs), ch );
+	send_to_char( Format("(in use)%5d\n\r", mobile_count), ch );
+	send_to_char( Format("Objs    %5d(%d new format)\n\r", top_obj_index,newobjs), ch );
+	send_to_char( Format("Resets  %5d\n\r", top_reset), ch );
+	send_to_char( Format("Rooms   %5d\n\r", top_room), ch );
+	send_to_char( Format("Shops   %5d\n\r", top_shop), ch );
+	send_to_char( Format("Helps   %5d\n\r", top_help), ch );
+	send_to_char( Format("Socials %5d\n\r", social_count), ch );
+	
 	return;
 }
 
