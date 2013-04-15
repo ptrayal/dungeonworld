@@ -622,31 +622,28 @@ void list_group_chosen(CHAR_DATA *ch)
 
 int exp_per_level(CHAR_DATA *ch, int points)
 {
-	int expl,inc;
+	int expl = 1000;
+	int inc = 500;
 
 	if (IS_NPC(ch))
-	return 1000; 
-
-	expl = 1000;
-	inc = 500;
+		return 1000; 
 
 	if (points < 40)
-	return 1000 * (pc_race_table[ch->race].class_mult[ch->iclass] ?
-			   pc_race_table[ch->race].class_mult[ch->iclass]/100 : 1);
+		return 1000 * (pc_race_table[ch->race].class_mult[ch->iclass] ? pc_race_table[ch->race].class_mult[ch->iclass]/100 : 1);
 
 	/* processing */
 	points -= 40;
 
 	while (points > 9)
 	{
-	expl += inc;
+		expl += inc;
 		points -= 10;
 		if (points > 9)
-	{
-		expl += inc;
-		inc *= 2;
-		points -= 10;
-	}
+		{
+			expl += inc;
+			inc *= 2;
+			points -= 10;
+		}
 	}
 
 	expl += points * inc / 10;  

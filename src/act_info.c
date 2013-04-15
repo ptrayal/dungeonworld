@@ -1369,22 +1369,15 @@ void do_exits( CHAR_DATA *ch, char *argument )
 
 void do_worth( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
 
 	if (IS_NPC(ch))
 	{
-	sprintf(buf,"You have %ld gold and %ld silver.\n\r",
-		ch->gold,ch->silver);
-	send_to_char(buf,ch);
+	send_to_char( Format("You have %ld gold and %ld silver.\n\r", ch->gold,ch->silver), ch);
 	return;
 	}
 
-	sprintf(buf, 
-	"You have %ld gold, %ld silver, and %d experience (%d exp to level).\n\r",
-	ch->gold, ch->silver,ch->exp,
-	(ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp);
-
-	send_to_char(buf,ch);
+	send_to_char( Format("You have %ld gold, %ld silver, and %d experience (%d exp to level).\n\r",	ch->gold, ch->silver, ch->exp,
+	(ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp), ch);
 
 	return;
 }
