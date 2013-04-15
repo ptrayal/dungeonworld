@@ -127,7 +127,7 @@ const 	struct attack_type	attack_table	[MAX_DAMAGE_MESSAGE]	=
     {	"blast",	"blast",	DAM_BASH	},
     {   "pound",	"pound",	DAM_BASH	},
     {	"crush",	"crush",	DAM_BASH	},
-    {   "grep",		"grep",		DAM_SLASH	},
+    {   "grep",		"grep",		DAM_SLASH	},  // What the heck is a grep for damage?
     {	"bite",		"bite",		DAM_PIERCE	},  /* 10 */
     {   "pierce",	"pierce",	DAM_PIERCE	},
     {   "suction",	"suction",	DAM_BASH	},
@@ -140,9 +140,9 @@ const 	struct attack_type	attack_table	[MAX_DAMAGE_MESSAGE]	=
     {	"magic",	"magic",	DAM_ENERGY	},
     {   "divine",	"divine power",	DAM_HOLY	},  /* 20 */
     {	"cleave",	"cleave",	DAM_SLASH	},
-    {	"scratch",	"scratch",	DAM_PIERCE	},
+    {	"scratch",	"scratch",	DAM_SLASH	},
     {   "peck",		"peck",		DAM_PIERCE	},
-    {   "peckb",	"peck",		DAM_BASH	},
+    {   "peckb",	"peck",		DAM_BASH	},  // And we need a bashing peck why?
     {   "chop",		"chop",		DAM_SLASH	},  /* 25 */
     {   "sting",	"sting",	DAM_PIERCE	},
     {   "smash",	 "smash",	DAM_BASH	},
@@ -155,7 +155,7 @@ const 	struct attack_type	attack_table	[MAX_DAMAGE_MESSAGE]	=
     {   "thrust",	"thrust",	DAM_PIERCE	},
     {   "slime",	"slime",	DAM_ACID	},
     {	"shock",	"shock",	DAM_LIGHTNING	},
-    {   "thwack",	"thwack",	DAM_BASH	},
+    {   "thwack",	"thwack",	DAM_BASH	},  // Again, a thwack is what kind of damage?
     {   "flame",	"flame",	DAM_FIRE	},
     {   "chill",	"chill",	DAM_COLD	},
     {   NULL,		NULL,		0		}
@@ -178,35 +178,35 @@ const 	struct	race_type	race_table	[]		=
 	"human",		TRUE, 
 	0,		0, 		0,
 	0, 		0,		0,
-	A|H|M|V,	A|B|C|D|E|F|G|H|I|J|K
+	A|M|V,	A|B|C|D|E|F|G|H|I|J|K
     },
 
     {
 	"elf",			TRUE,
 	0,		AFF_INFRARED,	0,
 	0,		RES_CHARM,	VULN_IRON,
-	A|H|M|V,	A|B|C|D|E|F|G|H|I|J|K
+	A|M|V,	A|B|C|D|E|F|G|H|I|J|K
     },
 
     {
 	"dwarf",		TRUE,
 	0,		AFF_INFRARED,	0,
 	0,		RES_POISON|RES_DISEASE, VULN_DROWNING,
-	A|H|M|V,	A|B|C|D|E|F|G|H|I|J|K
+	A|M|V,	A|B|C|D|E|F|G|H|I|J|K
     },
 
     {
 	"giant",		TRUE,
 	0,		0,		0,
 	0,		RES_FIRE|RES_COLD,	VULN_MENTAL|VULN_LIGHTNING,
-	A|H|aa|V,	A|B|C|D|E|F|G|H|I|J|K
+	A|M|V,	A|B|C|D|E|F|G|H|I|J|K
     },
 
     {
 	"bat",			FALSE,
 	0,		AFF_FLYING|AFF_DARK_VISION,	OFF_DODGE|OFF_FAST,
 	0,		0,		VULN_LIGHT,
-	A|G|V,		A|C|D|E|F|H|J|K|P
+	A|G,		A|C|D|E|F|H|J|K|P
     },
 
     {
@@ -243,21 +243,21 @@ const 	struct	race_type	race_table	[]		=
 	IMM_COLD|IMM_POISON|IMM_HOLY|IMM_NEGATIVE|IMM_MENTAL|IMM_DISEASE
 	|IMM_DROWNING,	RES_BASH|RES_LIGHT,
 	VULN_SLASH|VULN_FIRE|VULN_ACID|VULN_LIGHTNING|VULN_ENERGY,
-	C|J,	A|B|C|G|H|K
+	C|J|cc,	A|B|C|G|H|K
     },
 
     { 	"dragon", 		FALSE, 
 	0, 			AFF_INFRARED|AFF_FLYING,	0,
 	0,			RES_FIRE|RES_BASH|RES_CHARM, 
 	VULN_PIERCE|VULN_COLD,
-	A|H|Z,		A|C|D|E|F|G|H|I|J|K|P|Q|U|V|X
+	A|Z,		A|C|D|E|F|G|H|I|J|K|P|Q|U|V|X
     },
 
     {
 	"fido",			FALSE,
 	0,		0,		OFF_DODGE|ASSIST_RACE,
 	0,		0,			VULN_MAGIC,
-	A|B|G|V,	A|C|D|E|F|H|J|K|Q|V
+	B|G|V,	A|C|D|E|F|H|J|K|Q|V
     },		
    
     {
@@ -271,21 +271,21 @@ const 	struct	race_type	race_table	[]		=
 	"goblin",		FALSE,
 	0,		AFF_INFRARED,	0,
 	0,		RES_DISEASE,	VULN_MAGIC,
-	A|H|M|V,	A|B|C|D|E|F|G|H|I|J|K
+	A|M|V,	A|B|C|D|E|F|G|H|I|J|K
     },
 
     {
 	"hobgoblin",		FALSE,
 	0,		AFF_INFRARED,	0,
 	0,		RES_DISEASE|RES_POISON,	0,
-	A|H|M|V,        A|B|C|D|E|F|G|H|I|J|K|Y
+	A|M|V,        A|B|C|D|E|F|G|H|I|J|K|Y
     },
 
     {
 	"kobold",		FALSE,
 	0,		AFF_INFRARED,	0,
 	0,		RES_POISON,	VULN_MAGIC,
-	A|H|M|V,	A|B|C|D|E|F|G|H|I|J|K|Q
+	A|M,	A|B|C|D|E|F|G|H|I|J|K|Q
     },
 
     {
@@ -296,39 +296,46 @@ const 	struct	race_type	race_table	[]		=
     },
 
     {
+	"minotaur",		FALSE,
+	0,		0,		0,
+	0,		0,	    0,
+	A|N,	A|B|C|D|E|F|G|H|I|J|K|W
+    },
+
+    {
 	"modron",		FALSE,
 	0,		AFF_INFRARED,		ASSIST_RACE|ASSIST_ALIGN,
 	IMM_CHARM|IMM_DISEASE|IMM_MENTAL|IMM_HOLY|IMM_NEGATIVE,
 			RES_FIRE|RES_COLD|RES_ACID,	0,
-	H|R,		A|B|C|G|H|J|K
+	E|R,		A|B|C|G|H|J|K
     },
 
     {
 	"orc",			FALSE,
 	0,		AFF_INFRARED,	0,
 	0,		RES_DISEASE,	VULN_LIGHT,
-	A|H|M|V,	A|B|C|D|E|F|G|H|I|J|K
+	A|M,	A|B|C|D|E|F|G|H|I|J|K
     },
 
     {
 	"pig",			FALSE,
 	0,		0,		0,
 	0,		0,		0,
-	A|G|V,	 	A|C|D|E|F|H|J|K
+	A|G,	 	A|C|D|E|F|H|J|K
     },	
 
     {
 	"rabbit",		FALSE,
 	0,		0,		OFF_DODGE|OFF_FAST,
 	0,		0,		0,
-	A|G|V,		A|C|D|E|F|H|J|K
+	A|G,		A|C|D|E|F|H|J|K
     },
     
     {
 	"school monster",	FALSE,
 	ACT_NOALIGN,		0,		0,
 	IMM_CHARM|IMM_SUMMON,	0,		VULN_MAGIC,
-	A|M|V,		A|B|C|D|E|F|H|J|K|Q|U
+	A|M,		A|B|C|D|E|F|H|J|K|Q|U
     },	
 
     {
@@ -350,7 +357,7 @@ const 	struct	race_type	race_table	[]		=
 	0,		AFF_REGENERATION|AFF_INFRARED|AFF_DETECT_HIDDEN,
 	OFF_BERSERK,
  	0,	RES_CHARM|RES_BASH,	VULN_FIRE|VULN_ACID,
-	A|H|aa,		A|B|C|D|E|F|G|H|I|J|K|U|V
+	A|B|M,		A|B|C|D|E|F|G|H|I|J|K|U|V
     },
 
     {
@@ -364,7 +371,7 @@ const 	struct	race_type	race_table	[]		=
 	"wolf",			FALSE,
 	0,		AFF_DARK_VISION,	OFF_FAST|OFF_DODGE,
 	0,		0,		0,	
-	A|G|V,		A|C|D|E|F|J|K|Q|V
+	A|G,		A|C|D|E|F|J|K|Q|V
     },
 
     {
@@ -403,26 +410,26 @@ const	struct	pc_race_type	pc_race_table	[]	=
     {
 	"human",	"Human",	0,	{ 100, 100, 100, 100 },
 	{ "" },
-	{ 13, 13, 13, 13, 13 },	{ 18, 18, 18, 18, 18 },	SIZE_MEDIUM
+	{ 10, 10, 10, 10, 10 },	{ 16, 16, 16, 16, 16 },	SIZE_MEDIUM
     },
 
     { 	
 	"elf",		" Elf ",	5,	{ 100, 125,  100, 120 }, 
 	{ "sneak", "hide" },
-	{ 12, 14, 13, 15, 11 },	{ 16, 20, 18, 21, 15 }, SIZE_SMALL
+	{ 8, 11, 10, 12, 8 },	{ 14, 17, 16, 18, 14 }, SIZE_MEDIUM
     },
 
     {
 	"dwarf",	"Dwarf",	8,	{ 150, 100, 125, 100 },
 	{ "berserk" },
-	{ 14, 12, 14, 10, 15 },	{ 20, 16, 19, 14, 21 }, SIZE_MEDIUM
+	{ 11, 8, 12, 8, 10 },	{ 17, 14, 18, 14, 16 }, SIZE_MEDIUM
     },
 
-    {
+	{
 	"giant",	"Giant",	6,	{ 200, 150, 150, 105 },
 	{ "bash", "fast healing" },
-	{ 16, 11, 13, 11, 14 },	{ 22, 15, 18, 15, 20 }, SIZE_LARGE
-    }
+	{ 12, 8, 11, 8, 10 },	{ 18, 14, 17, 14, 16 }, SIZE_LARGE
+	}
 };
 
 	
@@ -900,32 +907,32 @@ const	struct	dex_app_type	dex_app		[26]		=
 
 const	struct	con_app_type	con_app		[26]		=
 {
-    { -4 },   /*  0 */
-    { -3 },   /*  1 */
+    { -5 },   /*  0 */
+    { -5 },
+    { -4 },   // 2
+    { -4 },
+    { -3 },   // 4
+    { -3 },
+    { -2 },   // 6
     { -2 },
-    { -2 },	  /*  3 */
+    { -1 },   // 8
     { -1 },
-    { -1 },   /*  5 */
-    { -1 },
-    {  0 },
-    {  0 },
-    {  0 },
     {  0 },   /* 10 */
     {  0 },
-    {  0 },
-    {  0 },
-    {  0 },
-    {  1 },   /* 15 */
+    {  1 },   // 12
+    {  1 },
+    {  2 },   // 14
     {  2 },
-    {  2 },
-    {  3 },   /* 18 */
+    {  3 },   // 16
     {  3 },
-    {  4 },   /* 20 */
+    {  4 },   /* 18 */
     {  4 },
+    {  5 },   /* 20 */
     {  5 },
+    {  6 },   // 22
     {  6 },
-    {  7 },
-    {  8 }    /* 25 */
+    {  7 },   // 24
+    {  7 }    /* 25 */
 };
 
 
