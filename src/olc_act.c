@@ -28,6 +28,7 @@
 #include "olc.h"
 #include "recycle.h"
 #include "lookup.h"
+#include "interp.h"
 
 char * mprog_type_to_name ( int type );
 
@@ -3417,7 +3418,7 @@ OEDIT( oedit_material )
 	MAT_TYPE *mat = find_mat(argument);
 	if(!mat) {
 		do_matlist(ch, "");
-		return;
+		return false;
 	}
 
 	PURGE_DATA( pObj->material );
@@ -4326,7 +4327,7 @@ MEDIT( medit_material )
 	MAT_TYPE *mat = find_mat(argument);
 	if(!mat) {
 		do_matlist(ch, "");
-		return;
+		return false;
 	}
 
 	PURGE_DATA( pMob->material );
