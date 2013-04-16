@@ -2940,6 +2940,8 @@ void buildDirectories()
 		PLAYER_DIR,
 		DATA_DIR,
 		GOD_DIR,
+		LOG_DIR,
+		AREA_DIR,
 		NULL
 	};
 	int dl = 0;

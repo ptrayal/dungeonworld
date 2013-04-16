@@ -2160,10 +2160,13 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 #endif
 
 #if defined(unix)
-#define PLAYER_DIR      "../player/"        	/* Player files */
-#define GOD_DIR         "../gods/"  		/* list of gods */
-#define TEMP_FILE	"../player/romtmp"
-#define NULL_FILE	"/dev/null"		/* To reserve one stream */
+#define PLAYER_DIR		"../player/"        	/* Player files */
+#define GOD_DIR			"../gods/"  		/* list of gods */
+#define TEMP_FILE		"../player/romtmp"
+#define NULL_FILE		"/dev/null"		/* To reserve one stream */
+#define DATA_DIR		"../data/"
+#define LOG_DIR			"../log/"
+#define AREA_DIR		"../area/"
 #endif
 
 #define AREA_LIST       "area.lst"          /* List of areas*/
@@ -2174,7 +2177,6 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 #define CHANGES_FILE	"chang.not"
 #define SHUTDOWN_FILE   "shutdown.txt"      /* For 'shutdown'*/
 #define MUSIC_FILE      "music.txt"
-#define DATA_DIR		"../data/"
 #define BAN_FILE        "../data/ban.txt"
 #define BUG_FILE        "../data/bugs.txt"  /* For 'bug' and bug()*/
 #define HELP_FILE       "../data/help.txt"   /* For undefined helps */
