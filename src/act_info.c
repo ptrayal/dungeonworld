@@ -1731,7 +1731,8 @@ void do_help( CHAR_DATA *ch, char *argument )
 	HELP_DATA *pHelp;
 	BUFFER *output;
 	bool found = FALSE;
-	char argall[MAX_INPUT_LENGTH],argone[MAX_INPUT_LENGTH];
+	char argall[MAX_INPUT_LENGTH];
+	char argone[MAX_INPUT_LENGTH];
 	int level;
 	char nohelp[MSL]={'\0'};
 
@@ -1792,7 +1793,11 @@ void do_help( CHAR_DATA *ch, char *argument )
 		append_file( ch, HELP_FILE, nohelp );
 	}
 	else
-		page_to_char(buf_string(output),ch);
+	{
+		page_to_char(buf_string(output), ch);
+		// This is a fix to make sure any funky coloring goes back to normal coloring.
+		send_to_char("\tn\n\r", ch);	
+	}
 	free_buf(output);
 }
 
