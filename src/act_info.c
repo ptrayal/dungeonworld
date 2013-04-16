@@ -2232,6 +2232,11 @@ void do_compare( CHAR_DATA *ch, char *argument )
 void do_credits( CHAR_DATA *ch, char *argument )
 {
 	do_function(ch, &do_help, "diku" );
+
+	send_to_char(Format("\n\rVarious code by Omega(David Simmerson)"), ch);
+	send_to_char(Format("\n\rDungeonWorld by Rayal(Brandon)"), ch);
+	send_to_char(Format("\n\rDungeonWorld Version %s : Last build at " __TIME__ " on " __DATE__".\n\r", getVersion()),ch);
+
 	return;
 }
 

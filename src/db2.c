@@ -296,6 +296,7 @@ void load_mobiles( FILE *fp )
 		CHECK_POS( pMobIndex->size, size_lookup(fread_word(fp)), "size" );
 /*	pMobIndex->size			= size_lookup(fread_word(fp)); */
 		pMobIndex->material		= str_dup(fread_word( fp ));
+		confirm_material(pMobIndex->material);
 		
 		for ( ; ; )
 		{
@@ -418,7 +419,7 @@ void load_objects( FILE *fp )
 		pObjIndex->short_descr          = fread_string( fp );
 		pObjIndex->description          = fread_string( fp );
 		pObjIndex->material		= fread_string( fp );
-
+		confirm_material(pObjIndex->material);
 	CHECK_POS(pObjIndex->item_type, item_lookup(fread_word( fp )), "item_type" );
 		pObjIndex->extra_flags          = fread_flag( fp );
 		pObjIndex->wear_flags           = fread_flag( fp );

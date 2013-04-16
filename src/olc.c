@@ -57,6 +57,9 @@ bool run_olc_editor( DESCRIPTOR_DATA *d )
     case ED_HELP:
     	hedit( d->character, d->incomm );
     	break;
+    case ED_MAT:
+    	matedit(d->character, d->incomm );
+    	break;
     default:
 	return FALSE;
     }
@@ -90,6 +93,9 @@ char *olc_ed_name( CHAR_DATA *ch )
     case ED_HELP:
     	sprintf( buf, "HEdit" );
     	break;
+    case ED_MAT:
+    	sprintf(buf, "MATEdit");
+    	break;
     default:
 	sprintf( buf, " " );
 	break;
@@ -107,6 +113,7 @@ char *olc_ed_vnum( CHAR_DATA *ch )
     MOB_INDEX_DATA *pMob;
     MPROG_CODE *pMprog;
     HELP_DATA *pHelp;
+    MAT_TYPE *pMat;
     static char buf[MIL];
 	
     buf[0] = '\0';
@@ -135,6 +142,10 @@ char *olc_ed_vnum( CHAR_DATA *ch )
     case ED_HELP:
     	pHelp = (HELP_DATA *)ch->desc->pEdit;
     	sprintf( buf, "%s", pHelp ? pHelp->keyword : "" );
+    	break;
+    case ED_MAT:
+    	pMat = (MAT_TYPE *)ch->desc->pEdit;
+    	sprintf(buf, "%s", pMat ? pMat->name : "");
     	break;
     default:
 	sprintf( buf, " " );
@@ -202,6 +213,9 @@ bool show_commands( CHAR_DATA *ch, char *argument )
 	    break;
 	case ED_HELP:
 	    show_olc_cmds( ch, hedit_table );
+	    break;
+	case ED_MAT:
+	    show_olc_cmds( ch, matedit_table );
 	    break;
     }
 

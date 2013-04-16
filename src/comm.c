@@ -58,7 +58,7 @@
 #include <time.h>
 #include <unistd.h> /* OLC -- for close read write etc */
 #include <stdarg.h> /* printf_to_char */
-
+#include <pwd.h>
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"
@@ -406,7 +406,8 @@ void cleanup_mud(void) {
 	clear_notes();
 	clear_wizlist();
 	clear_buffer();
-
+	clear_materials();
+	
 	// second (eliminating stragglers)
 	log_string("Cleaning: second purge");
 	purgeExtracted();
@@ -509,6 +510,22 @@ void cleanup_mud(void) {
 
 }
 
+void moron_check(void)
+{
+	uid_t uid;
+ 
+	if((uid = getuid()) == 0)
+	{
+		log_string("Warning, you are a moron.  Do not run as root.");
+		exit(1);
+	}
+}
+
+void log_last_compile_time(void)
+{
+	log_string("Last compiled on " __DATE__ " at " __TIME__".");
+}
+
 int main( int argc, char **argv )
 {
 	struct timeval now_time;
@@ -571,6 +588,9 @@ int main( int argc, char **argv )
 
 	buildDirectories();
 
+	moron_check();
+	log_last_compile_time();	
+	
 	/*
 	 * Run the game.
 	 */

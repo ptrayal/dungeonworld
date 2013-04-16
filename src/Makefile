@@ -14,7 +14,7 @@ NOCRYPT =
 C_FLAGS =  -Wall $(PROF) $(NOCRYPT)
 L_FLAGS =  $(PROF) -DASSERT
 INCLUDE_FLAGS = 
-LIBRARIES = -lcrypt
+LIBRARIES = #-lcrypt
 
 #####################################################################################################
 # VERSION SUPPORT: allow us to control our revisions of the executable being built.

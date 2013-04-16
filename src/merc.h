@@ -119,6 +119,7 @@ typedef struct	weather_data		WEATHER_DATA;
 typedef struct  mprog_list		MPROG_LIST;
 typedef struct  mprog_code		MPROG_CODE;
 typedef struct  wiz_data        WIZ_DATA;
+typedef struct	material_type	MAT_TYPE;
 
 extern BUFFER *buffer_list;
 extern int top_buffer;
@@ -1381,6 +1382,11 @@ struct	mob_index_data
 	long		mprog_flags;
 };
 
+struct material_type {
+	MAT_TYPE *next;
+	const char *name;
+	int assignedValue;
+};
 
 
 /* memory settings */
@@ -2168,12 +2174,13 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 #define CHANGES_FILE	"chang.not"
 #define SHUTDOWN_FILE   "shutdown.txt"      /* For 'shutdown'*/
 #define MUSIC_FILE      "music.txt"
+#define DATA_DIR		"../data/"
 #define BAN_FILE        "../data/ban.txt"
 #define BUG_FILE        "../data/bugs.txt"  /* For 'bug' and bug()*/
 #define HELP_FILE       "../data/help.txt"   /* For undefined helps */
 #define TYPO_FILE       "../data/typos.txt" /* For 'typo'*/
 #define WIZ_FILE        "../data/wizlist.txt"
-
+#define MATERIAL_FILE   "../data/materials.txt"
 
 
 /*
@@ -2542,6 +2549,12 @@ void update_wizlist(CHAR_DATA *ch, int level);
  *                                    OLC                                    *
  *****************************************************************************/
 
+void clear_materials(void);
+void load_materials(void);
+void save_materials(void);
+void confirm_material(const char *name);
+MAT_TYPE *find_mat(const char *name);
+
 /*
  * Object defined in limbo.are
  * Used in save.c to load objects that don't exist.
@@ -2751,6 +2764,33 @@ while(0)
 	} \
 } \
 while(0)
+
+#if defined(KEY)
+#undef KEY
+#endif
+
+#define KEY( literal, field, value )					\
+				if ( !str_cmp( word, literal ) )	\
+				{					\
+					field  = value;			\
+					fMatch = TRUE;			\
+					break;				\
+				}
+
+/* provided to free strings */
+#if defined(KEYS)
+#undef KEYS
+#endif
+
+#define KEYS( literal, field, value )					\
+				if ( !str_cmp( word, literal ) )	\
+				{					\
+					PURGE_DATA(field);			\
+					field  = value;			\
+					fMatch = TRUE;			\
+					break;				\
+				}
+
 
 
 #endif // end of file

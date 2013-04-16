@@ -63,6 +63,7 @@ DECLARE_SPELL_FUN( spell_null );
 #define ED_MOBILE	4
 #define ED_MPCODE	5
 #define ED_HELP		6
+#define ED_MAT		7
 
 
 
@@ -73,9 +74,9 @@ void    aedit           args( ( CHAR_DATA *ch, char *argument ) );
 void    redit           args( ( CHAR_DATA *ch, char *argument ) );
 void    medit           args( ( CHAR_DATA *ch, char *argument ) );
 void    oedit           args( ( CHAR_DATA *ch, char *argument ) );
-void	mpedit		args( ( CHAR_DATA *ch, char *argument ) );
-void	hedit		args( ( CHAR_DATA *, char * ) );
-
+void	mpedit			args( ( CHAR_DATA *ch, char *argument ) );
+void	hedit			args( ( CHAR_DATA *, char * ) );
+void	matedit			args( ( CHAR_DATA *ch, char *argument ) );
 
 /*
  * OLC Constants
@@ -129,7 +130,7 @@ extern const struct olc_cmd_type	oedit_table[];
 extern const struct olc_cmd_type	medit_table[];
 extern const struct olc_cmd_type	mpedit_table[];
 extern const struct olc_cmd_type	hedit_table[];
-
+extern const struct olc_cmd_type	matedit_table[];
 
 /*
  * Editor Commands.
@@ -140,6 +141,7 @@ DECLARE_DO_FUN( do_oedit        );
 DECLARE_DO_FUN( do_medit        );
 DECLARE_DO_FUN( do_mpedit	);
 DECLARE_DO_FUN( do_hedit	);
+DECLARE_DO_FUN( do_matedit	);
 
 /*
  * General Functions
@@ -149,7 +151,12 @@ bool show_help			args ( ( CHAR_DATA *ch, char *argument ) );
 bool edit_done			args ( ( CHAR_DATA *ch ) );
 bool show_version		args ( ( CHAR_DATA *ch, char *argument ) );
 
-
+/*
+ *	Materials Editor
+ */
+DECLARE_OLC_FUN( matedit_show );
+DECLARE_OLC_FUN( matedit_create );
+DECLARE_OLC_FUN( matedit_name );
 
 /*
  * Area Editor Prototypes
@@ -291,7 +298,7 @@ DECLARE_OLC_FUN( hedit_list		);
 #define EDIT_ROOM(Ch, Room)	( Room = Ch->in_room )
 #define EDIT_AREA(Ch, Area)	( Area = (AREA_DATA *)Ch->desc->pEdit )
 #define EDIT_MPCODE(Ch, Code)   ( Code = (MPROG_CODE*)Ch->desc->pEdit )
-
+#define EDIT_MAT(Ch, Mat) ( Mat = (MAT_TYPE *)Ch->desc->pEdit )
 
 /*
  * Prototypes
@@ -326,5 +333,7 @@ MPROG_LIST      *new_mprog              args ( ( void ) );
 void            free_mprog              args ( ( MPROG_LIST *mp ) );
 MPROG_CODE	*new_mpcode		args ( (void) );
 void		free_mpcode		args ( ( MPROG_CODE *pMcode));
+
+MAT_TYPE *find_mat(const char *name);
 
 #endif

@@ -269,6 +269,7 @@ void boot_db( void )
 	 * Init random number generator.
 	 */
 	{
+		log_string("Boot - Initializing RNG");
 		init_mm( );
 	}
 
@@ -276,6 +277,7 @@ void boot_db( void )
 	 * Set time and weather.
 	 */
 	{
+	log_string("Boot - Generating Weather");
 	long lhour, lday, lmonth;
 
 	lhour		= (current_time - 650336715)
@@ -312,13 +314,16 @@ void boot_db( void )
 	 */
 	{
 	int sn;
-
+	log_string("Boot - Assigning GSNs");
 	for ( sn = 0; sn < MAX_SKILL; sn++ )
 	{
 		if ( skill_table[sn].pgsn != NULL )
 		*skill_table[sn].pgsn = sn;
 	}
 	}
+
+	log_string("Boot - Loading Materials");
+	load_materials();
 
 	/*
 	 * Read in all the area files.
@@ -344,11 +349,12 @@ void boot_db( void )
 		}
 		else
 		{
-		if ( ( fpArea = fopen( strArea, "r" ) ) == NULL )
-		{
-			perror( strArea );
-			exit( 1 );
-		}
+			log_string(Format("Boot - Reading Area file %s", strArea));
+			if ( ( fpArea = fopen( strArea, "r" ) ) == NULL )
+			{
+				perror( strArea );
+				exit( 1 );
+			}
 		}
 
 		current_area = NULL;
@@ -400,22 +406,39 @@ void boot_db( void )
 	 * Load up the songs, notes and ban files.
 	 */
 	{
+	log_string("Boot - Fixing Exits");
 	fix_exits( );
+	log_string("Boot - Fixing mobprogs");
 	fix_mobprogs( );
+	log_string("Boot - Changing fBootDb state");
 	fBootDb	= FALSE;
-		convert_objects( );           /* ROM OLC */
+	log_string("Boot - Converting Objects(modern format)");
+	convert_objects( );           /* ROM OLC */
 	// area_update( );
+	log_string("Boot - Initial world respawn initiating");
 	reset_world();
+	log_string("Boot - Loading Notes");
 	load_notes( );
+	log_string("Boot - Loading Bans");
 	load_bans();
+	log_string("Boot - Loading Songs");
 	load_songs();
+	log_string("Boot - Loading Wizlist");
 	load_wizlist();
+	
+	log_string("Boot - Saving Materials File");
+	save_materials();
 	}
 
+
+	log_string("Boot - Detecting greeting");
     if ( !help_greeting )             /* Hugin */
     {
+		    log_string("\tBoot - Greeting not found");
             bug( "boot_db: No help_greeting read.", 0 );
             help_greeting = "By what name do you wish to be known ? ";
+    } else {
+	    log_string("Boot - Greeting detected!");
     }
 
 	return;
@@ -2035,7 +2058,8 @@ CHAR_DATA *create_mobile( MOB_INDEX_DATA *pMobIndex )
 	mob->parts		= pMobIndex->parts;
 	mob->size		= pMobIndex->size;
 	mob->material		= str_dup(pMobIndex->material);
-
+	confirm_material(mob->material);
+	
 	/* computed on the spot */
 
 		for (i = 0; i < MAX_STATS; i ++)
@@ -2160,8 +2184,9 @@ CHAR_DATA *create_mobile( MOB_INDEX_DATA *pMobIndex )
 	mob->form		= pMobIndex->form;
 	mob->parts		= pMobIndex->parts;
 	mob->size		= SIZE_MEDIUM;
-	mob->material		= "flesh";
-
+	mob->material		= str_dup("flesh");
+	confirm_material(mob->material);
+	
 		for (i = 0; i < MAX_STATS; i ++)
 			mob->perm_stat[i] = 11 + mob->level/4;
 	}
@@ -2227,6 +2252,8 @@ void clone_mobile(CHAR_DATA *parent, CHAR_DATA *clone)
 	clone->parts	= parent->parts;
 	clone->size		= parent->size;
 	clone->material	= str_dup(parent->material);
+	confirm_material(clone->material);
+	
 	clone->off_flags	= parent->off_flags;
 	clone->dam_type	= parent->dam_type;
 	clone->start_pos	= parent->start_pos;
@@ -2288,8 +2315,10 @@ void clone_mobile(CHAR_DATA *parent, CHAR_DATA *clone)
 	else
 		obj->description = str_dup("This object needs a long description.");
 
- 	if(!IS_NULLSTR(pObjIndex->material))
+ 	if(!IS_NULLSTR(pObjIndex->material)) {
  		obj->material	= str_dup(pObjIndex->material);
+		confirm_material(obj->material);
+ 	}
  	obj->item_type	= pObjIndex->item_type;
  	obj->extra_flags	= pObjIndex->extra_flags;
  	obj->wear_flags	= pObjIndex->wear_flags;
@@ -2428,6 +2457,7 @@ void clone_object(OBJ_DATA *parent, OBJ_DATA *clone)
 	clone->level	= parent->level;
 	clone->condition	= parent->condition;
 	clone->material	= str_dup(parent->material);
+	confirm_material(clone->material);
 	clone->timer	= parent->timer;
 
 	for (i = 0;  i < 5; i ++)

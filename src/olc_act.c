@@ -3410,8 +3410,14 @@ OEDIT( oedit_material )
 
 	if ( IS_NULLSTR(argument) )
 	{
-	send_to_char( "Syntax:  material [string]\n\r", ch );
-	return FALSE;
+		send_to_char( "Syntax:  material [string]\n\r", ch );
+		return FALSE;
+	}
+
+	MAT_TYPE *mat = find_mat(argument);
+	if(!mat) {
+		do_matlist(ch, "");
+		return;
 	}
 
 	PURGE_DATA( pObj->material );
@@ -4313,8 +4319,14 @@ MEDIT( medit_material )
 
 	if ( IS_NULLSTR(argument) )
 	{
-	send_to_char( "Syntax:  material [string]\n\r", ch );
-	return FALSE;
+		send_to_char( "Syntax:  material [string]\n\r", ch );
+		return FALSE;
+	}
+
+	MAT_TYPE *mat = find_mat(argument);
+	if(!mat) {
+		do_matlist(ch, "");
+		return;
 	}
 
 	PURGE_DATA( pMob->material );

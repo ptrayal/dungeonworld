@@ -716,32 +716,6 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
  * Read in a char.
  */
 
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-					field  = value;			\
-					fMatch = TRUE;			\
-					break;				\
-				}
-
-/* provided to free strings */
-#if defined(KEYS)
-#undef KEYS
-#endif
-
-#define KEYS( literal, field, value )					\
-				if ( !str_cmp( word, literal ) )	\
-				{					\
-					PURGE_DATA(field);			\
-					field  = value;			\
-					fMatch = TRUE;			\
-					break;				\
-				}
-
 void fread_char( CHAR_DATA *ch, FILE *fp )
 {
 	char buf[MSL]={'\0'};

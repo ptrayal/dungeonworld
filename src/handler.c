@@ -2938,6 +2938,7 @@ void buildDirectories()
 {
 	const char *directory_table[] = {
 		PLAYER_DIR,
+		DATA_DIR,
 		GOD_DIR,
 		NULL
 	};

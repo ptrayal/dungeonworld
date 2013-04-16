@@ -363,7 +363,7 @@ const	struct	cmd_type	cmd_table	[] =
      * OLC
      */
     { "edit",		do_olc,		POS_DEAD,    0,  LOG_NORMAL, 1 },
-    { "asave",          do_asave,	POS_DEAD,    0,  LOG_NORMAL, 1 },
+    { "asave",      do_asave,	POS_DEAD,    0,  LOG_NORMAL, 1 },
     { "alist",		do_alist,	POS_DEAD,    0,  LOG_NORMAL, 1 },
     { "resets",		do_resets,	POS_DEAD,    0,  LOG_NORMAL, 1 },
     { "redit",		do_redit,	POS_DEAD,    0,	 LOG_NORMAL, 1 },
@@ -372,7 +372,9 @@ const	struct	cmd_type	cmd_table	[] =
     { "oedit",		do_oedit,	POS_DEAD,    0,  LOG_NORMAL, 1 },
     { "mpedit",		do_mpedit,	POS_DEAD,    0,  LOG_NORMAL, 1 },
     { "hedit",		do_hedit,	POS_DEAD,    0,  LOG_NORMAL, 1 },
-
+	{ "matedit",	do_matedit, POS_DEAD,	 ML, LOG_NORMAL, 1 },
+	{ "matlist",	do_matlist, POS_DEAD,	 IM, LOG_NORMAL, 1 },
+	
     /*
      * End of list.
      */
