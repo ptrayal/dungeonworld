@@ -1,8 +1,12 @@
-#AREA
-grove.are~
-Holy Grove~
-{ 5 20} Alfa    Holy Grove~
-8900 8999
+#AREADATA
+Name Holy Grove~
+Builders None~
+VNUMs 8900 8999
+Credits { 5 20} Alfa    Holy Grove~
+Security 9
+End
+
+
 
 #MOBILES
 #8900
@@ -20,7 +24,7 @@ AGHQ DHN 1000 0
 -4 -4 -4 6
 EIKU 0 0 0
 stand stand male 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8901
 oldstyle hierophant~
 The Hierophant~
@@ -36,7 +40,7 @@ AGHQ DHN 1000 0
 -4 -4 -4 6
 EIKU 0 0 0
 stand stand female 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8902
 oldstyle elder druid~
 an elder druid~
@@ -51,7 +55,7 @@ AGHQ N 1000 0
 -1 -1 -1 7
 EIKU 0 0 0
 stand stand male 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8903
 oldstyle elder druidess~
 an elder druidess~
@@ -65,7 +69,7 @@ AGHQ N 1000 0
 -1 -1 -1 7
 EIKU 0 0 0
 stand stand female 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8904
 oldstyle doe~
 a doe~
@@ -80,7 +84,7 @@ AGH 0 0 0
 5 5 5 9
 EFNU 0 0 0
 stand stand female 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8905
 oldstyle deer~
 a deer~
@@ -95,7 +99,7 @@ AGH 0 0 0
 4 4 4 9
 EFNU 0 0 0
 stand stand male 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8906
 oldstyle stag deer large~
 a stag~
@@ -109,7 +113,7 @@ AFGH 0 0 0
 3 3 3 9
 EFNU 0 0 0
 stand stand male 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8907
 oldstyle bunny rabbit~
 a small bunny~
@@ -123,7 +127,7 @@ AGH 0 0 0
 8 8 8 10
 EFNU 0 0 0
 stand stand none 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8908
 oldstyle snake~
 a harmless snake~
@@ -135,9 +139,9 @@ snake~
 AFGH P 0 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
-EFNR 0 0 0
+EFNR 0 L I
 stand stand none 0
-0 0 medium 0
+AGc ADEFKLQVX medium unknown
 #8909
 oldstyle druid~
 a druid~
@@ -151,7 +155,7 @@ AGHQ DN 1000 0
 1 1 1 7
 EIKU 0 0 0
 stand stand male 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #8910
 oldstyle druidess~
 a druidess~
@@ -165,8 +169,10 @@ AGHQ DN 1000 0
 1 1 1 7
 EIKU 0 0 0
 stand stand female 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #0
+
+
 
 #OBJECTS
 #8901
@@ -195,7 +201,7 @@ some black powder~
 Some strong-smelling black powder has been carelessly scattered here.~
 oldstyle~
 food 0 A
--2 -2 0 0 0
+BCDEFGHIJKLMNOPQRSTUVWXYZabcdef BCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0 0
 0 10 0 P
 E
 powder~
@@ -211,7 +217,7 @@ some small yellow kernels~
 Some small yellow kernels have been accidentally left here.~
 oldstyle~
 food 0 AO
-1 1 0 0 0
+A A 0 0 0
 0 10 0 P
 E
 kernel kernels~
@@ -277,7 +283,7 @@ a brown robe~
 Some brown cloth is on the floor.~
 oldstyle~
 armor K AD
-6 6 6 0 0
+BC BC BC 0 0
 16 50 2300 P
 A
 12 10
@@ -343,6 +349,8 @@ pill 0 A
 6 10 430 P
 #0
 
+
+
 #ROOMS
 #8901
 The holy grove~
@@ -355,12 +363,12 @@ looking paths lead east and south.
 D1
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 8902
 D2
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 8904
 S
 #8902
@@ -373,18 +381,18 @@ shoulders. From here, pleasant-looking paths lead east, west and south.
 D1
 The path wind its way through the tall trees, towards a clearing faintly seen.
 ~
-~
+(null)~
 0 -1 8903
 D2
 The path wind its way through the tall trees, towards an open area barely
 visible in the distance.
 ~
-~
+(null)~
 0 -1 8905
 D3
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 8901
 S
 #8903
@@ -394,28 +402,28 @@ seems powerfully DIFFERENT from the rest of the forest, as if something is
 severely strained in the fabric of reality here.  There is a small tablet 
 on one of the trees.
 ~
-0 C 3
+0 4 3
+E
+tablet~
+This zone has been populated by Merc.  1993
+~
 D0
 A small, narrow path winds north, and is quickly lost in the bushes. It
 looks quite a wilderness there!
 ~
-~
+(null)~
 0 -1 5378
 D2
 There is a path winding its way south through the tall poplars, disappearing
 out of sight some 100 yds. away.
 ~
-~
+(null)~
 0 -1 8906
 D3
 There is a friendly-looking path leading west through the tall trees.
 ~
-~
+(null)~
 0 -1 8902
-E
-tablet~
-This zone has been populated by Merc.  1993
-~
 S
 #8904
 The holy grove~
@@ -425,26 +433,26 @@ shoulders. From here, pleasant-looking paths lead east, north and south. To
 the west, through the trees, You can see a faint trail leading towards the
 eastern road.
 ~
-0 C 3
+0 4 3
 D0
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 8901
 D1
 The path wind its way through the tall trees, towards a clearing faintly seen.
 ~
-~
+(null)~
 0 -1 8905
 D2
 The path wind its way through the tall trees, into the grove.
 ~
-~
+(null)~
 0 -1 8907
 D3
 You can barely see a path leading back towards the eastern road.
 ~
-~
+(null)~
 0 -1 8951
 S
 #8905
@@ -462,29 +470,29 @@ like something from another world....
 D0
 The path wind its way north, disappearing through the tall trees.
 ~
-~
+(null)~
 0 -1 8902
 D1
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 8906
 D2
 To the south, a wide, sunny field stretch out, sloping down towards a brightly
 glittering lake.
 ~
-~
+(null)~
 0 -1 8908
 D3
 The path wind its way west between stately poplars and oaks.
 ~
-~
+(null)~
 0 -1 8904
 D4
 The shimmering grows in intensity as you look at it, beckoning you to reach
 upwards...
 ~
-~
+(null)~
 0 -1 9000
 S
 #8906
@@ -495,22 +503,6 @@ burdens have been lifted from Your shoulders. To the south, You glimpse an open
 area through the trees, while paths lead away north and west.
 ~
 0 0 3
-D0
-The path wind its way through the tall trees, disappearing out of sight.
-~
-~
-0 -1 8903
-D2
-To the south, just beyond the trees, you can see a wide green lawn, and past
-the lawn, a softly shimmering, rainbow-colored mansion.
-~
-~
-0 -1 8909
-D3
-The path wind its way through the tall trees, disappearing out of sight.
-~
-~
-0 -1 8905
 E
 mansion~
 The mansion is a sprawling, two-story affair with three wings, where the top
@@ -518,6 +510,22 @@ of one wing serves as balcony. The walls look as marble would do, if marble
 changed color slowly, continuously, through the entire spectrum. There are
 large windows all over the house.
 ~
+D0
+The path wind its way through the tall trees, disappearing out of sight.
+~
+(null)~
+0 -1 8903
+D2
+To the south, just beyond the trees, you can see a wide green lawn, and past
+the lawn, a softly shimmering, rainbow-colored mansion.
+~
+(null)~
+0 -1 8909
+D3
+The path wind its way through the tall trees, disappearing out of sight.
+~
+(null)~
+0 -1 8905
 S
 #8907
 The holy grove~
@@ -528,19 +536,6 @@ you feel an inexplicable happiness, as if the world's troubles no longer
 really matter to you.
 ~
 0 0 3
-D0
-The path leading north is soon lost out of sight amongst the ancient oaks and
-poplars.
-~
-~
-0 -1 8904
-D1
-To the east, the path leads out into a wide, sunny summer's field, sloping
-south towards a beautiful lake. Past the field You can see a stately mansion,
-shimmering gently in all the rainbow's colours.
-~
-~
-0 -1 8908
 E
 mansion~
 The mansion is a sprawling, two-story affair with three wings, where the top
@@ -548,6 +543,19 @@ of one wing serves as balcony. The walls look as marble would do, if marble
 changed color slowly, continuously, through the entire spectrum. There are
 large windows all over the house.
 ~
+D0
+The path leading north is soon lost out of sight amongst the ancient oaks and
+poplars.
+~
+(null)~
+0 -1 8904
+D1
+To the east, the path leads out into a wide, sunny summer's field, sloping
+south towards a beautiful lake. Past the field You can see a stately mansion,
+shimmering gently in all the rainbow's colours.
+~
+(null)~
+0 -1 8908
 S
 #8908
 The sunny field~
@@ -559,23 +567,7 @@ sion, shimmering softly through the colors of the rainbow. You feel as if You
 could spend the rest of your life here, lying on your back and looking at the
 patterns of the clouds as they gently drift across the sky.
 ~
-0 D 2
-D0
-There is a path leading north towards the sacred glade.
-~
-~
-0 -1 8905
-D1
-To the east, You can see the rainbow-colored mansion, shimmering like some-
-thing out of this world.
-~
-~
-0 -1 8919
-D3
-There is a small path leading into the woods to the west.
-~
-~
-0 -1 8907
+0 8 2
 E
 mansion~
 The mansion is a sprawling, two-story affair with three wings, where the top
@@ -584,6 +576,22 @@ changed color slowly, continuously, through the entire spectrum. There are
 large windows all over the house. There is a terrace in front of the house,
 next to the low wing, which is almost completely windows.
 ~
+D0
+There is a path leading north towards the sacred glade.
+~
+(null)~
+0 -1 8905
+D1
+To the east, You can see the rainbow-colored mansion, shimmering like some-
+thing out of this world.
+~
+(null)~
+0 -1 8919
+D3
+There is a small path leading into the woods to the west.
+~
+(null)~
+0 -1 8907
 S
 #8909
 The croquet lawn~
@@ -593,17 +601,7 @@ from the wood's edge to the north, to the softly shimmering, rainbow-colored
 mansion to the south. This place enjoys a perpetual cool, sunny summers after-
 noon.
 ~
-0 C 2
-D0
-To the north, the winding stone path leads into the holy grove.
-~
-~
-0 -1 8906
-D2
-To the south, the path leads straight up to the front door of the mansion.
-~
-door~
-1 -1 8910
+0 4 2
 E
 mansion~
 The mansion is a sprawling, two-story affair with three wings, where the top
@@ -611,6 +609,16 @@ of one wing serves as balcony. The walls look as marble would do, if marble
 changed color slowly, continuously, through the entire spectrum. There are
 large windows all over the house.
 ~
+D0
+To the north, the winding stone path leads into the holy grove.
+~
+(null)~
+0 -1 8906
+D2
+To the south, the path leads straight up to the front door of the mansion.
+~
+door~
+1 -1 8910
 S
 #8910
 The foyer~
@@ -619,17 +627,7 @@ the croquet lawn is to the north, flanked by large windows. The walls are
 panelled in oak and hung with strange paintings.  There is door in the south
 wall.
 ~
-0 CD 0
-D0
-Through the windows next to the door you can see the croquet lawn, bathed in
-afternoon sunlight.
-~
-door~
-1 -1 8909
-D2
-~
-door~
-1 -1 8911
+0 12 0
 E
 painting paintings~
 They are strange indeed, works of breathtaking precision depicting obviously
@@ -638,6 +636,16 @@ black costume (including hats), or a lady standing, blue from the waist up, or
 some pieces of plankwood that seems to be melting away like snow, or a night
 sky with a dove-shaped hole of bright day sky in the middle.
 ~
+D0
+Through the windows next to the door you can see the croquet lawn, bathed in
+afternoon sunlight.
+~
+door~
+1 -1 8909
+D2
+(null)~
+door~
+1 -1 8911
 S
 #8911
 The hallway~
@@ -645,18 +653,18 @@ You are in the north end of a connecting hallway, tastefully decorated with
 oak paneling and the coat-of-arms of various famous nobles hung on the walls.
 The hallway leads south, and there is a door in the eastern wall.
 ~
-0 D 0
+0 8 0
 D0
-~
+(null)~
 door~
 1 -1 8910
 D1
-~
+(null)~
 door~
 1 -1 8912
 D2
-~
-~
+(null)~
+(null)~
 0 -1 8913
 S
 #8912
@@ -667,9 +675,9 @@ shades, producing a very nice, cool effect. There is a large bed and a
 matching set of sofas, easy-chairs and a coffee table. Through the venetian
 blinds in front of the large east window you can see the edge of the grove.
 ~
-0 DJ 0
+0 520 0
 D3
-~
+(null)~
 door~
 1 -1 8911
 S
@@ -679,21 +687,21 @@ You are standing in the south end of the hallway. There are doors in the
 elegant oak-panelled walls to the south, east and west. Many different
 coat-of-arms adorn the walls here.
 ~
-0 D 0
+0 8 0
 D0
-~
-~
+(null)~
+(null)~
 0 -1 8911
 D1
-~
+(null)~
 door~
 1 -1 8914
 D2
-~
+(null)~
 door~
 1 -1 8915
 D3
-~
+(null)~
 door~
 1 -1 8916
 S
@@ -705,9 +713,9 @@ plements them. There is a large, warm waterbed and a sofa group in dark wood
 with leather upholstery, including a coffee table. Heavy brown curtains are
 pulled away from the wide windows, to reveal a nice view towards the grove.
 ~
-0 DJ 0
+0 520 0
 D3
-~
+(null)~
 door~
 1 -1 8913
 S
@@ -721,13 +729,13 @@ along several shelves and a large combo refrigerator/freezer. A big oven and
 stove is lurking in a corner. There is some proof here that Dragon is a less
 than meticulous housekeeper... There are doors to the north and west.
 ~
-0 D 0
+0 8 0
 D0
-~
+(null)~
 door~
 1 -1 8913
 D3
-~
+(null)~
 door~
 1 -1 8918
 S
@@ -739,18 +747,18 @@ standing forlornly in a corner suggests that this does not happen often.
 There are doors in the south and east walls, while to the west there is a
 short corridor to the greenhouse.
 ~
-0 D 0
+0 8 0
 D1
-~
+(null)~
 door~
 1 -1 8913
 D2
-~
+(null)~
 door~
 1 -1 8918
 D3
-~
-~
+(null)~
+(null)~
 0 -1 8917
 S
 #8917
@@ -763,13 +771,13 @@ see out for all the greenery here. There is a set of easy-chairs and a glass
 coffee table. To the south, there is a wide double door out to a sunlit 
 terrace.
 ~
-0 DJ 0
+0 520 0
 D1
-~
-~
+(null)~
+(null)~
 0 -1 8916
 D2
-~
+(null)~
 door~
 1 -1 8919
 S
@@ -780,19 +788,7 @@ seating at least 24, with heavy, wooden chairs to match. The oak panel walls
 are filled with paintings. There are doors to the north and east, and to the
 west there is a wide double door opening out onto the sunlit terrace.
 ~
-0 D 0
-D0
-~
-door~
-1 -1 8916
-D1
-~
-door~
-1 -1 8915
-D3
-~
-wide door~
-1 -1 8919
+0 8 0
 E
 painting paintings~
 There are many, many beautiful paintings of famous dragons of history and
@@ -807,6 +803,18 @@ fills another. There even are a few rare medieval renditions of the great
 beast of the Revelation. Over the head of the table hangs a rather modest 
 portrait of a silver Dragon, sparkling with blue lightening, looking amused.
 ~
+D0
+(null)~
+door~
+1 -1 8916
+D1
+(null)~
+door~
+1 -1 8915
+D3
+(null)~
+wide door~
+1 -1 8919
 S
 #8919
 The terrace~
@@ -817,18 +825,18 @@ colors, while a double door leads into the house proper to the east. It is
 warm and calm here. There is a white-painted table with a parasol here,
 together with a matched set of chairs.
 ~
-0 CD 0
+0 12 0
 D0
-~
+(null)~
 door~
 1 -1 8917
 D1
-~
+(null)~
 double door~
 1 -1 8918
 D3
-~
-~
+(null)~
+(null)~
 0 -1 8908
 S
 #8950
@@ -842,12 +850,12 @@ lies to the north, and you can see the eastern road to the south.
 D0
 A faint trail leads deeper into the grove.
 ~
-~
+(null)~
 0 -1 8951
 D2
 A wide road lies to the south.
 ~
-~
+(null)~
 0 -1 3526
 S
 #8951
@@ -862,12 +870,12 @@ south.
 D1
 You see the stately oaks and poplars of the holy grove.
 ~
-~
+(null)~
 0 -1 8904
 D2
 A faint trail heads towards the eastern road.
 ~
-~
+(null)~
 0 -1 8950
 S
 #8999
@@ -878,83 +886,94 @@ and falling ...
 ...
 .
 ~
-0 C 0
+0 4 0
 S
 #0
 
-#RESETS
-M 0 8900   1 8905  1	* The Hierophant
-E 1 8910  -1   16	*   a wooden staff
-E 1 8911  -1    5	*   a brown robe
-G 1 8919  -1     	*   some pinkish herbs
-G 1 8918  -1     	*   some orangish herbs
-M 0 8901   1 8901  1	* The Hierophant
-E 1 8910  -1   16	*   a wooden staff
-E 1 8911  -1    5	*   a brown robe
-G 1 8913  -1     	*   some bluish herbs
-G 1 8915  -1     	*   some blackish herbs
-M 0 8902   1 8902  1	* an elder druid
-E 1 8910  -1   16	*   a wooden staff
-G 1 8914  -1     	*   some purplish herbs
-G 1 8916  -1     	*   some grayish herbs
-M 0 8903   1 8904  1	* an elder druidess
-E 1 8910  -1   16	*   a wooden staff
-G 1 8919  -1     	*   some pinkish herbs
-G 1 8917  -1     	*   some reddish herbs
-M 0 8904   2 8905  2	* a doe
-M 0 8905   2 8906  2	* a deer
-M 0 8906   1 8905  1	* a stag
-M 0 8907   4 8903  4	* a small bunny
-M 0 8907   4 8903  4	* a small bunny
-M 0 8908   9 8906  9	* a harmless snake
-M 0 8909   2 8911  1	* a druid
-G 1 8913  -1     	*   some bluish herbs
-M 0 8909   2 8918  1	* a druid
-G 1 8916  -1     	*   some grayish herbs
-M 0 8910   2 8914  1	* a druidess
-G 1 8914  -1     	*   some purplish herbs
-M 0 8910   2 8917  1	* a druidess
-G 1 8918  -1     	*   some orangish herbs
-O 0 8901   2 8912	* a closet
-O 0 8901   2 8914	* a closet
-O 0 8902   2 8915	* a spice jar
-P 1 8903   1 8902  1	*   some black powder
-O 0 8902   2 8915	* a spice jar
-P 1 8904   1 8902  1	*   some small yellow kernels
-O 0 8905   1 8915	* a crumpled wad of paper
-D 0 8914   3    1	* The red room west
-D 0 8913   1    1	* The hallway east
-D 0 8912   3    1	* The blue room west
-D 0 8911   1    1	* The hallway east
-D 0 8911   0    1	* The hallway north
-D 0 8910   2    1	* The foyer south
-D 0 8910   0    1	* The foyer north
-D 0 8909   2    1	* The croquet lawn south
-D 0 8913   2    1	* The hallway south
-D 0 8915   0    1	* The kitchen north
-D 0 8913   3    1	* The hallway west
-D 0 8916   1    1	* The ballroom east
-D 0 8918   0    1	* The dining hall north
-D 0 8916   2    1	* The ballroom south
-D 0 8918   1    1	* The dining hall east
-D 0 8915   3    1	* The kitchen west
-D 0 8918   3    1	* The dining hall west
-D 0 8919   1    1	* The terrace east
-D 0 8917   2    1	* The greenhouse south
-D 0 8919   0    1	* The terrace north
+
+
+#SPECIALS
+M 8900 spec_cast_cleric
+M 8901 spec_cast_cleric
+M 8902 spec_cast_cleric
+M 8903 spec_cast_cleric
+M 8908 spec_poison
+M 8909 spec_cast_cleric
+M 8910 spec_cast_cleric
 S
+
+
+
+#RESETS
+D 0 8909 2 1
+D 0 8910 0 1
+D 0 8910 2 1
+D 0 8911 0 1
+D 0 8911 1 1
+D 0 8912 3 1
+D 0 8913 1 1
+D 0 8913 2 1
+D 0 8913 3 1
+D 0 8914 3 1
+D 0 8915 0 1
+D 0 8915 3 1
+D 0 8916 1 1
+D 0 8916 2 1
+D 0 8917 2 1
+D 0 8918 0 1
+D 0 8918 1 1
+D 0 8918 3 1
+D 0 8919 0 1
+D 0 8919 1 1
+M 0 8901 1 8901 1
+E 0 8910 0 16
+E 0 8911 0 5
+G 0 8913 0
+G 0 8915 0
+M 0 8902 1 8902 1
+E 0 8910 0 16
+G 0 8914 0
+G 0 8916 0
+M 0 8907 4 8903 4
+M 0 8907 4 8903 4
+M 0 8903 1 8904 1
+E 0 8910 0 16
+G 0 8919 0
+G 0 8917 0
+M 0 8900 1 8905 1
+E 0 8910 0 16
+E 0 8911 0 5
+G 0 8919 0
+G 0 8918 0
+M 0 8904 2 8905 2
+M 0 8906 1 8905 1
+M 0 8905 2 8906 2
+M 0 8908 9 8906 9
+M 0 8909 2 8911 1
+G 0 8913 0
+O 0 8901 0 8912
+M 0 8910 2 8914 1
+G 0 8914 0
+O 0 8901 0 8914
+O 0 8902 0 8915
+P 0 8903 1 8902 1
+O 0 8902 0 8915
+P 0 8904 1 8902 1
+O 0 8905 0 8915
+M 0 8910 2 8917 1
+G 0 8918 0
+M 0 8909 2 8918 1
+G 0 8916 0
+S
+
+
 
 #SHOPS
 0
 
-#SPECIALS
-M 8900 spec_cast_cleric    	* The Hierophant
-M 8901 spec_cast_cleric    	* The Hierophant
-M 8902 spec_cast_cleric    	* an elder druid
-M 8903 spec_cast_cleric    	* an elder druidess
-M 8908 spec_poison         	* a harmless snake
-M 8909 spec_cast_cleric    	* a druid
-M 8910 spec_cast_cleric    	* a druidess
-S
+
+
+#MOBPROGS
+#0
 
 #$

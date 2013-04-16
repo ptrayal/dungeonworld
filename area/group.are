@@ -847,7 +847,7 @@ groups of creatures.
 
 -1 FARSIGHT~
 Syntax: cast 'farsight'
-	cast 'farsight' <direction>
+        cast 'farsight' <direction>
 
 The farsight spell expands the caster's consciousness, allowing him or her
 to see far away beings like they were in the same room.  It takes intense

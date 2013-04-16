@@ -1,8 +1,12 @@
-#AREA
-mirror.are~
-Old Thalos~
-{ 1 30} Kahn    Old Thalos~
-5300 5399
+#AREADATA
+Name Old Thalos~
+Builders None~
+VNUMs 5300 5399
+Credits { 1 30} Kahn    Old Thalos~
+Security 9
+End
+
+
 
 #MOBILES
 #5300
@@ -20,7 +24,7 @@ ABCHR D 500 0
 6 6 6 8
 FU 0 0 0
 stand stand none 11
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5301
 oldstyle lamia pet~
 the pet lamia~
@@ -35,7 +39,7 @@ ACH 0 500 0
 6 6 6 9
 EFNU 0 0 0
 stand stand female 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5302
 oldstyle citizen man~
 a citizen of Thalos~
@@ -50,7 +54,7 @@ AGH 0 500 0
 5 5 5 9
 EFNU 0 0 0
 stand stand male 5
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5303
 oldstyle guard imperial cityguard~
 an imperial cityguard~
@@ -65,7 +69,7 @@ ACGT H 1000 0
 -3 -3 -3 7
 CDEIKLU 0 0 0
 stand stand male 75
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5304
 oldstyle citizen woman female~
 a female citizen of Thalos~
@@ -81,7 +85,7 @@ AGH 0 500 0
 5 5 5 9
 EFNU 0 0 0
 stand stand female 5
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5305
 oldstyle gordon defender~
 Gordon the Brave~
@@ -98,7 +102,7 @@ AT H 1000 0
 -11 -11 -11 5
 CDEIKLU 0 0 0
 stand stand male 500
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5306
 oldstyle priest~
 the fanatic priest~
@@ -115,7 +119,7 @@ ABHQ 0 -500 0
 1 1 1 7
 EIKU 0 0 0
 stand stand male 5
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5307
 oldstyle priest~
 the priest of Thalos~
@@ -130,7 +134,7 @@ ABQ H 1000 0
 -4 -4 -4 6
 EIKU 0 0 0
 stand stand male 5
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5308
 oldstyle golem stone~
 the stone golem~
@@ -145,7 +149,7 @@ AB N 1000 0
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand none 212
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5309
 oldstyle mayor~
 the mayor of Thalos~
@@ -160,7 +164,7 @@ AB 0 800 0
 -4 -4 -4 7
 EFNU 0 0 0
 stand stand female 50
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5310
 oldstyle dan barkeep~
 Dan the Barkeep~
@@ -174,7 +178,7 @@ AB 0 600 0
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand male 50
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5311
 oldstyle george butcher~
 George the Butcher~
@@ -189,7 +193,7 @@ AB 0 600 0
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand male 50
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5312
 oldstyle farmer betty~
 Farmer Betty~
@@ -203,7 +207,7 @@ AB 0 650 0
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand female 50
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5313
 oldstyle thaellor dwarf~
 Thaellor the dwarf~
@@ -218,7 +222,7 @@ AB 0 550 0
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand female 50
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5314
 oldstyle ben smith~
 Ben the Smith~
@@ -232,7 +236,7 @@ AB 0 600 0
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand male 50
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5315
 oldstyle librarian~
 the librarian~
@@ -246,7 +250,7 @@ ABH 0 500 0
 3 3 3 9
 EFNU 0 0 0
 stand stand female 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5316
 oldstyle scholar boy~
 a young scholar~
@@ -260,7 +264,7 @@ ABH 0 500 0
 4 4 4 9
 EFNU 0 0 0
 stand stand male 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5317
 oldstyle wizard~
 an old wizard~
@@ -274,7 +278,7 @@ ABR D 550 0
 -9 -9 -9 1
 FU 0 0 0
 stand stand male 50
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5318
 oldstyle masseuse woman~
 a beautiful masseuse~
@@ -290,7 +294,7 @@ ABH 0 700 0
 6 6 6 9
 EFNU 0 0 0
 stand stand female 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5319
 oldstyle bather man~
 a man~
@@ -305,7 +309,7 @@ ABH 0 650 0
 5 5 5 9
 EFNU 0 0 0
 stand stand male 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5320
 oldstyle guard imperial cityguard~
 An imperial cityguard~
@@ -321,7 +325,7 @@ ABCGT H 1000 0
 -3 -3 -3 7
 CDEIKLU 0 0 0
 stand stand male 75
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5321
 oldstyle guard cityguard~
 an imperial cityguard~
@@ -336,7 +340,7 @@ ABCGT H 1000 0
 -3 -3 -3 7
 CDEIKLU 0 0 0
 stand stand male 75
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5322
 oldstyle doe~
 a doe~
@@ -351,7 +355,7 @@ AGH 0 0 0
 5 5 5 9
 EFNU 0 0 0
 stand stand female 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5323
 oldstyle deer~
 a deer~
@@ -366,7 +370,7 @@ AGH 0 0 0
 4 4 4 9
 EFNU 0 0 0
 stand stand male 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5324
 oldstyle stag deer~
 a stag~
@@ -380,7 +384,7 @@ AFGH 0 0 0
 3 3 3 9
 EFNU 0 0 0
 stand stand male 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5325
 oldstyle bunny rabbit~
 a small bunny~
@@ -394,7 +398,7 @@ AGH 0 0 0
 8 8 8 10
 EFNU 0 0 0
 stand stand none 0
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5326
 oldstyle snake~
 a harmless snake~
@@ -406,9 +410,9 @@ snake~
 AFGH P 0 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
-EFNR 0 0 0
+EFNR 0 L I
 stand stand none 0
-0 0 medium 0
+AGc ADEFKLQVX medium unknown
 #5327
 oldstyle druid~
 a druid~
@@ -422,7 +426,7 @@ AGHQ DN 1000 0
 1 1 1 7
 EIKU 0 0 0
 stand stand male 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5328
 oldstyle druidess~
 a druidess~
@@ -436,7 +440,7 @@ AGHQ DN 1000 0
 1 1 1 7
 EIKU 0 0 0
 stand stand female 2
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5329
 oldstyle musician bard~
 bard of Thalos~
@@ -450,7 +454,7 @@ ABC 0 450 0
 3 3 3 9
 EFNU 0 0 0
 stand stand male 5
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5330
 oldstyle musician bard~
 bard of Thalos~
@@ -464,7 +468,7 @@ AC 0 550 0
 2 2 2 8
 EFNU 0 0 0
 stand stand male 7
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5331
 oldstyle cityguard guard~
 the cityguard~
@@ -478,20 +482,20 @@ ACGT 0 1000 0
 -2 -2 -2 7
 CDEIKLU 0 0 0
 stand stand male 25
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5332
 oldstyle janitor~
 the janitor~
 A janitor is walking around, cleaning up.
 ~
-~
+(null)~
 human~
 A 0 900 0
 1 0 2d6+10 0d9+100 1d4+0 none
 9 9 9 10
 EFNU 0 0 0
 stand stand male 1
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #5333
 oldstyle fido dog~
 the beastly fido~
@@ -504,9 +508,9 @@ fido~
 AFH 0 -200 0
 0 0 2d4+2 0d1+99 1d2+0 none
 10 10 10 10
-EN 0 0 0
+EFNR 0 0 C
 stand stand male 0
-0 0 medium 0
+ABGV ACDEFHJKQV medium unknown
 #5334
 oldstyle cityguard guard~
 the cityguard~
@@ -520,8 +524,10 @@ ABGT 0 1000 0
 -2 -2 -2 7
 CDEIKLU 0 0 0
 stand stand male 25
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #0
+
+
 
 #OBJECTS
 #5300
@@ -530,7 +536,7 @@ a lamia collar~
 A lamia collar is on the ground.~
 oldstyle~
 armor 0 AC
-3 3 3 0 0
+AB AB AB 0 0
 3 50 310 P
 #5301
 breast plate iron~
@@ -538,7 +544,7 @@ a beautiful iron breast plate~
 A beautiful iron breast plate lies here.~
 oldstyle~
 armor 0 AD
-7 7 7 0 0
+ABC ABC ABC 0 0
 20 450 3200 P
 A
 18 1
@@ -715,7 +721,7 @@ an imperial chest plate~
 You see an imperial chest plate here.~
 oldstyle~
 armor 0 AD
-5 5 5 0 0
+AC AC AC 0 0
 10 50 1450 P
 E
 chest plate~
@@ -728,7 +734,7 @@ an imperial shield~
 You see an imperial shield here.~
 oldstyle~
 armor 0 AJ
-5 5 5 2 0
+AC AC AC B 0
 10 50 1190 P
 E
 shield~
@@ -741,7 +747,7 @@ an imperial cloak~
 You see an imperial cloak here.~
 oldstyle~
 armor 0 AC
-5 5 5 0 0
+AC AC AC 0 0
 10 50 730 P
 E
 cloak~
@@ -754,7 +760,7 @@ an imperial helm~
 You see an imperial helm here.~
 oldstyle~
 armor 0 AE
-5 5 5 0 0
+AC AC AC 0 0
 10 50 730 P
 E
 helm~
@@ -767,7 +773,7 @@ a pair of imperial plate leggings~
 You see a pair of imperial plate leggings here.~
 oldstyle~
 armor 0 AF
-5 5 5 0 0
+AC AC AC 0 0
 10 50 730 P
 E
 plate leggings~
@@ -780,7 +786,7 @@ a pair of imperial plate boots~
 You see a pair of imperial plate boots here.~
 oldstyle~
 armor 0 AG
-5 5 5 0 0
+AC AC AC 0 0
 10 50 730 P
 E
 plate boots~
@@ -793,7 +799,7 @@ a pair of imperial plate gloves~
 You see a pair of imperial plate gloves here.~
 oldstyle~
 armor 0 AH
-5 5 5 0 0
+AC AC AC 0 0
 10 50 730 P
 E
 plate gloves~
@@ -806,7 +812,7 @@ a pair of imperial plate sleeves~
 You see a pair of imperial plate sleeves here.~
 oldstyle~
 armor 0 AI
-5 5 5 0 0
+AC AC AC 0 0
 10 50 730 P
 E
 plate sleeves~
@@ -819,7 +825,7 @@ an imperial cape~
 You see an imperial cape here.~
 oldstyle~
 armor 0 AK
-5 5 5 0 0
+AC AC AC 0 0
 10 50 730 P
 E
 cape~
@@ -832,7 +838,7 @@ an imperial belt~
 You see an imperial belt here.~
 oldstyle~
 armor 0 AL
-5 5 5 0 0
+AC AC AC 0 0
 10 50 730 P
 E
 belt~
@@ -845,7 +851,7 @@ an imperial metal bracer~
 You see an imperial metal bracer here.~
 oldstyle~
 armor 0 AM
-3 5 5 0 0
+AB AC AC 0 0
 5 50 550 P
 E
 metal bracer~
@@ -870,7 +876,7 @@ an imperial war banner~
 An imperial war banner is on the floor here.~
 oldstyle~
 light AG A
-0 0 -1 0 0
+0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 20 10 1440 P
 A
 17 -2
@@ -894,6 +900,8 @@ A
 18 2
 #0
 
+
+
 #ROOMS
 #5300
 The Grand Gate of Thalos~
@@ -904,23 +912,23 @@ the city is teeming with activity!  There is a small gold plaque on mounted
 on the archway.
 ~
 0 0 1
-D1
-You are saddened at the thought of leaving this beautiful place.
-~
-~
-0 -1 5356
-D3
-You see happiness everywhere. Houses cover your vision. You see strange cute
-beasts walking hand in hand with people.
-~
-~
-0 0 5301
 E
 plaque sign~
 This zone has been heavily modified by Kahn and Hatchet of MERC Industries
 and integrated by Kahn of MERC Industries.
 copyright 1993
 ~
+D1
+You are saddened at the thought of leaving this beautiful place.
+~
+(null)~
+0 -1 5356
+D3
+You see happiness everywhere. Houses cover your vision. You see strange cute
+beasts walking hand in hand with people.
+~
+(null)~
+0 0 5301
 S
 #5301
 Main Street~
@@ -933,22 +941,22 @@ and south.  Children run pass you as they play tag.
 D0
 It's a cobbled alley.
 ~
-~
+(null)~
 0 0 5339
 D1
 The entrance to the city lies this way.
 ~
-~
+(null)~
 0 0 5300
 D2
 It's a cobbled alley.
 ~
-~
+(null)~
 0 0 5355
 D3
 Main Street lies this way.
 ~
-~
+(null)~
 0 0 5302
 S
 #5302
@@ -964,22 +972,22 @@ domed building, magnificent and immense.
 D0
 A store lies this way.
 ~
-~
+(null)~
 0 0 5336
 D1
 Main Street continues back east.
 ~
-~
+(null)~
 0 0 5301
 D2
 The main building in the city, the City Hall is there.
 ~
-~
+(null)~
 0 0 5332
 D3
 A lush, green garden path lies this way.
 ~
-~
+(null)~
 0 0 5303
 S
 #5303
@@ -993,22 +1001,22 @@ temple truly a blend of nature and man's work of art.
 D0
 The garden path continues around the building.
 ~
-~
+(null)~
 0 0 5304
 D1
 This is the main street leading to the city's entrance.
 ~
-~
+(null)~
 0 0 5302
 D2
 The garden path continues around the building.
 ~
-~
+(null)~
 0 0 5306
 D3
 You can hear music coming from within the temple.
 ~
-~
+(null)~
 0 0 5350
 S
 #5304
@@ -1022,17 +1030,17 @@ temple truly a blend of nature and man's work of art.
 D0
 A side street leads off to the northern half of the city.
 ~
-~
+(null)~
 0 0 5311
 D2
 The garden path continues around the building.
 ~
-~
+(null)~
 0 0 5303
 D3
 The garden path continues around the building.
 ~
-~
+(null)~
 0 0 5305
 S
 #5305
@@ -1046,12 +1054,12 @@ temple truly a blend of nature and man's work of art.
 D1
 The garden path continues around the building.
 ~
-~
+(null)~
 0 0 5304
 D2
 You can hear music coming from within the temple.
 ~
-~
+(null)~
 0 0 5350
 S
 #5306
@@ -1065,12 +1073,12 @@ temple truly a blend of nature and man's work of art.
 D0
 The garden path continues around the building.
 ~
-~
+(null)~
 0 0 5303
 D2
 A small side street leads to the southern half of the city.
 ~
-~
+(null)~
 0 0 5312
 S
 #5307
@@ -1083,17 +1091,17 @@ filled with goods sold to the demanding public.
 D0
 A small table is here, laden with fine jewelery and gems sold by the jeweler.
 ~
-~
+(null)~
 0 0 5325
 D2
 Fruits and vegetables are piled on boxes waiting to be sold and eaten.
 ~
-~
+(null)~
 0 0 5320
 D3
 The market place continues.
 ~
-~
+(null)~
 0 0 5308
 S
 #5308
@@ -1107,17 +1115,17 @@ D0
 Beautiful carpets and enormous bales of silk are being stared with awe by
 the citizens.
 ~
-~
+(null)~
 0 0 5322
 D1
 The center of the market lies this way.
 ~
-~
+(null)~
 0 0 5307
 D2
 >From the great smell, the meat and poultry stand must be south!
 ~
-~
+(null)~
 0 0 5317
 S
 #5309
@@ -1128,16 +1136,16 @@ children playing games in the distance catch your attention.
 ~
 0 0 1
 D1
-~
-~
+(null)~
+(null)~
 0 0 5343
 D2
-~
-~
+(null)~
+(null)~
 0 0 5310
 D3
-~
-~
+(null)~
+(null)~
 0 0 5328
 S
 #5310
@@ -1149,22 +1157,22 @@ continues north and south and buildings line the street.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5309
 D1
 A small doorway leads into a little humble dwelling.
 ~
-~
-1 -1 5344
+(null)~
+0 -1 5344
 D2
-~
-~
+(null)~
+(null)~
 0 0 5311
 D3
 A small clay dwelling sits here.
 ~
-~
+(null)~
 0 0 5326
 S
 #5311
@@ -1175,23 +1183,23 @@ pass by you with a friendly hello.  You almost feel like home here.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5310
 D1
 An unusually tall dwelling stands looming over you.
 ~
-~
+(null)~
 0 0 5337
 D2
 A garden path circles around the temple.
 ~
-~
+(null)~
 0 0 5304
 D3
 Here lies a small stone house with a thatched roof.
 ~
-~
+(null)~
 0 0 5327
 S
 #5312
@@ -1206,23 +1214,23 @@ west is a smithy, and this side street continues south.
 D0
 A small garden path encircles the temple.
 ~
-~
+(null)~
 0 0 5306
 D1
 You see what is most definitely city hall.  This building is the most
 elaborate of all the building here in Thalos.
 ~
-~
-1 -1 5332
+(null)~
+0 -1 5332
 D2
-~
-~
+(null)~
+(null)~
 0 0 5313
 D3
 Inside the building you see long pieces of metal, an oven, and some
 anvils.  Obviously a smithy.
 ~
-~
+(null)~
 0 0 5321
 S
 #5313
@@ -1234,25 +1242,25 @@ north and south.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5312
 D1
 From the looks of it, this is a very impressive two story abode.
 The entire first floor is covered with a huge marble bar with merry men
 telling tall tales and drinking their fill.
 ~
-~
+(null)~
 0 0 5330
 D2
-~
-~
+(null)~
+(null)~
 0 0 5314
 D3
 This seems to be the only guild house in the entire city. You feel uneasy
 about this building.  For some reason it seems not to belong.
 ~
-~
+(null)~
 0 0 5319
 S
 #5314
@@ -1262,20 +1270,20 @@ A long alley runs east and west.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5313
 D1
-~
-~
+(null)~
+(null)~
 0 0 5351
 D2
-~
-~
+(null)~
+(null)~
 0 0 5329
 D3
-~
-~
+(null)~
+(null)~
 0 0 5318
 S
 #5315
@@ -1286,16 +1294,16 @@ Thalos.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5316
 D1
-~
-~
+(null)~
+(null)~
 0 0 5318
 D4
-~
-~
+(null)~
+(null)~
 0 0 5347
 S
 #5316
@@ -1308,12 +1316,12 @@ off your chin the instant you know it is there.
 D0
 You see the back-side of the market place meat stand.
 ~
-~
+(null)~
 0 0 5317
 D2
 A tall watchtower stands a silent vigil over the city.
 ~
-~
+(null)~
 0 0 5315
 S
 #5317
@@ -1328,17 +1336,17 @@ your ankles.
 D0
 The market place lies this way.
 ~
-~
+(null)~
 0 0 5308
 D1
 This is a cart full of fresh vegetables and fruits.  You are almost
 tempted to take some.
 ~
-~
+(null)~
 0 0 5320
 D2
-~
-~
+(null)~
+(null)~
 0 0 5316
 S
 #5318
@@ -1350,12 +1358,12 @@ the city watchtowers.
 D1
 A small side street welcomes you.
 ~
-~
+(null)~
 0 0 5314
 D3
 A tall watchtower stands a silent vigil over the city.
 ~
-~
+(null)~
 0 0 5315
 S
 #5319
@@ -1365,11 +1373,11 @@ are set about for the occupants' comfort.  Weapons are stacked neatly on the
 weapons rack.  Each weapon looks polished, sharpened, and oiled.
 Draped along the back wall is the proud banner of Thalos in all its glory.
 ~
-0 D 1
+0 8 1
 D1
 A small side street runs past the building.
 ~
-~
+(null)~
 0 0 5313
 S
 #5320
@@ -1382,12 +1390,12 @@ giving out for free.
 D0
 The market place is jammed packed with people scurrying about.
 ~
-~
+(null)~
 0 0 5307
 D3
 A strong aromatic smell emanates from the meat stand next to you.
 ~
-~
+(null)~
 0 0 5317
 S
 #5321
@@ -1395,11 +1403,11 @@ The smithy~
 In here you find tools and anvils used to make various weapons
 and items. The walls are fully stocked with pieces of armor and weaponry.
 ~
-0 D 1
+0 8 1
 D1
 A small side street runs past the building.
 ~
-~
+(null)~
 0 0 5312
 S
 #5322
@@ -1410,18 +1418,18 @@ awe at how much work must have been put into these cloths.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5323
 D1
 A fine jewelry stand lies majestically next to you.
 ~
-~
+(null)~
 0 0 5325
 D2
 The market place is swarming with people scurrying about.
 ~
-~
+(null)~
 0 0 5308
 S
 #5323
@@ -1433,11 +1441,11 @@ to the south there lies a market stand full of expensive clothes and rugs.
 D0
 A tall watchtower stands a silent vigil over the city.
 ~
-~
+(null)~
 0 0 5324
 D2
-~
-~
+(null)~
+(null)~
 0 0 5322
 S
 #5324
@@ -1447,17 +1455,17 @@ the city from invaders.  You know that you are safe from any danger.
 ~
 0 0 1
 D1
-~
-~
+(null)~
+(null)~
 0 0 5328
 D2
-~
-~
+(null)~
+(null)~
 0 0 5323
 D4
 Above you stands a tall watchtower.
 ~
-~
+(null)~
 0 0 5346
 S
 #5325
@@ -1470,12 +1478,12 @@ D2
 The market place is packed with people scurrying about doing their
 business.
 ~
-~
+(null)~
 0 0 5307
 D3
 Next to you is a stand full of fine clothes and expensive rugs.
 ~
-~
+(null)~
 0 0 5322
 S
 #5326
@@ -1484,11 +1492,11 @@ This is a very plain house with a few chairs and a bed.
 A warmed and lit fireplace suggests that the dwelling is currently
 occupied.  You should leave before the owner finds you here.
 ~
-0 D 1
+0 8 1
 D1
 Outside is a small side street.
 ~
-~
+(null)~
 0 0 5310
 S
 #5327
@@ -1501,7 +1509,7 @@ blowing through the city.
 D1
 A small side street runs past the house.
 ~
-~
+(null)~
 0 0 5311
 S
 #5328
@@ -1511,12 +1519,12 @@ a small side street.
 ~
 0 0 1
 D1
-~
-~
+(null)~
+(null)~
 0 0 5309
 D3
-~
-~
+(null)~
+(null)~
 0 0 5324
 S
 #5329
@@ -1526,11 +1534,11 @@ but inside these cramped quarters you discover a shop filled with
 armor, weapons, and various other goods. A small sign posted on the wall
 flutters in the wind.
 ~
-0 D 1
+0 8 1
 D0
 A small side street runs past the shop.
 ~
-~
+(null)~
 0 0 5314
 S
 #5330
@@ -1545,7 +1553,7 @@ of this room.
 D3
 A small side street runs past the tavern.
 ~
-~
+(null)~
 0 0 5313
 S
 #5331
@@ -1556,15 +1564,15 @@ faithfully.  Valuable items hang from the walls each to be admired
 by onlookers.  Chairs lie around, and a large curved desk. To the east
 is a vine-covered archway leading out into a private courtyard.
 ~
-0 D 1
+0 8 1
 D0
 The long hallway leads back to the main reception area of the city hall.
 ~
-~
+(null)~
 0 0 5332
 D1
-~
-~
+(null)~
+(null)~
 0 0 5334
 S
 #5332
@@ -1574,26 +1582,26 @@ been painted in pure white and thick lush carpet line the floor wall to wall.
 A side door on the west wall allows you to go out to one of the city's side 
 streets.  Hallways lead south and east.
 ~
-0 D 1
+0 8 1
 D0
 Main street runs past the city hall.
 ~
-~
+(null)~
 0 0 5302
 D1
 A hallway leads to the east wing of the city hall.
 ~
-~
+(null)~
 0 0 5333
 D2
 A hallway leads to the south wing of the city hall.
 ~
-~
+(null)~
 0 0 5331
 D3
-~
-~
-1 -1 5312
+(null)~
+(null)~
+0 -1 5312
 S
 #5333
 East wing of the city hall~
@@ -1603,14 +1611,14 @@ glass cabinet along the wall. A long hallway leads west back to the
 reception area and an ivy-covered archway leads south into a private
 courtyard.
 ~
-0 D 1
+0 8 1
 D2
-~
-~
+(null)~
+(null)~
 0 0 5334
 D3
-~
-~
+(null)~
+(null)~
 0 0 5332
 S
 #5334
@@ -1623,12 +1631,12 @@ north and west lead back into the city hall.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5333
 D3
-~
-~
+(null)~
+(null)~
 0 0 5331
 S
 #5335
@@ -1641,7 +1649,7 @@ shack stands guarding both to the entrance to the city and to the city hall.
 D1
 The alley runs by this building.
 ~
-~
+(null)~
 0 0 5355
 S
 #5336
@@ -1654,7 +1662,7 @@ he is the commander of the guard.
 D2
 Main street runs past this dwelling.
 ~
-~
+(null)~
 0 0 5302
 S
 #5337
@@ -1662,21 +1670,21 @@ A Public Library~
 This seems to be the tallest structure in the city.  Rows and rows of books
 line the 20 foot tall bookcases, and a quiet serenity can be felt by all here.
 ~
-0 D 1
+0 8 1
 D1
 Another room in the library is here.
 ~
-~
+(null)~
 0 0 5338
 D3
 A small side street winds past this building.
 ~
-~
+(null)~
 0 0 5311
 D4
 You see a second floor to the library.
 ~
-~
+(null)~
 0 0 5345
 S
 #5338
@@ -1685,11 +1693,11 @@ There are more shelves and tables here.  Vials of strange potions line a
 section of the wall, and books and other items of power line another.  The exit
 is to the west.
 ~
-0 D 1
+0 8 1
 D3
 The main room of the library is there.
 ~
-~
+(null)~
 0 0 5337
 S
 #5339
@@ -1701,12 +1709,12 @@ a watchtower.  People quietly pass you by.
 D0
 You see a mighty watchtower north.
 ~
-~
+(null)~
 0 0 5340
 D2
 Main street runs past here.
 ~
-~
+(null)~
 0 0 5301
 S
 #5340
@@ -1719,12 +1727,12 @@ refreshing.
 D0
 A tall watchtower stands a silent vigil over the city.
 ~
-~
+(null)~
 0 0 5341
 D2
 The cobbled alley continues on.
 ~
-~
+(null)~
 0 0 5339
 S
 #5341
@@ -1734,17 +1742,17 @@ south and a sturdy ladder leads up into the tower.
 ~
 0 0 1
 D2
-~
-~
+(null)~
+(null)~
 0 0 5340
 D3
-~
-~
+(null)~
+(null)~
 0 0 5343
 D4
 You see up the powerful watchtower.
 ~
-~
+(null)~
 0 0 5348
 S
 #5342
@@ -1754,16 +1762,16 @@ wells up from a hole in the floor. Obviously there is a hot spring located
 under the city (making the decision to put a city here seem much more 
 reasonable). To the west is another room.
 ~
-0 D 1
+0 8 1
 D0
 A cobbled alley is there.
 ~
-~
+(null)~
 0 0 5343
 D3
 Another resting room is here.
 ~
-~
+(null)~
 0 0 5344
 S
 #5343
@@ -1776,17 +1784,17 @@ building to the south.  It looks very inviting.
 D1
 A watchtower stands a silent vigil over the city.
 ~
-~
+(null)~
 0 0 5341
 D2
 You hear laughter and splashing.
 ~
-~
+(null)~
 0 0 5342
 D3
 A side street greets you.
 ~
-~
+(null)~
 0 0 5309
 S
 #5344
@@ -1796,15 +1804,15 @@ people just relaxing on them.  The comfort of this place is so inviting, you
 want to join them.  Great amounts of steam issue forth from the hole in the 
 east wall.
 ~
-0 D 1
+0 8 1
 D1
-~
-~
+(null)~
+(null)~
 0 0 5342
 D3
 A small side street runs past the building.
 ~
-~
+(null)~
 0 0 5310
 S
 #5345
@@ -1814,8 +1822,8 @@ a nearby bay.  Birds fly by your window.
 ~
 0 0 1
 D5
-~
-~
+(null)~
+(null)~
 0 0 5337
 S
 #5346
@@ -1828,7 +1836,7 @@ confident nothing can touch this tower.
 D5
 The city lies below.
 ~
-~
+(null)~
 0 0 5324
 S
 #5347
@@ -1842,7 +1850,7 @@ tower.
 D5
 The city lies below.
 ~
-~
+(null)~
 0 0 5315
 S
 #5348
@@ -1855,7 +1863,7 @@ can touch this tower.
 D5
 The city lies below.
 ~
-~
+(null)~
 0 0 5341
 S
 #5350
@@ -1867,16 +1875,16 @@ roof are all made of ceramic, making this place reflect the sun well.
     The greenery around the temple itself makes this place a great blend of
 nature and man's works of art.
 ~
-0 DH 1
+0 136 1
 D0
 A side street leads to the northern half of the city.
 ~
-~
+(null)~
 0 0 5305
 D1
 Main street leads out to the main gate of the city.
 ~
-~
+(null)~
 0 0 5303
 S
 #5351
@@ -1888,12 +1896,12 @@ the city watchtowers.  Little kids play tag around you.
 D1
 A tall watchtower stands a silent vigil over the city.
 ~
-~
+(null)~
 0 0 5352
 D3
 A small side street greets you.
 ~
-~
+(null)~
 0 0 5314
 S
 #5352
@@ -1903,16 +1911,16 @@ from invaders.  From the looks of things, its doing a great job.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5353
 D3
-~
-~
+(null)~
+(null)~
 0 0 5351
 D4
-~
-~
+(null)~
+(null)~
 0 0 5354
 S
 #5353
@@ -1923,12 +1931,12 @@ A narrow alley leads south to one of the city watchtowers.
 D0
 The alley continues to the north.
 ~
-~
+(null)~
 0 0 5355
 D2
 A tall watchtower stands a silent vigil over the city.
 ~
-~
+(null)~
 0 0 5352
 S
 #5354
@@ -1941,7 +1949,7 @@ south the you see the bay.  You're confident nothing can touch this tower.
 D5
 The city lies below.
 ~
-~
+(null)~
 0 0 5352
 S
 #5355
@@ -1953,16 +1961,16 @@ watchtower.  A building is to the west.
 D0
 You see main street.
 ~
-~
+(null)~
 0 0 5301
 D2
-~
-~
+(null)~
+(null)~
 0 0 5353
 D3
 You see a little building.
 ~
-~
+(null)~
 0 0 5335
 S
 #5356
@@ -1975,12 +1983,12 @@ about it gives you a relaxed feeling.  To the east is your way back home.
 D1
 You see the trail.
 ~
-~
+(null)~
 0 0 5357
 D3
 You see Thalos!
 ~
-~
+(null)~
 0 0 5300
 S
 #5357
@@ -1992,12 +2000,12 @@ here.  The trail continues to the east from here.
 D1
 You see the bend ahead of you.
 ~
-~
+(null)~
 0 0 5358
 D3
 You see the trail continue on.
 ~
-~
+(null)~
 0 0 5356
 S
 #5358
@@ -2009,12 +2017,12 @@ west from here.
 D0
 You see the trail bend north.
 ~
-~
+(null)~
 0 0 5359
 D3
 You see the trail bend west.
 ~
-~
+(null)~
 0 0 5357
 S
 #5359
@@ -2026,12 +2034,12 @@ blessed by a god to be green and mild.  The trail leads north and south.
 D0
 You see the trail continue north.
 ~
-~
+(null)~
 0 0 5360
 D2
 You see the trail continue south.
 ~
-~
+(null)~
 0 0 5358
 S
 #5360
@@ -2043,12 +2051,12 @@ blessed by a god to be green and mild.  The trail leads north and south.
 D0
 You see the trail continue north.
 ~
-~
+(null)~
 0 0 5361
 D2
 You see the trail continue south.
 ~
-~
+(null)~
 0 0 5359
 S
 #5361
@@ -2060,12 +2068,12 @@ trees.  Grass layer the ground with 2 inches of padding.
 D0
 You see the trail continue north.
 ~
-~
+(null)~
 0 0 5362
 D2
 You see the trail continue south.
 ~
-~
+(null)~
 0 0 5360
 S
 #5362
@@ -2076,20 +2084,20 @@ the dwarven forest.  To the north is a very desolate trail.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5363
 D1
-~
-~
+(null)~
+(null)~
 0 0 5369
 D2
-~
-~
+(null)~
+(null)~
 0 0 5361
 D3
-~
-~
+(null)~
+(null)~
 0 0 5364
 S
 #5363
@@ -2100,12 +2108,12 @@ serenity. You can follow the road north or south.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 5365
 D2
-~
-~
+(null)~
+(null)~
 0 0 5362
 S
 #5364
@@ -2115,14 +2123,14 @@ of this land. The road leads east into the peace and quiet - and dangers -
 of the forest; and to the west it becomes the main street of the town;
 surrounded by building foundations of unfinished shops, houses, and temple. 
 ~
-0 C 1
+0 4 1
 D1
-~
-~
+(null)~
+(null)~
 0 0 5362
 D3
-~
-~
+(null)~
+(null)~
 0 0 5385
 S
 #5365
@@ -2137,8 +2145,8 @@ further, you lose the trail and decide not to get lost.
 ~
 0 0 1
 D2
-~
-~
+(null)~
+(null)~
 0 0 5363
 S
 #5366
@@ -2152,12 +2160,12 @@ looking paths lead east and south.
 D1
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 5367
 D2
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 5369
 S
 #5367
@@ -2170,18 +2178,18 @@ shoulders. From here, pleasant-looking paths lead east, west and south.
 D1
 The path wind its way through the tall trees, towards a clearing faintly seen.
 ~
-~
+(null)~
 0 -1 5368
 D2
 The path wind its way through the tall trees, towards an open area barely
 visible in the distance.
 ~
-~
+(null)~
 0 -1 5370
 D3
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 5366
 S
 #5368
@@ -2190,23 +2198,23 @@ You are standing in a clearing in the light woods. Somehow, this place
 seems powerfully DIFFERENT from the rest of the forest, as if something is
 severely strained in the fabric of reality here.
 ~
-0 C 3
+0 4 3
 D0
 A small, narrow path winds north, and is quickly lost in the bushes. It
 looks quite a wilderness there!
 ~
-~
+(null)~
 0 -1 5375
 D2
 There is a path winding its way south through the tall poplars, disappearing
 out of sight some 100 yds. away.
 ~
-~
+(null)~
 0 -1 5371
 D3
 There is a friendly-looking path leading west through the tall trees.
 ~
-~
+(null)~
 0 -1 5367
 S
 #5369
@@ -2217,27 +2225,27 @@ shoulders. From here, pleasant-looking paths lead east, north and south. To
 the west, through the trees, You can see the road to Midgaard's construction
 site.
 ~
-0 C 3
+0 4 3
 D0
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 5366
 D1
 The path wind its way through the tall trees, towards a clearing faintly seen.
 ~
-~
+(null)~
 0 -1 5370
 D2
 The path wind its way through the tall trees, into the grove.
 ~
-~
+(null)~
 0 -1 5372
 D3
 Through the trees, you can see the Midgaard road. Far to the west, You can
 barely glimpse the construction of the city itself.
 ~
-~
+(null)~
 0 -1 5362
 S
 #5370
@@ -2254,23 +2262,23 @@ slopes down to a sparkling lake.
 D0
 The path wind its way north, disappearing through the tall trees.
 ~
-~
+(null)~
 0 -1 5367
 D1
 The path wind its way through the tall trees, disappearing out of sight.
 ~
-~
+(null)~
 0 -1 5371
 D2
 To the south, a wide, sunny field stretch out, sloping down towards a brightly
 glittering lake.
 ~
-~
+(null)~
 0 -1 5373
 D3
 The path wind its way west between stately poplars and oaks.
 ~
-~
+(null)~
 0 -1 5369
 S
 #5371
@@ -2281,23 +2289,6 @@ burdens have been lifted from Your shoulders. To the south, You glimpse an open
 area through the trees, while paths lead away north and west.
 ~
 0 0 3
-D0
-The path wind its way through the tall trees, disappearing out of sight.
-~
-~
-0 -1 5368
-D2
-To the south, just beyond the trees, you can see a wide green lawn, and past
-the lawn, a softly shimmering, rainbow-colored dome covering the foundation
-for a structure.
-~
-~
-0 -1 5374
-D3
-The path wind its way through the tall trees, disappearing out of sight.
-~
-~
-0 -1 5370
 E
 foundation~
 The foundation looks like it is for a sprawling, two-story affair with three
@@ -2306,6 +2297,23 @@ changed color slowly, continuously, through the entire spectrum.  There are
 also large panes of glass stacked over near one of the corners of the
 foundation.
 ~
+D0
+The path wind its way through the tall trees, disappearing out of sight.
+~
+(null)~
+0 -1 5368
+D2
+To the south, just beyond the trees, you can see a wide green lawn, and past
+the lawn, a softly shimmering, rainbow-colored dome covering the foundation
+for a structure.
+~
+(null)~
+0 -1 5374
+D3
+The path wind its way through the tall trees, disappearing out of sight.
+~
+(null)~
+0 -1 5370
 S
 #5372
 The holy grove~
@@ -2316,20 +2324,6 @@ you feel an inexplicable happiness, as if the world's troubles no longer
 really matter to you.
 ~
 0 0 3
-D0
-The path leading north is soon lost out of sight amongst the ancient oaks and
-poplars.
-~
-~
-0 -1 5369
-D1
-To the east, the path leads out into a wide, sunny summer's field, sloping
-south towards a beautiful lake. Past the field You can see the construction
-of a large foundation for a structure shimmering gently in all the rainbow's
-colours.
-~
-~
-0 -1 5373
 E
 foundation construction~
 The foundation looks like it is for a sprawling, two-story affair with three
@@ -2338,6 +2332,20 @@ changed color slowly, continuously, through the entire spectrum.  There are
 also large panes of glass stacked over near one of the corners of the
 foundation.
 ~
+D0
+The path leading north is soon lost out of sight amongst the ancient oaks and
+poplars.
+~
+(null)~
+0 -1 5369
+D1
+To the east, the path leads out into a wide, sunny summer's field, sloping
+south towards a beautiful lake. Past the field You can see the construction
+of a large foundation for a structure shimmering gently in all the rainbow's
+colours.
+~
+(null)~
+0 -1 5373
 S
 #5373
 The sunny field~
@@ -2349,17 +2357,7 @@ shimmering softly through the colors of the rainbow. You feel as if You
 could spend the rest of your life here, lying on your back and looking at the
 patterns of the clouds as they gently drift across the sky.
 ~
-0 D 2
-D0
-There is a path leading north towards the sacred glade.
-~
-~
-0 -1 5370
-D3
-There is a small path leading into the woods to the west.
-~
-~
-0 -1 5372
+0 8 2
 E
 dome construction structure east e~
 The foundation looks like it is for a sprawling, two-story affair with three
@@ -2368,6 +2366,16 @@ changed color slowly, continuously, through the entire spectrum.  There are
 also large panes of glass stacked over near one of the corners of the
 foundation.
 ~
+D0
+There is a path leading north towards the sacred glade.
+~
+(null)~
+0 -1 5370
+D3
+There is a small path leading into the woods to the west.
+~
+(null)~
+0 -1 5372
 S
 #5374
 The croquet lawn~
@@ -2377,12 +2385,7 @@ from the wood's edge to the north, to the softly shimmering, rainbow-colored
 dome covering construction to the south. This place enjoys a perpetual cool,
 sunny summers after-noon.
 ~
-0 C 2
-D0
-To the north, the winding stone path leads into the holy grove.
-~
-~
-0 -1 5371
+0 4 2
 E
 dome construction south s~
 The foundation looks like it is for a sprawling, two-story affair with three
@@ -2391,6 +2394,11 @@ changed color slowly, continuously, through the entire spectrum.  There are
 also large panes of glass stacked over near one of the corners of the
 foundation.
 ~
+D0
+To the north, the winding stone path leads into the holy grove.
+~
+(null)~
+0 -1 5371
 S
 #5375
 The Void~
@@ -2402,30 +2410,30 @@ rainbow then back to its normal state.  In the middle of this room is
 a ladder standing vertical.
 ~
 0 0 3
-D1
-You see stars.
-~
-~
-0 0 5378
-D2
-You see a fuzzy portal of some sort and a little green.
-~
-~
-0 0 5368
 D3
 You see stars.
 ~
-~
+(null)~
 0 0 5378
 D4
 You see stars.
 ~
-~
+(null)~
 0 0 5376
+D2
+You see a fuzzy portal of some sort and a little green.
+~
+(null)~
+0 0 5368
+D1
+You see stars.
+~
+(null)~
+0 0 5378
 D5
 You see stars.
 ~
-~
+(null)~
 0 0 5376
 S
 #5376
@@ -2437,36 +2445,36 @@ either.  Occasionally, the starry 'sky' fades into a fuzzy, yet bright,
 rainbow then back to its normal state.
 ~
 0 0 3
-D0
-You see stars.
-~
-~
-0 0 5377
-D1
-You see stars.
-~
-~
-0 0 5376
 D2
 You see stars.
 ~
+(null)~
+0 0 5377
+D4
+You see stars.
 ~
+(null)~
+0 0 5375
+D1
+You see stars.
+~
+(null)~
+0 0 5376
+D5
+You see stars.
+~
+(null)~
+0 0 5375
+D0
+You see stars.
+~
+(null)~
 0 0 5377
 D3
 You see stars.
 ~
-~
+(null)~
 0 0 5376
-D4
-You see stars.
-~
-~
-0 0 5375
-D5
-You see stars.
-~
-~
-0 0 5375
 S
 #5377
 The Void~
@@ -2480,33 +2488,33 @@ rainbow then back to its normal state.
 D0
 You see stars.
 ~
-~
+(null)~
 0 0 5376
+D5
+You see stars.
+~
+(null)~
+0 0 5378
 D1
 You see stars.
 ~
-~
-0 0 5377
-D2
-You see stars.
-~
-~
-0 0 5376
-D3
-You see stars.
-~
-~
+(null)~
 0 0 5377
 D4
 You see stars.
 ~
-~
+(null)~
 0 0 5378
-D5
+D2
 You see stars.
 ~
+(null)~
+0 0 5376
+D3
+You see stars.
 ~
-0 0 5378
+(null)~
+0 0 5377
 S
 #5378
 The Void~
@@ -2518,30 +2526,30 @@ rainbow then back to its normal state.  In the middle of this room is
 a ladder standing vertical.
 ~
 0 0 3
-D1
-You see stars.
-~
-~
-0 0 5375
 D2
 You see a fuzzy portal of some sort and a little green.
 ~
-~
+(null)~
 0 0 8903
 D3
 You see stars.
 ~
-~
+(null)~
 0 0 5375
 D4
 You see stars.
 ~
-~
+(null)~
 0 0 5377
+D1
+You see stars.
+~
+(null)~
+0 0 5375
 D5
 You see stars.
 ~
-~
+(null)~
 0 0 5377
 S
 #5379
@@ -2554,23 +2562,23 @@ picturing Gods, Giants and peasants.
 mound upon which the temple is built and ends on the temple square below.
    You notice that this building is quite new.  A small plaque is on this wall.
 ~
-0 CDK 0
-D0
-At the northern end of the temple hall is a statue and a huge altar.
-~
-~
-0 -1 5386
-D2
-You see the temple square.
-~
-~
-0 -1 5380
+0 1036 0
 E
 plaque~
 This entire world has been integrated, modified, debugged, and enhanced by
 Hatchet, Kahn, and Furey of MERC Industries to be run by any MERC Mud.
 1992 December 17
 ~
+D0
+At the northern end of the temple hall is a statue and a huge altar.
+~
+(null)~
+0 -1 5386
+D2
+You see the temple square.
+~
+(null)~
+0 -1 5380
 S
 #5380
 The Temple Square~
@@ -2583,12 +2591,12 @@ center of Midgaard.
 D0
 You see the temple.
 ~
-~
+(null)~
 0 -1 5379
 D2
 You see the Market Square.
 ~
-~
+(null)~
 0 -1 5381
 S
 #5381
@@ -2599,21 +2607,21 @@ the square.  Roads lead to the north and east, north to the temple square,
 east is the main street.
 ~
 0 0 1
-D0
-You see the temple square.
-~
-~
-0 -1 5380
-D1
-You see the main street.
-~
-~
-0 -1 5382
 E
 statue~
 What you see is an uncompleted statue of what you think is the Midgaard
 mascot.
 ~
+D0
+You see the temple square.
+~
+(null)~
+0 -1 5380
+D1
+You see the main street.
+~
+(null)~
+0 -1 5382
 S
 #5382
 The Main Street~
@@ -2624,12 +2632,12 @@ street continues east.  To the west you see and hear a small market place.
 D1
 You see Main Street.
 ~
-~
+(null)~
 0 -1 5383
 D3
 You see the market square.
 ~
-~
+(null)~
 0 -1 5381
 S
 #5383
@@ -2641,12 +2649,12 @@ leads to the market square.
 D1
 You see the city gate.
 ~
-~
+(null)~
 0 -1 5384
 D3
 You see the main street leading to the market square.
 ~
-~
+(null)~
 0 -1 5382
 S
 #5384
@@ -2656,15 +2664,6 @@ city wall and connected with a footbridge across the heavy wooden gate.
 Main Street leads west from here.
 ~
 0 0 1
-D1
-You see the city gate.
-~
-gate~
-1 3133 5385
-D3
-You see Main Street.~
-~
-0 -1 5383
 E
 wall~
 It is built from large grey rocks that have been fastened to each other with
@@ -2686,6 +2685,15 @@ bridge footbridge~
 It is too high up to reach but it looks as if one easily could walk across it
 from one tower to the other.
 ~
+D1
+You see the city gate.
+~
+gate~
+0 3133 5385
+D3
+You see Main Street.~
+(null)~
+0 -1 5383
 S
 #5385
 Outside the East Gate of Midgaard~
@@ -2694,15 +2702,6 @@ connected with a footbridge across the heavy wooden gate.  To the east the
 plains stretch out in the distance.
 ~
 0 0 1
-D1
-You see the plains.~
-~
-0 -1 5364
-D3
-You see the city gate.
-~
-gate~
-1 3133 5384
 E
 wall~
 It is built from large grey rocks that have been fastened to each other with
@@ -2724,6 +2723,15 @@ bridge footbridge~
 It is too high up to reach but it looks as if one easily could walk across it
 from one tower to the other.
 ~
+D1
+You see the plains.~
+(null)~
+0 -1 5364
+D3
+You see the city gate.
+~
+gate~
+0 3133 5384
 S
 #5386
 By the Temple Altar~
@@ -2731,12 +2739,7 @@ You are by the temple altar in the northern end of the Temple of Midgaard.
 A huge altar made from white polished marble is standing in front of you and
 behind it is a ten foot tall sitting statue of Odin, the King of the Gods.
 ~
-0 DK 0
-D2
-You see the southern end of the temple.
-~
-~
-0 -1 5379
+0 1032 0
 E
 statue odin king god~
 The statue represents the one-eyed Odin sitting on a his throne.  He has
@@ -2749,302 +2752,318 @@ altar~
 Even though the altar is more than ten feet long it appears to be made from a
 single block of white virgin marble.
 ~
+D2
+You see the southern end of the temple.
+~
+(null)~
+0 -1 5379
 S
 #0
 
-#RESETS
-M 0 5306   1 5319  1	* the fanatic priest
-E 1 5218   8    3	*   a demon-faced talisman
-E 1 5222   8   12	*   a black silk robe
-E 1 5252  -1   16	*   a long slim dagger
-E 1 5239   1   17	*   a dull grey stone
-M 0 5305   1 5336  1	* Gordon the Brave
-E 1 5204   8    8	*   a pair of mithril boots
-E 1 5203   8   10	*   some mithril sleeves
-E 1 5205   8    7	*   a set of mithril leggings
-E 1 5206   8   13	*   a mithril girth
-E 1 5201   8    6	*   a mithril helm
-E 1 5202   8    9	*   a pair of mithril gauntlets
-E 1 5301   8    5	*   a beautiful iron breast plate
-E 1 5332  -1   16	*   a two-handed sword
-E 1 5226  12   17	*   an engraved ivory seal
-M 0 5300   1 5350  1	* the baby beholder
-E 1 5243   1   17	*   a clear stone
-M 0 5307   1 5350  1	* the priest of Thalos
-E 1 5302   8   17	*   a green serpentine staff
-E 1 5223  10    3	*   a dark green cloak
-M 0 5301  20 5300  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5304  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5306  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5310  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5314  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5316  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5320  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5322  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5326  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5328  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5332  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5334  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5338  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5340  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5344  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5346  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5348  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5350  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5352  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-M 0 5301  20 5354  1	* the pet lamia
-E 1 5300  -1    3	*   a lamia collar
-O 0 5306   1 5334	* a large beautiful fountain
-M 0 5330   1 5300  1	* bard of Thalos
-E 1 5311   3   17	*   a silver flute
-M 0 5329   2 5330  2	* bard of Thalos
-E 1 5309   3   17	*   a mandolin
-M 0 5329   2 5330  2	* bard of Thalos
-E 1 5310   3   17	*   a golden harp
-M 0 5316   2 5345  2	* a young scholar
-M 0 5315   1 5337  1	* the librarian
-M 0 5319   2 5342  2	* a man
-M 0 5318   4 5344  4	* a beautiful masseuse
-M 0 5308   8 5347  2	* the stone golem
-E 1 5221  -1   16	*   a two-handed sword
-E 1 5232   1   17	*   an incandescent blue stone
-M 0 5308   8 5346  2	* the stone golem
-E 1 5221  -1   16	*   a two-handed sword
-E 1 5233   1   17	*   a deep red stone
-M 0 5308   8 5348  2	* the stone golem
-E 1 5221  -1   16	*   a two-handed sword
-E 1 5235   1   17	*   a pearly white stone
-M 0 5308   8 5354  2	* the stone golem
-E 1 5221  -1   16	*   a two-handed sword
-E 1 5237   1   17	*   a lavender and green stone
-M 0 5311   1 5317  1	* George the Butcher
-G 1 5219  -1     	*   a chunk of venison
-E 1  601  -1   16	*   a meat cleaver
-G 1  602  -1     	*   a side of beef
-G 1  603  -1     	*   a side of pork
-G 1  604  -1     	*   a side of horse
-G 1  605  -1     	*   a defeathered chicken
-M 0 5312   1 5320  1	* Farmer Betty
-G 1  609  -1     	*   a head of cabbage
-G 1  610  -1     	*   a head of lettuce
-G 1  611  -1     	*   a bottle of milk
-G 1  612  -1     	*   an apple
-G 1  613  -1     	*   an ear of corn
-M 0 5313   1 5329  1	* Thaellor the dwarf
-M 0 5310   1 5330  1	* Dan the Barkeep
-G 1  648  -1     	*   a shot of whiskey
-G 1  649  -1     	*   a quart of ale
-G 1  650  -1     	*   a quart of port brew
-M 0 5314   1 5321  1	* Ben the Smith
-G 1  601  -1     	*   a meat cleaver
-G 1  615  -1     	*   a pitchfork
-M 0 5317   1 5338  1	* an old wizard
-M 0 5309   1 5331  1	* the mayor of Thalos
-E 1 5224   9   17	*   an engraved ebony seal
-O 0 5307   1 5331	* the curved desk
-P 1 5304   4 5307  1	*   a scroll of enchantment
-P 1 5305   4 5307  1	*   a bound scroll
-P 1 5231   9 5307  1	*   a scarlet and blue stone
-O 0 5308   1 5333	* the glass cabinet
-P 1 3105   8 5308  1	*   a bronze bracer
-P 1 5214   8 5308  1	*   a smooth quartz ball
-P 1 5230   1 5308  1	*   a pale blue stone
-M 0 5320   3 5335  3	* An imperial cityguard
-E 1 5330  10    1	*   an imperial city guard signet ring
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5327  10   12	*   an imperial cape
-E 1 5328  10   13	*   an imperial belt
-E 1 5317  -1   16	*   an imperial sword
-M 0 5320   3 5335  3	* An imperial cityguard
-E 1 5330  10    1	*   an imperial city guard signet ring
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5327  10   12	*   an imperial cape
-E 1 5329  10   14	*   an imperial metal bracer
-E 1 5318  -1   16	*   an imperial mace
-M 0 5320   3 5335  3	* An imperial cityguard
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5327  10   12	*   an imperial cape
-E 1 5328  10   13	*   an imperial belt
-E 1 5329  10   14	*   an imperial metal bracer
-E 1 5317  -1   16	*   an imperial sword
-M 0 5321   2 5300  2	* an imperial cityguard
-E 1 5331  10    0	*   an imperial war banner
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5322  10    6	*   an imperial helm
-E 1 5323  10    7	*   a pair of imperial plate leggings
-E 1 5324  10    8	*   a pair of imperial plate boots
-E 1 5325  10    9	*   a pair of imperial plate gloves
-E 1 5320  10   11	*   an imperial shield
-E 1 5318  -1   16	*   an imperial mace
-M 0 5321   2 5300  2	* an imperial cityguard
-E 1 5331  10    0	*   an imperial war banner
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5324  10    8	*   a pair of imperial plate boots
-E 1 5325  10    9	*   a pair of imperial plate gloves
-E 1 5326  10   10	*   a pair of imperial plate sleeves
-E 1 5320  10   11	*   an imperial shield
-E 1 5317  -1   16	*   an imperial sword
-M 0 5303  11 5300  1	* an imperial cityguard
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5327  10   12	*   an imperial cape
-E 1 5329  10   14	*   an imperial metal bracer
-E 1 5318  -1   16	*   an imperial mace
-M 0 5303  11 5304  1	* an imperial cityguard
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5320  10   11	*   an imperial shield
-E 1 5317  -1   16	*   an imperial sword
-M 0 5303  11 5307  1	* an imperial cityguard
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5328  10   13	*   an imperial belt
-E 1 5329  10   14	*   an imperial metal bracer
-E 1 5318  -1   16	*   an imperial mace
-M 0 5303  11 5313  1	* an imperial cityguard
-E 1 5330  10    1	*   an imperial city guard signet ring
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5320  10   11	*   an imperial shield
-E 1 5317  -1   16	*   an imperial sword
-M 0 5303  11 5315  1	* an imperial cityguard
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5327  10   12	*   an imperial cape
-E 1 5328  10   13	*   an imperial belt
-E 1 5318  -1   16	*   an imperial mace
-M 0 5303  11 5324  1	* an imperial cityguard
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5320  10   11	*   an imperial shield
-E 1 5317  -1   16	*   an imperial sword
-M 0 5303  11 5331  1	* an imperial cityguard
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5327  10   12	*   an imperial cape
-E 1 5328  10   13	*   an imperial belt
-E 1 5329  10   14	*   an imperial metal bracer
-E 1 5318  -1   16	*   an imperial mace
-M 0 5303  11 5334  1	* an imperial cityguard
-E 1 5330  10    1	*   an imperial city guard signet ring
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5320  10   11	*   an imperial shield
-E 1 5317  -1   16	*   an imperial sword
-M 0 5303  11 5341  1	* an imperial cityguard
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5327  10   12	*   an imperial cape
-E 1 5318  -1   16	*   an imperial mace
-M 0 5303  11 5350  1	* an imperial cityguard
-E 1 5321  10    4	*   an imperial cloak
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5320  10   11	*   an imperial shield
-E 1 5317  -1   16	*   an imperial sword
-M 0 5303  11 5352  1	* an imperial cityguard
-E 1 5330  10    1	*   an imperial city guard signet ring
-E 1 5319  10    5	*   an imperial chest plate
-E 1 5327  10   12	*   an imperial cape
-E 1 5328  10   13	*   an imperial belt
-E 1 5318  -1   16	*   an imperial mace
-M 0 5304   9 5302  1	* a female citizen of Thalos
-M 0 5302   9 5304  1	* a citizen of Thalos
-M 0 5304   9 5307  1	* a female citizen of Thalos
-M 0 5302   9 5308  1	* a citizen of Thalos
-M 0 5304   9 5312  1	* a female citizen of Thalos
-M 0 5302   9 5316  1	* a citizen of Thalos
-M 0 5304   9 5326  1	* a female citizen of Thalos
-M 0 5302   9 5327  1	* a citizen of Thalos
-M 0 5304   9 5330  1	* a female citizen of Thalos
-M 0 5302   9 5330  1	* a citizen of Thalos
-M 0 5304   9 5332  1	* a female citizen of Thalos
-M 0 5302   9 5338  1	* a citizen of Thalos
-M 0 5304   9 5340  1	* a female citizen of Thalos
-M 0 5302   9 5344  1	* a citizen of Thalos
-M 0 5304   9 5344  1	* a female citizen of Thalos
-M 0 5302   9 5350  1	* a citizen of Thalos
-M 0 5304   9 5361  1	* a female citizen of Thalos
-M 0 5302   9 5367  9	* a citizen of Thalos
-R 0 5375   5     	* The Void
-R 0 5376   6     	* The Void
-R 0 5377   6     	* The Void
-R 0 5378   5     	* The Void
-M 0 5327   2 5368  1	* a druid
-G 1 5313  -1     	*   some bluish herbs
-M 0 5327   2 5371  1	* a druid
-G 1 5315  -1     	*   some grayish herbs
-M 0 5328   2 5374  1	* a druidess
-G 1 5314  -1     	*   some purplish herbs
-M 0 5328   2 5372  1	* a druidess
-G 1 5316  -1     	*   some orangish herbs
-M 0 5322   2 5367  2	* a doe
-M 0 5323   3 5370  2	* a deer
-M 0 5324   1 5369  1	* a stag
-M 0 5325   3 5373  3	* a small bunny
-M 0 5326   4 5372  2	* a harmless snake
-M 0 5334   1 5384  1	* the cityguard
-E 1 3365  10    0	*   a war banner
-E 1 3364  10    1	*   a city guard signet ring
-E 1 3350  -1   16	*   a standard issue sword
-E 1 3353  10    5	*   a standard issue vest
-E 1 3354  10   11	*   a standard issue shield
-M 0 5331   1 5381  1	* the cityguard
-E 1 3365  10    0	*   a war banner
-E 1 3364  10    1	*   a city guard signet ring
-E 1 3350  -1   16	*   a standard issue sword
-E 1 3353  10    5	*   a standard issue vest
-E 1 3355  10    4	*   a standard issue cloak
-M 0 5332   2 5380  2	* the janitor
-M 0 5333   3 5382  3	* the beastly fido
-M 0 5323   3 5358  2	* a deer
-M 0 5326   4 5356  2	* a harmless snake
-S
 
-#SHOPS
-5310  0  0  0  0  0 	 120  90 	 0 23 	* Dan the Barkeep
-5311  5 17 19  0  0 	 110  90 	 6 20 	* George the Butcher
-5312 19  0  0  0  0 	 110  90 	 7 19 	* Farmer Betty
-5313  5  9  0  0  0 	 130  70 	 5 21 	* Thaellor the dwarf
-5314  1  8 12 13 22 	 135  65 	 8 18 	* Ben the Smith
-5317  2  3  4 10  0 	 120  50 	 9 17 	* an old wizard
-0
 
 #SPECIALS
-M 5300 spec_cast_mage      	* the baby beholder
-M 5303 spec_guard          	* an imperial cityguard
-M 5305 spec_guard          	* Gordon the Brave
-M 5306 spec_cast_cleric    	* the fanatic priest
-M 5307 spec_cast_cleric    	* the priest of Thalos
-M 5317 spec_cast_mage      	* an old wizard
-M 5320 spec_guard          	* An imperial cityguard
-M 5321 spec_guard          	* an imperial cityguard
-M 5327 spec_cast_cleric    	* a druid
-M 5328 spec_cast_cleric    	* a druidess
-M 5331 spec_guard          	* the cityguard
-M 5332 spec_janitor        	* the janitor
-M 5333 spec_fido           	* the beastly fido
-M 5334 spec_guard          	* the cityguard
+M 5300 spec_cast_mage
+M 5303 spec_guard
+M 5305 spec_guard
+M 5306 spec_cast_cleric
+M 5307 spec_cast_cleric
+M 5317 spec_cast_mage
+M 5320 spec_guard
+M 5321 spec_guard
+M 5327 spec_cast_cleric
+M 5328 spec_cast_cleric
+M 5331 spec_guard
+M 5332 spec_janitor
+M 5333 spec_fido
+M 5334 spec_guard
 S
+
+
+
+#RESETS
+M 0 5301 20 5300 1
+E 0 5300 0 3
+M 0 5330 1 5300 1
+E 0 5311 0 17
+M 0 5321 2 5300 2
+E 0 5331 0 0
+E 0 5319 0 5
+E 0 5322 0 6
+E 0 5323 0 7
+E 0 5324 0 8
+E 0 5325 0 9
+E 0 5320 0 11
+E 0 5318 0 16
+M 0 5321 2 5300 2
+E 0 5331 0 0
+E 0 5319 0 5
+E 0 5324 0 8
+E 0 5325 0 9
+E 0 5326 0 10
+E 0 5320 0 11
+E 0 5317 0 16
+M 0 5303 11 5300 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5327 0 12
+E 0 5329 0 14
+E 0 5318 0 16
+M 0 5304 9 5302 1
+M 0 5301 20 5304 1
+E 0 5300 0 3
+M 0 5303 11 5304 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5320 0 11
+E 0 5317 0 16
+M 0 5302 9 5304 1
+M 0 5301 20 5306 1
+E 0 5300 0 3
+M 0 5303 11 5307 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5328 0 13
+E 0 5329 0 14
+E 0 5318 0 16
+M 0 5304 9 5307 1
+M 0 5302 9 5308 1
+M 0 5301 20 5310 1
+E 0 5300 0 3
+M 0 5304 9 5312 1
+M 0 5303 11 5313 1
+E 0 5330 0 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5320 0 11
+E 0 5317 0 16
+M 0 5301 20 5314 1
+E 0 5300 0 3
+M 0 5303 11 5315 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5327 0 12
+E 0 5328 0 13
+E 0 5318 0 16
+M 0 5301 20 5316 1
+E 0 5300 0 3
+M 0 5302 9 5316 1
+M 0 5311 1 5317 1
+G 0 5219 0
+E 0 601 0 16
+G 0 602 0
+G 0 603 0
+G 0 604 0
+G 0 605 0
+M 0 5306 1 5319 1
+E 0 5218 0 3
+E 0 5222 0 12
+E 0 5252 0 16
+E 0 5239 0 17
+M 0 5301 20 5320 1
+E 0 5300 0 3
+M 0 5312 1 5320 1
+G 0 609 0
+G 0 610 0
+G 0 611 0
+G 0 612 0
+G 0 613 0
+M 0 5314 1 5321 1
+G 0 601 0
+G 0 615 0
+M 0 5301 20 5322 1
+E 0 5300 0 3
+M 0 5303 11 5324 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5320 0 11
+E 0 5317 0 16
+M 0 5301 20 5326 1
+E 0 5300 0 3
+M 0 5304 9 5326 1
+M 0 5302 9 5327 1
+M 0 5301 20 5328 1
+E 0 5300 0 3
+M 0 5313 1 5329 1
+M 0 5329 2 5330 2
+E 0 5309 0 17
+M 0 5329 2 5330 2
+E 0 5310 0 17
+M 0 5310 1 5330 1
+G 0 648 0
+G 0 649 0
+G 0 650 0
+M 0 5304 9 5330 1
+M 0 5302 9 5330 1
+M 0 5309 1 5331 1
+E 0 5224 0 17
+O 0 5307 0 5331
+P 0 5304 4 5307 1
+P 0 5305 4 5307 1
+P 0 5231 9 5307 1
+M 0 5303 11 5331 1
+E 0 5319 0 5
+E 0 5327 0 12
+E 0 5328 0 13
+E 0 5329 0 14
+E 0 5318 0 16
+M 0 5301 20 5332 1
+E 0 5300 0 3
+M 0 5304 9 5332 1
+O 0 5308 0 5333
+P 0 3105 8 5308 1
+P 0 5214 8 5308 1
+P 0 5230 1 5308 1
+M 0 5301 20 5334 1
+E 0 5300 0 3
+O 0 5306 0 5334
+M 0 5303 11 5334 1
+E 0 5330 0 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5320 0 11
+E 0 5317 0 16
+M 0 5320 3 5335 3
+E 0 5330 0 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5327 0 12
+E 0 5328 0 13
+E 0 5317 0 16
+M 0 5320 3 5335 3
+E 0 5330 0 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5327 0 12
+E 0 5329 0 14
+E 0 5318 0 16
+M 0 5320 3 5335 3
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5327 0 12
+E 0 5328 0 13
+E 0 5329 0 14
+E 0 5317 0 16
+M 0 5305 1 5336 1
+E 0 5204 0 8
+E 0 5203 0 10
+E 0 5205 0 7
+E 0 5206 0 13
+E 0 5201 0 6
+E 0 5202 0 9
+E 0 5301 0 5
+E 0 5332 0 16
+E 0 5226 0 17
+M 0 5315 1 5337 1
+M 0 5301 20 5338 1
+E 0 5300 0 3
+M 0 5317 1 5338 1
+M 0 5302 9 5338 1
+M 0 5301 20 5340 1
+E 0 5300 0 3
+M 0 5304 9 5340 1
+M 0 5303 11 5341 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5327 0 12
+E 0 5318 0 16
+M 0 5319 2 5342 2
+M 0 5301 20 5344 1
+E 0 5300 0 3
+M 0 5318 4 5344 4
+M 0 5302 9 5344 1
+M 0 5304 9 5344 1
+M 0 5316 2 5345 2
+M 0 5301 20 5346 1
+E 0 5300 0 3
+M 0 5308 8 5346 2
+E 0 5221 0 16
+E 0 5233 0 17
+M 0 5308 8 5347 2
+E 0 5221 0 16
+E 0 5232 0 17
+M 0 5301 20 5348 1
+E 0 5300 0 3
+M 0 5308 8 5348 2
+E 0 5221 0 16
+E 0 5235 0 17
+M 0 5300 1 5350 1
+E 0 5243 0 17
+M 0 5307 1 5350 1
+E 0 5302 0 17
+E 0 5223 0 3
+M 0 5301 20 5350 1
+E 0 5300 0 3
+M 0 5303 11 5350 1
+E 0 5321 0 4
+E 0 5319 0 5
+E 0 5320 0 11
+E 0 5317 0 16
+M 0 5302 9 5350 1
+M 0 5301 20 5352 1
+E 0 5300 0 3
+M 0 5303 11 5352 1
+E 0 5330 0 1
+E 0 5319 0 5
+E 0 5327 0 12
+E 0 5328 0 13
+E 0 5318 0 16
+M 0 5301 20 5354 1
+E 0 5300 0 3
+M 0 5308 8 5354 2
+E 0 5221 0 16
+E 0 5237 0 17
+M 0 5326 4 5356 2
+M 0 5323 3 5358 2
+M 0 5304 9 5361 1
+M 0 5302 9 5367 9
+M 0 5322 2 5367 2
+M 0 5327 2 5368 1
+G 0 5313 0
+M 0 5324 1 5369 1
+M 0 5323 3 5370 2
+M 0 5327 2 5371 1
+G 0 5315 0
+M 0 5328 2 5372 1
+G 0 5316 0
+M 0 5326 4 5372 2
+M 0 5325 3 5373 3
+M 0 5328 2 5374 1
+G 0 5314 0
+R 0 5375 5
+R 0 5376 6
+R 0 5377 6
+R 0 5378 5
+M 0 5332 2 5380 2
+M 0 5331 1 5381 1
+E 0 3365 0 0
+E 0 3364 0 1
+E 0 3350 0 16
+E 0 3353 0 5
+E 0 3355 0 4
+M 0 5333 3 5382 3
+M 0 5334 1 5384 1
+E 0 3365 0 0
+E 0 3364 0 1
+E 0 3350 0 16
+E 0 3353 0 5
+E 0 3354 0 11
+S
+
+
+
+#SHOPS
+5310 0 0 0 0 0 120 90 0 23
+5311 5 17 19 0 0 110 90 6 20
+5312 19 0 0 0 0 110 90 7 19
+5313 5 9 0 0 0 130 70 5 21
+5314 1 8 12 13 22 135 65 8 18
+5317 2 3 4 10 0 120 50 9 17
+0
+
+
+
+#MOBPROGS
+#0
 
 #$

@@ -1,8 +1,12 @@
-#AREA
-midennir.are~
-Miden'nir~
-{ 5 15} Copper  Miden'nir~
-3500 3599
+#AREADATA
+Name Miden'nir~
+Builders None~
+VNUMs 3500 3599
+Credits { 5 15} Copper  Miden'nir~
+Security 9
+End
+
+
 
 #MOBILES
 #3500
@@ -14,12 +18,12 @@ This huge winged creature looks really menacing.  You are happy it doesn't
 APPEAR to be very hungry ... yet.
 ~
 wyvern~
-AG 0 -200 0
+AG DFT -200 0
 8 2 8d8+80 1d1+149 2d6+1 bite
 5 4 5 6
-DNR 0 0 0
+CDFHNR L 0 S
 stand stand either 0
-0 0 huge 0
+ABZ ACDEFHJKQVX huge unknown
 #3501
 goblin mountain~
 the goblin~
@@ -28,12 +32,12 @@ A mountain goblin is wandering about, mumbling to himself.
 You see before you a small and twisted creature with knotted muscles.
 ~
 goblin~
-AFGT 0 -500 0
+AFGT J -500 0
 6 1 4d4+65 1d1+99 2d4+1 punch
 4 6 4 9
-KR 0 0 0
+KR 0 Q C
 stand stand male 25
-0 0 small 0
+AHMV ABCDEFGHIJK small unknown
 #3502
 boy small~
 the small boy~
@@ -48,7 +52,7 @@ ABH 0 500 0
 8 8 8 10
 I 0 0 C
 rest rest male 0
-0 0 small 0
+AHMV ABCDEFGHIJK small unknown
 #3503
 innkeeper~
 the Innkeeper~
@@ -64,7 +68,7 @@ ABT 0 500 0
 2 2 2 8
 BFKQ AB CD 0
 stand stand male 350
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #3504
 bard~
 the bard~
@@ -79,7 +83,7 @@ ABST D 600 0
 3 5 3 6
 FIJKNQ 0 0 0
 sit sit male 260
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #3505
 horseman dark~
 the dark horseman~
@@ -94,7 +98,7 @@ AGHS P -900 0
 5 3 3 6
 BFJKQ 0 0 0
 stand stand male 400
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #3506
 goblin lieutenant~
 the goblin lieutenant~
@@ -104,12 +108,12 @@ The goblin lieutenant is rather angry, and looking for one of his men to
 beat up upon, but maybe you will do just fine ...
 ~
 goblin~
-AFGT 0 -600 0
+AFGT J -600 0
 7 1 1d12+100 1d1+149 1d10+1 punch
 3 5 3 8
-DKNR 0 0 0
+DKNR 0 Q C
 stand stand male 55
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #3507
 goblin leader~
 the goblin leader~
@@ -119,13 +123,15 @@ The leader doesn't look too happy that you have found him here.  He grabs
 for his shortsword and lunges for your neck.
 ~
 goblin~
-ACFGT 0 -900 0
+ACFGT J -900 0
 9 2 1d12+120 1d1+199 1d12+3 punch
 1 3 1 6
-DJKNR 0 0 0
+DJKNR 0 Q C
 stand stand male 500
-0 0 medium 0
+AHMV ABCDEFGHIJK medium unknown
 #0
+
+
 
 #OBJECTS
 #3500
@@ -162,7 +168,7 @@ a black horned helmet~
 A helmet with sharp black horns sits here.~
 iron~
 armor 0 AE
-3 5 4 0 1
+AB AC C 0 A
 5 30 490 A
 #3503
 cloak stained~
@@ -170,7 +176,7 @@ a stained travelling cloak~
 A worn and stained cloak is crumpled up on the floor.~
 cloth~
 armor 0 AC
-2 3 4 0 1
+B AB C 0 A
 3 40 310 A
 #3504
 bracer leather enchanted~
@@ -178,7 +184,7 @@ an enchanted leather bracer~
 A leather bracer with mystic symbols sits here.~
 leather~
 armor 0 AM
-2 4 4 2 0
+B C C B 0
 7 10 690 G
 A
 18 1
@@ -204,6 +210,8 @@ with a stylized ivory hilt.
 ~
 #0
 
+
+
 #ROOMS
 #3500
 The Plains~
@@ -216,12 +224,12 @@ enter the hills far away north.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 4000
 D2
-~
-~
+(null)~
+(null)~
 0 0 3501
 S
 #3501
@@ -232,12 +240,12 @@ serenity. You can follow the road north or south.
 ~
 0 0 1
 D0
-~
-~
+(null)~
+(null)~
 0 0 3500
 D2
-~
-~
+(null)~
+(null)~
 0 0 3502
 S
 #3502
@@ -252,22 +260,22 @@ shows the scars of the war which destroyed Thalos.
 D0
 An old road leads towards the abandoned mines of Moria and the Dwarven Kingom.
 ~
-~
+(null)~
 0 0 3501
 D1
 The road continues east, where you hear faint singing.
 ~
-~
+(null)~
 0 0 3525
 D2
 A once mighty road leads through the dwarf forest towards ruined Thalos.
 ~
-~
+(null)~
 0 0 5261
 D3
 The road leads west towards Midgaard.
 ~
-~
+(null)~
 0 0 3503
 S
 #3503
@@ -277,14 +285,14 @@ land. The road leads east into the peace and quiet - and dangers - of the
 forest; and to the west it becomes the main street of the town; surrounded by
 a confusion of shops, bars, and market places.
 ~
-0 C 1
+0 4 1
 D1
-~
-~
+(null)~
+(null)~
 0 0 3502
 D3
-~
-~
+(null)~
+(null)~
 0 0 3053
 S
 #3505
@@ -294,26 +302,6 @@ east is easy enough. To the west, smoke can be seen rising above the
 treetops. The sprawl of Midgaard lies north of here.
 ~
 0 0 3
-D0
-To the north, you see the southern gates of Midgaard.
-~
-~
-0 0 3256
-D1
-More light forest.
-~
-~
-0 0 3506
-D2
-This path cuts through the darkness of the Miden'nir.
-~
-~
-0 0 3507
-D3
-The Woodsman's Inn.
-~
-~
-0 0 3570
 E
 credits credit author~
 +-------------------------------------------------+
@@ -323,6 +311,26 @@ credits credit author~
 |   by VampLestat                        1 JAN 93 |
 +-------------------------------------------------+
 ~
+D0
+To the north, you see the southern gates of Midgaard.
+~
+(null)~
+0 0 3256
+D1
+More light forest.
+~
+(null)~
+0 0 3506
+D2
+This path cuts through the darkness of the Miden'nir.
+~
+(null)~
+0 0 3507
+D3
+The Woodsman's Inn.
+~
+(null)~
+0 0 3570
 S
 #3506
 The Miden'nir~
@@ -331,18 +339,18 @@ here, only the lighter forest to the west or south offer a way to travel.
 ~
 0 0 3
 D1
-~
-~
+(null)~
+(null)~
 0 -1 3550
 D2
 The forest is darker to the south.
 ~
-~
+(null)~
 0 0 3509
 D3
 The forest gets lighter as you go west.
 ~
-~
+(null)~
 0 0 3505
 S
 #3507
@@ -355,17 +363,17 @@ southern and western paths place you even deeper in the wood.
 D0
 The forest is lighter in this direction.
 ~
-~
+(null)~
 0 0 3505
 D2
 More and darker woods.
 ~
-~
+(null)~
 0 0 3510
 D3
 There is a small path leading west.
 ~
-~
+(null)~
 0 0 3508
 S
 #3508
@@ -377,12 +385,12 @@ Miden'nir. Mountains slash the scenery to the west of here.
 D1
 Wind-swept forest.
 ~
-~
+(null)~
 0 0 3507
 D2
 To the south, the trail continues.
 ~
-~
+(null)~
 0 0 3511
 S
 #3509
@@ -395,17 +403,17 @@ north, south or travel toward the mountains that lie east of here.
 D0
 The trees lighten up a bit this way.
 ~
-~
+(null)~
 0 0 3506
 D1
 Huge grey mountains lie in this direction.
 ~
-~
+(null)~
 0 0 3512
 D2
 The forest continues.
 ~
-~
+(null)~
 0 0 3514
 S
 #3510
@@ -418,17 +426,17 @@ through the thick branches above your head.
 D0
 Trees as far as the eye can see.
 ~
-~
+(null)~
 0 0 3507
 D1
 There is an especially dark part of the forest this way.
 ~
-~
+(null)~
 0 0 3514
 D2
 There is an especially dark section of forest this way.
 ~
-~
+(null)~
 0 0 3516
 S
 #3511
@@ -441,12 +449,12 @@ movement westward.
 D0
 The trail bends to the north.
 ~
-~
+(null)~
 0 0 3508
 D2
 To the south, the path re-enters the forest.
 ~
-~
+(null)~
 0 0 3515
 S
 #3512
@@ -457,18 +465,18 @@ forest, but the steep mountains prevent any movement east.
 ~
 0 0 3
 D0
-~
-~
+(null)~
+(null)~
 0 -1 3550
 D2
 A light section of forest.
 ~
-~
+(null)~
 0 0 3513
 D3
 The forest continues here.
 ~
-~
+(null)~
 0 0 3509
 S
 #3513
@@ -481,12 +489,12 @@ lighter to the north.  The wind kicks up as you ponder your options.
 D0
 There is a small clearing to the north.
 ~
-~
+(null)~
 0 0 3512
 D3
 It gets darker and thicker this way.
 ~
-~
+(null)~
 0 0 3514
 S
 #3514
@@ -499,22 +507,22 @@ be time to head back to somewhere safe.
 D0
 More forest.
 ~
-~
+(null)~
 0 0 3509
 D1
 Lighter forest and mountains in the distance.
 ~
-~
+(null)~
 0 0 3513
 D2
 More trees.
 ~
-~
+(null)~
 0 0 3517
 D3
 The forest continues.
 ~
-~
+(null)~
 0 0 3510
 S
 #3515
@@ -527,17 +535,17 @@ continues.
 D0
 A trail leading north-south.
 ~
-~
+(null)~
 0 0 3511
 D1
 The trees get thicker as you go east.
 ~
-~
+(null)~
 0 0 3516
 D2
 More trees and some small hills.
 ~
-~
+(null)~
 0 0 3518
 S
 #3516
@@ -550,22 +558,22 @@ four cardinal directions from here. Hopefully, it will be dryer.
 D0
 The Miden'nir continues.
 ~
-~
+(null)~
 0 0 3510
 D1
 More trees.
 ~
-~
+(null)~
 0 0 3517
 D2
 The trees get VERY thick to the south. You can barely see...
 ~
-~
+(null)~
 0 0 3519
 D3
 Some light trees and daylight.
 ~
-~
+(null)~
 0 0 3515
 S
 #3517
@@ -578,12 +586,12 @@ movement.
 D0
 Many trees to the north.
 ~
-~
+(null)~
 0 0 3514
 D3
 There is a bit of a slope downward to the west.
 ~
-~
+(null)~
 0 0 3516
 S
 #3518
@@ -595,17 +603,12 @@ as the forest is relatively light. To the south, you can see a path.
 D0
 You can see a trail this way.
 ~
-~
+(null)~
 0 0 3515
-D1
-The trees are nearly trunk-to-trunk this way.
-~
-~
-0 0 -1
 D2
 Dark forests.
 ~
-~
+(null)~
 0 0 3522
 S
 #3519
@@ -618,23 +621,18 @@ you can head off into the woods to the east.
 D0
 The forest gets lighter this way.
 ~
-~
+(null)~
 0 0 3516
 D1
 The forest continues.
 ~
-~
+(null)~
 0 0 3520
 D2
 There is a strong stench coming from this direction.
 ~
-~
+(null)~
 0 0 3521
-D3
-The trees are nearly trunk-to-trunk this way.
-~
-~
-0 0 -1
 S
 #3520
 The Dark Forest~
@@ -648,12 +646,12 @@ south and west.
 D2
 The thick forest continues.
 ~
-~
+(null)~
 0 0 3523
 D3
 The thick forest continues.
 ~
-~
+(null)~
 0 0 3519
 S
 #3521
@@ -663,22 +661,7 @@ soaked into the ground. Two carcasses lie in front of you, seeming to look
 up at you. The forest is impassible to the south, but the other directions
 look ok.
 ~
-0 A 3
-D0
-Darkness...
-~
-~
-0 0 3519
-D1
-Your light does not extend that far.
-~
-~
-0 0 3523
-D3
-More dark forest.
-~
-~
-0 0 3522
+0 1 3
 E
 carcass body corpse carcasses bodies corpses~
 The corpses looked as if they have been pierced by a large, jagged
@@ -686,6 +669,21 @@ spear. The damage these people sustained is simply amazing. Worse, the
 lips on the bodies are a light shade of blue, hinting at poison in
 their systems.
 ~
+D0
+Darkness...
+~
+(null)~
+0 0 3519
+D1
+Your light does not extend that far.
+~
+(null)~
+0 0 3523
+D3
+More dark forest.
+~
+(null)~
+0 0 3522
 S
 #3522
 Deep in the Forest of Miden'nir~
@@ -697,12 +695,12 @@ simply cannot see. The trees are close and stifling.
 D0
 You see daylight and a trail to follow.
 ~
-~
+(null)~
 0 0 3518
 D1
 The stench seems to becoming from this direction.
 ~
-~
+(null)~
 0 0 3521
 S
 #3523
@@ -716,16 +714,16 @@ ugly feeling causes the hair to rise on the back of your neck!
 D0
 It appears to get much darker that direction.
 ~
-~
+(null)~
 0 0 3520
 D1
-~
-~
+(null)~
+(null)~
 0 -1 3551
 D3
 The sky becomes lighter in this direction.
 ~
-~
+(null)~
 0 0 3521
 S
 #3525
@@ -735,20 +733,15 @@ east.  A northern road crosses this one to the west, towards Midgaard.  You
 hear faint, happy singing to the north.
 ~
 0 0 1
-D0
-You see a faint trail, covered with tiny footprints. The singing grows louder.
-~
-~
-0 -1 101
 D1
 The road continues to the east.
 ~
-~
+(null)~
 0 -1 3526
 D3
 You can see the crossroads.
 ~
-~
+(null)~
 0 -1 3502
 S
 #3526
@@ -762,22 +755,22 @@ wanders off to the south.
 D0
 You see a beautiful, shady grove -- it looks like a peaceful place to relax.
 ~
-~
+(null)~
 0 -1 8950
 D1
 The road continues west towards a guarded checkpoint.
 ~
-~
+(null)~
 0 -1 3527
 D2
 A dirt path leads to the gnome village.
 ~
-~
+(null)~
 0 -1 1501
 D3
 The road continues west towards midgaard.
 ~
-~
+(null)~
 0 -1 3525
 S
 #3527
@@ -790,12 +783,12 @@ not stray into the desert, lest you lose your way.
 D1
 The continues east towards New Thalos.
 ~
-~
+(null)~
 0 -1 3528
 D3
 The road continues west towards midgaard.
 ~
-~
+(null)~
 0 -1 3526
 S
 #3528
@@ -809,12 +802,12 @@ more oppressive as you near the the barren wastes of the Sands of Sorrow.
 D1
 The road continues ahead, growing more arid as you near the desert.
 ~
-~
+(null)~
 0 -1 3529
 D3
 You see a heavily guarded checkpoint to the west.
 ~
-~
+(null)~
 0 -1 3527
 S
 #3529
@@ -827,12 +820,12 @@ buried by the creeping sands, and the air grows even hotter.
 D1
 You see the Sands of Sorrow spilling over the road.
 ~
-~
+(null)~
 0 -1 3530
 D3
 The road continues to the west, towards distant Midgaard.
 ~
-~
+(null)~
 0 -1 3528
 S
 #3530
@@ -847,12 +840,12 @@ off city...
 D1
 The road ahead is almost lost in the desert.
 ~
-~
+(null)~
 0 -1 3531
 D3
 You see a clearer section of road. 
 ~
-~
+(null)~
 0 -1 3529
 S
 #3531
@@ -866,12 +859,12 @@ you see the towers of a magnificent city...or is it just a mirage?
 D1
 You can barely make out enough road to follow.
 ~
-~
+(null)~
 0 -1 3532
 D3
 The desert thins a little to the west.
 ~
-~
+(null)~
 0 -1 3530
 S
 #3532
@@ -886,12 +879,12 @@ road leading to the City of Midgaard.
 D1
 You see the west gate of New Thalos.
 ~
-~
+(null)~
 0 -1 9669
 D3
 You see the road to Midgaard, covered with sand.
 ~
-~
+(null)~
 0 -1 3531
 S
 #3550
@@ -904,12 +897,12 @@ south and west.
 D2
 The forest of Miden'nir spreads out before you.
 ~
-~
+(null)~
 0 -1 3512
 D3
 The forest of Miden'nir spreads out before you.
 ~
-~
+(null)~
 0 -1 3506
 S
 #3551
@@ -919,14 +912,14 @@ in this area very dark.  The forest continues west, but mountains block
 further exploration in all other directions, except south, where you notice a
 small tunnel dug into the mountainside.
 ~
-0 A 3
+0 1 3
 D2
-~
-~
+(null)~
+(null)~
 0 -1 3552
 D3
-~
-~
+(null)~
+(null)~
 0 -1 3523
 S
 #3552
@@ -935,16 +928,16 @@ The walls of this tunnel were carved out many years ago by the goblins of
 this forest.  The floor is well worn, and continues south, into the
 mountain, or back north out into the forest.
 ~
-0 A 1
+0 1 1
 D0
 Outside, you see the forest of Miden'nir.
 ~
-~
+(null)~
 0 -1 3551
 D2
 The tunnel continues to the south.
 ~
-~
+(null)~
 0 -1 3553
 S
 #3553
@@ -953,21 +946,21 @@ The tunnel gets lighter to the north, presumably leading out, while to
 the south the passage gets smaller and smaller.  A small alcove has been
 carved into the east wall.
 ~
-0 A 1
+0 1 1
 D0
 The tunnel gets wider in this direction.
 ~
-~
+(null)~
 0 -1 3552
 D1
 You see a small alcove.
 ~
-~
+(null)~
 0 -1 3554
 D2
 The tunnel gets smaller in this direction.
 ~
-~
+(null)~
 0 -1 3555
 S
 #3554
@@ -975,17 +968,17 @@ A Small Alcove~
 A small alcove has been carved out here.  There are a bunch of twigs
 and leaves thrown into a pile here, probably serving as a bed.
 ~
-0 A 1
-D3
-You see the main passageway.
-~
-~
-0 -1 3553
+0 1 1
 E
 twigs leaves bead~
 The twigs and leaves have all been piled together as a makeshift bed for
 some small humanoid.
 ~
+D3
+You see the main passageway.
+~
+(null)~
+0 -1 3553
 S
 #3555
 A Tunnel in the Mountains~
@@ -993,16 +986,16 @@ As you explore further into the mountainside, the tunnel gets smaller and
 smaller to the south.  You almost have to hunch over to make your way thru
 this area.  A small archway to the south leads into a large chamber.
 ~
-0 A 1
+0 1 1
 D0
 The tunnel continues north.
 ~
-~
+(null)~
 0 -1 3553
 D2
 You see a small cavern.
 ~
-~
+(null)~
 0 -1 3556
 S
 #3556
@@ -1012,11 +1005,11 @@ serves as the living quarters for the goblins of Miden'nir.  The bones of
 numbers woodland creatures are strewn about the room, the remanents of a
 recent meal.
 ~
-0 A 1
+0 1 1
 D0
 The tunnel heads north.
 ~
-~
+(null)~
 0 -1 3555
 S
 #3570
@@ -1028,26 +1021,6 @@ could go north or south around the building or leave this place and
 return to the forest.
 ~
 0 0 3
-D0
-You can go north around the inn.
-~
-~
-0 0 3571
-D1
-Back through the trees to the Miden'nir.
-~
-~
-0 0 3505
-D2
-You can go south around the inn.
-~
-~
-0 0 3572
-D3
-The front door of the inn beckons.
-~
-~
-0 0 3574
 E
 credits credit author~
 +-------------------------------------------------+
@@ -1062,6 +1035,26 @@ sign~
 The sign reads:
    The Woodsman
 ~
+D0
+You can go north around the inn.
+~
+(null)~
+0 0 3571
+D1
+Back through the trees to the Miden'nir.
+~
+(null)~
+0 0 3505
+D2
+You can go south around the inn.
+~
+(null)~
+0 0 3572
+D3
+The front door of the inn beckons.
+~
+(null)~
+0 0 3574
 S
 #3571
 North of the Inn~
@@ -1074,7 +1067,7 @@ a back door.
 D2
 You see the front of the Inn.
 ~
-~
+(null)~
 0 -1 3570
 S
 #3572
@@ -1087,17 +1080,17 @@ here some muffled cries from a tiny trail leading south of here.
 D0
 This way leads to the front of the inn.
 ~
-~
+(null)~
 0 0 3570
 D2
 The trail heads south.
 ~
-~
+(null)~
 0 0 3575
 D3
 This way leads to the back of the inn.
 ~
-~
+(null)~
 0 0 3573
 S
 #3573
@@ -1112,12 +1105,12 @@ the inn.
 D1
 You can go around the inn this way.
 ~
-~
+(null)~
 0 0 3572
 D3
 Only rats and fool adventurers play in garbage.
 ~
-~
+(null)~
 0 0 3578
 S
 #3574
@@ -1128,25 +1121,25 @@ goblins as of late, and it is no longer safe in these parts. The bar is just
 north of here. If you'd rather have your own table, one is empty to the
 south.
 ~
-0 CD 1
+0 12 1
 D0
 The bar is here, manned by the innkeeper.
 ~
-~
+(null)~
 0 0 3576
 D1
 You can leave now and return to fresher air.
 ~
-~
+(null)~
 0 0 3570
 D2
 An empty table is a rare commodity.
 ~
-~
+(null)~
 0 0 3579
 D3
-~
-~
+(null)~
+(null)~
 0 0 3577
 S
 #3575
@@ -1160,12 +1153,12 @@ been a battle here rather recently.
 D0
 The inn lies to the north.
 ~
-~
+(null)~
 0 0 3572
 D3
 A trail thru the woods.
 ~
-~
+(null)~
 0 0 3581
 S
 #3576
@@ -1179,7 +1172,7 @@ common room.
 D2
 You may retreat south back to the common room.
 ~
-~
+(null)~
 0 0 3574
 S
 #3577
@@ -1188,11 +1181,11 @@ You are in a darker corner in the Inn.  A large round table with a few
 wooden chairs sits here.  There is a large stain on the table, the remnants
 of a spilled drink.
 ~
-0 D 1
+0 8 1
 D1
 You see the main floor of the Inn to the east.
 ~
-~
+(null)~
 0 0 3574
 S
 #3578
@@ -1204,7 +1197,7 @@ what vermin live in these piles of filth ...
 D1
 You can return to cleaner lands this way.
 ~
-~
+(null)~
 0 0 3573
 S
 #3579
@@ -1212,11 +1205,11 @@ A Quieter Section of the Inn~
 There seems to be no one in this end of the Woodsman, probably a safe place
 to rest and lick your wounds ...
 ~
-0 D 0
+0 8 0
 D0
 You see the common room.
 ~
-~
+(null)~
 0 0 3574
 S
 #3581
@@ -1228,12 +1221,12 @@ the soft ground that show the horsemen fled to the west.
 D1
 Back to ambush point.
 ~
-~
+(null)~
 0 0 3575
 D3
 The trail continues.
 ~
-~
+(null)~
 0 -1 3582
 S
 #3582
@@ -1245,12 +1238,12 @@ the soft ground that show the horsemen turned, and fled south.
 D1
 The trail continues.
 ~
-~
+(null)~
 0 0 3581
 D2
 The tracks lead south.
 ~
-~
+(null)~
 0 -1 3583
 S
 #3583
@@ -1262,12 +1255,12 @@ the forest.  The tracks are still fresh, so they must be near.
 D0
 The trail continues.
 ~
-~
+(null)~
 0 -1 3582
 D3
 The tracks lead east.
 ~
-~
+(null)~
 0 -1 3584
 S
 #3584
@@ -1280,62 +1273,73 @@ end right here.  The horsemen must be nearby.
 D1
 Back to along the trail.
 ~
-~
+(null)~
 0 0 3583
 S
 #0
 
-#RESETS
-M 0 3500   2 3521  2	* the wyvern
-M 0 3500   2 3521  2	* the wyvern
-M 0 3501   8 3512  2	* the goblin
-E 1 3500  18   16	*   a goblin's short sword
-E 1 3045   6    5	*   a scale mail jacket
-M 0 3501  10 3512  2	* the goblin
-E 1 3500  18   16	*   a goblin's short sword
-E 1 3502   6    6	*   a black horned helmet
-E 1 3075   6    8	*   a pair of reinforced boots
-M 0 3501  10 3509  2	* the goblin
-E 1 3500  18   16	*   a goblin's short sword
-E 1 3072   6    5	*   a scale mail jerkin
-M 0 3501  10 3506  2	* the goblin
-E 1 3500  18   16	*   a goblin's short sword
-E 1 3074   6    7	*   a long scale mail skirt
-M 0 3501  10 3513  2	* the goblin
-E 1 3500  18   16	*   a goblin's short sword
-E 1 3077   6   10	*   a pair of scale mail sleeves
-M 0 3501  10 3556  2	* the goblin
-E 1 3500  18   16	*   a goblin's short sword
-E 1 3076   6    9	*   a pair of reinforced gloves
-M 0 3506   4 3551  2	* the goblin lieutenant
-E 1 3502  -1    6	*   a black horned helmet
-E 1 3500  20   16	*   a goblin's short sword
-E 1 3072   8    5	*   a scale mail jerkin
-M 0 3506   4 3556  2	* the goblin lieutenant
-E 1 3500  20   16	*   a goblin's short sword
-E 1 3502  -1    6	*   a black horned helmet
-E 1 3072   8    5	*   a scale mail jerkin
-M 0 3507   1 3556  1	* the goblin leader
-E 1 3072  -1    5	*   a scale mail jerkin
-E 1 3501   6   16	*   a long spear
-E 1 3502  -1    6	*   a black horned helmet
-M 0 3502   1 3575  1	* the small boy
-M 0 3503   1 3576  1	* the Innkeeper
-M 0 3504   1 3577  1	* the bard
-E 1 3505   3   16	*   a rune-covered knife
-M 0 3505   4 3583  2	* the dark horseman
-E 1 3503   8    3	*   a stained travelling cloak
-E 1 3022  -1   16	*   a long sword
-M 0 3505   4 3584  2	* the dark horseman
-E 1 3504   4   14	*   an enchanted leather bracer
-E 1 3022  -1   16	*   a long sword
+
+
+#SPECIALS
+M 3500 spec_poison
 S
+
+
+
+#RESETS
+M 0 3501 10 3506 2
+E 0 3500 0 16
+E 0 3074 0 7
+M 0 3501 10 3509 2
+E 0 3500 0 16
+E 0 3072 0 5
+M 0 3501 8 3512 2
+E 0 3500 0 16
+E 0 3045 0 5
+M 0 3501 10 3512 2
+E 0 3500 0 16
+E 0 3502 0 6
+E 0 3075 0 8
+M 0 3501 10 3513 2
+E 0 3500 0 16
+E 0 3077 0 10
+M 0 3500 2 3521 2
+M 0 3500 2 3521 2
+M 0 3506 4 3551 2
+E 0 3502 0 6
+E 0 3500 0 16
+E 0 3072 0 5
+M 0 3501 10 3556 2
+E 0 3500 0 16
+E 0 3076 0 9
+M 0 3506 4 3556 2
+E 0 3500 0 16
+E 0 3502 0 6
+E 0 3072 0 5
+M 0 3507 1 3556 1
+E 0 3072 0 5
+E 0 3501 0 16
+E 0 3502 0 6
+M 0 3502 1 3575 1
+M 0 3503 1 3576 1
+M 0 3504 1 3577 1
+E 0 3505 0 16
+M 0 3505 4 3583 2
+E 0 3503 0 3
+E 0 3022 0 16
+M 0 3505 4 3584 2
+E 0 3504 0 14
+E 0 3022 0 16
+S
+
+
 
 #SHOPS
 0
 
-#SPECIALS
-M 3500 spec_poison         	* the wyvern
-S
+
+
+#MOBPROGS
+#0
 
 #$

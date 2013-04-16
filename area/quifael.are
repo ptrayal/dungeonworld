@@ -1,14 +1,22 @@
-#AREA
-quifael.are~
-Quifael's~
-{31 35} Quifael Quifael's Area~
-6900 6999
+#AREADATA
+Name Quifael's~
+Builders None~
+VNUMs 6900 6999
+Credits {31 35} Quifael Quifael's Area~
+Security 9
+End
+
+
 
 #MOBILES
 #0
 
+
+
 #OBJECTS
 #0
+
+
 
 #ROOMS
 #6900
@@ -16,11 +24,11 @@ Quifael's monster pen~
 You are in a big, subterranean room with heavy massive stone walls and no
 windows whatsoever.  A virtual ladder leads upwards.
 ~
-0 DJ 0
+0 520 0
 D4
 The ladder leads to the laboratory.
 ~
-~
+(null)~
 0 -1 6902
 S
 #6901
@@ -30,12 +38,7 @@ bookcases filled with dusty volumes of all sizes.  In the fireplace burns a
 crackling fire that makes the room warm and cosy, and in front of an oakwood
 reading desk is a large old-fashioned chair.
 ~
-0 CDJ 0
-D2
-The corridor leads south to the hall.
-~
-~
-0 -1 6904
+0 524 0
 E
 chair~
 It is big and old-fashioned, but quite comfortable nevertheless.
@@ -56,6 +59,11 @@ but also some on computer science (although these seem to be VERY dusty
 indeed) and a fair collection of horror literature, ranging from Bram Stoker
 and H. P. Lovecraft to Anne Rice and Stephen King.
 ~
+D2
+The corridor leads south to the hall.
+~
+(null)~
+0 -1 6904
 S
 #6902
 Quifael's laboratory~
@@ -65,22 +73,7 @@ the north wall.  The air smells of rare chemicals and spices.
 A virtual ladder leads downwards.
 A magical portal is hovering in the air just in front of the east wall.
 ~
-0 CDJ 0
-D1
-To the east is the magical portal.
-~
-~
-0 -1 6903
-D3
-To the west is the hall.
-~
-~
-0 -1 6904
-D5
-The virtual ladder leads down to the monster pen.
-~
-~
-0 -1 6900
+0 524 0
 E
 desk~
 On the desk is a peculiar apparatus of glass bottles and globes connected by
@@ -94,6 +87,21 @@ sizes, of which some contain powders and liquids in various colours.  Others
 contain dragon's claws, giant's eyes, rabbit's ears and other body parts of
 different monsters.
 ~
+D1
+To the east is the magical portal.
+~
+(null)~
+0 -1 6903
+D3
+To the west is the hall.
+~
+(null)~
+0 -1 6904
+D5
+The virtual ladder leads down to the monster pen.
+~
+(null)~
+0 -1 6900
 S
 #6903
 Quifael's virtual balcony~
@@ -104,12 +112,7 @@ of Haon-Dor.
 A transparent bronze plate has been bolted to the balcony railing.
 A magical portal is hovering in the air to the west.
 ~
-0 DJ 0
-D3
-The magical portal is to the west.
-~
-~
-0 -1 6902
+0 520 0
 E
 forest Haon-Dor view~
 Through the tree crowns, you see fellow adventurers walking around in the
@@ -137,6 +140,11 @@ balcony railing~
 Quite transparent, but visible anyway, because of the blue glow that surrounds
 the whole place.
 ~
+D3
+The magical portal is to the west.
+~
+(null)~
+0 -1 6902
 S
 #6904
 Quifael's hall~
@@ -144,47 +152,58 @@ You are in sparsely decorated and quite dusty hall.  Old wooden doors lead
 north, east and south and to the west is the front door.
 An old mirror hangs on the wall.
 ~
-0 DJ 0
+0 520 0
+E
+mirror~
+You see yourself looking back at you.
+~
 D0
 The study is to the north.~
-~
+(null)~
 0 -1 6901
 D1
 The laboratory is to the east.~
-~
+(null)~
 0 -1 6902
 D2
 The kitchen is to the south.~
-~
+(null)~
 0 -1 6905
 D3
 The front door leads to Park Road.~
 door~
 2 3301 3126
-E
-mirror~
-You see yourself looking back at you.
-~
 S
 #6905
 Quifael's kitchen~
 You are in an old-fashioned kitchen.
 ~
-0 DJ 0
+0 520 0
 D0
 The hall is to the north.~
-~
+(null)~
 0 -1 6904
 S
 #0
 
+
+
+#SPECIALS
+S
+
+
+
 #RESETS
 S
+
+
 
 #SHOPS
 0
 
-#SPECIALS
-S
+
+
+#MOBPROGS
+#0
 
 #$

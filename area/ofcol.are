@@ -1,14 +1,22 @@
-#AREA
-ofcol.are~
-Ofcol~
-{ All } Alfa    Ofcol~
-5500 5599
+#AREADATA
+Name Ofcol~
+Builders None~
+VNUMs 5500 5599
+Credits { All } Alfa    Ofcol~
+Security 9
+End
+
+
 
 #MOBILES
 #0
 
+
+
 #OBJECTS
 #0
+
+
 
 #ROOMS
 #5550
@@ -22,12 +30,12 @@ square where some people are gathered as always.
 D0
 You look up the village street noticing nothing special at all.
 ~
-~
+(null)~
 0 -1 5551
 D2
 The wide road leads south here towards the T-crossing.
 ~
-~
+(null)~
 0 -1 314
 S
 #5551
@@ -40,17 +48,17 @@ square. Towards the south you can leave Ofcol.
 D0
 The village square is as usual not overcrowded.
 ~
-~
+(null)~
 0 -1 5552
 D1
 The small alley looks relative peaceful.
 ~
-~
+(null)~
 0 -1 5553
 D2
 You see the village street eventually becoming the wide road.
 ~
-~
+(null)~
 0 -1 5550
 S
 #5552
@@ -64,17 +72,17 @@ If you leave south you go to village street.
 D0
 You see a local inn called 'The Ofcol Local Inn'. Looks nice.
 ~
-~
+(null)~
 0 -1 5556
 D2
 You see the village street of Ofcol.
 ~
-~
+(null)~
 0 -1 5551
 D3
 A small shop with the sign 'Luxan's Mixed goods' hanging in front of it.
 ~
-~
+(null)~
 0 -1 5555
 S
 #5553
@@ -86,17 +94,17 @@ to the west and a small room lies to the south.
 D1
 You see a big intersection.
 ~
-~
+(null)~
 0 0 601
 D2
 It looks like the future site of a training room.
 ~
-~
+(null)~
 0 -1 5554
 D3
 You notice nothing but the village street.
 ~
-~
+(null)~
 0 -1 5551
 S
 #5554
@@ -104,11 +112,11 @@ The future training room~
 This is the future site of a training room.  The only exit is north
 leading to the small alley.
 ~
-0 D 1
+0 8 1
 D0
 You are able to see the small alley, really not very interesting.
 ~
-~
+(null)~
 0 -1 5553
 S
 #5555
@@ -117,11 +125,11 @@ You are standing in a small shop, filled with all kinds of goods.
 Here you might be able to find just the thing you're looking for.
 The only exit is east to village square.
 ~
-0 D 1
+0 8 1
 D1
 The village square is as usual not overcrowded.
 ~
-~
+(null)~
 0 -1 5552
 S
 #5556
@@ -132,11 +140,11 @@ You can't help thinking that Ofcol is a dry city, when you see the
 many people here.
 The only exit is south to the village square.
 ~
-0 D 1
+0 8 1
 D2
 The village square is as usual not overcrowded.
 ~
-~
+(null)~
 0 -1 5552
 S
 #5577
@@ -146,7 +154,7 @@ the time. The room has little decoration except for some pictures
 on the wall.
 You notice that there are no exits from this room.
 ~
-0 C 0
+0 4 0
 E
 friend friends~
 The list include such prominent names as : God, Lottie, Kurgan,
@@ -167,25 +175,36 @@ R.I.P. inscripted underneath them.
 S
 #0
 
-#RESETS
-M 0  303   5 5556  3	* the citizen
-M 0  303   5 5550  3	* the citizen
-M 0  304   5 5553  3	* the citizen
-M 0  304   5 5552  3	* the citizen
-E 1 3020  99   16	*   a dagger
-M 0  306   1 5555  1	* Luxan
-G 1  304 100     	*   wild flowers
-G 1 3030 100     	*   a torch
-M 0  308   1 5556  1	* the Innkeeper
-G 1 3000 100     	*   a barrel of beer
-G 1 3001 100     	*   a bottle of beer
-M 0  350   1 5577  1	* the pet dragon
+
+
+#SPECIALS
 S
+
+
+
+#RESETS
+M 0 303 5 5550 3
+M 0 304 5 5552 3
+E 0 3020 0 16
+M 0 304 5 5553 3
+M 0 306 1 5555 1
+G 0 304 0
+G 0 3030 0
+M 0 303 5 5556 3
+M 0 308 1 5556 1
+G 0 3000 0
+G 0 3001 0
+M 0 350 1 5577 1
+S
+
+
 
 #SHOPS
 0
 
-#SPECIALS
-S
+
+
+#MOBPROGS
+#0
 
 #$
