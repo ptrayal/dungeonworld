@@ -1386,55 +1386,62 @@ void do_qui( CHAR_DATA *ch, char *argument )
 
 void do_quit( CHAR_DATA *ch, char *argument )
 {
-		DESCRIPTOR_DATA *d,*d_next;
-		int id;
+	DESCRIPTOR_DATA *d,*d_next;
+	int id;
 
-		if ( IS_NPC(ch) )
-	return;
+	if ( IS_NPC(ch) )
+		return;
 
-		if ( ch->position == POS_FIGHTING )
+	if ( ch->position == POS_FIGHTING )
+	{
+		send_to_char( "No way! You are fighting.\n\r", ch );
+		return;
+	}
+
+	if ( ch->position  < POS_STUNNED  )
+	{
+		send_to_char( "You're not DEAD yet.\n\r", ch );
+		return;
+	}
+	send_to_char( "Alas, all good things must come to an end.\n\r",ch);
+	act( "$n has left the game.", ch, NULL, NULL, TO_ROOM );
+	log_string( Format("%s has quit.", ch->name ) );
+	wiznet("$N rejoins the real world.",ch,NULL,WIZ_LOGINS,0,get_trust(ch));
+
+	if(ch->desc) 
+	{
+		if(ch->desc->editor) 
 		{
-	send_to_char( "No way! You are fighting.\n\r", ch );
-	return;
+			edit_done(ch);
 		}
-
-		if ( ch->position  < POS_STUNNED  )
-		{
-	send_to_char( "You're not DEAD yet.\n\r", ch );
-	return;
-		}
-		send_to_char( 
-	"Alas, all good things must come to an end.\n\r",ch);
-		act( "$n has left the game.", ch, NULL, NULL, TO_ROOM );
-		log_string( Format("%s has quit.", ch->name ) );
-		 wiznet("$N rejoins the real world.",ch,NULL,WIZ_LOGINS,0,get_trust(ch));
+	}
 
 		/*
 		 * After extract_char the ch is no longer valid!
 		 */
-		save_char_obj( ch );
-		id = ch->id;
-		d = ch->desc;
-		extract_char( ch, TRUE );
-		if ( d != NULL )
-			close_socket( d );
+		 save_char_obj( ch );
+		 id = ch->id;
+		 d = ch->desc;
+		 extract_char( ch, TRUE );
+		 if ( d != NULL )
+		 	close_socket( d );
 
 		/* toast evil cheating bastards */
-		for (d = descriptor_list; d != NULL; d = d_next)
-		{
-			CHAR_DATA *tch;
+		 for (d = descriptor_list; d != NULL; d = d_next)
+		 {
+		 	CHAR_DATA *tch;
 
-			d_next = d->next;
-			tch = d->original ? d->original : d->character;
-			if (tch && tch->id == id)
-			{
-				extract_char(tch,TRUE);
-				close_socket(d);
-			} 
+		 	d_next = d->next;
+		 	tch = d->original ? d->original : d->character;
+		 	if (tch && tch->id == id)
+		 	{
+		 		extract_char(tch,TRUE);
+		 		close_socket(d);
+		 	} 
+		 }
+
+		 return;
 		}
-
-		return;
-}
 
 
 

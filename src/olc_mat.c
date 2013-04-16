@@ -33,14 +33,23 @@ const struct olc_cmd_type matedit_table[] =
     {	NULL,		0,		}
 };
 
-MAT_TYPE *find_mat(const char *name) {
+MAT_TYPE *find_mat(const char *name) 
+{
 	MAT_TYPE *mat, *mat_next;
 	
 	if(IS_NULLSTR(name))
 		return NULL;
 	
-	for(mat = mat_list; mat; mat = mat_next) {
+	for(mat = mat_list; mat; mat = mat_next) 
+	{
 		mat_next = mat->next;
+		if(IS_NULLSTR(mat->name)) 
+		{
+			UNLINK_SINGLE(mat, next, MAT_TYPE, mat_list);
+			PURGE_DATA(mat);
+			continue;
+		}
+
 		if(!str_cmp(mat->name, name))
 			return mat;
 	}
@@ -63,20 +72,30 @@ void clear_materials(void) {
 	return;
 }
 
-void confirm_material(const char *name) {
+void confirm_material(const char *name) 
+{
 	MAT_TYPE *mat, *mat_next;
 	
 	if(IS_NULLSTR(name))
 		return;
 	
-	for(mat = mat_list; mat; mat = mat_next) {
+	for(mat = mat_list; mat; mat = mat_next) 
+	{
 		mat_next = mat->next;
+		if(IS_NULLSTR(mat->name)) 
+		{
+			UNLINK_SINGLE(mat, next, MAT_TYPE, mat_list);
+			PURGE_DATA(mat);
+			continue;
+		}
+
 		if(!str_cmp(mat->name, name))
 			return;
 	}
 	
 	ALLOC_DATA(mat, MAT_TYPE, 1);
 	mat->name = str_dup(name);
+	mat->assignedValue = 0;
 	LINK_SINGLE(mat, next, mat_list);
 }
 
@@ -159,8 +178,8 @@ MATEDIT( matedit_create )
 
 	if ( IS_NULLSTR(argument))
 	{
-	send_to_char( "Syntax:  create [name]\n\r", ch );
-	return FALSE;
+		send_to_char( "Syntax:  create [name]\n\r", ch );
+		return FALSE;
 	}
 
 	pMat = find_mat( argument );
@@ -173,6 +192,7 @@ MATEDIT( matedit_create )
 
 	ALLOC_DATA(pMat, MAT_TYPE, 1);
 	pMat->name = str_dup(argument);
+	pMat->assignedValue = 0;
 
 	LINK_SINGLE(pMat, next, mat_list);
 
