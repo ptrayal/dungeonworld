@@ -346,12 +346,12 @@ void    bust_a_prompt           args( ( CHAR_DATA *ch ) );
 void purgeExtracted(void);
 
 void cleanup_mud(void) {
-   	int iHash;
-   	int mob_count = 0, obj_count = 0, room_count = 0;
- 	DESCRIPTOR_DATA *d, *d_next;
-   	OBJ_INDEX_DATA *obj_index;
-   	MOB_INDEX_DATA *mob_index;
-   	ROOM_INDEX_DATA *room_index;
+		int iHash;
+		int mob_count = 0, obj_count = 0, room_count = 0;
+	DESCRIPTOR_DATA *d, *d_next;
+		OBJ_INDEX_DATA *obj_index;
+		MOB_INDEX_DATA *mob_index;
+		ROOM_INDEX_DATA *room_index;
 	AREA_DATA *pArea, *pArea_next;
 	CHAR_DATA *ch, *ch_next;
 	OBJ_DATA *obj, *obj_next;
@@ -385,11 +385,11 @@ void cleanup_mud(void) {
 
 	// needed to add extern information to merc.h
 	// will extract all the bans loaded into the game
-    log_string("Cleaning: ban_list");
-    for(pban = ban_list; pban != NULL; pban = pban_next) {
-        pban_next = pban->next;
-        free_ban(pban);
-    }
+	 log_string("Cleaning: ban_list");
+	 for(pban = ban_list; pban != NULL; pban = pban_next) {
+		  pban_next = pban->next;
+		  free_ban(pban);
+	 }
 
 	MPROG_CODE *mprog, *mprog_next;
 	extern MPROG_CODE *mprog_list;
@@ -412,101 +412,101 @@ void cleanup_mud(void) {
 	log_string("Cleaning: second purge");
 	purgeExtracted();
 
-   log_string("Freeing Hash's.  THIS COULD TAKE AWHILE!");
-   for( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )
-   {
-      MOB_INDEX_DATA *next_mob_index;
-      OBJ_INDEX_DATA *next_obj_index;
-      ROOM_INDEX_DATA *next_room_index;
-      for( mob_index = mob_index_hash[iHash]; mob_index; mob_index = next_mob_index )
-      {
-         next_mob_index = mob_index->next;
+	log_string("Freeing Hash's.  THIS COULD TAKE AWHILE!");
+	for( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )
+	{
+		MOB_INDEX_DATA *next_mob_index;
+		OBJ_INDEX_DATA *next_obj_index;
+		ROOM_INDEX_DATA *next_room_index;
+		for( mob_index = mob_index_hash[iHash]; mob_index; mob_index = next_mob_index )
+		{
+			next_mob_index = mob_index->next;
 
-         if( mob_index == mob_index_hash[iHash] )
-            mob_index_hash[iHash] = mob_index->next;
-         else
-         {
-            MOB_INDEX_DATA *tmid;
+			if( mob_index == mob_index_hash[iHash] )
+				mob_index_hash[iHash] = mob_index->next;
+			else
+			{
+				MOB_INDEX_DATA *tmid;
 
-            for( tmid = mob_index_hash[iHash]; tmid; tmid = tmid->next )
-            {
-               if( tmid->next == mob_index )
-                  break;
-            }
-            if( !tmid )
-               bugf( "cleanup_mud: mid not in hash list %d", mob_index->vnum );
-            else
-               tmid->next = mob_index->next;
-         }
+				for( tmid = mob_index_hash[iHash]; tmid; tmid = tmid->next )
+				{
+					if( tmid->next == mob_index )
+						break;
+				}
+				if( !tmid )
+					bugf( "cleanup_mud: mid not in hash list %d", mob_index->vnum );
+				else
+					tmid->next = mob_index->next;
+			}
 
-         free_mob_index(mob_index);
-         mob_count++;
-      }
-      for( obj_index = obj_index_hash[iHash]; obj_index; obj_index = next_obj_index )
-      {
-         next_obj_index = obj_index->next;
-         if( obj_index == obj_index_hash[iHash] )
-            obj_index_hash[iHash] = obj_index->next;
-         else
-         {
-            OBJ_INDEX_DATA *toid;
+			free_mob_index(mob_index);
+			mob_count++;
+		}
+		for( obj_index = obj_index_hash[iHash]; obj_index; obj_index = next_obj_index )
+		{
+			next_obj_index = obj_index->next;
+			if( obj_index == obj_index_hash[iHash] )
+				obj_index_hash[iHash] = obj_index->next;
+			else
+			{
+				OBJ_INDEX_DATA *toid;
 
-            for( toid = obj_index_hash[iHash]; toid; toid = toid->next )
-            {
-               if( toid->next == obj_index )
-                  break;
-            }
-            if( !toid )
-               bugf( "cleanup_mud: oid not in hash list %d", obj_index->vnum );
-            else
-               toid->next = obj_index->next;
-         }
-         free_obj_index(obj_index);
-         obj_count++;
-      }
-      for( room_index = room_index_hash[iHash]; room_index; room_index = next_room_index )
-      {
-         next_room_index = room_index->next;
+				for( toid = obj_index_hash[iHash]; toid; toid = toid->next )
+				{
+					if( toid->next == obj_index )
+						break;
+				}
+				if( !toid )
+					bugf( "cleanup_mud: oid not in hash list %d", obj_index->vnum );
+				else
+					toid->next = obj_index->next;
+			}
+			free_obj_index(obj_index);
+			obj_count++;
+		}
+		for( room_index = room_index_hash[iHash]; room_index; room_index = next_room_index )
+		{
+			next_room_index = room_index->next;
 
-         if( room_index == room_index_hash[iHash] )
-            room_index_hash[iHash] = room_index->next;
-         else
-         {
-            ROOM_INDEX_DATA *trid;
+			if( room_index == room_index_hash[iHash] )
+				room_index_hash[iHash] = room_index->next;
+			else
+			{
+				ROOM_INDEX_DATA *trid;
 
-            for( trid = room_index_hash[iHash]; trid; trid = trid->next )
-	    {
-               if( trid->next == room_index )
-                  break;
-	    }
+				for( trid = room_index_hash[iHash]; trid; trid = trid->next )
+		 {
+					if( trid->next == room_index )
+						break;
+		 }
 
-            if( !trid )
-               bugf( "cleanup_mud: rid not in hash list %d", room_index->vnum );
-            else
-               trid->next = room_index->next;
-         }
+				if( !trid )
+					bugf( "cleanup_mud: rid not in hash list %d", room_index->vnum );
+				else
+					trid->next = room_index->next;
+			}
 
-         free_room_index(room_index);
-         room_count++;
-      }
-   }
+			free_room_index(room_index);
+			room_count++;
+		}
+	}
 
 
 	// cleanup area's.
 	log_string("Cleaning: areas");
-   for ( pArea = area_first; pArea != NULL; pArea = pArea_next )   {
+	for ( pArea = area_first; pArea != NULL; pArea = pArea_next )   {
 	pArea_next = pArea->next;
 	free_area(pArea);
-   }
+	}
 
 	log_string("Cleaning: final purge");
-    purgeExtracted();
+	 purgeExtracted();
 
-   log_string("------------------------------------------");
-   log_string("              HASH's FREED!               ");
-   log_string("------------------------------------------");
-   tail_chain();
-   return;
+	log_string("------------------------------------------");
+	log_string("              HASH's FREED!               ");
+	log_string("------------------------------------------");
+	tail_chain();
+	return;
 
 }
 
@@ -1395,7 +1395,7 @@ void read_from_buffer( DESCRIPTOR_DATA *d )
 		{
 		log_string( Format("%s input spamming!", d->host) );
 		wiznet("Spam spam spam $N spam spam spam spam spam!",
-			   d->character,NULL,WIZ_SPAM,0,get_trust(d->character));
+				d->character,NULL,WIZ_SPAM,0,get_trust(d->character));
 		if (d->incomm[0] == '!')
 			wiznet(d->inlast,d->character,NULL,WIZ_SPAM,0,
 			get_trust(d->character));
@@ -1565,6 +1565,12 @@ void bust_a_prompt( CHAR_DATA *ch )
 	if (IS_SET(ch->comm,COMM_AFK))
 	{
 		send_to_char("<AFK> ",ch);
+		return;
+	}
+
+	if(ch->desc && ch->desc->editor) 
+	{
+		send_to_char(Format("{ %s | %s } ", olc_ed_name(ch), olc_ed_vnum(ch)), ch);
 		return;
 	}
 
@@ -1943,8 +1949,8 @@ void nanny_get_old_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 			close_socket( d );
 			return;
 		}
- 	}
- 	
+	}
+	
 	ProtocolNoEcho( d, false );
 
 	if (check_playing(d,ch->name))
@@ -2503,7 +2509,7 @@ bool check_parse_name( char *name )
 	{
 	if (LOWER(name[0]) == LOWER(clan_table[clan].name[0])
 	&&  !str_cmp(name,clan_table[clan].name))
-	   return FALSE;
+		return FALSE;
 	}
 	
 	if (str_cmp(capitalize(name),"Alander") && (!str_prefix("Alan",name)
