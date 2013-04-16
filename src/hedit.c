@@ -54,18 +54,16 @@ HELP_AREA * get_help_area( HELP_DATA *help )
 HEDIT(hedit_show)
 {
 	HELP_DATA * help;
-	char buf[MSL*2];
-
+	
 	EDIT_HELP(ch, help);
 
-	sprintf( buf, "Keyword : [%s]\n\r"
-		      "Level   : [%d]\n\r"
-		      "Text    :\n\r"
-		      "%s-END-\n\r",
-		      help->keyword,
-		      help->level,
-		      help->text );
-	send_to_char( buf, ch );
+	send_to_char( Format("Keyword : [%s]\n\r"
+		"Level   : [%d]\n\r"
+		"Text    :\n\r"
+		"%s-END-\n\r",
+		help->keyword,
+		help->level,
+		help->text), ch );
 
 	return FALSE;
 }
