@@ -1074,7 +1074,7 @@ void aggr_update( void )
 		}
 
 		 if ( victim == NULL )
-		 	continue;
+			continue;
 
 		 multi_hit( ch, victim, TYPE_UNDEFINED );
 		}
@@ -1099,6 +1099,7 @@ void update_handler( void )
 	static  int     pulse_point;
 	static  int	    pulse_music;
 	static  int     pulse_msdp; /* <--- Add this line */
+	static  int     pulse_underwater;
 
 	if ( --pulse_area     <= 0 )
 	{
@@ -1129,6 +1130,12 @@ void update_handler( void )
 	{
 		pulse_msdp      = PULSE_PER_SECOND;
 		msdp_update();
+	}
+
+	if ( --pulse_underwater    <= 0 )
+	{
+		pulse_underwater     = PULSE_UNDERWATER;
+		underwater_update    ( );
 	}
 
 	if ( --pulse_point    <= 0 )
@@ -1272,4 +1279,34 @@ void msdp_update( void )
 	 * snippet simple.  Optimise as you see fit.
 	 */
 	MSSPSetPlayers( PlayerCount );
+}
+
+void underwater_update( void )
+{
+	CHAR_DATA *ch;
+	CHAR_DATA *ch_next;
+
+	for ( ch = char_list; ch != NULL; ch = ch_next)
+	{
+		ch_next = ch->next;
+
+		if (!IS_NPC(ch)
+			&& !IS_IMMORTAL(ch)
+			&& IS_SET(ch->in_room->room_flags, ROOM_UNDER_WATER) )
+		{
+
+			if ( ch->hit > 20)
+			{
+				ch->position = POS_RESTING;
+				ch->hit /= 2;
+				send_to_char("You're drowning!!!\n\r", ch);
+			}
+			else
+			{
+				ch->hit = 1;
+				raw_kill(ch);
+				send_to_char("You are DEAD!!\n\r", ch );
+			}
+		}
+	}
 }

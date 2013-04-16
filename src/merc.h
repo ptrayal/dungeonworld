@@ -162,12 +162,13 @@ typedef void SPELL_FUN	args( ( int sn, int level, CHAR_DATA *ch, void *vo,
 #define LEVEL_HERO		   (MAX_LEVEL - 9)
 #define LEVEL_IMMORTAL		   (MAX_LEVEL - 8)
 
-#define PULSE_PER_SECOND	    4
-#define PULSE_VIOLENCE		  ( 3 * PULSE_PER_SECOND)
-#define PULSE_MOBILE		  ( 4 * PULSE_PER_SECOND)
-#define PULSE_MUSIC		  ( 6 * PULSE_PER_SECOND)
-#define PULSE_TICK		  (60 * PULSE_PER_SECOND)
-#define PULSE_AREA		  (120 * PULSE_PER_SECOND)
+#define PULSE_PER_SECOND		4
+#define PULSE_VIOLENCE			( 3 * PULSE_PER_SECOND)
+#define PULSE_MOBILE			( 4 * PULSE_PER_SECOND)
+#define PULSE_MUSIC				( 6 * PULSE_PER_SECOND)
+#define PULSE_TICK				( 60 * PULSE_PER_SECOND)
+#define PULSE_AREA				( 120 * PULSE_PER_SECOND)
+#define PULSE_UNDERWATER		( 20 * PULSE_PER_SECOND)
 
 #define IMPLEMENTOR		MAX_LEVEL
 #define	CREATOR			(MAX_LEVEL - 1)
@@ -1144,6 +1145,7 @@ struct	kill_data
 #define ROOM_NEWBIES_ONLY	(R)
 #define ROOM_LAW		(S)
 #define ROOM_NOWHERE		(T)
+#define ROOM_UNDER_WATER	(U)
 
 
 
@@ -2512,6 +2514,7 @@ void	advance_level	args( ( CHAR_DATA *ch, bool hide ) );
 void	gain_exp	args( ( CHAR_DATA *ch, int gain ) );
 void	gain_condition	args( ( CHAR_DATA *ch, int iCond, int value ) );
 void	update_handler	args( ( void ) );
+void    underwater_update    args( ( void ) );
 
 /* string.c */
 void	string_edit	args( ( CHAR_DATA *ch, char **pString ) );
