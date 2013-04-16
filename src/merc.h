@@ -561,9 +561,75 @@ struct	kill_data
 #define MOB_VNUM_CITYGUARD	   3060
 #define MOB_VNUM_VAMPIRE	   3404
 
-#define MOB_VNUM_PATROLMAN	   2106
-#define GROUP_VNUM_TROLLS	   2100
-#define GROUP_VNUM_OGRES	   2101
+// #define MOB_VNUM_PATROLMAN	   2106
+// #define GROUP_VNUM_TROLLS	   2100
+// #define GROUP_VNUM_OGRES	   2101
+
+/*
+ * Well known object virtual numbers.
+ * Defined in #OBJECTS.
+ */
+#define OBJ_VNUM_SILVER_ONE	      1
+#define OBJ_VNUM_GOLD_ONE	      2
+#define OBJ_VNUM_GOLD_SOME	      3
+#define OBJ_VNUM_SILVER_SOME	      4
+#define OBJ_VNUM_COINS		      5
+
+#define OBJ_VNUM_CORPSE_NPC	     10
+#define OBJ_VNUM_CORPSE_PC	     11
+#define OBJ_VNUM_SEVERED_HEAD	     12
+#define OBJ_VNUM_TORN_HEART	     13
+#define OBJ_VNUM_SLICED_ARM	     14
+#define OBJ_VNUM_SLICED_LEG	     15
+#define OBJ_VNUM_GUTS		     16
+#define OBJ_VNUM_BRAINS		     17
+
+#define OBJ_VNUM_MUSHROOM	     20
+#define OBJ_VNUM_LIGHT_BALL	     21
+#define OBJ_VNUM_SPRING		     22
+#define OBJ_VNUM_DISC		     23
+#define OBJ_VNUM_PORTAL		     25
+
+#define OBJ_VNUM_ROSE		   1001
+
+#define OBJ_VNUM_PIT		   3010
+
+#define OBJ_VNUM_SCHOOL_MACE		3700
+#define OBJ_VNUM_SCHOOL_DAGGER		3701
+#define OBJ_VNUM_SCHOOL_SWORD		3702
+#define OBJ_VNUM_SCHOOL_SPEAR		3717
+#define OBJ_VNUM_SCHOOL_STAFF		3718
+#define OBJ_VNUM_SCHOOL_AXE			3719
+#define OBJ_VNUM_SCHOOL_FLAIL		3720
+#define OBJ_VNUM_SCHOOL_WHIP		3721
+#define OBJ_VNUM_SCHOOL_POLEARM		3722
+
+#define OBJ_VNUM_SCHOOL_VEST		3703
+#define OBJ_VNUM_SCHOOL_SHIELD		3704
+#define OBJ_VNUM_SCHOOL_BANNER		3716
+#define OBJ_VNUM_MAP				3162
+
+// #define OBJ_VNUM_WHISTLE	   2116
+
+/*
+ * Object defined in limbo.are
+ * Used in save.c to load objects that don't exist.
+ */
+#define OBJ_VNUM_DUMMY	30
+
+/*
+ * Well known room virtual numbers.
+ * Defined in #ROOMS.
+ */
+#define ROOM_VNUM_LIMBO		      2
+#define ROOM_VNUM_CHAT		   1200
+#define ROOM_VNUM_TEMPLE	   3001
+#define ROOM_VNUM_ALTAR		   3054
+#define ROOM_VNUM_SCHOOL	   3700
+#define ROOM_VNUM_BALANCE	   4500
+#define ROOM_VNUM_CIRCLE	   4400
+#define ROOM_VNUM_DEMISE	   4201
+#define ROOM_VNUM_HONOR		   4300
 
 
 /* RT ASCII conversions -- used so we can have letters in this file */
@@ -882,54 +948,6 @@ struct	kill_data
 
 
 /*
- * Well known object virtual numbers.
- * Defined in #OBJECTS.
- */
-#define OBJ_VNUM_SILVER_ONE	      1
-#define OBJ_VNUM_GOLD_ONE	      2
-#define OBJ_VNUM_GOLD_SOME	      3
-#define OBJ_VNUM_SILVER_SOME	      4
-#define OBJ_VNUM_COINS		      5
-
-#define OBJ_VNUM_CORPSE_NPC	     10
-#define OBJ_VNUM_CORPSE_PC	     11
-#define OBJ_VNUM_SEVERED_HEAD	     12
-#define OBJ_VNUM_TORN_HEART	     13
-#define OBJ_VNUM_SLICED_ARM	     14
-#define OBJ_VNUM_SLICED_LEG	     15
-#define OBJ_VNUM_GUTS		     16
-#define OBJ_VNUM_BRAINS		     17
-
-#define OBJ_VNUM_MUSHROOM	     20
-#define OBJ_VNUM_LIGHT_BALL	     21
-#define OBJ_VNUM_SPRING		     22
-#define OBJ_VNUM_DISC		     23
-#define OBJ_VNUM_PORTAL		     25
-
-#define OBJ_VNUM_ROSE		   1001
-
-#define OBJ_VNUM_PIT		   3010
-
-#define OBJ_VNUM_SCHOOL_MACE	   3700
-#define OBJ_VNUM_SCHOOL_DAGGER	   3701
-#define OBJ_VNUM_SCHOOL_SWORD	   3702
-#define OBJ_VNUM_SCHOOL_SPEAR	   3717
-#define OBJ_VNUM_SCHOOL_STAFF	   3718
-#define OBJ_VNUM_SCHOOL_AXE	   3719
-#define OBJ_VNUM_SCHOOL_FLAIL	   3720
-#define OBJ_VNUM_SCHOOL_WHIP	   3721
-#define OBJ_VNUM_SCHOOL_POLEARM    3722
-
-#define OBJ_VNUM_SCHOOL_VEST	   3703
-#define OBJ_VNUM_SCHOOL_SHIELD	   3704
-#define OBJ_VNUM_SCHOOL_BANNER     3716
-#define OBJ_VNUM_MAP		   3162
-
-#define OBJ_VNUM_WHISTLE	   2116
-
-
-
-/*
  * Item types.
  * Used in #OBJECTS.
  */
@@ -1107,22 +1125,6 @@ struct	kill_data
 #define CONT_CLOSED		      4
 #define CONT_LOCKED		      8
 #define CONT_PUT_ON		     16
-
-
-
-/*
- * Well known room virtual numbers.
- * Defined in #ROOMS.
- */
-#define ROOM_VNUM_LIMBO		      2
-#define ROOM_VNUM_CHAT		   1200
-#define ROOM_VNUM_TEMPLE	   3001
-#define ROOM_VNUM_ALTAR		   3054
-#define ROOM_VNUM_SCHOOL	   3700
-#define ROOM_VNUM_BALANCE	   4500
-#define ROOM_VNUM_CIRCLE	   4400
-#define ROOM_VNUM_DEMISE	   4201
-#define ROOM_VNUM_HONOR		   4300
 
 
 
@@ -2559,12 +2561,6 @@ void load_materials(void);
 void save_materials(void);
 void confirm_material(const char *name);
 MAT_TYPE *find_mat(const char *name);
-
-/*
- * Object defined in limbo.are
- * Used in save.c to load objects that don't exist.
- */
-#define OBJ_VNUM_DUMMY	30
 
 /*
  * Area flags.
