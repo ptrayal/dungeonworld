@@ -807,7 +807,6 @@ AEDIT( aedit_security )
 {
 	AREA_DATA *pArea;
 	char sec[MSL]={'\0'};
-	char buf[MSL]={'\0'};
 	int  value = 0;
 
 	EDIT_AREA(ch, pArea);
@@ -816,22 +815,21 @@ AEDIT( aedit_security )
 
 	if ( !is_number( sec ) || IS_NULLSTR(sec) )
 	{
-	send_to_char( "Syntax:  security [#xlevel]\n\r", ch );
-	return FALSE;
+		send_to_char( "Syntax:  security [#xlevel]\n\r", ch );
+		return FALSE;
 	}
 
 	value = atoi( sec );
 
 	if ( value > ch->pcdata->security || value < 0 )
 	{
-	if ( ch->pcdata->security != 0 )
-	{
-		sprintf( buf, "Security is 0-%d.\n\r", ch->pcdata->security );
-		send_to_char( buf, ch );
-	}
-	else
-		send_to_char( "Security is 0 only.\n\r", ch );
-	return FALSE;
+		if ( ch->pcdata->security != 0 )
+		{
+			send_to_char( Format("Security is 0-%d.\n\r", ch->pcdata->security), ch );
+		}
+		else
+			send_to_char( "Security is 0 only.\n\r", ch );
+		return FALSE;
 	}
 
 	pArea->security = value;
@@ -854,47 +852,47 @@ AEDIT( aedit_builder )
 
 	if ( IS_NULLSTR(name) )
 	{
-	send_to_char( "Syntax:  builder [$name]  -toggles builder\n\r", ch );
-	send_to_char( "Syntax:  builder All      -allows everyone\n\r", ch );
-	return FALSE;
+		send_to_char( "Syntax:  builder [$name]  -toggles builder\n\r", ch );
+		send_to_char( "Syntax:  builder All      -allows everyone\n\r", ch );
+		return FALSE;
 	}
 
 	name[0] = UPPER( name[0] );
 
 	if ( strstr( pArea->builders, name ) != '\0' )
 	{
-	pArea->builders = string_replace( pArea->builders, name, "\0" );
-	pArea->builders = string_unpad( pArea->builders );
+		pArea->builders = string_replace( pArea->builders, name, "\0" );
+		pArea->builders = string_unpad( pArea->builders );
 
-	if ( pArea->builders[0] == '\0' )
-	{
-		PURGE_DATA( pArea->builders );
-		pArea->builders = str_dup( "None" );
-	}
-	send_to_char( "Builder removed.\n\r", ch );
-	return TRUE;
+		if ( pArea->builders[0] == '\0' )
+		{
+			PURGE_DATA( pArea->builders );
+			pArea->builders = str_dup( "None" );
+		}
+		send_to_char( "Builder removed.\n\r", ch );
+		return TRUE;
 	}
 	else
 	{
-	buf[0] = '\0';
-	if ( strstr( pArea->builders, "None" ) != '\0' )
-	{
-		pArea->builders = string_replace( pArea->builders, "None", "\0" );
-		pArea->builders = string_unpad( pArea->builders );
-	}
+		buf[0] = '\0';
+		if ( strstr( pArea->builders, "None" ) != '\0' )
+		{
+			pArea->builders = string_replace( pArea->builders, "None", "\0" );
+			pArea->builders = string_unpad( pArea->builders );
+		}
 
-	if (pArea->builders[0] != '\0' )
-	{
-		strcat( buf, pArea->builders );
-		strcat( buf, " " );
-	}
-	strcat( buf, name );
-	PURGE_DATA( pArea->builders );
-	pArea->builders = string_proper( str_dup( buf ) );
+		if (pArea->builders[0] != '\0' )
+		{
+			strcat( buf, pArea->builders );
+			strcat( buf, " " );
+		}
+		strcat( buf, name );
+		PURGE_DATA( pArea->builders );
+		pArea->builders = string_proper( str_dup( buf ) );
 
-	send_to_char( "Builder added.\n\r", ch );
-	send_to_char( pArea->builders,ch);
-	return TRUE;
+		send_to_char( "Builder added.\n\r", ch );
+		send_to_char( pArea->builders,ch);
+		return TRUE;
 	}
 
 	return FALSE;
@@ -3465,14 +3463,10 @@ OEDIT( oedit_condition )
 	return TRUE;
 	}
 
-	send_to_char( "Syntax:  condition [number]\n\r"
-		  "Where number can range from 0 (ruined) to 100 (perfect).\n\r",
-		  ch );
+	send_to_char( "Syntax:  condition [number]\n\r", ch );
+	send_to_char( "Where number can range from 0 (ruined) to 100 (perfect).\n\r", ch);
 	return FALSE;
 }
-
-
-
 
 
 /*
@@ -3487,179 +3481,131 @@ MEDIT( medit_show )
 	EDIT_MOB(ch, pMob);
 
 	sprintf( buf, "Name:        [%s]\n\rArea:        [%5d] %s\n\r",
-	pMob->player_name,
-	!pMob->area ? -1        : pMob->area->vnum,
-	!pMob->area ? "No Area" : pMob->area->name );
+		pMob->player_name,
+		!pMob->area ? -1        : pMob->area->vnum,
+		!pMob->area ? "No Area" : pMob->area->name );
 	send_to_char( buf, ch );
 
 	sprintf( buf, "Act:         [%s]\n\r",
-	flag_string( act_flags, pMob->act ) );
+		flag_string( act_flags, pMob->act ) );
 	send_to_char( buf, ch );
 
 	sprintf( buf, "Vnum:        [%5d] Sex:   [%s]   Race: [%s]\n\r",
-	pMob->vnum,
-	pMob->sex == SEX_MALE    ? "male   " :
-	pMob->sex == SEX_FEMALE  ? "female " : 
-	pMob->sex == 3           ? "random " : "neutral",
-	race_table[pMob->race].name );
+		pMob->vnum,
+		pMob->sex == SEX_MALE    ? "male   " :
+		pMob->sex == SEX_FEMALE  ? "female " : 
+		pMob->sex == 3           ? "random " : "neutral",
+		race_table[pMob->race].name );
 	send_to_char( buf, ch );
 
 	sprintf( buf,
-		  "Level:       [%2d]    Align: [%4d]      Hitroll: [%2d] Dam Type:    [%s]\n\r",
-	pMob->level,	pMob->alignment,
-	pMob->hitroll,	attack_table[pMob->dam_type].name );
+		"Level:       [%2d]    Align: [%4d]      Hitroll: [%2d] Dam Type:    [%s]\n\r",
+		pMob->level,	pMob->alignment,
+		pMob->hitroll,	attack_table[pMob->dam_type].name );
 	send_to_char( buf, ch );
 
 	if ( pMob->group )
 	{
-	sprintf( buf, "Group:       [%5d]\n\r", pMob->group );
-	send_to_char( buf, ch );
+		send_to_char( Format("Group:       [%5d]\n\r", pMob->group), ch );
 	}
 
 	sprintf( buf, "Hit dice:    [%2dd%-3d+%4d] ",
-		 pMob->hit[DICE_NUMBER],
-		 pMob->hit[DICE_TYPE],
-		 pMob->hit[DICE_BONUS] );
+		pMob->hit[DICE_NUMBER],
+		pMob->hit[DICE_TYPE],
+		pMob->hit[DICE_BONUS] );
 	send_to_char( buf, ch );
 
 	sprintf( buf, "Damage dice: [%2dd%-3d+%4d] ",
-		 pMob->damage[DICE_NUMBER],
-		 pMob->damage[DICE_TYPE],
-		 pMob->damage[DICE_BONUS] );
+		pMob->damage[DICE_NUMBER],
+		pMob->damage[DICE_TYPE],
+		pMob->damage[DICE_BONUS] );
 	send_to_char( buf, ch );
 
 	sprintf( buf, "Mana dice:   [%2dd%-3d+%4d]\n\r",
-		 pMob->mana[DICE_NUMBER],
-		 pMob->mana[DICE_TYPE],
-		 pMob->mana[DICE_BONUS] );
+		pMob->mana[DICE_NUMBER],
+		pMob->mana[DICE_TYPE],
+		pMob->mana[DICE_BONUS] );
 	send_to_char( buf, ch );
 
 /* ROM values end */
 
-	sprintf( buf, "Affected by: [%s]\n\r",
-	flag_string( affect_flags, pMob->affected_by ) );
-	send_to_char( buf, ch );
+	send_to_char( Format("Affected by: [%s]\n\r", flag_string( affect_flags, pMob->affected_by )), ch );
 
 /* ROM values: */
 
 	sprintf( buf, "Armor:       [pierce: %d  bash: %d  slash: %d  magic: %d]\n\r",
-	pMob->ac[AC_PIERCE], pMob->ac[AC_BASH],
-	pMob->ac[AC_SLASH], pMob->ac[AC_EXOTIC] );
+		pMob->ac[AC_PIERCE], pMob->ac[AC_BASH],
+		pMob->ac[AC_SLASH], pMob->ac[AC_EXOTIC] );
 	send_to_char( buf, ch );
 
-	sprintf( buf, "Form:        [%s]\n\r",
-	flag_string( form_flags, pMob->form ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Parts:       [%s]\n\r",
-	flag_string( part_flags, pMob->parts ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Imm:         [%s]\n\r",
-	flag_string( imm_flags, pMob->imm_flags ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Res:         [%s]\n\r",
-	flag_string( res_flags, pMob->res_flags ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Vuln:        [%s]\n\r",
-	flag_string( vuln_flags, pMob->vuln_flags ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Off:         [%s]\n\r",
-	flag_string( off_flags,  pMob->off_flags ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Size:        [%s]\n\r",
-	flag_string( size_flags, pMob->size ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Material:    [%s]\n\r",
-		pMob->material );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Start pos.   [%s]\n\r",
-	flag_string( position_flags, pMob->start_pos ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Default pos  [%s]\n\r",
-	flag_string( position_flags, pMob->default_pos ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Wealth:      [%5ld]\n\r",
-	pMob->wealth );
-	send_to_char( buf, ch );
+	send_to_char( Format("Form:        [%s]\n\r", flag_string( form_flags, pMob->form )), ch );
+	send_to_char( Format("Parts:       [%s]\n\r", flag_string( part_flags, pMob->parts )), ch );
+	send_to_char( Format("Imm:         [%s]\n\r", flag_string( imm_flags, pMob->imm_flags )), ch );
+	send_to_char( Format("Res:         [%s]\n\r", flag_string( res_flags, pMob->res_flags )), ch );
+	send_to_char( Format("Vuln:        [%s]\n\r", flag_string( vuln_flags, pMob->vuln_flags )), ch );
+	send_to_char( Format("Off:         [%s]\n\r", flag_string( off_flags,  pMob->off_flags )), ch );
+	send_to_char( Format("Size:        [%s]\n\r", flag_string( size_flags, pMob->size )), ch );
+	send_to_char( Format("Material:    [%s]\n\r", pMob->material), ch );
+	send_to_char( Format("Start pos.   [%s]\n\r", flag_string( position_flags, pMob->start_pos )), ch );
+	send_to_char( Format("Default pos  [%s]\n\r", flag_string( position_flags, pMob->default_pos )), ch );
+	send_to_char( Format("Wealth:      [%5ld]\n\r", pMob->wealth), ch );
 
 /* ROM values end */
 
 	if ( pMob->spec_fun )
 	{
-	sprintf( buf, "Spec fun:    [%s]\n\r",  spec_name( pMob->spec_fun ) );
-	send_to_char( buf, ch );
+		send_to_char( Format("Spec fun:    [%s]\n\r",  spec_name( pMob->spec_fun )), ch );
 	}
 
-	sprintf( buf, "Short descr: %s\n\rLong descr:\n\r%s",
-	pMob->short_descr,
-	pMob->long_descr );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Description:\n\r%s", pMob->description );
-	send_to_char( buf, ch );
+	send_to_char( Format("Short descr: %s\n\r", pMob->short_descr), ch );
+	send_to_char( Format("Long descr:\n\r%s", pMob->long_descr), ch );
+	send_to_char( Format("Description:\n\r%s", pMob->description), ch );
 
 	if ( pMob->pShop )
 	{
-	SHOP_DATA *pShop;
-	int iTrade = 0;
+		SHOP_DATA *pShop;
+		int iTrade = 0;
 
-	pShop = pMob->pShop;
+		pShop = pMob->pShop;
 
-	sprintf( buf,
-	  "Shop data for [%5d]:\n\r"
-	  "  Markup for purchaser: %d%%\n\r"
-	  "  Markdown for seller:  %d%%\n\r",
-		pShop->keeper, pShop->profit_buy, pShop->profit_sell );
-	send_to_char( buf, ch );
-	sprintf( buf, "  Hours: %d to %d.\n\r",
-		pShop->open_hour, pShop->close_hour );
-	send_to_char( buf, ch );
-
-	for ( iTrade = 0; iTrade < MAX_TRADE; iTrade++ )
-	{
-		if ( pShop->buy_type[iTrade] != 0 )
-		{
-		if ( iTrade == 0 ) {
-			send_to_char( "  Number Trades Type\n\r", ch );
-			send_to_char( "  ------ -----------\n\r", ch );
-		}
-		sprintf( buf, "  [%4d] %s\n\r", iTrade,
-			flag_string( type_flags, pShop->buy_type[iTrade] ) );
+		sprintf( buf,
+			"Shop data for [%5d]:\n\r"
+			"  Markup for purchaser: %d%%\n\r"
+			"  Markdown for seller:  %d%%\n\r",
+			pShop->keeper, pShop->profit_buy, pShop->profit_sell );
 		send_to_char( buf, ch );
+		send_to_char( Format("  Hours: %d to %d.\n\r", pShop->open_hour, pShop->close_hour), ch );
+
+		for ( iTrade = 0; iTrade < MAX_TRADE; iTrade++ )
+		{
+			if ( pShop->buy_type[iTrade] != 0 )
+			{
+				if ( iTrade == 0 ) {
+					send_to_char( "  Number Trades Type\n\r", ch );
+					send_to_char( "  ------ -----------\n\r", ch );
+				}
+				send_to_char( Format("  [%4d] %s\n\r", iTrade, flag_string( type_flags, pShop->buy_type[iTrade] )), ch );
+			}
 		}
-	}
 	}
 
 	if ( pMob->mprogs )
 	{
-	int cnt = 0;
+		int cnt = 0;
 
-	sprintf(buf, "\n\rMOBPrograms for [%5d]:\n\r", pMob->vnum);
-	send_to_char( buf, ch );
+		send_to_char( Format("\n\rMOBPrograms for [%5d]:\n\r", pMob->vnum), ch );
 
-	for (cnt=0, list=pMob->mprogs; list; list=list->next)
-	{
-		if (cnt ==0)
+		for (cnt=0, list=pMob->mprogs; list; list=list->next)
 		{
-			send_to_char ( " Number Vnum Trigger Phrase\n\r", ch );
-			send_to_char ( " ------ ---- ------- ------\n\r", ch );
-		}
+			if (cnt ==0)
+			{
+				send_to_char ( " Number Vnum Trigger Phrase\n\r", ch );
+				send_to_char ( " ------ ---- ------- ------\n\r", ch );
+			}
 
-		sprintf(buf, "[%5d] %4d %7s %s\n\r", cnt,
-			list->vnum,mprog_type_to_name(list->trig_type),
-			list->trig_phrase);
-		send_to_char( buf, ch );
-		cnt++;
-	}
+			send_to_char( Format("[%5d] %4d %7s %s\n\r", cnt, list->vnum,mprog_type_to_name(list->trig_type), list->trig_phrase), ch );
+			cnt++;
+		}
 	}
 
 	return FALSE;
@@ -3963,7 +3909,6 @@ MEDIT( medit_shop )
 
 	if ( !str_cmp( command, "type" ) )
 	{
-	char buf[MAX_INPUT_LENGTH];
 	int value = 0;
 
 	if ( IS_NULLSTR(arg1) || !is_number( arg1 )
@@ -3975,8 +3920,7 @@ MEDIT( medit_shop )
 
 	if ( atoi( arg1 ) >= MAX_TRADE )
 	{
-		sprintf( buf, "MEdit:  May sell %d items max.\n\r", MAX_TRADE );
-		send_to_char( buf, ch );
+		send_to_char( Format("MEdit:  May sell %d items max.\n\r", MAX_TRADE), ch );
 		return FALSE;
 	}
 
@@ -4555,7 +4499,6 @@ MEDIT( medit_race )
 
 	if ( argument[0] == '?' )
 	{
-	char buf[MSL]={'\0'};
 
 	send_to_char( "Available races are:", ch );
 
@@ -4563,16 +4506,15 @@ MEDIT( medit_race )
 	{
 		if ( ( race % 3 ) == 0 )
 		send_to_char( "\n\r", ch );
-		sprintf( buf, " %-15s", race_table[race].name );
-		send_to_char( buf, ch );
+		send_to_char( Format(" %-15s", race_table[race].name), ch );
 	}
 
 	send_to_char( "\n\r", ch );
 	return FALSE;
 	}
 
-	send_to_char( "Syntax:  race [race]\n\r"
-		  "Type 'race ?' for a list of races.\n\r", ch );
+	send_to_char( "Syntax:  race [race]\n\r", ch );
+	send_to_char("Type 'race ?' for a list of races.\n\r", ch);
 	return FALSE;
 }
 
