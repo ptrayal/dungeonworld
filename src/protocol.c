@@ -525,6 +525,7 @@ const char *ProtocolOutput( descriptor_t *apDescriptor, const char *apData, int 
 {
    static char Result[MAX_OUTPUT_BUFFER+1];
    const char Tab[] = "\t";
+   const char Beep[] = "\a";
    const char MSP[] = "!!";
    const char MXPStart[] = "\033[1z<";
    const char MXPStop[] = ">\033[7z";
@@ -547,7 +548,7 @@ const char *ProtocolOutput( descriptor_t *apDescriptor, const char *apData, int 
    for ( ; i < MAX_OUTPUT_BUFFER && apData[j] != '\0' && !bTerminate && 
       (*apLength <= 0 || j < *apLength); ++j )
    {
-      if ( apData[j] == '\t' )
+      if ( apData[j] == '\t' || apData[j] == '\a' )
       {
          const char *pCopyFrom = NULL;
 
@@ -556,6 +557,9 @@ const char *ProtocolOutput( descriptor_t *apDescriptor, const char *apData, int 
             case '\t': /* Two tabs in a row will display an actual tab */
                pCopyFrom = Tab;
                break;
+	    case '\a':
+	       pCopyFrom = Beep;
+	       break;
             case 'n':
                pCopyFrom = s_Clean;
                break;

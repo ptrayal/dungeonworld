@@ -36,6 +36,7 @@
 #include "interp.h"
 #include "recycle.h"
 #include "tables.h"
+#include "olc.h"
 
 /* RT code to delete yourself */
 

@@ -841,7 +841,7 @@ bool spec_thief( CHAR_DATA *ch )
     return FALSE;
 }
 
-bool spec_troll_member( CHAR_DATA *ch)
+//bool spec_troll_member( CHAR_DATA *ch)
 // {
 //     CHAR_DATA *vch, *victim = NULL;
 //     int count = 0;

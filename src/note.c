@@ -51,6 +51,7 @@ extern char                    strArea[MAX_INPUT_LENGTH];
 void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time);
 void parse_note(CHAR_DATA *ch, char *argument, int type);
 bool hide_note(CHAR_DATA *ch, NOTE_DATA *pnote);
+bool is_note_to( CHAR_DATA *ch, NOTE_DATA *pnote );
 
 NOTE_DATA *note_list;
 NOTE_DATA *idea_list;
@@ -110,53 +111,69 @@ int count_spool(CHAR_DATA *ch, NOTE_DATA *spool)
     return count;
 }
 
+bool hide_note_ignore_stamp ( CHAR_DATA *ch, NOTE_DATA *pnote )
+{
+        time_t last_read;
+                        
+        if ( IS_NPC ( ch ) )  
+        { return true; }
+                        
+        switch ( pnote->type ) {
+                default:
+                        return true;
+                case NOTE_NOTE:
+                        last_read = ch->pcdata->last_note;
+                        break;
+                case NOTE_IDEA:
+                        last_read = ch->pcdata->last_idea;
+                        break;
+                case NOTE_PENALTY:
+                        last_read = ch->pcdata->last_penalty;
+                        break;
+                case NOTE_NEWS:
+                        last_read = ch->pcdata->last_news;
+                        break;
+                case NOTE_CHANGES:
+                        last_read = ch->pcdata->last_changes;
+                        break;
+        }
+ 
+        if ( !str_cmp ( ch->name, pnote->sender ) )
+        { return true; }
+        
+        if ( !is_note_to ( ch, pnote ) )
+        { return true; }
+        
+        return false;   
+}
+                
+
+int count_spool_ignore_stamp ( CHAR_DATA *ch, NOTE_DATA *spool )
+{
+        int count = 0;
+        NOTE_DATA *pnote;
+
+        for ( pnote = spool; pnote != NULL; pnote = pnote->next )
+                if ( !hide_note_ignore_stamp ( ch, pnote ) )
+                { count++; }
+
+        return count;
+}
+
+
 void do_unread(CHAR_DATA *ch)
 {
-    char buf[MSL]={'\0'};
-    int count = 0;
-    bool found = FALSE;
-
     if (IS_NPC(ch))
 	return; 
 
-    if ((count = count_spool(ch,news_list)) > 0)
-    {
-	found = TRUE;
-	sprintf(buf,"There %s %d new news article%s waiting.\n\r",
-	    count > 1 ? "are" : "is",count, count > 1 ? "s" : "");
-	send_to_char(buf,ch);
-    }
-    if ((count = count_spool(ch,changes_list)) > 0)
-    {
-	found = TRUE;
-	sprintf(buf,"There %s %d change%s waiting to be read.\n\r",
-	    count > 1 ? "are" : "is", count, count > 1 ? "s" : "");
-        send_to_char(buf,ch);
-    }
-    if ((count = count_spool(ch,note_list)) > 0)
-    {
-	found = TRUE;
-	sprintf(buf,"You have %d new note%s waiting.\n\r",
-	    count, count > 1 ? "s" : "");
-	send_to_char(buf,ch);
-    }
-    if ((count = count_spool(ch,idea_list)) > 0)
-    {
-	found = TRUE;
-	sprintf(buf,"You have %d unread idea%s to peruse.\n\r",
-	    count, count > 1 ? "s" : "");
-	send_to_char(buf,ch);
-    }
-    if (IS_TRUSTED(ch,ANGEL) && (count = count_spool(ch,penalty_list)) > 0)
-    {
-	found = TRUE;
-	sprintf(buf,"%d %s been added.\n\r",
-	    count, count > 1 ? "penalties have" : "penalty has");
-	send_to_char(buf,ch);
-    }
-
-    if (!found)
-	send_to_char("You have no unread notes.\n\r",ch);
+        send_to_char ( "\ay+\aW-------------------------------\ay+\n\r", ch );
+        send_to_char ( Format ( "\aW| \aGNews              \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, news_list ), count_spool ( ch, news_list ) ), ch );
+        send_to_char ( Format ( "\aW| \aGChanges           \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, changes_list ), count_spool ( ch, changes_list ) ), ch );
+        send_to_char ( Format ( "\aW| \aGIdeas             \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, idea_list ), count_spool ( ch, idea_list ) ), ch );
+        send_to_char ( Format ( "\aW| \aGNotes             \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, note_list ), count_spool ( ch, note_list ) ), ch );
+        if ( IS_TRUSTED ( ch, ANGEL ) )
+        { send_to_char ( Format ( "\aW| \aGPenalties         \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, penalty_list ), count_spool ( ch, penalty_list ) ), ch ); }
+        send_to_char ( "\ay+\aW-------------------------------\ay+\an\n\r", ch );
 }
 
 void do_note(CHAR_DATA *ch,char *argument)
@@ -577,7 +594,6 @@ void update_read(CHAR_DATA *ch, NOTE_DATA *pnote)
 
 void parse_note( CHAR_DATA *ch, char *argument, int type )
 {
-    BUFFER *buffer;
     char buf[MSL]={'\0'};
     char arg[MAX_INPUT_LENGTH];
     NOTE_DATA *pnote;
@@ -809,187 +825,16 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 	return;
     }
 
-    if ( !str_cmp( arg, "+" ) )
-    {
-	note_attach( ch,type );
-	if (ch->pnote->type != type)
-	{
-	    send_to_char(
-		"You already have a different note in progress.\n\r",ch);
-	    return;
-	}
-
-	if (!IS_NULLSTR(ch->pnote->text) && strlen(ch->pnote->text)+strlen(argument) >= 4096)
-	{
-	    send_to_char( "Note too long.\n\r", ch );
-	    return;
-	}
-
- 	buffer = new_buf();
-
-	add_buf(buffer,ch->pnote->text);
-	add_buf(buffer,IS_NULLSTR(argument) ? "" : argument);
-	add_buf(buffer,"\n\r");
-	PURGE_DATA( ch->pnote->text );
-	ch->pnote->text = str_dup( buf_string(buffer) );
-	free_buf(buffer);
-	send_to_char( "Ok.\n\r", ch );
-	return;
-    }
-
-    if (!str_cmp(arg,"-"))
-    {
- 	int len;
-	bool found = FALSE;
-
-	note_attach(ch,type);
-        if (ch->pnote->type != type)
-        {
-            send_to_char(
-                "You already have a different note in progress.\n\r",ch);
-            return;
+        if ( !str_cmp ( arg, "new" ) || !str_cmp ( arg, "write" ) ) {
+                note_attach ( ch, type );
+                if ( ch->pnote->type != type ) {
+                        send_to_char ( "You already have a different note in progress.\n\r", ch );
+                        return;
+                }
+                ch->desc->connected = CON_NOTE_TO;
+                send_to_char ( "Address this message to whom: (all, staff, <name>) ", ch );
+                return;
         }
-
-	if (ch->pnote->text == NULL || ch->pnote->text[0] == '\0')
-	{
-	    send_to_char("No lines left to remove.\n\r",ch);
-	    return;
-	}
-
-	strcpy(buf,ch->pnote->text);
-
-	for (len = strlen(buf); len > 0; len--)
- 	{
-	    if (buf[len] == '\r')
-	    {
-		if (!found)  /* back it up */
-		{
-		    if (len > 0)
-			len--;
-		    found = TRUE;
-		}
-		else /* found the second one */
-		{
-		    buf[len + 1] = '\0';
-		    PURGE_DATA(ch->pnote->text);
-		    ch->pnote->text = str_dup(buf);
-		    return;
-		}
-	    }
-	}
-	buf[0] = '\0';
-	PURGE_DATA(ch->pnote->text);
-	ch->pnote->text = str_dup(buf);
-	return;
-    }
-
-    if ( !str_prefix( arg, "subject" ) )
-    {
-	note_attach( ch,type );
-        if (ch->pnote->type != type)
-        {
-            send_to_char(
-                "You already have a different note in progress.\n\r",ch);
-            return;
-        }
-
-	PURGE_DATA( ch->pnote->subject );
-	ch->pnote->subject = str_dup( argument );
-	send_to_char( "Ok.\n\r", ch );
-	return;
-    }
-
-    if ( !str_prefix( arg, "to" ) )
-    {
-	note_attach( ch,type );
-        if (ch->pnote->type != type)
-        {
-            send_to_char(
-                "You already have a different note in progress.\n\r",ch);
-            return;
-        }
-	PURGE_DATA( ch->pnote->to_list );
-	ch->pnote->to_list = str_dup( argument );
-	send_to_char( "Ok.\n\r", ch );
-	return;
-    }
-
-    if ( !str_prefix( arg, "clear" ) )
-    {
-	if ( ch->pnote != NULL )
-	{
-	    free_note(ch->pnote);
-	    ch->pnote = NULL;
-	}
-
-	send_to_char( "Ok.\n\r", ch );
-	return;
-    }
-
-    if ( !str_prefix( arg, "show" ) )
-    {
-	if ( ch->pnote == NULL )
-	{
-	    send_to_char( "You have no note in progress.\n\r", ch );
-	    return;
-	}
-
-	if (ch->pnote->type != type)
-	{
-	    send_to_char("You aren't working on that kind of note.\n\r",ch);
-	    return;
-	}
-
-	sprintf( buf, "%s: %s\n\rTo: %s\n\r",
-	    ch->pnote->sender,
-	    ch->pnote->subject,
-	    ch->pnote->to_list
-	    );
-	send_to_char( buf, ch );
-	send_to_char( ch->pnote->text, ch );
-	return;
-    }
-
-    if ( !str_prefix( arg, "post" ) || !str_prefix(arg, "send"))
-    {
-	char *strtime;
-
-	if ( ch->pnote == NULL )
-	{
-	    send_to_char( "You have no note in progress.\n\r", ch );
-	    return;
-	}
-
-        if (ch->pnote->type != type)
-        {
-            send_to_char("You aren't working on that kind of note.\n\r",ch);
-            return;
-        }
-
-	if (!str_cmp(ch->pnote->to_list,""))
-	{
-	    send_to_char(
-		"You need to provide a recipient (name, all, or immortal).\n\r",
-		ch);
-	    return;
-	}
-
-	if (!str_cmp(ch->pnote->subject,""))
-	{
-	    send_to_char("You need to provide a subject.\n\r",ch);
-	    return;
-	}
-
-	ch->pnote->next			= NULL;
-	strtime				= ctime( &current_time );
-	strtime[strlen(strtime)-1]	= '\0';
-	ch->pnote->date			= str_dup( strtime );
-	ch->pnote->date_stamp		= current_time;
-
-	append_note(ch->pnote);
-	ch->pnote = NULL;
-	return;
-    }
 
     send_to_char( "You can't do that.\n\r", ch );
     return;

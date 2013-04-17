@@ -314,4 +314,5 @@ DECLARE_DO_FUN( do_mpedit	);
 DECLARE_DO_FUN( do_hedit	);
 DECLARE_DO_FUN( do_matedit  );
 DECLARE_DO_FUN( do_matlist );
+DECLARE_DO_FUN( do_trackbuffer );
 #endif // EOF

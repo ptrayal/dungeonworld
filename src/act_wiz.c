@@ -4405,3 +4405,27 @@ void do_prefix (CHAR_DATA *ch, char *argument)
 	ch->prefix = str_dup(argument);
 	send_to_char(buf, ch);
 }
+
+
+void do_trackbuffer(CHAR_DATA *ch, char *argument)
+{
+	BUFFER *output = new_buf();
+	BUFFER *count, *count_next;
+	int counter =0;
+ 
+	for(count = buffer_list; count; count = count_next)
+	{
+		count_next = count->next;
+		if(count != output)
+			add_buf(output, Format("Buffer Found:File: %s, Function: %s, Line: %d\n\r",count->file, count->function, count->line) );
+		else
+			add_buf(output, Format("Buffer Found:File: Called by this function! (Ignore!)\n\r"));
+		counter++;
+	}
+ 
+	add_buf(output, Format("%d buffers were found open.\n\r",counter ) );
+	page_to_char(buf_string(output), ch);
+	free_buf(output);
+	return;
+}
+

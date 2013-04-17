@@ -274,6 +274,10 @@ struct	weather_data
 #define CON_READ_IMOTD			13
 #define CON_READ_MOTD			14
 #define CON_BREAK_CONNECT		15
+#define CON_NOTE_TO				16 
+#define CON_NOTE_SUBJECT		17 
+#define CON_NOTE_TEXT			18
+#define CON_NOTE_POST			19
 
 
 
@@ -1839,61 +1843,7 @@ struct mprog_code
 /*
  * These are skill_lookup return values for common skills and spells.
  */
-extern	sh_int	gsn_backstab;
-extern	sh_int	gsn_dodge;
-extern  sh_int  gsn_envenom;
-extern	sh_int	gsn_hide;
-extern	sh_int	gsn_peek;
-extern	sh_int	gsn_pick_lock;
-extern	sh_int	gsn_sneak;
-extern	sh_int	gsn_steal;
-
-extern	sh_int	gsn_disarm;
-extern	sh_int	gsn_enhanced_damage;
-extern	sh_int	gsn_kick;
-extern	sh_int	gsn_parry;
-extern	sh_int	gsn_rescue;
-extern	sh_int	gsn_second_attack;
-extern	sh_int	gsn_third_attack;
-
-extern	sh_int	gsn_blindness;
-extern	sh_int	gsn_charm_person;
-extern	sh_int	gsn_curse;
-extern	sh_int	gsn_invis;
-extern	sh_int	gsn_mass_invis;
-extern  sh_int  gsn_plague;
-extern	sh_int	gsn_poison;
-extern	sh_int	gsn_sleep;
-extern  sh_int  gsn_fly;
-extern  sh_int  gsn_sanctuary;
-
-/* new gsns */
-extern sh_int  gsn_axe;
-extern sh_int  gsn_dagger;
-extern sh_int  gsn_flail;
-extern sh_int  gsn_mace;
-extern sh_int  gsn_polearm;
-extern sh_int  gsn_shield_block;
-extern sh_int  gsn_spear;
-extern sh_int  gsn_sword;
-extern sh_int  gsn_whip;
- 
-extern sh_int  gsn_bash;
-extern sh_int  gsn_berserk;
-extern sh_int  gsn_dirt;
-extern sh_int  gsn_hand_to_hand;
-extern sh_int  gsn_trip;
- 
-extern sh_int  gsn_fast_healing;
-extern sh_int  gsn_haggle;
-extern sh_int  gsn_lore;
-extern sh_int  gsn_meditation;
- 
-extern sh_int  gsn_scrolls;
-extern sh_int  gsn_staves;
-extern sh_int  gsn_wands;
-extern sh_int  gsn_recall;
-
+#include "gsn.h"
 
 
 /*
@@ -2316,6 +2266,7 @@ bool    damage_old      args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam,
 void	update_pos	args( ( CHAR_DATA *victim ) );
 void	stop_fighting	args( ( CHAR_DATA *ch, bool fBoth ) );
 void	check_killer	args( ( CHAR_DATA *ch, CHAR_DATA *victim) );
+void raw_kill( CHAR_DATA *victim );
 
 /* handler.c */
 AD  	*affect_find args( (AFFECT_DATA *paf, int sn));
@@ -2415,7 +2366,7 @@ const char *getVersion ( void );
 
 /* interp.c */
 void	interpret	args( ( CHAR_DATA *ch, char *argument ) );
-bool	is_number	args( ( char *arg ) );
+bool	is_number	args( ( const char *arg ) );
 int	number_argument	args( ( char *argument, char *arg ) );
 int	mult_argument	args( ( char *argument, char *arg) );
 char *	one_argument	args( ( char *argument, char *arg_first ) );

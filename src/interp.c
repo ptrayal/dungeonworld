@@ -374,7 +374,7 @@ const	struct	cmd_type	cmd_table	[] =
 	{ "hedit",		do_hedit,	POS_DEAD,    0,  LOG_NORMAL, 1 },
 	{ "matedit",	do_matedit, POS_DEAD,	 ML, LOG_NORMAL, 1 },
 	{ "matlist",	do_matlist, POS_DEAD,	 IM, LOG_NORMAL, 1 },
-	
+	{ "trackbuffer", do_trackbuffer, POS_DEAD, ML, LOG_NORMAL, 1 },
 	/*
 	 * End of list.
 	 */
@@ -660,7 +660,7 @@ bool check_social( CHAR_DATA *ch, char *command, char *argument )
 /*
  * Return true if an argument is completely numeric.
  */
-bool is_number ( char *arg )
+bool is_number ( const char *arg )
 {
  
 	if ( *arg == '\0' )

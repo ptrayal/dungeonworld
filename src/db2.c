@@ -912,7 +912,9 @@ void convert_mobile( MOB_INDEX_DATA *pMobIndex )
 
 	pMobIndex->wealth           /= 100;
 	pMobIndex->size              = SIZE_MEDIUM;
-	pMobIndex->material          = str_dup("none");
+
+	if(pMobIndex->material == NULL)
+		pMobIndex->material          = str_dup("none");
 
 	pMobIndex->new_format        = TRUE;
 	++newmobs;

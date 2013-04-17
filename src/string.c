@@ -243,8 +243,7 @@ void string_add( CHAR_DATA *ch, char *argument )
 				return;
 		}
 
-		strcpy( buf, *ch->desc->pString );
-
+		strcpy ( buf, *ch->desc->pString ? *ch->desc->pString : "" ); 
 		/*
 		 * Truncate strings to MAX_STRING_LENGTH.
 		 * --------------------------------------
@@ -782,6 +781,9 @@ char *numlineas( char *string )
 	char tmpb[MSL]={'\0'};
 
 	buf[0] = '\0';
+
+	if(IS_NULLSTR(string))
+		return "";
 
 	while ( *string )
 	{

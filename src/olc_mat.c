@@ -17,6 +17,7 @@
 #include "lookup.h"
 
 MAT_TYPE *mat_list;
+int matValue;
 
 #define MATEDIT( fun )		bool fun( CHAR_DATA *ch, char *argument )
 
@@ -33,23 +34,38 @@ const struct olc_cmd_type matedit_table[] =
     {	NULL,		0,		}
 };
 
-MAT_TYPE *find_mat(const char *name) 
+MAT_TYPE *new_mat()
 {
+	MAT_TYPE *mat;
+	
+	ALLOC_DATA(mat, MAT_TYPE, 1);
+
+	mat->next = NULL;
+	mat->name = NULL;
+	mat->assignedValue = 0;
+
+	return mat;
+}
+
+void free_mat(MAT_TYPE *mat) {
+	Assert(mat, "Material non-existant! Crashing");
+	
+	PURGE_DATA(mat->name);
+	PURGE_DATA(mat);
+}
+
+MAT_TYPE *find_mat(const char *name) {
 	MAT_TYPE *mat, *mat_next;
 	
 	if(IS_NULLSTR(name))
 		return NULL;
 	
-	for(mat = mat_list; mat; mat = mat_next) 
-	{
+	for(mat = mat_list; mat; mat = mat_next) {
 		mat_next = mat->next;
-		if(IS_NULLSTR(mat->name)) 
-		{
-			UNLINK_SINGLE(mat, next, MAT_TYPE, mat_list);
-			PURGE_DATA(mat);
+		
+		if(IS_NULLSTR(mat->name))
 			continue;
-		}
-
+		
 		if(!str_cmp(mat->name, name))
 			return mat;
 	}
@@ -64,39 +80,43 @@ void clear_materials(void) {
 	for(mat = mat_list; mat; mat = mat_next) {
 		mat_next = mat->next;
 		
-		UNLINK_SINGLE(mat, next, MAT_TYPE, mat_list);
-		
-		PURGE_DATA(mat->name);
-		PURGE_DATA(mat);
+		free_mat(mat);
 	}
+	mat_list = NULL;
+	
 	return;
 }
 
-void confirm_material(const char *name) 
-{
+void confirm_material(const char *name) {
 	MAT_TYPE *mat, *mat_next;
 	
 	if(IS_NULLSTR(name))
 		return;
 	
-	for(mat = mat_list; mat; mat = mat_next) 
-	{
+	// materials that are '0' are NULL
+	if(is_number(name))
+		return;
+	
+	for(mat = mat_list; mat; mat = mat_next) {
 		mat_next = mat->next;
-		if(IS_NULLSTR(mat->name)) 
-		{
-			UNLINK_SINGLE(mat, next, MAT_TYPE, mat_list);
-			PURGE_DATA(mat);
+
+		if(IS_NULLSTR(mat->name))
 			continue;
-		}
 
 		if(!str_cmp(mat->name, name))
 			return;
 	}
 	
-	ALLOC_DATA(mat, MAT_TYPE, 1);
+	matValue++;
+	mat = new_mat();
+
 	mat->name = str_dup(name);
-	mat->assignedValue = 0;
-	LINK_SINGLE(mat, next, mat_list);
+	mat->assignedValue = matValue;
+
+	mat->next = mat_list;
+	mat_list = mat;
+
+	return;
 }
 
 void save_materials(void) {
@@ -137,10 +157,16 @@ void load_materials(void) {
 		}
 
 		if(!str_cmp(word, "MAT")) {
-			MAT_TYPE *mat;
-			ALLOC_DATA(mat, MAT_TYPE, 1);
+			MAT_TYPE *mat = new_mat();
+
 			while(true) {
-				word = fread_word(fp);
+				word = feof( fp ) ? "End" : fread_word(fp);
+				if(!str_cmp(word, "End")) {
+					bug(Format("Prematurely reached end of materials data file; data corrupted!"), 0);
+					fclose(fp);
+					openReserve();
+					return;
+				}
 				bool finished = false;
 				switch ( UPPER(word[0]) )
 				{
@@ -150,7 +176,11 @@ void load_materials(void) {
 					break;
 				case 'E':
 					if(!str_cmp(word, "ENDMAT")) {
-						LINK_SINGLE(mat, next, mat_list);
+
+						mat->next = mat_list;
+						mat_list = mat;
+
+						matValue++;
 						finished = true;
 						break;
 					}
@@ -174,12 +204,10 @@ MATEDIT( matedit_create )
 {
 	MAT_TYPE *pMat;
 	
-	EDIT_MAT(ch, pMat);
-
 	if ( IS_NULLSTR(argument))
 	{
-		send_to_char( "Syntax:  create [name]\n\r", ch );
-		return FALSE;
+	send_to_char( "Syntax:  create [name]\n\r", ch );
+	return FALSE;
 	}
 
 	pMat = find_mat( argument );
@@ -188,17 +216,19 @@ MATEDIT( matedit_create )
 		send_to_char( "MATEdit:  That material already exists\n\r", ch );
 		return FALSE;
 	}
+	
+	pMat = new_mat();
 
-
-	ALLOC_DATA(pMat, MAT_TYPE, 1);
 	pMat->name = str_dup(argument);
 	pMat->assignedValue = 0;
-
-	LINK_SINGLE(pMat, next, mat_list);
+	
+	pMat->next = mat_list;
+	mat_list = pMat;
 
 	ch->desc->pEdit		= (void *)pMat;
 
 	send_to_char( "Material created.\n\r", ch );
+	save_materials();
 	return TRUE;
 }
 
@@ -226,7 +256,7 @@ MATEDIT(matedit_show) {
 	EDIT_MAT(ch, pMat);
 
 	send_to_char(Format("Name: %s\n\r", pMat->name), ch);
-
+	send_to_char(Format("assignedValue: %d (Non-Settable)\n\r", pMat->assignedValue), ch);
 	return FALSE;
 }
 

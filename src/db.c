@@ -45,6 +45,7 @@
 #include <sys/stat.h>
 #endif
 
+#define IN_DB
 #include "merc.h"
 #include "db.h"
 #include "recycle.h"
@@ -52,6 +53,7 @@
 #include "tables.h"
 #include "lookup.h"
 #include "olc.h"
+#undef IN_DB
 
 bool logFail = FALSE;           // this can be turned into a global value, it doesn't really need to be true
                                 // however if you want to log which pointers are NULL when cleared
@@ -100,62 +102,6 @@ NOTE_DATA *		note_list;
 OBJ_DATA *		object_list;
 TIME_INFO_DATA		time_info;
 WEATHER_DATA		weather_info;
-
-sh_int			gsn_backstab;
-sh_int			gsn_dodge;
-sh_int			gsn_envenom;
-sh_int			gsn_hide;
-sh_int			gsn_peek;
-sh_int			gsn_pick_lock;
-sh_int			gsn_sneak;
-sh_int			gsn_steal;
-
-sh_int			gsn_disarm;
-sh_int			gsn_enhanced_damage;
-sh_int			gsn_kick;
-sh_int			gsn_parry;
-sh_int			gsn_rescue;
-sh_int			gsn_second_attack;
-sh_int			gsn_third_attack;
-
-sh_int			gsn_blindness;
-sh_int			gsn_charm_person;
-sh_int			gsn_curse;
-sh_int			gsn_invis;
-sh_int			gsn_mass_invis;
-sh_int			gsn_poison;
-sh_int			gsn_plague;
-sh_int			gsn_sleep;
-sh_int			gsn_sanctuary;
-sh_int			gsn_fly;
-/* new gsns */
-
-sh_int  		gsn_axe;
-sh_int  		gsn_dagger;
-sh_int  		gsn_flail;
-sh_int  		gsn_mace;
-sh_int  		gsn_polearm;
-sh_int			gsn_shield_block;
-sh_int  		gsn_spear;
-sh_int  		gsn_sword;
-sh_int  		gsn_whip;
- 
-sh_int  		gsn_bash;
-sh_int  		gsn_berserk;
-sh_int  		gsn_dirt;
-sh_int  		gsn_hand_to_hand;
-sh_int  		gsn_trip;
- 
-sh_int  		gsn_fast_healing;
-sh_int  		gsn_haggle;
-sh_int  		gsn_lore;
-sh_int  		gsn_meditation;
- 
-sh_int  		gsn_scrolls;
-sh_int  		gsn_staves;
-sh_int  		gsn_wands;
-sh_int  		gsn_recall;
-
 
 
 /*
@@ -2317,7 +2263,7 @@ void clone_mobile(CHAR_DATA *parent, CHAR_DATA *clone)
 
  	if(!IS_NULLSTR(pObjIndex->material)) {
  		obj->material	= str_dup(pObjIndex->material);
-		confirm_material(obj->material);
+		confirm_material(pObjIndex->material);
  	}
  	obj->item_type	= pObjIndex->item_type;
  	obj->extra_flags	= pObjIndex->extra_flags;

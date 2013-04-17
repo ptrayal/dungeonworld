@@ -294,6 +294,7 @@ int	write		args( ( int fd, char *buf, int nbyte ) );
 #endif
 
 
+void append_note(NOTE_DATA *pnote);
 
 /*
  * Global variables.
@@ -2452,6 +2453,108 @@ void nanny_read_motd(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	interpret(ch, "unread");
 }
 
+void nanny_note_to ( DESCRIPTOR_DATA *d, const char *argument )
+{
+        CHAR_DATA *ch = d->character;
+        if ( IS_NULLSTR ( argument ) ) {
+                send_to_char ( "\n\rWho is this message for? ", ch );
+                return;
+        }
+        PURGE_DATA ( ch->pnote->to_list );
+        ch->pnote->to_list = str_dup ( argument );
+        send_to_char ( "Whats the subject about? ", ch );
+        d->connected = CON_NOTE_SUBJECT;
+}
+
+void nanny_note_subject ( DESCRIPTOR_DATA *d, const char *argument )
+{
+        CHAR_DATA *ch = d->character;
+        if ( IS_NULLSTR ( argument ) ) {
+                send_to_char ( "What is the subject: ", ch );
+                return;
+        }
+ 
+        PURGE_DATA ( ch->pnote->subject );
+        ch->pnote->subject = str_dup ( argument );
+        d->connected = CON_NOTE_TEXT;
+        string_append ( ch, &ch->pnote->text );
+}
+
+void nanny_note_text ( DESCRIPTOR_DATA *d, const char *argument )
+{
+        CHAR_DATA *ch = d->character;
+        if ( IS_NULLSTR ( argument ) ) {
+                send_to_char ( "Is what you wrote good enough? (Y/n)\n\r", ch );
+                page_to_char ( ch->pnote->text, ch );
+                return;
+        }
+
+        switch ( LOWER ( argument[0] ) ) {
+                default:
+                        send_to_char ( "Is what you wrote good enough? (Y/n)", ch );
+                        break;
+                case 'y': {
+                		BUFFER *output = new_buf();
+                		
+                		
+                        d->connected = CON_NOTE_POST;
+                        add_buf(output,  Format ( "From: %s\n\rSubject: %s\n\rTo: %s\n\r",
+                                                                        ch->pnote->sender,
+                                                                        ch->pnote->subject,
+                                                                        ch->pnote->to_list ));
+                        add_buf(output, ch->pnote->text );
+		                add_buf(output, "\n\rPost this message? (Y/N/c) (yes/no/cancel)\n\r");
+		                page_to_char(buf_string(output), ch);
+		                free_buf(output);
+				}
+                break;
+                case 'n':
+                        string_append ( ch, &ch->pnote->text );
+                        break;
+        }
+}
+
+void nanny_note_post ( DESCRIPTOR_DATA *d, const char *argument )
+{
+        CHAR_DATA *ch = d->character;
+        char *strtime;
+
+        if ( IS_NULLSTR ( argument ) ) {
+                send_to_char ( "Post this message? (Y/N/c) (yes/no/cancel)\n\r", ch );
+                return;
+        }
+
+        switch ( LOWER ( argument[0] ) ) {
+                case 'y':
+                        ch->pnote->next                 = NULL;
+                        strtime                         = ctime ( &current_time );
+                        strtime[strlen ( strtime ) - 1] = '\0';
+                        ch->pnote->date                 = str_dup ( strtime );
+                        ch->pnote->date_stamp   		= current_time;
+
+                        append_note ( ch->pnote );
+                        ch->pnote = NULL;
+                        d->connected = CON_PLAYING;
+                        send_to_char("You are now playing again.\n\r",ch);
+                        break;
+                case 'n':
+                        d->connected = CON_NOTE_TO;
+                        send_to_char ( "Who is this message for: ", ch );
+                        break;
+                case 'c':
+                        if ( ch->pnote != NULL ) {
+                                free_note ( ch->pnote );
+                                ch->pnote = NULL;
+                        }
+                        break;
+                default:
+                        send_to_char ( "Unknown response... Y/N/C: ", ch );
+                        break;
+        }
+}
+
+
+
 /* Deal with sockets that haven't logged in yet. */
 void nanny( DESCRIPTOR_DATA *d, char *argument )
 {
@@ -2481,6 +2584,18 @@ void nanny( DESCRIPTOR_DATA *d, char *argument )
 	case CON_GEN_GROUPS: nanny_gen_groups(d,  ch, argument); break;
 	case CON_READ_IMOTD: nanny_read_imotd(d,  ch, argument); break;
 	case CON_READ_MOTD: nanny_read_motd(d,  ch, argument); break;
+                case CON_NOTE_TO:
+                        nanny_note_to ( d, argument );
+                        break;
+                case CON_NOTE_SUBJECT:
+                        nanny_note_subject ( d, argument );
+                        break;
+                case CON_NOTE_TEXT:
+                        nanny_note_text ( d, argument );
+                        break;
+                case CON_NOTE_POST:
+                        nanny_note_post ( d, argument );
+                        break;
 	}
 
 	return;
