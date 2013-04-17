@@ -533,7 +533,6 @@ bool check_blind( CHAR_DATA *ch )
 void do_scroll(CHAR_DATA *ch, char *argument)
 {
 	char arg[MAX_INPUT_LENGTH];
-	char buf[100];
 	int lines;
 
 	one_argument(argument,arg);
@@ -577,7 +576,6 @@ void do_scroll(CHAR_DATA *ch, char *argument)
 /* RT does socials */
 void do_socials(CHAR_DATA *ch, char *argument)
 {
-	char buf[MSL]={'\0'};
 	int iSocial;
 	int col = 0;
 
@@ -1632,6 +1630,7 @@ char *	const	month_name	[] =
 void do_time( CHAR_DATA *ch, char *argument )
 {
 	extern char str_boot_time[];
+	char buf[MSL]={'\0'};
 	char *suf;
 	int day = time_info.day + 1;
 
@@ -1661,24 +1660,24 @@ void do_weather( CHAR_DATA *ch, char *argument )
 
 	static char * const sky_look[4] =
 	{
-	"cloudless",
-	"cloudy",
-	"rainy",
-	"lit by flashes of lightning"
+		"cloudless",
+		"cloudy",
+		"rainy",
+		"lit by flashes of lightning"
 	};
 
 	if ( !IS_OUTSIDE(ch) )
 	{
-	send_to_char( "You can't see the weather indoors.\n\r", ch );
-	return;
+		send_to_char( "You can't see the weather indoors.\n\r", ch );
+		return;
 	}
 
 	sprintf( buf, "The sky is %s and %s.\n\r",
-	sky_look[weather_info.sky],
-	weather_info.change >= 0
-	? "a warm southerly breeze blows"
-	: "a cold northern gust blows"
-	);
+		sky_look[weather_info.sky],
+		weather_info.change >= 0
+		? "a warm southerly breeze blows"
+		: "a cold northern gust blows"
+		);
 	send_to_char( buf, ch );
 	return;
 }
