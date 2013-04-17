@@ -2886,27 +2886,27 @@ void spell_gate( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 	bool gate_pet;
 
 	if ( ( victim = get_char_world( ch, target_name ) ) == NULL
-	||   victim == ch
-	||   victim->in_room == NULL
-	||   !can_see_room(ch,victim->in_room) 
-	||   IS_SET(victim->in_room->room_flags, ROOM_SAFE)
-	||   IS_SET(victim->in_room->room_flags, ROOM_PRIVATE)
-	||   IS_SET(victim->in_room->room_flags, ROOM_SOLITARY)
-	||   IS_SET(victim->in_room->room_flags, ROOM_NO_RECALL)
-	||   IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
-	||   victim->level >= level + 3
-	||   (is_clan(victim) && !is_same_clan(ch,victim))
+		||   victim == ch
+		||   victim->in_room == NULL
+		||   !can_see_room(ch,victim->in_room) 
+		||   IS_SET(victim->in_room->room_flags, ROOM_SAFE)
+		||   IS_SET(victim->in_room->room_flags, ROOM_PRIVATE)
+		||   IS_SET(victim->in_room->room_flags, ROOM_SOLITARY)
+		||   IS_SET(victim->in_room->room_flags, ROOM_NO_RECALL)
+		||   IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
+		||   victim->level >= level + 3
+		||   (is_clan(victim) && !is_same_clan(ch,victim))
 	||   (!IS_NPC(victim) && victim->level >= LEVEL_HERO)  /* NOT trust */ 
-	||   (IS_NPC(victim) && IS_SET(victim->imm_flags,IMM_SUMMON))
-	||   (IS_NPC(victim) && saves_spell( level, victim,DAM_OTHER) ) )
+		||   (IS_NPC(victim) && IS_SET(victim->imm_flags,IMM_SUMMON))
+		||   (IS_NPC(victim) && saves_spell( level, victim,DAM_OTHER) ) )
 	{
 		send_to_char( "You failed.\n\r", ch );
 		return;
 	}	
 	if (ch->pet != NULL && ch->in_room == ch->pet->in_room)
-	gate_pet = TRUE;
+		gate_pet = TRUE;
 	else
-	gate_pet = FALSE;
+		gate_pet = FALSE;
 	
 	act("$n steps through a gate and vanishes.",ch,NULL,NULL,TO_ROOM);
 	send_to_char("You step through a gate and vanish.\n\r",ch);
@@ -2918,12 +2918,12 @@ void spell_gate( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 	if (gate_pet)
 	{
-	act("$n steps through a gate and vanishes.",ch->pet,NULL,NULL,TO_ROOM);
-	send_to_char("You step through a gate and vanish.\n\r",ch->pet);
-	char_from_room(ch->pet);
-	char_to_room(ch->pet,victim->in_room);
-	act("$n has arrived through a gate.",ch->pet,NULL,NULL,TO_ROOM);
-	do_function(ch->pet, &do_look, "auto");
+		act("$n steps through a gate and vanishes.",ch->pet,NULL,NULL,TO_ROOM);
+		send_to_char("You step through a gate and vanish.\n\r",ch->pet);
+		char_from_room(ch->pet);
+		char_to_room(ch->pet,victim->in_room);
+		act("$n has arrived through a gate.",ch->pet,NULL,NULL,TO_ROOM);
+		do_function(ch->pet, &do_look, "auto");
 	}
 }
 
@@ -2936,11 +2936,11 @@ void spell_giant_strength(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 
 	if ( is_affected( victim, sn ) )
 	{
-	if (victim == ch)
-	  send_to_char("You are already as strong as you can get!\n\r",ch);
-	else
-	  act("$N can't get any stronger.",ch,NULL,victim,TO_CHAR);
-	return;
+		if (victim == ch)
+			send_to_char("You are already as strong as you can get!\n\r",ch);
+		else
+			act("$N can't get any stronger.",ch,NULL,victim,TO_CHAR);
+		return;
 	}
 
 	af.where     = TO_AFFECTS;
@@ -2948,7 +2948,7 @@ void spell_giant_strength(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 	af.level	 = level;
 	af.duration  = level;
 	af.location  = APPLY_STR;
-	af.modifier  = 1 + (level >= 18) + (level >= 25) + (level >= 32);
+	af.modifier  = 4;
 	af.bitvector = 0;
 	affect_to_char( victim, &af );
 	send_to_char( "Your muscles surge with heightened power!\n\r", victim );
