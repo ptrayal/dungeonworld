@@ -1747,7 +1747,6 @@ void do_remove( CHAR_DATA *ch, char *argument )
 void do_sacrifice( CHAR_DATA *ch, char *argument )
 {
 	char arg[MAX_INPUT_LENGTH];
-	char buf[MSL]={'\0'};
 	OBJ_DATA *obj;
 	int silver = 0;
 	
