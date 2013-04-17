@@ -2961,13 +2961,19 @@ void spell_giant_strength(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 void spell_harm( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 {
 	CHAR_DATA *victim = (CHAR_DATA *) vo;
-	int dam;
+	int dam = 0;
 
-	dam = UMAX(  20, victim->hit - dice(1,4) );
+	dam = UMIN(level,15)*10;
 	if ( saves_spell( level, victim,DAM_HARM) )
-	dam = UMIN( 50, dam / 2 );
-	dam = UMIN( 100, dam );
-	damage( ch, victim, dam, sn, DAM_HARM ,TRUE);
+	{
+		dam /=2;
+		damage( ch, victim, dam, sn, DAM_HARM ,TRUE);
+	}
+	else
+	{
+		damage( ch, victim, dam, sn, DAM_HARM ,TRUE);
+	}
+	
 	return;
 }
 
@@ -3022,14 +3028,17 @@ void spell_haste( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 
 
-void spell_heal( int sn, int level, CHAR_DATA *ch, void *vo,int target )
+void spell_heal( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 {
 	CHAR_DATA *victim = (CHAR_DATA *) vo;
-	victim->hit = UMIN( victim->hit + 100, victim->max_hit );
+	int heal = 0;
+
+	heal = UMIN(level,15)*10;
+	victim->hit = UMIN( victim->hit + heal, victim->max_hit );
 	update_pos( victim );
 	send_to_char( "A warm feeling fills your body.\n\r", victim );
 	if ( ch != victim )
-	send_to_char( "Ok.\n\r", ch );
+		send_to_char( "Ok.\n\r", ch );
 	return;
 }
 
