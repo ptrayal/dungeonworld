@@ -2546,6 +2546,8 @@ void nanny_note_post ( DESCRIPTOR_DATA *d, const char *argument )
                                 free_note ( ch->pnote );
                                 ch->pnote = NULL;
                         }
+                        d->connected = CON_PLAYING;
+                        send_to_char("You are now playing again.\n\r",ch);
                         break;
                 default:
                         send_to_char ( "Unknown response... Y/N/C: ", ch );
@@ -2733,8 +2735,7 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
 		d->character = ch;
 		ch->desc	 = d;
 		ch->timer	 = 0;
-		send_to_char(
-			"Reconnecting. Type replay to see missed tells.\n\r", ch );
+		send_to_char( "Reconnecting. Type replay to see missed tells.\n\r", ch );
 		act( "$n has reconnected.", ch, NULL, NULL, TO_ROOM );
 
 		log_string( Format("%s@%s reconnected.", ch->name, d->host ) );

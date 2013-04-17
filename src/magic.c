@@ -2928,7 +2928,6 @@ void spell_gate( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 }
 
 
-
 void spell_giant_strength(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 {
 	CHAR_DATA *victim = (CHAR_DATA *) vo;
@@ -2955,7 +2954,6 @@ void spell_giant_strength(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 	act("$n's muscles surge with heightened power.",victim,NULL,NULL,TO_ROOM);
 	return;
 }
-
 
 
 void spell_harm( int sn, int level, CHAR_DATA *ch, void *vo,int target)
