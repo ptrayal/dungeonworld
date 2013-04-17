@@ -1181,7 +1181,7 @@ void spell_cancellation( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 void spell_cause_light( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 {
-	damage( ch, (CHAR_DATA *) vo, dice(1, 8) + level / 3, sn,DAM_HARM,TRUE);
+	damage( ch, (CHAR_DATA *) vo, dice(1, 8) + UMIN(level,5), sn,DAM_HARM,TRUE);
 	return;
 }
 
@@ -1189,7 +1189,7 @@ void spell_cause_light( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 void spell_cause_critical(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 {
-	damage( ch, (CHAR_DATA *) vo, dice(3, 8) + level - 6, sn,DAM_HARM,TRUE);
+	damage( ch, (CHAR_DATA *) vo, dice(4, 8) + UMIN(level,20), sn,DAM_HARM,TRUE);
 	return;
 }
 
@@ -1197,7 +1197,7 @@ void spell_cause_critical(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 
 void spell_cause_serious(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 {
-	damage( ch, (CHAR_DATA *) vo, dice(2, 8) + level / 2, sn,DAM_HARM,TRUE);
+	damage( ch, (CHAR_DATA *) vo, dice(3, 8) + UMIN(level,15), sn,DAM_HARM,TRUE);
 	return;
 }
 
@@ -1583,14 +1583,14 @@ void spell_cure_blindness(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 void spell_cure_critical( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 {
 	CHAR_DATA *victim = (CHAR_DATA *) vo;
-	int heal;
+	int heal = 0;
 
-	heal = dice(3, 8) + level - 6;
+	heal = dice(4, 8) + UMIN(level,20);
 	victim->hit = UMIN( victim->hit + heal, victim->max_hit );
 	update_pos( victim );
 	send_to_char( "You feel better!\n\r", victim );
 	if ( ch != victim )
-	send_to_char( "Ok.\n\r", ch );
+		send_to_char( "Ok.\n\r", ch );
 	return;
 }
 
@@ -1622,14 +1622,14 @@ void spell_cure_disease( int sn, int level, CHAR_DATA *ch,void *vo,int target)
 void spell_cure_light( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 {
 	CHAR_DATA *victim = (CHAR_DATA *) vo;
-	int heal;
+	int heal = 0;
 
-	heal = dice(1, 8) + level / 3;
+	heal = dice(1, 8) + UMIN(level, 5);
 	victim->hit = UMIN( victim->hit + heal, victim->max_hit );
 	update_pos( victim );
 	send_to_char( "You feel better!\n\r", victim );
 	if ( ch != victim )
-	send_to_char( "Ok.\n\r", ch );
+		send_to_char( "Ok.\n\r", ch );
 	return;
 }
 
@@ -1660,14 +1660,14 @@ void spell_cure_poison( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 void spell_cure_serious( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 {
 	CHAR_DATA *victim = (CHAR_DATA *) vo;
-	int heal;
+	int heal = 0;
 
-	heal = dice(2, 8) + level /2 ;
+	heal = dice(3, 8) + UMIN(level,15);
 	victim->hit = UMIN( victim->hit + heal, victim->max_hit );
 	update_pos( victim );
 	send_to_char( "You feel better!\n\r", victim );
 	if ( ch != victim )
-	send_to_char( "Ok.\n\r", ch );
+		send_to_char( "Ok.\n\r", ch );
 	return;
 }
 
