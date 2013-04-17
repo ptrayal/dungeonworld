@@ -768,10 +768,10 @@ void do_pick( CHAR_DATA *ch, char *argument )
 
 	one_argument( argument, arg );
 
-	if ( arg[0] == '\0' )
+	if ( IS_NULLSTR(arg) )
 	{
-	send_to_char( "Pick what?\n\r", ch );
-	return;
+		send_to_char( "Pick what?\n\r", ch );
+		return;
 	}
 
 	WAIT_STATE( ch, skill_table[gsn_pick_lock].beats );
@@ -779,109 +779,104 @@ void do_pick( CHAR_DATA *ch, char *argument )
 	/* look for guards */
 	for ( gch = ch->in_room->people; gch; gch = gch->next_in_room )
 	{
-	if ( IS_NPC(gch) && IS_AWAKE(gch) && ch->level + 5 < gch->level )
-	{
-		act( "$N is standing too close to the lock.",
-		ch, NULL, gch, TO_CHAR );
-		return;
-	}
+		if ( IS_NPC(gch) && IS_AWAKE(gch) && ch->level + 5 < gch->level )
+		{
+			act( "$N is standing too close to the lock.", ch, NULL, gch, TO_CHAR );
+			return;
+		}
 	}
 
 	if ( !IS_NPC(ch) && number_percent( ) > get_skill(ch,gsn_pick_lock))
 	{
-	send_to_char( "You failed.\n\r", ch);
-	check_improve(ch,gsn_pick_lock,FALSE,2);
-	return;
+		send_to_char( "You failed.\n\r", ch);
+		check_improve(ch,gsn_pick_lock,FALSE,2);
+		return;
 	}
 
 	if ( ( obj = get_obj_here( ch, arg ) ) != NULL )
 	{
 	/* portal stuff */
-	if (obj->item_type == ITEM_PORTAL)
-	{
-		if (!IS_SET(obj->value[1],EX_ISDOOR))
-		{	
-		send_to_char("You can't do that.\n\r",ch);
-		return;
-		}
-
-		if (!IS_SET(obj->value[1],EX_CLOSED))
+		if (obj->item_type == ITEM_PORTAL)
 		{
-		send_to_char("It's not closed.\n\r",ch);
-		return;
+			if (!IS_SET(obj->value[1],EX_ISDOOR))
+			{	
+				send_to_char("You can't do that.\n\r",ch);
+				return;
+			}
+
+			if (!IS_SET(obj->value[1],EX_CLOSED))
+			{
+				send_to_char("It's not closed.\n\r",ch);
+				return;
+			}
+
+			if (obj->value[4] < 0)
+			{
+				send_to_char("It can't be unlocked.\n\r",ch);
+				return;
+			}
+
+			if (IS_SET(obj->value[1],EX_PICKPROOF))
+			{
+				send_to_char("You failed.\n\r",ch);
+				return;
+			}
+
+			REMOVE_BIT(obj->value[1],EX_LOCKED);
+			act("You pick the lock on $p.",ch,obj,NULL,TO_CHAR);
+			act("$n picks the lock on $p.",ch,obj,NULL,TO_ROOM);
+			check_improve(ch,gsn_pick_lock,TRUE,2);
+			return;
 		}
 
-		if (obj->value[4] < 0)
-		{
-		send_to_char("It can't be unlocked.\n\r",ch);
-		return;
-		}
+	/* 'pick object' */
+		if ( obj->item_type != ITEM_CONTAINER )
+			{ send_to_char( "That's not a container.\n\r", ch ); return; }
+		if ( !IS_SET(obj->value[1], CONT_CLOSED) )
+			{ send_to_char( "It's not closed.\n\r",        ch ); return; }
+		if ( obj->value[2] < 0 )
+			{ send_to_char( "It can't be unlocked.\n\r",   ch ); return; }
+		if ( !IS_SET(obj->value[1], CONT_LOCKED) )
+			{ send_to_char( "It's already unlocked.\n\r",  ch ); return; }
+		if ( IS_SET(obj->value[1], CONT_PICKPROOF) )
+			{ send_to_char( "You failed.\n\r",             ch ); return; }
 
-		if (IS_SET(obj->value[1],EX_PICKPROOF))
-		{
-		send_to_char("You failed.\n\r",ch);
-		return;
-		}
-
-		REMOVE_BIT(obj->value[1],EX_LOCKED);
+		REMOVE_BIT(obj->value[1], CONT_LOCKED);
 		act("You pick the lock on $p.",ch,obj,NULL,TO_CHAR);
 		act("$n picks the lock on $p.",ch,obj,NULL,TO_ROOM);
 		check_improve(ch,gsn_pick_lock,TRUE,2);
 		return;
 	}
 
-		
-
-
-	
-	/* 'pick object' */
-	if ( obj->item_type != ITEM_CONTAINER )
-		{ send_to_char( "That's not a container.\n\r", ch ); return; }
-	if ( !IS_SET(obj->value[1], CONT_CLOSED) )
-		{ send_to_char( "It's not closed.\n\r",        ch ); return; }
-	if ( obj->value[2] < 0 )
-		{ send_to_char( "It can't be unlocked.\n\r",   ch ); return; }
-	if ( !IS_SET(obj->value[1], CONT_LOCKED) )
-		{ send_to_char( "It's already unlocked.\n\r",  ch ); return; }
-	if ( IS_SET(obj->value[1], CONT_PICKPROOF) )
-		{ send_to_char( "You failed.\n\r",             ch ); return; }
-
-	REMOVE_BIT(obj->value[1], CONT_LOCKED);
-		act("You pick the lock on $p.",ch,obj,NULL,TO_CHAR);
-		act("$n picks the lock on $p.",ch,obj,NULL,TO_ROOM);
-	check_improve(ch,gsn_pick_lock,TRUE,2);
-	return;
-	}
-
 	if ( ( door = find_door( ch, arg ) ) >= 0 )
 	{
 	/* 'pick door' */
-	ROOM_INDEX_DATA *to_room;
-	EXIT_DATA *pexit;
-	EXIT_DATA *pexit_rev;
+		ROOM_INDEX_DATA *to_room;
+		EXIT_DATA *pexit;
+		EXIT_DATA *pexit_rev;
 
-	pexit = ch->in_room->exit[door];
-	if ( !IS_SET(pexit->exit_info, EX_CLOSED) && !IS_IMMORTAL(ch))
-		{ send_to_char( "It's not closed.\n\r",        ch ); return; }
-	if ( pexit->key < 0 && !IS_IMMORTAL(ch))
-		{ send_to_char( "It can't be picked.\n\r",     ch ); return; }
-	if ( !IS_SET(pexit->exit_info, EX_LOCKED) )
-		{ send_to_char( "It's already unlocked.\n\r",  ch ); return; }
-	if ( IS_SET(pexit->exit_info, EX_PICKPROOF) && !IS_IMMORTAL(ch))
-		{ send_to_char( "You failed.\n\r",             ch ); return; }
+		pexit = ch->in_room->exit[door];
+		if ( !IS_SET(pexit->exit_info, EX_CLOSED) && !IS_IMMORTAL(ch))
+			{ send_to_char( "It's not closed.\n\r",        ch ); return; }
+		if ( pexit->key < 0 && !IS_IMMORTAL(ch))
+			{ send_to_char( "It can't be picked.\n\r",     ch ); return; }
+		if ( !IS_SET(pexit->exit_info, EX_LOCKED) )
+			{ send_to_char( "It's already unlocked.\n\r",  ch ); return; }
+		if ( IS_SET(pexit->exit_info, EX_PICKPROOF) && !IS_IMMORTAL(ch))
+			{ send_to_char( "You failed.\n\r",             ch ); return; }
 
-	REMOVE_BIT(pexit->exit_info, EX_LOCKED);
-	send_to_char( "*Click*\n\r", ch );
-	act( "$n picks the $d.", ch, NULL, pexit->keyword, TO_ROOM );
-	check_improve(ch,gsn_pick_lock,TRUE,2);
+		REMOVE_BIT(pexit->exit_info, EX_LOCKED);
+		send_to_char( "*Click*\n\r", ch );
+		act( "$n picks the $d.", ch, NULL, pexit->keyword, TO_ROOM );
+		check_improve(ch,gsn_pick_lock,TRUE,2);
 
 	/* pick the other side */
-	if ( ( to_room   = pexit->u1.to_room            ) != NULL
-	&&   ( pexit_rev = to_room->exit[rev_dir[door]] ) != NULL
-	&&   pexit_rev->u1.to_room == ch->in_room )
-	{
-		REMOVE_BIT( pexit_rev->exit_info, EX_LOCKED );
-	}
+		if ( ( to_room   = pexit->u1.to_room            ) != NULL
+			&&   ( pexit_rev = to_room->exit[rev_dir[door]] ) != NULL
+			&&   pexit_rev->u1.to_room == ch->in_room )
+		{
+			REMOVE_BIT( pexit_rev->exit_info, EX_LOCKED );
+		}
 	}
 
 	return;
