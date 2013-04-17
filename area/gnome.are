@@ -417,7 +417,7 @@ exotic 1 9 pound 0
 sword gnome~
 a gnome sword~
 A gnome sword catches your eye.~
-oldstyle~
+steel~
 weapon 0 AN
 sword 3 3 slash 0
 7 150 610 P
@@ -469,7 +469,7 @@ A
 sword electrum~
 an electrum sword~
 An electrum sword lies here.~
-oldstyle~
+electrum~
 weapon AG AN
 sword 4 3 slash 0
 12 200 930 P
@@ -911,12 +911,12 @@ and a small hut is to the west.
 ~
 0 0 2
 E
-hut~
-The hut looks well built, but it seems to have taken some damage.
-~
-E
 stream~
 The stream is pretty small, but it looks too cold to swim.
+~
+E
+hut~
+The hut looks well built, but it seems to have taken some damage.
 ~
 D1
 You see a small path.
@@ -1416,18 +1416,18 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D3
-(null)~
-(null)~
-0 -1 1551
-D1
-(null)~
-(null)~
-0 -1 1549
 D0
 (null)~
 (null)~
 0 -1 1547
+D1
+(null)~
+(null)~
+0 -1 1549
+D3
+(null)~
+(null)~
+0 -1 1551
 S
 #1549
 A Damp Hallway~
@@ -1480,14 +1480,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D0
-(null)~
-(null)~
-0 -1 1551
 D2
 (null)~
 (null)~
 0 -1 1553
+D0
+(null)~
+(null)~
+0 -1 1551
 S
 #1553
 A Damp Hallway~
@@ -1510,6 +1510,10 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
+D0
+(null)~
+(null)~
+0 -1 1556
 D1
 (null)~
 (null)~
@@ -1518,10 +1522,6 @@ D3
 (null)~
 (null)~
 0 -1 1553
-D0
-(null)~
-(null)~
-0 -1 1556
 S
 #1555
 A Damp Hallway~
@@ -1529,14 +1529,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D0
-(null)~
-(null)~
-0 -1 1550
 D3
 (null)~
 (null)~
 0 -1 1554
+D0
+(null)~
+(null)~
+0 -1 1550
 S
 #1556
 The End of the Hallway~

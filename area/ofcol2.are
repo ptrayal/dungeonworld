@@ -632,7 +632,7 @@ E E 0 0 0
 emerald ring~
 an emerald ring~
 An emerald ring is on the floor, gathering dust.~
-oldstyle~
+emerald~
 jewelry G AB
 0 0 0 0 0
 0 10 1000 P
@@ -748,7 +748,7 @@ A B B 0 0
 signet ring~
 an Ofcol signet ring~
 A shiny ring of gold is in the dirt.~
-oldstyle~
+gold~
 jewelry G AB
 0 0 0 0 0
 10 10 730 P
@@ -870,7 +870,7 @@ A
 claymore sword~
 a claymore~
 A VERY big sword is against the wall here.~
-oldstyle~
+steel~
 weapon G AN
 sword 4 4 cleave F
 19 160 3100 P
@@ -1074,7 +1074,7 @@ A
 avenger holy sword~
 holy Avenger~
 A glowing silvery sword is hovering here, ready to possess an owner.~
-oldstyle~
+silver~
 weapon GK AN
 sword 4 6 slice 0
 32 250 5700 P
