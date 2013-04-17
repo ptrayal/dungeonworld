@@ -1718,32 +1718,32 @@ void do_vnum(CHAR_DATA *ch, char *argument)
 	char *string;
 
 	string = one_argument(argument,arg);
- 
-	if (arg[0] == '\0')
+
+	if (IS_NULLSTR(arg))
 	{
-	send_to_char("Syntax:\n\r",ch);
-	send_to_char("  vnum obj <name>\n\r",ch);
-	send_to_char("  vnum mob <name>\n\r",ch);
-	send_to_char("  vnum skill <skill or spell>\n\r",ch);
-	return;
+		send_to_char("Syntax:\n\r",ch);
+		send_to_char("  vnum obj <name>\n\r",ch);
+		send_to_char("  vnum mob <name>\n\r",ch);
+		send_to_char("  vnum skill <skill or spell>\n\r",ch);
+		return;
 	}
 
 	if (!str_cmp(arg,"obj"))
 	{
-	do_function(ch, &do_ofind, string);
-	return;
+		do_function(ch, &do_ofind, string);
+		return;
 	}
 
 	if (!str_cmp(arg,"mob") || !str_cmp(arg,"char"))
 	{ 
-	do_function(ch, &do_mfind, string);
-	return;
+		do_function(ch, &do_mfind, string);
+		return;
 	}
 
 	if (!str_cmp(arg,"skill") || !str_cmp(arg,"spell"))
 	{
-	do_function (ch, &do_slookup, string);
-	return;
+		do_function (ch, &do_slookup, string);
+		return;
 	}
 	/* do both */
 	do_function(ch, &do_mfind, argument);
@@ -1764,8 +1764,8 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 	one_argument( argument, arg );
 	if ( IS_NULLSTR(arg) )
 	{
-	send_to_char( "Find whom?\n\r", ch );
-	return;
+		send_to_char( "Find whom?\n\r", ch );
+		return;
 	}
 
 	fAll	= FALSE; /* !str_cmp( arg, "all" ); */
@@ -1778,24 +1778,24 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 	 * Do you?
 	 * -- Furey
 	 */
-	for ( vnum = 0; nMatch < top_mob_index; vnum++ )
-	{
-	if ( ( pMobIndex = get_mob_index( vnum ) ) != NULL )
-	{
-		nMatch++;
-		if ( fAll || is_name( argument, pMobIndex->player_name ) )
-		{
-		found = TRUE;
-		send_to_char( Format("[%5d] %s\n\r", pMobIndex->vnum, pMobIndex->short_descr), ch );
-		}
-	}
-	}
+	 for ( vnum = 0; nMatch < top_mob_index; vnum++ )
+	 {
+	 	if ( ( pMobIndex = get_mob_index( vnum ) ) != NULL )
+	 	{
+	 		nMatch++;
+	 		if ( fAll || is_name( argument, pMobIndex->player_name ) )
+	 		{
+	 			found = TRUE;
+	 			send_to_char( Format("[%5d] %s\n\r", pMobIndex->vnum, pMobIndex->short_descr), ch );
+	 		}
+	 	}
+	 }
 
-	if ( !found )
-	send_to_char( "No mobiles by that name.\n\r", ch );
+	 if ( !found )
+	 	send_to_char( "No mobiles by that name.\n\r", ch );
 
-	return;
-}
+	 return;
+	}
 
 
 
@@ -1826,6 +1826,7 @@ void do_ofind( CHAR_DATA *ch, char *argument )
 	 * Do you?
 	 * -- Furey
 	 */
+	 send_to_char( Format("[VNUM ] %-20s %-15s\n\r", "Name", "Material"), ch);
 	 for ( vnum = 0; nMatch < top_obj_index; vnum++ )
 	 {
 	 	if ( ( pObjIndex = get_obj_index( vnum ) ) != NULL )
@@ -1834,7 +1835,7 @@ void do_ofind( CHAR_DATA *ch, char *argument )
 	 		if ( fAll || is_name( argument, pObjIndex->name ) )
 	 		{
 	 			found = TRUE;
-	 			send_to_char( Format("[%5d] %s\n\r", pObjIndex->vnum, pObjIndex->short_descr), ch );
+	 			send_to_char( Format("[%5d] %-20s %-15s\n\r", pObjIndex->vnum, pObjIndex->short_descr, pObjIndex->material), ch );
 	 		}
 	 	}
 	 }
@@ -1843,7 +1844,7 @@ void do_ofind( CHAR_DATA *ch, char *argument )
 	 	send_to_char( "No objects by that name.\n\r", ch );
 
 	 return;
-	}
+}
 
 
 void do_owhere(CHAR_DATA *ch, char *argument )
