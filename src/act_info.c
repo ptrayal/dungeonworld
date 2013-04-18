@@ -614,79 +614,85 @@ void do_autolist(CHAR_DATA *ch, char *argument)
 {
 	/* lists most player flags */
 	if (IS_NPC(ch))
-	  return;
+		return;
 
-	send_to_char("   action     status\n\r",ch);
-	send_to_char("---------------------\n\r",ch);
- 
-	send_to_char("autoassist     ",ch);
+	send_to_char("\tW|---------------------------|\tn\n\r",ch);
+	send_to_char( Format("\tW| \tY%-16s \tW| \tY%s \tW|\tn\n\r", "Action", "Status"), ch);
+	send_to_char("\tW|---------------------------|\tn\n\r",ch);
+
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Autoassist"), ch);
 	if (IS_SET(ch->act,PLR_AUTOASSIST))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch); 
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("autoexit       ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Autoexit"), ch);
 	if (IS_SET(ch->act,PLR_AUTOEXIT))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("autogold       ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Autogold"), ch);
 	if (IS_SET(ch->act,PLR_AUTOGOLD))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("autoloot       ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Autoloot"), ch);
 	if (IS_SET(ch->act,PLR_AUTOLOOT))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("autosac        ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Autosac"), ch);
 	if (IS_SET(ch->act,PLR_AUTOSAC))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("autosplit      ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Autosplit"), ch);
 	if (IS_SET(ch->act,PLR_AUTOSPLIT))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("compact mode   ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Compact Mode"), ch);
 	if (IS_SET(ch->comm,COMM_COMPACT))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("prompt         ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Prompt"), ch);
 	if (IS_SET(ch->comm,COMM_PROMPT))
-	send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-	send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("combine items  ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Combine Items"), ch);
 	if (IS_SET(ch->comm,COMM_COMBINE))
-	send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-	send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	if (!IS_SET(ch->act,PLR_CANLOOT))
-	send_to_char("Your corpse is safe from thieves.\n\r",ch);
-	else 
-		send_to_char("Your corpse may be looted.\n\r",ch);
-
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Summonable"), ch);
 	if (IS_SET(ch->act,PLR_NOSUMMON))
-	send_to_char("You cannot be summoned.\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "YES"), ch);
 	else
-	send_to_char("You can be summoned.\n\r",ch);
-   
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "NO"), ch);
+
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Corpse Safe"), ch);
+	if (!IS_SET(ch->act,PLR_CANLOOT))
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "YES"), ch);
+	else 
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "NO"), ch);
+
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Followable"), ch);
 	if (IS_SET(ch->act,PLR_NOFOLLOW))
-	send_to_char("You do not welcome followers.\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "YES"), ch);
 	else
-	send_to_char("You accept followers.\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "NO"), ch);
+
+	send_to_char("\tW|---------------------------|\tn\n\r",ch);
 }
 
 void do_autoassist(CHAR_DATA *ch, char *argument)
