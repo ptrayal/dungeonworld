@@ -161,7 +161,7 @@ int count_spool_ignore_stamp ( CHAR_DATA *ch, NOTE_DATA *spool )
 }
 
 
-void do_unread(CHAR_DATA *ch)
+void do_unread(CHAR_DATA *ch, char *argument)
 {
     if (IS_NPC(ch))
 	return; 
