@@ -148,25 +148,33 @@ void say_spell( CHAR_DATA *ch, int sn )
 	{ " ",		" "		},
 	{ "ar",		"abra"		},
 	{ "au",		"kada"		},
+	{ "ball",	"orbis"		},
 	{ "bless",	"fido"		},
-	{ "blind",	"nose"		},
+	{ "blind",	"caecus"	},
+	{ "breath",	"spiritus"	},
 	{ "bur",	"mosa"		},
+	{ "cold",	"gelidus"	},
 	{ "cu",		"judi"		},
 	{ "de",		"oculo"		},
+	{ "detect",	"invenio"	},
 	{ "en",		"unso"		},
-	{ "light",	"dies"		},
+	{ "fire",	"fervens"	},
+	{ "light",	"lumen"		},
 	{ "lo",		"hi"		},
+	{ "hi",		"lo"		},
 	{ "mor",	"zak"		},
-	{ "move",	"sido"		},
+	{ "move",	"agito"		},
 	{ "ness",	"lacri"		},
 	{ "ning",	"illa"		},
 	{ "per",	"duda"		},
 	{ "ra",		"gru"		},
-	{ "fresh",	"ima"		},
+	{ "fresh",	"vegetus"	},
+	{ "ray",	"funis"		},
 	{ "re",		"candus"	},
 	{ "son",	"sabru"		},
 	{ "tect",	"infra"		},
 	{ "tri",	"cula"		},
+	{ "try",	"tendo"		},
 	{ "ven",	"nofo"		},
 	{ "a", "a" }, { "b", "b" }, { "c", "q" }, { "d", "e" },
 	{ "e", "z" }, { "f", "y" }, { "g", "o" }, { "h", "p" },
@@ -215,21 +223,21 @@ void say_spell( CHAR_DATA *ch, int sn )
  */
 bool saves_spell( int level, CHAR_DATA *victim, int dam_type )
 {
-	int save;
+	int save = 50 + ( victim->level - level) * 5 - victim->saving_throw * 2;
 
-	save = 50 + ( victim->level - level) * 5 - victim->saving_throw * 2;
-	if (IS_AFFECTED(victim,AFF_BERSERK))
-	save += victim->level/2;
+	// Not sure what berserking has to do with making your save?  Commented out for time being.
+	// if (IS_AFFECTED(victim,AFF_BERSERK))
+	// 	save += victim->level/2;
 
 	switch(check_immune(victim,dam_type))
 	{
-	case IS_IMMUNE:		return TRUE;
-	case IS_RESISTANT:	save += 2;	break;
-	case IS_VULNERABLE:	save -= 2;	break;
+		case IS_IMMUNE:		return TRUE;
+		case IS_RESISTANT:	save += 5;	break;
+		case IS_VULNERABLE:	save -= 5;	break;
 	}
 
 	if (!IS_NPC(victim) && class_table[victim->iclass].fMana)
-	save = 9 * save / 10;
+		save = 9 * save / 10;
 	save = URANGE( 5, save, 95 );
 	return number_percent( ) < save;
 }
@@ -238,10 +246,10 @@ bool saves_spell( int level, CHAR_DATA *victim, int dam_type )
 
 bool saves_dispel( int dis_level, int spell_level, int duration)
 {
-	int save;
+	int save = 0;
 	
 	if (duration == -1)
-	  spell_level += 5;  
+		spell_level += 5;  
 	  /* very hard to dispel permanent effects */
 
 	save = 50 + (spell_level - dis_level) * 5;
