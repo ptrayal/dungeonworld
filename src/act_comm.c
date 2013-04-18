@@ -95,71 +95,75 @@ void do_delete( CHAR_DATA *ch, char *argument)
 void do_channels( CHAR_DATA *ch, char *argument)
 {
 		/* lists all channels and their status */
-	send_to_char("   channel     status\n\r",ch);
-	send_to_char("---------------------\n\r",ch);
+	send_to_char("\tW|---------------------------|\tn\n\r",ch);
+	send_to_char( Format("\tW| \tY%-16s \tW| \tY%s \tW|\tn\n\r", "Channel", "Status"), ch);
+	send_to_char("\tW|---------------------------|\tn\n\r",ch);
 
-	send_to_char("gossip         ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Gossip"), ch);
 	if (!IS_SET(ch->comm,COMM_NOGOSSIP))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("auction        ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Auction"), ch);
 	if (!IS_SET(ch->comm,COMM_NOAUCTION))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("music          ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Music"), ch);
 	if (!IS_SET(ch->comm,COMM_NOMUSIC))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("Q/A            ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Q&A"), ch);
 	if (!IS_SET(ch->comm,COMM_NOQUESTION))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("Quote          ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Quote"), ch);
 	if (!IS_SET(ch->comm,COMM_NOQUOTE))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("grats          ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Grats"), ch);
 	if (!IS_SET(ch->comm,COMM_NOGRATS))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
 	if (IS_IMMORTAL(ch))
 	{
-		send_to_char("god channel    ",ch);
+		send_to_char( Format("\tW|\tn %-16s \tW|\tn", "God Channel"), ch);
 		if(!IS_SET(ch->comm,COMM_NOWIZ))
-			send_to_char("ON\n\r",ch);
+			send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 		else
-			send_to_char("OFF\n\r",ch);
+			send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 	}
 
-	send_to_char("shouts         ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Shouts"), ch);
 	if (!IS_SET(ch->comm,COMM_SHOUTSOFF))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("tells          ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Tells"), ch);
 	if (!IS_SET(ch->comm,COMM_DEAF))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char("quiet mode     ",ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Quiet Mode"), ch);
 	if (IS_SET(ch->comm,COMM_QUIET))
-		send_to_char("ON\n\r",ch);
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char("OFF\n\r",ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
+
+	send_to_char("\tW|---------------------------|\tn\n\r",ch);
+	send_to_char("\n\r", ch);
 
 	if (IS_SET(ch->comm,COMM_AFK))
 		send_to_char("You are AFK.\n\r",ch);
