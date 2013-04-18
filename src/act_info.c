@@ -419,7 +419,7 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 		}
 	}
 
-	if ( victim->description[0] != '\0' )
+	if ( !IS_NULLSTR(victim->description) )
 	{
 		send_to_char( victim->description, ch );
 	}
