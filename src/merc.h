@@ -1888,14 +1888,10 @@ struct mprog_code
 #define GET_AC(ch,type)		((ch)->armor[type]			    \
 				+ ( IS_AWAKE(ch)			    \
 			? dex_app[get_curr_stat(ch,STAT_DEX)].defensive : 0 ))  
-#define GET_HITROLL(ch)	\
-		((ch)->hitroll+str_app[get_curr_stat(ch,STAT_STR)].tohit)
-#define GET_DAMROLL(ch) \
-		((ch)->damroll+str_app[get_curr_stat(ch,STAT_STR)].todam)
+#define GET_HITROLL(ch)		((ch)->hitroll+str_app[get_curr_stat(ch,STAT_STR)].tohit)
+#define GET_DAMROLL(ch)		((ch)->damroll+str_app[get_curr_stat(ch,STAT_STR)].todam)
 
-#define IS_OUTSIDE(ch)		(!IS_SET(				    \
-					(ch)->in_room->room_flags,		    \
-					ROOM_INDOORS))
+#define IS_OUTSIDE(ch)		((!IS_SET( (ch)->in_room->room_flags, ROOM_INDOORS)) || (!IS_SET( (ch)->in_room->sector_type, SECT_UNDERGROUND)))
 
 #define WAIT_STATE(ch, npulse)	{ \
 	if(!IS_IMMORTAL((ch))) { \
