@@ -2823,48 +2823,47 @@ void do_flee( CHAR_DATA *ch, char *argument )
 	{
 		if ( ch->position == POS_FIGHTING )
 			ch->position = POS_STANDING;
-	send_to_char( "You aren't fighting anyone.\n\r", ch );
-	return;
+		send_to_char( "You aren't fighting anyone.\n\r", ch );
+		return;
 	}
 
 	was_in = ch->in_room;
 	for ( attempt = 0; attempt < 6; attempt++ )
 	{
-	EXIT_DATA *pexit;
-	int door;
+		EXIT_DATA *pexit;
+		int door;
 
-	door = number_door( );
-	if ( ( pexit = was_in->exit[door] ) == 0
-	||   pexit->u1.to_room == NULL
-	||   IS_SET(pexit->exit_info, EX_CLOSED)
-	||   number_range(0,ch->daze) != 0
-	|| ( IS_NPC(ch)
-	&&   IS_SET(pexit->u1.to_room->room_flags, ROOM_NO_MOB) ) )
-		continue;
+		door = number_door( );
+		if ( ( pexit = was_in->exit[door] ) == 0
+			||   pexit->u1.to_room == NULL
+			||   IS_SET(pexit->exit_info, EX_CLOSED)
+			||   number_range(0,ch->daze) != 0
+			|| ( IS_NPC(ch)
+				&&   IS_SET(pexit->u1.to_room->room_flags, ROOM_NO_MOB) ) )
+			continue;
 
-	move_char( ch, door, FALSE );
-	if ( ( now_in = ch->in_room ) == was_in )
-		continue;
+		move_char( ch, door, FALSE );
+		if ( ( now_in = ch->in_room ) == was_in )
+			continue;
 
-	ch->in_room = was_in;
-	act( "$n has fled!", ch, NULL, NULL, TO_ROOM );
-	ch->in_room = now_in;
+		ch->in_room = was_in;
+		act( "$n has fled!", ch, NULL, NULL, TO_ROOM );
+		ch->in_room = now_in;
 
-	if ( !IS_NPC(ch) )
-	{
-		send_to_char( "You flee from combat!\n\r", ch );
-	if( (ch->iclass == 2) 
-		&& (number_percent() < 3*(ch->level/2) ) )
-		send_to_char( "You snuck away safely.\n\r", ch);
-	else
+		if ( !IS_NPC(ch) )
 		{
-		send_to_char( "You lost 10 exp.\n\r", ch); 
-		gain_exp( ch, -10 );
+			send_to_char( "You flee from combat!\n\r", ch );
+			if( (ch->iclass == 2) && (number_percent() < 3*(ch->level/2) ) )
+				send_to_char( "You snuck away safely.\n\r", ch);
+			else
+			{
+				send_to_char( "You lost 10 exp.\n\r", ch); 
+				gain_exp( ch, -10 );
+			}
 		}
-	}
 
-	stop_fighting( ch, TRUE );
-	return;
+		stop_fighting( ch, TRUE );
+		return;
 	}
 
 	send_to_char( "PANIC! You couldn't escape!\n\r", ch );
@@ -2950,33 +2949,31 @@ void do_kick( CHAR_DATA *ch, char *argument )
 {
 	CHAR_DATA *victim;
 
-	if ( !IS_NPC(ch)
-	&&   ch->level < skill_table[gsn_kick].skill_level[ch->iclass] )
+	if ( !IS_NPC(ch) && ch->level < skill_table[gsn_kick].skill_level[ch->iclass] )
 	{
-	send_to_char(
-		"You better leave the martial arts to fighters.\n\r", ch );
-	return;
+		send_to_char( "You better leave the martial arts to fighters.\n\r", ch );
+		return;
 	}
 
 	if (IS_NPC(ch) && !IS_SET(ch->off_flags,OFF_KICK))
-	return;
+		return;
 
 	if ( ( victim = ch->fighting ) == NULL )
 	{
-	send_to_char( "You aren't fighting anyone.\n\r", ch );
-	return;
+		send_to_char( "You aren't fighting anyone.\n\r", ch );
+		return;
 	}
 
 	WAIT_STATE( ch, skill_table[gsn_kick].beats );
 	if ( get_skill(ch,gsn_kick) > number_percent())
 	{
-	damage(ch,victim,number_range( 1, ch->level ), gsn_kick,DAM_BASH,TRUE);
-	check_improve(ch,gsn_kick,TRUE,1);
+		damage(ch,victim,number_range( 1, ch->level ), gsn_kick,DAM_BASH,TRUE);
+		check_improve(ch,gsn_kick,TRUE,1);
 	}
 	else
 	{
-	damage( ch, victim, 0, gsn_kick,DAM_BASH,TRUE);
-	check_improve(ch,gsn_kick,FALSE,1);
+		damage( ch, victim, 0, gsn_kick,DAM_BASH,TRUE);
+		check_improve(ch,gsn_kick,FALSE,1);
 	}
 	check_killer(ch,victim);
 	return;
@@ -2995,28 +2992,28 @@ void do_disarm( CHAR_DATA *ch, char *argument )
 
 	if ((chance = get_skill(ch,gsn_disarm)) == 0)
 	{
-	send_to_char( "You don't know how to disarm opponents.\n\r", ch );
-	return;
+		send_to_char( "You don't know how to disarm opponents.\n\r", ch );
+		return;
 	}
 
 	if ( get_eq_char( ch, WEAR_WIELD ) == NULL 
-	&&   ((hth = get_skill(ch,gsn_hand_to_hand)) == 0
-	||    (IS_NPC(ch) && !IS_SET(ch->off_flags,OFF_DISARM))))
+		&&   ((hth = get_skill(ch,gsn_hand_to_hand)) == 0
+			||    (IS_NPC(ch) && !IS_SET(ch->off_flags,OFF_DISARM))))
 	{
-	send_to_char( "You must wield a weapon to disarm.\n\r", ch );
-	return;
+		send_to_char( "You must wield a weapon to disarm.\n\r", ch );
+		return;
 	}
 
 	if ( ( victim = ch->fighting ) == NULL )
 	{
-	send_to_char( "You aren't fighting anyone.\n\r", ch );
-	return;
+		send_to_char( "You aren't fighting anyone.\n\r", ch );
+		return;
 	}
 
 	if ( ( obj = get_eq_char( victim, WEAR_WIELD ) ) == NULL )
 	{
-	send_to_char( "Your opponent is not wielding a weapon.\n\r", ch );
-	return;
+		send_to_char( "Your opponent is not wielding a weapon.\n\r", ch );
+		return;
 	}
 
 	/* find weapon skills */
@@ -3028,9 +3025,9 @@ void do_disarm( CHAR_DATA *ch, char *argument )
 
 	/* skill */
 	if ( get_eq_char(ch,WEAR_WIELD) == NULL)
-	chance = chance * hth/150;
+		chance = chance * hth/150;
 	else
-	chance = chance * ch_weapon/100;
+		chance = chance * ch_weapon/100;
 
 	chance += (ch_vict_weapon/2 - vict_weapon) / 2; 
 
@@ -3040,21 +3037,21 @@ void do_disarm( CHAR_DATA *ch, char *argument )
 
 	/* level */
 	chance += (ch->level - victim->level) * 2;
- 
+
 	/* and now the attack */
 	if (number_percent() < chance)
 	{
 		WAIT_STATE( ch, skill_table[gsn_disarm].beats );
-	disarm( ch, victim );
-	check_improve(ch,gsn_disarm,TRUE,1);
+		disarm( ch, victim );
+		check_improve(ch,gsn_disarm,TRUE,1);
 	}
 	else
 	{
-	WAIT_STATE(ch,skill_table[gsn_disarm].beats);
-	act("You fail to disarm $N.",ch,NULL,victim,TO_CHAR);
-	act("$n tries to disarm you, but fails.",ch,NULL,victim,TO_VICT);
-	act("$n tries to disarm $N, but fails.",ch,NULL,victim,TO_NOTVICT);
-	check_improve(ch,gsn_disarm,FALSE,1);
+		WAIT_STATE(ch,skill_table[gsn_disarm].beats);
+		act("You fail to disarm $N.",ch,NULL,victim,TO_CHAR);
+		act("$n tries to disarm you, but fails.",ch,NULL,victim,TO_VICT);
+		act("$n tries to disarm $N, but fails.",ch,NULL,victim,TO_NOTVICT);
+		check_improve(ch,gsn_disarm,FALSE,1);
 	}
 	check_killer(ch,victim);
 	return;
@@ -3065,20 +3062,18 @@ void do_surrender( CHAR_DATA *ch, char *argument )
 	CHAR_DATA *mob;
 	if ( (mob = ch->fighting) == NULL )
 	{
-	send_to_char( "But you're not fighting!\n\r", ch );
-	return;
+		send_to_char( "But you're not fighting!\n\r", ch );
+		return;
 	}
 	act( "You surrender to $N!", ch, NULL, mob, TO_CHAR );
 	act( "$n surrenders to you!", ch, NULL, mob, TO_VICT );
 	act( "$n tries to surrender to $N!", ch, NULL, mob, TO_NOTVICT );
 	stop_fighting( ch, TRUE );
 
-	if ( !IS_NPC( ch ) && IS_NPC( mob ) 
-	&&   ( !HAS_TRIGGER( mob, TRIG_SURR ) 
-		|| !mp_percent_trigger( mob, ch, NULL, NULL, TRIG_SURR ) ) )
+	if ( !IS_NPC( ch ) && IS_NPC( mob ) && ( !HAS_TRIGGER( mob, TRIG_SURR ) || !mp_percent_trigger( mob, ch, NULL, NULL, TRIG_SURR ) ) )
 	{
-	act( "$N seems to ignore your cowardly act!", ch, NULL, mob, TO_CHAR );
-	multi_hit( mob, ch, TYPE_UNDEFINED );
+		act( "$N seems to ignore your cowardly act!", ch, NULL, mob, TO_CHAR );
+		multi_hit( mob, ch, TYPE_UNDEFINED );
 	}
 }
 
@@ -3098,26 +3093,26 @@ void do_slay( CHAR_DATA *ch, char *argument )
 	one_argument( argument, arg );
 	if ( arg[0] == '\0' )
 	{
-	send_to_char( "Slay whom?\n\r", ch );
-	return;
+		send_to_char( "Slay whom?\n\r", ch );
+		return;
 	}
 
 	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
 	{
-	send_to_char( "They aren't here.\n\r", ch );
-	return;
+		send_to_char( "They aren't here.\n\r", ch );
+		return;
 	}
 
 	if ( ch == victim )
 	{
-	send_to_char( "Suicide is a mortal sin.\n\r", ch );
-	return;
+		send_to_char( "Suicide is a mortal sin.\n\r", ch );
+		return;
 	}
 
 	if ( !IS_NPC(victim) && victim->level >= get_trust(ch) )
 	{
-	send_to_char( "You failed.\n\r", ch );
-	return;
+		send_to_char( "You failed.\n\r", ch );
+		return;
 	}
 
 	act( "You slay $M in cold blood!",  ch, NULL, victim, TO_CHAR    );

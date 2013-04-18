@@ -69,10 +69,8 @@ int max_on = 0;
 /*
  * Local functions.
  */
-char *	format_obj_to_char	args( ( OBJ_DATA *obj, CHAR_DATA *ch,
-					bool fShort ) );
-void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch,
-					bool fShort, bool fShowNothing ) );
+char *	format_obj_to_char	args( ( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort ) );
+void	show_list_to_char	args( ( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNothing ) );
 void	show_char_to_char_0	args( ( CHAR_DATA *victim, CHAR_DATA *ch ) );
 void	show_char_to_char_1	args( ( CHAR_DATA *victim, CHAR_DATA *ch ) );
 void	show_char_to_char	args( ( CHAR_DATA *list, CHAR_DATA *ch ) );
@@ -90,15 +88,18 @@ char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 	||  (IS_NULLSTR(obj->description)))
 	return buf;
 
-	if ( IS_OBJ_STAT(obj, ITEM_INVIS)     )   strcat( buf, "(Invis) "     );
-	if ( IS_AFFECTED(ch, AFF_DETECT_EVIL)
-		 && IS_OBJ_STAT(obj, ITEM_EVIL)   )   strcat( buf, "(Red Aura) "  );
-	if (IS_AFFECTED(ch, AFF_DETECT_GOOD)
-	&&  IS_OBJ_STAT(obj,ITEM_BLESS))	      strcat(buf,"(Blue Aura) "	);
-	if ( IS_AFFECTED(ch, AFF_DETECT_MAGIC)
-		 && IS_OBJ_STAT(obj, ITEM_MAGIC)  )   strcat( buf, "(Magical) "   );
-	if ( IS_OBJ_STAT(obj, ITEM_GLOW)      )   strcat( buf, "(Glowing) "   );
-	if ( IS_OBJ_STAT(obj, ITEM_HUM)       )   strcat( buf, "(Humming) "   );
+	if ( IS_OBJ_STAT(obj, ITEM_INVIS)     )
+		strcat( buf, "\tW(\tnInvis\tW)\tn "     );
+	if ( IS_AFFECTED(ch, AFF_DETECT_EVIL) && IS_OBJ_STAT(obj, ITEM_EVIL)   )
+		strcat( buf, "\tW(\tRRed Aura\tW)\tn "  );
+	if (IS_AFFECTED(ch, AFF_DETECT_GOOD) &&  IS_OBJ_STAT(obj,ITEM_BLESS))
+		strcat(buf,"\tW(\tBBlue Aura\tW)\tn "	);
+	if ( IS_AFFECTED(ch, AFF_DETECT_MAGIC) && IS_OBJ_STAT(obj, ITEM_MAGIC) )
+		strcat( buf, "\tW(\tnMagical\tW)\tn "   );
+	if ( IS_OBJ_STAT(obj, ITEM_GLOW) )
+		strcat( buf, "\tW(\tnGlowing\tW)\tn "   );
+	if ( IS_OBJ_STAT(obj, ITEM_HUM) )
+		strcat( buf, "\tW(\tnHumming\tW)\tn "   );
 
 	if ( fShort )
 	{
@@ -254,9 +255,9 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
 	if ( IS_AFFECTED(victim, AFF_PASS_DOOR)   ) strcat( buf, "(Translucent) ");
 	if ( IS_AFFECTED(victim, AFF_FAERIE_FIRE) ) strcat( buf, "(Pink Aura) "  );
 	if ( IS_EVIL(victim)
-	&&   IS_AFFECTED(ch, AFF_DETECT_EVIL)     ) strcat( buf, "(Red Aura) "   );
+	&&   IS_AFFECTED(ch, AFF_DETECT_EVIL)     ) strcat( buf, "\tW(\tRRed Aura\tW)\tn "   );
 	if ( IS_GOOD(victim)
-	&&   IS_AFFECTED(ch, AFF_DETECT_GOOD)     ) strcat( buf, "(Golden Aura) ");
+	&&   IS_AFFECTED(ch, AFF_DETECT_GOOD)     ) strcat( buf, "\tW(\tBBlue Aura\tW)\tn ");
 	if ( IS_AFFECTED(victim, AFF_SANCTUARY)   ) strcat( buf, "(White Aura) " );
 	if ( !IS_NPC(victim) && IS_SET(victim->act, PLR_KILLER ) )
 						strcat( buf, "(KILLER) "     );
@@ -405,80 +406,79 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 	OBJ_DATA *obj;
 	int iWear;
 	int percent;
-	bool found;
+	bool found = FALSE;
 
 	if ( can_see( victim, ch ) )
 	{
-	if (ch == victim)
-		act( "$n looks at $mself.",ch,NULL,NULL,TO_ROOM);
-	else
-	{
-		act( "$n looks at you.", ch, NULL, victim, TO_VICT    );
-		act( "$n looks at $N.",  ch, NULL, victim, TO_NOTVICT );
-	}
+		if (ch == victim)
+			act( "$n looks at $mself.",ch,NULL,NULL,TO_ROOM);
+		else
+		{
+			act( "$n looks at you.", ch, NULL, victim, TO_VICT    );
+			act( "$n looks at $N.",  ch, NULL, victim, TO_NOTVICT );
+		}
 	}
 
 	if ( victim->description[0] != '\0' )
 	{
-	send_to_char( victim->description, ch );
+		send_to_char( victim->description, ch );
 	}
 	else
 	{
-	act( "You see nothing special about $M.", ch, NULL, victim, TO_CHAR );
+		act( "You see nothing special about $M.", ch, NULL, victim, TO_CHAR );
 	}
 
 	if ( victim->max_hit > 0 )
-	percent = ( 100 * victim->hit ) / victim->max_hit;
+		percent = ( 100 * victim->hit ) / victim->max_hit;
 	else
-	percent = -1;
+		percent = -1;
 
 	strcpy( buf, PERS(victim, ch) );
 
 	if (percent >= 100) 
-	strcat( buf, " is in excellent condition.\n\r");
+		strcat( buf, " is in excellent condition.\n\r");
 	else if (percent >= 90) 
-	strcat( buf, " has a few scratches.\n\r");
+		strcat( buf, " has a few scratches.\n\r");
 	else if (percent >= 75) 
-	strcat( buf," has some small wounds and bruises.\n\r");
+		strcat( buf," has some small wounds and bruises.\n\r");
 	else if (percent >=  50) 
-	strcat( buf, " has quite a few wounds.\n\r");
+		strcat( buf, " has quite a few wounds.\n\r");
 	else if (percent >= 30)
-	strcat( buf, " has some big nasty wounds and scratches.\n\r");
+		strcat( buf, " has some big nasty wounds and scratches.\n\r");
 	else if (percent >= 15)
-	strcat ( buf, " looks pretty hurt.\n\r");
+		strcat ( buf, " looks pretty hurt.\n\r");
 	else if (percent >= 0 )
-	strcat (buf, " is in awful condition.\n\r");
+		strcat (buf, " is in awful condition.\n\r");
 	else
-	strcat(buf, " is bleeding to death.\n\r");
+		strcat(buf, " is bleeding to death.\n\r");
 
 	buf[0] = UPPER(buf[0]);
 	send_to_char( buf, ch );
 
-	found = FALSE;
 	for ( iWear = 0; iWear < MAX_WEAR; iWear++ )
 	{
-	if ( ( obj = get_eq_char( victim, iWear ) ) != NULL
-	&&   can_see_obj( ch, obj ) )
-	{
-		if ( !found )
+		if ( ( obj = get_eq_char( victim, iWear ) ) != NULL
+			&&   can_see_obj( ch, obj ) )
 		{
-		send_to_char( "\n\r", ch );
-		act( "$N is using:", ch, NULL, victim, TO_CHAR );
-		found = TRUE;
+			if ( !found )
+			{
+				send_to_char( "\n\r", ch );
+				act( "$N is using:", ch, NULL, victim, TO_CHAR );
+				found = TRUE;
+			}
+			send_to_char( where_name[iWear], ch );
+			send_to_char( format_obj_to_char( obj, ch, TRUE ), ch );
+			send_to_char( "\n\r", ch );
 		}
-		send_to_char( where_name[iWear], ch );
-		send_to_char( format_obj_to_char( obj, ch, TRUE ), ch );
-		send_to_char( "\n\r", ch );
-	}
 	}
 
 	if ( victim != ch
-	&&   !IS_NPC(ch)
-	&&   number_percent( ) < get_skill(ch,gsn_peek))
+		&&   !IS_NPC(ch)
+		&&   number_percent( ) < get_skill(ch,gsn_peek))
 	{
-	send_to_char( "\n\rYou peek at the inventory:\n\r", ch );
-	check_improve(ch,gsn_peek,TRUE,4);
-	show_list_to_char( victim->carrying, ch, TRUE, TRUE );
+		send_to_char( "\n\rYou peek at the inventory:\n\r", ch );
+		check_improve(ch,gsn_peek,TRUE,4);
+		show_list_to_char( victim->carrying, ch, TRUE, TRUE );
 	}
 
 	return;
@@ -492,21 +492,20 @@ void show_char_to_char( CHAR_DATA *list, CHAR_DATA *ch )
 
 	for ( rch = list; rch != NULL; rch = rch->next_in_room )
 	{
-	if ( rch == ch )
-		continue;
+		if ( rch == ch )
+			continue;
 
-	if ( get_trust(ch) < rch->invis_level)
-		continue;
+		if ( get_trust(ch) < rch->invis_level)
+			continue;
 
-	if ( can_see( ch, rch ) )
-	{
-		show_char_to_char_0( rch, ch );
-	}
-	else if ( room_is_dark( ch->in_room )
-	&&        IS_AFFECTED(rch, AFF_INFRARED ) )
-	{
-		send_to_char( "You see glowing red eyes watching YOU!\n\r", ch );
-	}
+		if ( can_see( ch, rch ) )
+		{
+			show_char_to_char_0( rch, ch );
+		}
+		else if ( room_is_dark( ch->in_room ) && IS_AFFECTED(rch, AFF_INFRARED ) )
+		{
+			send_to_char( "You see glowing red eyes watching YOU!\n\r", ch );
+		}
 	}
 
 	return;
@@ -518,12 +517,12 @@ bool check_blind( CHAR_DATA *ch )
 {
 
 	if (!IS_NPC(ch) && IS_SET(ch->act,PLR_HOLYLIGHT))
-	return TRUE;
+		return TRUE;
 
 	if ( IS_AFFECTED(ch, AFF_BLIND) )
 	{ 
-	send_to_char( "You can't see a thing!\n\r", ch ); 
-	return FALSE; 
+		send_to_char( "You can't see a thing!\n\r", ch ); 
+		return FALSE; 
 	}
 
 	return TRUE;
@@ -1720,8 +1719,7 @@ void do_help( CHAR_DATA *ch, char *argument )
 		{
 		/* add seperator if found */
 			if (found)
-				add_buf(output,
-					"\n\r============================================================\n\r\n\r");
+				add_buf(output, "\n\r============================================================\n\r\n\r");
 			if ( pHelp->level >= 0 && str_cmp( argall, "imotd" ) )
 			{
 				add_buf(output,pHelp->keyword);
@@ -2030,6 +2028,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 	return;
 }
 
+
 void do_count ( CHAR_DATA *ch, char *argument )
 {
 	int count = 0;
@@ -2047,13 +2046,13 @@ void do_count ( CHAR_DATA *ch, char *argument )
 			send_to_char( Format("There are %d characters on, the most on today was %d.\n\r", count, max_on), ch);
 	}
 
+
 void do_inventory( CHAR_DATA *ch, char *argument )
 {
 	send_to_char( "You are carrying:\n\r", ch );
 	show_list_to_char( ch->carrying, ch, TRUE, TRUE );
 	return;
 }
-
 
 
 void do_equipment( CHAR_DATA *ch, char *argument )
@@ -2087,7 +2086,6 @@ void do_equipment( CHAR_DATA *ch, char *argument )
 
 	return;
 }
-
 
 
 void do_compare( CHAR_DATA *ch, char *argument )
@@ -2189,7 +2187,6 @@ void do_compare( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_credits( CHAR_DATA *ch, char *argument )
 {
 	do_function(ch, &do_help, "diku" );
@@ -2200,7 +2197,6 @@ void do_credits( CHAR_DATA *ch, char *argument )
 
 	return;
 }
-
 
 
 void do_where( CHAR_DATA *ch, char *argument )
@@ -2258,8 +2254,6 @@ void do_where( CHAR_DATA *ch, char *argument )
 
 	return;
 }
-
-
 
 
 void do_consider( CHAR_DATA *ch, char *argument )
@@ -2350,7 +2344,6 @@ void do_title( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_description( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
@@ -2425,7 +2418,6 @@ void do_description( CHAR_DATA *ch, char *argument )
 	send_to_char( ch->description ? ch->description : "(None).\n\r", ch );
 	return;
 }
-
 
 
 void do_report( CHAR_DATA *ch, char *argument )
