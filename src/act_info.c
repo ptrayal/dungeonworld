@@ -255,148 +255,141 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
 	if ( IS_AFFECTED(victim, AFF_PASS_DOOR)   ) strcat( buf, "(Translucent) ");
 	if ( IS_AFFECTED(victim, AFF_FAERIE_FIRE) ) strcat( buf, "(Pink Aura) "  );
 	if ( IS_EVIL(victim)
-	&&   IS_AFFECTED(ch, AFF_DETECT_EVIL)     ) strcat( buf, "\tW(\tRRed Aura\tW)\tn "   );
-	if ( IS_GOOD(victim)
-	&&   IS_AFFECTED(ch, AFF_DETECT_GOOD)     ) strcat( buf, "\tW(\tBBlue Aura\tW)\tn ");
-	if ( IS_AFFECTED(victim, AFF_SANCTUARY)   ) strcat( buf, "(White Aura) " );
-	if ( !IS_NPC(victim) && IS_SET(victim->act, PLR_KILLER ) )
-						strcat( buf, "(KILLER) "     );
-	if ( !IS_NPC(victim) && IS_SET(victim->act, PLR_THIEF  ) )
-						strcat( buf, "(THIEF) "      );
-	if ( victim->position == victim->start_pos && victim->long_descr[0] != '\0' )
-	{
-	strcat( buf, victim->long_descr );
-	send_to_char( buf, ch );
-	return;
-	}
+		&&   IS_AFFECTED(ch, AFF_DETECT_EVIL)     ) strcat( buf, "\tW(\tRRed Aura\tW)\tn "   );
+		if ( IS_GOOD(victim)
+			&&   IS_AFFECTED(ch, AFF_DETECT_GOOD)     ) strcat( buf, "\tW(\tBBlue Aura\tW)\tn ");
+			if ( IS_AFFECTED(victim, AFF_SANCTUARY)   ) strcat( buf, "(White Aura) " );
+		if ( !IS_NPC(victim) && IS_SET(victim->act, PLR_KILLER ) )
+			strcat( buf, "(KILLER) "     );
+		if ( !IS_NPC(victim) && IS_SET(victim->act, PLR_THIEF  ) )
+			strcat( buf, "(THIEF) "      );
+		if ( victim->position == victim->start_pos && !IS_NULLSTR(victim->long_descr) )
+		{
+			strcat( buf, victim->long_descr );
+			send_to_char( buf, ch );
+			return;
+		}
 
-	strcat( buf, PERS( victim, ch ) );
-	if ( !IS_NPC(victim) && !IS_SET(ch->comm, COMM_BRIEF) 
-	&&   victim->position == POS_STANDING && ch->on == NULL )
-	strcat( buf, victim->pcdata->title );
+		strcat( buf, PERS( victim, ch ) );
+		if ( !IS_NPC(victim) && !IS_SET(ch->comm, COMM_BRIEF) 
+			&&   victim->position == POS_STANDING && ch->on == NULL )
+			strcat( buf, victim->pcdata->title );
 
-	switch ( victim->position )
-	{
-	case POS_DEAD:     strcat( buf, " is DEAD!!" );              break;
-	case POS_MORTAL:   strcat( buf, " is mortally wounded." );   break;
-	case POS_INCAP:    strcat( buf, " is incapacitated." );      break;
-	case POS_STUNNED:  strcat( buf, " is lying here stunned." ); break;
-	case POS_SLEEPING: 
-	if (victim->on != NULL)
-	{
-		if (IS_SET(victim->on->value[2],SLEEP_AT))
+		switch ( victim->position )
 		{
-		sprintf(message," is sleeping at %s.", victim->on->short_descr);
-		strcat(buf,message);
-		}
-		else if (IS_SET(victim->on->value[2],SLEEP_ON))
-		{
-		sprintf(message," is sleeping on %s.", victim->on->short_descr); 
-		strcat(buf,message);
-		}
-		else
-		{
-		sprintf(message, " is sleeping in %s.",	victim->on->short_descr);
-		strcat(buf,message);
-		}
-	}
-	else 
-		strcat(buf," is sleeping here.");
-	break;
-	case POS_RESTING:  
-		if (victim->on != NULL)
-	{
-			if (IS_SET(victim->on->value[2],REST_AT))
+			case POS_DEAD:     strcat( buf, " is DEAD!!" );              break;
+			case POS_MORTAL:   strcat( buf, " is mortally wounded." );   break;
+			case POS_INCAP:    strcat( buf, " is incapacitated." );      break;
+			case POS_STUNNED:  strcat( buf, " is lying here stunned." ); break;
+			case POS_SLEEPING: 
+			if (victim->on != NULL)
 			{
-				sprintf(message," is resting at %s.", victim->on->short_descr);
-				strcat(buf,message);
-			}
-			else if (IS_SET(victim->on->value[2],REST_ON))
-			{
-				sprintf(message," is resting on %s.", victim->on->short_descr);
-				strcat(buf,message);
+				if (IS_SET(victim->on->value[2],SLEEP_AT))
+				{
+					sprintf(message," is sleeping at %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
+				else if (IS_SET(victim->on->value[2],SLEEP_ON))
+				{
+					sprintf(message," is sleeping on %s.", victim->on->short_descr); 
+					strcat(buf,message);
+				}
+				else
+				{
+					sprintf(message, " is sleeping in %s.",	victim->on->short_descr);
+					strcat(buf,message);
+				}
 			}
 			else 
+				strcat(buf," is sleeping here.");
+			break;
+			case POS_RESTING:  
+			if (victim->on != NULL)
 			{
-				sprintf(message, " is resting in %s.",
-					victim->on->short_descr);
-				strcat(buf,message);
-			}
-	}
-		else
-		strcat( buf, " is resting here." );       
-	break;
-	case POS_SITTING:  
-		if (victim->on != NULL)
-		{
-			if (IS_SET(victim->on->value[2],SIT_AT))
-			{
-				sprintf(message," is sitting at %s.",
-					victim->on->short_descr);
-				strcat(buf,message);
-			}
-			else if (IS_SET(victim->on->value[2],SIT_ON))
-			{
-				sprintf(message," is sitting on %s.",
-					victim->on->short_descr);
-				strcat(buf,message);
+				if (IS_SET(victim->on->value[2],REST_AT))
+				{
+					sprintf(message," is resting at %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
+				else if (IS_SET(victim->on->value[2],REST_ON))
+				{
+					sprintf(message," is resting on %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
+				else 
+				{
+					sprintf(message, " is resting in %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
 			}
 			else
+				strcat( buf, " is resting here." );       
+			break;
+			case POS_SITTING:  
+			if (victim->on != NULL)
 			{
-				sprintf(message, " is sitting in %s.",
-					victim->on->short_descr);
-				strcat(buf,message);
+				if (IS_SET(victim->on->value[2],SIT_AT))
+				{
+					sprintf(message," is sitting at %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
+				else if (IS_SET(victim->on->value[2],SIT_ON))
+				{
+					sprintf(message," is sitting on %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
+				else
+				{
+					sprintf(message, " is sitting in %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
 			}
+			else
+				strcat(buf, " is sitting here.");
+			break;
+			case POS_STANDING: 
+			if (victim->on != NULL)
+			{
+				if (IS_SET(victim->on->value[2],STAND_AT))
+				{
+					sprintf(message," is standing at %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
+				else if (IS_SET(victim->on->value[2],STAND_ON))
+				{
+					sprintf(message," is standing on %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
+				else
+				{
+					sprintf(message," is standing in %s.", victim->on->short_descr);
+					strcat(buf,message);
+				}
+			}
+			else
+				strcat( buf, " is here." );               
+			break;
+			case POS_FIGHTING:
+			strcat( buf, " is here, fighting " );
+			if ( victim->fighting == NULL )
+				strcat( buf, "thin air??" );
+			else if ( victim->fighting == ch )
+				strcat( buf, "YOU!" );
+			else if ( victim->in_room == victim->fighting->in_room )
+			{
+				strcat( buf, PERS( victim->fighting, ch ) );
+				strcat( buf, "." );
+			}
+			else
+				strcat( buf, "someone who left??" );
+			break;
 		}
-		else
-		strcat(buf, " is sitting here.");
-	break;
-	case POS_STANDING: 
-	if (victim->on != NULL)
-	{
-		if (IS_SET(victim->on->value[2],STAND_AT))
-		{
-		sprintf(message," is standing at %s.",
-			victim->on->short_descr);
-		strcat(buf,message);
-		}
-		else if (IS_SET(victim->on->value[2],STAND_ON))
-		{
-		sprintf(message," is standing on %s.",
-		   victim->on->short_descr);
-		strcat(buf,message);
-		}
-		else
-		{
-		sprintf(message," is standing in %s.",
-			victim->on->short_descr);
-		strcat(buf,message);
-		}
-	}
-	else
-		strcat( buf, " is here." );               
-	break;
-	case POS_FIGHTING:
-	strcat( buf, " is here, fighting " );
-	if ( victim->fighting == NULL )
-		strcat( buf, "thin air??" );
-	else if ( victim->fighting == ch )
-		strcat( buf, "YOU!" );
-	else if ( victim->in_room == victim->fighting->in_room )
-	{
-		strcat( buf, PERS( victim->fighting, ch ) );
-		strcat( buf, "." );
-	}
-	else
-		strcat( buf, "someone who left??" );
-	break;
-	}
 
-	strcat( buf, "\n\r" );
-	buf[0] = UPPER(buf[0]);
-	send_to_char( buf, ch );
-	return;
-}
+		strcat( buf, "\n\r" );
+		buf[0] = UPPER(buf[0]);
+		send_to_char( buf, ch );
+		return;
+	}
 
 
 
