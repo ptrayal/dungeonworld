@@ -354,7 +354,7 @@ BC BC BC AB 0
 belt silk black~
 a black silk belt~
 A black belt made of the finest silk is hanging here.~
-oldstyle~
+cloth~
 armor 0 AL
 BC BC BC B 0
 17 250 3900 P
@@ -364,7 +364,7 @@ A
 belt silk white~
 a white silk belt~
 A white belt made of the finest silk is hanging here.~
-oldstyle~
+cloth~
 armor 0 AL
 BC BC BC B 0
 17 250 3900 P

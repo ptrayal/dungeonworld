@@ -302,14 +302,14 @@ AC D ABC 0 0
 scythe~
 a huge, wicked-looking scythe~
 An evil, wicked-looking scythe lies in the shadows.~
-oldstyle~
+iron~
 weapon HJ AN
-polearm 4 4 slice F
+polearm 2 6 slice F
 19 160 1770 P
 A
-18 3
+19 1
 A
-19 3
+18 1
 #8307
 green potion~
 a murky green potion~

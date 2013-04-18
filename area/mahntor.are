@@ -1458,7 +1458,7 @@ potion AGN A
 pouch belt~
 a belt pouch~
 A belt pouch lies here.~
-oldstyle~
+leather~
 container 0 AL
 15 0 0 2 100
 0 50 20 P

@@ -212,11 +212,11 @@ A
 A
 18 1
 #5206
-girth mithril~
-a mithril girth~
-A large iron girth lies at your feet.~
-oldstyle~
-armor GK AL
+girdle mithril toughness~
+mithril girdle of toughness~
+A mithril girdle is here.~
+mithril~
+armor G AL
 D D D B 0
 26 60 5200 P
 A

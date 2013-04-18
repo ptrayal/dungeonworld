@@ -1129,17 +1129,15 @@ A
 A
 4 2
 #653
-ranseur polearm~
-a ranseur~
+halberd polearm~
+a halberd~
 A heavy polearm is against the wall here, ready to inflict damage.~
-oldstyle~
-weapon GK AN
-polearm 4 6 thrust F
+iron~
+weapon 0 AN
+polearm 2 7 thrust F
 24 200 1460 P
 A
-18 3
-A
-19 -1
+19 1
 #654
 torso dragonscale golden~
 a golden dragonscale torso~

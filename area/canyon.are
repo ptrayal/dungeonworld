@@ -605,15 +605,13 @@ AD AD AD AB 0
 A
 20 -2
 #9207
-sword lightning bolt~
-a sparking lightning sword~
-A lightning bolt fashioned into a sword spits sparks here.~
+wicked broad sword lightning~
+wicked broad sword of lightning~
+A broad sword crackling with lightning is here.~
 lightning~
 weapon AB AN
-sword 5 4 slash H
+sword 4 7 slash G
 25 100 2200 P
-A
-18 -1
 A
 19 2
 #9208
@@ -789,17 +787,15 @@ pill 0 A
 20 'detect invis' '' '' ''
 0 10 300 P
 #9226
-flame lance~
-a flame lance~
-A lance of blue flame burns the ground around it.~
-oldstyle~
+trident flame flaming~
+flaming trident~
+A trident with flames dancing around it is here.~
+iron~
 weapon A AN
-staff 2 15 thrust A
+staff 3 5 thrust AF
 29 140 220 P
 A
-13 -20
-A
-18 2
+19 2
 #9227
 icicle dagger ice~
 an icicle~
