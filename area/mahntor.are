@@ -402,20 +402,20 @@ EFNU 0 0 0
 stand stand male 5000
 AHMV ABCDEFGHIJK medium unknown
 #2326
-oldstyle darkoth minotaur anti-paladin master~
+darkoth minotaur anti-paladin master~
 Darkoth~
 Darkoth, the minotaur anti-paladin, stands here grinning wickedly.
 ~
 Darkoth is a living incarnation of evil. He radiates a dark aura, and a cold
 chill runs down your spine. He is the master of the Mahn-Tor anti-paladins.
 ~
-human~
+minotaur~
 ABF DH -1000 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand male 5000
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW large unknown
 #2327
 oldstyle tyrgoth minotaur paladin master~
 Tyrgoth~
@@ -432,7 +432,7 @@ EFNU 0 0 0
 stand stand male 5000
 AHMV ABCDEFGHIJK medium unknown
 #2328
-oldstyle amyrok minotaur mage master~
+amyrok minotaur mage master~
 Amyrok~
 Amyrok, the minotaur archmage, is here chanting arcane spells.
 ~
@@ -440,13 +440,13 @@ Amyrok is a small minotaur. He is clad in loose robes and emits an aura of
 power. He appears quite dangerous, despite his size. He is the leader of the
 mages of Mahn-Tor.
 ~
-human~
+minotaur~
 ABFR DH 300 0
 30 0 6d12+778 30d9+100 5d4+7 none
 -9 -9 -9 1
 FU 0 0 0
 stand stand male 5000
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW medium unknown
 #2329
 oldstyle sumaron minotaur cleric master~
 Sumaron~
@@ -532,14 +532,14 @@ AHMV ABCDEFGHIJK medium unknown
 gloves combat~
 a pair of minotaur combat gloves~
 A pair of metal plated gloves lie here.~
-oldstyle~
+leather~
 armor 0 AH
 D D D 0 0
 25 60 2600 P
 A
-18 1
-A
 19 1
+A
+18 1
 E
 gloves combat~
 These gloves are plated with metal plates that provide strength and 
@@ -549,7 +549,7 @@ protection.
 spiked armor garde~
 a suit of spiked garde armor~
 A pile of spiked chainmail lies here.~
-oldstyle~
+steel~
 armor 0 AD
 ABC ABC ABC 0 0
 22 80 4200 P
@@ -559,7 +559,7 @@ A
 greaves black~
 a pair of black minotaur greaves~
 Some black metal greaves lie here.~
-oldstyle~
+steel~
 armor 0 AF
 AD AD AD 0 0
 30 90 2600 P
@@ -567,7 +567,7 @@ AD AD AD 0 0
 vambraces black~
 a pair of black minotaur vambraces~
 Some black metal vambraces lie here.~
-oldstyle~
+steel~
 armor 0 AI
 AD AD AD 0 0
 30 90 2600 P
@@ -575,19 +575,19 @@ AD AD AD 0 0
 rod weaponry~
 the rod of weaponry~
 A shiny metal rod lies here.~
-oldstyle~
+steel~
 weapon AGI AN
 exotic 2 12 blast 0
 28 240 4700 P
 A
-18 3
-A
 19 3
+A
+18 3
 #2305
 cloak pitch black~
 a pitch black cloak~
 A pile of black cloth lies here.~
-oldstyle~
+cloth~
 container G AK
 150 0 0 30 90
 20 30 860 P
@@ -601,7 +601,7 @@ It appears to have pockets inside it.
 neckguard neck guard black plate~
 a black plate neckguard~
 A black plate collar rests here.~
-oldstyle~
+steel~
 armor GJL AC
 AD AD AD 0 0
 30 100 3400 P
@@ -611,7 +611,7 @@ A
 spiked gauntlets~
 a pair of spiked gauntlets~
 A pair of spiked gauntlets lies here.~
-oldstyle~
+steel~
 armor 0 AH
 AB AB AB 0 0
 20 100 1570 P
@@ -625,14 +625,14 @@ They look pretty damaging.
 shield shadow~
 the shadow shield~
 A shadowy shield rests here.~
-oldstyle~
+shadow~
 armor AGJL AJ
 D D D AB 0
 27 150 4900 P
 A
-17 -2
-A
 20 -2
+A
+17 -2
 E
 shield shadow~
 You look into the depths of the shield and shiver at the evil it contains.
@@ -646,9 +646,9 @@ weapon CGJL AN
 sword 5 4 pierce 0
 27 90 3500 P
 A
-18 3
-A
 19 3
+A
+18 3
 E
 nightbringer short sword shortsword~
 The runes "NiGHtBrINgeR" are scrawled along the blade.
@@ -662,9 +662,9 @@ armor AGKL AE
 ABC ABC ABC B 0
 20 150 3000 P
 A
-4 1
-A
 3 1
+A
+4 1
 #2311
 breast plate gilded gold~
 a gilded gold breast plate~
@@ -704,9 +704,9 @@ weapon AGKL AN
 mace 4 6 blast F
 28 240 3200 P
 A
-18 3
-A
 19 3
+A
+18 3
 E
 dawnbringer mace huge~
 The runes "DAwNbRIngER" are scrawled along the handle.
@@ -715,7 +715,7 @@ The runes "DAwNbRIngER" are scrawled along the handle.
 spectacles wire rimmed~
 a pair of wire rimmed spectacles~
 A small pair of wire rimmed spectacles rests here.~
-oldstyle~
+iron~
 clothing G AE
 0 0 0 0 0
 15 20 2600 P
@@ -729,7 +729,7 @@ They'll make you look smart.
 ring banded~
 a banded ring~
 A small ring made of gold and silver bands lies here.~
-oldstyle~
+gold~
 jewelry AG AB
 0 0 0 0 0
 30 20 1520 P
@@ -743,7 +743,7 @@ The ring has entwined bands of gold and silver.
 globe minor~
 a minor globe of invulnerability~
 A small globe rests here. It shimmers and radiates power.~
-oldstyle~
+energy~
 armor AG AK
 D D D C 0
 27 10 3200 P
@@ -757,16 +757,16 @@ Shimmering colors move inside the globe.
 staff gnarled magius~
 a gnarled magius staff~
 A gnarled staff lies here.~
-oldstyle~
+wood~
 weapon G AN
 staff 5 4 pound F
 27 100 2900 P
 A
-18 3
+20 -2
 A
 19 3
 A
-20 -2
+18 3
 E
 staff gnarled magius~
 It appears to be simply a gnarled old limb. It feels powerful though.
@@ -774,8 +774,8 @@ It appears to be simply a gnarled old limb. It feels powerful though.
 #2319
 girdle pouches many~
 a girdle of many pouches~
-A girdle lies here.~
-oldstyle~
+A leather girls lies here.~
+leather~
 container Y AL
 500 0 0 10 25
 0 50 1000 P
@@ -822,9 +822,9 @@ weapon AG AN
 mace 5 4 crush 0
 26 130 1960 P
 A
-18 2
-A
 19 2
+A
+18 2
 #2324
 symbol holy golden~
 a golden holy symbol~
@@ -890,9 +890,9 @@ weapon G AN
 staff 7 3 pound BF
 28 130 1470 P
 A
-18 2
-A
 12 20
+A
+18 2
 E
 staff ice~
 The runes "FrIgID" are inscribed in the icy staff.
@@ -906,9 +906,9 @@ jewelry G AB
 0 0 0 0 0
 7 30 460 P
 A
-18 1
-A
 19 1
+A
+18 1
 #2331
 horn life~
 the horn of life~
@@ -954,9 +954,9 @@ weapon G AN
 exotic 3 9 pierce F
 27 150 4300 P
 A
-18 1
-A
 19 1
+A
+18 1
 #2335
 pack leather small~
 a small leather pack~
@@ -1006,9 +1006,9 @@ weapon G AN
 sword 3 8 pierce 0
 26 110 2300 P
 A
-18 1
-A
 19 1
+A
+18 1
 E
 sword wicked short shortsword~
 It looks just perfect for backstabbing.
@@ -1036,9 +1036,9 @@ armor G AD
 AD AD AD B 0
 30 120 7000 P
 A
-1 1
-A
 5 1
+A
+1 1
 #2342
 buckler spiked~
 a spiked buckler~
@@ -1058,9 +1058,9 @@ jewelry G AB
 0 0 0 0 0
 13 10 1020 P
 A
-19 1
-A
 17 -3
+A
+19 1
 #2344
 helm horned~
 a horned minotaur helm~
@@ -1073,14 +1073,14 @@ BD BD BD B 0
 axe great~
 mahn-Tor's Great Axe~
 An extremely huge axe is resting here.~
-oldstyle~
+steel~
 weapon BG AN
 axe 5 5 slash 0
 31 260 3400 P
 A
-18 2
-A
 19 2
+A
+18 2
 E
 axe great~
 The runes "DeAtH" are scrawled along the blade.
@@ -1120,9 +1120,9 @@ weapon AJ AN
 exotic 2 12 slash 0
 25 30 3200 P
 A
-18 1
-A
 19 1
+A
+18 1
 E
 blade ethereal~
 You can almost see through it.
@@ -1270,7 +1270,7 @@ BC BC BC 0 0
 axe battle battleaxe~
 a battle axe~
 A dangerous looking battle axe rests here.~
-oldstyle~
+steel~
 weapon 0 AN
 axe 4 4 slash 0
 17 180 1310 P
@@ -1299,9 +1299,9 @@ weapon G AN
 polearm 2 10 cleave F
 18 180 690 P
 A
-18 1
-A
 19 1
+A
+18 1
 #2369
 visor blue steel helm~
 a blue steel helm and visor~
@@ -1335,9 +1335,9 @@ weapon G AN
 sword 6 3 slash F
 22 180 2500 P
 A
-18 2
-A
 19 2
+A
+18 2
 #2373
 visor helm steel red~
 a red steel helm and visor~
@@ -1371,9 +1371,9 @@ weapon G AN
 polearm 5 4 slash F
 22 190 830 P
 A
-18 1
-A
 19 1
+A
+18 1
 #2377
 visor helm crimson steel~
 a crimson steel helm and visor~
@@ -1407,9 +1407,9 @@ weapon G AN
 mace 7 3 pound 0
 29 200 2300 P
 A
-18 2
-A
 19 2
+A
+18 2
 E
 star morning morningstar~
 It looks damaging.
@@ -1503,9 +1503,9 @@ armor BG AH
 ABC ABC ABC 0 0
 23 130 5800 P
 A
-1 2
-A
 19 2
+A
+1 2
 E
 gauntlets ogre power~
 They look very "handy".
@@ -2056,13 +2056,13 @@ There are small inscriptions on the rock at the base of the portal.
 ~
 0 0 2
 E
-small inscriptions inscription~
-"Enter all ye who wish to join the Brotherhood!"
-~
-E
 portal blue~
 You see a swirling blue portal of light. You think you can see glimpses of
 something moving on the "other side".
+~
+E
+small inscriptions inscription~
+"Enter all ye who wish to join the Brotherhood!"
 ~
 D0
 (null)~
@@ -3291,12 +3291,12 @@ door is to the west. To the east, you see a heavy stone door.
 ~
 0 8 0
 E
-gold~
-Looks like the back of a secret door of sorts.
-~
-E
 huge stone~
 A very formidable looking door.
+~
+E
+gold~
+Looks like the back of a secret door of sorts.
 ~
 D1
 (null)~
@@ -3358,12 +3358,12 @@ itself leads south and north.
 ~
 0 8 0
 E
-red~
-You see a red door. It has the name "Gorak" written on it.
-~
-E
 yellow~
 You see a yellow door. It has the name "Sumaron" written on it.
+~
+E
+red~
+You see a red door. It has the name "Gorak" written on it.
 ~
 D0
 (null)~
@@ -3390,12 +3390,12 @@ black door. The hall itself leads north and south.
 ~
 0 8 0
 E
-black~
-You see a black door. It has the name "Darkoth" inscribed on it.
-~
-E
 maroon~
 You see a maroon door here. It has the name "Amyrok" written on it.
+~
+E
+black~
+You see a black door. It has the name "Darkoth" inscribed on it.
 ~
 D0
 (null)~
@@ -3456,12 +3456,12 @@ south.
 ~
 0 8 0
 E
-white~
-You see a white door here. It has the name "Tyrgoth" inscribed on it.
-~
-E
 green~
 You see a green door here. It has the name "Nasturn" written on it.
+~
+E
+white~
+You see a white door here. It has the name "Tyrgoth" inscribed on it.
 ~
 D0
 (null)~
@@ -3553,12 +3553,12 @@ itself leads north back along the rows of doors.
 ~
 0 8 0
 E
-brown~
-You see a brown door here. It has the name "Belrak" written on it.
-~
-E
 grey~
 You see a grey door here. It has the name "Dorgar" written on it.
+~
+E
+brown~
+You see a brown door here. It has the name "Belrak" written on it.
 ~
 D0
 (null)~

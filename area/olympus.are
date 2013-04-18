@@ -469,7 +469,7 @@ A 0 0 T
 staff ivory~
 an ivory staff~
 An ivory staff.~
-oldstyle~
+ivory~
 staff FGK AO
 30 3 3 'sanctuary' 0
 15 80 5800 P
@@ -517,7 +517,7 @@ potion FGK A
 necklace glowing~
 a glowing necklace~
 A necklace with an inner glow lies here.~
-oldstyle~
+gold~
 jewelry FGK AC
 0 0 0 0 0
 25 20 980 P
@@ -549,7 +549,7 @@ A
 axe notched~
 a notched axe~
 A notched axe.~
-oldstyle~
+steel~
 weapon FGK AN
 axe 3 11 slice 0
 35 120 3600 P

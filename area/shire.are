@@ -521,7 +521,7 @@ AHMV ABCDEFGHIJK medium unknown
 rainbow staff~
 the rainbow staff~
 The rainbow staff lies here.~
-oldstyle~
+wood~
 light G A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 5 80 550 P
@@ -583,10 +583,10 @@ oldstyle~
 jewelry G AB
 0 0 0 0 0
 20 30 1660 P
-F
-A 0 0 B
 A
 1 -1
+F
+A 0 0 B
 #1106
 elven spear~
 an elven spear~
@@ -686,9 +686,9 @@ weapon 0 AN
 dagger 2 4 pierce 0
 6 10 480 P
 A
-19 1
-A
 18 1
+A
+19 1
 #1117
 club heavy~
 the Thain's club~

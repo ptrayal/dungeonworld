@@ -1,7 +1,7 @@
 #AREADATA
 Name Limbo~
 Builders None~
-VNUMs 1 25
+VNUMs 1 299
 Credits {None } Diku    Limbo~
 Security 9
 End
@@ -158,6 +158,18 @@ shadow~
 portal GOT 0
 0 0 0 0 0
 0 0 0 P
+#299
+hammer gods~
+hammer of the Gods~
+A massive hammer lies here.~
+adamantite~
+weapon BG AN
+mace 7 6 divine A
+50 100 0 P
+A
+19 8
+A
+18 1
 #0
 
 

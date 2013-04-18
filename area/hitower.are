@@ -1080,9 +1080,9 @@ weapon G AN
 mace 2 6 pound 0
 12 190 1410 P
 A
-1 1
-A
 18 2
+A
+1 1
 #1315
 chest~
 a chest~
@@ -1108,9 +1108,9 @@ weapon 0 AN
 sword 1 8 slash 0
 6 80 720 P
 A
-19 2
-A
 18 1
+A
+19 2
 #1318
 dagger silver~
 a silver dagger~
@@ -1120,9 +1120,9 @@ weapon 0 AN
 dagger 3 3 pierce 0
 10 50 970 P
 A
-19 2
-A
 18 2
+A
+19 2
 #1319
 scimitar~
 a curved scimitar~
@@ -1137,7 +1137,7 @@ A
 staff wooden~
 a wooden staff~
 A wooden staff is against the wall here.~
-oldstyle~
+wood~
 weapon 0 AN
 staff 1 4 crush 0
 0 60 42 P
@@ -1185,7 +1185,7 @@ BDFIK 0 0 0 0
 staff red white~
 a red and white staff~
 A red and white staff is leaning against the wall here~
-oldstyle~
+wood~
 staff 0 AO
 20 3 3 'heal' 0
 15 80 5600 P
@@ -1193,7 +1193,7 @@ staff 0 AO
 staff burnt~
 a burnt staff~
 A burnt staff is leaning against the wall here.~
-oldstyle~
+wood~
 staff 0 AO
 20 4 4 'blindness' 0
 6 60 1720 P
@@ -1262,9 +1262,9 @@ clothing G AE
 0 0 0 0 0
 7 40 1140 P
 A
-4 1
-A
 3 1
+A
+4 1
 #1336
 altar~
 a golden altar~
@@ -1282,9 +1282,9 @@ jewelry GI AC
 0 0 0 0 0
 13 30 2200 P
 A
-5 -1
-A
 4 2
+A
+5 -1
 #1338
 chest~
 a large chest~
@@ -1320,9 +1320,9 @@ clothing 0 AC
 0 0 0 0 0
 35 50 4300 P
 A
-20 -3
-A
 17 -5
+A
+20 -3
 #1342
 chameleon poncho~
 a chameleon poncho~
@@ -1332,9 +1332,9 @@ clothing G AK
 0 0 0 0 0
 17 40 3600 P
 A
-17 -3
-A
 2 2
+A
+17 -3
 #1343
 boots worn~
 a pair of old boots~
@@ -1394,9 +1394,9 @@ trash GH A
 0 0 0 0 0
 0 150 0 P
 A
-14 -82
-A
 12 -100
+A
+14 -82
 #1357
 dagger silvery~
 a silvery dagger~
@@ -1411,7 +1411,7 @@ A
 scroll~
 a scroll~
 A scroll is here.~
-oldstyle~
+vellum~
 scroll 0 A
 21 'blindness' 'curse' 'sleep' ''
 11 50 1570 P
@@ -1419,7 +1419,7 @@ scroll 0 A
 scroll bound~
 a bound scroll~
 A bound scroll is here blowing in the breeze.~
-oldstyle~
+vellum~
 scroll G AO
 16 'armor' 'teleport' 'protection evil' ''
 24 30 3000 P
@@ -1437,7 +1437,7 @@ container GY A
 scroll old~
 an old scroll~
 An old scroll has been left here.~
-oldstyle~
+vellum~
 scroll 0 A
 10 'create food' '' '' ''
 0 20 400 P
@@ -1515,7 +1515,7 @@ potion 0 A
 staff black~
 a black staff~
 A black staff is leaning against the wall here.~
-oldstyle~
+wood~
 staff G AO
 18 2 2 'teleport' 0
 9 50 2600 P
@@ -1562,9 +1562,9 @@ weapon AG AN
 dagger 3 6 pierce 0
 20 60 2100 P
 A
-19 2
-A
 2 1
+A
+19 2
 #1377
 pouch belt beltpouch~
 a beltpouch~
@@ -1590,9 +1590,9 @@ clothing GJ AC
 0 0 0 0 0
 26 50 2900 P
 A
-20 -2
-A
 17 -6
+A
+20 -2
 #1380
 wand ashen~
 an ashen wand~
@@ -1618,9 +1618,9 @@ container GJKY AK
 50 0 0 10 75
 26 80 2900 P
 A
-20 -2
-A
 17 -6
+A
+20 -2
 #1383
 cloak grey~
 a long grey cloak~
@@ -1630,9 +1630,9 @@ clothing GJK AC
 0 0 0 0 0
 29 70 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1384
 bracelet silver~
 a glinting silver bracelet~
@@ -1647,7 +1647,7 @@ A
 staff~
 an iron shod staff~
 A grey piece of wood shod in iron has been left here.~
-oldstyle~
+wood~
 weapon G AN
 staff 3 9 pound F
 27 70 1280 P
@@ -1672,9 +1672,9 @@ container GJLY AK
 50 0 0 10 75
 22 80 2400 P
 A
-20 -2
-A
 17 -5
+A
+20 -2
 #1388
 bracelet onyx~
 an onyx bracelet~
@@ -1694,9 +1694,9 @@ clothing GJL AC
 0 0 0 0 0
 29 80 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1390
 shard black obsidian~
 a sharp shard of obsidian~
@@ -1716,9 +1716,9 @@ container GKLY AK
 50 0 0 10 75
 22 70 2400 P
 A
-20 -2
-A
 17 -5
+A
+20 -2
 #1392
 bracelet white gold~
 a white gold bracelet~
@@ -1738,9 +1738,9 @@ clothing GIKL AC
 0 0 0 0 0
 29 70 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1394
 ivory dagger~
 an ivory hilted dagger~
@@ -1750,9 +1750,9 @@ weapon GIK AN
 dagger 3 8 pierce 0
 27 10 2100 P
 A
-19 2
-A
 18 1
+A
+19 2
 #1395
 collar spiked~
 a spiked collar~
@@ -1762,9 +1762,9 @@ armor G AC
 B B B 0 0
 20 90 1970 P
 A
-19 2
-A
 17 -2
+A
+19 2
 #1396
 cloak shimmering~
 a shimmering cloak of many colors~
@@ -1774,9 +1774,9 @@ container AGY AC
 100 0 0 10 25
 50 80 10800 P
 A
-20 -4
-A
 17 -12
+A
+20 -4
 #1397
 emerald ring~
 a small emerald ring~
@@ -1796,9 +1796,9 @@ jewelry G AM
 0 0 0 0 0
 20 50 2200 P
 A
-3 1
-A
 17 -5
+A
+3 1
 #1399
 ward major clear crystal~
 a ward major~
@@ -1808,9 +1808,9 @@ gem AG AO
 0 0 0 0 0
 40 60 5100 P
 A
-20 -2
-A
 17 -10
+A
+20 -2
 #1400
 ebony kris~
 the ebony kris~
@@ -1820,9 +1820,9 @@ weapon G AN
 dagger 6 6 pierce 0
 46 30 10700 P
 A
-19 5
-A
 2 2
+A
+19 5
 #1401
 green scale shirt~
 a tight fitting green dragon scale shirt~
@@ -1832,9 +1832,9 @@ armor G AD
 BD BD BD AC 0
 37 90 17800 P
 A
-17 -5
-A
 2 3
+A
+17 -5
 E
 green scale shirt~
 Green dragon scale shirt was made from a poor unfortunate green dragon.
@@ -1900,6 +1900,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1304
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1302
 D3
 The shadows cloud your vision.
 ~
@@ -1910,11 +1915,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1307
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1302
 S
 #1302
 The Shadow Grove~
@@ -1929,6 +1929,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1301
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1305
 D1
 The shadows cloud your vision.
 ~
@@ -1939,11 +1944,6 @@ You see a small clearing in the shadows.
 ~
 (null)~
 0 -1 1311
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1305
 S
 #1303
 The Shadow Grove~
@@ -1958,16 +1958,16 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1306
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1301
 D3
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1302
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1301
 D0
 The shadows cloud your vision.
 ~
@@ -1982,26 +1982,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1301
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1307
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1305
 D3
 Dark gates loom in the mist.
 ~
 (null)~
 0 -1 2201
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1301
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1305
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1307
 S
 #1305
 The Shadow Grove~
@@ -2011,21 +2011,21 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1308
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1302
 D1
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1306
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1302
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1308
 D3
 The shadows cloud your vision.
 ~
@@ -2040,16 +2040,16 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D1
-You see a shadowy tavern.
-~
-(null)~
-0 -1 9301
 D3
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1305
+D1
+You see a shadowy tavern.
+~
+(null)~
+0 -1 9301
 D2
 The shadows cloud your vision.
 ~
@@ -2069,6 +2069,16 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1309
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1301
 D1
 The shadows cloud your vision.
 ~
@@ -2079,16 +2089,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1304
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1301
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
 S
 #1308
 The Shadow Grove~
@@ -2098,11 +2098,6 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
 D2
 The shadows cloud your vision.
 ~
@@ -2113,6 +2108,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1307
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1309
 D0
 The shadows cloud your vision.
 ~
@@ -2132,16 +2132,16 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1307
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1308
 D2
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1303
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1308
 D0
 The shadows cloud your vision.
 ~
@@ -3536,22 +3536,22 @@ Nice going!  You might as well wait here until the wizard who built this
 trap comes back to imprison your soul as well as your body.
 ~
 0 8200 0
-D1
-(null)~
-(null)~
-0 0 5113
-D4
-(null)~
-(null)~
-0 0 938
-D2
-(null)~
-(null)~
-0 0 9141
 D5
 (null)~
 (null)~
 0 0 3460
+D1
+(null)~
+(null)~
+0 0 5113
+D2
+(null)~
+(null)~
+0 0 9141
+D4
+(null)~
+(null)~
+0 0 938
 D3
 (null)~
 (null)~

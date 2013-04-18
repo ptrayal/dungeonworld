@@ -84,10 +84,12 @@ EFNU 0 0 0
 stand stand none 10
 AHMV ABCDEFGHIJK medium unknown
 #2006
-oldstyle ~
+oldstyle IT~
 It~
-(null)~
-(null)~
+It is here.
+~
+It is here.
+~
 human~
 AF 0 0 0
 10 0 2d7+121 5d9+100 2d4+2 none
@@ -273,7 +275,7 @@ ABCF 0 0 0 0
 granite plate mail platemail~
 a suit of granite platemail~
 A suit of platemail hewn from granite stands by itself in the corner.~
-oldstyle~
+stone~
 armor BJ AD
 D D D B 0
 23 550 3600 P
@@ -283,7 +285,7 @@ A
 onyx ring~
 an onyx ring~
 A ring with a very dark onyx stone in it has been left in the dirt.~
-oldstyle~
+gold~
 jewelry J AB
 0 0 0 0 0
 7 10 800 P
@@ -319,7 +321,7 @@ A
 crown~
 a kingly crown~
 The crown of a long lost King lies forgotten here.~
-oldstyle~
+gold~
 key I AE
 0 0 0 0 0
 24 100 1850 P
@@ -345,7 +347,7 @@ potion A AO
 chainmail chain mail suit~
 a suit of chainmail~
 A nice suit of chainmail has been left behind.~
-oldstyle~
+steel~
 armor I AD
 AC AC AC 0 0
 10 200 1450 P
@@ -360,23 +362,13 @@ AC AC AC 0 0
 A
 18 1
 #2011
-shield defense~
-the shield of defense~
-A large shield lies protecting the ground.~
-oldstyle~
+shield mithril~
+small mithril shield~
+A small mithril shield is here.~
+mithril~
 armor G AJ
 BC BC BC C 0
 13 150 1920 P
-A
-19 -1
-A
-18 -2
-A
-13 10
-A
-12 10
-A
-17 -2
 #2012
 scale shield dragonscale~
 a dragonscale shield~
@@ -398,8 +390,8 @@ wand AG AO
 #2014
 shadow cloak~
 a shadow cloak~
-The shadows in the corner of the room seems strange ...~
-oldstyle~
+A cloak made of shadow is here.~
+shadow~
 armor G AK
 ABC ABC ABC B 0
 14 10 210 P
@@ -409,7 +401,7 @@ A
 misty potion~
 a misty potion~
 A potion of swirling mist-like substance is here.~
-oldstyle~
+glass~
 potion 0 AO
 10 'pass door' 'faerie fire' '' ''
 12 10 920 P
@@ -1752,21 +1744,17 @@ E 0 2002 0 5
 E 0 2006 0 17
 O 0 2007 0 2032
 P 0 2005 9 2007 1
-M 0 2006 7 2033 1
 M 0 2005 9 2033 1
 E 0 2015 0 17
 M 0 2007 4 2035 1
 E 0 2009 0 5
-M 0 2006 7 2036 1
 M 0 2007 4 2036 1
 M 0 2011 4 2036 1
 M 0 2007 4 2037 1
 E 0 2009 0 5
 M 0 2011 4 2037 1
 M 0 2007 4 2038 1
-M 0 2006 7 2039 1
 M 0 2009 2 2039 2
-M 0 2006 7 2040 1
 M 0 2005 9 2040 2
 E 0 2015 0 17
 M 0 2005 9 2040 2
