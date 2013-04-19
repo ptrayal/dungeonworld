@@ -95,7 +95,6 @@ void do_mob( CHAR_DATA *ch, char *argument )
  */
 void mob_interpret( CHAR_DATA *ch, char *argument )
 {
-	char buf[MSL]={'\0'};
 	char command[MAX_INPUT_LENGTH];
 	int cmd;
 
@@ -114,8 +113,7 @@ void mob_interpret( CHAR_DATA *ch, char *argument )
 	 		return;
 	 	}
 	 }
-	 sprintf( buf, "Mob_interpret: invalid cmd from mob %d: '%s'", IS_NPC(ch) ? ch->pIndexData->vnum : 0, command );
-	 bug( buf, 0 );
+	 bug( Format("Mob_interpret: invalid cmd from mob %d: '%s'", IS_NPC(ch) ? ch->pIndexData->vnum : 0, command), 0 );
 	}
 
 char *mprog_type_to_name( int type )
@@ -156,56 +154,46 @@ void do_mpstat( CHAR_DATA *ch, char *argument )
 
 	one_argument( argument, arg );
 
-	if ( arg[0] == '\0' )
+	if ( IS_NULLSTR(arg) )
 	{
-	send_to_char( "Mpstat whom?\n\r", ch );
-	return;
+		send_to_char( "Mpstat whom?\n\r", ch );
+		return;
 	}
 
 	if ( ( victim = get_char_world( ch, arg ) ) == NULL )
 	{
-	send_to_char( "No such creature.\n\r", ch );
-	return;
+		send_to_char( "No such creature.\n\r", ch );
+		return;
 	}
 
 	if ( !IS_NPC( victim ) )
 	{
-	send_to_char( "That is not a mobile.\n\r", ch);
-	return;
+		send_to_char( "That is not a mobile.\n\r", ch);
+		return;
 	}
 
 	if ( ( victim = get_char_world( ch, arg ) ) == NULL )
 	{
-	send_to_char( "No such creature visible.\n\r", ch );
-	return;
+		send_to_char( "No such creature visible.\n\r", ch );
+		return;
 	}
 
-	sprintf( arg, "Mobile #%-6d [%s]\n\r",
-	victim->pIndexData->vnum, victim->short_descr );
-	send_to_char( arg, ch );
+	send_to_char( Format("Mobile #%-6d [%s]\n\r", victim->pIndexData->vnum, victim->short_descr), ch );
 
-	sprintf( arg, "Delay   %-6d [%s]\n\r",
-	victim->mprog_delay,
-	victim->mprog_target == NULL 
-		? "No target" : victim->mprog_target->name );
-	send_to_char( arg, ch );
+	send_to_char( Format("Delay   %-6d [%s]\n\r", victim->mprog_delay, victim->mprog_target == NULL ? "No target" : victim->mprog_target->name), ch );
 
 	if ( !victim->pIndexData->mprog_flags )
 	{
-	send_to_char( "[No programs set]\n\r", ch);
-	return;
+		send_to_char( "[No programs set]\n\r", ch);
+		return;
 	}
 
 	for ( i = 0, mprg = victim->pIndexData->mprogs; mprg != NULL;
-	 mprg = mprg->next )
+		mprg = mprg->next )
 
 	{
-	sprintf( arg, "[%2d] Trigger [%-8s] Program [%4d] Phrase [%s]\n\r",
-		  ++i,
-		  mprog_type_to_name( mprg->trig_type ),
-		  mprg->vnum,
-		  mprg->trig_phrase );
-	send_to_char( arg, ch );
+		send_to_char( Format("[%2d] Trigger [%-8s] Program [%4d] Phrase [%s]\n\r", ++i, mprog_type_to_name( mprg->trig_type ),
+			mprg->vnum, mprg->trig_phrase), ch );
 	}
 
 	return;
@@ -219,16 +207,16 @@ void do_mpstat( CHAR_DATA *ch, char *argument )
  */
 void do_mpdump( CHAR_DATA *ch, char *argument )
 {
-   char buf[ MAX_INPUT_LENGTH ];
-   MPROG_CODE *mprg;
+	char buf[ MAX_INPUT_LENGTH ];
+	MPROG_CODE *mprg;
 
-   one_argument( argument, buf );
-   if ( ( mprg = get_mprog_index( atoi(buf) ) ) == NULL )
-   {
-	send_to_char( "No such MOBprogram.\n\r", ch );
-	return;
-   }
-   page_to_char( mprg->code, ch );
+	one_argument( argument, buf );
+	if ( ( mprg = get_mprog_index( atoi(buf) ) ) == NULL )
+	{
+		send_to_char( "No such MOBprogram.\n\r", ch );
+		return;
+	}
+	page_to_char( mprg->code, ch );
 }
 
 /*
@@ -240,22 +228,21 @@ void do_mpgecho( CHAR_DATA *ch, char *argument )
 {
 	DESCRIPTOR_DATA *d;
 
-	if ( argument[0] == '\0' )
+	if ( IS_NULLSTR(argument) )
 	{
-	bug( "MpGEcho: missing argument from vnum %d",
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
+		bug( "MpGEcho: missing argument from vnum %d", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+		return;
 	}
 
 	for ( d = descriptor_list; d; d = d->next )
 	{
-	if ( d->connected == CON_PLAYING )
-	{
-		if ( IS_IMMORTAL(d->character) )
-		send_to_char( "Mob echo> ", d->character );
-		send_to_char( argument, d->character );
-		send_to_char( "\n\r", d->character );
-	}
+		if ( d->connected == CON_PLAYING )
+		{
+			if ( IS_IMMORTAL(d->character) )
+				send_to_char( "Mob echo> ", d->character );
+			send_to_char( argument, d->character );
+			send_to_char( "\n\r", d->character );
+		}
 	}
 }
 
@@ -268,27 +255,26 @@ void do_mpzecho( CHAR_DATA *ch, char *argument )
 {
 	DESCRIPTOR_DATA *d;
 
-	if ( argument[0] == '\0' )
+	if ( IS_NULLSTR(argument) )
 	{
-	bug( "MpZEcho: missing argument from vnum %d",
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
+		bug( "MpZEcho: missing argument from vnum %d", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+		return;
 	}
 
 	if ( ch->in_room == NULL )
-	return;
+		return;
 
 	for ( d = descriptor_list; d; d = d->next )
 	{
-	if ( d->connected == CON_PLAYING 
-	&&   d->character->in_room != NULL 
-	&&   d->character->in_room->area == ch->in_room->area )
-	{
-		if ( IS_IMMORTAL(d->character) )
-		send_to_char( "Mob echo> ", d->character );
-		send_to_char( argument, d->character );
-		send_to_char( "\n\r", d->character );
-	}
+		if ( d->connected == CON_PLAYING 
+			&&   d->character->in_room != NULL 
+			&&   d->character->in_room->area == ch->in_room->area )
+		{
+			if ( IS_IMMORTAL(d->character) )
+				send_to_char( "Mob echo> ", d->character );
+			send_to_char( argument, d->character );
+			send_to_char( "\n\r", d->character );
+		}
 	}
 }
 
@@ -301,25 +287,25 @@ void do_mpasound( CHAR_DATA *ch, char *argument )
 {
 
 	ROOM_INDEX_DATA *was_in_room;
-	int              door;
+	int door;
 
-	if ( argument[0] == '\0' )
-	return;
+	if ( IS_NULLSTR(argument) )
+		return;
 
 	was_in_room = ch->in_room;
 	for ( door = 0; door < 6; door++ )
 	{
 		EXIT_DATA       *pexit;
-	  
+
 		if ( ( pexit = was_in_room->exit[door] ) != NULL
-	  &&   pexit->u1.to_room != NULL
-	  &&   pexit->u1.to_room != was_in_room )
+			&&   pexit->u1.to_room != NULL
+			&&   pexit->u1.to_room != was_in_room )
 		{
-		ch->in_room = pexit->u1.to_room;
-		MOBtrigger  = FALSE;
-		act( argument, ch, NULL, NULL, TO_ROOM );
-		MOBtrigger  = TRUE;
-	}
+			ch->in_room = pexit->u1.to_room;
+			MOBtrigger  = FALSE;
+			act( argument, ch, NULL, NULL, TO_ROOM );
+			MOBtrigger  = TRUE;
+		}
 	}
 	ch->in_room = was_in_room;
 	return;
@@ -338,20 +324,19 @@ void do_mpkill( CHAR_DATA *ch, char *argument )
 
 	one_argument( argument, arg );
 
-	if ( arg[0] == '\0' )
-	return;
+	if ( IS_NULLSTR(arg) )
+		return;
 
 	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
-	return;
+		return;
 
 	if ( victim == ch || IS_NPC(victim) || ch->position == POS_FIGHTING )
-	return;
+		return;
 
 	if ( IS_AFFECTED( ch, AFF_CHARM ) && ch->master == victim )
 	{
-	bug( "MpKill - Charmed mob attacking master from vnum %d.",
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
+		bug( "MpKill - Charmed mob attacking master from vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+		return;
 	}
 
 	multi_hit( ch, victim, TYPE_UNDEFINED );
@@ -370,14 +355,14 @@ void do_mpassist( CHAR_DATA *ch, char *argument )
 
 	one_argument( argument, arg );
 
-	if ( arg[0] == '\0' )
-	return;
+	if ( IS_NULLSTR(arg) )
+		return;
 
 	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
-	return;
+		return;
 
 	if ( victim == ch || ch->fighting != NULL || victim->fighting == NULL )
-	return;
+		return;
 
 	multi_hit( ch, victim->fighting, TYPE_UNDEFINED );
 	return;
@@ -400,35 +385,34 @@ void do_mpjunk( CHAR_DATA *ch, char *argument )
 
 	one_argument( argument, arg );
 
-	if ( arg[0] == '\0')
-	return;
+	if ( IS_NULLSTR(arg) )
+		return;
 
 	if ( str_cmp( arg, "all" ) && str_prefix( "all.", arg ) )
 	{
 		if ( ( obj = get_obj_wear( ch, arg ) ) != NULL )
 		{
 			unequip_char( ch, obj );
-		extract_obj( obj );
+			extract_obj( obj );
 			return;
 		}
 		if ( ( obj = get_obj_carry( ch, arg, ch ) ) == NULL )
-		return; 
-	extract_obj( obj );
+			return; 
+		extract_obj( obj );
 	}
 	else
 		for ( obj = ch->carrying; obj != NULL; obj = obj_next )
 		{
 			obj_next = obj->next_content;
-		if ( arg[3] == '\0' || is_name( &arg[4], obj->name ) )
+			if ( arg[3] == '\0' || is_name( &arg[4], obj->name ) )
 			{
-			if ( obj->wear_loc != WEAR_NONE)
-			unequip_char( ch, obj );
-			extract_obj( obj );
+				if ( obj->wear_loc != WEAR_NONE)
+					unequip_char( ch, obj );
+				extract_obj( obj );
 			} 
 		}
 
-	return;
-
+		return;
 }
 
 /*
@@ -444,11 +428,11 @@ void do_mpechoaround( CHAR_DATA *ch, char *argument )
 
 	argument = one_argument( argument, arg );
 
-	if ( arg[0] == '\0' )
-	return;
+	if ( IS_NULLSTR(arg) )
+		return;
 
 	if ( ( victim=get_char_room( ch, arg ) ) == NULL )
-	return;
+		return;
 
 	act( argument, ch, NULL, victim, TO_NOTVICT );
 }
@@ -465,11 +449,11 @@ void do_mpechoat( CHAR_DATA *ch, char *argument )
 
 	argument = one_argument( argument, arg );
 
-	if ( arg[0] == '\0' || argument[0] == '\0' )
-	return;
+	if ( IS_NULLSTR(arg) || IS_NULLSTR(argument) )
+		return;
 
 	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
-	return;
+		return;
 
 	act( argument, ch, NULL, victim, TO_VICT );
 }
@@ -481,8 +465,8 @@ void do_mpechoat( CHAR_DATA *ch, char *argument )
  */
 void do_mpecho( CHAR_DATA *ch, char *argument )
 {
-	if ( argument[0] == '\0' )
-	return;
+	if ( IS_NULLSTR(argument) )
+		return;
 	act( argument, ch, NULL, NULL, TO_ROOM );
 }
 
@@ -500,16 +484,14 @@ void do_mpmload( CHAR_DATA *ch, char *argument )
 
 	one_argument( argument, arg );
 
-	if ( ch->in_room == NULL || arg[0] == '\0' || !is_number(arg) )
-	return;
+	if ( ch->in_room == NULL || IS_NULLSTR(arg) || !is_number(arg) )
+		return;
 
 	vnum = atoi(arg);
 	if ( ( pMobIndex = get_mob_index( vnum ) ) == NULL )
 	{
-	sprintf( arg, "Mpmload: bad mob index (%d) from mob %d",
-		vnum, IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	bug( arg, 0 );
-	return;
+		bug( Format("Mpmload: bad mob index (%d) from mob %d", vnum, IS_NPC(ch) ? ch->pIndexData->vnum : 0), 0 );
+		return;
 	}
 	victim = create_mobile( pMobIndex );
 	char_to_room( victim, ch->in_room );
@@ -533,37 +515,35 @@ void do_mpoload( CHAR_DATA *ch, char *argument )
 
 	argument = one_argument( argument, arg1 );
 	argument = one_argument( argument, arg2 );
-			   one_argument( argument, arg3 );
- 
-	if ( arg1[0] == '\0' || !is_number( arg1 ) )
+	one_argument( argument, arg3 );
+
+	if ( IS_NULLSTR(arg1) || !is_number( arg1 ) )
 	{
 		bug( "Mpoload - Bad syntax from vnum %d.",
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+			IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
 		return;
 	}
- 
-	if ( arg2[0] == '\0' )
+
+	if ( IS_NULLSTR(arg2) )
 	{
-	level = get_trust( ch );
+		level = get_trust( ch );
 	}
 	else
 	{
 	/*
 	 * New feature from Alander.
 	 */
-		if ( !is_number( arg2 ) )
-		{
-		bug( "Mpoload - Bad syntax from vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-		return;
-		}
-	level = atoi( arg2 );
-	if ( level < 0 || level > get_trust( ch ) )
-	{
-		bug( "Mpoload - Bad level from vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-		return;
-	}
+	 if ( !is_number( arg2 ) )
+	 {
+	 	bug( "Mpoload - Bad syntax from vnum %d.",  IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+	 	return;
+	 }
+	 level = atoi( arg2 );
+	 if ( level < 0 || level > get_trust( ch ) )
+	 {
+	 	bug( "Mpoload - Bad level from vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+	 	return;
+	 }
 	}
 
 	/*
@@ -572,31 +552,31 @@ void do_mpoload( CHAR_DATA *ch, char *argument )
 	 * 'R'     - load to room
 	 * 'W'     - load to mobile and force wear
 	 */
-	if ( arg3[0] == 'R' || arg3[0] == 'r' )
-	fToroom = TRUE;
-	else if ( arg3[0] == 'W' || arg3[0] == 'w' )
-	fWear = TRUE;
+	 if ( arg3[0] == 'R' || arg3[0] == 'r' )
+	 	fToroom = TRUE;
+	 else if ( arg3[0] == 'W' || arg3[0] == 'w' )
+	 	fWear = TRUE;
 
-	if ( ( pObjIndex = get_obj_index( atoi( arg1 ) ) ) == NULL )
-	{
-	bug( "Mpoload - Bad vnum arg from vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
-	}
+	 if ( ( pObjIndex = get_obj_index( atoi( arg1 ) ) ) == NULL )
+	 {
+	 	bug( "Mpoload - Bad vnum arg from vnum %d.", 
+	 		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+	 	return;
+	 }
 
-	obj = create_object( pObjIndex, level );
-	if ( (fWear || !fToroom) && CAN_WEAR(obj, ITEM_TAKE) )
-	{
-	obj_to_char( obj, ch );
-	if ( fWear )
-		wear_obj( ch, obj, TRUE );
-	}
-	else
-	{
-	obj_to_room( obj, ch->in_room );
-	}
+	 obj = create_object( pObjIndex, level );
+	 if ( (fWear || !fToroom) && CAN_WEAR(obj, ITEM_TAKE) )
+	 {
+	 	obj_to_char( obj, ch );
+	 	if ( fWear )
+	 		wear_obj( ch, obj, TRUE );
+	 }
+	 else
+	 {
+	 	obj_to_room( obj, ch->in_room );
+	 }
 
-	return;
+	 return;
 }
 
 /*
