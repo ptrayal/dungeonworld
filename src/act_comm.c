@@ -82,7 +82,7 @@ void do_delete( CHAR_DATA *ch, char *argument)
 	}
 
 	send_to_char("Type delete again to confirm this command.\n\r",ch);
-	send_to_char("WARNING: this command is irreversible.\n\r",ch);
+	send_to_char("\tRWARNING\tn: this command is irreversible.\n\r",ch);
 	send_to_char("Typing delete with an argument will undo delete status.\n\r",
 		ch);
 	ch->pcdata->confirm_delete = TRUE;
@@ -251,20 +251,20 @@ void do_afk ( CHAR_DATA *ch, char * argument)
 
 void do_replay (CHAR_DATA *ch, char *argument)
 {
-		if (IS_NPC(ch))
-		{
-	send_to_char("You can't replay.\n\r",ch);
-	return;
-		}
+	if (IS_NPC(ch))
+	{
+		send_to_char("You can't replay.\n\r",ch);
+		return;
+	}
 
-		if (buf_string(ch->pcdata->buffer)[0] == '\0')
-		{
-	send_to_char("You have no tells to replay.\n\r",ch);
-	return;
-		}
+	if (buf_string(ch->pcdata->buffer)[0] == '\0')
+	{
+		send_to_char("You have no tells to replay.\n\r",ch);
+		return;
+	}
 
-		page_to_char(buf_string(ch->pcdata->buffer),ch);
-		clear_buf(ch->pcdata->buffer);
+	page_to_char(buf_string(ch->pcdata->buffer),ch);
+	clear_buf(ch->pcdata->buffer);
 }
 
 /* RT auction rewritten in ROM style */
@@ -869,8 +869,7 @@ void do_tell( CHAR_DATA *ch, char *argument )
 		 		return;
 		 	}
 
-		 	act("$E is AFK, but your tell will go through when $E returns.",
-		 		ch,NULL,victim,TO_CHAR);
+		 	act("$E is AFK, but your tell will go through when $E returns.", ch,NULL,victim,TO_CHAR);
 		 	sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
 		 	buf[0] = UPPER(buf[0]);
 		 	add_buf(victim->pcdata->buffer,buf);
@@ -885,78 +884,76 @@ void do_tell( CHAR_DATA *ch, char *argument )
 		 	mp_act_trigger( argument, victim, ch, NULL, NULL, TRIG_SPEECH );
 
 		 return;
-		}
+}
 
 
 
 void do_reply( CHAR_DATA *ch, char *argument )
 {
-		CHAR_DATA *victim;
-		char buf[MSL]={'\0'};
+	CHAR_DATA *victim;
+	char buf[MSL]={'\0'};
 
-		if ( IS_SET(ch->comm, COMM_NOTELL) )
-		{
-	send_to_char( "Your message didn't get through.\n\r", ch );
-	return;
-		}
-
-		if ( ( victim = ch->reply ) == NULL )
-		{
-	send_to_char( "They aren't here.\n\r", ch );
-	return;
-		}
-
-		if ( victim->desc == NULL && !IS_NPC(victim))
-		{
-				act("$N seems to have misplaced $S link...try again later.",
-						ch,NULL,victim,TO_CHAR);
-				sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
-				buf[0] = UPPER(buf[0]);
-				add_buf(victim->pcdata->buffer,buf);
-				return;
-		}
-
-		if ( !IS_IMMORTAL(ch) && !IS_AWAKE(victim) )
-		{
-	act( "$E can't hear you.", ch, 0, victim, TO_CHAR );
-	return;
-		}
-
-		if ((IS_SET(victim->comm,COMM_QUIET) || IS_SET(victim->comm,COMM_DEAF))
-		&&  !IS_IMMORTAL(ch) && !IS_IMMORTAL(victim))
-		{
-				act_new( "$E is not receiving tells.", ch, 0, victim, TO_CHAR,POS_DEAD);
-				return;
-		}
-
-		if (!IS_IMMORTAL(victim) && !IS_AWAKE(ch))
-		{
-	send_to_char( "In your dreams, or what?\n\r", ch );
-	return;
-		}
-
-		if (IS_SET(victim->comm,COMM_AFK))
-		{
-				if (IS_NPC(victim))
-				{
-						act_new("$E is AFK, and not receiving tells.",
-		ch,NULL,victim,TO_CHAR,POS_DEAD);
-						return;
-				}
- 
-				act_new("$E is AFK, but your tell will go through when $E returns.",
-						ch,NULL,victim,TO_CHAR,POS_DEAD);
-				sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
-	buf[0] = UPPER(buf[0]);
-				add_buf(victim->pcdata->buffer,buf);
-				return;
-		}
-
-		act_new("You tell $N '$t'",ch,argument,victim,TO_CHAR,POS_DEAD);
-		act_new("$n tells you '$t'",ch,argument,victim,TO_VICT,POS_DEAD);
-		victim->reply	= ch;
-
+	if ( IS_SET(ch->comm, COMM_NOTELL) )
+	{
+		send_to_char( "Your message didn't get through.\n\r", ch );
 		return;
+	}
+
+	if ( ( victim = ch->reply ) == NULL )
+	{
+		send_to_char( "They aren't here.\n\r", ch );
+		return;
+	}
+
+	if ( victim->desc == NULL && !IS_NPC(victim))
+	{
+		act("$N seems to have misplaced $S link...try again later.", ch,NULL,victim,TO_CHAR);
+		sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
+		buf[0] = UPPER(buf[0]);
+		add_buf(victim->pcdata->buffer,buf);
+		return;
+	}
+
+	if ( !IS_IMMORTAL(ch) && !IS_AWAKE(victim) )
+	{
+		act( "$E can't hear you.", ch, 0, victim, TO_CHAR );
+		return;
+	}
+
+	if ((IS_SET(victim->comm,COMM_QUIET) || IS_SET(victim->comm,COMM_DEAF))
+		&&  !IS_IMMORTAL(ch) && !IS_IMMORTAL(victim))
+	{
+		act_new( "$E is not receiving tells.", ch, 0, victim, TO_CHAR,POS_DEAD);
+		return;
+	}
+
+	if (!IS_IMMORTAL(victim) && !IS_AWAKE(ch))
+	{
+		send_to_char( "In your dreams, or what?\n\r", ch );
+		return;
+	}
+
+	if (IS_SET(victim->comm,COMM_AFK))
+	{
+		if (IS_NPC(victim))
+		{
+			act_new("$E is AFK, and not receiving tells.",
+				ch,NULL,victim,TO_CHAR,POS_DEAD);
+			return;
+		}
+
+		act_new("$E is AFK, but your tell will go through when $E returns.", ch,NULL,victim,TO_CHAR,POS_DEAD);
+		sprintf(buf,"%s tells you '%s'\n\r",PERS(ch,victim),argument);
+		buf[0] = UPPER(buf[0]);
+		add_buf(victim->pcdata->buffer,buf);
+		return;
+	}
+
+	act_new("You tell $N '$t'",ch,argument,victim,TO_CHAR,POS_DEAD);
+	act_new("$n tells you '$t'",ch,argument,victim,TO_VICT,POS_DEAD);
+	victim->reply	= ch;
+
+	return;
 }
 
 
@@ -1019,76 +1016,76 @@ void do_emote( CHAR_DATA *ch, char *argument )
 
 void do_pmote( CHAR_DATA *ch, char *argument )
 {
-		CHAR_DATA *vch;
-		char *letter,*name;
-		char last[MAX_INPUT_LENGTH];
-		char temp[MSL]={'\0'};
-		int matches = 0;
+	CHAR_DATA *vch;
+	char *letter,*name;
+	char last[MAX_INPUT_LENGTH];
+	char temp[MSL]={'\0'};
+	int matches = 0;
 
-		if ( !IS_NPC(ch) && IS_SET(ch->comm, COMM_NOEMOTE) )
-		{
-				send_to_char( "You can't show your emotions.\n\r", ch );
-				return;
-		}
- 
-		if ( IS_NULLSTR(argument) )
-		{
-				send_to_char( "Emote what?\n\r", ch );
-				return;
-		}
- 
-		act( "$n $t", ch, argument, NULL, TO_CHAR );
+	if ( !IS_NPC(ch) && IS_SET(ch->comm, COMM_NOEMOTE) )
+	{
+		send_to_char( "You can't show your emotions.\n\r", ch );
+		return;
+	}
 
-		for (vch = ch->in_room->people; vch != NULL; vch = vch->next_in_room)
-		{
-	if (vch->desc == NULL || vch == ch)
+	if ( IS_NULLSTR(argument) )
+	{
+		send_to_char( "Emote what?\n\r", ch );
+		return;
+	}
+
+	act( "$n $t", ch, argument, NULL, TO_CHAR );
+
+	for (vch = ch->in_room->people; vch != NULL; vch = vch->next_in_room)
+	{
+		if (vch->desc == NULL || vch == ch)
 			continue;
 
-	if ((letter = strstr(argument,vch->name)) == NULL)
-	{
+		if ((letter = strstr(argument,vch->name)) == NULL)
+		{
 			MOBtrigger = FALSE;
 			act("$N $t",vch,argument,ch,TO_CHAR);
 			MOBtrigger = TRUE;
 			continue;
-	}
+		}
 
-	strcpy(temp,argument);
-	temp[strlen(argument) - strlen(letter)] = '\0';
+		strcpy(temp,argument);
+		temp[strlen(argument) - strlen(letter)] = '\0';
 		last[0] = '\0';
-	name = vch->name;
-	
-	for (; *letter != '\0'; letter++)
-	{ 
+		name = vch->name;
+
+		for (; *letter != '\0'; letter++)
+		{ 
 			if (*letter == '\'' && matches == strlen(vch->name))
 			{
-		strcat(temp,"r");
-		continue;
+				strcat(temp,"r");
+				continue;
 			}
 
 			if (*letter == 's' && matches == strlen(vch->name))
 			{
-		matches = 0;
-		continue;
+				matches = 0;
+				continue;
 			}
 			
 			if (matches == strlen(vch->name))
 			{
-		matches = 0;
+				matches = 0;
 			}
 
 			if (*letter == *name)
 			{
-		matches++;
-		name++;
-		if (matches == strlen(vch->name))
-		{
-				strcat(temp,"you");
-				last[0] = '\0';
-				name = vch->name;
+				matches++;
+				name++;
+				if (matches == strlen(vch->name))
+				{
+					strcat(temp,"you");
+					last[0] = '\0';
+					name = vch->name;
+					continue;
+				}
+				strncat(last,letter,1);
 				continue;
-		}
-		strncat(last,letter,1);
-		continue;
 			}
 
 			matches = 0;
@@ -1096,14 +1093,14 @@ void do_pmote( CHAR_DATA *ch, char *argument )
 			strncat(temp,letter,1);
 			last[0] = '\0';
 			name = vch->name;
-	}
-
-	MOBtrigger = FALSE;
-	act("$N $t",vch,temp,ch,TO_CHAR);
-	MOBtrigger = TRUE;
 		}
+
+		MOBtrigger = FALSE;
+		act("$N $t",vch,temp,ch,TO_CHAR);
+		MOBtrigger = TRUE;
+	}
 	
-		return;
+	return;
 }
 
 
@@ -1117,8 +1114,8 @@ struct	pose_table_type
 
 const	struct	pose_table_type	pose_table	[]	=
 {
-		{
 	{
+		{
 			"You sizzle with energy.",
 			"$n sizzles with energy.",
 			"You feel very holy.",
@@ -1127,11 +1124,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n performs a small card trick.",
 			"You show your bulging muscles.",
 			"$n shows $s bulging muscles."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"You turn into a butterfly, then return to your normal shape.",
 			"$n turns into a butterfly, then returns to $s normal shape.",
 			"You nonchalantly turn wine into water.",
@@ -1140,11 +1137,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n wiggles $s ears alternately.",
 			"You crack nuts between your fingers.",
 			"$n cracks nuts between $s fingers."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"Blue sparks fly from your fingers.",
 			"Blue sparks fly from $n's fingers.",
 			"A halo appears over your head.",
@@ -1153,11 +1150,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n nimbly ties $mself into a knot.",
 			"You grizzle your teeth and look mean.",
 			"$n grizzles $s teeth and looks mean."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"Little red lights dance in your eyes.",
 			"Little red lights dance in $n's eyes.",
 			"You recite words of wisdom.",
@@ -1166,11 +1163,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n juggles with daggers, apples, and eyeballs.",
 			"You hit your head, and your eyes roll.",
 			"$n hits $s head, and $s eyes roll."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"A slimy green monster appears before you and bows.",
 			"A slimy green monster appears before $n and bows.",
 			"Deep in prayer, you levitate.",
@@ -1179,11 +1176,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"Your underwear is gone!  $n stole it!",
 			"Crunch, crunch -- you munch a bottle.",
 			"Crunch, crunch -- $n munches a bottle."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"You turn everybody into a little pink elephant.",
 			"You are turned into a little pink elephant by $n.",
 			"An angel consults you.",
@@ -1192,11 +1189,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"The dice roll ... and $n wins again.",
 			"... 98, 99, 100 ... you do pushups.",
 			"... 98, 99, 100 ... $n does pushups."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"A small ball of light dances on your fingertips.",
 			"A small ball of light dances on $n's fingertips.",
 			"Your body glows with an unearthly light.",
@@ -1205,11 +1202,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"Check your money, $n is counting it.",
 			"Arnold Schwarzenegger admires your physique.",
 			"Arnold Schwarzenegger admires $n's physique."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"Smoke and fumes leak from your nostrils.",
 			"Smoke and fumes leak from $n's nostrils.",
 			"A spot light hits you.",
@@ -1218,11 +1215,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n balances a pocket knife on your tongue.",
 			"Watch your feet, you are juggling granite boulders.",
 			"Watch your feet, $n is juggling granite boulders."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"The light flickers as you rap in magical languages.",
 			"The light flickers as $n raps in magical languages.",
 			"Everyone levitates as you pray.",
@@ -1231,11 +1228,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n produces a coin from your ear.",
 			"Oomph!  You squeeze water out of a granite boulder.",
 			"Oomph!  $n squeezes water out of a granite boulder."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"Your head disappears.",
 			"$n's head disappears.",
 			"A cool breeze refreshes you.",
@@ -1244,11 +1241,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n steps behind $s shadow.",
 			"You pick your teeth with a spear.",
 			"$n picks $s teeth with a spear."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"A fire elemental singes your hair.",
 			"A fire elemental singes $n's hair.",
 			"The sun pierces through the clouds to illuminate you.",
@@ -1257,11 +1254,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n's eyes dance with greed.",
 			"Everyone is swept off their foot by your hug.",
 			"You are swept off your feet by $n's hug."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"The sky changes color to match your eyes.",
 			"The sky changes color to match $n's eyes.",
 			"The ocean parts before you.",
@@ -1270,11 +1267,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"$n deftly steals your weapon.",
 			"Your karate chop splits a tree.",
 			"$n's karate chop splits a tree."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"The stones dance to your command.",
 			"The stones dance to $n's command.",
 			"A thunder cloud kneels to you.",
@@ -1283,11 +1280,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"The Grey Mouser buys $n a beer.",
 			"A strap of your armor breaks over your mighty thews.",
 			"A strap of $n's armor breaks over $s mighty thews."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"The heavens and grass change colour as you smile.",
 			"The heavens and grass change colour as $n smiles.",
 			"The Burning Man speaks to you.",
@@ -1296,11 +1293,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"Your pocket explodes with $n's fireworks.",
 			"A boulder cracks at your frown.",
 			"A boulder cracks at $n's frown."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"Everyone's clothes are transparent, and you are laughing.",
 			"Your clothes are transparent, and $n is laughing.",
 			"An eye in a pyramid winks at you.",
@@ -1309,11 +1306,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"You discover $n's dagger a centimeter from your eye.",
 			"Mercenaries arrive to do your bidding.",
 			"Mercenaries arrive to do $n's bidding."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"A black hole swallows you.",
 			"A black hole swallows $n.",
 			"Valentine Michael Smith offers you a glass of water.",
@@ -1322,11 +1319,11 @@ const	struct	pose_table_type	pose_table	[]	=
 			"Where did $n go?",
 			"Four matched Percherons bring in your chariot.",
 			"Four matched Percherons bring in $n's chariot."
-	}
-		},
+		}
+	},
 
-		{
 	{
+		{
 			"The world shimmers in time with your whistling.",
 			"The world shimmers in time with $n's whistling.",
 			"The great god Mota gives you a staff.",
@@ -1335,27 +1332,24 @@ const	struct	pose_table_type	pose_table	[]	=
 			"Click.",
 			"Atlas asks you to relieve him.",
 			"Atlas asks $n to relieve him."
-	}
 		}
+	}
 };
 
 
 
 void do_pose( CHAR_DATA *ch, char *argument )
 {
-		int level;
-		int pose;
+	int level = UMIN( ch->level, sizeof(pose_table) / sizeof(pose_table[0]) - 1 );
+	int pose = number_range(0, level);
 
-		if ( IS_NPC(ch) )
-	return;
-
-		level = UMIN( ch->level, sizeof(pose_table) / sizeof(pose_table[0]) - 1 );
-		pose  = number_range(0, level);
-
-		act( pose_table[pose].message[2*ch->iclass+0], ch, NULL, NULL, TO_CHAR );
-		act( pose_table[pose].message[2*ch->iclass+1], ch, NULL, NULL, TO_ROOM );
-
+	if ( IS_NPC(ch) )
 		return;
+
+	act( pose_table[pose].message[2*ch->iclass+0], ch, NULL, NULL, TO_CHAR );
+	act( pose_table[pose].message[2*ch->iclass+1], ch, NULL, NULL, TO_ROOM );
+
+	return;
 }
 
 
@@ -1446,19 +1440,18 @@ void do_quit( CHAR_DATA *ch, char *argument )
 		 }
 
 		 return;
-		}
-
+}
 
 
 void do_save( CHAR_DATA *ch, char *argument )
 {
-		if ( IS_NPC(ch) )
-			return;
-
-		save_char_obj( ch );
-		send_to_char("Saving. Remember that ROM has automatic saving now.\n\r", ch);
-		WAIT_STATE(ch,4 * PULSE_VIOLENCE);
+	if ( IS_NPC(ch) )
 		return;
+
+	save_char_obj( ch );
+	send_to_char("Saving. Remember that ROM has automatic saving now.\n\r", ch);
+	WAIT_STATE(ch,4 * PULSE_VIOLENCE);
+	return;
 }
 
 
@@ -1466,233 +1459,231 @@ void do_save( CHAR_DATA *ch, char *argument )
 void do_follow( CHAR_DATA *ch, char *argument )
 {
 /* RT changed to allow unlimited following and follow the NOFOLLOW rules */
-		char arg[MAX_INPUT_LENGTH];
-		CHAR_DATA *victim;
+	char arg[MAX_INPUT_LENGTH];
+	CHAR_DATA *victim;
 
-		one_argument( argument, arg );
+	one_argument( argument, arg );
 
-		if ( IS_NULLSTR(arg) )
-		{
-	send_to_char( "Follow whom?\n\r", ch );
-	return;
-		}
-
-		if ( ( victim = get_char_room( ch, arg ) ) == NULL )
-		{
-	send_to_char( "They aren't here.\n\r", ch );
-	return;
-		}
-
-		if ( IS_AFFECTED(ch, AFF_CHARM) && ch->master != NULL )
-		{
-	act( "But you'd rather follow $N!", ch, NULL, ch->master, TO_CHAR );
-	return;
-		}
-
-		if ( victim == ch )
-		{
-	if ( ch->master == NULL )
+	if ( IS_NULLSTR(arg) )
 	{
+		send_to_char( "Follow whom?\n\r", ch );
+		return;
+	}
+
+	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
+	{
+		send_to_char( "They aren't here.\n\r", ch );
+		return;
+	}
+
+	if ( IS_AFFECTED(ch, AFF_CHARM) && ch->master != NULL )
+	{
+		act( "But you'd rather follow $N!", ch, NULL, ch->master, TO_CHAR );
+		return;
+	}
+
+	if ( victim == ch )
+	{
+		if ( ch->master == NULL )
+		{
 			send_to_char( "You already follow yourself.\n\r", ch );
 			return;
-	}
-	stop_follower(ch);
-	return;
 		}
-
-		if (!IS_NPC(victim) && IS_SET(victim->act,PLR_NOFOLLOW) && !IS_IMMORTAL(ch))
-		{
-	act("$N doesn't seem to want any followers.\n\r",
-						 ch,NULL,victim, TO_CHAR);
-				return;
-		}
-
-		REMOVE_BIT(ch->act,PLR_NOFOLLOW);
-		
-		if ( ch->master != NULL )
-			stop_follower( ch );
-
-		add_follower( ch, victim );
+		stop_follower(ch);
 		return;
+	}
+
+	if (!IS_NPC(victim) && IS_SET(victim->act,PLR_NOFOLLOW) && !IS_IMMORTAL(ch))
+	{
+		act("$N doesn't seem to want any followers.\n\r", ch,NULL,victim, TO_CHAR);
+		return;
+	}
+
+	REMOVE_BIT(ch->act,PLR_NOFOLLOW);
+
+	if ( ch->master != NULL )
+		stop_follower( ch );
+
+	add_follower( ch, victim );
+	return;
 }
 
 
 void add_follower( CHAR_DATA *ch, CHAR_DATA *master )
 {
-		if ( ch->master != NULL )
-		{
-	bug( "Add_follower: non-null master.", 0 );
-	return;
-		}
-
-		ch->master        = master;
-		ch->leader        = NULL;
-
-		if ( can_see( master, ch ) )
-	act( "$n now follows you.", ch, NULL, master, TO_VICT );
-
-		act( "You now follow $N.",  ch, NULL, master, TO_CHAR );
-
+	if ( ch->master != NULL )
+	{
+		bug( "Add_follower: non-null master.", 0 );
 		return;
+	}
+
+	ch->master        = master;
+	ch->leader        = NULL;
+
+	if ( can_see( master, ch ) )
+		act( "$n now follows you.", ch, NULL, master, TO_VICT );
+
+	act( "You now follow $N.",  ch, NULL, master, TO_CHAR );
+
+	return;
 }
 
 
 
 void stop_follower( CHAR_DATA *ch )
 {
-		if ( ch->master == NULL )
-		{
-	bug( "Stop_follower: null master.", 0 );
-	return;
-		}
-
-		if ( IS_AFFECTED(ch, AFF_CHARM) )
-		{
-	REMOVE_BIT( ch->affected_by, AFF_CHARM );
-	affect_strip( ch, gsn_charm_person );
-		}
-
-		if ( can_see( ch->master, ch ) && ch->in_room != NULL)
-		{
-	act( "$n stops following you.",     ch, NULL, ch->master, TO_VICT    );
-			act( "You stop following $N.",      ch, NULL, ch->master, TO_CHAR    );
-		}
-		if (ch->master->pet == ch)
-	ch->master->pet = NULL;
-
-		ch->master = NULL;
-		ch->leader = NULL;
+	if ( ch->master == NULL )
+	{
+		bug( "Stop_follower: null master.", 0 );
 		return;
+	}
+
+	if ( IS_AFFECTED(ch, AFF_CHARM) )
+	{
+		REMOVE_BIT( ch->affected_by, AFF_CHARM );
+		affect_strip( ch, gsn_charm_person );
+	}
+
+	if ( can_see( ch->master, ch ) && ch->in_room != NULL)
+	{
+		act( "$n stops following you.",     ch, NULL, ch->master, TO_VICT    );
+		act( "You stop following $N.",      ch, NULL, ch->master, TO_CHAR    );
+	}
+	if (ch->master->pet == ch)
+		ch->master->pet = NULL;
+
+	ch->master = NULL;
+	ch->leader = NULL;
+	return;
 }
 
 /* nukes charmed monsters and pets */
 void nuke_pets( CHAR_DATA *ch )
 {    
-		CHAR_DATA *pet;
+	CHAR_DATA *pet;
 
-		if ((pet = ch->pet) != NULL)
-		{
-			stop_follower(pet);
-			if (pet->in_room != NULL)
-					act("$N slowly fades away.",ch,NULL,pet,TO_NOTVICT);
-			extract_char(pet,TRUE);
-		}
-		ch->pet = NULL;
+	if ((pet = ch->pet) != NULL)
+	{
+		stop_follower(pet);
+		if (pet->in_room != NULL)
+			act("$N slowly fades away.",ch,NULL,pet,TO_NOTVICT);
+		extract_char(pet,TRUE);
+	}
+	ch->pet = NULL;
 
-		return;
+	return;
 }
 
 
 
 void die_follower( CHAR_DATA *ch )
 {
-		CHAR_DATA *fch;
+	CHAR_DATA *fch;
 
-		if ( ch->master != NULL )
-		{
-			if (ch->master->pet == ch)
-					ch->master->pet = NULL;
-	stop_follower( ch );
-		}
+	if ( ch->master != NULL )
+	{
+		if (ch->master->pet == ch)
+			ch->master->pet = NULL;
+		stop_follower( ch );
+	}
 
-		ch->leader = NULL;
+	ch->leader = NULL;
 
-		for ( fch = char_list; fch != NULL; fch = fch->next )
-		{
-	if ( fch->master == ch )
+	for ( fch = char_list; fch != NULL; fch = fch->next )
+	{
+		if ( fch->master == ch )
 			stop_follower( fch );
-	if ( fch->leader == ch )
+		if ( fch->leader == ch )
 			fch->leader = fch;
-		}
+	}
 
-		return;
+	return;
 }
 
 
 
 void do_order( CHAR_DATA *ch, char *argument )
 {
-		char buf[MSL]={'\0'};
-		char arg[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
-		CHAR_DATA *victim;
-		CHAR_DATA *och;
-		CHAR_DATA *och_next;
-		bool found;
-		bool fAll;
+	char buf[MSL]={'\0'};
+	char arg[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
+	CHAR_DATA *victim;
+	CHAR_DATA *och;
+	CHAR_DATA *och_next;
+	bool found = FALSE;
+	bool fAll;
 
-		argument = one_argument( argument, arg );
-		one_argument(argument,arg2);
+	argument = one_argument( argument, arg );
+	one_argument(argument,arg2);
 
-		if (!str_cmp(arg2,"delete") || !str_cmp(arg2,"mob"))
-		{
-				send_to_char("That will NOT be done.\n\r",ch);
-				return;
-		}
-
-		if ( IS_NULLSTR(arg) || IS_NULLSTR(argument) )
-		{
-	send_to_char( "Order whom to do what?\n\r", ch );
-	return;
-		}
-
-		if ( IS_AFFECTED( ch, AFF_CHARM ) )
-		{
-	send_to_char( "You feel like taking, not giving, orders.\n\r", ch );
-	return;
-		}
-
-		if ( !str_cmp( arg, "all" ) )
-		{
-	fAll   = TRUE;
-	victim = NULL;
-		}
-		else
-		{
-	fAll   = FALSE;
-	if ( ( victim = get_char_room( ch, arg ) ) == NULL )
+	if (!str_cmp(arg2,"delete") || !str_cmp(arg2,"mob"))
 	{
+		send_to_char("That will NOT be done.\n\r",ch);
+		return;
+	}
+
+	if ( IS_NULLSTR(arg) || IS_NULLSTR(argument) )
+	{
+		send_to_char( "Order whom to do what?\n\r", ch );
+		return;
+	}
+
+	if ( IS_AFFECTED( ch, AFF_CHARM ) )
+	{
+		send_to_char( "You feel like taking, not giving, orders.\n\r", ch );
+		return;
+	}
+
+	if ( !str_cmp( arg, "all" ) )
+	{
+		fAll   = TRUE;
+		victim = NULL;
+	}
+	else
+	{
+		fAll   = FALSE;
+		if ( ( victim = get_char_room( ch, arg ) ) == NULL )
+		{
 			send_to_char( "They aren't here.\n\r", ch );
 			return;
-	}
-
-	if ( victim == ch )
-	{
-			send_to_char( "Aye aye, right away!\n\r", ch );
-			return;
-	}
-
-	if (!IS_AFFECTED(victim, AFF_CHARM) || victim->master != ch 
-	||  (IS_IMMORTAL(victim) && victim->trust >= ch->trust))
-	{
-			send_to_char( "Do it yourself!\n\r", ch );
-			return;
-	}
 		}
 
-		found = FALSE;
-		for ( och = ch->in_room->people; och != NULL; och = och_next )
+		if ( victim == ch )
 		{
-	och_next = och->next_in_room;
+			send_to_char( "Aye aye, right away!\n\r", ch );
+			return;
+		}
 
-	if ( IS_AFFECTED(och, AFF_CHARM)
-	&&   och->master == ch
-	&& ( fAll || och == victim ) )
+		if (!IS_AFFECTED(victim, AFF_CHARM) || victim->master != ch 
+			||  (IS_IMMORTAL(victim) && victim->trust >= ch->trust))
+		{
+			send_to_char( "Do it yourself!\n\r", ch );
+			return;
+		}
+	}
+
+	for ( och = ch->in_room->people; och != NULL; och = och_next )
 	{
+		och_next = och->next_in_room;
+
+		if ( IS_AFFECTED(och, AFF_CHARM)
+			&&   och->master == ch
+			&& ( fAll || och == victim ) )
+		{
 			found = TRUE;
 			sprintf( buf, "$n orders you to '%s'.", argument );
 			act( buf, ch, NULL, och, TO_VICT );
 			interpret( och, argument );
+		}
 	}
-		}
 
-		if ( found )
-		{
-	WAIT_STATE(ch,PULSE_VIOLENCE);
-	send_to_char( "Ok.\n\r", ch );
-		}
-		else
-	send_to_char( "You have no followers here.\n\r", ch );
-		return;
+	if ( found )
+	{
+		WAIT_STATE(ch,PULSE_VIOLENCE);
+		send_to_char( "Ok.\n\r", ch );
+	}
+	else
+		send_to_char( "You have no followers here.\n\r", ch );
+	return;
 }
 
 
@@ -1755,20 +1746,16 @@ void do_group( CHAR_DATA *ch, char *argument )
 
 	if (IS_AFFECTED(ch,AFF_CHARM))
 	{
-		act_new("You like your master too much to leave $m!",
-			ch,NULL,victim,TO_VICT,POS_SLEEPING);
+		act_new("You like your master too much to leave $m!", ch,NULL,victim,TO_VICT,POS_SLEEPING);
 		return;
 	}
 
 	if ( is_same_group( victim, ch ) && ch != victim )
 	{
 		victim->leader = NULL;
-		act_new("$n removes $N from $s group.",
-			ch,NULL,victim,TO_NOTVICT,POS_RESTING);
-		act_new("$n removes you from $s group.",
-			ch,NULL,victim,TO_VICT,POS_SLEEPING);
-		act_new("You remove $N from your group.",
-			ch,NULL,victim,TO_CHAR,POS_SLEEPING);
+		act_new("$n removes $N from $s group.", ch,NULL,victim,TO_NOTVICT,POS_RESTING);
+		act_new("$n removes you from $s group.", ch,NULL,victim,TO_VICT,POS_SLEEPING);
+		act_new("You remove $N from your group.", ch,NULL,victim,TO_CHAR,POS_SLEEPING);
 		return;
 	}
 
@@ -1900,28 +1887,27 @@ void do_split( CHAR_DATA *ch, char *argument )
 
 void do_gtell( CHAR_DATA *ch, char *argument )
 {
-		CHAR_DATA *gch;
+	CHAR_DATA *gch;
 
-		if ( IS_NULLSTR(argument) )
-		{
-	send_to_char( "Tell your group what?\n\r", ch );
-	return;
-		}
-
-		if ( IS_SET( ch->comm, COMM_NOTELL ) )
-		{
-	send_to_char( "Your message didn't get through!\n\r", ch );
-	return;
-		}
-
-		for ( gch = char_list; gch != NULL; gch = gch->next )
-		{
-	if ( is_same_group( gch, ch ) )
-			act_new("$n tells the group '$t'",
-		ch,argument,gch,TO_VICT,POS_SLEEPING);
-		}
-
+	if ( IS_NULLSTR(argument) )
+	{
+		send_to_char( "Tell your group what?\n\r", ch );
 		return;
+	}
+
+	if ( IS_SET( ch->comm, COMM_NOTELL ) )
+	{
+		send_to_char( "Your message didn't get through!\n\r", ch );
+		return;
+	}
+
+	for ( gch = char_list; gch != NULL; gch = gch->next )
+	{
+		if ( is_same_group( gch, ch ) )
+			act_new("$n tells the group '$t'", ch,argument,gch,TO_VICT,POS_SLEEPING);
+	}
+
+	return;
 }
 
 
@@ -1934,10 +1920,10 @@ void do_gtell( CHAR_DATA *ch, char *argument )
  */
 bool is_same_group( CHAR_DATA *ach, CHAR_DATA *bch )
 {
-		if ( ach == NULL || bch == NULL)
-	return FALSE;
+	if ( ach == NULL || bch == NULL)
+		return FALSE;
 
-		if ( ach->leader != NULL ) ach = ach->leader;
-		if ( bch->leader != NULL ) bch = bch->leader;
-		return ach == bch;
+	if ( ach->leader != NULL ) ach = ach->leader;
+	if ( bch->leader != NULL ) bch = bch->leader;
+	return ach == bch;
 }

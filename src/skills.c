@@ -544,8 +544,6 @@ void list_group_chosen(CHAR_DATA *ch)
 		send_to_char( "\n\r", ch );
 	send_to_char("\n\r",ch);
  
-	col = 0;
- 
 	send_to_char( Format("%-18s %-5s %-18s %-5s %-18s %-5s","skill","cp","skill","cp","skill","cp\n\r"), ch);
  
 	for (sn = 0; sn < MAX_SKILL; sn++)
@@ -605,161 +603,161 @@ bool parse_gen_groups(CHAR_DATA *ch,char *argument)
 {
 	char arg[MAX_INPUT_LENGTH];
 	int gn,sn;
- 
+
 	if (argument[0] == '\0')
-	return FALSE;
+		return FALSE;
 
 	argument = one_argument(argument,arg);
 
 	if (!str_prefix(arg,"help"))
 	{
-	if (argument[0] == '\0')
-	{
-		do_function(ch, &do_help, "group help");
-		return TRUE;
-	}
+		if (argument[0] == '\0')
+		{
+			do_function(ch, &do_help, "group help");
+			return TRUE;
+		}
 
 		do_function(ch, &do_help, argument);
-	return TRUE;
+		return TRUE;
 	}
 
 	if (!str_prefix(arg,"add"))
 	{
-	if (argument[0] == '\0')
-	{
-		send_to_char("You must provide a skill name.\n\r",ch);
-		return TRUE;
-	}
-
-	gn = group_lookup(argument);
-	if (gn != -1)
-	{
-		if (ch->gen_data->group_chosen[gn]
-		||  ch->pcdata->group_known[gn])
+		if (argument[0] == '\0')
 		{
-		send_to_char("You already know that group!\n\r",ch);
-		return TRUE;
+			send_to_char("You must provide a skill name.\n\r",ch);
+			return TRUE;
 		}
 
-		if (group_table[gn].rating[ch->iclass] < 1)
+		gn = group_lookup(argument);
+		if (gn != -1)
 		{
-		send_to_char("That group is not available.\n\r",ch);
-		return TRUE;
-		}
+			if (ch->gen_data->group_chosen[gn]
+				||  ch->pcdata->group_known[gn])
+			{
+				send_to_char("You already know that group!\n\r",ch);
+				return TRUE;
+			}
+
+			if (group_table[gn].rating[ch->iclass] < 1)
+			{
+				send_to_char("That group is not available.\n\r",ch);
+				return TRUE;
+			}
 
 		/* Close security hole */
-		if (ch->gen_data->points_chosen + group_table[gn].rating[ch->iclass] > 300)
-		{
-		send_to_char( "You cannot take more than 300 creation points.\n\r", ch);
-		return TRUE;
+			if (ch->gen_data->points_chosen + group_table[gn].rating[ch->iclass] > 300)
+			{
+				send_to_char( "You cannot take more than 300 creation points.\n\r", ch);
+				return TRUE;
+			}
+
+			send_to_char( Format("%s group added\n\r",group_table[gn].name), ch);
+			ch->gen_data->group_chosen[gn] = TRUE;
+			ch->gen_data->points_chosen += group_table[gn].rating[ch->iclass];
+			gn_add(ch,gn);
+			ch->pcdata->points += group_table[gn].rating[ch->iclass];
+			return TRUE;
 		}
 
-		send_to_char( Format("%s group added\n\r",group_table[gn].name), ch);
-		ch->gen_data->group_chosen[gn] = TRUE;
-		ch->gen_data->points_chosen += group_table[gn].rating[ch->iclass];
-		gn_add(ch,gn);
-		ch->pcdata->points += group_table[gn].rating[ch->iclass];
-		return TRUE;
-	}
-
-	sn = skill_lookup(argument);
-	if (sn != -1)
-	{
-		if (ch->gen_data->skill_chosen[sn]
-		||  ch->pcdata->learned[sn] > 0)
+		sn = skill_lookup(argument);
+		if (sn != -1)
 		{
-		send_to_char("You already know that skill!\n\r",ch);
-		return TRUE;
-		}
+			if (ch->gen_data->skill_chosen[sn]
+				||  ch->pcdata->learned[sn] > 0)
+			{
+				send_to_char("You already know that skill!\n\r",ch);
+				return TRUE;
+			}
 
-		if (skill_table[sn].rating[ch->iclass] < 1
-		||  skill_table[sn].spell_fun != spell_null)
-		{
-		send_to_char("That skill is not available.\n\r",ch);
-		return TRUE;
-		}
+			if (skill_table[sn].rating[ch->iclass] < 1
+				||  skill_table[sn].spell_fun != spell_null)
+			{
+				send_to_char("That skill is not available.\n\r",ch);
+				return TRUE;
+			}
 
 		/* Close security hole */
-		if (ch->gen_data->points_chosen + skill_table[sn].rating[ch->iclass]
-		> 300)
-		{
-		send_to_char("You cannot take more than 300 creation points.\n\r", ch);
-		return TRUE;
+			if (ch->gen_data->points_chosen + skill_table[sn].rating[ch->iclass]
+				> 300)
+			{
+				send_to_char("You cannot take more than 300 creation points.\n\r", ch);
+				return TRUE;
+			}
+			send_to_char( Format("%s skill added\n\r",skill_table[sn].name), ch);
+			ch->gen_data->skill_chosen[sn] = TRUE;
+			ch->gen_data->points_chosen += skill_table[sn].rating[ch->iclass];
+			ch->pcdata->learned[sn] = 1;
+			ch->pcdata->points += skill_table[sn].rating[ch->iclass];
+			return TRUE;
 		}
-		send_to_char( Format("%s skill added\n\r",skill_table[sn].name), ch);
-		ch->gen_data->skill_chosen[sn] = TRUE;
-		ch->gen_data->points_chosen += skill_table[sn].rating[ch->iclass];
-		ch->pcdata->learned[sn] = 1;
-		ch->pcdata->points += skill_table[sn].rating[ch->iclass];
-		return TRUE;
-	}
 
-	send_to_char("No skills or groups by that name...\n\r",ch);
-	return TRUE;
+		send_to_char("No skills or groups by that name...\n\r",ch);
+		return TRUE;
 	}
 
 	if (!strcmp(arg,"drop"))
 	{
-	if (argument[0] == '\0')
-	{
-		send_to_char("You must provide a skill to drop.\n\r",ch);
-		return TRUE;
-	}
-
-	gn = group_lookup(argument);
-	if (gn != -1 && ch->gen_data->group_chosen[gn])
-	{
-		int i = 0;
-		send_to_char("Group dropped.\n\r",ch);
-		ch->gen_data->group_chosen[gn] = FALSE;
-		ch->gen_data->points_chosen -= group_table[gn].rating[ch->iclass];
-		gn_remove(ch,gn);
-		for (i = 0; i < MAX_GROUP; i++)
+		if (argument[0] == '\0')
 		{
-		if (ch->gen_data->group_chosen[gn])
-			gn_add(ch,gn);
+			send_to_char("You must provide a skill to drop.\n\r",ch);
+			return TRUE;
 		}
-		ch->pcdata->points -= group_table[gn].rating[ch->iclass];
-		return TRUE;
-	}
 
-	sn = skill_lookup(argument);
-	if (sn != -1 && ch->gen_data->skill_chosen[sn])
-	{
-		send_to_char("Skill dropped.\n\r",ch);
-		ch->gen_data->skill_chosen[sn] = FALSE;
-		ch->gen_data->points_chosen -= skill_table[sn].rating[ch->iclass];
-		ch->pcdata->learned[sn] = 0;
-		ch->pcdata->points -= skill_table[sn].rating[ch->iclass];
-		return TRUE;
-	}
+		gn = group_lookup(argument);
+		if (gn != -1 && ch->gen_data->group_chosen[gn])
+		{
+			int i = 0;
+			send_to_char("Group dropped.\n\r",ch);
+			ch->gen_data->group_chosen[gn] = FALSE;
+			ch->gen_data->points_chosen -= group_table[gn].rating[ch->iclass];
+			gn_remove(ch,gn);
+			for (i = 0; i < MAX_GROUP; i++)
+			{
+				if (ch->gen_data->group_chosen[gn])
+					gn_add(ch,gn);
+			}
+			ch->pcdata->points -= group_table[gn].rating[ch->iclass];
+			return TRUE;
+		}
 
-	send_to_char("You haven't bought any such skill or group.\n\r",ch);
-	return TRUE;
+		sn = skill_lookup(argument);
+		if (sn != -1 && ch->gen_data->skill_chosen[sn])
+		{
+			send_to_char("Skill dropped.\n\r",ch);
+			ch->gen_data->skill_chosen[sn] = FALSE;
+			ch->gen_data->points_chosen -= skill_table[sn].rating[ch->iclass];
+			ch->pcdata->learned[sn] = 0;
+			ch->pcdata->points -= skill_table[sn].rating[ch->iclass];
+			return TRUE;
+		}
+
+		send_to_char("You haven't bought any such skill or group.\n\r",ch);
+		return TRUE;
 	}
 
 	if (!str_prefix(arg,"premise"))
 	{
-	do_function(ch, &do_help, "premise");
-	return TRUE;
+		do_function(ch, &do_help, "premise");
+		return TRUE;
 	}
 
 	if (!str_prefix(arg,"list"))
 	{
-	list_group_costs(ch);
-	return TRUE;
+		list_group_costs(ch);
+		return TRUE;
 	}
 
 	if (!str_prefix(arg,"learned"))
 	{
-	list_group_chosen(ch);
-	return TRUE;
+		list_group_chosen(ch);
+		return TRUE;
 	}
 
 	if (!str_prefix(arg,"info"))
 	{
-	do_function(ch, &do_groups, argument);
-	return TRUE;
+		do_function(ch, &do_groups, argument);
+		return TRUE;
 	}
 
 	return FALSE;
@@ -769,14 +767,14 @@ bool parse_gen_groups(CHAR_DATA *ch,char *argument)
 /* shows all groups, or the sub-members of a group */
 void do_groups(CHAR_DATA *ch, char *argument)
 {
-	int gn,sn,col;
+	int gn;
+	int sn;
+	int col = 0;
 
 	if (IS_NPC(ch))
 		return;
 
-	col = 0;
-
-	if (argument[0] == '\0')
+	if (IS_NULLSTR(argument))
 	{   /* show all groups */
 
 		for (gn = 0; gn < MAX_GROUP; gn++)
@@ -932,36 +930,32 @@ void gn_remove( CHAR_DATA *ch, int gn)
 /* use for processing a skill or group for addition  */
 void group_add( CHAR_DATA *ch, const char *name, bool deduct)
 {
-	int sn,gn;
+	int sn = skill_lookup(name);
+	int gn = group_lookup(name);
 
 	if (IS_NPC(ch)) /* NPCs do not have skills */
 	return;
 
-	sn = skill_lookup(name);
-
 	if (sn != -1)
 	{
 	if (ch->pcdata->learned[sn] == 0) /* i.e. not known */
-	{
-		ch->pcdata->learned[sn] = 1;
-		if (deduct)
-		ch->pcdata->points += skill_table[sn].rating[ch->iclass]; 
-	}
-	return;
+		{
+			ch->pcdata->learned[sn] = 1;
+			if (deduct)
+				ch->pcdata->points += skill_table[sn].rating[ch->iclass]; 
+		}
+		return;
 	}
 	
 	/* now check groups */
-
-	gn = group_lookup(name);
-
 	if (gn != -1)
 	{
-	if (ch->pcdata->group_known[gn] == FALSE)  
-	{
-		ch->pcdata->group_known[gn] = TRUE;
-		if (deduct)
-		ch->pcdata->points += group_table[gn].rating[ch->iclass];
-	}
+		if (ch->pcdata->group_known[gn] == FALSE)  
+		{
+			ch->pcdata->group_known[gn] = TRUE;
+			if (deduct)
+				ch->pcdata->points += group_table[gn].rating[ch->iclass];
+		}
 	gn_add(ch,gn); /* make sure all skills in the group are known */
 	}
 }
@@ -970,23 +964,19 @@ void group_add( CHAR_DATA *ch, const char *name, bool deduct)
 
 void group_remove(CHAR_DATA *ch, const char *name)
 {
-	int sn, gn;
+	int sn = skill_lookup(name);
+	int gn = group_lookup(name);
 	
-	 sn = skill_lookup(name);
-
 	if (sn != -1)
 	{
-	ch->pcdata->learned[sn] = 0;
-	return;
+		ch->pcdata->learned[sn] = 0;
+		return;
 	}
- 
+
 	/* now check groups */
- 
-	gn = group_lookup(name);
- 
 	if (gn != -1 && ch->pcdata->group_known[gn] == TRUE)
 	{
-	ch->pcdata->group_known[gn] = FALSE;
+		ch->pcdata->group_known[gn] = FALSE;
 	gn_remove(ch,gn);  /* be sure to call gn_add on all remaining groups */
 	}
 }
