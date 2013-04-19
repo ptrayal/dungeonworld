@@ -290,6 +290,7 @@ const struct olc_cmd_type redit_table[] =
 
 	{   "?",		show_help	},
 	{   "version",	show_version	},
+	{ "copy", redit_copy },
 
 	{	NULL,		0,		}
 };
@@ -327,6 +328,7 @@ const struct olc_cmd_type oedit_table[] =
 
 	{   "?",		show_help	},
 	{   "version",	show_version	},
+	{ "copy", oedit_copy },
 
 	{	NULL,		0,		}
 };
@@ -375,6 +377,7 @@ const struct olc_cmd_type medit_table[] =
 
 	{   "?",		show_help	},
 	{   "version",	show_version	},
+	{ "copy", medit_copy },
 
 	{	NULL,		0,		}
 };

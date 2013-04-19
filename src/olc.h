@@ -204,6 +204,7 @@ DECLARE_OLC_FUN( redit_clan		);
 DECLARE_OLC_FUN( redit_owner		);
 DECLARE_OLC_FUN( redit_room		);
 DECLARE_OLC_FUN( redit_sector		);
+DECLARE_OLC_FUN( redit_copy );
 
 
 /*
@@ -233,6 +234,7 @@ DECLARE_OLC_FUN( oedit_affect           );  /* ROM */
 DECLARE_OLC_FUN( oedit_material		);  /* ROM */
 DECLARE_OLC_FUN( oedit_level            );  /* ROM */
 DECLARE_OLC_FUN( oedit_condition        );  /* ROM */
+DECLARE_OLC_FUN( oedit_copy );
 
 /*
  * Mobile Editor Prototypes
@@ -271,6 +273,7 @@ DECLARE_OLC_FUN( medit_damtype		);  /* ROM */
 DECLARE_OLC_FUN( medit_group		);  /* ROM */
 DECLARE_OLC_FUN( medit_addmprog		);  /* ROM */
 DECLARE_OLC_FUN( medit_delmprog		);  /* ROM */
+DECLARE_OLC_FUN( medit_copy );
 
 /* Mobprog editor */
 DECLARE_OLC_FUN( mpedit_create		);
