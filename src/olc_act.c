@@ -3954,7 +3954,6 @@ MEDIT( medit_spec )
 	return FALSE;
 	}
 
-
 	if ( !str_cmp( argument, "none" ) )
 	{
 		pMob->spec_fun = NULL;
