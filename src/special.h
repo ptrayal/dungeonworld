@@ -21,10 +21,6 @@
 #define MAX_RMOB_ORC_LONG 6 // Max Long_descr's in table
 #define MAX_RMOB_OTHER 2 // Max 'other' stats
  
-extern const struct rmob_orc_name_type rmob_orc_name_table [];
-extern const struct rmob_orc_long_type rmob_orc_long_table [];
-extern const struct rmob_orc_other_type rmob_orc_other_table [];
- 
 struct rmob_orc_name_type
 {
 	char * name;	// Possible names of Mob
@@ -46,3 +42,8 @@ struct rmob_orc_other_type
 	sh_int hit_dice;	// Size of Hitdice. dice(level, hit_dice)
 	long affect_flags;	// Affect flags to set on the mob
 };
+
+extern const struct rmob_orc_name_type rmob_orc_name_table [];
+extern const struct rmob_orc_long_type rmob_orc_long_table [];
+extern const struct rmob_orc_other_type rmob_orc_other_table [];
+ 
