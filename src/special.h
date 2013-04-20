@@ -17,8 +17,8 @@
   * Email: cyhawk@comcast.net
  */
  
-#define MAX_RMOB_ORC_NAME 10 // Max Names in Table
-#define MAX_RMOB_ORC_LONG 5 // Max Long_descr's in table
+#define MAX_RMOB_ORC_NAME 20 // Max Names in Table
+#define MAX_RMOB_ORC_LONG 6 // Max Long_descr's in table
 #define MAX_RMOB_OTHER 2 // Max 'other' stats
  
 extern const struct rmob_orc_name_type rmob_orc_name_table [];

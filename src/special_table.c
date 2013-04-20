@@ -39,8 +39,10 @@ const struct rmob_orc_name_type rmob_orc_name_table[] =
 {"Rushnak"},	{"Vugor"},	{"Vragdish"},	/* 3 */
 {"Prugdish"},	{"Vrork"},	{"Erilo"},	/* 6 */
 {"Prik"},	{"Grodash"},	{"Vorg"},	/* 9 */
-{"Vunk"},	/* 10 */
- 
+{"Vunk"},	{"Zhomhath"},   {"Mekshak"}, /* 12 */
+{"Mugshak"},	{"Ratthug"},   {"Dreggrod"}, /* 15 */
+{"Snagafang"},	{"Nargrim"},   {"Brubbog"}, /* 18 */
+{"Tharburz"},	{"Shakgriig"},    /* 20 */
 };
  
 const struct rmob_orc_long_type rmob_orc_long_table[] = 
@@ -50,6 +52,7 @@ const struct rmob_orc_long_type rmob_orc_long_table[] =
 {"An orc patrols the area here.\n\r"}, /* 3 */
 {"A strong-looking orcish warrior stands here.\n\r"},	/* 4 */
 {"A medium-sized orc patrols the area here.\n\r"},	/* 5 */
+{"A tusked orc warrior stands here..\n\r"},	/* 6 */
  
 };
  
