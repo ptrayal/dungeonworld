@@ -432,44 +432,44 @@ bool spec_cast_mage( CHAR_DATA *ch )
 	int sn;
 
 	if ( ch->position != POS_FIGHTING )
-	return FALSE;
+		return FALSE;
 
 	for ( victim = ch->in_room->people; victim != NULL; victim = v_next )
 	{
-	v_next = victim->next_in_room;
-	if ( victim->fighting == ch && number_bits( 2 ) == 0 )
-		break;
+		v_next = victim->next_in_room;
+		if ( victim->fighting == ch && number_bits( 2 ) == 0 )
+			break;
 	}
 
 	if ( victim == NULL )
-	return FALSE;
+		return FALSE;
 
 	for ( ;; )
 	{
-	int min_level;
+		int min_level;
 
-	switch ( number_bits( 4 ) )
-	{
-	case  0: min_level =  0; spell = "blindness";      break;
-	case  1: min_level =  3; spell = "chill touch";    break;
-	case  2: min_level =  7; spell = "weaken";         break;
-	case  3: min_level =  8; spell = "teleport";       break;
-	case  4: min_level = 11; spell = "colour spray";   break;
-	case  5: min_level = 12; spell = "change sex";     break;
-	case  6: min_level = 13; spell = "energy drain";   break;
-	case  7:
-	case  8:
-	case  9: min_level = 15; spell = "fireball";       break;
-	case 10: min_level = 20; spell = "plague";	   break;
-	default: min_level = 20; spell = "acid blast";     break;
-	}
+		switch ( number_bits( 4 ) )
+		{
+			case  0: min_level =  0; spell = "blindness";      break;
+			case  1: min_level =  3; spell = "chill touch";    break;
+			case  2: min_level =  7; spell = "weaken";         break;
+			case  3: min_level =  8; spell = "teleport";       break;
+			case  4: min_level = 11; spell = "colour spray";   break;
+			case  5: min_level = 12; spell = "change sex";     break;
+			case  6: min_level = 13; spell = "energy drain";   break;
+			case  7:
+			case  8:
+			case  9: min_level = 15; spell = "fireball";       break;
+			case 10: min_level = 20; spell = "plague";	   break;
+			default: min_level = 20; spell = "acid blast";     break;
+		}
 
-	if ( ch->level >= min_level )
-		break;
+		if ( ch->level >= min_level )
+			break;
 	}
 
 	if ( ( sn = skill_lookup( spell ) ) < 0 )
-	return FALSE;
+		return FALSE;
 	(*skill_table[sn].spell_fun) ( sn, ch->level, ch, victim,TARGET_CHAR);
 	return TRUE;
 }
@@ -1049,13 +1049,6 @@ bool spec_random_orc (CHAR_DATA * ch)
 	int long_range = number_range(1, MAX_RMOB_ORC_LONG - 1);
 	int other_range = number_range(1, MAX_RMOB_OTHER - 1);
 	
-	if (ch->wimpy != 0)
-	{
-		return FALSE;
-	}
-	
-	/* Wimpy isn't used by mobs, so we'll use this as a check. if Wimpy == 1, dont do the script
-	prevents mobs from changing every 8 pulses. */
 	if(ch->wimpy != 0) 
 	{
 		if(IS_SET(ch->act, ACT_THIEF))
@@ -1064,6 +1057,11 @@ bool spec_random_orc (CHAR_DATA * ch)
 			return spec_cast_mage(ch);
 		return false;
 	}
+	
+	
+	/* Wimpy isn't used by mobs, so we'll use this as a check. if Wimpy == 1, dont do the script
+	prevents mobs from changing every 8 pulses. */
+	ch->wimpy = 1;
 	
 	/* Select Keyword/Short/long */
 	sprintf (mob_name, "%s orc warrior", rmob_orc_name_table[name_range].name); // Set keywords

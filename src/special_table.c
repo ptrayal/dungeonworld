@@ -52,7 +52,7 @@ const struct rmob_orc_long_type rmob_orc_long_table[] =
 {"An orc patrols the area here.\n\r"}, /* 3 */
 {"A strong-looking orcish warrior stands here.\n\r"},	/* 4 */
 {"A medium-sized orc patrols the area here.\n\r"},	/* 5 */
-{"A tusked orc warrior stands here..\n\r"},	/* 6 */
+{"A tusked orc warrior stands here.\n\r"},	/* 6 */
  
 };
  
