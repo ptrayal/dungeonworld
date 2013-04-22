@@ -2442,8 +2442,7 @@ void nanny_read_motd(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	MXPSendTag( d, "<VERSION>" );  /* <--- Add this line */
 	do_function(ch, &do_look, "auto" );
 
-	wiznet("$N has left real life behind.",ch,NULL,
-		WIZ_LOGINS,WIZ_SITES,get_trust(ch));
+	wiznet("$N has left real life behind.",ch,NULL, WIZ_LOGINS,WIZ_SITES,get_trust(ch));
 
 	if (ch->pet != NULL)
 	{
@@ -2721,31 +2720,31 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
 
 	for ( ch = char_list; ch != NULL; ch = ch->next )
 	{
-	if ( !IS_NPC(ch)
-	&&   (!fConn || ch->desc == NULL)
-	&&   !str_cmp( d->character->name, ch->name ) )
-	{
-		if ( fConn == FALSE )
+		if ( !IS_NPC(ch)
+			&&   (!fConn || ch->desc == NULL)
+			&&   !str_cmp( d->character->name, ch->name ) )
 		{
-		PURGE_DATA( d->character->pcdata->pwd );
-		d->character->pcdata->pwd = str_dup( ch->pcdata->pwd );
-		}
-		else
-		{
-		free_char( d->character );
-		d->character = ch;
-		ch->desc	 = d;
-		ch->timer	 = 0;
-		send_to_char( "Reconnecting. Type replay to see missed tells.\n\r", ch );
-		act( "$n has reconnected.", ch, NULL, NULL, TO_ROOM );
+			if ( fConn == FALSE )
+			{
+				PURGE_DATA( d->character->pcdata->pwd );
+				d->character->pcdata->pwd = str_dup( ch->pcdata->pwd );
+			}
+			else
+			{
+				free_char( d->character );
+				d->character = ch;
+				ch->desc	 = d;
+				ch->timer	 = 0;
+				send_to_char( "Reconnecting. Type replay to see missed tells.\n\r", ch );
+				act( "$n has reconnected.", ch, NULL, NULL, TO_ROOM );
 
-		log_string( Format("%s@%s reconnected.", ch->name, d->host ) );
-		wiznet("$N groks the fullness of $S link.",ch,NULL,WIZ_LINKS,0,0);
-		d->connected = CON_PLAYING;
+				log_string( Format("%s@%s reconnected.", ch->name, d->host ) );
+				wiznet("$N groks the fullness of $S link.",ch,NULL,WIZ_LINKS,0,0);
+				d->connected = CON_PLAYING;
 		MXPSendTag( d, "<VERSION>" );  /* <--- Add this line */
+			}
+			return TRUE;
 		}
-		return TRUE;
-	}
 	}
 
 	return FALSE;
