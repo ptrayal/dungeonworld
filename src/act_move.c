@@ -232,16 +232,23 @@ void move_char( CHAR_DATA *ch, int door, bool follow )
 		if (IS_SET(ch->in_room->room_flags,ROOM_LAW)
 		&&  (IS_NPC(fch) && IS_SET(fch->act,ACT_AGGRESSIVE)))
 		{
-		act("You can't bring $N into the city.",
-			ch,NULL,fch,TO_CHAR);
-		act("You aren't allowed in the city.",
-			fch,NULL,NULL,TO_CHAR);
+		act("You can't bring $N into the city.", ch,NULL,fch,TO_CHAR);
+		act("You aren't allowed in the city.", fch,NULL,NULL,TO_CHAR);
 		continue;
 		}
 
 		act( "You follow $N.", fch, NULL, ch, TO_CHAR );
 		move_char( fch, door, TRUE );
 	}
+	}
+
+	if (IS_SET (ch->in_room->room_flags, ROOM_NOMAGIC))
+	{
+		spell_cancellation (skill_lookup ("cancellation"), MAX_LEVEL+50, ch, ch, TARGET_CHAR);
+		spell_cancellation (skill_lookup ("cancellation"), MAX_LEVEL+50, ch, ch, TARGET_CHAR);
+		spell_cancellation (skill_lookup ("cancellation"), MAX_LEVEL+50, ch, ch, TARGET_CHAR);
+		spell_cancellation (skill_lookup ("cancellation"), MAX_LEVEL+50, ch, ch, TARGET_CHAR);
+		
 	}
 
 	/* 

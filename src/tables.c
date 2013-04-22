@@ -393,6 +393,8 @@ const struct flag_type room_flags[] =
     {	"newbies_only",		ROOM_NEWBIES_ONLY,	TRUE	},
     {	"law",			ROOM_LAW,		TRUE	},
     {   "nowhere",		ROOM_NOWHERE,		TRUE	},
+    {   "underwater",   ROOM_UNDER_WATER,       TRUE },
+    {   "nomagic",      ROOM_NOMAGIC,           TRUE },
     {	NULL,			0,			0	}
 };
 

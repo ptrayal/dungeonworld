@@ -1152,6 +1152,7 @@ struct	kill_data
 #define ROOM_LAW		(S)
 #define ROOM_NOWHERE		(T)
 #define ROOM_UNDER_WATER	(U)
+#define ROOM_NOMAGIC		(V)
 
 
 
