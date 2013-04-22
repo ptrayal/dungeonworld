@@ -316,74 +316,80 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	/*
 	 * Switched NPC's can cast spells, but others can't.
 	 */
-	if ( IS_NPC(ch) && ch->desc == NULL)
-	return;
+	 if ( IS_NPC(ch) && ch->desc == NULL)
+	 	return;
 
-	target_name = one_argument( argument, arg1 );
-	one_argument( target_name, arg2 );
+	 target_name = one_argument( argument, arg1 );
+	 one_argument( target_name, arg2 );
 
-	if ( arg1[0] == '\0' )
-	{
-	send_to_char( "Cast which what where?\n\r", ch );
-	return;
-	}
+	 if ( arg1[0] == '\0' )
+	 {
+	 	send_to_char( "Cast which what where?\n\r", ch );
+	 	return;
+	 }
 
-	if ((sn = find_spell(ch,arg1)) < 1
-	||  skill_table[sn].spell_fun == spell_null
-	|| (!IS_NPC(ch) && (ch->level < skill_table[sn].skill_level[ch->iclass]
-	||   		 ch->pcdata->learned[sn] == 0)))
-	{
-	send_to_char( "You don't know any spells of that name.\n\r", ch );
-	return;
-	}
-  
-	if ( ch->position < skill_table[sn].minimum_position )
-	{
-	send_to_char( "You can't concentrate enough.\n\r", ch );
-	return;
-	}
+	 if ((sn = find_spell(ch,arg1)) < 1
+	 	||  skill_table[sn].spell_fun == spell_null
+	 	|| (!IS_NPC(ch) && (ch->level < skill_table[sn].skill_level[ch->iclass]
+	 		||   		 ch->pcdata->learned[sn] == 0)))
+	 {
+	 	send_to_char( "You don't know any spells of that name.\n\r", ch );
+	 	return;
+	 }
 
-	if (ch->level + 2 == skill_table[sn].skill_level[ch->iclass])
-	mana = 50;
-	else
-		mana = UMAX(
-		skill_table[sn].min_mana,
-		100 / ( 2 + ch->level - skill_table[sn].skill_level[ch->iclass] ) );
+	 if ( ch->position < skill_table[sn].minimum_position )
+	 {
+	 	send_to_char( "You can't concentrate enough.\n\r", ch );
+	 	return;
+	 }
+
+	 if (IS_SET (ch->in_room->room_flags, ROOM_NOMAGIC))
+	 {
+	 	send_to_char( "You utter the words ... But nothing happens.\n\r",ch);
+	 	return;
+	 }
+
+	 if (ch->level + 2 == skill_table[sn].skill_level[ch->iclass])
+	 	mana = 50;
+	 else
+	 	mana = UMAX(
+	 		skill_table[sn].min_mana,
+	 		100 / ( 2 + ch->level - skill_table[sn].skill_level[ch->iclass] ) );
 
 	/*
 	 * Locate targets.
 	 */
-	victim	= NULL;
-	obj		= NULL;
-	vo		= NULL;
-	target	= TARGET_NONE;
-	  
-	switch ( skill_table[sn].target )
-	{
-	default:
-	bug( "Do_cast: bad target for sn %d.", sn );
-	return;
+	 victim	= NULL;
+	 obj		= NULL;
+	 vo		= NULL;
+	 target	= TARGET_NONE;
 
-	case TAR_IGNORE:
-	break;
+	 switch ( skill_table[sn].target )
+	 {
+	 	default:
+	 	bug( "Do_cast: bad target for sn %d.", sn );
+	 	return;
 
-	case TAR_CHAR_OFFENSIVE:
-	if ( arg2[0] == '\0' )
-	{
-		if ( ( victim = ch->fighting ) == NULL )
-		{
-		send_to_char( "Cast the spell on whom?\n\r", ch );
-		return;
-		}
-	}
-	else
-	{
-		if ( ( victim = get_char_room( ch, target_name ) ) == NULL )
-		{
-		send_to_char( "They aren't here.\n\r", ch );
-		return;
-		}
-	}
+	 	case TAR_IGNORE:
+	 	break;
+
+	 	case TAR_CHAR_OFFENSIVE:
+	 	if ( arg2[0] == '\0' )
+	 	{
+	 		if ( ( victim = ch->fighting ) == NULL )
+	 		{
+	 			send_to_char( "Cast the spell on whom?\n\r", ch );
+	 			return;
+	 		}
+	 	}
+	 	else
+	 	{
+	 		if ( ( victim = get_char_room( ch, target_name ) ) == NULL )
+	 		{
+	 			send_to_char( "They aren't here.\n\r", ch );
+	 			return;
+	 		}
+	 	}
 /*
 		if ( ch == victim )
 		{
@@ -393,97 +399,97 @@ void do_cast( CHAR_DATA *ch, char *argument )
 */
 
 
-	if ( !IS_NPC(ch) )
-	{
+		if ( !IS_NPC(ch) )
+		{
 
 			if (is_safe(ch,victim) && victim != ch)
-		{
-		send_to_char("Not on that target.\n\r",ch);
-		return; 
+			{
+				send_to_char("Not on that target.\n\r",ch);
+				return; 
+			}
+			check_killer(ch,victim);
 		}
-	check_killer(ch,victim);
-	}
 
 		if ( IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim )
-	{
-		send_to_char( "You can't do that on your own follower.\n\r",
-		ch );
-		return;
-	}
-
-	vo = (void *) victim;
-	target = TARGET_CHAR;
-	break;
-
-	case TAR_CHAR_DEFENSIVE:
-	if ( arg2[0] == '\0' )
-	{
-		victim = ch;
-	}
-	else
-	{
-		if ( ( victim = get_char_room( ch, target_name ) ) == NULL )
 		{
-		send_to_char( "They aren't here.\n\r", ch );
-		return;
+			send_to_char( "You can't do that on your own follower.\n\r",
+				ch );
+			return;
 		}
-	}
 
-	vo = (void *) victim;
-	target = TARGET_CHAR;
-	break;
+		vo = (void *) victim;
+		target = TARGET_CHAR;
+		break;
 
-	case TAR_CHAR_SELF:
-	if ( arg2[0] != '\0' && !is_name( target_name, ch->name ) )
-	{
-		send_to_char( "You cannot cast this spell on another.\n\r", ch );
-		return;
-	}
-
-	vo = (void *) ch;
-	target = TARGET_CHAR;
-	break;
-
-	case TAR_OBJ_INV:
-	if ( arg2[0] == '\0' )
-	{
-		send_to_char( "What should the spell be cast upon?\n\r", ch );
-		return;
-	}
-
-	if ( ( obj = get_obj_carry( ch, target_name, ch ) ) == NULL )
-	{
-		send_to_char( "You are not carrying that.\n\r", ch );
-		return;
-	}
-
-	vo = (void *) obj;
-	target = TARGET_OBJ;
-	break;
-
-	case TAR_OBJ_CHAR_OFF:
-	if (arg2[0] == '\0')
-	{
-		if ((victim = ch->fighting) == NULL)
+		case TAR_CHAR_DEFENSIVE:
+		if ( arg2[0] == '\0' )
 		{
-		send_to_char("Cast the spell on whom or what?\n\r",ch);
-		return;
+			victim = ch;
 		}
-	
+		else
+		{
+			if ( ( victim = get_char_room( ch, target_name ) ) == NULL )
+			{
+				send_to_char( "They aren't here.\n\r", ch );
+				return;
+			}
+		}
+
+		vo = (void *) victim;
 		target = TARGET_CHAR;
-	}
-	else if ((victim = get_char_room(ch,target_name)) != NULL)
-	{
+		break;
+
+		case TAR_CHAR_SELF:
+		if ( arg2[0] != '\0' && !is_name( target_name, ch->name ) )
+		{
+			send_to_char( "You cannot cast this spell on another.\n\r", ch );
+			return;
+		}
+
+		vo = (void *) ch;
 		target = TARGET_CHAR;
-	}
+		break;
+
+		case TAR_OBJ_INV:
+		if ( arg2[0] == '\0' )
+		{
+			send_to_char( "What should the spell be cast upon?\n\r", ch );
+			return;
+		}
+
+		if ( ( obj = get_obj_carry( ch, target_name, ch ) ) == NULL )
+		{
+			send_to_char( "You are not carrying that.\n\r", ch );
+			return;
+		}
+
+		vo = (void *) obj;
+		target = TARGET_OBJ;
+		break;
+
+		case TAR_OBJ_CHAR_OFF:
+		if (arg2[0] == '\0')
+		{
+			if ((victim = ch->fighting) == NULL)
+			{
+				send_to_char("Cast the spell on whom or what?\n\r",ch);
+				return;
+			}
+
+			target = TARGET_CHAR;
+		}
+		else if ((victim = get_char_room(ch,target_name)) != NULL)
+		{
+			target = TARGET_CHAR;
+		}
 
 	if (target == TARGET_CHAR) /* check the sanity of the attack */
-	{
-		if(is_safe_spell(ch,victim,FALSE) && victim != ch)
 		{
-		send_to_char("Not on that target.\n\r",ch);
-		return;
-		}
+			if(is_safe_spell(ch,victim,FALSE) && victim != ch)
+			{
+				send_to_char("Not on that target.\n\r",ch);
+				return;
+			}
 
 			if ( IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim )
 			{
@@ -492,24 +498,24 @@ void do_cast( CHAR_DATA *ch, char *argument )
 				return;
 			}
 
-		if (!IS_NPC(ch))
-		check_killer(ch,victim);
+			if (!IS_NPC(ch))
+				check_killer(ch,victim);
 
-		vo = (void *) victim;
-	}
-	else if ((obj = get_obj_here(ch,target_name)) != NULL)
-	{
-		vo = (void *) obj;
-		target = TARGET_OBJ;
-	}
-	else
-	{
-		send_to_char("You don't see that here.\n\r",ch);
-		return;
-	}
-	break; 
+			vo = (void *) victim;
+		}
+		else if ((obj = get_obj_here(ch,target_name)) != NULL)
+		{
+			vo = (void *) obj;
+			target = TARGET_OBJ;
+		}
+		else
+		{
+			send_to_char("You don't see that here.\n\r",ch);
+			return;
+		}
+		break; 
 
-	case TAR_OBJ_CHAR_DEF:
+		case TAR_OBJ_CHAR_DEF:
 		if (arg2[0] == '\0')
 		{
 			vo = (void *) ch;
@@ -519,36 +525,36 @@ void do_cast( CHAR_DATA *ch, char *argument )
 		{
 			vo = (void *) victim;
 			target = TARGET_CHAR;
+		}
+		else if ((obj = get_obj_carry(ch,target_name,ch)) != NULL)
+		{
+			vo = (void *) obj;
+			target = TARGET_OBJ;
+		}
+		else
+		{
+			send_to_char("You don't see that here.\n\r",ch);
+			return;
+		}
+		break;
 	}
-	else if ((obj = get_obj_carry(ch,target_name,ch)) != NULL)
-	{
-		vo = (void *) obj;
-		target = TARGET_OBJ;
-	}
-	else
-	{
-		send_to_char("You don't see that here.\n\r",ch);
-		return;
-	}
-	break;
-	}
-		
+
 	if ( !IS_NPC(ch) && ch->mana < mana )
 	{
-	send_to_char( "You don't have enough mana.\n\r", ch );
-	return;
+		send_to_char( "You don't have enough mana.\n\r", ch );
+		return;
 	}
-	  
+
 	if ( str_cmp( skill_table[sn].name, "ventriloquate" ) )
-	say_spell( ch, sn );
-	  
+		say_spell( ch, sn );
+
 	WAIT_STATE( ch, skill_table[sn].beats );
-	  
+
 	if ( number_percent( ) > get_skill(ch,sn) )
 	{
-	send_to_char( "You lost your concentration.\n\r", ch );
-	check_improve(ch,sn,FALSE,1);
-	ch->mana -= mana / 2;
+		send_to_char( "You lost your concentration.\n\r", ch );
+		check_improve(ch,sn,FALSE,1);
+		ch->mana -= mana / 2;
 	}
 	else
 	{
@@ -562,26 +568,26 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	}
 
 	if ((skill_table[sn].target == TAR_CHAR_OFFENSIVE
-	||   (skill_table[sn].target == TAR_OBJ_CHAR_OFF && target == TARGET_CHAR))
-	&&   victim != ch
-	&&   victim->master != ch)
+		||   (skill_table[sn].target == TAR_OBJ_CHAR_OFF && target == TARGET_CHAR))
+		&&   victim != ch
+		&&   victim->master != ch)
 	{
-	CHAR_DATA *vch;
-	CHAR_DATA *vch_next;
+		CHAR_DATA *vch;
+		CHAR_DATA *vch_next;
 
-	for ( vch = ch->in_room->people; vch; vch = vch_next )
-	{
-		vch_next = vch->next_in_room;
-		if ( victim == vch && victim->fighting == NULL )
-		{	check_killer(victim,ch);
-		multi_hit( victim, ch, TYPE_UNDEFINED );
-		break;
+		for ( vch = ch->in_room->people; vch; vch = vch_next )
+		{
+			vch_next = vch->next_in_room;
+			if ( victim == vch && victim->fighting == NULL )
+				{	check_killer(victim,ch);
+					multi_hit( victim, ch, TYPE_UNDEFINED );
+					break;
+				}
+			}
 		}
-	}
-	}
 
-	return;
-}
+		return;
+	}
 
 
 
@@ -1180,9 +1186,12 @@ void spell_cancellation( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		act("$n looks stronger.",victim,NULL,NULL,TO_ROOM);
 		found = TRUE;
 	}
- 
+	
 	if (found)
 		send_to_char("Ok.\n\r",ch);
+	else if (IS_SET (ch->in_room->room_flags, ROOM_NOMAGIC))
+	{
+	}
 	else
 		send_to_char("Spell failed.\n\r",ch);
 }
@@ -3294,7 +3303,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 		case ITEM_WAND: 
 		case ITEM_STAFF: 
-			send_to_char( Format("Has %d charges of level %d", obj->value[2], obj->value[0]), ch );
+			send_to_char( Format("It contains %d charges of level %d", obj->value[2], obj->value[0]), ch );
 
 		if ( obj->value[3] >= 0 && obj->value[3] < MAX_SKILL )
 		{
@@ -3311,14 +3320,10 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		break;
 
 		case ITEM_CONTAINER:
-		sprintf(buf,"Capacity: %d#  Maximum weight: %d#  flags: %s\n\r",
-			obj->value[0], obj->value[3], cont_bit_name(obj->value[1]));
-		send_to_char(buf,ch);
+		send_to_char(Format("Capacity: %d#  Maximum weight: %d#  flags: %s\n\r", obj->value[0], obj->value[3], cont_bit_name(obj->value[1])),ch);
 		if (obj->value[4] != 100)
 		{
-			sprintf(buf,"Weight multiplier: %d%%\n\r",
-				obj->value[4]);
-			send_to_char(buf,ch);
+			send_to_char( Format("Weight multiplier: %d%%\n\r", obj->value[4]),ch);
 		}
 		break;
 		
@@ -3349,9 +3354,12 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		break;
 
 		case ITEM_ARMOR:
-		sprintf( buf, "Armor class is %d pierce, %d bash, %d slash, and %d vs. magic.\n\r", 
-			obj->value[0], obj->value[1], obj->value[2], obj->value[3] );
-		send_to_char( buf, ch );
+			send_to_char( Format("Armor class is %d pierce, %d bash, %d slash, and %d vs. magic.\n\r", 
+				obj->value[0], obj->value[1], obj->value[2], obj->value[3]), ch );
+		break;
+
+		case ITEM_JEWELRY:
+			send_to_char( "This is a piece of jewelry.\n\r", ch );
 		break;
 	}
 
@@ -3367,28 +3375,22 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 					switch(paf->where)
 					{
 						case TO_AFFECTS:
-						sprintf(buf,"Adds %s affect.\n",
-							affect_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
 						break;
 						case TO_OBJECT:
-						sprintf(buf,"Adds %s object flag.\n",
-							extra_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
 						break;
 						case TO_IMMUNE:
-						sprintf(buf,"Adds immunity to %s.\n",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"Provides immunity to %s.\n", imm_bit_name(paf->bitvector));
 						break;
 						case TO_RESIST:
-						sprintf(buf,"Adds resistance to %s.\n\r",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"Provides resistance to %s.\n\r", imm_bit_name(paf->bitvector));
 						break;
 						case TO_VULN:
-						sprintf(buf,"Adds vulnerability to %s.\n\r",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"Adds vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
 						break;
 						default:
-						sprintf(buf,"Unknown bit %d: %d\n\r",
-							paf->where,paf->bitvector);
+						sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
 						break;
 					}
 					send_to_char( buf, ch );
@@ -3400,45 +3402,35 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		{
 			if ( paf->location != APPLY_NONE && paf->modifier != 0 )
 			{
-				sprintf( buf, "Affects %s by %d",
-					affect_loc_name( paf->location ), paf->modifier );
-				send_to_char( buf, ch );
+				send_to_char( Format("Affects %s by %d", affect_loc_name( paf->location ), paf->modifier), ch );
 				if ( paf->duration > -1)
-					sprintf(buf,", %d hours.\n\r",paf->duration);
+					send_to_char(Format(", %d hours.\n\r",paf->duration), ch);
 				else
-					sprintf(buf,".\n\r");
-				send_to_char(buf,ch);
+					send_to_char(".\n\r",ch);
 				if (paf->bitvector)
 				{
 					switch(paf->where)
 					{
 						case TO_AFFECTS:
-						sprintf(buf,"Adds %s affect.\n",
-							affect_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
 						break;
 						case TO_OBJECT:
-						sprintf(buf,"Adds %s object flag.\n",
-							extra_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
 						break;
 						case TO_WEAPON:
-						sprintf(buf,"Adds %s weapon flags.\n",
-							weapon_bit_name(paf->bitvector));
+						sprintf(buf,"Adds %s weapon flags.\n", weapon_bit_name(paf->bitvector));
 						break;
 						case TO_IMMUNE:
-						sprintf(buf,"Adds immunity to %s.\n",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"Provides immunity to %s.\n", imm_bit_name(paf->bitvector));
 						break;
 						case TO_RESIST:
-						sprintf(buf,"Adds resistance to %s.\n\r",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"Provides resistance to %s.\n\r", imm_bit_name(paf->bitvector));
 						break;
 						case TO_VULN:
-						sprintf(buf,"Adds vulnerability to %s.\n\r",
-							imm_bit_name(paf->bitvector));
+						sprintf(buf,"Adds vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
 						break;
 						default:
-						sprintf(buf,"Unknown bit %d: %d\n\r",
-							paf->where,paf->bitvector);
+						sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
 						break;
 					}
 					send_to_char(buf,ch);
