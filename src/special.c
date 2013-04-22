@@ -191,20 +191,20 @@ bool dragon( CHAR_DATA *ch, char *spell_name )
 	int sn;
 
 	if ( ch->position != POS_FIGHTING )
-	return FALSE;
+		return FALSE;
 
 	for ( victim = ch->in_room->people; victim != NULL; victim = v_next )
 	{
-	v_next = victim->next_in_room;
-	if ( victim->fighting == ch && number_bits( 3 ) == 0 )
-		break;
+		v_next = victim->next_in_room;
+		if ( victim->fighting == ch && number_bits( 3 ) == 0 )
+			break;
 	}
 
 	if ( victim == NULL )
-	return FALSE;
+		return FALSE;
 
 	if ( ( sn = skill_lookup( spell_name ) ) < 0 )
-	return FALSE;
+		return FALSE;
 	(*skill_table[sn].spell_fun) ( sn, ch->level, ch, victim, TARGET_CHAR);
 	return TRUE;
 }
@@ -217,18 +217,18 @@ bool dragon( CHAR_DATA *ch, char *spell_name )
 bool spec_breath_any( CHAR_DATA *ch )
 {
 	if ( ch->position != POS_FIGHTING )
-	return FALSE;
+		return FALSE;
 
 	switch ( number_bits( 3 ) )
 	{
-	case 0: return spec_breath_fire		( ch );
-	case 1:
-	case 2: return spec_breath_lightning	( ch );
-	case 3: return spec_breath_gas		( ch );
-	case 4: return spec_breath_acid		( ch );
-	case 5:
-	case 6:
-	case 7: return spec_breath_frost		( ch );
+		case 0: return spec_breath_fire		( ch );
+		case 1:
+		case 2: return spec_breath_lightning	( ch );
+		case 3: return spec_breath_gas		( ch );
+		case 4: return spec_breath_acid		( ch );
+		case 5:
+		case 6:
+		case 7: return spec_breath_frost		( ch );
 	}
 
 	return FALSE;
@@ -262,10 +262,10 @@ bool spec_breath_gas( CHAR_DATA *ch )
 	int sn;
 
 	if ( ch->position != POS_FIGHTING )
-	return FALSE;
+		return FALSE;
 
 	if ( ( sn = skill_lookup( "gas breath" ) ) < 0 )
-	return FALSE;
+		return FALSE;
 	(*skill_table[sn].spell_fun) ( sn, ch->level, ch, NULL,TARGET_CHAR);
 	return TRUE;
 }
@@ -285,58 +285,58 @@ bool spec_cast_adept( CHAR_DATA *ch )
 	CHAR_DATA *v_next;
 
 	if ( !IS_AWAKE(ch) )
-	return FALSE;
+		return FALSE;
 
 	for ( victim = ch->in_room->people; victim != NULL; victim = v_next )
 	{
-	v_next = victim->next_in_room;
-	if ( victim != ch && can_see( ch, victim ) && number_bits( 1 ) == 0 
-		 && !IS_NPC(victim) && victim->level < 11)
-		break;
+		v_next = victim->next_in_room;
+		if ( victim != ch && can_see( ch, victim ) && number_bits( 1 ) == 0 
+			&& !IS_NPC(victim) && victim->level < 11)
+			break;
 	}
 
 	if ( victim == NULL )
-	return FALSE;
+		return FALSE;
 
 	switch ( number_bits( 4 ) )
 	{
-	case 0:
-	act( "$n utters the word 'abrazak'.", ch, NULL, NULL, TO_ROOM );
-	spell_armor( skill_lookup( "armor" ), ch->level,ch,victim,TARGET_CHAR);
-	return TRUE;
+		case 0:
+		act( "$n utters the word 'abrazak'.", ch, NULL, NULL, TO_ROOM );
+		spell_armor( skill_lookup( "armor" ), ch->level,ch,victim,TARGET_CHAR);
+		return TRUE;
 
-	case 1:
-	act( "$n utters the word 'fido'.", ch, NULL, NULL, TO_ROOM );
-	spell_bless( skill_lookup( "bless" ), ch->level,ch,victim,TARGET_CHAR);
-	return TRUE;
+		case 1:
+		act( "$n utters the word 'fido'.", ch, NULL, NULL, TO_ROOM );
+		spell_bless( skill_lookup( "bless" ), ch->level,ch,victim,TARGET_CHAR);
+		return TRUE;
 
-	case 2:
-	act("$n utters the words 'judicandus noselacri'.",ch,NULL,NULL,TO_ROOM);
-	spell_cure_blindness( skill_lookup( "cure blindness" ),
-		ch->level, ch, victim,TARGET_CHAR);
-	return TRUE;
+		case 2:
+		act("$n utters the words 'judicandus noselacri'.",ch,NULL,NULL,TO_ROOM);
+		spell_cure_blindness( skill_lookup( "cure blindness" ),
+			ch->level, ch, victim,TARGET_CHAR);
+		return TRUE;
 
-	case 3:
-	act("$n utters the words 'judicandus dies'.", ch,NULL, NULL, TO_ROOM );
-	spell_cure_light( skill_lookup( "cure light" ),
-		ch->level, ch, victim,TARGET_CHAR);
-	return TRUE;
+		case 3:
+		act("$n utters the words 'judicandus dies'.", ch,NULL, NULL, TO_ROOM );
+		spell_cure_light( skill_lookup( "cure light" ),
+			ch->level, ch, victim,TARGET_CHAR);
+		return TRUE;
 
-	case 4:
-	act( "$n utters the words 'judicandus sausabru'.",ch,NULL,NULL,TO_ROOM);
-	spell_cure_poison( skill_lookup( "cure poison" ),
-		ch->level, ch, victim,TARGET_CHAR);
-	return TRUE;
+		case 4:
+		act( "$n utters the words 'judicandus sausabru'.",ch,NULL,NULL,TO_ROOM);
+		spell_cure_poison( skill_lookup( "cure poison" ),
+			ch->level, ch, victim,TARGET_CHAR);
+		return TRUE;
 
-	case 5:
-	act("$n utters the word 'candusima'.", ch, NULL, NULL, TO_ROOM );
-	spell_refresh( skill_lookup("refresh"),ch->level,ch,victim,TARGET_CHAR);
-	return TRUE;
+		case 5:
+		act("$n utters the word 'candusima'.", ch, NULL, NULL, TO_ROOM );
+		spell_refresh( skill_lookup("refresh"),ch->level,ch,victim,TARGET_CHAR);
+		return TRUE;
 
-	case 6:
-	act("$n utters the words 'judicandus eugzagz'.",ch,NULL,NULL,TO_ROOM);
-	spell_cure_disease(skill_lookup("cure disease"),
-		ch->level,ch,victim,TARGET_CHAR);
+		case 6:
+		act("$n utters the words 'judicandus eugzagz'.",ch,NULL,NULL,TO_ROOM);
+		spell_cure_disease(skill_lookup("cure disease"),
+			ch->level,ch,victim,TARGET_CHAR);
 	}
 
 	return FALSE;
@@ -352,45 +352,45 @@ bool spec_cast_cleric( CHAR_DATA *ch )
 	int sn;
 
 	if ( ch->position != POS_FIGHTING )
-	return FALSE;
+		return FALSE;
 
 	for ( victim = ch->in_room->people; victim != NULL; victim = v_next )
 	{
-	v_next = victim->next_in_room;
-	if ( victim->fighting == ch && number_bits( 2 ) == 0 )
-		break;
+		v_next = victim->next_in_room;
+		if ( victim->fighting == ch && number_bits( 2 ) == 0 )
+			break;
 	}
 
 	if ( victim == NULL )
-	return FALSE;
+		return FALSE;
 
 	for ( ;; )
 	{
-	int min_level;
+		int min_level;
 
-	switch ( number_bits( 4 ) )
-	{
-	case  0: min_level =  0; spell = "blindness";      break;
-	case  1: min_level =  3; spell = "cause serious";  break;
-	case  2: min_level =  7; spell = "earthquake";     break;
-	case  3: min_level =  9; spell = "cause critical"; break;
-	case  4: min_level = 10; spell = "dispel evil";    break;
-	case  5: min_level = 12; spell = "curse";          break;
-	case  6: min_level = 12; spell = "change sex";     break;
-	case  7: min_level = 13; spell = "flamestrike";    break;
-	case  8:
-	case  9:
-	case 10: min_level = 15; spell = "harm";           break;
-	case 11: min_level = 15; spell = "plague";	   break;
-	default: min_level = 16; spell = "dispel magic";   break;
-	}
+		switch ( number_bits( 4 ) )
+		{
+			case  0: min_level =  0; spell = "blindness";      break;
+			case  1: min_level =  3; spell = "cause serious";  break;
+			case  2: min_level =  7; spell = "earthquake";     break;
+			case  3: min_level =  9; spell = "cause critical"; break;
+			case  4: min_level = 10; spell = "dispel evil";    break;
+			case  5: min_level = 12; spell = "curse";          break;
+			case  6: min_level = 12; spell = "change sex";     break;
+			case  7: min_level = 13; spell = "flamestrike";    break;
+			case  8:
+			case  9:
+			case 10: min_level = 15; spell = "harm";           break;
+			case 11: min_level = 15; spell = "plague";	   break;
+			default: min_level = 16; spell = "dispel magic";   break;
+		}
 
-	if ( ch->level >= min_level )
-		break;
+		if ( ch->level >= min_level )
+			break;
 	}
 
 	if ( ( sn = skill_lookup( spell ) ) < 0 )
-	return FALSE;
+		return FALSE;
 	(*skill_table[sn].spell_fun) ( sn, ch->level, ch, victim,TARGET_CHAR);
 	return TRUE;
 }
@@ -1056,7 +1056,14 @@ bool spec_random_orc (CHAR_DATA * ch)
 	
 	/* Wimpy isn't used by mobs, so we'll use this as a check. if Wimpy == 1, dont do the script
 	prevents mobs from changing every 8 pulses. */
-	ch->wimpy = 1;
+	if(ch->wimpy != 0) 
+	{
+		if(IS_SET(ch->act, ACT_THIEF))
+			return spec_thief(ch);
+		if(IS_SET(ch->act, ACT_MAGE))
+			return spec_cast_mage(ch);
+		return false;
+	}
 	
 	/* Select Keyword/Short/long */
 	sprintf (mob_name, "%s orc warrior", rmob_orc_name_table[name_range].name); // Set keywords
@@ -1064,9 +1071,12 @@ bool spec_random_orc (CHAR_DATA * ch)
 	sprintf (mob_long, "%s", rmob_orc_long_table[long_range].long_descr);   // Set Long_descr
 
 	/* Now set the names */
-	ch->name = str_dup (mob_name);
-	ch->short_descr = str_dup (mob_short);
-	ch->long_descr = str_dup (mob_long);
+	ReplaceString(ch->name, mob_name);
+	ReplaceString(ch->short_descr, mob_short);
+	ReplaceString(ch->long_descr, mob_long);
+	// ch->name = str_dup (mob_name);
+	// ch->short_descr = str_dup (mob_short);
+	// ch->long_descr = str_dup (mob_long);
 
 
 	/* play with level ranges a bit, dont want static mobs */
