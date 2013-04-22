@@ -2073,9 +2073,7 @@ void nanny_get_new_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 
 	if ( strlen(argument) < 5 )
 	{
-		write_to_buffer( d,
-		"Password must be at least five characters long.\n\rPassword: ",
-		0 );
+		write_to_buffer( d, "Password must be at least five characters long.\n\rPassword: ", 0 );
 		return;
 	}
 
@@ -2084,9 +2082,7 @@ void nanny_get_new_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	{
 		if ( *p == '~' )
 		{
-		write_to_buffer( d,
-			"New password not acceptable, try again.\n\rPassword: ",
-			0 );
+		write_to_buffer( d, "New password not acceptable, try again.\n\rPassword: ", 0 );
 		return;
 		}
 	}
@@ -2196,9 +2192,13 @@ void nanny_get_new_sex(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	{
 	case 'm': case 'M': ch->sex = SEX_MALE;    
 				ch->pcdata->true_sex = SEX_MALE;
+				ch->perm_stat[STAT_STR] += 1;
+				ch->perm_stat[STAT_DEX] -= 1;
 				break;
 	case 'f': case 'F': ch->sex = SEX_FEMALE; 
 				ch->pcdata->true_sex = SEX_FEMALE;
+				ch->perm_stat[STAT_STR] -= 1;
+				ch->perm_stat[STAT_DEX] += 1;
 				break;
 	default:
 		write_to_buffer( d, "That's not a sex.\n\rWhat IS your sex? ", 0 );

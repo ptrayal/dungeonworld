@@ -71,8 +71,6 @@ void advance_level( CHAR_DATA *ch, bool hide )
 	ch->pcdata->last_level = 
 	( ch->played + (int) (current_time - ch->logon) ) / 3600;
 
-	set_title( ch, (char *)Format("the %s", title_table [ch->iclass] [ch->level] [ch->sex == SEX_FEMALE ? 1 : 0]) );
-
 	add_hp	= con_app[get_curr_stat(ch,STAT_CON)].hitp + number_range( class_table[ch->iclass].hp_min, class_table[ch->iclass].hp_max );
 	add_mana 	= number_range(2,(2*get_curr_stat(ch,STAT_INT) + get_curr_stat(ch,STAT_WIS))/5);
 	if (!class_table[ch->iclass].fMana)
