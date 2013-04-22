@@ -2190,6 +2190,7 @@ void nanny_get_new_sex(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	
 	switch ( argument[0] )
 	{
+	// Males get +1 STR, -1 DEX and females get the reverse.  Rayal
 	case 'm': case 'M': ch->sex = SEX_MALE;    
 				ch->pcdata->true_sex = SEX_MALE;
 				ch->perm_stat[STAT_STR] += 1;
