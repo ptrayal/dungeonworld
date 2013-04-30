@@ -158,6 +158,14 @@ shadow~
 portal GOT 0
 0 0 0 0 0
 0 0 0 P
+#298
+gauntlet gauntlets elements~
+gauntlets of the Elements~
+A pair of gauntlets covered in cold-blue flames is here.~
+adamantite~
+armor 0 AH
+0 0 0 0 0
+0 0 0 P
 #299
 hammer gods~
 hammer of the Gods~
@@ -167,9 +175,9 @@ weapon BG AN
 mace 7 6 divine A
 50 100 0 P
 A
-19 8
-A
 18 1
+A
+19 8
 #0
 
 

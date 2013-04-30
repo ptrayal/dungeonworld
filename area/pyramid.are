@@ -401,7 +401,7 @@ The jar is sticky and smells really bad.
 ball fire~
 a small hot ball of fire~
 A little ball of fire hovers in the air before your eyes.~
-oldstyle~
+energy~
 light AG AO
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 20 100 720 P
@@ -636,7 +636,7 @@ mortals to attempt to consume.
 golden mask~
 a golden mask~
 A beautiful, intricately detailed mask has been forgotten here.~
-oldstyle~
+gold~
 armor G AE
 D D D AB 0
 33 100 5500 P
@@ -707,7 +707,7 @@ it gives off a continuous low humming noise that tickles your fingertips.
 golden sphinx~
 a small golden sphinx~
 A small golden sphinx glints in the light.~
-oldstyle~
+gold~
 treasure G AO
 0 0 0 0 0
 5 50 550 P
@@ -2012,16 +2012,16 @@ You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
 0 -1 8754
-D3
-You see only a wall of whirling, blowing, dry sand.
-~
-(null)~
-0 -1 8754
 D0
 You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
 0 -1 8753
+D3
+You see only a wall of whirling, blowing, dry sand.
+~
+(null)~
+0 -1 8754
 D2
 You see only a wall of whirling, blowing, dry sand.
 ~
@@ -2040,7 +2040,12 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D1
+D0
+You see only a wall of whirling, blowing, dry sand.
+~
+(null)~
+0 -1 8754
+D3
 You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
@@ -2050,16 +2055,11 @@ You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
 0 -1 8756
-D3
+D1
 You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
 0 -1 8755
-D0
-You see only a wall of whirling, blowing, dry sand.
-~
-(null)~
-0 -1 8754
 S
 #8756
 A Swirling Sandstorm~
@@ -2078,7 +2078,7 @@ You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
 0 -1 8755
-D3
+D1
 You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
@@ -2088,7 +2088,7 @@ You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
 0 -1 8757
-D1
+D3
 You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
@@ -2106,26 +2106,26 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D2
-You see only a wall of whirling, blowing, dry sand.
-~
-(null)~
-0 -1 8758
-D3
-You see only a wall of whirling, blowing, dry sand.
-~
-(null)~
-0 -1 8757
-D0
-You see only a wall of whirling, blowing, dry sand.
-~
-(null)~
-0 -1 8756
 D1
 You see only a wall of whirling, blowing, dry sand.
 ~
 (null)~
 0 -1 8757
+D3
+You see only a wall of whirling, blowing, dry sand.
+~
+(null)~
+0 -1 8757
+D2
+You see only a wall of whirling, blowing, dry sand.
+~
+(null)~
+0 -1 8758
+D0
+You see only a wall of whirling, blowing, dry sand.
+~
+(null)~
+0 -1 8756
 S
 #8758
 A Massive Sand Dune~

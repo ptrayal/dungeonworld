@@ -63,9 +63,9 @@ orc~
 AB J -400 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
-EFNR 0 Q S
+NR 0 Q S
 stand stand male 5
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #6305
 oldstyle wasp queen~
 the Queen Wasp~
@@ -301,9 +301,9 @@ armor FG AE
 BC BC BC AB 0
 18 50 4600 P
 A
-4 2
-A
 17 -2
+A
+4 2
 #6304
 visor black knight's~
 a black knight's visor~
@@ -313,14 +313,14 @@ armor FG AE
 BC BC BC B 0
 17 50 4600 P
 A
-1 1
-A
 5 2
+A
+1 1
 #6308
 coins silver gold~
 a big pile of coins~
 A big pile of coins is lying here.~
-oldstyle~
+gold~
 money 0 A
 CEFGHI CE 0 0 0
 0 0 0 P

@@ -10,7 +10,7 @@ End
 
 #MOBILES
 #6500
-oldstyle dwarf guard~
+dwarf guard~
 the dwarven guard~
 A dwarven guard is here.
 ~
@@ -304,7 +304,7 @@ light 0 AO
 club~
 dwarven club~
 There is a dwarven club laying here.~
-oldstyle~
+wood~
 weapon 0 AN
 mace 2 6 pound 0
 10 10 510 P
@@ -327,17 +327,15 @@ armor 0 AE
 ABC ABC ABC 0 0
 20 40 1450 P
 #6511
-ring golden dwarven~
-a dwarven golden ring~
+ring damage~
+ring of damage~
 A pretty golden ring is here.~
 gold~
 gem G AB
 0 0 0 0 0
-7 10 460 P
+7 10 500 P
 A
-18 1
-A
-19 1
+19 3
 #6512
 gloves~
 dwarven gloves~
@@ -558,7 +556,7 @@ Entrance to Mountain~
 Here is an entrance to the mountain.  The door looks very well built,
 and you can hear noise coming from within.
 ~
-0 0 2
+0 0 8
 D1
 (null)~
 (null)~
@@ -693,7 +691,7 @@ Inside the entrance~
 Everything here is covered in soot and very grimy.  The path continues
 to the east and north, and there is a door to the west.
 ~
-0 8 0
+0 8 8
 D0
 The little underground path continues to the north.
 ~
@@ -715,7 +713,7 @@ Path~
 You are on a path in the dwarven village which leads north to the shops
 and south to the corner of the area.
 ~
-0 8 0
+0 8 8
 D0
 (null)~
 (null)~
@@ -730,7 +728,7 @@ Turn in road~
 You are on a path that leads to a Hide & Tooth shop to the west, and the
 path continues to the south.
 ~
-0 8 0
+0 8 8
 D2
 (null)~
 (null)~
@@ -746,7 +744,7 @@ Hide & Tooth Shop~
 You are in the Hide & Tooth shop.  Here you may buy the finest in Dwarven
 weapons and armors. The path continues to the north and east.
 ~
-0 8 0
+0 8 8
 D0
 (null)~
 (null)~
@@ -905,7 +903,7 @@ A store room~
 There is a layer of dust on the floor at least 3 inches thick!  It is
 probable that not many people have been in here for many months.
 ~
-0 9 0
+0 9 8
 E
 floor dust~
 After blowing all the dust off the floor, you notice a trapdoor!

@@ -316,7 +316,7 @@ AHMV ABCDEFGHIJK medium unknown
 spear jagged~
 a jagged spear~
 A jagged spear has been left here.~
-oldstyle~
+iron~
 weapon 0 AN
 staff 2 6 thrust 0
 10 150 153 P
@@ -324,7 +324,7 @@ staff 2 6 thrust 0
 dagger silver~
 a silver dagger~
 A silver dagger is lying here.~
-oldstyle~
+silver~
 weapon 0 AN
 dagger 3 6 pierce 0
 22 10 2000 P
@@ -332,16 +332,16 @@ A
 20 -2
 #2202
 knife tooth dragon~
-a dragon's tooth knife~
+dragon-tooth knife~
 A dangerous looking knife made from a dragon's tooth has been left here.~
-oldstyle~
+bone~
 weapon 0 AN
 dagger 5 5 pierce 0
 30 80 3200 P
 A
-19 2
-A
 2 1
+A
+19 2
 #2203
 bracelet dragon~
 a dragon skin bracelet~
@@ -410,7 +410,7 @@ sword 4 6 slash D
 club stone~
 a stone club~
 A heavy looking stone club is here.~
-oldstyle~
+stone~
 weapon 0 AN
 mace 3 6 crush 0
 18 180 940 P
@@ -418,19 +418,19 @@ mace 3 6 crush 0
 ring diamond~
 a diamond ring~
 A diamond ring lies gleaming on the ground.~
-oldstyle~
+gold~
 jewelry 0 AB
 0 0 0 0 0
 37 60 6800 P
 A
-19 3
-A
 18 3
+A
+19 3
 #2230
 ring copper~
 a copper ring~
 A copper ring is here.~
-oldstyle~
+copper~
 jewelry 0 AB
 0 0 0 0 0
 15 10 2600 P
@@ -440,7 +440,7 @@ A
 key steel~
 a steel key~
 A steel key.~
-oldstyle~
+steel~
 key 0 A
 0 0 0 0 0
 0 10 0 P
@@ -567,21 +567,21 @@ armor AG AH
 C C C 0 0
 20 100 2500 P
 A
-1 1
-A
 19 2
+A
+1 1
 #2260
 scimitar golden~
 a golden scimitar~
 A golden scimitar.~
-oldstyle~
+gold~
 weapon A AN
 sword 3 5 slash 0
 16 100 2500 P
 A
-4 1
-A
 3 1
+A
+4 1
 #2261
 brooch diamond~
 a diamond brooch~
@@ -624,14 +624,14 @@ A
 fur cloak~
 a fur cloak~
 A large mound of fur is lying here.~
-oldstyle~
+fur~
 armor 0 AK
 BC BC BC A 0
 16 100 1910 P
 A
-13 10
-A
 1 1
+A
+13 10
 #2280
 leggings dragon scale~
 a pair of dragon scale leggings~
@@ -657,14 +657,14 @@ weapon BJ AN
 whip 4 5 whip 0
 24 140 1530 P
 A
-19 2
-A
 18 2
+A
+19 2
 #2286
 hammer copper~
 a copper hammer~
 A copper hammer is lying on the ground.~
-oldstyle~
+copper~
 weapon 0 AN
 mace 3 5 crush 0
 15 120 750 P
@@ -672,7 +672,7 @@ mace 3 5 crush 0
 dagger silver~
 a silver dagger~
 A silver dagger is lying here.~
-oldstyle~
+silver~
 weapon 0 AN
 dagger 2 4 pierce 0
 5 10 360 P
@@ -680,7 +680,7 @@ dagger 2 4 pierce 0
 key gold tarnished~
 a tarnished gold key~
 A tarnished gold key lies here.~
-oldstyle~
+gold~
 key 0 A
 0 0 0 0 0
 0 10 0 P
@@ -756,12 +756,12 @@ You trudge down the hallway.  You notice doors to the east and west.
 ~
 0 8 0
 E
-inscription~
-It says "STORAGE"
-~
-E
 sign~
 The sign says "NURSERY" in bold letters.     
+~
+E
+inscription~
+It says "STORAGE"
 ~
 D0
 The hall continues. 
@@ -1375,17 +1375,17 @@ path leads up the mountain.  The small opening is back to the north.
 ~
 0 0 2
 E
+well~
+You peer over the side of the well.  It looks VERY, VERY deep.  It appears
+to be ENDLESS.
+~
+E
 sign~
 The sign reads:
          This is a bottomless pit cleverly disguised as a well.  People have
 fallen in and never been heard from again.  Trust me, you don't want to go 
 down there.
                         The All Powerful Well Keeper
-~
-E
-well~
-You peer over the side of the well.  It looks VERY, VERY deep.  It appears
-to be ENDLESS.
 ~
 D0
 the small opening

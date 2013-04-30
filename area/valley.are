@@ -252,7 +252,7 @@ C C C B 0
 boots elven~
 elven boots~
 Some soft boots are on the floor.~
-oldstyle~
+leather~
 armor 0 AG
 AB AB AB 0 0
 7 30 390 P
@@ -272,7 +272,7 @@ A
 cloak brown~
 a brown cloak~
 A pile of brown cloth is on the floor.~
-oldstyle~
+cloth~
 armor G AC
 AB AB AB 0 0
 7 30 900 P
@@ -298,7 +298,7 @@ DGHJKLM 0 0 0 0
 ring gold~
 a gold ring~
 A shiny ring is on the floor.~
-oldstyle~
+gold~
 jewelry G AB
 0 0 0 0 0
 5 10 110 P

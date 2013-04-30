@@ -544,8 +544,8 @@ AHMV ABCDEFGHIJK medium unknown
 ring earth~
 the earth ring~
 A dark ring which seems to absorb all the light around it lies here.~
-oldstyle~
-furniture I AB
+stone~
+jewelry I AB
 0 0 0 0 0
 7 50 1140 P
 A
@@ -568,7 +568,7 @@ A
 dagger fiery~
 a fiery dagger~
 A dagger made of fire crackles mysteriously here.~
-oldstyle~
+iron~
 weapon A AN
 dagger 5 4 pierce A
 29 20 2800 P
@@ -588,7 +588,7 @@ A
 boots wind~
 the wind boots~
 A pair of boots that look fast standing still are here.~
-oldstyle~
+leather~
 armor G AG
 D D D B 0
 26 10 5200 P
@@ -640,7 +640,7 @@ A
 cloak waterfall~
 a waterfall cloak~
 A cloak fashioned from a small magical waterfall is here.~
-oldstyle~
+water~
 armor 0 AK
 AD AD AD B 0
 30 60 3000 P
@@ -652,7 +652,7 @@ A
 amulet elemental~
 an elemental amulet~
 An amulet depicting fire, water, lightning, earth, and air lies here.~
-oldstyle~
+silver~
 jewelry A AC
 0 0 0 0 0
 20 10 860 P
@@ -662,8 +662,8 @@ A
 bracelet elemental~
 an elemental bracelet~
 A bracelet made of elemental magic lies here.~
-oldstyle~
-gem 0 AM
+silver~
+jewelry 0 AM
 0 0 0 0 0
 20 40 580 P
 A
@@ -736,7 +736,7 @@ wand A AO
 stone club two-handed~
 a stone club~
 A large stone club lies on the ground.~
-oldstyle~
+stone~
 weapon 0 AN
 mace 2 8 pound F
 13 160 730 P
@@ -800,9 +800,9 @@ A
 icicle dagger ice~
 an icicle~
 A glowing icicle dagger lies here amid a patch of frost.~
-oldstyle~
-weapon A AN
-dagger 7 3 pierce B
+ice~
+weapon 0 AN
+dagger 4 4 pierce B
 28 10 1630 P
 A
 19 2

@@ -106,7 +106,7 @@ ABCFG 0 -200 0
 1 1 1 8
 EFNU 0 0 0
 sit stand none 60
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK large flesh
 #1608
 oldstyle shadow~
 a shadow~
@@ -142,41 +142,41 @@ A burly minotaur watches you solemnly.
 ~
 This powerful creature wonders whether to kill you or not ...
 ~
-human~
+minotaur~
 ACG D -600 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 EFNU 0 0 0
 stand stand male 75
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW large unknown
 #1612
-oldstyle savage minotaur~
+savage minotaur~
 the savage minotaur~
 A bloodthirsty minotaur slowly counts his loot
 ~
 He looks up at you and screams 'SO! Coming to steal my hoard!'
 ~
-human~
+minotaur~
 ABCFG D -600 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
 stand stand male 0
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW large unknown
 #1613
-oldstyle minotaur captain~
+minotaur captain~
 the captain~
 Sitting here in this room is the Minotaur Captain.
 ~
 He looks at you, and a sinister grin slowly spreads on his face ...
 ~
-human~
+minotaur~
 ABCFG D -900 0
 17 0 3d9+258 8d9+100 3d4+4 none
 -3 -3 -3 7
 EFNU 0 0 0
 stand stand male 0
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW large unknown
 #1614
 oldstyle black pudding~
 the black pudding~
@@ -204,7 +204,7 @@ ABG D 0 0
 -2 -2 -2 7
 EFNU 0 0 0
 stand stand none 0
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium clay
 #1616
 oldstyle ancient wyvern~
 the ancient wyvern~
@@ -428,8 +428,8 @@ A
 elven dagger~
 a long elven dagger~
 A long elven dagger made of adamantite is here.~
-oldstyle~
-weapon AG AN
+adamantite~
+weapon G AN
 dagger 2 5 pierce 0
 8 20 700 P
 A
@@ -443,9 +443,9 @@ weapon AG AN
 sword 2 6 slash 0
 11 120 910 P
 A
-19 1
-A
 18 1
+A
+19 1
 #1605
 steel broad sword~
 a steel broad sword~
@@ -455,9 +455,9 @@ weapon AG AN
 sword 2 7 slash 0
 15 120 1510 P
 A
-19 2
-A
 18 2
+A
+19 2
 #1606
 rod might~
 the rod of might~
@@ -467,9 +467,9 @@ weapon BG AN
 mace 2 7 blast 0
 14 130 1550 P
 A
-1 1
-A
 18 2
+A
+1 1
 #1612
 black kite shield~
 a black kite shield~
@@ -507,7 +507,7 @@ A
 dark blue cloak~
 a dark blue cloak~
 A valuable cloak of dark blue cloth lies on the floor.~
-oldstyle~
+cloth~
 clothing AG AC
 0 0 0 0 0
 0 20 100 P
@@ -589,9 +589,9 @@ weapon BG AN
 sword 2 8 slash 0
 19 100 2500 P
 A
-19 3
-A
 18 3
+A
+19 3
 #1711
 fur cap~
 a fur cap~
@@ -604,8 +604,8 @@ B B B 0 0
 travelling boots~
 a pair of travelling boots~
 A sturdy pair of travelling boots lies here.~
-oldstyle~
-armor G AG
+leather~
+armor 0 AG
 AC AC AC 0 0
 12 20 880 P
 A

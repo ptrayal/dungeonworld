@@ -384,7 +384,7 @@ AHMV ABCDEFGHIJK medium unknown
 ring silver~
 a glinting ring of silver~
 A lovely silver ring has been left here.~
-oldstyle~
+silver~
 jewelry G AB
 0 0 0 0 0
 7 10 468 P
@@ -443,7 +443,7 @@ It consists of a black handle and a purple head.
 cloak purple~
 a purple cloak~
 A purple cloak lies on the floor.~
-oldstyle~
+cloth~
 armor G AC
 BC BC BC 0 0
 15 200 1250 P
@@ -505,7 +505,7 @@ to throw it away you notice some small letters.
 boots muddy~
 a pair of muddy boots~
 A pair of muddy boots has been dropped here.~
-oldstyle~
+leather~
 armor G AG
 AB AB AB 0 0
 7 200 900 P
@@ -585,7 +585,7 @@ They seem to be made from silver or platinum.  You see the outline of a rose.
 gloves silvery~
 a pair of silvery gloves~
 You can see a pair of silvery gloves on the floor.~
-oldstyle~
+silver~
 armor GIKL AH
 D D D B 0
 27 140 3700 P
@@ -601,7 +601,7 @@ The gloves are made of silver threads.
 helmet silvery~
 a silvery helmet~
 The silvery helmet lies here.~
-oldstyle~
+silver~
 armor GIKL AE
 AD AD AD B 0
 32 350 10600 P
@@ -631,7 +631,7 @@ background. You also notice the inscription :'Pax Est Sanctuum'.
 boots silvery~
 a pair of silvery boots~
 A pair of silvery boots stand on the floor.~
-oldstyle~
+silver~
 armor GIKL AG
 D D D B 0
 32 400 10100 P
@@ -645,7 +645,7 @@ The boots are made from a silvery metal.
 plates arm silvery~
 some silvery arm plates~
 On the floor you see some silvery arm plates.~
-oldstyle~
+silver~
 armor GIKL AI
 D D D B 0
 32 400 10100 P
@@ -659,7 +659,7 @@ They seem to be made from silver or platinum. You see the outline of a rose.
 cloak white~
 a white cloak~
 A white cloak lies on the floor.~
-oldstyle~
+cloth~
 armor GIKL AK
 AD AD AD B 0
 31 200 3700 P
@@ -714,7 +714,7 @@ container 0 AL
 orb dragonorb~
 the Red DragonOrb~
 A large reddish sphere is in the center of the room.~
-oldstyle~
+gold~
 staff GJ AO
 13 10 10 'sanctuary' 0
 21 50 18600 P

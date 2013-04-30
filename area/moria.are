@@ -76,9 +76,9 @@ orc~
 ACFGT J -400 0
 5 2 6d5+50 1d1+199 1d6+3 beating
 7 7 7 10
-CDNR 0 CQ S
+CDNR 0 Q S
 stand stand male 60
-ABHMV ABCDEFGHIJK medium unknown
+ABHMV ABCDEFGHIJK medium flesh
 #4005
 orc~
 the large orc~
@@ -92,7 +92,7 @@ ACGT J -500 0
 4 5 5 8
 CJR 0 Q S
 stand stand either 120
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #4050
 warrior~
 the warrior~
@@ -195,7 +195,7 @@ ACFGT J -800 0
 3 3 2 5
 CNR 0 Q S
 stand stand either 60
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #4057
 lion mountain~
 the mountain lion~
@@ -287,9 +287,9 @@ EFJN 0 0 0
 stand stand either 100
 AHMV ABCDEFGHIJK medium unknown
 #4104
-orc~
-the orc~
-An ugly orc is standing here waiting for someone to practice on.
+orc warrior~
+orc warrior~
+A orc warrior is standing here.
 ~
 Yrkk..  He belches in your face!
 ~
@@ -299,7 +299,7 @@ ACFGHT J -200 0
 4 5 5 8
 CJR 0 Q S
 stand stand male 150
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #4105
 centipede~
 a centipede~
@@ -498,7 +498,7 @@ ACFGT J -200 0
 2 2 1 5
 CJNR 0 Q S
 stand stand either 150
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #0
 
 
@@ -2929,6 +2929,7 @@ S
 #SPECIALS
 M 4100 spec_cast_mage
 M 4102 spec_poison
+M 4104 spec_random_orc
 M 4150 spec_breath_lightning
 M 4151 spec_breath_fire
 M 4152 spec_breath_gas

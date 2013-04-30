@@ -238,20 +238,20 @@ EFNU 0 0 0
 stand stand none 175
 AHMV ABCDEFGHIJK medium unknown
 #2315
-oldstyle citizen minotaur~
+citizen minotaur~
 the Minotaur Citizen~
 A minotaur citizen is here, hurrying through the icy streets.
 ~
 You see a rather ragged and cold minotaur. It appears to be looking for a warm
 place to seek refuge from the cold.
 ~
-human~
+minotaur~
 ABCGH 0 100 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
 stand stand none 500
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW large unknown
 #2316
 oldstyle guard minotaur~
 the Minotaur Guard~
@@ -455,13 +455,13 @@ Sumaron, master cleric of Mahn-Tor, is here looking holy.
 Sumaron is clad in white glowing robes. He is goodness incarnate. He is the
 master of all the clerics of Mahn-Tor.
 ~
-human~
+minotaur~
 ABFQ DH 1000 0
 30 0 6d12+853 30d9+100 5d4+8 none
 -9 -9 -9 4
 EIKU 0 0 0
 stand stand male 5000
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW large flesh
 #2330
 oldstyle nasturn minotaur druid master~
 Nasturn~
@@ -500,15 +500,15 @@ Dorgar, the minotaur thief, is here hiding in the shadows.
 Dorgar is clad all in black. He is tall and slender, unlike most minotaurs. He
 appears to be quite a skilled thief.
 ~
-human~
+minotaur~
 ABCF Q -500 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand male 5000
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW large flesh
 #2333
-oldstyle mahn-tor minotaur grand master~
+mahn-tor minotaur grand master~
 Mahn-Tor~
 Mahn-Tor, the minotaur grand master, is here looking down at you.
 ~
@@ -516,13 +516,13 @@ Mahn-Tor towers above you. He is simply huge. Mahn-Tor is clad in the best of
 armor and robes. He wields the largest axe you have ever seen. You can see why
 Mahn-Tor is the leader of the minotaurs. He is awe-inspiring.
 ~
-human~
+minotaur~
 ABCR BDHTU -500 0
 33 0 10d10+1000 33d9+100 4d6+8 none
 -10 -10 -10 0
 FU 0 0 0
 stand stand male 5000
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJKW large flesh
 #0
 
 
@@ -787,7 +787,7 @@ It appears to be full of tiny pockets.
 robe heavy woolen~
 a heavy woolen robe~
 A heavy pile of wool lies here.~
-oldstyle~
+cloth~
 armor G AK
 D D D 0 0
 25 100 1950 P
@@ -795,7 +795,7 @@ D D D 0 0
 brooch ivory~
 a brooch of life~
 A small ivory brooch lies here.~
-oldstyle~
+ivory~
 jewelry AGI AC
 0 0 0 0 0
 30 50 1520 P
@@ -805,7 +805,7 @@ A
 manual arts healing book~
 a manual of healing arts~
 A small book lies here.~
-oldstyle~
+vellum~
 scroll 0 AO
 30 'cure light' 'cure light' 'cure light' ''
 0 50 800 P
@@ -829,7 +829,7 @@ A
 symbol holy golden~
 a golden holy symbol~
 A small holy symbol on a golden chain lies here.~
-oldstyle~
+gold~
 jewelry G AC
 0 0 0 0 0
 5 30 110 P
@@ -854,7 +854,7 @@ jewelry G AM
 0 0 0 0 0
 5 80 550 P
 A
-5 1
+5 2
 #2327
 boots striding~
 boots of striding~
@@ -874,7 +874,7 @@ cloak icy white~
 an icy white cloak~
 A cold pile of white cloth lies here.~
 cloth~
-armor AG AK
+armor 0 AK
 D D D B 0
 25 50 2000 P
 E
@@ -961,7 +961,7 @@ A
 pack leather small~
 a small leather pack~
 A small leather pack rests here.~
-oldstyle~
+leather~
 container GY AK
 200 0 0 20 80
 0 90 500 P
@@ -973,7 +973,7 @@ It looks pretty big on the inside.
 hood black leather~
 a black leather hood~
 A hood made of black leather rests here.~
-oldstyle~
+leather~
 armor G AE
 AC AC AC 0 0
 10 50 730 P
@@ -981,7 +981,7 @@ AC AC AC 0 0
 sleeves black leather~
 a pair of black leather sleeves~
 Some leather sleeves lie here.~
-oldstyle~
+leather~
 armor 0 AI
 ABC ABC ABC 0 0
 20 50 1450 P
@@ -989,7 +989,7 @@ ABC ABC ABC 0 0
 pants black leather~
 a pair of black leather pants~
 Some leather pants lie here.~
-oldstyle~
+leather~
 armor G AF
 ABC ABC ABC 0 0
 20 50 1450 P
@@ -1001,7 +1001,7 @@ They look sneaky.
 sword wicked short shortsword~
 a wicked shortsword~
 A wicked looking shortsword lies here.~
-steel~
+iron~
 weapon G AN
 sword 3 8 pierce 0
 26 110 2300 P
@@ -1017,7 +1017,7 @@ It looks just perfect for backstabbing.
 globe major~
 a major globe of invulnerability~
 A large globe rests here, pulsing uneasily.~
-oldstyle~
+energy~
 armor ABG AK
 AD AD AD BC 0
 31 10 4100 P
@@ -1031,7 +1031,7 @@ Shimmering colors move inside the globe.
 chain chainmail black suit~
 a suit of black minotaur chainmail~
 A huge pile of black chainmail rests here.~
-oldstyle~
+iron~
 armor G AD
 AD AD AD B 0
 30 120 7000 P
@@ -1043,7 +1043,7 @@ A
 buckler spiked~
 a spiked buckler~
 A small spiked buckler rests here.~
-oldstyle~
+iron~
 armor 0 AJ
 BD BD BD AB 0
 35 50 6600 P
@@ -1053,7 +1053,7 @@ A
 ring studded~
 a studded ring~
 A small studded ring lies here.~
-oldstyle~
+gold~
 jewelry G AB
 0 0 0 0 0
 13 10 1020 P
@@ -1065,7 +1065,7 @@ A
 helm horned~
 a horned minotaur helm~
 A small horned helm rests here.~
-oldstyle~
+iron~
 armor 0 AE
 BD BD BD B 0
 35 80 3400 P
@@ -1254,7 +1254,7 @@ forearm of the wielder.
 vambraces steel~
 a pair of steel vambraces~
 A gleaming pair of vambraces lies here.~
-oldstyle~
+steel~
 armor 0 AI
 BC BC BC 0 0
 15 0 1050 P
@@ -1262,7 +1262,7 @@ BC BC BC 0 0
 greaves steel~
 a pair of steel greaves~
 A gleaming pair of greaves lie here.~
-oldstyle~
+steel~
 armor 0 AF
 BC BC BC 0 0
 15 70 1050 P
@@ -1286,7 +1286,7 @@ BC BC BC 0 0
 helm steel~
 a steel helm~
 A steel helm has been left here.~
-oldstyle~
+steel~
 armor 0 AE
 BC BC BC 0 0
 15 60 1050 P
@@ -1466,7 +1466,7 @@ container 0 AL
 spear ogre~
 an ogre spear~
 A crude spear rests here.~
-oldstyle~
+iron~
 weapon 0 AN
 staff 2 10 thrust F
 17 80 320 P
@@ -1474,7 +1474,7 @@ staff 2 10 thrust F
 club ogre war~
 an ogre war club~
 A large, crude club rests here.~
-oldstyle~
+wood~
 weapon 0 AN
 mace 4 4 pound 0
 17 100 880 P
@@ -1482,7 +1482,7 @@ mace 4 4 pound 0
 cloak bear skin bearskin~
 a bearskin cloak~
 A rough bearskin rests here.~
-oldstyle~
+fur~
 armor 0 AK
 ABC ABC ABC 0 0
 20 120 1450 P
@@ -1498,12 +1498,10 @@ jewelry AG AE
 gauntlets ogre power~
 gauntlets of ogre power~
 Some heavy gauntlets lie here.~
-oldstyle~
+iron~
 armor BG AH
 ABC ABC ABC 0 0
 23 130 5800 P
-A
-19 2
 A
 1 2
 E

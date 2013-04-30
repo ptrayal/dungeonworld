@@ -274,9 +274,9 @@ armor AG AD
 ABC ABC ABC 0 0
 23 0 7300 P
 A
-2 2
-A
 17 -4
+A
+2 2
 #5002
 halberd~
 the halberd~
@@ -286,14 +286,14 @@ weapon GI AN
 polearm 2 14 cleave F
 29 160 1620 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5003
 amulet~
 the amulet~
 A mushroom shaped amulet lies on the ground.~
-oldstyle~
+silver~
 jewelry G AC
 0 0 0 0 0
 5 20 550 P
@@ -461,7 +461,7 @@ container 0 0
 key golden~
 a golden key~
 A shiny golden key lies here.~
-oldstyle~
+gold~
 key 0 A
 BD 0 0 0 0
 0 10 0 P
@@ -469,14 +469,14 @@ BD 0 0 0 0
 bracelet copper~
 a copper bracelet~
 A tarnished copper bracelet lies at your feet.~
-oldstyle~
+copper~
 jewelry GH AM
 0 0 0 0 0
 20 100 1300 P
 A
-13 10
-A
 19 2
+A
+13 10
 #5026
 gem ruby~
 a large ruby~

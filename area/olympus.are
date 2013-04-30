@@ -425,7 +425,7 @@ A
 hammer thunder bolt thunderbolt~
 the Thunder Bolt~
 A huge hammer has been carelessly dropped here.~
-oldstyle~
+adamantite~
 weapon FGK AN
 mace 7 6 blast G
 50 240 5400 P
@@ -447,7 +447,7 @@ A
 spear ares~
 the spear of Ares~
 A wicked spear rests on the ground here.~
-oldstyle~
+mithril~
 weapon FGJ AN
 staff 5 8 thrust 0
 48 180 2000 P
@@ -581,7 +581,7 @@ trash 0 A
 nugget gold~
 a gold nugget~
 A gold nugget lies gleaming here.~
-oldstyle~
+gold~
 treasure 0 A
 0 0 0 0 0
 0 50 5000 P
@@ -621,7 +621,7 @@ pill 0 A
 amulet~
 the Amulet of Ra~
 A sun shaped medallion is lying here.~
-oldstyle~
+gold~
 jewelry FGK AC
 0 0 0 0 0
 40 10 4900 P

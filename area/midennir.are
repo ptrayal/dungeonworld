@@ -37,7 +37,7 @@ AFGT J -500 0
 4 6 4 9
 KR 0 Q C
 stand stand male 25
-AHMV ABCDEFGHIJK small unknown
+AHMV ABCDEFGHIJK small flesh
 #3502
 boy small~
 the small boy~
@@ -113,7 +113,7 @@ AFGT J -600 0
 3 5 3 8
 DKNR 0 Q C
 stand stand male 55
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #3507
 goblin leader~
 the goblin leader~
@@ -128,7 +128,7 @@ ACFGT J -900 0
 1 3 1 6
 DJKNR 0 Q C
 stand stand male 500
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #0
 
 

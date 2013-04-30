@@ -441,7 +441,7 @@ potion 0 A
 cloak bloody~
 a bloody cloak~
 A bloody cloak lies in a corner.~
-oldstyle~
+cloth~
 armor G AC
 C C C 0 0
 5 150 480 P
@@ -509,7 +509,7 @@ boat 0 A
 boots gnome~
 a pair of gnome boots~
 You notice a pair of Gnome Boots.~
-oldstyle~
+leather~
 armor 0 AG
 C C C 0 0
 7 120 610 P
@@ -553,7 +553,7 @@ BC BC BC 0 0
 club large two-handed~
 a large club~
 A large club sits here.~
-oldstyle~
+wood~
 weapon 0 AN
 mace 1 12 pound F
 6 220 460 P
@@ -579,7 +579,7 @@ potion H A
 club wooden~
 a wooden club~
 A wooden club sits here.~
-oldstyle~
+wood~
 weapon 0 AN
 mace 2 3 pound 0
 3 100 220 P
@@ -911,12 +911,12 @@ and a small hut is to the west.
 ~
 0 0 2
 E
-stream~
-The stream is pretty small, but it looks too cold to swim.
-~
-E
 hut~
 The hut looks well built, but it seems to have taken some damage.
+~
+E
+stream~
+The stream is pretty small, but it looks too cold to swim.
 ~
 D1
 You see a small path.
@@ -1416,10 +1416,6 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D3
-(null)~
-(null)~
-0 -1 1551
 D0
 (null)~
 (null)~
@@ -1428,6 +1424,10 @@ D1
 (null)~
 (null)~
 0 -1 1549
+D3
+(null)~
+(null)~
+0 -1 1551
 S
 #1549
 A Damp Hallway~
@@ -1465,14 +1465,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D1
-(null)~
-(null)~
-0 -1 1548
 D2
 (null)~
 (null)~
 0 -1 1552
+D1
+(null)~
+(null)~
+0 -1 1548
 S
 #1552
 A Damp Hallway~
@@ -1495,14 +1495,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D1
-(null)~
-(null)~
-0 -1 1554
 D0
 (null)~
 (null)~
 0 -1 1552
+D1
+(null)~
+(null)~
+0 -1 1554
 S
 #1554
 A Damp Hallway~
@@ -1510,10 +1510,6 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D3
-(null)~
-(null)~
-0 -1 1553
 D1
 (null)~
 (null)~
@@ -1522,6 +1518,10 @@ D0
 (null)~
 (null)~
 0 -1 1556
+D3
+(null)~
+(null)~
+0 -1 1553
 S
 #1555
 A Damp Hallway~

@@ -149,7 +149,7 @@ AB N 1000 0
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand none 212
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK large stone
 #5309
 oldstyle mayor~
 the mayor of Thalos~
@@ -542,7 +542,7 @@ AB AB AB 0 0
 breast plate iron~
 a beautiful iron breast plate~
 A beautiful iron breast plate lies here.~
-oldstyle~
+iron~
 armor 0 AD
 ABC ABC ABC 0 0
 20 450 3200 P
@@ -625,7 +625,7 @@ staff G AO
 harp golden~
 a golden harp~
 A beautiful golden harp is waiting to be played.~
-oldstyle~
+gold~
 staff G AO
 30 1 1 'call lightning' 0
 7 1000 3200 P
@@ -745,7 +745,7 @@ Merc Industries
 cloak~
 an imperial cloak~
 You see an imperial cloak here.~
-oldstyle~
+cloth~
 armor 0 AC
 AC AC AC 0 0
 10 50 730 P
@@ -2410,16 +2410,6 @@ rainbow then back to its normal state.  In the middle of this room is
 a ladder standing vertical.
 ~
 0 0 3
-D1
-You see stars.
-~
-(null)~
-0 0 5378
-D3
-You see stars.
-~
-(null)~
-0 0 5378
 D4
 You see stars.
 ~
@@ -2430,6 +2420,16 @@ You see a fuzzy portal of some sort and a little green.
 ~
 (null)~
 0 0 5368
+D3
+You see stars.
+~
+(null)~
+0 0 5378
+D1
+You see stars.
+~
+(null)~
+0 0 5378
 D5
 You see stars.
 ~
@@ -2445,36 +2445,36 @@ either.  Occasionally, the starry 'sky' fades into a fuzzy, yet bright,
 rainbow then back to its normal state.
 ~
 0 0 3
-D3
-You see stars.
-~
-(null)~
-0 0 5376
-D0
-You see stars.
-~
-(null)~
-0 0 5377
-D2
-You see stars.
-~
-(null)~
-0 0 5377
-D4
-You see stars.
-~
-(null)~
-0 0 5375
-D5
-You see stars.
-~
-(null)~
-0 0 5375
 D1
 You see stars.
 ~
 (null)~
 0 0 5376
+D3
+You see stars.
+~
+(null)~
+0 0 5376
+D4
+You see stars.
+~
+(null)~
+0 0 5375
+D0
+You see stars.
+~
+(null)~
+0 0 5377
+D5
+You see stars.
+~
+(null)~
+0 0 5375
+D2
+You see stars.
+~
+(null)~
+0 0 5377
 S
 #5377
 The Void~
@@ -2485,6 +2485,21 @@ either.  Occasionally, the starry 'sky' fades into a fuzzy, yet bright,
 rainbow then back to its normal state.
 ~
 0 0 3
+D5
+You see stars.
+~
+(null)~
+0 0 5378
+D4
+You see stars.
+~
+(null)~
+0 0 5378
+D1
+You see stars.
+~
+(null)~
+0 0 5377
 D3
 You see stars.
 ~
@@ -2495,26 +2510,11 @@ You see stars.
 ~
 (null)~
 0 0 5376
-D5
-You see stars.
-~
-(null)~
-0 0 5378
-D1
-You see stars.
-~
-(null)~
-0 0 5377
 D0
 You see stars.
 ~
 (null)~
 0 0 5376
-D4
-You see stars.
-~
-(null)~
-0 0 5378
 S
 #5378
 The Void~
@@ -2536,16 +2536,16 @@ You see stars.
 ~
 (null)~
 0 0 5375
-D4
-You see stars.
-~
-(null)~
-0 0 5377
 D2
 You see a fuzzy portal of some sort and a little green.
 ~
 (null)~
 0 0 8903
+D4
+You see stars.
+~
+(null)~
+0 0 5377
 D5
 You see stars.
 ~

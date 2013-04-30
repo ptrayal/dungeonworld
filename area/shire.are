@@ -569,7 +569,7 @@ BCDE DE 0 0 0
 silvery cloak~
 a silvery cloak~
 A silvery cloak lies here.~
-oldstyle~
+cloth~
 armor GK AK
 BC BC BC B 0
 15 30 1320 P
@@ -621,9 +621,9 @@ A
 tiny dagger~
 a tiny dagger~
 A tiny dagger lies here.~
-oldstyle~
+iron~
 weapon 0 AN
-dagger 1 6 pierce 0
+dagger 1 4 pierce 0
 1 30 230 P
 #1110
 egg~

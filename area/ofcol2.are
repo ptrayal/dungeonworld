@@ -484,7 +484,7 @@ CDEIKLU 0 0 0
 stand stand male 50
 AHMV ABCDEFGHIJK medium unknown
 #630
-oldstyle dragonlord lord dragon~
+dragonlord lord dragon~
 a Dragonlord~
 A knight wearing the scales of a dragon stands here.
 ~
@@ -498,7 +498,7 @@ AB BHN 1000 0
 -9 -9 -9 6
 EFNU 0 0 0
 stand stand male 50
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #631
 oldstyle dragon gold~
 The Ancient Gold Dragon~
@@ -740,7 +740,7 @@ A B B 0 0
 boots~
 some leather boots~
 Some leather boots are on the floor.~
-oldstyle~
+leather~
 armor 0 AG
 A B B 0 0
 0 50 136 P
@@ -798,8 +798,8 @@ A
 boots brass~
 brass boots~
 Some brass boots are against the wall here.~
-oldstyle~
-armor G AG
+brass~
+armor 0 AG
 BC AC BC A 0
 16 100 1280 P
 A
@@ -882,7 +882,7 @@ A
 plate silver~
 silver plate~
 A pile of silver plating and chain is on the floor.~
-oldstyle~
+silver~
 armor GK AD
 D D D B 0
 25 200 5000 P
@@ -918,7 +918,7 @@ A
 boots silver~
 silver boots~
 Some shiny boots are on the floor.~
-oldstyle~
+silver~
 armor GK AG
 D D D B 0
 25 200 2900 P
@@ -1014,7 +1014,7 @@ A
 boots platinum~
 platinum boots~
 Some silvery boots are on the floor.~
-oldstyle~
+platinum~
 armor GK AG
 AD AD AD AB 0
 32 400 4100 P
@@ -1248,7 +1248,7 @@ A
 orb dragonorb~
 the Gold Dragon Orb~
 A very large pearl-like sphere is in the center of this room.~
-oldstyle~
+pearl~
 staff GKL AO
 14 4 4 'heal' 0
 17 300 9000 P
@@ -1260,7 +1260,7 @@ A
 robe golden~
 a golden robe~
 A golden robe is on the floor.~
-oldstyle~
+cloth~
 armor GK AK
 BC BC AC B 0
 17 100 3800 P
