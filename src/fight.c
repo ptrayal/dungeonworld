@@ -72,31 +72,31 @@ void violence_update( void )
 
 	for ( ch = char_list; ch != NULL; ch = ch_next )
 	{
-	ch_next	= ch->next;
+		ch_next	= ch->next;
 
-	if ( ( victim = ch->fighting ) == NULL || ch->in_room == NULL )
-		continue;
+		if ( ( victim = ch->fighting ) == NULL || ch->in_room == NULL )
+			continue;
 
-	if ( IS_AWAKE(ch) && ch->in_room == victim->in_room )
-		multi_hit( ch, victim, TYPE_UNDEFINED );
-	else
-		stop_fighting( ch, FALSE );
+		if ( IS_AWAKE(ch) && ch->in_room == victim->in_room )
+			multi_hit( ch, victim, TYPE_UNDEFINED );
+		else
+			stop_fighting( ch, FALSE );
 
-	if ( ( victim = ch->fighting ) == NULL )
-		continue;
+		if ( ( victim = ch->fighting ) == NULL )
+			continue;
 
 	/*
 	 * Fun for the whole family!
 	 */
-	check_assist(ch,victim);
+	 check_assist(ch,victim);
 
-	if ( IS_NPC( ch ) )
-	{
-		if ( HAS_TRIGGER( ch, TRIG_FIGHT ) )
-		mp_percent_trigger( ch, victim, NULL, NULL, TRIG_FIGHT );
-		if ( HAS_TRIGGER( ch, TRIG_HPCNT ) )
-		mp_hprct_trigger( ch, victim );
-	}
+	 if ( IS_NPC( ch ) )
+	 {
+	 	if ( HAS_TRIGGER( ch, TRIG_FIGHT ) )
+	 		mp_percent_trigger( ch, victim, NULL, NULL, TRIG_FIGHT );
+	 	if ( HAS_TRIGGER( ch, TRIG_HPCNT ) )
+	 		mp_hprct_trigger( ch, victim );
+	 }
 	}
 
 	return;
