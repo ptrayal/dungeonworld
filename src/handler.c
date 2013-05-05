@@ -2890,48 +2890,49 @@ char *off_bit_name(int off_flags)
 	return ( buf[0] != '\0' ) ? buf+1 : (char *)"none";
 }
 
-bool isDirectoryEmpty(const char *dirname) {
-  int n = 0;
-  struct dirent *d;
-  DIR *dir = opendir(dirname);
+bool isDirectoryEmpty(const char *dirname) 
+{
+	int n = 0;
+	struct dirent *d;
+	DIR *dir = opendir(dirname);
   if (dir == NULL) //Not a directory or doesn't exist
-    return 1;
+  	return 1;
   while ((d = readdir(dir)) != NULL) {
-    if(++n > 2)
-      break;
+  	if(++n > 2)
+  		break;
   }
   closedir(dir);
   if (n <= 2) //Directory Empty
-    return true;
+  	return true;
 
-	return false;
+  return false;
 }
 
 const char *issueSystemCommand(const char *argument)
 {
-        FILE *read_fp;
-        static char buffer[MSL*2];
-        int chars_read;
+		FILE *read_fp;
+		static char buffer[MSL*2];
+		int chars_read;
  
-        if(IS_NULLSTR(argument)) {
-                return "issueSystemCommand: called without an empty argument.";
-        }
+		if(IS_NULLSTR(argument)) {
+				return "issueSystemCommand: called without an empty argument.";
+		}
 
-        memset(buffer, '\0', sizeof(buffer));
-        read_fp = popen(argument, "r");
+		memset(buffer, '\0', sizeof(buffer));
+		read_fp = popen(argument, "r");
  
-        if(read_fp != NULL)
-        {
-                chars_read = fread(buffer, sizeof(char), MSL *2, read_fp);
-                if(chars_read > 0)
-                {
-                        return buffer;
-                }
-                pclose(read_fp);
-                read_fp = NULL;
-        }
+		if(read_fp != NULL)
+		{
+				chars_read = fread(buffer, sizeof(char), MSL *2, read_fp);
+				if(chars_read > 0)
+				{
+						return buffer;
+				}
+				pclose(read_fp);
+				read_fp = NULL;
+		}
  
-        return "Pipe failed to return appropriate system command!";
+		return "Pipe failed to return appropriate system command!";
 }
 
 void buildDirectories()
@@ -2946,13 +2947,13 @@ void buildDirectories()
 	};
 	int dl = 0;
 	// build our directories!
-    for ( dl = 0; directory_table[dl] != NULL; dl++ ) {
-            struct stat st;
-            // does our directory exit ?  If not, MAKE IT!
-            if ( stat ( directory_table[dl], &st ) != 0 ) {
-                    issueSystemCommand ( Format("mkdir %s", directory_table[dl] ) );
-            }
-    }
+	for ( dl = 0; directory_table[dl] != NULL; dl++ ) {
+			struct stat st;
+			// does our directory exit ?  If not, MAKE IT!
+			if ( stat ( directory_table[dl], &st ) != 0 ) {
+					issueSystemCommand ( Format("mkdir %s", directory_table[dl] ) );
+			}
+	}
 }
 
 const char *getVersion ( void ) {
