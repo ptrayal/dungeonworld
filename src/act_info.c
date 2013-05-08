@@ -1314,55 +1314,56 @@ void do_exits( CHAR_DATA *ch, char *argument )
 	fAuto  = !str_cmp( argument, "auto" );
 
 	if ( !check_blind( ch ) )
-	return;
+		return;
 
 	if (fAuto)
-	sprintf(buf,"[Exits:");
-	else if (IS_IMMORTAL(ch))
-	sprintf(buf,"Obvious exits from room %d:\n\r",ch->in_room->vnum);
-	else
-	sprintf(buf,"Obvious exits:\n\r");
+		sprintf(buf,"\tW[\tGExits:\tn");
+			else if (IS_IMMORTAL(ch))
+				sprintf(buf,"\tWObvious exits from room %d:\tn\n\r",ch->in_room->vnum);
+			else
+				sprintf(buf,"\tWObvious exits:\tn\n\r");
 
-	found = FALSE;
-	for ( door = 0; door <= 5; door++ )
-	{
-	if ( ( pexit = ch->in_room->exit[door] ) != NULL
-	&&   pexit->u1.to_room != NULL
-	&&   can_see_room(ch,pexit->u1.to_room) 
-	&&   !IS_SET(pexit->exit_info, EX_CLOSED) )
-	{
-		found = TRUE;
-		if ( fAuto )
-		{
-		strcat( buf, " " );
-		strcat( buf, dir_name[door] );
+			found = FALSE;
+			for ( door = 0; door <= 5; door++ )
+			{
+				if ( ( pexit = ch->in_room->exit[door] ) != NULL
+					&&   pexit->u1.to_room != NULL
+					&&   can_see_room(ch,pexit->u1.to_room) 
+					&&   !IS_SET(pexit->exit_info, EX_CLOSED) )
+				{
+					found = TRUE;
+					if ( fAuto )
+					{
+						strcat( buf, "\tG " );
+						strcat( buf, dir_name[door] );
+						strcat( buf, "\tn");
+					}
+					else
+					{
+						sprintf( buf + strlen(buf), "\tW%-5s - %s\tn",
+							capitalize( dir_name[door] ),
+							room_is_dark( pexit->u1.to_room )
+							?  "Too dark to tell"
+							: pexit->u1.to_room->name
+							);
+						if (IS_IMMORTAL(ch))
+							sprintf(buf + strlen(buf), 
+								" \tW(\tGroom %d\tW)\tn\n\r",pexit->u1.to_room->vnum);
+						else
+							sprintf(buf + strlen(buf), "\n\r");
+					}
+				}
+			}
+
+			if ( !found )
+				strcat( buf, fAuto ? "\tW none\tn" : "\tWNone\tn.\n\r" );
+
+			if ( fAuto )
+				strcat( buf, "\tW]\tn\n\r" );
+
+			send_to_char( buf, ch );
+			return;
 		}
-		else
-		{
-		sprintf( buf + strlen(buf), "%-5s - %s",
-			capitalize( dir_name[door] ),
-			room_is_dark( pexit->u1.to_room )
-			?  "Too dark to tell"
-			: pexit->u1.to_room->name
-			);
-		if (IS_IMMORTAL(ch))
-			sprintf(buf + strlen(buf), 
-			" (room %d)\n\r",pexit->u1.to_room->vnum);
-		else
-			sprintf(buf + strlen(buf), "\n\r");
-		}
-	}
-	}
-
-	if ( !found )
-	strcat( buf, fAuto ? " none" : "None.\n\r" );
-
-	if ( fAuto )
-	strcat( buf, "]\n\r" );
-
-	send_to_char( buf, ch );
-	return;
-}
 
 void do_worth( CHAR_DATA *ch, char *argument )
 {
