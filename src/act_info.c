@@ -1590,7 +1590,7 @@ void do_affects(CHAR_DATA *ch, char *argument )
 	
 	if ( ch->affected != NULL )
 	{
-		send_to_char( "You are affected by the following spells:\n\r", ch );
+		send_to_char( "\tWYou are affected by the following spells:\tn\n\r", ch );
 		for ( paf = ch->affected; paf != NULL; paf = paf->next )
 		{
 			if (paf_last != NULL && paf->type == paf_last->type)
@@ -1599,18 +1599,18 @@ void do_affects(CHAR_DATA *ch, char *argument )
 				else
 					continue;
 				else
-					send_to_char( Format("Spell: %-15s", skill_table[paf->type].name), ch );
+					send_to_char( Format("\tWSpell:\tn \tL%-15s\tn", skill_table[paf->type].name), ch );
 
 				if ( ch->level >= 20 )
 				{
-					send_to_char( Format(": modifies %s by %d ", affect_loc_name( paf->location ),	paf->modifier), ch );
+					send_to_char( Format("\tW: modifies \tL%s \tWby \tL%d \tW", affect_loc_name( paf->location ),	paf->modifier), ch );
 					if ( paf->duration == -1 )
-						send_to_char( "permanently", ch);
+						send_to_char( "\tWpermanently", ch);
 					else
-						send_to_char( Format("for %d hours", paf->duration), ch );
+						send_to_char( Format("for \tL%d\tW hours", paf->duration), ch );
 				}
 
-				send_to_char( "\n\r", ch );
+				send_to_char( "\tn\n\r", ch );
 				paf_last = paf;
 			}
 		}
@@ -1936,9 +1936,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 				}
 				else
 				{
-							send_to_char(
-								"That's not a valid race, class, or clan.\n\r",
-				   ch);
+							send_to_char("That's not a valid race, class, or clan.\n\r", ch);
 								return;
 				}
 						}
