@@ -1498,111 +1498,111 @@ void do_train( CHAR_DATA *ch, char *argument )
 	int cost;
 
 	if ( IS_NPC(ch) )
-	return;
+		return;
 
 	/*
 	 * Check for trainer.
 	 */
-	for ( mob = ch->in_room->people; mob; mob = mob->next_in_room )
-	{
-	if ( IS_NPC(mob) && IS_SET(mob->act, ACT_TRAIN) )
-		break;
-	}
+	 for ( mob = ch->in_room->people; mob; mob = mob->next_in_room )
+	 {
+	 	if ( IS_NPC(mob) && IS_SET(mob->act, ACT_TRAIN) )
+	 		break;
+	 }
 
-	if ( mob == NULL )
-	{
-	send_to_char( "You can't do that here.\n\r", ch );
-	return;
-	}
+	 if ( mob == NULL )
+	 {
+	 	send_to_char( "You can't do that here.\n\r", ch );
+	 	return;
+	 }
 
-	if ( argument[0] == '\0' )
-	{
-	send_to_char( Format("You have %d training sessions.\n\r", ch->train), ch );
-	argument = "foo";
-	}
+	 if ( argument[0] == '\0' )
+	 {
+	 	send_to_char( Format("You have %d training sessions.\n\r", ch->train), ch );
+	 	argument = "foo";
+	 }
 
-	cost = 1;
+	 cost = 1;
 
-	if ( !str_cmp( argument, "str" ) )
-	{
-	if ( class_table[ch->iclass].attr_prime == STAT_STR )
-		cost    = 1;
-	stat        = STAT_STR;
-	pOutput     = "strength";
-	}
+	 if ( !str_cmp( argument, "str" ) )
+	 {
+	 	if ( class_table[ch->iclass].attr_prime == STAT_STR )
+	 		cost    = 1;
+	 	stat        = STAT_STR;
+	 	pOutput     = "strength";
+	 }
 
-	else if ( !str_cmp( argument, "int" ) )
-	{
-	if ( class_table[ch->iclass].attr_prime == STAT_INT )
-		cost    = 1;
-	stat	    = STAT_INT;
-	pOutput     = "intelligence";
-	}
+	 else if ( !str_cmp( argument, "int" ) )
+	 {
+	 	if ( class_table[ch->iclass].attr_prime == STAT_INT )
+	 		cost    = 1;
+	 	stat	    = STAT_INT;
+	 	pOutput     = "intelligence";
+	 }
 
-	else if ( !str_cmp( argument, "wis" ) )
-	{
-	if ( class_table[ch->iclass].attr_prime == STAT_WIS )
-		cost    = 1;
-	stat	    = STAT_WIS;
-	pOutput     = "wisdom";
-	}
+	 else if ( !str_cmp( argument, "wis" ) )
+	 {
+	 	if ( class_table[ch->iclass].attr_prime == STAT_WIS )
+	 		cost    = 1;
+	 	stat	    = STAT_WIS;
+	 	pOutput     = "wisdom";
+	 }
 
-	else if ( !str_cmp( argument, "dex" ) )
-	{
-	if ( class_table[ch->iclass].attr_prime == STAT_DEX )
-		cost    = 1;
-	stat  	    = STAT_DEX;
-	pOutput     = "dexterity";
-	}
+	 else if ( !str_cmp( argument, "dex" ) )
+	 {
+	 	if ( class_table[ch->iclass].attr_prime == STAT_DEX )
+	 		cost    = 1;
+	 	stat  	    = STAT_DEX;
+	 	pOutput     = "dexterity";
+	 }
 
-	else if ( !str_cmp( argument, "con" ) )
-	{
-	if ( class_table[ch->iclass].attr_prime == STAT_CON )
-		cost    = 1;
-	stat	    = STAT_CON;
-	pOutput     = "constitution";
-	}
+	 else if ( !str_cmp( argument, "con" ) )
+	 {
+	 	if ( class_table[ch->iclass].attr_prime == STAT_CON )
+	 		cost    = 1;
+	 	stat	    = STAT_CON;
+	 	pOutput     = "constitution";
+	 }
 
-	else if ( !str_cmp(argument, "hp" ) )
-	cost = 1;
+	 else if ( !str_cmp(argument, "hp" ) )
+	 	cost = 1;
 
-	else if ( !str_cmp(argument, "mana" ) )
-	cost = 1;
+	 else if ( !str_cmp(argument, "mana" ) )
+	 	cost = 1;
 
-	else
-	{
-	strcpy( buf, "You can train:" );
-	if ( ch->perm_stat[STAT_STR] < get_max_train(ch,STAT_STR)) 
-		strcat( buf, " str" );
-	if ( ch->perm_stat[STAT_INT] < get_max_train(ch,STAT_INT))  
-		strcat( buf, " int" );
-	if ( ch->perm_stat[STAT_WIS] < get_max_train(ch,STAT_WIS)) 
-		strcat( buf, " wis" );
-	if ( ch->perm_stat[STAT_DEX] < get_max_train(ch,STAT_DEX))  
-		strcat( buf, " dex" );
-	if ( ch->perm_stat[STAT_CON] < get_max_train(ch,STAT_CON))  
-		strcat( buf, " con" );
-	strcat( buf, " hp mana");
+	 else
+	 {
+	 	strcpy( buf, "You can train:" );
+	 	if ( ch->perm_stat[STAT_STR] < get_max_train(ch,STAT_STR)) 
+	 		strcat( buf, " str" );
+	 	if ( ch->perm_stat[STAT_INT] < get_max_train(ch,STAT_INT))  
+	 		strcat( buf, " int" );
+	 	if ( ch->perm_stat[STAT_WIS] < get_max_train(ch,STAT_WIS)) 
+	 		strcat( buf, " wis" );
+	 	if ( ch->perm_stat[STAT_DEX] < get_max_train(ch,STAT_DEX))  
+	 		strcat( buf, " dex" );
+	 	if ( ch->perm_stat[STAT_CON] < get_max_train(ch,STAT_CON))  
+	 		strcat( buf, " con" );
+	 	strcat( buf, " hp mana");
 
-	if ( buf[strlen(buf)-1] != ':' )
-	{
-		strcat( buf, ".\n\r" );
-		send_to_char( buf, ch );
-	}
-	else
-	{
+	 	if ( buf[strlen(buf)-1] != ':' )
+	 	{
+	 		strcat( buf, ".\n\r" );
+	 		send_to_char( buf, ch );
+	 	}
+	 	else
+	 	{
 		/*
 		 * This message dedicated to Jordan ... you big stud!
 		 */
-		act( "You have nothing left to train, you $T!",
-		ch, NULL,
-		ch->sex == SEX_MALE   ? "big stud" :
-		ch->sex == SEX_FEMALE ? "hot babe" :
-					"wild thing",
-		TO_CHAR );
-	}
+		 act( "You have nothing left to train, you $T!",
+		 	ch, NULL,
+		 	ch->sex == SEX_MALE   ? "big stud" :
+		 	ch->sex == SEX_FEMALE ? "hot babe" :
+		 	"wild thing",
+		 	TO_CHAR );
+		}
 
-	return;
+		return;
 	}
 
 	if (!str_cmp("hp",argument))
@@ -1612,8 +1612,8 @@ void do_train( CHAR_DATA *ch, char *argument )
 			send_to_char( "You don't have enough training sessions.\n\r", ch );
 			return;
 		}
- 
-	ch->train -= cost;
+		
+		ch->train -= cost;
 		ch->pcdata->perm_hit += 10;
 		ch->max_hit += 10;
 		ch->hit +=10;
@@ -1621,7 +1621,7 @@ void do_train( CHAR_DATA *ch, char *argument )
 		act( "$n's durability increases!",ch,NULL,NULL,TO_ROOM);
 		return;
 	}
- 
+	
 	if (!str_cmp("mana",argument))
 	{
 		if ( cost > ch->train )
@@ -1630,7 +1630,7 @@ void do_train( CHAR_DATA *ch, char *argument )
 			return;
 		}
 
-	ch->train -= cost;
+		ch->train -= cost;
 		ch->pcdata->perm_mana += 10;
 		ch->max_mana += 10;
 		ch->mana += 10;
@@ -1641,18 +1641,18 @@ void do_train( CHAR_DATA *ch, char *argument )
 
 	if ( ch->perm_stat[stat]  >= get_max_train(ch,stat) )
 	{
-	act( "Your $T is already at maximum.", ch, NULL, pOutput, TO_CHAR );
-	return;
+		act( "Your $T is already at maximum.", ch, NULL, pOutput, TO_CHAR );
+		return;
 	}
 
 	if ( cost > ch->train )
 	{
-	send_to_char( "You don't have enough training sessions.\n\r", ch );
-	return;
+		send_to_char( "You don't have enough training sessions.\n\r", ch );
+		return;
 	}
 
 	ch->train		-= cost;
-  
+	
 	ch->perm_stat[stat]		+= 1;
 	act( "Your $T increases!", ch, NULL, pOutput, TO_CHAR );
 	act( "$n's $T increases!", ch, NULL, pOutput, TO_ROOM );

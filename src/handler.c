@@ -692,15 +692,15 @@ void reset_char(CHAR_DATA *ch)
 int get_trust( CHAR_DATA *ch )
 {
 	if ( ch->desc != NULL && ch->desc->original != NULL )
-	ch = ch->desc->original;
+		ch = ch->desc->original;
 
 	if (ch->trust)
-	return ch->trust;
+		return ch->trust;
 
 	if ( IS_NPC(ch) && ch->level >= LEVEL_HERO )
-	return LEVEL_HERO - 1;
+		return LEVEL_HERO - 1;
 	else
-	return ch->level;
+		return ch->level;
 }
 
 
@@ -718,21 +718,21 @@ int get_curr_stat( CHAR_DATA *ch, int stat )
 	int max;
 
 	if (IS_NPC(ch) || ch->level > LEVEL_IMMORTAL)
-	max = 25;
+		max = 100;
 
 	else
 	{
-	max = pc_race_table[ch->race].max_stats[stat] + 4;
+		max = pc_race_table[ch->race].max_stats[stat] + 4;
 
-	if (class_table[ch->iclass].attr_prime == stat)
-		max += 2;
+		if (class_table[ch->iclass].attr_prime == stat)
+			max += 2;
 
-	if ( ch->race == race_lookup("human"))
-		max += 1;
+		if ( ch->race == race_lookup("human"))
+			max += 1;
 
-	max = UMIN(max,25);
+		max = UMIN(max,25);
 	}
-  
+	
 	return URANGE(3,ch->perm_stat[stat] + ch->mod_stat[stat], max);
 }
 
@@ -742,14 +742,15 @@ int get_max_train( CHAR_DATA *ch, int stat )
 	int max;
 
 	if (IS_NPC(ch) || ch->level > LEVEL_IMMORTAL)
-	return 25;
+		return 100;
 
 	max = pc_race_table[ch->race].max_stats[stat];
 	if (class_table[ch->iclass].attr_prime == stat)
-	{	if (ch->race == race_lookup("human"))
-	   max += 3;
-	else
-	   max += 2;
+	{	
+		if (ch->race == race_lookup("human"))
+			max += 3;
+		else
+			max += 2;
 	}
 
 	return UMIN(max,25);
@@ -778,10 +779,10 @@ int can_carry_n( CHAR_DATA *ch )
 int can_carry_w( CHAR_DATA *ch )
 {
 	if ( !IS_NPC(ch) && ch->level >= LEVEL_IMMORTAL )
-	return 10000000;
+		return 10000000;
 
 	if ( IS_NPC(ch) && IS_SET(ch->act, ACT_PET) )
-	return 0;
+		return 0;
 
 	return str_app[get_curr_stat(ch,STAT_STR)].carry * 10 + ch->level * 25;
 }
