@@ -1,0 +1,223 @@
+#CLASS
+Name cleric~
+WhoN Cle
+Prime 2
+Weapon 3700
+Guild1 3003
+Guild2 9619
+Skill 75
+Thac00 20
+Thac32 2
+HPMin 7
+HPMax 10
+FMana 1
+Base cleric basics~
+Default cleric default~
+End
+#SKILLS
+armor~
+2 1
+bless~
+7 1
+blindness~
+8 1
+call lightning~
+18 1
+calm~
+16 1
+cancellation~
+26 1
+cause critical~
+13 1
+cause light~
+1 1
+cause serious~
+7 1
+continual light~
+4 1
+control weather~
+19 1
+create food~
+5 1
+create rose~
+11 1
+create spring~
+17 1
+create water~
+3 1
+cure blindness~
+6 1
+cure critical~
+13 1
+cure disease~
+13 1
+cure light~
+1 1
+cure poison~
+14 1
+cure serious~
+7 1
+curse~
+18 1
+demonfire~
+34 1
+detect evil~
+4 1
+detect good~
+4 1
+detect hidden~
+11 1
+detect invis~
+8 1
+detect magic~
+6 1
+detect poison~
+7 1
+dispel evil~
+15 1
+dispel good~
+15 1
+dispel magic~
+24 1
+earthquake~
+10 1
+energy drain~
+22 1
+faerie fire~
+3 1
+faerie fog~
+21 1
+farsight~
+16 1
+fireproof~
+12 1
+flamestrike~
+20 1
+fly~
+18 1
+floating disc~
+10 1
+frenzy~
+24 1
+gate~
+17 1
+harm~
+23 1
+heal~
+21 1
+heat metal~
+16 1
+holy word~
+36 2
+identify~
+16 1
+infravision~
+13 1
+know alignment~
+9 1
+lightning bolt~
+23 1
+locate object~
+15 1
+mass healing~
+38 2
+mass invis~
+25 1
+nexus~
+35 2
+pass door~
+32 1
+plague~
+17 1
+poison~
+12 1
+portal~
+30 2
+protection evil~
+9 1
+protection good~
+9 1
+ray of truth~
+35 1
+refresh~
+5 1
+remove curse~
+18 1
+sanctuary~
+20 1
+shield~
+35 1
+slow~
+30 1
+stone skin~
+40 1
+summon~
+12 1
+teleport~
+22 1
+weaken~
+14 1
+word of recall~
+28 1
+acid breath~
+32 1
+fire breath~
+45 1
+frost breath~
+36 1
+gas breath~
+43 1
+lightning breath~
+40 1
+axe~
+1 6
+dagger~
+1 3
+flail~
+1 3
+mace~
+1 2
+polearm~
+1 6
+shield block~
+1 4
+spear~
+1 4
+sword~
+1 6
+whip~
+1 5
+dodge~
+22 8
+enhanced damage~
+30 9
+hand to hand~
+10 5
+kick~
+12 4
+parry~
+20 8
+second attack~
+24 8
+fast healing~
+9 5
+haggle~
+18 8
+lore~
+10 6
+meditation~
+6 5
+peek~
+21 7
+pick lock~
+25 8
+scrolls~
+1 3
+staves~
+1 3
+wands~
+1 3
+recall~
+1 2
+End~
+#END

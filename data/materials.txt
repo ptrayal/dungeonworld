@@ -1,185 +1,5 @@
 MAT
-NAME bone~
-VAL 0
-ENDMAT
-MAT
-NAME bead~
-VAL 0
-ENDMAT
-MAT
-NAME emerald~
-VAL 0
-ENDMAT
-MAT
-NAME lightning~
-VAL 0
-ENDMAT
-MAT
-NAME stone~
-VAL 0
-ENDMAT
-MAT
-NAME marble~
-VAL 0
-ENDMAT
-MAT
-NAME A oldstyle~
-VAL 0
-ENDMAT
-MAT
-NAME parchment~
-VAL 0
-ENDMAT
-MAT
-NAME fur~
-VAL 0
-ENDMAT
-MAT
-NAME flesh~
-VAL 0
-ENDMAT
-MAT
-NAME rubber~
-VAL 0
-ENDMAT
-MAT
-NAME shadow~
-VAL 0
-ENDMAT
-MAT
-NAME water~
-VAL 0
-ENDMAT
-MAT
-NAME energy~
-VAL 0
-ENDMAT
-MAT
-NAME lead~
-VAL 0
-ENDMAT
-MAT
-NAME aluminum~
-VAL 0
-ENDMAT
-MAT
-NAME obsidian~
-VAL 0
-ENDMAT
-MAT
-NAME meat~
-VAL 0
-ENDMAT
-MAT
-NAME ice~
-VAL 0
-ENDMAT
-MAT
-NAME platinum~
-VAL 0
-ENDMAT
-MAT
-NAME gem~
-VAL 0
-ENDMAT
-MAT
-NAME pearl~
-VAL 0
-ENDMAT
-MAT
-NAME diamond~
-VAL 0
-ENDMAT
-MAT
-NAME copper~
-VAL 0
-ENDMAT
-MAT
-NAME cloth~
-VAL 0
-ENDMAT
-MAT
-NAME ivory~
-VAL 0
-ENDMAT
-MAT
-NAME paper~
-VAL 0
-ENDMAT
-MAT
-NAME gold~
-VAL 0
-ENDMAT
-MAT
-NAME china~
-VAL 0
-ENDMAT
-MAT
-NAME clay~
-VAL 0
-ENDMAT
-MAT
-NAME crystal~
-VAL 0
-ENDMAT
-MAT
-NAME bronze~
-VAL 0
-ENDMAT
-MAT
-NAME silver~
-VAL 0
-ENDMAT
-MAT
-NAME vellum~
-VAL 0
-ENDMAT
-MAT
-NAME leather~
-VAL 0
-ENDMAT
-MAT
-NAME brass~
-VAL 0
-ENDMAT
-MAT
-NAME food~
-VAL 0
-ENDMAT
-MAT
-NAME adamite~
-VAL 0
-ENDMAT
-MAT
-NAME adamantite~
-VAL 0
-ENDMAT
-MAT
-NAME glass~
-VAL 0
-ENDMAT
-MAT
-NAME steel~
-VAL 0
-ENDMAT
-MAT
-NAME iron~
-VAL 0
-ENDMAT
-MAT
-NAME wood~
-VAL 0
-ENDMAT
-MAT
-NAME mithril~
-VAL 0
-ENDMAT
-MAT
-NAME oldstyle~
-VAL 0
-ENDMAT
-MAT
-NAME unknown~
+NAME electrum~
 VAL 0
 ENDMAT
 MAT
@@ -187,7 +7,187 @@ NAME light~
 VAL 0
 ENDMAT
 MAT
-NAME electrum~
+NAME unknown~
+VAL 0
+ENDMAT
+MAT
+NAME oldstyle~
+VAL 0
+ENDMAT
+MAT
+NAME mithril~
+VAL 0
+ENDMAT
+MAT
+NAME wood~
+VAL 0
+ENDMAT
+MAT
+NAME iron~
+VAL 0
+ENDMAT
+MAT
+NAME steel~
+VAL 0
+ENDMAT
+MAT
+NAME glass~
+VAL 0
+ENDMAT
+MAT
+NAME adamantite~
+VAL 0
+ENDMAT
+MAT
+NAME adamite~
+VAL 0
+ENDMAT
+MAT
+NAME food~
+VAL 0
+ENDMAT
+MAT
+NAME brass~
+VAL 0
+ENDMAT
+MAT
+NAME leather~
+VAL 0
+ENDMAT
+MAT
+NAME vellum~
+VAL 0
+ENDMAT
+MAT
+NAME silver~
+VAL 0
+ENDMAT
+MAT
+NAME bronze~
+VAL 0
+ENDMAT
+MAT
+NAME crystal~
+VAL 0
+ENDMAT
+MAT
+NAME clay~
+VAL 0
+ENDMAT
+MAT
+NAME china~
+VAL 0
+ENDMAT
+MAT
+NAME gold~
+VAL 0
+ENDMAT
+MAT
+NAME paper~
+VAL 0
+ENDMAT
+MAT
+NAME ivory~
+VAL 0
+ENDMAT
+MAT
+NAME cloth~
+VAL 0
+ENDMAT
+MAT
+NAME copper~
+VAL 0
+ENDMAT
+MAT
+NAME diamond~
+VAL 0
+ENDMAT
+MAT
+NAME pearl~
+VAL 0
+ENDMAT
+MAT
+NAME gem~
+VAL 0
+ENDMAT
+MAT
+NAME platinum~
+VAL 0
+ENDMAT
+MAT
+NAME ice~
+VAL 0
+ENDMAT
+MAT
+NAME meat~
+VAL 0
+ENDMAT
+MAT
+NAME obsidian~
+VAL 0
+ENDMAT
+MAT
+NAME aluminum~
+VAL 0
+ENDMAT
+MAT
+NAME lead~
+VAL 0
+ENDMAT
+MAT
+NAME energy~
+VAL 0
+ENDMAT
+MAT
+NAME water~
+VAL 0
+ENDMAT
+MAT
+NAME shadow~
+VAL 0
+ENDMAT
+MAT
+NAME rubber~
+VAL 0
+ENDMAT
+MAT
+NAME flesh~
+VAL 0
+ENDMAT
+MAT
+NAME fur~
+VAL 0
+ENDMAT
+MAT
+NAME parchment~
+VAL 0
+ENDMAT
+MAT
+NAME A oldstyle~
+VAL 0
+ENDMAT
+MAT
+NAME marble~
+VAL 0
+ENDMAT
+MAT
+NAME stone~
+VAL 0
+ENDMAT
+MAT
+NAME lightning~
+VAL 0
+ENDMAT
+MAT
+NAME emerald~
+VAL 0
+ENDMAT
+MAT
+NAME bead~
+VAL 0
+ENDMAT
+MAT
+NAME bone~
 VAL 0
 ENDMAT
 End

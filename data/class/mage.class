@@ -1,0 +1,209 @@
+#CLASS
+Name mage~
+WhoN Mag
+Prime 1
+Weapon 3701
+Guild1 3018
+Guild2 9618
+Skill 75
+Thac00 20
+Thac32 6
+HPMin 6
+HPMax 8
+FMana 1
+Base mage basics~
+Default mage default~
+End
+#SKILLS
+acid blast~
+28 1
+armor~
+7 1
+blindness~
+12 1
+burning hands~
+7 1
+call lightning~
+26 1
+calm~
+48 1
+cancellation~
+18 1
+chain lightning~
+33 1
+charm person~
+20 1
+chill touch~
+4 1
+colour spray~
+16 1
+continual light~
+6 1
+control weather~
+15 1
+create food~
+10 1
+create rose~
+16 1
+create spring~
+14 1
+create water~
+8 1
+curse~
+18 1
+detect evil~
+11 1
+detect good~
+11 1
+detect hidden~
+15 1
+detect invis~
+3 1
+detect magic~
+2 1
+detect poison~
+15 1
+dispel magic~
+16 1
+enchant armor~
+16 2
+enchant weapon~
+17 2
+energy drain~
+19 1
+faerie fire~
+6 1
+faerie fog~
+14 1
+farsight~
+14 1
+fireball~
+22 1
+fireproof~
+13 1
+fly~
+10 1
+floating disc~
+4 1
+gate~
+27 1
+giant strength~
+11 1
+haste~
+21 1
+identify~
+15 1
+infravision~
+9 1
+invisibility~
+5 1
+know alignment~
+12 1
+lightning bolt~
+13 1
+locate object~
+9 1
+magic missile~
+1 1
+mass invis~
+22 1
+nexus~
+40 2
+pass door~
+24 1
+plague~
+23 1
+poison~
+17 1
+portal~
+35 2
+protection evil~
+12 1
+protection good~
+12 1
+recharge~
+9 1
+refresh~
+8 1
+sanctuary~
+36 1
+shield~
+20 1
+shocking grasp~
+10 1
+sleep~
+10 1
+slow~
+23 1
+stone skin~
+25 1
+summon~
+24 1
+teleport~
+13 1
+ventriloquate~
+1 1
+weaken~
+11 1
+word of recall~
+32 1
+acid breath~
+31 1
+fire breath~
+40 1
+frost breath~
+34 1
+gas breath~
+39 1
+lightning breath~
+37 1
+axe~
+1 6
+dagger~
+1 2
+flail~
+1 6
+mace~
+1 5
+polearm~
+1 6
+shield block~
+1 6
+spear~
+1 4
+sword~
+1 5
+whip~
+1 6
+dodge~
+20 8
+enhanced damage~
+45 10
+hand to hand~
+25 8
+parry~
+22 8
+second attack~
+30 10
+fast healing~
+15 8
+haggle~
+7 5
+lore~
+10 6
+meditation~
+6 5
+peek~
+8 5
+pick lock~
+25 8
+scrolls~
+1 2
+staves~
+1 2
+wands~
+1 2
+recall~
+1 2
+End~
+#END
