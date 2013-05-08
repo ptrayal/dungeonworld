@@ -1960,7 +1960,7 @@ extern	const	struct	wis_app_type	wis_app		[26];
 extern	const	struct	dex_app_type	dex_app		[26];
 extern	const	struct	con_app_type	con_app		[26];
 
-extern	const	struct	class_type	class_table	[MAX_CLASS];
+extern	struct	class_type	class_table	[MAX_CLASS];
 extern	const	struct	weapon_type	weapon_table	[];
 extern  const   struct  item_type	item_table	[];
 extern	const	struct	wiznet_type	wiznet_table	[];
@@ -1969,7 +1969,7 @@ extern  const	struct  race_type	race_table	[];
 extern	const	struct	pc_race_type	pc_race_table	[];
 extern  const	struct	spec_type	spec_table	[];
 extern	const	struct	liq_type	liq_table	[];
-extern	const	struct	skill_type	skill_table	[MAX_SKILL];
+extern	struct	skill_type	skill_table	[MAX_SKILL];
 extern  const   struct  group_type      group_table	[MAX_GROUP];
 extern          struct social_type      social_table	[MAX_SOCIALS];
 extern	char *	const			title_table	[MAX_CLASS]
@@ -2120,6 +2120,8 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 #define AREA_DIR		"../area/"
 #endif
 
+#define CLASS_DIR		"../data/class/"	/* Class files */
+
 #define AREA_LIST       "area.lst"          /* List of areas*/
 #define NOTE_FILE       "notes.not"         /* For 'notes'*/
 #define IDEA_FILE       "ideas.not"
@@ -2242,6 +2244,10 @@ void	tail_chain	args( ( void ) );
 char *_str_dup args( (const char *str, const char *file, const char *function, int line) );
 const char *Format args( (const char *fmt, ...) );
 char *CapitalSentence args( (const char *str) );
+
+/* db2.c */
+void	load_classes	args( (void) );
+
 
 /* effect.c */
 void	acid_effect	args( (void *vo, int level, int dam, int target) );

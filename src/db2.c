@@ -921,3 +921,150 @@ void convert_mobile( MOB_INDEX_DATA *pMobIndex )
 
 	return;
 }
+
+void load_classes( void )
+{
+	FILE *fp;
+	char buf[MAX_STRING_LENGTH];
+	int class, i;
+
+    /* Initialize Skill levels */
+	{
+		int sn, i;
+		for ( sn = 0; sn < MAX_SKILL; sn++ )
+		{
+			if ( skill_table[sn].name == NULL )
+				break;
+			
+			for( i = 0; i < MAX_CLASS; i++ )
+			{
+				skill_table[sn].skill_level[i] = LEVEL_IMMORTAL;
+				skill_table[sn].rating[i] = 0;
+			}
+		}
+	}
+
+	for( class = 0; class < MAX_CLASS; class++ )
+	{
+		switch (class)
+		{
+			case 0: 
+			sprintf( buf, "%smage.class", CLASS_DIR );
+			log_string( "Boot - Loading Mage." ); 
+			break; 
+			case 1:
+			sprintf( buf, "%scleric.class", CLASS_DIR );
+			log_string( "Boot - Loading Cleric." );
+			break;
+			case 2:
+			sprintf( buf, "%sthief.class", CLASS_DIR );
+			log_string( "Boot - Loading Thief." );
+			break;
+			case 3:
+			sprintf( buf, "%swarrior.class", CLASS_DIR );
+			log_string( "Boot - Loading Warrior." );
+			break;
+		}
+
+		if ( (fp = fopen( buf, "r" )) == NULL )
+		{
+			log_string( "Boot - Error opening class file." );
+			exit(1);
+		}
+
+		for ( ;; )
+		{
+			char letter;
+			char *word;
+
+			letter = fread_letter( fp );
+			if ( letter == '*' )
+			{
+				fread_to_eol( fp );
+				continue;
+			}
+			if ( letter != '#' )
+			{
+				bug( "Load_classes: # not found.", 0 );
+				break;
+			}
+			
+			word = fread_word( fp );
+
+			if ( !str_cmp( word, "CLASS" ) )
+			{
+				char *field;
+
+				for ( ;; )
+				{
+					field = fread_word( fp );
+					if ( !str_cmp( field, "Name" ) )
+						class_table[class].name = fread_string( fp );
+					else if ( !str_cmp( field, "WhoN" ) )
+					{
+						for( i = 0; i < 3; i++ )
+							class_table[class].who_name[i] = fread_letter( fp );
+					}
+					else if( !str_cmp( field, "Prime" ) )
+						class_table[class].attr_prime = fread_number( fp );
+					else if ( !str_cmp( field, "Weapon" ) )
+						class_table[class].weapon = fread_number( fp );
+					else if ( !str_cmp( field, "Guild1" ) )
+						class_table[class].guild[0] = fread_number( fp );
+					else if ( !str_cmp( field, "Guild2" ) )
+						class_table[class].guild[1] = fread_number( fp );
+					else if ( !str_cmp( field, "Skill" ) )
+						class_table[class].skill_adept = fread_number( fp );
+					else if ( !str_cmp( field, "Thac00" ) )
+						class_table[class].thac0_00 = fread_number( fp );
+					else if ( !str_cmp( field, "Thac32" ) )
+						class_table[class].thac0_32 = fread_number( fp );
+					else if ( !str_cmp( field, "HPMin" ) )
+						class_table[class].hp_min = fread_number( fp );
+					else if ( !str_cmp( field, "HPMax" ) )
+						class_table[class].hp_max = fread_number( fp );
+					else if ( !str_cmp( field, "FMana" ) )
+						class_table[class].fMana = fread_number( fp );
+					else if ( !str_cmp( field, "Base" ) )
+						class_table[class].base_group = fread_string( fp );
+					else if ( !str_cmp( field, "Default" ) )
+						class_table[class].default_group = fread_string( fp );
+					else if ( !str_cmp( field, "End" ) )
+						break;
+				}
+			}
+			else if ( !str_cmp( word, "SKILLS" ) )
+			{
+				int sn;
+				char *spell;
+
+				for ( ;; )
+				{
+					spell = fread_string( fp );
+
+					if ( !str_cmp( spell, "End" ) )
+						break;
+
+					for ( sn = 0; sn < MAX_SKILL; sn++ )
+					{
+						if ( skill_table[sn].name == NULL )
+							break;
+
+						if ( !str_cmp( spell, skill_table[sn].name ) )
+						{
+							skill_table[sn].skill_level[class] = fread_number( fp );
+							skill_table[sn].rating[class] = fread_number( fp );
+							break;
+						}
+					}
+				}
+			}
+			else if ( !str_cmp( word, "END" ) )
+			{
+				fclose( fp );
+				break;
+			}
+		}
+	}
+}
+

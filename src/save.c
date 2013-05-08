@@ -1685,3 +1685,4 @@ void fread_obj( CHAR_DATA *ch, FILE *fp )
 	}
 	}
 }
+

@@ -207,66 +207,73 @@ void boot_db( void )
 	/*
 	 * Init some data space stuff.
 	 */
-	{
-	fBootDb		= TRUE;
-	}
+	 {
+	 	fBootDb		= TRUE;
+	 }
 
 	/*
 	 * Init random number generator.
 	 */
-	{
-		log_string("Boot - Initializing RNG");
-		init_mm( );
-	}
+	 {
+	 	log_string("Boot - Initializing RNG");
+	 	init_mm( );
+	 }
 
 	/*
 	 * Set time and weather.
 	 */
-	{
-	log_string("Boot - Generating Weather");
-	long lhour, lday, lmonth;
+	 {
+	 	log_string("Boot - Generating Weather");
+	 	long lhour, lday, lmonth;
 
-	lhour		= (current_time - 650336715)
-			/ (PULSE_TICK / PULSE_PER_SECOND);
-	time_info.hour	= lhour  % 24;
-	lday		= lhour  / 24;
-	time_info.day	= lday   % 35;
-	lmonth		= lday   / 35;
-	time_info.month	= lmonth % 17;
-	time_info.year	= lmonth / 17;
+	 	lhour		= (current_time - 650336715)
+	 	/ (PULSE_TICK / PULSE_PER_SECOND);
+	 	time_info.hour	= lhour  % 24;
+	 	lday		= lhour  / 24;
+	 	time_info.day	= lday   % 35;
+	 	lmonth		= lday   / 35;
+	 	time_info.month	= lmonth % 17;
+	 	time_info.year	= lmonth / 17;
 
-		 if ( time_info.hour <  5 ) weather_info.sunlight = SUN_DARK;
-	else if ( time_info.hour <  6 ) weather_info.sunlight = SUN_RISE;
-	else if ( time_info.hour < 19 ) weather_info.sunlight = SUN_LIGHT;
-	else if ( time_info.hour < 20 ) weather_info.sunlight = SUN_SET;
-	else                            weather_info.sunlight = SUN_DARK;
+	 	if ( time_info.hour <  5 ) weather_info.sunlight = SUN_DARK;
+	 	else if ( time_info.hour <  6 ) weather_info.sunlight = SUN_RISE;
+	 	else if ( time_info.hour < 19 ) weather_info.sunlight = SUN_LIGHT;
+	 	else if ( time_info.hour < 20 ) weather_info.sunlight = SUN_SET;
+	 	else                            weather_info.sunlight = SUN_DARK;
 
-	weather_info.change	= 0;
-	weather_info.mmhg	= 960;
-	if ( time_info.month >= 7 && time_info.month <=12 )
-		weather_info.mmhg += number_range( 1, 50 );
-	else
-		weather_info.mmhg += number_range( 1, 80 );
+	 	weather_info.change	= 0;
+	 	weather_info.mmhg	= 960;
+	 	if ( time_info.month >= 7 && time_info.month <=12 )
+	 		weather_info.mmhg += number_range( 1, 50 );
+	 	else
+	 		weather_info.mmhg += number_range( 1, 80 );
 
-		 if ( weather_info.mmhg <=  980 ) weather_info.sky = SKY_LIGHTNING;
-	else if ( weather_info.mmhg <= 1000 ) weather_info.sky = SKY_RAINING;
-	else if ( weather_info.mmhg <= 1020 ) weather_info.sky = SKY_CLOUDY;
-	else                                  weather_info.sky = SKY_CLOUDLESS;
+	 	if ( weather_info.mmhg <=  980 ) weather_info.sky = SKY_LIGHTNING;
+	 	else if ( weather_info.mmhg <= 1000 ) weather_info.sky = SKY_RAINING;
+	 	else if ( weather_info.mmhg <= 1020 ) weather_info.sky = SKY_CLOUDY;
+	 	else                                  weather_info.sky = SKY_CLOUDLESS;
 
-	}
+	 }
 
 	/*
 	 * Assign gsn's for skills which have them.
 	 */
-	{
-	int sn;
-	log_string("Boot - Assigning GSNs");
-	for ( sn = 0; sn < MAX_SKILL; sn++ )
-	{
-		if ( skill_table[sn].pgsn != NULL )
-		*skill_table[sn].pgsn = sn;
-	}
-	}
+	 {
+	 	int sn;
+	 	log_string("Boot - Assigning GSNs");
+	 	for ( sn = 0; sn < MAX_SKILL; sn++ )
+	 	{
+	 		if ( skill_table[sn].pgsn != NULL )
+	 			*skill_table[sn].pgsn = sn;
+	 	}
+	 }
+
+	 /*
+     * Load the classes.
+     */
+    log_string("Boot - Loading Classes");
+    load_classes();
+
 
 	log_string("Boot - Loading Materials");
 	load_materials();
@@ -274,76 +281,76 @@ void boot_db( void )
 	/*
 	 * Read in all the area files.
 	 */
-	{
-	FILE *fpList;
+	 {
+	 	FILE *fpList;
 
-	if ( ( fpList = fopen( AREA_LIST, "r" ) ) == NULL )
-	{
-		perror( AREA_LIST );
-		exit( 1 );
-	}
+	 	if ( ( fpList = fopen( AREA_LIST, "r" ) ) == NULL )
+	 	{
+	 		perror( AREA_LIST );
+	 		exit( 1 );
+	 	}
 
-	for ( ; ; )
-	{
-		strcpy( strArea, fread_word( fpList ) );
-		if ( strArea[0] == '$' )
-		break;
+	 	for ( ; ; )
+	 	{
+	 		strcpy( strArea, fread_word( fpList ) );
+	 		if ( strArea[0] == '$' )
+	 			break;
 
-		if ( strArea[0] == '-' )
-		{
-		fpArea = stdin;
-		}
-		else
-		{
-			log_string(Format("Boot - Reading Area file %s", strArea));
-			if ( ( fpArea = fopen( strArea, "r" ) ) == NULL )
-			{
-				perror( strArea );
-				exit( 1 );
-			}
-		}
+	 		if ( strArea[0] == '-' )
+	 		{
+	 			fpArea = stdin;
+	 		}
+	 		else
+	 		{
+	 			log_string(Format("Boot - Reading Area file %s", strArea));
+	 			if ( ( fpArea = fopen( strArea, "r" ) ) == NULL )
+	 			{
+	 				perror( strArea );
+	 				exit( 1 );
+	 			}
+	 		}
 
-		current_area = NULL;
+	 		current_area = NULL;
 
-		for ( ; ; )
-		{
-		char *word;
+	 		for ( ; ; )
+	 		{
+	 			char *word;
 
-		if ( fread_letter( fpArea ) != '#' )
-		{
-			bug( "Boot_db: # not found.", 0 );
-			exit( 1 );
-		}
+	 			if ( fread_letter( fpArea ) != '#' )
+	 			{
+	 				bug( "Boot_db: # not found.", 0 );
+	 				exit( 1 );
+	 			}
 
-		word = fread_word( fpArea );
+	 			word = fread_word( fpArea );
 
-			 if ( word[0] == '$'               )                 break;
-		else if ( !str_cmp( word, "AREA"     ) ) load_area    (fpArea);
+	 			if ( word[0] == '$'               )                 break;
+	 			else if ( !str_cmp( word, "AREA"     ) ) load_area    (fpArea);
   /* OLC */     else if ( !str_cmp( word, "AREADATA" ) ) new_load_area(fpArea);
-		else if ( !str_cmp( word, "HELPS"    ) ) load_helps   (fpArea, strArea);
-		else if ( !str_cmp( word, "MOBOLD"   ) ) load_old_mob (fpArea);
-		else if ( !str_cmp( word, "MOBILES"  ) ) load_mobiles (fpArea);
-		else if ( !str_cmp( word, "MOBPROGS" ) ) load_mobprogs(fpArea);
-		else if ( !str_cmp( word, "OBJOLD"   ) ) load_old_obj (fpArea);
-		else if ( !str_cmp( word, "OBJECTS"  ) ) load_objects (fpArea);
-		else if ( !str_cmp( word, "RESETS"   ) ) load_resets  (fpArea);
-		else if ( !str_cmp( word, "ROOMS"    ) ) load_rooms   (fpArea);
-		else if ( !str_cmp( word, "SHOPS"    ) ) load_shops   (fpArea);
-		else if ( !str_cmp( word, "SOCIALS"  ) ) load_socials (fpArea);
-		else if ( !str_cmp( word, "SPECIALS" ) ) load_specials(fpArea);
-		else
-		{
-			bug( "Boot_db: bad section name.", 0 );
-			exit( 1 );
-		}
-		}
+	 			else if ( !str_cmp( word, "HELPS"    ) ) load_helps   (fpArea, strArea);
+	 			else if ( !str_cmp( word, "MOBOLD"   ) ) load_old_mob (fpArea);
+	 			else if ( !str_cmp( word, "MOBILES"  ) ) load_mobiles (fpArea);
+	 			else if ( !str_cmp( word, "MOBPROGS" ) ) load_mobprogs(fpArea);
+	 			else if ( !str_cmp( word, "OBJOLD"   ) ) load_old_obj (fpArea);
+	 			else if ( !str_cmp( word, "OBJECTS"  ) ) load_objects (fpArea);
+	 			else if ( !str_cmp( word, "RESETS"   ) ) load_resets  (fpArea);
+	 			else if ( !str_cmp( word, "ROOMS"    ) ) load_rooms   (fpArea);
+	 			else if ( !str_cmp( word, "SHOPS"    ) ) load_shops   (fpArea);
+	 			else if ( !str_cmp( word, "SOCIALS"  ) ) load_socials (fpArea);
+	 			else if ( !str_cmp( word, "SPECIALS" ) ) load_specials(fpArea);
+	 			else
+	 			{
+	 				bug( "Boot_db: bad section name.", 0 );
+	 				exit( 1 );
+	 			}
+	 		}
 
-		if ( fpArea != stdin )
-		fclose( fpArea );
-		fpArea = NULL;
-	}
-	fclose( fpList );
-	}
+	 		if ( fpArea != stdin )
+	 			fclose( fpArea );
+	 		fpArea = NULL;
+	 	}
+	 	fclose( fpList );
+	 }
 
 	/*
 	 * Fix up exits.
@@ -351,44 +358,44 @@ void boot_db( void )
 	 * Reset all areas once.
 	 * Load up the songs, notes and ban files.
 	 */
-	{
-	log_string("Boot - Fixing Exits");
-	fix_exits( );
-	log_string("Boot - Fixing mobprogs");
-	fix_mobprogs( );
-	log_string("Boot - Changing fBootDb state");
-	fBootDb	= FALSE;
-	log_string("Boot - Converting Objects(modern format)");
+	 {
+	 	log_string("Boot - Fixing Exits");
+	 	fix_exits( );
+	 	log_string("Boot - Fixing mobprogs");
+	 	fix_mobprogs( );
+	 	log_string("Boot - Changing fBootDb state");
+	 	fBootDb	= FALSE;
+	 	log_string("Boot - Converting Objects(modern format)");
 	convert_objects( );           /* ROM OLC */
 	// area_update( );
-	log_string("Boot - Initial world respawn initiating");
-	reset_world();
-	log_string("Boot - Loading Notes");
-	load_notes( );
-	log_string("Boot - Loading Bans");
-	load_bans();
-	log_string("Boot - Loading Songs");
-	load_songs();
-	log_string("Boot - Loading Wizlist");
-	load_wizlist();
-	
-	log_string("Boot - Saving Materials File");
-	save_materials();
-	}
+	 	log_string("Boot - Initial world respawn initiating");
+	 	reset_world();
+	 	log_string("Boot - Loading Notes");
+	 	load_notes( );
+	 	log_string("Boot - Loading Bans");
+	 	load_bans();
+	 	log_string("Boot - Loading Songs");
+	 	load_songs();
+	 	log_string("Boot - Loading Wizlist");
+	 	load_wizlist();
+
+	 	log_string("Boot - Saving Materials File");
+	 	save_materials();
+	 }
 
 
-	log_string("Boot - Detecting greeting");
+	 log_string("Boot - Detecting greeting");
     if ( !help_greeting )             /* Hugin */
-    {
-		    log_string("\tBoot - Greeting not found");
-            bug( "boot_db: No help_greeting read.", 0 );
-            help_greeting = "By what name do you wish to be known ? ";
-    } else {
-	    log_string("Boot - Greeting detected!");
-    }
+	 {
+	 	log_string("\tBoot - Greeting not found");
+	 	bug( "boot_db: No help_greeting read.", 0 );
+	 	help_greeting = "By what name do you wish to be known ? ";
+	 } else {
+	 	log_string("Boot - Greeting detected!");
+	 }
 
-	return;
-}
+	 return;
+	}
 
 
 
