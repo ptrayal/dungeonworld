@@ -57,7 +57,7 @@ char *	const	where_name	[] =
 	"\tW<\tn \tJBelt         \tW>\tn   ",
 	"\tW<\tn \tJRight Wrist  \tW>\tn   ",
 	"\tW<\tn \tJLeft Wrist   \tW>\tn   ",
-	"\tW<\tn \tJwielded      \tW>\tn   ",
+	"\tW<\tn \tJWielded      \tW>\tn   ",
 	"\tW<\tn \tJHeld         \tW>\tn   ",
 	"\tW<\tn \tJFloating     \tW>\tn   ",
 };

@@ -609,7 +609,7 @@ void weather_update( void )
 	 }
 
 	 return;
-	}
+}
 
 
 
