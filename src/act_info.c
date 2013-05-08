@@ -138,105 +138,105 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	bool fCombine;
 
 	if ( ch->desc == NULL )
-	return;
+		return;
 
 	/*
 	 * Alloc space for output lines.
 	 */
-	output = new_buf();
+	 output = new_buf();
 
-	count = 0;
-	for ( obj = list; obj != NULL; obj = obj->next_content )
-	count++;
-	ALLOC_DATA(prgpstrShow, char*, (count *sizeof(char*)));
-	ALLOC_DATA(prgnShow, int, count);
-	nShow	= 0;
+	 count = 0;
+	 for ( obj = list; obj != NULL; obj = obj->next_content )
+	 	count++;
+	 ALLOC_DATA(prgpstrShow, char*, (count *sizeof(char*)));
+	 ALLOC_DATA(prgnShow, int, count);
+	 nShow	= 0;
 
 	/*
 	 * Format the list of objects.
 	 */
-	for ( obj = list; obj != NULL; obj = obj->next_content )
-	{ 
-	if ( obj->wear_loc == WEAR_NONE && can_see_obj( ch, obj )) 
-	{
-		pstrShow = format_obj_to_char( obj, ch, fShort );
+	 for ( obj = list; obj != NULL; obj = obj->next_content )
+	 { 
+	 	if ( obj->wear_loc == WEAR_NONE && can_see_obj( ch, obj )) 
+	 	{
+	 		pstrShow = format_obj_to_char( obj, ch, fShort );
 
-		fCombine = FALSE;
+	 		fCombine = FALSE;
 
-		if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
-		{
+	 		if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
+	 		{
 		/*
 		 * Look for duplicates, case sensitive.
 		 * Matches tend to be near end so run loop backwords.
 		 */
-		for ( iShow = nShow - 1; iShow >= 0; iShow-- )
-		{
-			if ( !strcmp( prgpstrShow[iShow], pstrShow ) )
-			{
-			prgnShow[iShow]++;
-			fCombine = TRUE;
-			break;
-			}
-		}
+		 for ( iShow = nShow - 1; iShow >= 0; iShow-- )
+		 {
+		 	if ( !strcmp( prgpstrShow[iShow], pstrShow ) )
+		 	{
+		 		prgnShow[iShow]++;
+		 		fCombine = TRUE;
+		 		break;
+		 	}
+		 }
 		}
 
 		/*
 		 * Couldn't combine, or didn't want to.
 		 */
-		if ( !fCombine )
-		{
-		prgpstrShow [nShow] = str_dup( pstrShow );
-		prgnShow    [nShow] = 1;
-		nShow++;
+		 if ( !fCombine )
+		 {
+		 	prgpstrShow [nShow] = str_dup( pstrShow );
+		 	prgnShow    [nShow] = 1;
+		 	nShow++;
+		 }
 		}
-	}
 	}
 
 	/*
 	 * Output the formatted list.
 	 */
-	for ( iShow = 0; iShow < nShow; iShow++ )
-	{
-	if (prgpstrShow[iShow][0] == '\0')
-	{
-		PURGE_DATA(prgpstrShow[iShow]);
-		continue;
-	}
+	 for ( iShow = 0; iShow < nShow; iShow++ )
+	 {
+	 	if (prgpstrShow[iShow][0] == '\0')
+	 	{
+	 		PURGE_DATA(prgpstrShow[iShow]);
+	 		continue;
+	 	}
 
-	if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
-	{
-		if ( prgnShow[iShow] != 1 )
-		{
-		sprintf( buf, "(%2d) ", prgnShow[iShow] );
-		add_buf(output,buf);
-		}
-		else
-		{
-		add_buf(output,"     ");
-		}
-	}
-	add_buf(output,prgpstrShow[iShow]);
-	add_buf(output,"\n\r");
-	PURGE_DATA( prgpstrShow[iShow] );
-	}
+	 	if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
+	 	{
+	 		if ( prgnShow[iShow] != 1 )
+	 		{
+	 			sprintf( buf, "(%2d) ", prgnShow[iShow] );
+	 			add_buf(output,buf);
+	 		}
+	 		else
+	 		{
+	 			add_buf(output,"     ");
+	 		}
+	 	}
+	 	add_buf(output,prgpstrShow[iShow]);
+	 	add_buf(output,"\n\r");
+	 	PURGE_DATA( prgpstrShow[iShow] );
+	 }
 
-	if ( fShowNothing && nShow == 0 )
-	{
-	if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
-		send_to_char( "     ", ch );
-	send_to_char( "Nothing.\n\r", ch );
-	}
-	page_to_char(buf_string(output),ch);
+	 if ( fShowNothing && nShow == 0 )
+	 {
+	 	if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
+	 		send_to_char( "     ", ch );
+	 	send_to_char( "Nothing.\n\r", ch );
+	 }
+	 page_to_char(buf_string(output),ch);
 
 	/*
 	 * Clean up.
 	 */
-	free_buf(output);
-	PURGE_DATA( prgpstrShow );
-	PURGE_DATA( prgnShow );
+	 free_buf(output);
+	 PURGE_DATA( prgpstrShow );
+	 PURGE_DATA( prgnShow );
 
-	return;
-}
+	 return;
+	}
 
 
 
@@ -1034,9 +1034,11 @@ void do_look( CHAR_DATA *ch, char *argument )
 		}
 
 		// Show objects in the room.
+		send_to_char("\tW---\tYObjects\tW---\tn\n\r", ch);
 		show_list_to_char( ch->in_room->contents, ch, FALSE, FALSE );
 
 		// Show people and mobs in the room.
+		send_to_char("\tW---\tYPeople\tW---\tn\n\r", ch);
 		show_char_to_char( ch->in_room->people,   ch );
 		return;
 	}
