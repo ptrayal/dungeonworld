@@ -113,7 +113,7 @@ char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 	}
 
 	if (strlen(buf)<=0)
-    	strcpy(buf, Format("This object has no description(Virtual Number: %d). Please inform the staff immediately", obj->pIndexData->vnum));
+		strcpy(buf, Format("This object has no description(Virtual Number: %d). Please inform the staff immediately", obj->pIndexData->vnum));
  
 	return buf;
 }
@@ -147,7 +147,7 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 
 	 count = 0;
 	 for ( obj = list; obj != NULL; obj = obj->next_content )
-	 	count++;
+		count++;
 	 ALLOC_DATA(prgpstrShow, char*, (count *sizeof(char*)));
 	 ALLOC_DATA(prgnShow, int, count);
 	 nShow	= 0;
@@ -157,26 +157,26 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	 */
 	 for ( obj = list; obj != NULL; obj = obj->next_content )
 	 { 
-	 	if ( obj->wear_loc == WEAR_NONE && can_see_obj( ch, obj )) 
-	 	{
-	 		pstrShow = format_obj_to_char( obj, ch, fShort );
+		if ( obj->wear_loc == WEAR_NONE && can_see_obj( ch, obj )) 
+		{
+			pstrShow = format_obj_to_char( obj, ch, fShort );
 
-	 		fCombine = FALSE;
+			fCombine = FALSE;
 
-	 		if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
-	 		{
+			if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
+			{
 		/*
 		 * Look for duplicates, case sensitive.
 		 * Matches tend to be near end so run loop backwords.
 		 */
 		 for ( iShow = nShow - 1; iShow >= 0; iShow-- )
 		 {
-		 	if ( !strcmp( prgpstrShow[iShow], pstrShow ) )
-		 	{
-		 		prgnShow[iShow]++;
-		 		fCombine = TRUE;
-		 		break;
-		 	}
+			if ( !strcmp( prgpstrShow[iShow], pstrShow ) )
+			{
+				prgnShow[iShow]++;
+				fCombine = TRUE;
+				break;
+			}
 		 }
 		}
 
@@ -185,9 +185,9 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 		 */
 		 if ( !fCombine )
 		 {
-		 	prgpstrShow [nShow] = str_dup( pstrShow );
-		 	prgnShow    [nShow] = 1;
-		 	nShow++;
+			prgpstrShow [nShow] = str_dup( pstrShow );
+			prgnShow    [nShow] = 1;
+			nShow++;
 		 }
 		}
 	}
@@ -197,34 +197,34 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	 */
 	 for ( iShow = 0; iShow < nShow; iShow++ )
 	 {
-	 	if (prgpstrShow[iShow][0] == '\0')
-	 	{
-	 		PURGE_DATA(prgpstrShow[iShow]);
-	 		continue;
-	 	}
+		if (prgpstrShow[iShow][0] == '\0')
+		{
+			PURGE_DATA(prgpstrShow[iShow]);
+			continue;
+		}
 
-	 	if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
-	 	{
-	 		if ( prgnShow[iShow] != 1 )
-	 		{
-	 			sprintf( buf, "(%2d) ", prgnShow[iShow] );
-	 			add_buf(output,buf);
-	 		}
-	 		else
-	 		{
-	 			add_buf(output,"     ");
-	 		}
-	 	}
-	 	add_buf(output,prgpstrShow[iShow]);
-	 	add_buf(output,"\n\r");
-	 	PURGE_DATA( prgpstrShow[iShow] );
+		if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
+		{
+			if ( prgnShow[iShow] != 1 )
+			{
+				sprintf( buf, "(%2d) ", prgnShow[iShow] );
+				add_buf(output,buf);
+			}
+			else
+			{
+				add_buf(output,"     ");
+			}
+		}
+		add_buf(output,prgpstrShow[iShow]);
+		add_buf(output,"\n\r");
+		PURGE_DATA( prgpstrShow[iShow] );
 	 }
 
 	 if ( fShowNothing && nShow == 0 )
 	 {
-	 	if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
-	 		send_to_char( "     ", ch );
-	 	send_to_char( "Nothing.\n\r", ch );
+		if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
+			send_to_char( "     ", ch );
+		send_to_char( "Nothing.\n\r", ch );
 	 }
 	 page_to_char(buf_string(output),ch);
 
@@ -815,13 +815,13 @@ void do_compact(CHAR_DATA *ch, char *argument)
 {
 	if (IS_SET(ch->comm,COMM_COMPACT))
 	{
-	  send_to_char("Compact mode removed.\n\r",ch);
-	  REMOVE_BIT(ch->comm,COMM_COMPACT);
+		send_to_char("Compact mode removed.\n\r",ch);
+		REMOVE_BIT(ch->comm,COMM_COMPACT);
 	}
 	else
 	{
-	  send_to_char("Compact mode set.\n\r",ch);
-	  SET_BIT(ch->comm,COMM_COMPACT);
+		send_to_char("Compact mode set.\n\r",ch);
+		SET_BIT(ch->comm,COMM_COMPACT);
 	}
 }
 
@@ -829,13 +829,13 @@ void do_show(CHAR_DATA *ch, char *argument)
 {
 	if (IS_SET(ch->comm,COMM_SHOW_AFFECTS))
 	{
-	  send_to_char("Affects will no longer be shown in score.\n\r",ch);
-	  REMOVE_BIT(ch->comm,COMM_SHOW_AFFECTS);
+		send_to_char("Affects will no longer be shown in score.\n\r",ch);
+		REMOVE_BIT(ch->comm,COMM_SHOW_AFFECTS);
 	}
 	else
 	{
-	  send_to_char("Affects will now be shown in score.\n\r",ch);
-	  SET_BIT(ch->comm,COMM_SHOW_AFFECTS);
+		send_to_char("Affects will now be shown in score.\n\r",ch);
+		SET_BIT(ch->comm,COMM_SHOW_AFFECTS);
 	}
 }
 
@@ -873,8 +873,7 @@ void do_prompt(CHAR_DATA *ch, char *argument)
 	
 	PURGE_DATA( ch->prompt );
 	ch->prompt = str_dup( buf );
-	sprintf(buf,"Prompt set to %s\n\r",ch->prompt );
-	send_to_char(buf,ch);
+	send_to_char( Format("Prompt set to %s\n\r",ch->prompt), ch);
 	return;
 }
 
@@ -882,48 +881,48 @@ void do_combine(CHAR_DATA *ch, char *argument)
 {
 	if (IS_SET(ch->comm,COMM_COMBINE))
 	{
-	  send_to_char("Long inventory selected.\n\r",ch);
-	  REMOVE_BIT(ch->comm,COMM_COMBINE);
+		send_to_char("Long inventory selected.\n\r",ch);
+		REMOVE_BIT(ch->comm,COMM_COMBINE);
 	}
 	else
 	{
-	  send_to_char("Combined inventory selected.\n\r",ch);
-	  SET_BIT(ch->comm,COMM_COMBINE);
+		send_to_char("Combined inventory selected.\n\r",ch);
+		SET_BIT(ch->comm,COMM_COMBINE);
 	}
 }
 
 void do_noloot(CHAR_DATA *ch, char *argument)
 {
 	if (IS_NPC(ch))
-	  return;
- 
+		return;
+
 	if (IS_SET(ch->act,PLR_CANLOOT))
 	{
-	  send_to_char("Your corpse is now safe from thieves.\n\r",ch);
-	  REMOVE_BIT(ch->act,PLR_CANLOOT);
+		send_to_char("Your corpse is now safe from thieves.\n\r",ch);
+		REMOVE_BIT(ch->act,PLR_CANLOOT);
 	}
 	else
 	{
-	  send_to_char("Your corpse may now be looted.\n\r",ch);
-	  SET_BIT(ch->act,PLR_CANLOOT);
+		send_to_char("Your corpse may now be looted.\n\r",ch);
+		SET_BIT(ch->act,PLR_CANLOOT);
 	}
 }
 
 void do_nofollow(CHAR_DATA *ch, char *argument)
 {
 	if (IS_NPC(ch) || IS_AFFECTED( ch, AFF_CHARM ))
-	  return;
- 
+		return;
+
 	if (IS_SET(ch->act,PLR_NOFOLLOW))
 	{
-	  send_to_char("You now accept followers.\n\r",ch);
-	  REMOVE_BIT(ch->act,PLR_NOFOLLOW);
+		send_to_char("You now accept followers.\n\r",ch);
+		REMOVE_BIT(ch->act,PLR_NOFOLLOW);
 	}
 	else
 	{
-	  send_to_char("You no longer accept followers.\n\r",ch);
-	  SET_BIT(ch->act,PLR_NOFOLLOW);
-	  die_follower( ch );
+		send_to_char("You no longer accept followers.\n\r",ch);
+		SET_BIT(ch->act,PLR_NOFOLLOW);
+		die_follower( ch );
 	}
 }
 
@@ -931,29 +930,29 @@ void do_nosummon(CHAR_DATA *ch, char *argument)
 {
 	if (IS_NPC(ch))
 	{
-	  if (IS_SET(ch->imm_flags,IMM_SUMMON))
-	  {
-	send_to_char("You are no longer immune to summon.\n\r",ch);
-	REMOVE_BIT(ch->imm_flags,IMM_SUMMON);
-	  }
-	  else
-	  {
-	send_to_char("You are now immune to summoning.\n\r",ch);
-	SET_BIT(ch->imm_flags,IMM_SUMMON);
-	  }
+		if (IS_SET(ch->imm_flags,IMM_SUMMON))
+		{
+			send_to_char("You are no longer immune to summon.\n\r",ch);
+			REMOVE_BIT(ch->imm_flags,IMM_SUMMON);
+		}
+		else
+		{
+			send_to_char("You are now immune to summoning.\n\r",ch);
+			SET_BIT(ch->imm_flags,IMM_SUMMON);
+		}
 	}
 	else
 	{
-	  if (IS_SET(ch->act,PLR_NOSUMMON))
-	  {
-		send_to_char("You are no longer immune to summon.\n\r",ch);
-		REMOVE_BIT(ch->act,PLR_NOSUMMON);
-	  }
-	  else
-	  {
-		send_to_char("You are now immune to summoning.\n\r",ch);
-		SET_BIT(ch->act,PLR_NOSUMMON);
-	  }
+		if (IS_SET(ch->act,PLR_NOSUMMON))
+		{
+			send_to_char("You are no longer immune to summon.\n\r",ch);
+			REMOVE_BIT(ch->act,PLR_NOSUMMON);
+		}
+		else
+		{
+			send_to_char("You are now immune to summoning.\n\r",ch);
+			SET_BIT(ch->act,PLR_NOSUMMON);
+		}
 	}
 }
 
@@ -1244,56 +1243,51 @@ void do_examine( CHAR_DATA *ch, char *argument )
 
 	if ( arg[0] == '\0' )
 	{
-	send_to_char( "Examine what?\n\r", ch );
-	return;
+		send_to_char( "Examine what?\n\r", ch );
+		return;
 	}
 
 	do_function(ch, &do_look, arg );
 
 	if ( ( obj = get_obj_here( ch, arg ) ) != NULL )
 	{
-	switch ( obj->item_type )
-	{
-	default:
-		break;
-	
-	case ITEM_JUKEBOX:
-		do_function(ch, &do_play, "list");
-		break;
-
-	case ITEM_MONEY:
-		if (obj->value[0] == 0)
+		switch ( obj->item_type )
 		{
-			if (obj->value[1] == 0)
-			sprintf(buf,"Odd...there's no coins in the pile.\n\r");
-		else if (obj->value[1] == 1)
-			sprintf(buf,"Wow. One gold coin.\n\r");
-		else
-			sprintf(buf,"There are %d gold coins in the pile.\n\r",
-			obj->value[1]);
-		}
-		else if (obj->value[1] == 0)
-		{
-		if (obj->value[0] == 1)
-			sprintf(buf,"Wow. One silver coin.\n\r");
-		else
-			sprintf(buf,"There are %d silver coins in the pile.\n\r",
-			obj->value[0]);
-		}
-		else
-		sprintf(buf,
-			"There are %d gold and %d silver coins in the pile.\n\r",
-			obj->value[1],obj->value[0]);
-		send_to_char(buf,ch);
-		break;
+			default:
+			break;
 
-	case ITEM_DRINK_CON:
-	case ITEM_CONTAINER:
-	case ITEM_CORPSE_NPC:
-	case ITEM_CORPSE_PC:
-		sprintf(buf,"in %s",argument);
-		do_function(ch, &do_look, buf );
-	}
+			case ITEM_JUKEBOX:
+			do_function(ch, &do_play, "list");
+			break;
+
+			case ITEM_MONEY:
+			if (obj->value[0] == 0)
+			{
+				if (obj->value[1] == 0)
+					send_to_char( "Odd...there's no coins in the pile.\n\r", ch);
+				else if (obj->value[1] == 1)
+					send_to_char( "Wow. One gold coin.\n\r", ch);
+				else
+					send_to_char( Format("There are %d gold coins in the pile.\n\r", obj->value[1]), ch);
+			}
+			else if (obj->value[1] == 0)
+			{
+				if (obj->value[0] == 1)
+					send_to_char( "Wow. One silver coin.\n\r", ch);
+				else
+					send_to_char( Format("There are %d silver coins in the pile.\n\r", obj->value[0]), ch);
+			}
+			else
+				send_to_char( Format("There are %d gold and %d silver coins in the pile.\n\r", obj->value[1],obj->value[0]), ch);
+			break;
+
+			case ITEM_DRINK_CON:
+			case ITEM_CONTAINER:
+			case ITEM_CORPSE_NPC:
+			case ITEM_CORPSE_PC:
+			sprintf(buf,"in %s",argument);
+			do_function(ch, &do_look, buf );
+		}
 	}
 
 	return;
@@ -1365,19 +1359,19 @@ void do_exits( CHAR_DATA *ch, char *argument )
 
 			send_to_char( buf, ch );
 			return;
-		}
+}
 
 void do_worth( CHAR_DATA *ch, char *argument )
 {
 
 	if (IS_NPC(ch))
 	{
-	send_to_char( Format("You have %ld gold and %ld silver.\n\r", ch->gold,ch->silver), ch);
-	return;
+		send_to_char( Format("You have %ld gold and %ld silver.\n\r", ch->gold,ch->silver), ch);
+		return;
 	}
 
 	send_to_char( Format("You have %ld gold, %ld silver, and %d experience (%d exp to level).\n\r",	ch->gold, ch->silver, ch->exp,
-	(ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp), ch);
+		(ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp), ch);
 
 	return;
 }
@@ -1740,14 +1734,14 @@ void do_help( CHAR_DATA *ch, char *argument )
 		 * Strip leading '.' to allow initial blanks.
 		 */
 		 if ( pHelp->text[0] == '.' )
-		 	add_buf(output,pHelp->text+1);
+			add_buf(output,pHelp->text+1);
 		 else
-		 	add_buf(output,pHelp->text);
+			add_buf(output,pHelp->text);
 		 found = TRUE;
 		/* small hack :) */
 		 if (ch->desc != NULL && ch->desc->connected != CON_PLAYING 
-		 	&&  		    ch->desc->connected != CON_GEN_GROUPS)
-		 	break;
+			&&  		    ch->desc->connected != CON_GEN_GROUPS)
+			break;
 		}
 	}
 

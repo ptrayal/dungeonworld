@@ -4237,113 +4237,105 @@ void do_invis( CHAR_DATA *ch, char *argument )
 	if ( IS_NULLSTR(arg) ) 
 	/* take the default path */
 
-	  if ( ch->invis_level)
-	  {
-	  ch->invis_level = 0;
-	  act( "$n slowly fades into existence.", ch, NULL, NULL, TO_ROOM );
-	  send_to_char( "You slowly fade back into existence.\n\r", ch );
-	  }
-	  else
-	  {
-	  ch->invis_level = get_trust(ch);
-	  act( "$n slowly fades into thin air.", ch, NULL, NULL, TO_ROOM );
-	  send_to_char( "You slowly vanish into thin air.\n\r", ch );
-	  }
-	else
+		if ( ch->invis_level)
+		{
+			ch->invis_level = 0;
+			act( "$n slowly fades into existence.", ch, NULL, NULL, TO_ROOM );
+			send_to_char( "You slowly fade back into existence.\n\r", ch );
+		}
+		else
+		{
+			ch->invis_level = get_trust(ch);
+			act( "$n slowly fades into thin air.", ch, NULL, NULL, TO_ROOM );
+			send_to_char( "You slowly vanish into thin air.\n\r", ch );
+		}
+		else
 	/* do the level thing */
-	{
-	  level = atoi(arg);
-	  if (level < 2 || level > get_trust(ch))
-	  {
-	send_to_char("Invis level must be between 2 and your level.\n\r",ch);
-		return;
-	  }
-	  else
-	  {
-	  ch->reply = NULL;
-		  ch->invis_level = level;
-		  act( "$n slowly fades into thin air.", ch, NULL, NULL, TO_ROOM );
-		  send_to_char( "You slowly vanish into thin air.\n\r", ch );
-	  }
-	}
+		{
+			level = atoi(arg);
+			if (level < 2 || level > get_trust(ch))
+			{
+				send_to_char("Invis level must be between 2 and your level.\n\r",ch);
+				return;
+			}
+			else
+			{
+				ch->reply = NULL;
+				ch->invis_level = level;
+				act( "$n slowly fades into thin air.", ch, NULL, NULL, TO_ROOM );
+				send_to_char( "You slowly vanish into thin air.\n\r", ch );
+			}
+		}
 
-	return;
-}
+		return;
+	}
 
 
 void do_incognito( CHAR_DATA *ch, char *argument )
 {
 	int level;
 	char arg[MSL]={'\0'};
- 
+	
 	/* RT code for taking a level argument */
 	one_argument( argument, arg );
- 
+	
 	if ( IS_NULLSTR(arg) )
 	/* take the default path */
- 
-	  if ( ch->incog_level)
-	  {
-		  ch->incog_level = 0;
-		  act( "$n is no longer cloaked.", ch, NULL, NULL, TO_ROOM );
-		  send_to_char( "You are no longer cloaked.\n\r", ch );
-	  }
-	  else
-	  {
-		  ch->incog_level = get_trust(ch);
-		  act( "$n cloaks $s presence.", ch, NULL, NULL, TO_ROOM );
-		  send_to_char( "You cloak your presence.\n\r", ch );
-	  }
-	else
+		
+		if ( ch->incog_level)
+		{
+			ch->incog_level = 0;
+			act( "$n is no longer cloaked.", ch, NULL, NULL, TO_ROOM );
+			send_to_char( "You are no longer cloaked.\n\r", ch );
+		}
+		else
+		{
+			ch->incog_level = get_trust(ch);
+			act( "$n cloaks $s presence.", ch, NULL, NULL, TO_ROOM );
+			send_to_char( "You cloak your presence.\n\r", ch );
+		}
+		else
 	/* do the level thing */
-	{
-	  level = atoi(arg);
-	  if (level < 2 || level > get_trust(ch))
-	  {
-		send_to_char("Incog level must be between 2 and your level.\n\r",ch);
+		{
+			level = atoi(arg);
+			if (level < 2 || level > get_trust(ch))
+			{
+				send_to_char("Incog level must be between 2 and your level.\n\r",ch);
+				return;
+			}
+			else
+			{
+				ch->reply = NULL;
+				ch->incog_level = level;
+				act( "$n cloaks $s presence.", ch, NULL, NULL, TO_ROOM );
+				send_to_char( "You cloak your presence.\n\r", ch );
+			}
+		}
+		
 		return;
-	  }
-	  else
-	  {
-		  ch->reply = NULL;
-		  ch->incog_level = level;
-		  act( "$n cloaks $s presence.", ch, NULL, NULL, TO_ROOM );
-		  send_to_char( "You cloak your presence.\n\r", ch );
-	  }
 	}
- 
-	return;
-}
-
 
 
 void do_holylight( CHAR_DATA *ch, char *argument )
 {
 	if ( IS_NPC(ch) )
-	return;
+		return;
 
 	if ( IS_SET(ch->act, PLR_HOLYLIGHT) )
 	{
-	REMOVE_BIT(ch->act, PLR_HOLYLIGHT);
-	send_to_char( "Holy light mode off.\n\r", ch );
+		REMOVE_BIT(ch->act, PLR_HOLYLIGHT);
+		send_to_char( "Holy light mode off.\n\r", ch );
 	}
 	else
 	{
-	SET_BIT(ch->act, PLR_HOLYLIGHT);
-	send_to_char( "Holy light mode on.\n\r", ch );
+		SET_BIT(ch->act, PLR_HOLYLIGHT);
+		send_to_char( "Holy light mode on.\n\r", ch );
 	}
 
 	return;
 }
 
 /* prefix command: it will put the string typed on each line typed */
-
-void do_prefi (CHAR_DATA *ch, char *argument)
-{
-	send_to_char("You cannot abbreviate the prefix command.\r\n",ch);
-	return;
-}
-
 void do_prefix (CHAR_DATA *ch, char *argument)
 {
 	char buf[MAX_INPUT_LENGTH];
