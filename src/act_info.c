@@ -1004,31 +1004,39 @@ void do_look( CHAR_DATA *ch, char *argument )
 
 	if ( IS_NULLSTR(arg1) || !str_cmp( arg1, "auto" ) )
 	{
-	/* 'look' or 'look auto' */
+		/* 'look' or 'look auto' */
 		// send_to_char( ch->in_room->name, ch );
+		// Show the Room name.
 		send_to_char(Format("\tW%s\tn", ch->in_room->name), ch);
 
+		// Show the Room number.
 		if ( (IS_IMMORTAL(ch) && (IS_NPC(ch) || IS_SET(ch->act,PLR_HOLYLIGHT)))
 			||   IS_BUILDER(ch, ch->in_room->area) )
 		{
-			send_to_char( Format(" [Room %d]",ch->in_room->vnum),ch);
+			send_to_char( Format(" \tW[\tGRoom %d\tW]\tn",ch->in_room->vnum),ch);
 		}
 
 		send_to_char( "\n\r", ch );
 
+		// Show the room description.  Make the description text white.
 		if ( IS_NULLSTR(arg1) || ( !IS_NPC(ch) && !IS_SET(ch->comm, COMM_BRIEF) ) )
 		{
-			send_to_char( "  ",ch);
+			send_to_char( "\tW  ",ch);
 			send_to_char( ch->in_room->description, ch );
+			send_to_char("\tn", ch);
 		}
 
+		// Show the exits.  Need to colorize.
 		if ( !IS_NPC(ch) && IS_SET(ch->act, PLR_AUTOEXIT) )
 		{
 			send_to_char("\n\r",ch);
 			do_function(ch, &do_exits, "auto" );
 		}
 
+		// Show objects in the room.
 		show_list_to_char( ch->in_room->contents, ch, FALSE, FALSE );
+
+		// Show people and mobs in the room.
 		show_char_to_char( ch->in_room->people,   ch );
 		return;
 	}

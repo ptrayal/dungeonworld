@@ -148,6 +148,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/.version",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/special_table.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/special.h",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/Makefile",
@@ -274,8 +275,7 @@
 		"/E/Brandon/Course_Development/ROM/src/tables.h.rej",
 		"/E/Brandon/Course_Development/ROM/src/save.c.rej",
 		"/E/Brandon/Course_Development/ROM/src/save.c",
-		"/E/Brandon/Course_Development/ROM/src/merc.h.orig",
-		"/E/Brandon/Course_Development/ROM/src/merc.h.rej"
+		"/E/Brandon/Course_Development/ROM/src/merc.h.orig"
 	],
 	"find":
 	{
