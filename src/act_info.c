@@ -41,25 +41,25 @@
 
 char *	const	where_name	[] =
 {
-	"<used as light>     ",
-	"<worn on finger>    ",
-	"<worn on finger>    ",
-	"<worn around neck>  ",
-	"<worn around neck>  ",
-	"<worn on torso>     ",
-	"<worn on head>      ",
-	"<worn on legs>      ",
-	"<worn on feet>      ",
-	"<worn on hands>     ",
-	"<worn on arms>      ",
-	"<worn as shield>    ",
-	"<worn about body>   ",
-	"<worn about waist>  ",
-	"<worn around wrist> ",
-	"<worn around wrist> ",
-	"<wielded>           ",
-	"<held>              ",
-	"<floating nearby>   ",
+	"\tW<\tn \tJLight Source \tW>\tn   ",
+	"\tW<\tn \tJRight Finger \tW>\tn   ",
+	"\tW<\tn \tJLeft Finger  \tW>\tn   ",
+	"\tW<\tn \tJNeck         \tW>\tn   ",
+	"\tW<\tn \tJNeck         \tW>\tn   ",
+	"\tW<\tn \tJBody         \tW>\tn   ",
+	"\tW<\tn \tJHead         \tW>\tn   ",
+	"\tW<\tn \tJLeggings     \tW>\tn   ",
+	"\tW<\tn \tJBoots        \tW>\tn   ",
+	"\tW<\tn \tJGauntlets    \tW>\tn   ",
+	"\tW<\tn \tJArm Wear     \tW>\tn   ",
+	"\tW<\tn \tJShield       \tW>\tn   ",
+	"\tW<\tn \tJCloak        \tW>\tn   ",
+	"\tW<\tn \tJBelt         \tW>\tn   ",
+	"\tW<\tn \tJRight Wrist  \tW>\tn   ",
+	"\tW<\tn \tJLeft Wrist   \tW>\tn   ",
+	"\tW<\tn \tJwielded      \tW>\tn   ",
+	"\tW<\tn \tJHeld         \tW>\tn   ",
+	"\tW<\tn \tJFloating     \tW>\tn   ",
 };
 
 
@@ -95,9 +95,9 @@ char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 	if (IS_AFFECTED(ch, AFF_DETECT_GOOD) &&  IS_OBJ_STAT(obj,ITEM_BLESS))
 		strcat(buf,"\tW(\tBBlue Aura\tW)\tn "	);
 	if ( IS_AFFECTED(ch, AFF_DETECT_MAGIC) && IS_OBJ_STAT(obj, ITEM_MAGIC) )
-		strcat( buf, "\tW(\tnMagical\tW)\tn "   );
+		strcat( buf, "\tW(\tn\tWMagical\tW)\tn "   );
 	if ( IS_OBJ_STAT(obj, ITEM_GLOW) )
-		strcat( buf, "\tW(\tnGlowing\tW)\tn "   );
+		strcat( buf, "\tW(\tn\tYGlowing\tW)\tn "   );
 	if ( IS_OBJ_STAT(obj, ITEM_HUM) )
 		strcat( buf, "\tW(\tnHumming\tW)\tn "   );
 
@@ -2059,7 +2059,7 @@ void do_count ( CHAR_DATA *ch, char *argument )
 
 void do_inventory( CHAR_DATA *ch, char *argument )
 {
-	send_to_char( "You are carrying:\n\r", ch );
+	send_to_char( "\tWYou are carrying:\tn\n\r", ch );
 	show_list_to_char( ch->carrying, ch, TRUE, TRUE );
 	return;
 }
@@ -2071,7 +2071,7 @@ void do_equipment( CHAR_DATA *ch, char *argument )
 	int iWear;
 	bool found;
 
-	send_to_char( "You are using:\n\r", ch );
+	send_to_char( "\tWYou are using:\tn\n\r", ch );
 	found = FALSE;
 	for ( iWear = 0; iWear < MAX_WEAR; iWear++ )
 	{
@@ -2092,7 +2092,7 @@ void do_equipment( CHAR_DATA *ch, char *argument )
 	}
 
 	if ( !found )
-		send_to_char( "Nothing.\n\r", ch );
+		send_to_char( "\tRNothing!\tn\n\r", ch );
 
 	return;
 }
