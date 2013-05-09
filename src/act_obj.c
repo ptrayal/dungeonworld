@@ -1390,248 +1390,247 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace )
 
 	if ( ch->level < obj->level )
 	{
-	sprintf( buf, "You must be level %d to use this object.\n\r",  obj->level );
-	send_to_char( buf, ch );
-	act( "$n tries to use $p, but is too inexperienced.", ch, obj, NULL, TO_ROOM );
-	return;
+		send_to_char( Format("You must be level %d to use this object.\n\r",  obj->level), ch );
+		act( "$n tries to use $p, but is too inexperienced.", ch, obj, NULL, TO_ROOM );
+		return;
 	}
 
 	if ( obj->item_type == ITEM_LIGHT )
 	{
-	if ( !remove_obj( ch, WEAR_LIGHT, fReplace ) )
+		if ( !remove_obj( ch, WEAR_LIGHT, fReplace ) )
+			return;
+		act( "$n lights $p and holds it.", ch, obj, NULL, TO_ROOM );
+		act( "You light $p and hold it.",  ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_LIGHT );
 		return;
-	act( "$n lights $p and holds it.", ch, obj, NULL, TO_ROOM );
-	act( "You light $p and hold it.",  ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_LIGHT );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_FINGER ) )
 	{
-	if ( get_eq_char( ch, WEAR_FINGER_L ) != NULL
-	&&   get_eq_char( ch, WEAR_FINGER_R ) != NULL
-	&&   !remove_obj( ch, WEAR_FINGER_L, fReplace )
-	&&   !remove_obj( ch, WEAR_FINGER_R, fReplace ) )
-		return;
+		if ( get_eq_char( ch, WEAR_FINGER_L ) != NULL
+			&&   get_eq_char( ch, WEAR_FINGER_R ) != NULL
+			&&   !remove_obj( ch, WEAR_FINGER_L, fReplace )
+			&&   !remove_obj( ch, WEAR_FINGER_R, fReplace ) )
+			return;
 
-	if ( get_eq_char( ch, WEAR_FINGER_L ) == NULL )
-	{
-		act( "$n wears $p on $s left finger.",    ch, obj, NULL, TO_ROOM );
-		act( "You wear $p on your left finger.",  ch, obj, NULL, TO_CHAR );
-		equip_char( ch, obj, WEAR_FINGER_L );
-		return;
-	}
+		if ( get_eq_char( ch, WEAR_FINGER_L ) == NULL )
+		{
+			act( "$n wears $p on $s left finger.",    ch, obj, NULL, TO_ROOM );
+			act( "You wear $p on your left finger.",  ch, obj, NULL, TO_CHAR );
+			equip_char( ch, obj, WEAR_FINGER_L );
+			return;
+		}
 
-	if ( get_eq_char( ch, WEAR_FINGER_R ) == NULL )
-	{
-		act( "$n wears $p on $s right finger.",   ch, obj, NULL, TO_ROOM );
-		act( "You wear $p on your right finger.", ch, obj, NULL, TO_CHAR );
-		equip_char( ch, obj, WEAR_FINGER_R );
-		return;
-	}
+		if ( get_eq_char( ch, WEAR_FINGER_R ) == NULL )
+		{
+			act( "$n wears $p on $s right finger.",   ch, obj, NULL, TO_ROOM );
+			act( "You wear $p on your right finger.", ch, obj, NULL, TO_CHAR );
+			equip_char( ch, obj, WEAR_FINGER_R );
+			return;
+		}
 
-	bug( "Wear_obj: no free finger.", 0 );
-	send_to_char( "You already wear two rings.\n\r", ch );
-	return;
+		bug( "Wear_obj: no free finger.", 0 );
+		send_to_char( "You already wear two rings.\n\r", ch );
+		return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_NECK ) )
 	{
-	if ( get_eq_char( ch, WEAR_NECK_1 ) != NULL
-	&&   get_eq_char( ch, WEAR_NECK_2 ) != NULL
-	&&   !remove_obj( ch, WEAR_NECK_1, fReplace )
-	&&   !remove_obj( ch, WEAR_NECK_2, fReplace ) )
-		return;
+		if ( get_eq_char( ch, WEAR_NECK_1 ) != NULL
+			&&   get_eq_char( ch, WEAR_NECK_2 ) != NULL
+			&&   !remove_obj( ch, WEAR_NECK_1, fReplace )
+			&&   !remove_obj( ch, WEAR_NECK_2, fReplace ) )
+			return;
 
-	if ( get_eq_char( ch, WEAR_NECK_1 ) == NULL )
-	{
-		act( "$n wears $p around $s neck.",   ch, obj, NULL, TO_ROOM );
-		act( "You wear $p around your neck.", ch, obj, NULL, TO_CHAR );
-		equip_char( ch, obj, WEAR_NECK_1 );
-		return;
-	}
+		if ( get_eq_char( ch, WEAR_NECK_1 ) == NULL )
+		{
+			act( "$n wears $p around $s neck.",   ch, obj, NULL, TO_ROOM );
+			act( "You wear $p around your neck.", ch, obj, NULL, TO_CHAR );
+			equip_char( ch, obj, WEAR_NECK_1 );
+			return;
+		}
 
-	if ( get_eq_char( ch, WEAR_NECK_2 ) == NULL )
-	{
-		act( "$n wears $p around $s neck.",   ch, obj, NULL, TO_ROOM );
-		act( "You wear $p around your neck.", ch, obj, NULL, TO_CHAR );
-		equip_char( ch, obj, WEAR_NECK_2 );
-		return;
-	}
+		if ( get_eq_char( ch, WEAR_NECK_2 ) == NULL )
+		{
+			act( "$n wears $p around $s neck.",   ch, obj, NULL, TO_ROOM );
+			act( "You wear $p around your neck.", ch, obj, NULL, TO_CHAR );
+			equip_char( ch, obj, WEAR_NECK_2 );
+			return;
+		}
 
-	bug( "Wear_obj: no free neck.", 0 );
-	send_to_char( "You already wear two neck items.\n\r", ch );
-	return;
+		bug( "Wear_obj: no free neck.", 0 );
+		send_to_char( "You already wear two neck items.\n\r", ch );
+		return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_BODY ) )
 	{
-	if ( !remove_obj( ch, WEAR_BODY, fReplace ) )
+		if ( !remove_obj( ch, WEAR_BODY, fReplace ) )
+			return;
+		act( "$n wears $p on $s torso.",   ch, obj, NULL, TO_ROOM );
+		act( "You wear $p on your torso.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_BODY );
 		return;
-	act( "$n wears $p on $s torso.",   ch, obj, NULL, TO_ROOM );
-	act( "You wear $p on your torso.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_BODY );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_HEAD ) )
 	{
-	if ( !remove_obj( ch, WEAR_HEAD, fReplace ) )
+		if ( !remove_obj( ch, WEAR_HEAD, fReplace ) )
+			return;
+		act( "$n wears $p on $s head.",   ch, obj, NULL, TO_ROOM );
+		act( "You wear $p on your head.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_HEAD );
 		return;
-	act( "$n wears $p on $s head.",   ch, obj, NULL, TO_ROOM );
-	act( "You wear $p on your head.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_HEAD );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_LEGS ) )
 	{
-	if ( !remove_obj( ch, WEAR_LEGS, fReplace ) )
+		if ( !remove_obj( ch, WEAR_LEGS, fReplace ) )
+			return;
+		act( "$n wears $p on $s legs.",   ch, obj, NULL, TO_ROOM );
+		act( "You wear $p on your legs.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_LEGS );
 		return;
-	act( "$n wears $p on $s legs.",   ch, obj, NULL, TO_ROOM );
-	act( "You wear $p on your legs.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_LEGS );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_FEET ) )
 	{
-	if ( !remove_obj( ch, WEAR_FEET, fReplace ) )
+		if ( !remove_obj( ch, WEAR_FEET, fReplace ) )
+			return;
+		act( "$n wears $p on $s feet.",   ch, obj, NULL, TO_ROOM );
+		act( "You wear $p on your feet.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_FEET );
 		return;
-	act( "$n wears $p on $s feet.",   ch, obj, NULL, TO_ROOM );
-	act( "You wear $p on your feet.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_FEET );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_HANDS ) )
 	{
-	if ( !remove_obj( ch, WEAR_HANDS, fReplace ) )
+		if ( !remove_obj( ch, WEAR_HANDS, fReplace ) )
+			return;
+		act( "$n wears $p on $s hands.",   ch, obj, NULL, TO_ROOM );
+		act( "You wear $p on your hands.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_HANDS );
 		return;
-	act( "$n wears $p on $s hands.",   ch, obj, NULL, TO_ROOM );
-	act( "You wear $p on your hands.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_HANDS );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_ARMS ) )
 	{
-	if ( !remove_obj( ch, WEAR_ARMS, fReplace ) )
+		if ( !remove_obj( ch, WEAR_ARMS, fReplace ) )
+			return;
+		act( "$n wears $p on $s arms.",   ch, obj, NULL, TO_ROOM );
+		act( "You wear $p on your arms.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_ARMS );
 		return;
-	act( "$n wears $p on $s arms.",   ch, obj, NULL, TO_ROOM );
-	act( "You wear $p on your arms.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_ARMS );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_ABOUT ) )
 	{
-	if ( !remove_obj( ch, WEAR_ABOUT, fReplace ) )
+		if ( !remove_obj( ch, WEAR_ABOUT, fReplace ) )
+			return;
+		act( "$n wears $p about $s torso.",   ch, obj, NULL, TO_ROOM );
+		act( "You wear $p about your torso.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_ABOUT );
 		return;
-	act( "$n wears $p about $s torso.",   ch, obj, NULL, TO_ROOM );
-	act( "You wear $p about your torso.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_ABOUT );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_WAIST ) )
 	{
-	if ( !remove_obj( ch, WEAR_WAIST, fReplace ) )
+		if ( !remove_obj( ch, WEAR_WAIST, fReplace ) )
+			return;
+		act( "$n wears $p about $s waist.",   ch, obj, NULL, TO_ROOM );
+		act( "You wear $p about your waist.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_WAIST );
 		return;
-	act( "$n wears $p about $s waist.",   ch, obj, NULL, TO_ROOM );
-	act( "You wear $p about your waist.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_WAIST );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_WRIST ) )
 	{
-	if ( get_eq_char( ch, WEAR_WRIST_L ) != NULL
-	&&   get_eq_char( ch, WEAR_WRIST_R ) != NULL
-	&&   !remove_obj( ch, WEAR_WRIST_L, fReplace )
-	&&   !remove_obj( ch, WEAR_WRIST_R, fReplace ) )
-		return;
+		if ( get_eq_char( ch, WEAR_WRIST_L ) != NULL
+			&&   get_eq_char( ch, WEAR_WRIST_R ) != NULL
+			&&   !remove_obj( ch, WEAR_WRIST_L, fReplace )
+			&&   !remove_obj( ch, WEAR_WRIST_R, fReplace ) )
+			return;
 
-	if ( get_eq_char( ch, WEAR_WRIST_L ) == NULL )
-	{
-		act( "$n wears $p around $s left wrist.",
-		ch, obj, NULL, TO_ROOM );
-		act( "You wear $p around your left wrist.",
-		ch, obj, NULL, TO_CHAR );
-		equip_char( ch, obj, WEAR_WRIST_L );
-		return;
-	}
+		if ( get_eq_char( ch, WEAR_WRIST_L ) == NULL )
+		{
+			act( "$n wears $p around $s left wrist.",
+				ch, obj, NULL, TO_ROOM );
+			act( "You wear $p around your left wrist.",
+				ch, obj, NULL, TO_CHAR );
+			equip_char( ch, obj, WEAR_WRIST_L );
+			return;
+		}
 
-	if ( get_eq_char( ch, WEAR_WRIST_R ) == NULL )
-	{
-		act( "$n wears $p around $s right wrist.",
-		ch, obj, NULL, TO_ROOM );
-		act( "You wear $p around your right wrist.",
-		ch, obj, NULL, TO_CHAR );
-		equip_char( ch, obj, WEAR_WRIST_R );
-		return;
-	}
+		if ( get_eq_char( ch, WEAR_WRIST_R ) == NULL )
+		{
+			act( "$n wears $p around $s right wrist.",
+				ch, obj, NULL, TO_ROOM );
+			act( "You wear $p around your right wrist.",
+				ch, obj, NULL, TO_CHAR );
+			equip_char( ch, obj, WEAR_WRIST_R );
+			return;
+		}
 
-	bug( "Wear_obj: no free wrist.", 0 );
-	send_to_char( "You already wear two wrist items.\n\r", ch );
-	return;
+		bug( "Wear_obj: no free wrist.", 0 );
+		send_to_char( "You already wear two wrist items.\n\r", ch );
+		return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WEAR_SHIELD ) )
 	{
-	OBJ_DATA *weapon;
+		OBJ_DATA *weapon;
 
-	if ( !remove_obj( ch, WEAR_SHIELD, fReplace ) )
+		if ( !remove_obj( ch, WEAR_SHIELD, fReplace ) )
+			return;
+
+		weapon = get_eq_char(ch,WEAR_WIELD);
+		if (weapon != NULL && ch->size < SIZE_LARGE 
+			&&  IS_WEAPON_STAT(weapon,WEAPON_TWO_HANDS))
+		{
+			send_to_char("Your hands are tied up with your weapon!\n\r",ch);
+			return;
+		}
+
+		act( "$n wears $p as a shield.", ch, obj, NULL, TO_ROOM );
+		act( "You wear $p as a shield.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_SHIELD );
 		return;
-
-	weapon = get_eq_char(ch,WEAR_WIELD);
-	if (weapon != NULL && ch->size < SIZE_LARGE 
-	&&  IS_WEAPON_STAT(weapon,WEAPON_TWO_HANDS))
-	{
-		send_to_char("Your hands are tied up with your weapon!\n\r",ch);
-		return;
-	}
-
-	act( "$n wears $p as a shield.", ch, obj, NULL, TO_ROOM );
-	act( "You wear $p as a shield.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_SHIELD );
-	return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_WIELD ) )
 	{
-	int sn,skill;
+		int sn,skill;
 
-	if ( !remove_obj( ch, WEAR_WIELD, fReplace ) )
-		return;
+		if ( !remove_obj( ch, WEAR_WIELD, fReplace ) )
+			return;
 
-	if ( !IS_NPC(ch) 
-	&& get_obj_weight(obj) > (str_app[get_curr_stat(ch,STAT_STR)].wield  
-		* 10))
-	{
-		send_to_char( "It is too heavy for you to wield.\n\r", ch );
-		return;
-	}
+		if ( !IS_NPC(ch) 
+			&& get_obj_weight(obj) > (str_app[get_curr_stat(ch,STAT_STR)].wield  
+				* 10))
+		{
+			send_to_char( "It is too heavy for you to wield.\n\r", ch );
+			return;
+		}
 
-	if (!IS_NPC(ch) && ch->size < SIZE_LARGE 
-	&&  IS_WEAPON_STAT(obj,WEAPON_TWO_HANDS)
-	&&  get_eq_char(ch,WEAR_SHIELD) != NULL)
-	{
-		send_to_char("You need two hands free for that weapon.\n\r",ch);
-		return;
-	}
+		if (!IS_NPC(ch) && ch->size < SIZE_LARGE 
+			&&  IS_WEAPON_STAT(obj,WEAPON_TWO_HANDS)
+			&&  get_eq_char(ch,WEAR_SHIELD) != NULL)
+		{
+			send_to_char("You need two hands free for that weapon.\n\r",ch);
+			return;
+		}
 
-	act( "$n wields $p.", ch, obj, NULL, TO_ROOM );
-	act( "You wield $p.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_WIELD );
+		act( "$n wields $p.", ch, obj, NULL, TO_ROOM );
+		act( "You wield $p.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_WIELD );
 
 		sn = get_weapon_sn(ch);
 
-	if (sn == gsn_hand_to_hand)
-	   return;
+		if (sn == gsn_hand_to_hand)
+			return;
 
 		skill = get_weapon_skill(ch,sn);
- 
+		
 		if (skill >= 100)
 			act("$p feels like a part of you!",ch,obj,NULL,TO_CHAR);
 		else if (skill > 85)
@@ -1648,31 +1647,31 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace )
 			act("You don't even know which end is up on $p.",
 				ch,obj,NULL,TO_CHAR);
 
-	return;
+		return;
 	}
 
 	if ( CAN_WEAR( obj, ITEM_HOLD ) )
 	{
-	if ( !remove_obj( ch, WEAR_HOLD, fReplace ) )
+		if ( !remove_obj( ch, WEAR_HOLD, fReplace ) )
+			return;
+		act( "$n holds $p in $s hand.",   ch, obj, NULL, TO_ROOM );
+		act( "You hold $p in your hand.", ch, obj, NULL, TO_CHAR );
+		equip_char( ch, obj, WEAR_HOLD );
 		return;
-	act( "$n holds $p in $s hand.",   ch, obj, NULL, TO_ROOM );
-	act( "You hold $p in your hand.", ch, obj, NULL, TO_CHAR );
-	equip_char( ch, obj, WEAR_HOLD );
-	return;
 	}
 
 	if ( CAN_WEAR(obj,ITEM_WEAR_FLOAT) )
 	{
-	if (!remove_obj(ch,WEAR_FLOAT, fReplace) )
+		if (!remove_obj(ch,WEAR_FLOAT, fReplace) )
+			return;
+		act("$n releases $p to float next to $m.",ch,obj,NULL,TO_ROOM);
+		act("You release $p and it floats next to you.",ch,obj,NULL,TO_CHAR);
+		equip_char(ch,obj,WEAR_FLOAT);
 		return;
-	act("$n releases $p to float next to $m.",ch,obj,NULL,TO_ROOM);
-	act("You release $p and it floats next to you.",ch,obj,NULL,TO_CHAR);
-	equip_char(ch,obj,WEAR_FLOAT);
-	return;
 	}
 
 	if ( fReplace )
-	send_to_char( "You can't wear, wield, or hold that.\n\r", ch );
+		send_to_char( "You can't wear, wield, or hold that.\n\r", ch );
 
 	return;
 }

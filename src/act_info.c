@@ -42,8 +42,8 @@
 char *	const	where_name	[] =
 {
 	"\tW<\tn \tJLight Source \tW>\tn   ",
-	"\tW<\tn \tJRight Finger \tW>\tn   ",
-	"\tW<\tn \tJLeft Finger  \tW>\tn   ",
+	"\tW<\tn \tJLeft Finger \tW>\tn   ",
+	"\tW<\tn \tJRight Finger  \tW>\tn   ",
 	"\tW<\tn \tJNeck         \tW>\tn   ",
 	"\tW<\tn \tJNeck         \tW>\tn   ",
 	"\tW<\tn \tJBody         \tW>\tn   ",
@@ -55,8 +55,8 @@ char *	const	where_name	[] =
 	"\tW<\tn \tJShield       \tW>\tn   ",
 	"\tW<\tn \tJCloak        \tW>\tn   ",
 	"\tW<\tn \tJBelt         \tW>\tn   ",
-	"\tW<\tn \tJRight Wrist  \tW>\tn   ",
-	"\tW<\tn \tJLeft Wrist   \tW>\tn   ",
+	"\tW<\tn \tJLeft Wrist  \tW>\tn   ",
+	"\tW<\tn \tJRight Wrist   \tW>\tn   ",
 	"\tW<\tn \tJWielded      \tW>\tn   ",
 	"\tW<\tn \tJHeld         \tW>\tn   ",
 	"\tW<\tn \tJFloating     \tW>\tn   ",
@@ -1178,11 +1178,9 @@ void do_look( CHAR_DATA *ch, char *argument )
 						if (count > 0 && count != number)
 						{
 							if (count == 1)
-								sprintf(buf,"You only see one %s here.\n\r",arg3);
+								send_to_char( Format("You only see one %s here.\n\r",arg3), ch);
 							else
-								sprintf(buf,"You only see %d of those here.\n\r",count);
-
-							send_to_char(buf,ch);
+								send_to_char( Format("You only see %d of those here.\n\r",count), ch);
 							return;
 						}
 

@@ -1855,18 +1855,15 @@ void do_split( CHAR_DATA *ch, char *argument )
 
 	if (share_gold == 0)
 	{
-		sprintf(buf,"$n splits %d silver coins. Your share is %d silver.",
-			amount_silver,share_silver);
+		sprintf(buf,"$n splits %d silver coins. Your share is %d silver.", amount_silver,share_silver);
 	}
 	else if (share_silver == 0)
 	{
-		sprintf(buf,"$n splits %d gold coins. Your share is %d gold.",
-			amount_gold,share_gold);
+		sprintf(buf,"$n splits %d gold coins. Your share is %d gold.", amount_gold,share_gold);
 	}
 	else
 	{
-		sprintf(buf,
-			"$n splits %d silver and %d gold coins, giving you %d silver and %d gold.\n\r",
+		sprintf(buf, "$n splits %d silver and %d gold coins, giving you %d silver and %d gold.\n\r",
 			amount_silver,amount_gold,share_silver,share_gold);
 	}
 

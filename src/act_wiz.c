@@ -1196,55 +1196,53 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 
 	if ( arg[0] == '\0' )
 	{
-	send_to_char( "Stat what?\n\r", ch );
-	return;
+		send_to_char( "Stat what?\n\r", ch );
+		return;
 	}
 
 	if ( ( obj = get_obj_world( ch, argument ) ) == NULL )
 	{
-	send_to_char( "Nothing like that in hell, earth, or heaven.\n\r", ch );
-	return;
+		send_to_char( "Nothing like that in hell, earth, or heaven.\n\r", ch );
+		return;
 	}
 
-	sprintf( buf, "Name(s): %s\n\r",
-	obj->name );
-	send_to_char( buf, ch );
+	send_to_char( Format("Name(s): %s\n\r", obj->name), ch );
 
 	sprintf( buf, "Vnum: %d  Format: %s  Type: %s  Resets: %d\n\r",
-	obj->pIndexData->vnum, obj->pIndexData->new_format ? "new" : "old",
-	item_name(obj->item_type), obj->pIndexData->reset_num );
+		obj->pIndexData->vnum, obj->pIndexData->new_format ? "new" : "old",
+		item_name(obj->item_type), obj->pIndexData->reset_num );
 	send_to_char( buf, ch );
 
 	sprintf( buf, "Short description: %s\n\rLong description: %s\n\r",
-	obj->short_descr, obj->description );
+		obj->short_descr, obj->description );
 	send_to_char( buf, ch );
 
 	sprintf( buf, "Wear bits: %s\n\rExtra bits: %s\n\r",
-	wear_bit_name(obj->wear_flags), extra_bit_name( obj->extra_flags ) );
+		wear_bit_name(obj->wear_flags), extra_bit_name( obj->extra_flags ) );
 	send_to_char( buf, ch );
 
 	sprintf( buf, "Number: %d/%d  Weight: %d/%d/%d (10th pounds)\n\r",
-	1,           get_obj_number( obj ),
-	obj->weight, get_obj_weight( obj ),get_true_weight(obj) );
+		1,           get_obj_number( obj ),
+		obj->weight, get_obj_weight( obj ),get_true_weight(obj) );
 	send_to_char( buf, ch );
 
 	sprintf( buf, "Level: %d  Cost: %d  Condition: %d  Timer: %d\n\r",
-	obj->level, obj->cost, obj->condition, obj->timer );
+		obj->level, obj->cost, obj->condition, obj->timer );
 	send_to_char( buf, ch );
 
 	sprintf( buf,
-	"In room: %d  In object: %s  Carried by: %s  Wear_loc: %d\n\r",
-	obj->in_room    == NULL    ?        0 : obj->in_room->vnum,
-	obj->in_obj     == NULL    ? "(none)" : obj->in_obj->short_descr,
-	obj->carried_by == NULL    ? "(none)" : 
+		"In room: %d  In object: %s  Carried by: %s  Wear_loc: %d\n\r",
+		obj->in_room    == NULL    ?        0 : obj->in_room->vnum,
+		obj->in_obj     == NULL    ? "(none)" : obj->in_obj->short_descr,
+		obj->carried_by == NULL    ? "(none)" : 
 		can_see(ch,obj->carried_by) ? obj->carried_by->name
-					: "someone",
-	obj->wear_loc );
+		: "someone",
+		obj->wear_loc );
 	send_to_char( buf, ch );
 	
 	sprintf( buf, "Values: %d %d %d %d %d\n\r",
-	obj->value[0], obj->value[1], obj->value[2], obj->value[3],
-	obj->value[4] );
+		obj->value[0], obj->value[1], obj->value[2], obj->value[3],
+		obj->value[4] );
 	send_to_char( buf, ch );
 	
 	/* now give out vital statistics as per identify */
@@ -1280,20 +1278,20 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 
 		if (obj->value[4] >= 0 && obj->value[4] < MAX_SKILL)
 		{
-		send_to_char(" '",ch);
-		send_to_char(skill_table[obj->value[4]].name,ch);
-		send_to_char("'",ch);
+			send_to_char(" '",ch);
+			send_to_char(skill_table[obj->value[4]].name,ch);
+			send_to_char("'",ch);
 		}
 
 		send_to_char( ".\n\r", ch );
-	break;
+		break;
 
 		case ITEM_WAND: 
 		case ITEM_STAFF: 
 		sprintf( buf, "Has %d(%d) charges of level %d",
 			obj->value[1], obj->value[2], obj->value[0] );
 		send_to_char( buf, ch );
-	  
+
 		if ( obj->value[3] >= 0 && obj->value[3] < MAX_SKILL )
 		{
 			send_to_char( " '", ch );
@@ -1302,16 +1300,16 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 		}
 
 		send_to_char( ".\n\r", ch );
-	break;
+		break;
 
-	case ITEM_DRINK_CON:
+		case ITEM_DRINK_CON:
 		sprintf(buf,"It holds %s-colored %s.\n\r",
-		liq_table[obj->value[2]].liq_color,
-		liq_table[obj->value[2]].liq_name);
+			liq_table[obj->value[2]].liq_color,
+			liq_table[obj->value[2]].liq_name);
 		send_to_char(buf,ch);
 		break;
 		
-	  
+
 		case ITEM_WEAPON:
 		send_to_char("Weapon type is ",ch);
 		switch (obj->value[0])
@@ -1331,7 +1329,7 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 			case(WEAPON_MACE): 
 			send_to_char("mace/club\n\r",ch);	
 			break;
-		case(WEAPON_AXE): 
+			case(WEAPON_AXE): 
 			send_to_char("axe\n\r",ch);	
 			break;
 			case(WEAPON_FLAIL): 
@@ -1349,8 +1347,8 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 		}
 		if (obj->pIndexData->new_format)
 			sprintf(buf,"Damage is %dd%d (average %d)\n\r",
-			obj->value[1],obj->value[2],
-			(1 + obj->value[2]) * obj->value[1] / 2);
+				obj->value[1],obj->value[2],
+				(1 + obj->value[2]) * obj->value[1] / 2);
 		else
 			sprintf( buf, "Damage is %d to %d (average %d)\n\r",
 				obj->value[1], obj->value[2],
@@ -1358,149 +1356,149 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 		send_to_char( buf, ch );
 
 		sprintf(buf,"Damage noun is %s.\n\r",
-		(obj->value[3] > 0 && obj->value[3] < MAX_DAMAGE_MESSAGE) ?
+			(obj->value[3] > 0 && obj->value[3] < MAX_DAMAGE_MESSAGE) ?
 			attack_table[obj->value[3]].noun : "undefined");
 		send_to_char(buf,ch);
 		
 		if (obj->value[4])  /* weapon flags */
 		{
 			sprintf(buf,"Weapons flags: %s\n\r",
-			weapon_bit_name(obj->value[4]));
+				weapon_bit_name(obj->value[4]));
 			send_to_char(buf,ch);
-			}
-	break;
+		}
+		break;
 
 		case ITEM_ARMOR:
 		sprintf( buf, 
-		"Armor class is %d pierce, %d bash, %d slash, and %d vs. magic\n\r",
+			"Armor class is %d pierce, %d bash, %d slash, and %d vs. magic\n\r",
 			obj->value[0], obj->value[1], obj->value[2], obj->value[3] );
 		send_to_char( buf, ch );
-	break;
+		break;
 
 		case ITEM_CONTAINER:
-			sprintf(buf,"Capacity: %d#  Maximum weight: %d#  flags: %s\n\r",
-				obj->value[0], obj->value[3], cont_bit_name(obj->value[1]));
+		sprintf(buf,"Capacity: %d#  Maximum weight: %d#  flags: %s\n\r",
+			obj->value[0], obj->value[3], cont_bit_name(obj->value[1]));
+		send_to_char(buf,ch);
+		if (obj->value[4] != 100)
+		{
+			sprintf(buf,"Weight multiplier: %d%%\n\r",
+				obj->value[4]);
 			send_to_char(buf,ch);
-			if (obj->value[4] != 100)
-			{
-				sprintf(buf,"Weight multiplier: %d%%\n\r",
-			obj->value[4]);
-				send_to_char(buf,ch);
-			}
+		}
 		break;
 	}
 
 
 	if ( obj->extra_descr != NULL || obj->pIndexData->extra_descr != NULL )
 	{
-	EXTRA_DESCR_DATA *ed;
+		EXTRA_DESCR_DATA *ed;
 
-	send_to_char( "Extra description keywords: '", ch );
+		send_to_char( "Extra description keywords: '", ch );
 
-	for ( ed = obj->extra_descr; ed != NULL; ed = ed->next )
-	{
-		send_to_char( ed->keyword, ch );
-		if ( ed->next != NULL )
-			send_to_char( " ", ch );
-	}
+		for ( ed = obj->extra_descr; ed != NULL; ed = ed->next )
+		{
+			send_to_char( ed->keyword, ch );
+			if ( ed->next != NULL )
+				send_to_char( " ", ch );
+		}
 
-	for ( ed = obj->pIndexData->extra_descr; ed != NULL; ed = ed->next )
-	{
-		send_to_char( ed->keyword, ch );
-		if ( ed->next != NULL )
-		send_to_char( " ", ch );
-	}
+		for ( ed = obj->pIndexData->extra_descr; ed != NULL; ed = ed->next )
+		{
+			send_to_char( ed->keyword, ch );
+			if ( ed->next != NULL )
+				send_to_char( " ", ch );
+		}
 
-	send_to_char( "'\n\r", ch );
+		send_to_char( "'\n\r", ch );
 	}
 
 	for ( paf = obj->affected; paf != NULL; paf = paf->next )
 	{
-	sprintf( buf, "Affects %s by %d, level %d",
-		affect_loc_name( paf->location ), paf->modifier,paf->level );
-	send_to_char(buf,ch);
-	if ( paf->duration > -1)
-		sprintf(buf,", %d hours.\n\r",paf->duration);
-	else
-		sprintf(buf,".\n\r");
-	send_to_char( buf, ch );
-	if (paf->bitvector)
-	{
-		switch(paf->where)
-		{
-		case TO_AFFECTS:
-			sprintf(buf,"Adds %s affect.\n",
-			affect_bit_name(paf->bitvector));
-			break;
-				case TO_WEAPON:
-					sprintf(buf,"Adds %s weapon flags.\n",
-						weapon_bit_name(paf->bitvector));
-			break;
-		case TO_OBJECT:
-			sprintf(buf,"Adds %s object flag.\n",
-			extra_bit_name(paf->bitvector));
-			break;
-		case TO_IMMUNE:
-			sprintf(buf,"Adds immunity to %s.\n",
-			imm_bit_name(paf->bitvector));
-			break;
-		case TO_RESIST:
-			sprintf(buf,"Adds resistance to %s.\n\r",
-			imm_bit_name(paf->bitvector));
-			break;
-		case TO_VULN:
-			sprintf(buf,"Adds vulnerability to %s.\n\r",
-			imm_bit_name(paf->bitvector));
-			break;
-		default:
-			sprintf(buf,"Unknown bit %d: %d\n\r",
-			paf->where,paf->bitvector);
-			break;
-		}
+		sprintf( buf, "Affects %s by %d, level %d",
+			affect_loc_name( paf->location ), paf->modifier,paf->level );
 		send_to_char(buf,ch);
-	}
-	}
-
-	if (!obj->enchanted)
-	for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
-	{
-	sprintf( buf, "Affects %s by %d, level %d.\n\r",
-		affect_loc_name( paf->location ), paf->modifier,paf->level );
-	send_to_char( buf, ch );
+		if ( paf->duration > -1)
+			sprintf(buf,", %d hours.\n\r",paf->duration);
+		else
+			sprintf(buf,".\n\r");
+		send_to_char( buf, ch );
 		if (paf->bitvector)
 		{
 			switch(paf->where)
 			{
 				case TO_AFFECTS:
-					sprintf(buf,"Adds %s affect.\n",
-						affect_bit_name(paf->bitvector));
-					break;
+				sprintf(buf,"Adds %s affect.\n",
+					affect_bit_name(paf->bitvector));
+				break;
+				case TO_WEAPON:
+				sprintf(buf,"Adds %s weapon flags.\n",
+					weapon_bit_name(paf->bitvector));
+				break;
 				case TO_OBJECT:
-					sprintf(buf,"Adds %s object flag.\n",
-						extra_bit_name(paf->bitvector));
-					break;
+				sprintf(buf,"Adds %s object flag.\n",
+					extra_bit_name(paf->bitvector));
+				break;
 				case TO_IMMUNE:
-					sprintf(buf,"Adds immunity to %s.\n",
-						imm_bit_name(paf->bitvector));
-					break;
+				sprintf(buf,"Adds immunity to %s.\n",
+					imm_bit_name(paf->bitvector));
+				break;
 				case TO_RESIST:
-					sprintf(buf,"Adds resistance to %s.\n\r",
-						imm_bit_name(paf->bitvector));
-					break;
+				sprintf(buf,"Adds resistance to %s.\n\r",
+					imm_bit_name(paf->bitvector));
+				break;
 				case TO_VULN:
-					sprintf(buf,"Adds vulnerability to %s.\n\r",
-						imm_bit_name(paf->bitvector));
-					break;
+				sprintf(buf,"Adds vulnerability to %s.\n\r",
+					imm_bit_name(paf->bitvector));
+				break;
 				default:
-					sprintf(buf,"Unknown bit %d: %d\n\r",
-						paf->where,paf->bitvector);
-					break;
+				sprintf(buf,"Unknown bit %d: %d\n\r",
+					paf->where,paf->bitvector);
+				break;
 			}
 			send_to_char(buf,ch);
 		}
 	}
 
-	return;
+	if (!obj->enchanted)
+		for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
+		{
+			sprintf( buf, "Affects %s by %d, level %d.\n\r",
+				affect_loc_name( paf->location ), paf->modifier,paf->level );
+			send_to_char( buf, ch );
+			if (paf->bitvector)
+			{
+				switch(paf->where)
+				{
+					case TO_AFFECTS:
+					sprintf(buf,"Adds %s affect.\n",
+						affect_bit_name(paf->bitvector));
+					break;
+					case TO_OBJECT:
+					sprintf(buf,"Adds %s object flag.\n",
+						extra_bit_name(paf->bitvector));
+					break;
+					case TO_IMMUNE:
+					sprintf(buf,"Adds immunity to %s.\n",
+						imm_bit_name(paf->bitvector));
+					break;
+					case TO_RESIST:
+					sprintf(buf,"Adds resistance to %s.\n\r",
+						imm_bit_name(paf->bitvector));
+					break;
+					case TO_VULN:
+					sprintf(buf,"Adds vulnerability to %s.\n\r",
+						imm_bit_name(paf->bitvector));
+					break;
+					default:
+					sprintf(buf,"Unknown bit %d: %d\n\r",
+						paf->where,paf->bitvector);
+					break;
+				}
+				send_to_char(buf,ch);
+			}
+		}
+
+		return;
 }
 
 
@@ -1526,9 +1524,7 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 	return;
 	}
 
-	sprintf( buf, "Name: %s\n\r",
-	victim->name);
-	send_to_char( buf, ch );
+	send_to_char( Format("Name: %s\n\r", victim->name), ch );
 
 	sprintf( buf, 
 	"Vnum: %d  Format: %s  Race: %s  Group: %d  Sex: %s  Room: %d\n\r",
@@ -1542,9 +1538,7 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 
 	if (IS_NPC(victim))
 	{
-	sprintf(buf,"Count: %d  Killed: %d\n\r",
-		victim->pIndexData->count,victim->pIndexData->killed);
-	send_to_char(buf,ch);
+		send_to_char( Format("Count: %d  Killed: %d\n\r", victim->pIndexData->count,victim->pIndexData->killed),ch);
 	}
 
 	sprintf( buf, 
