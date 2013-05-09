@@ -594,7 +594,6 @@ void update_read(CHAR_DATA *ch, NOTE_DATA *pnote)
 
 void parse_note( CHAR_DATA *ch, char *argument, int type )
 {
-	char buf[MSL]={'\0'};
 	char arg[MAX_INPUT_LENGTH];
 	NOTE_DATA *pnote;
 	NOTE_DATA **list;

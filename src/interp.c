@@ -354,7 +354,6 @@ const	struct	cmd_type	cmd_table	[] =
 	{ "imotd",          do_imotd,       POS_DEAD,       IM,  LOG_NORMAL, 1 },
 	{ ":",		do_immtalk,	POS_DEAD,	IM,  LOG_NORMAL, 0 },
 	{ "smote",		do_smote,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
-	{ "prefi",		do_prefi,	POS_DEAD,	IM,  LOG_NORMAL, 0 },
 	{ "prefix",		do_prefix,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
 	{ "mpdump",		do_mpdump,	POS_DEAD,	IM,  LOG_NEVER,  1 },
 	{ "mpstat",		do_mpstat,	POS_DEAD,	IM,  LOG_NEVER,  1 },

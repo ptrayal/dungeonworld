@@ -1386,8 +1386,6 @@ bool remove_obj( CHAR_DATA *ch, int iWear, bool fReplace )
  */
 void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace )
 {
-	char buf[MSL]={'\0'};
-
 	if ( ch->level < obj->level )
 	{
 		send_to_char( Format("You must be level %d to use this object.\n\r",  obj->level), ch );
