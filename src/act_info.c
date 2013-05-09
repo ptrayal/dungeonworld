@@ -42,8 +42,8 @@
 char *	const	where_name	[] =
 {
 	"\tW<\tn \tJLight Source \tW>\tn   ",
-	"\tW<\tn \tJLeft Finger \tW>\tn   ",
-	"\tW<\tn \tJRight Finger  \tW>\tn   ",
+	"\tW<\tn \tJLeft Finger  \tW>\tn   ",
+	"\tW<\tn \tJRight Finger \tW>\tn   ",
 	"\tW<\tn \tJNeck         \tW>\tn   ",
 	"\tW<\tn \tJNeck         \tW>\tn   ",
 	"\tW<\tn \tJBody         \tW>\tn   ",
@@ -55,8 +55,8 @@ char *	const	where_name	[] =
 	"\tW<\tn \tJShield       \tW>\tn   ",
 	"\tW<\tn \tJCloak        \tW>\tn   ",
 	"\tW<\tn \tJBelt         \tW>\tn   ",
-	"\tW<\tn \tJLeft Wrist  \tW>\tn   ",
-	"\tW<\tn \tJRight Wrist   \tW>\tn   ",
+	"\tW<\tn \tJLeft Wrist   \tW>\tn   ",
+	"\tW<\tn \tJRight Wrist  \tW>\tn   ",
 	"\tW<\tn \tJWielded      \tW>\tn   ",
 	"\tW<\tn \tJHeld         \tW>\tn   ",
 	"\tW<\tn \tJFloating     \tW>\tn   ",
