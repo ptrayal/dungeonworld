@@ -196,15 +196,11 @@ MPEDIT (mpedit_create)
 MPEDIT(mpedit_show)
 {
     MPROG_CODE *pMcode;
-    char buf[MSL]={'\0'};
 
     EDIT_MPCODE(ch,pMcode);
 
-    sprintf(buf,
-           "Vnum:       [%d]\n\r"
-           "Code:\n\r%s\n\r",
-           pMcode->vnum, pMcode->code);
-    send_to_char(buf, ch);
+    send_to_char( Format("Vnum:       [%d]\n\r", pMcode->vnum), ch);
+    send_to_char( Format("Code:\n\r%s\n\r", pMcode->code), ch);
 
     return FALSE;
 }

@@ -1631,7 +1631,6 @@ char *	const	month_name	[] =
 void do_time( CHAR_DATA *ch, char *argument )
 {
 	extern char str_boot_time[];
-	char buf[MSL]={'\0'};
 	char *suf;
 	int day = time_info.day + 1;
 
@@ -1641,14 +1640,12 @@ void do_time( CHAR_DATA *ch, char *argument )
 	else if ( day % 10 ==  3       ) suf = "rd";
 	else                             suf = "th";
 
-	sprintf( buf,
-		"It is %d o'clock %s, Day of %s, %d%s the Month of %s.\n\r",
+	send_to_char( Format("It is %d o'clock %s, Day of %s, %d%s the Month of %s.\n\r",
 		(time_info.hour % 12 == 0) ? 12 : time_info.hour %12,
 		time_info.hour >= 12 ? "pm" : "am",
 		day_name[day % 7],
 		day, suf,
-		month_name[time_info.month]);
-	send_to_char(buf,ch);
+		month_name[time_info.month]), ch);
 	send_to_char( Format("%s started up at %s\n\rThe system time is %s.\n\r", MUD_NAME, str_boot_time, (char *) ctime( &current_time )), ch );
 	return;
 }

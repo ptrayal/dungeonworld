@@ -3357,8 +3357,7 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		{
 			if ( paf->location != APPLY_NONE && paf->modifier != 0 )
 			{
-				sprintf( buf, "Affects %s by %d.\n\r", affect_loc_name( paf->location ), paf->modifier );
-				send_to_char(buf,ch);
+				send_to_char( Format("Affects %s by %d.\n\r", affect_loc_name( paf->location ), paf->modifier), ch);
 				if (paf->bitvector)
 				{
 					switch(paf->where)

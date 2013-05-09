@@ -1602,48 +1602,38 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 		send_to_char( buf, ch );
 	}
 
-	sprintf(buf, "Act: %s\n\r",act_bit_name(victim->act));
-	send_to_char(buf,ch);
+	send_to_char( Format("Act: %s\n\r",act_bit_name(victim->act)), ch);
 	
 	if (victim->comm)
 	{
-		sprintf(buf,"Comm: %s\n\r",comm_bit_name(victim->comm));
-		send_to_char(buf,ch);
+		send_to_char( Format("Comm: %s\n\r",comm_bit_name(victim->comm)), ch);
 	}
 
 	if (IS_NPC(victim) && victim->off_flags)
 	{
-		sprintf(buf, "Offense: %s\n\r",off_bit_name(victim->off_flags));
-	send_to_char(buf,ch);
+		send_to_char( Format("Offense: %s\n\r",off_bit_name(victim->off_flags)), ch);
 	}
 
 	if (victim->imm_flags)
 	{
-	sprintf(buf, "Immune: %s\n\r",imm_bit_name(victim->imm_flags));
-	send_to_char(buf,ch);
+		send_to_char( Format("Immune: %s\n\r",imm_bit_name(victim->imm_flags)), ch);
 	}
  
 	if (victim->res_flags)
 	{
-	sprintf(buf, "Resist: %s\n\r", imm_bit_name(victim->res_flags));
-	send_to_char(buf,ch);
+		send_to_char( Format("Resist: %s\n\r", imm_bit_name(victim->res_flags)), ch);
 	}
 
 	if (victim->vuln_flags)
 	{
-	sprintf(buf, "Vulnerable: %s\n\r", imm_bit_name(victim->vuln_flags));
-	send_to_char(buf,ch);
+		send_to_char( Format("Vulnerable: %s\n\r", imm_bit_name(victim->vuln_flags)), ch);
 	}
 
-	sprintf(buf, "Form: %s\n\rParts: %s\n\r", 
-	form_bit_name(victim->form), part_bit_name(victim->parts));
-	send_to_char(buf,ch);
+	send_to_char( Format("Form: %s\n\rParts: %s\n\r", form_bit_name(victim->form), part_bit_name(victim->parts)), ch);
 
 	if (victim->affected_by)
 	{
-	sprintf(buf, "Affected by %s\n\r", 
-		affect_bit_name(victim->affected_by));
-	send_to_char(buf,ch);
+		send_to_char( Format("Affected by %s\n\r", affect_bit_name(victim->affected_by)), ch);
 	}
 
 	sprintf( buf, "Master: %s  Leader: %s  Pet: %s\n\r",
@@ -1654,8 +1644,7 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 
 	if (!IS_NPC(victim))
 	{
-	sprintf( buf, "Security: %d.\n\r", victim->pcdata->security );	/* OLC */
-	send_to_char( buf, ch );					/* OLC */
+		send_to_char( Format("Security: %d.\n\r", victim->pcdata->security), ch );					/* OLC */
 	}
 
 	sprintf( buf, "Short description: %s\n\rLong  description: %s",
@@ -1665,8 +1654,7 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 
 	if ( IS_NPC(victim) && victim->spec_fun != 0 )
 	{
-	sprintf(buf,"Mobile has special procedure %s.\n\r", spec_name(victim->spec_fun));
-	send_to_char(buf,ch);
+		send_to_char( Format("Mobile has special procedure %s.\n\r", spec_name(victim->spec_fun)),ch);
 	}
 
 	for ( paf = victim->affected; paf != NULL; paf = paf->next )
