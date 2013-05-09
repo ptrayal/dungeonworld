@@ -2330,19 +2330,11 @@ void show_obj_values( CHAR_DATA *ch, OBJ_INDEX_DATA *obj )
 /* I had to split the output here, I have no idea why, but it helped -- Hugin */
 /* It somehow fixed a bug in showing scroll/pill/potions too ?! */
 	case ITEM_WEAPON:
-			sprintf( buf, "[v0] Weapon class:   %s\n\r",
-			 flag_string( weapon_class, obj->value[0] ) );
-		send_to_char( buf, ch );
-		sprintf( buf, "[v1] Number of dice: [%d]\n\r", obj->value[1] );
-		send_to_char( buf, ch );
-		sprintf( buf, "[v2] Type of dice:   [%d]\n\r", obj->value[2] );
-		send_to_char( buf, ch );
-		sprintf( buf, "[v3] Type:           %s\n\r",
-			attack_table[obj->value[3]].name );
-		send_to_char( buf, ch );
-		sprintf( buf, "[v4] Special type:   %s\n\r",
-			 flag_string( weapon_type2,  obj->value[4] ) );
-		send_to_char( buf, ch );
+		send_to_char( Format("[v0] Weapon class:   %s\n\r", flag_string( weapon_class, obj->value[0] )), ch );
+		send_to_char( Format("[v1] Number of dice: [%d]\n\r", obj->value[1]), ch );
+		send_to_char( Format("[v2] Type of dice:   [%d]\n\r", obj->value[2]), ch );
+		send_to_char( Format("[v3] Type:           %s\n\r", attack_table[obj->value[3]].name), ch );
+		send_to_char( Format("[v4] Special type:   %s\n\r", flag_string( weapon_type2,  obj->value[4] )), ch );
 		break;
 
 	case ITEM_CONTAINER:
@@ -2399,8 +2391,7 @@ void show_obj_values( CHAR_DATA *ch, OBJ_INDEX_DATA *obj )
 		break;
 
 	case ITEM_MONEY:
-			sprintf( buf, "[v0] Gold:   [%d]\n\r", obj->value[0] );
-		send_to_char( buf, ch );
+		send_to_char( Format("[v0] Gold:   [%d]\n\r", obj->value[0]), ch );
 		break;
 	}
 

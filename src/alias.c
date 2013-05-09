@@ -106,7 +106,6 @@ void do_alias(CHAR_DATA *ch, char *argument)
 {
 	CHAR_DATA *rch;
 	char arg[MAX_INPUT_LENGTH];
-	char buf[MSL]={'\0'};
 	int pos;
 
 	smash_tilde(argument);
@@ -138,9 +137,7 @@ void do_alias(CHAR_DATA *ch, char *argument)
 		||	rch->pcdata->alias_sub[pos] == NULL)
 		break;
 
-		sprintf(buf,"    %s:  %s\n\r",rch->pcdata->alias[pos],
-			rch->pcdata->alias_sub[pos]);
-		send_to_char(buf,ch);
+		send_to_char( Format("    %s:  %s\n\r",rch->pcdata->alias[pos], rch->pcdata->alias_sub[pos]), ch);
 	}
 	return;
 	}
@@ -161,9 +158,7 @@ void do_alias(CHAR_DATA *ch, char *argument)
 
 		if (!str_cmp(arg,rch->pcdata->alias[pos]))
 		{
-		sprintf(buf,"%s aliases to '%s'.\n\r",rch->pcdata->alias[pos],
-			rch->pcdata->alias_sub[pos]);
-		send_to_char(buf,ch);
+		send_to_char( Format("%s aliases to '%s'.\n\r",rch->pcdata->alias[pos], rch->pcdata->alias_sub[pos]), ch);
 		return;
 		}
 	}
@@ -187,8 +182,7 @@ void do_alias(CHAR_DATA *ch, char *argument)
 	{
 		PURGE_DATA(rch->pcdata->alias_sub[pos]);
 		rch->pcdata->alias_sub[pos] = str_dup(argument);
-		sprintf(buf,"%s is now realiased to '%s'.\n\r",arg,argument);
-		send_to_char(buf,ch);
+		send_to_char( Format("%s is now realiased to '%s'.\n\r",arg,argument), ch);
 		return;
 	}
 	 }
@@ -202,8 +196,7 @@ void do_alias(CHAR_DATA *ch, char *argument)
 	 /* make a new alias */
 	 rch->pcdata->alias[pos]		= str_dup(arg);
 	 rch->pcdata->alias_sub[pos]	= str_dup(argument);
-	 sprintf(buf,"%s is now aliased to '%s'.\n\r",arg,argument);
-	 send_to_char(buf,ch);
+	 send_to_char( Format("%s is now aliased to '%s'.\n\r",arg,argument), ch);
 }
 
 

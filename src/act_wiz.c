@@ -1414,45 +1414,35 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 
 	for ( paf = obj->affected; paf != NULL; paf = paf->next )
 	{
-		sprintf( buf, "Affects %s by %d, level %d",
-			affect_loc_name( paf->location ), paf->modifier,paf->level );
-		send_to_char(buf,ch);
+		send_to_char( Format("Affects %s by %d, level %d", affect_loc_name( paf->location ), paf->modifier,paf->level), ch);
 		if ( paf->duration > -1)
-			sprintf(buf,", %d hours.\n\r",paf->duration);
-		else
-			sprintf(buf,".\n\r");
-		send_to_char( buf, ch );
+			send_to_char( Format(", %d hours.\n\r",paf->duration), ch );
+			else
+			send_to_char( ".\n\r", ch );
 		if (paf->bitvector)
 		{
 			switch(paf->where)
 			{
 				case TO_AFFECTS:
-				sprintf(buf,"Adds %s affect.\n",
-					affect_bit_name(paf->bitvector));
+				sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
 				break;
 				case TO_WEAPON:
-				sprintf(buf,"Adds %s weapon flags.\n",
-					weapon_bit_name(paf->bitvector));
+				sprintf(buf,"Adds %s weapon flags.\n", weapon_bit_name(paf->bitvector));
 				break;
 				case TO_OBJECT:
-				sprintf(buf,"Adds %s object flag.\n",
-					extra_bit_name(paf->bitvector));
+				sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
 				break;
 				case TO_IMMUNE:
-				sprintf(buf,"Adds immunity to %s.\n",
-					imm_bit_name(paf->bitvector));
+				sprintf(buf,"Adds immunity to %s.\n", imm_bit_name(paf->bitvector));
 				break;
 				case TO_RESIST:
-				sprintf(buf,"Adds resistance to %s.\n\r",
-					imm_bit_name(paf->bitvector));
+				sprintf(buf,"Adds resistance to %s.\n\r", imm_bit_name(paf->bitvector));
 				break;
 				case TO_VULN:
-				sprintf(buf,"Adds vulnerability to %s.\n\r",
-					imm_bit_name(paf->bitvector));
+				sprintf(buf,"Adds vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
 				break;
 				default:
-				sprintf(buf,"Unknown bit %d: %d\n\r",
-					paf->where,paf->bitvector);
+				sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
 				break;
 			}
 			send_to_char(buf,ch);
@@ -1462,36 +1452,28 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 	if (!obj->enchanted)
 		for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
 		{
-			sprintf( buf, "Affects %s by %d, level %d.\n\r",
-				affect_loc_name( paf->location ), paf->modifier,paf->level );
-			send_to_char( buf, ch );
+			send_to_char( Format("Affects %s by %d, level %d.\n\r", affect_loc_name( paf->location ), paf->modifier,paf->level), ch );
 			if (paf->bitvector)
 			{
 				switch(paf->where)
 				{
 					case TO_AFFECTS:
-					sprintf(buf,"Adds %s affect.\n",
-						affect_bit_name(paf->bitvector));
+					sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
 					break;
 					case TO_OBJECT:
-					sprintf(buf,"Adds %s object flag.\n",
-						extra_bit_name(paf->bitvector));
+					sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
 					break;
 					case TO_IMMUNE:
-					sprintf(buf,"Adds immunity to %s.\n",
-						imm_bit_name(paf->bitvector));
+					sprintf(buf,"Adds immunity to %s.\n", imm_bit_name(paf->bitvector));
 					break;
 					case TO_RESIST:
-					sprintf(buf,"Adds resistance to %s.\n\r",
-						imm_bit_name(paf->bitvector));
+					sprintf(buf,"Adds resistance to %s.\n\r", imm_bit_name(paf->bitvector));
 					break;
 					case TO_VULN:
-					sprintf(buf,"Adds vulnerability to %s.\n\r",
-						imm_bit_name(paf->bitvector));
+					sprintf(buf,"Adds vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
 					break;
 					default:
-					sprintf(buf,"Unknown bit %d: %d\n\r",
-						paf->where,paf->bitvector);
+					sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
 					break;
 				}
 				send_to_char(buf,ch);
