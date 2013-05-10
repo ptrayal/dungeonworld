@@ -945,15 +945,13 @@ void do_mpvforce( CHAR_DATA *ch, char *argument )
 
 	if ( arg[0] == '\0' || argument[0] == '\0' )
 	{
-	bug( "MpVforce - Bad syntax from vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+	bug( "MpVforce - Bad syntax from vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
 	return;
 	}
 
 	if ( !is_number( arg ) )
 	{
-	bug( "MpVforce - Non-number argument vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+	bug( "MpVforce - Non-number argument vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
 	return;
 	}
 
@@ -985,50 +983,47 @@ void do_mpcast( CHAR_DATA *ch, char *argument )
 	OBJ_DATA *obj;
 	void *victim = NULL;
 	char spell[ MAX_INPUT_LENGTH ],
-	 target[ MAX_INPUT_LENGTH ];
+	target[ MAX_INPUT_LENGTH ];
 	int sn;
 
 	argument = one_argument( argument, spell );
-			   one_argument( argument, target );
+	one_argument( argument, target );
 
 	if ( spell[0] == '\0' )
 	{
-	bug( "MpCast - Bad syntax from vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
+		bug( "MpCast - Bad syntax from vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+		return;
 	}
 
 	if ( ( sn = skill_lookup( spell ) ) < 0 )
 	{
-	bug( "MpCast - No such spell from vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
+		bug( "MpCast - No such spell from vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+		return;
 	}
 	vch = get_char_room( ch, target );
 	obj = get_obj_here( ch, target );
 	switch ( skill_table[sn].target )
 	{
-	default: return;
-	case TAR_IGNORE: 
+		default: return;
+		case TAR_IGNORE: 
 		break;
-	case TAR_CHAR_OFFENSIVE: 
+		case TAR_CHAR_OFFENSIVE: 
 		if ( vch == NULL || vch == ch )
-		return;
+			return;
 		victim = ( void * ) vch;
 		break;
-	case TAR_CHAR_DEFENSIVE:
+		case TAR_CHAR_DEFENSIVE:
 		victim = vch == NULL ? ( void *) ch : (void *) vch; break;
-	case TAR_CHAR_SELF:
+		case TAR_CHAR_SELF:
 		victim = ( void *) ch; break;
-	case TAR_OBJ_CHAR_DEF:
-	case TAR_OBJ_CHAR_OFF:
-	case TAR_OBJ_INV:
+		case TAR_OBJ_CHAR_DEF:
+		case TAR_OBJ_CHAR_OFF:
+		case TAR_OBJ_INV:
 		if ( obj == NULL )
-		return;
+			return;
 		victim = ( void * ) obj;
 	}
-	(*skill_table[sn].spell_fun)( sn, ch->level, ch, victim,
-	skill_table[sn].target );
+	(*skill_table[sn].spell_fun)( sn, ch->level, ch, victim, skill_table[sn].target );
 	return;
 }
 
@@ -1042,8 +1037,8 @@ void do_mpdamage( CHAR_DATA *ch, char *argument )
 {
 	CHAR_DATA *victim = NULL, *victim_next;
 	char target[ MAX_INPUT_LENGTH ],
-	 min[ MAX_INPUT_LENGTH ],
-	 max[ MAX_INPUT_LENGTH ];
+	min[ MAX_INPUT_LENGTH ],
+	max[ MAX_INPUT_LENGTH ];
 	int low, high;
 	bool fAll = FALSE, fKill = FALSE;
 
@@ -1053,30 +1048,27 @@ void do_mpdamage( CHAR_DATA *ch, char *argument )
 
 	if ( target[0] == '\0' )
 	{
-	bug( "MpDamage - Bad syntax from vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
+		bug( "MpDamage - Bad syntax from vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+		return;
 	}
 	if( !str_cmp( target, "all" ) )
-	fAll = TRUE;
+		fAll = TRUE;
 	else if( ( victim = get_char_room( ch, target ) ) == NULL )
-	return;
+		return;
 
 	if ( is_number( min ) )
-	low = atoi( min );
+		low = atoi( min );
 	else
 	{
-	bug( "MpDamage - Bad damage min vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
+		bug( "MpDamage - Bad damage min vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+		return;
 	}
 	if ( is_number( max ) )
-	high = atoi( max );
+		high = atoi( max );
 	else
 	{
-	bug( "MpDamage - Bad damage max vnum %d.", 
-		IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
-	return;
+		bug( "MpDamage - Bad damage max vnum %d.", IS_NPC(ch) ? ch->pIndexData->vnum : 0 );
+		return;
 	}
 	one_argument( argument, target );
 
@@ -1085,27 +1077,27 @@ void do_mpdamage( CHAR_DATA *ch, char *argument )
 	 * kill the victim.
 	 */
 
-	if ( target[0] != '\0' )
-	fKill = TRUE;
-	if ( fAll )
-	{
-	for( victim = ch->in_room->people; victim; victim = victim_next )
-	{
-		victim_next = victim->next_in_room;
-		if ( victim != ch )
-			damage( victim, victim, 
-			fKill ? 
-			number_range(low,high) : UMIN(victim->hit,number_range(low,high)),
-			TYPE_UNDEFINED, DAM_NONE, FALSE );
+	 if ( target[0] != '\0' )
+	 	fKill = TRUE;
+	 if ( fAll )
+	 {
+	 	for( victim = ch->in_room->people; victim; victim = victim_next )
+	 	{
+	 		victim_next = victim->next_in_room;
+	 		if ( victim != ch )
+	 			damage( victim, victim, 
+	 				fKill ? 
+	 				number_range(low,high) : UMIN(victim->hit,number_range(low,high)),
+	 				TYPE_UNDEFINED, DAM_NONE, FALSE );
+	 	}
+	 }
+	 else
+	 	damage( victim, victim, 
+	 		fKill ? 
+	 		number_range(low,high) : UMIN(victim->hit,number_range(low,high)),
+	 		TYPE_UNDEFINED, DAM_NONE, FALSE );
+	 return;
 	}
-	}
-	else
-		damage( victim, victim, 
-		fKill ? 
-		number_range(low,high) : UMIN(victim->hit,number_range(low,high)),
-		TYPE_UNDEFINED, DAM_NONE, FALSE );
-	return;
-}
 
 /*
  * Lets the mobile to remember a target. The target can be referred to

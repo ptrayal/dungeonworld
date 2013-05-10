@@ -278,39 +278,39 @@ int mana_gain( CHAR_DATA *ch )
 
 int move_gain( CHAR_DATA *ch )
 {
-	int gain;
+	int gain = 0;
 
 	if (ch->in_room == NULL)
-	return 0;
+		return 0;
 
 	if ( IS_NPC(ch) )
 	{
-	gain = ch->level;
+		gain = ch->level;
 	}
 	else
 	{
-	gain = UMAX( 15, ch->level );
+		gain = UMAX( 15, ch->level );
 
-	switch ( ch->position )
-	{
-	case POS_SLEEPING: gain += get_curr_stat(ch,STAT_DEX);		break;
-	case POS_RESTING:  gain += get_curr_stat(ch,STAT_DEX) / 2;	break;
-	}
+		switch ( ch->position )
+		{
+			case POS_SLEEPING: gain += get_curr_stat(ch,STAT_DEX);		break;
+			case POS_RESTING:  gain += get_curr_stat(ch,STAT_DEX) / 2;	break;
+		}
 
-	if ( ch->pcdata->condition[COND_HUNGER]   == 0 )
-		gain /= 2;
+		if ( ch->pcdata->condition[COND_HUNGER]   == 0 )
+			gain /= 2;
 
-	if ( ch->pcdata->condition[COND_THIRST] == 0 )
-		gain /= 2;
+		if ( ch->pcdata->condition[COND_THIRST] == 0 )
+			gain /= 2;
 	}
 
 	gain = gain * ch->in_room->heal_rate/100;
 
 	if (ch->on != NULL && ch->on->item_type == ITEM_FURNITURE)
-	gain = gain * ch->on->value[3] / 100;
+		gain = gain * ch->on->value[3] / 100;
 
 	if ( IS_AFFECTED(ch, AFF_POISON) )
-	gain /= 4;
+		gain /= 4;
 
 	if (IS_AFFECTED(ch, AFF_PLAGUE))
 		gain /= 8;
@@ -325,33 +325,32 @@ int move_gain( CHAR_DATA *ch )
 
 void gain_condition( CHAR_DATA *ch, int iCond, int value )
 {
-	int condition;
+	int condition = ch->pcdata->condition[iCond];
 
 	if ( value == 0 || IS_NPC(ch) || ch->level >= LEVEL_IMMORTAL)
-	return;
+		return;
 
-	condition				= ch->pcdata->condition[iCond];
 	if (condition == -1)
 		return;
 	ch->pcdata->condition[iCond]	= URANGE( 0, condition + value, 48 );
 
 	if ( ch->pcdata->condition[iCond] == 0 )
 	{
-	switch ( iCond )
-	{
-	case COND_HUNGER:
-		send_to_char( "You are hungry.\n\r",  ch );
-		break;
+		switch ( iCond )
+		{
+			case COND_HUNGER:
+			send_to_char( "You are hungry.\n\r",  ch );
+			break;
 
-	case COND_THIRST:
-		send_to_char( "You are thirsty.\n\r", ch );
-		break;
+			case COND_THIRST:
+			send_to_char( "You are thirsty.\n\r", ch );
+			break;
 
-	case COND_DRUNK:
-		if ( condition != 0 )
-		send_to_char( "You are sober.\n\r", ch );
-		break;
-	}
+			case COND_DRUNK:
+			if ( condition != 0 )
+				send_to_char( "You are sober.\n\r", ch );
+			break;
+		}
 	}
 
 	return;
@@ -429,9 +428,8 @@ void mobile_update( void )
 	{
 		OBJ_DATA *obj;
 		OBJ_DATA *obj_best;
-		int max;
+		int max = 1;
 
-		max         = 1;
 		obj_best    = 0;
 		for ( obj = ch->in_room->contents; obj; obj = obj->next_content )
 		{
@@ -759,8 +757,7 @@ void char_update( void )
 		if (ch->in_room == NULL)
 		continue;
 			
-		act("$n writhes in agony as plague sores erupt from $s skin.",
-		ch,NULL,NULL,TO_ROOM);
+		act("$n writhes in agony as plague sores erupt from $s skin.", ch,NULL,NULL,TO_ROOM);
 		send_to_char("You writhe in agony from the plague.\n\r",ch);
 			for ( af = ch->affected; af != NULL; af = af->next )
 			{
@@ -1030,7 +1027,7 @@ void aggr_update( void )
 
 		for ( ch = wch->in_room->people; ch != NULL; ch = ch_next )
 		{
-			int count;
+			int count = 0;
 
 			ch_next	= ch->next_in_room;
 
@@ -1051,7 +1048,6 @@ void aggr_update( void )
 		 * Now make the aggressor fight a RANDOM pc victim in the room,
 		 *   giving each 'vch' an equal chance of selection.
 		 */
-		count	= 0;
 		victim	= NULL;
 		for ( vch = wch->in_room->people; vch != NULL; vch = vch_next )
 		{
