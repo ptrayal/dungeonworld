@@ -367,9 +367,8 @@ long	last_mob_id;
 
 long get_pc_id(void)
 {
-	int val;
+	int val = (current_time <= last_pc_id) ? last_pc_id + 1 : current_time;
 
-	val = (current_time <= last_pc_id) ? last_pc_id + 1 : current_time;
 	last_pc_id = val;
 	return val;
 }

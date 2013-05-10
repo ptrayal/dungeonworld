@@ -41,10 +41,8 @@ char *const distance[4]=
 "right here.", "nearby to the %s.", "not far %s.", "off in the distance %s."
 };
 
-void scan_list           args((ROOM_INDEX_DATA *scan_room, CHAR_DATA *ch,
-                               sh_int depth, sh_int door));
-void scan_char           args((CHAR_DATA *victim, CHAR_DATA *ch,
-                               sh_int depth, sh_int door));
+void scan_list           args((ROOM_INDEX_DATA *scan_room, CHAR_DATA *ch, sh_int depth, sh_int door));
+void scan_char           args((CHAR_DATA *victim, CHAR_DATA *ch, sh_int depth, sh_int door));
 void do_scan(CHAR_DATA *ch, char *argument)
 {
    extern char *const dir_name[];
@@ -93,8 +91,7 @@ void do_scan(CHAR_DATA *ch, char *argument)
    return;
 }
 
-void scan_list(ROOM_INDEX_DATA *scan_room, CHAR_DATA *ch, sh_int depth,
-               sh_int door)
+void scan_list(ROOM_INDEX_DATA *scan_room, CHAR_DATA *ch, sh_int depth, sh_int door)
 {
    CHAR_DATA *rch;
 

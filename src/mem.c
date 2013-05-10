@@ -176,7 +176,7 @@ ROOM_INDEX_DATA *new_room_index( void )
 
 void free_room_index( ROOM_INDEX_DATA *pRoom )
 {
-    int door;
+    int door = 0;
     EXTRA_DESCR_DATA *pExtra, *pExtra_next;
     RESET_DATA *pReset, *pReset_next;
 
