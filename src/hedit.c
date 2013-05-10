@@ -205,58 +205,58 @@ HEDIT( hedit_text )
 
 void hedit( CHAR_DATA *ch, char *argument)
 {
-    HELP_DATA * pHelp;
-    HELP_AREA *had;
-    char arg[MAX_INPUT_LENGTH];
-    char command[MAX_INPUT_LENGTH];
-    int cmd;
+	HELP_DATA * pHelp;
+	HELP_AREA *had;
+	char arg[MAX_INPUT_LENGTH];
+	char command[MAX_INPUT_LENGTH];
+	int cmd;
 
-    smash_tilde(argument);
-    strcpy(arg, argument);
-    argument = one_argument( argument, command);
+	smash_tilde(argument);
+	strcpy(arg, argument);
+	argument = one_argument( argument, command);
 
-    EDIT_HELP(ch, pHelp);
+	EDIT_HELP(ch, pHelp);
 
-    had = get_help_area(pHelp);
+	had = get_help_area(pHelp);
 
-    if (had == NULL)
-    {
-    	bugf( "hedit : helpfil '%s' is NULL", pHelp->keyword );
-    	edit_done(ch);
-    	return;
-    }
-
-    if (ch->pcdata->security < 9)
-    {
-        send_to_char("HEdit: Sorry, but your security rating is too low.\n\r",ch);
-	edit_done(ch);
-	return;
-    }
-
-    if (command[0] == '\0')
-    {
-	hedit_show(ch, argument);
-        return;
-    }
-
-    if (!str_cmp(command, "done") )
-    {
-        edit_done(ch);
-        return;
-    }
-
-    for (cmd = 0; hedit_table[cmd].name != NULL; cmd++)
-    {
-	if (!str_prefix(command, hedit_table[cmd].name) )
+	if (had == NULL)
 	{
-		if ((*hedit_table[cmd].olc_fun) (ch, argument))
-			had->changed = TRUE;
+		bugf( "hedit : helpfil '%s' is NULL", pHelp->keyword );
+		edit_done(ch);
 		return;
 	}
-    }
 
-    interpret(ch, arg);
-    return;
+	if (ch->pcdata->security < 9)
+	{
+		send_to_char("HEdit: Sorry, but your security rating is too low.\n\r",ch);
+		edit_done(ch);
+		return;
+	}
+
+	if (command[0] == '\0')
+	{
+		hedit_show(ch, argument);
+		return;
+	}
+
+	if (!str_cmp(command, "done") )
+	{
+		edit_done(ch);
+		return;
+	}
+
+	for (cmd = 0; hedit_table[cmd].name != NULL; cmd++)
+	{
+		if (!str_prefix(command, hedit_table[cmd].name) )
+		{
+			if ((*hedit_table[cmd].olc_fun) (ch, argument))
+				had->changed = TRUE;
+			return;
+		}
+	}
+
+	interpret(ch, arg);
+	return;
 }
 
 void do_hedit(CHAR_DATA *ch, char *argument)
