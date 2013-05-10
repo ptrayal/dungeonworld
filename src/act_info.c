@@ -1428,16 +1428,12 @@ void do_score( CHAR_DATA *ch, char *argument )
 		get_curr_stat(ch,STAT_CON) );
 	send_to_char( buf, ch );
 
-	sprintf( buf, "You have scored %d exp, and have %ld gold and %ld silver coins.\n\r",
-		ch->exp,  ch->gold, ch->silver );
-	send_to_char( buf, ch );
+	send_to_char( Format("You have scored %d exp, and have %ld gold and %ld silver coins.\n\r", ch->exp,  ch->gold, ch->silver), ch );
 
 	/* RT shows exp to level */
 	if (!IS_NPC(ch) && ch->level < LEVEL_HERO)
 	{
-		sprintf (buf, 
-			"You need %d exp to level.\n\r",
-			((ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp));
+		sprintf (buf, "You need %d exp to level.\n\r", ((ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp));
 		send_to_char( buf, ch );
 	}
 
@@ -2565,12 +2561,12 @@ void do_wimpy( CHAR_DATA *ch, char *argument )
 
 	if ( wimpy > ch->max_hit/2 )
 	{
-		send_to_char( "Such cowardice ill becomes you.\n\r", ch );
+		send_to_char( "/aW[/aRWimpy/aW]/an Wimpy set too high.\n\r", ch );
 		return;
 	}
 
 	ch->wimpy	= wimpy;
-	send_to_char( Format("Wimpy set to %d hit points.\n\r", wimpy), ch );
+	send_to_char( Format("/aW[/aRWimpy/aW]/an set at %d hit points.\n\r", wimpy), ch );
 	return;
 }
 

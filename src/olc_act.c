@@ -2740,85 +2740,57 @@ bool set_obj_values( CHAR_DATA *ch, OBJ_INDEX_DATA *pObj, int value_num, char *a
 OEDIT( oedit_show )
 {
 	OBJ_INDEX_DATA *pObj;
-	char buf[MSL]={'\0'};
 	AFFECT_DATA *paf;
 	int cnt = 0;
 
 	EDIT_OBJ(ch, pObj);
 
-	sprintf( buf, "Name:        [%s]\n\rArea:        [%5d] %s\n\r",
-	pObj->name,
-	!pObj->area ? -1        : pObj->area->vnum,
-	!pObj->area ? "No Area" : pObj->area->name );
-	send_to_char( buf, ch );
-
-
-	sprintf( buf, "Vnum:        [%5d]\n\rType:        [%s]\n\r",
-	pObj->vnum,
-	flag_string( type_flags, pObj->item_type ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Level:       [%5d]\n\r", pObj->level );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Wear flags:  [%s]\n\r",
-	flag_string( wear_flags, pObj->wear_flags ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Extra flags: [%s]\n\r",
-	flag_string( extra_flags, pObj->extra_flags ) );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Material:    [%s]\n\r",                /* ROM */
-	pObj->material );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Condition:   [%5d]\n\r",               /* ROM */
-	pObj->condition );
-	send_to_char( buf, ch );
-
-	sprintf( buf, "Weight:      [%5d]\n\rCost:        [%5d]\n\r",
-	pObj->weight, pObj->cost );
-	send_to_char( buf, ch );
+	send_to_char( Format( "Name:        [%s]\n\r", pObj->name), ch );
+	send_to_char( Format( "Area:        [%5d] %s\n\r", !pObj->area ? -1 : pObj->area->vnum,	!pObj->area ? "No Area" : pObj->area->name), ch );
+	send_to_char( Format( "Vnum:        [%5d]\n\r", pObj->vnum), ch );
+	send_to_char( Format( "Type:        [%s]\n\r", flag_string( type_flags, pObj->item_type )), ch );
+	send_to_char( Format( "Level:       [%5d]\n\r", pObj->level), ch );
+	send_to_char( Format( "Wear flags:  [%s]\n\r", flag_string( wear_flags, pObj->wear_flags )), ch );
+	send_to_char( Format( "Extra flags: [%s]\n\r", flag_string( extra_flags, pObj->extra_flags )), ch );
+	send_to_char( Format( "Material:    [%s]\n\r", pObj->material), ch );
+	send_to_char( Format( "Condition:   [%5d]\n\r", pObj->condition), ch );
+	send_to_char( Format( "Weight:      [%5d]\n\r", pObj->weight), ch );
+	send_to_char( Format( "Cost:        [%5d]\n\r", pObj->cost), ch );
 
 	if ( pObj->extra_descr )
 	{
-	EXTRA_DESCR_DATA *ed;
+		EXTRA_DESCR_DATA *ed;
 
-	send_to_char( "Ex desc kwd: ", ch );
+		send_to_char( "Ex desc kwd: ", ch );
 
-	for ( ed = pObj->extra_descr; ed; ed = ed->next )
-	{
-		send_to_char( "[", ch );
-		send_to_char( ed->keyword, ch );
-		send_to_char( "]", ch );
+		for ( ed = pObj->extra_descr; ed; ed = ed->next )
+		{
+				send_to_char( "[", ch );
+				send_to_char( ed->keyword, ch );
+				send_to_char( "]", ch );
+		}
+
+		send_to_char( "\n\r", ch );
 	}
 
-	send_to_char( "\n\r", ch );
+		send_to_char( Format( "Short desc:  %s\n\r", pObj->short_descr), ch );
+		send_to_char( Format( "Long desc:\n\r     %s\n\r", pObj->description), ch );
+
+		for ( cnt = 0, paf = pObj->affected; paf; paf = paf->next )
+		{
+			if ( cnt == 0 )
+			{
+				send_to_char( "Number Modifier Affects\n\r", ch );
+				send_to_char( "------ -------- -------\n\r", ch );
+			}
+			send_to_char( Format( "[%4d] %-8d %s\n\r", cnt, paf->modifier, flag_string( apply_flags, paf->location )), ch );
+			cnt++;
+		}
+
+		show_obj_values( ch, pObj );
+
+		return FALSE;
 	}
-
-	sprintf( buf, "Short desc:  %s\n\rLong desc:\n\r     %s\n\r",
-	pObj->short_descr, pObj->description );
-	send_to_char( buf, ch );
-
-	for ( cnt = 0, paf = pObj->affected; paf; paf = paf->next )
-	{
-	if ( cnt == 0 )
-	{
-		send_to_char( "Number Modifier Affects\n\r", ch );
-		send_to_char( "------ -------- -------\n\r", ch );
-	}
-	sprintf( buf, "[%4d] %-8d %s\n\r", cnt,
-		paf->modifier,
-		flag_string( apply_flags, paf->location ) );
-	send_to_char( buf, ch );
-	cnt++;
-	}
-
-	show_obj_values( ch, pObj );
-
-	return FALSE;
-}
 
 
 /*
@@ -2909,15 +2881,15 @@ OEDIT( oedit_addaffect )
 
 	if ( IS_NULLSTR(loc) || IS_NULLSTR(mod) || !is_number( mod ) )
 	{
-	send_to_char( "Syntax:  addaffect [location] [#xmod]\n\r", ch );
-	return FALSE;
+		send_to_char( "Syntax:  addaffect [location] [#xmod]\n\r", ch );
+		return FALSE;
 	}
 
 	if ( ( value = flag_value( apply_flags, loc ) ) == NO_FLAG ) /* Hugin */
 	{
 		send_to_char( "Valid affects are:\n\r", ch );
-	show_help( ch, "apply" );
-	return FALSE;
+		show_help( ch, "apply" );
+		return FALSE;
 	}
 
 	pAf             =   new_affect();
@@ -3603,9 +3575,7 @@ MEDIT( medit_show )
 		!pMob->area ? "No Area" : pMob->area->name );
 	send_to_char( buf, ch );
 
-	sprintf( buf, "Act:         [%s]\n\r",
-		flag_string( act_flags, pMob->act ) );
-	send_to_char( buf, ch );
+	send_to_char( Format("Act:         [%s]\n\r", flag_string( act_flags, pMob->act )), ch );
 
 	sprintf( buf, "Vnum:        [%5d] Sex:   [%s]   Race: [%s]\n\r",
 		pMob->vnum,
