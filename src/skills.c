@@ -847,7 +847,7 @@ void check_improve( CHAR_DATA *ch, int sn, bool success, int multiplier )
 
 	/* check to see if the character has a chance to learn */
 		chance = 10 * int_app[get_curr_stat(ch,STAT_INT)].learn;
-	chance /= (	multiplier * kill_table[sn].rating[ch->iclass] * 4);
+	chance /= (	multiplier * skill_table[sn].rating[ch->iclass] * 4);
 	chance += ch->level;
 
 	if (number_range(1,1000) > chance)
