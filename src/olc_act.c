@@ -3608,11 +3608,7 @@ MEDIT( medit_show )
 		pMob->damage[DICE_BONUS] );
 	send_to_char( buf, ch );
 
-	sprintf( buf, "Mana dice:   [%2dd%-3d+%4d]\n\r",
-		pMob->mana[DICE_NUMBER],
-		pMob->mana[DICE_TYPE],
-		pMob->mana[DICE_BONUS] );
-	send_to_char( buf, ch );
+	send_to_char( Format("Mana dice:   [%2dd%-3d+%4d]\n\r", pMob->mana[DICE_NUMBER], pMob->mana[DICE_TYPE], pMob->mana[DICE_BONUS]), ch );
 
 /* ROM values end */
 
@@ -3655,12 +3651,9 @@ MEDIT( medit_show )
 
 		pShop = pMob->pShop;
 
-		sprintf( buf,
-			"Shop data for [%5d]:\n\r"
-			"  Markup for purchaser: %d%%\n\r"
-			"  Markdown for seller:  %d%%\n\r",
-			pShop->keeper, pShop->profit_buy, pShop->profit_sell );
-		send_to_char( buf, ch );
+		send_to_char( Format("Shop data for [%5d]:\n\r", pShop->keeper), ch);
+		send_to_char( Format("  Markup for purchaser: %d%%\n\r", pShop->profit_buy), ch);
+		send_to_char( Format("  Markdown for seller:  %d%%\n\r", pShop->profit_sell), ch);
 		send_to_char( Format("  Hours: %d to %d.\n\r", pShop->open_hour, pShop->close_hour), ch );
 
 		for ( iTrade = 0; iTrade < MAX_TRADE; iTrade++ )

@@ -3256,7 +3256,6 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	char arg1 [MAX_INPUT_LENGTH];
 	char arg2 [MAX_INPUT_LENGTH];
 	char arg3 [MAX_INPUT_LENGTH];
-	char buf[100];
 	CHAR_DATA *victim;
 	int value;
 
@@ -3298,10 +3297,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	{
 	if ( value < 3 || value > get_max_train(victim,STAT_STR) )
 	{
-		sprintf(buf,
-		"Strength range is 3 to %d\n\r.",
-		get_max_train(victim,STAT_STR));
-		send_to_char(buf,ch);
+		send_to_char( Format("Strength range is 3 to %d\n\r.", get_max_train(victim,STAT_STR)),ch);
 		return;
 	}
 
@@ -3327,9 +3323,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	{
 		if ( ch->pcdata->security != 0 )
 		{
-		sprintf( buf, "Valid security is 0-%d.\n\r",
-			ch->pcdata->security );
-		send_to_char( buf, ch );
+		send_to_char( Format("Valid security is 0-%d.\n\r", ch->pcdata->security), ch );
 		}
 		else
 		{
@@ -3345,10 +3339,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	{
 		if ( value < 3 || value > get_max_train(victim,STAT_INT) )
 		{
-			sprintf(buf,
-		"Intelligence range is 3 to %d.\n\r",
-		get_max_train(victim,STAT_INT));
-			send_to_char(buf,ch);
+			send_to_char( Format("Intelligence range is 3 to %d.\n\r", get_max_train(victim,STAT_INT)), ch);
 			return;
 		}
  
@@ -3360,9 +3351,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	{
 	if ( value < 3 || value > get_max_train(victim,STAT_WIS) )
 	{
-		sprintf(buf,
-		"Wisdom range is 3 to %d.\n\r",get_max_train(victim,STAT_WIS));
-		send_to_char( buf, ch );
+		send_to_char( Format("Wisdom range is 3 to %d.\n\r",get_max_train(victim,STAT_WIS)), ch );
 		return;
 	}
 
@@ -3374,10 +3363,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	{
 	if ( value < 3 || value > get_max_train(victim,STAT_DEX) )
 	{
-		sprintf(buf,
-		"Dexterity range is 3 to %d.\n\r",
-		get_max_train(victim,STAT_DEX));
-		send_to_char( buf, ch );
+		send_to_char( Format("Dexterity range is 3 to %d.\n\r", get_max_train(victim,STAT_DEX)), ch );
 		return;
 	}
 
@@ -3389,10 +3375,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	{
 	if ( value < 3 || value > get_max_train(victim,STAT_CON) )
 	{
-		sprintf(buf,
-		"Constitution range is 3 to %d.\n\r",
-		get_max_train(victim,STAT_CON));
-		send_to_char( buf, ch );
+		send_to_char( Format("Constitution range is 3 to %d.\n\r", get_max_train(victim,STAT_CON)), ch );
 		return;
 	}
 
@@ -3455,8 +3438,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 
 	if ( value < 0 || value > MAX_LEVEL )
 	{
-		sprintf(buf, "Level range is 0 to %d.\n\r", MAX_LEVEL);
-		send_to_char(buf, ch);
+		send_to_char( Format("Level range is 0 to %d.\n\r", MAX_LEVEL), ch);
 		return;
 	}
 	victim->level = value;
