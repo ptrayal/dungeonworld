@@ -223,7 +223,7 @@ void do_guild( CHAR_DATA *ch, char *argument )
 void do_outfit ( CHAR_DATA *ch, char *argument )
 {
 	OBJ_DATA *obj;
-	int i,sn,vnum;
+	int i;
 
 	if (ch->level > 5 || IS_NPC(ch))
 	{
@@ -250,8 +250,8 @@ void do_outfit ( CHAR_DATA *ch, char *argument )
 	/* do the weapon thing */
 	if ((obj = get_eq_char(ch,WEAR_WIELD)) == NULL)
 	{
-		sn = 0; 
-		vnum = OBJ_VNUM_SCHOOL_SWORD; /* just in case! */
+		int sn = 0; 
+		int vnum = OBJ_VNUM_SCHOOL_SWORD; /* just in case! */
 
 		for (i = 0; weapon_table[i].name != NULL; i++)
 		{
@@ -535,15 +535,13 @@ void do_disconnect( CHAR_DATA *ch, char *argument )
 	one_argument( argument, arg );
 	if ( arg[0] == '\0' )
 	{
-	send_to_char( "Disconnect whom?\n\r", ch );
-	return;
+		send_to_char( "Disconnect whom?\n\r", ch );
+		return;
 	}
 
 	if (is_number(arg))
 	{
-	int desc;
-
-	desc = atoi(arg);
+		int desc = atoi(arg);
 		for ( d = descriptor_list; d != NULL; d = d->next )
 		{
 			if ( d->descriptor == desc )
@@ -552,29 +550,29 @@ void do_disconnect( CHAR_DATA *ch, char *argument )
 				send_to_char( "Ok.\n\r", ch );
 				return;
 			}
-	}
+		}
 	}
 
 	if ( ( victim = get_char_world( ch, arg ) ) == NULL )
 	{
-	send_to_char( "They aren't here.\n\r", ch );
-	return;
+		send_to_char( "They aren't here.\n\r", ch );
+		return;
 	}
 
 	if ( victim->desc == NULL )
 	{
-	act( "$N doesn't have a descriptor.", ch, NULL, victim, TO_CHAR );
-	return;
+		act( "$N doesn't have a descriptor.", ch, NULL, victim, TO_CHAR );
+		return;
 	}
 
 	for ( d = descriptor_list; d != NULL; d = d->next )
 	{
-	if ( d == victim->desc )
-	{
-		close_socket( d );
-		send_to_char( "Ok.\n\r", ch );
-		return;
-	}
+		if ( d == victim->desc )
+		{
+			close_socket( d );
+			send_to_char( "Ok.\n\r", ch );
+			return;
+		}
 	}
 
 	bug( "Do_disconnect: desc not found.", 0 );
@@ -3182,7 +3180,7 @@ void do_sset( CHAR_DATA *ch, char *argument )
 	char arg3 [MAX_INPUT_LENGTH];
 	CHAR_DATA *victim;
 	int value;
-	int sn;
+	int sn = 0;
 	bool fAll;
 
 	argument = one_argument( argument, arg1 );
@@ -3191,64 +3189,63 @@ void do_sset( CHAR_DATA *ch, char *argument )
 
 	if ( IS_NULLSTR(arg1) || IS_NULLSTR(arg2) || IS_NULLSTR(arg3) )
 	{
-	send_to_char( "Syntax:\n\r",ch);
-	send_to_char( "  set skill <name> <spell or skill> <value>\n\r", ch);
-	send_to_char( "  set skill <name> all <value>\n\r",ch);  
-	send_to_char("   (use the name of the skill, not the number)\n\r",ch);
-	return;
+		send_to_char( "Syntax:\n\r",ch);
+		send_to_char( "  set skill <name> <spell or skill> <value>\n\r", ch);
+		send_to_char( "  set skill <name> all <value>\n\r",ch);  
+		send_to_char("   (use the name of the skill, not the number)\n\r",ch);
+		return;
 	}
 
 	if ( ( victim = get_char_world( ch, arg1 ) ) == NULL )
 	{
-	send_to_char( "They aren't here.\n\r", ch );
-	return;
+		send_to_char( "They aren't here.\n\r", ch );
+		return;
 	}
 
 	if ( IS_NPC(victim) )
 	{
-	send_to_char( "Not on NPC's.\n\r", ch );
-	return;
+		send_to_char( "Not on NPC's.\n\r", ch );
+		return;
 	}
 
 	fAll = !str_cmp( arg2, "all" );
-	sn   = 0;
 	if ( !fAll && ( sn = skill_lookup( arg2 ) ) < 0 )
 	{
-	send_to_char( "No such skill or spell.\n\r", ch );
-	return;
+		send_to_char( "No such skill or spell.\n\r", ch );
+		return;
 	}
 
 	/*
 	 * Snarf the value.
 	 */
-	if ( !is_number( arg3 ) )
-	{
-	send_to_char( "Value must be numeric.\n\r", ch );
-	return;
-	}
+	 if ( !is_number( arg3 ) )
+	 {
+	 	send_to_char( "Value must be numeric.\n\r", ch );
+	 	return;
+	 }
 
-	value = atoi( arg3 );
-	if ( value < 0 || value > 100 )
-	{
-	send_to_char( "Value range is 0 to 100.\n\r", ch );
-	return;
-	}
+	 value = atoi( arg3 );
+	 if ( value < 0 || value > 100 )
+	 {
+	 	send_to_char( "Value range is 0 to 100.\n\r", ch );
+	 	return;
+	 }
 
-	if ( fAll )
-	{
-	for ( sn = 0; sn < MAX_SKILL; sn++ )
-	{
-		if ( skill_table[sn].name != NULL )
-		victim->pcdata->learned[sn]	= value;
-	}
-	}
-	else
-	{
-	victim->pcdata->learned[sn] = value;
-	}
+	 if ( fAll )
+	 {
+	 	for ( sn = 0; sn < MAX_SKILL; sn++ )
+	 	{
+	 		if ( skill_table[sn].name != NULL )
+	 			victim->pcdata->learned[sn]	= value;
+	 	}
+	 }
+	 else
+	 {
+	 	victim->pcdata->learned[sn] = value;
+	 }
 
-	return;
-}
+	 return;
+	}
 
 
 void do_mset( CHAR_DATA *ch, char *argument )
@@ -3603,9 +3600,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 
 	if (!str_prefix( arg2, "race" ) )
 	{
-	int race;
-
-	race = race_lookup(arg3);
+	int race = race_lookup(arg3);
 
 	if ( race == 0)
 	{

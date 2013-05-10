@@ -1454,9 +1454,8 @@ void do_recall( CHAR_DATA *ch, char *argument )
 
 	if ( ( victim = ch->fighting ) != NULL )
 	{
-	int lose,skill;
-
-	skill = get_skill(ch,gsn_recall);
+	int lose = (ch->desc != NULL) ? 25 : 50;
+	int skill = get_skill(ch,gsn_recall);
 
 	if ( number_percent() < 80 * skill / 100 )
 	{
@@ -1466,7 +1465,6 @@ void do_recall( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
-	lose = (ch->desc != NULL) ? 25 : 50;
 	gain_exp( ch, 0 - lose );
 	check_improve(ch,gsn_recall,TRUE,4);
 	send_to_char( Format("You recall from combat!  You lose %d exps.\n\r", lose), ch );
@@ -1495,7 +1493,7 @@ void do_train( CHAR_DATA *ch, char *argument )
 	CHAR_DATA *mob;
 	sh_int stat = - 1;
 	char *pOutput = NULL;
-	int cost;
+	int cost = 1;
 
 	if ( IS_NPC(ch) )
 		return;
@@ -1509,21 +1507,19 @@ void do_train( CHAR_DATA *ch, char *argument )
 	 		break;
 	 }
 
-	 if ( mob == NULL )
+	if ( mob == NULL )
 	 {
 	 	send_to_char( "You can't do that here.\n\r", ch );
 	 	return;
 	 }
 
-	 if ( argument[0] == '\0' )
+	if ( argument[0] == '\0' )
 	 {
 	 	send_to_char( Format("You have %d training sessions.\n\r", ch->train), ch );
 	 	argument = "foo";
 	 }
 
-	 cost = 1;
-
-	 if ( !str_cmp( argument, "str" ) )
+	if ( !str_cmp( argument, "str" ) )
 	 {
 	 	if ( class_table[ch->iclass].attr_prime == STAT_STR )
 	 		cost    = 1;

@@ -132,9 +132,9 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	int *prgnShow;
 	char *pstrShow;
 	OBJ_DATA *obj;
-	int nShow;
+	int nShow = 0;
 	int iShow;
-	int count;
+	int count = 0;
 	bool fCombine;
 
 	if ( ch->desc == NULL )
@@ -145,13 +145,11 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	 */
 	 output = new_buf();
 
-	 count = 0;
 	 for ( obj = list; obj != NULL; obj = obj->next_content )
 		count++;
 	 ALLOC_DATA(prgpstrShow, char*, (count *sizeof(char*)));
 	 ALLOC_DATA(prgnShow, int, count);
-	 nShow	= 0;
-
+	
 	/*
 	 * Format the list of objects.
 	 */
@@ -1842,10 +1840,10 @@ void do_who( CHAR_DATA *ch, char *argument )
 	int iClass;
 	int iRace;
 	int iClan;
-	int iLevelLower;
-	int iLevelUpper;
-	int nNumber;
-	int nMatch;
+	int iLevelLower = 0;
+	int iLevelUpper = MAX_LEVEL;
+	int nNumber = 0;
+	int nMatch = 0;
 	bool rgfClass[MAX_CLASS];
 	bool rgfRace[MAX_PC_RACE];
 	bool rgfClan[MAX_CLAN];
@@ -1858,8 +1856,6 @@ void do_who( CHAR_DATA *ch, char *argument )
 	/*
 	 * Set default arguments.
 	 */
-	iLevelLower    = 0;
-	iLevelUpper    = MAX_LEVEL;
 	for ( iClass = 0; iClass < MAX_CLASS; iClass++ )
 		rgfClass[iClass] = FALSE;
 	for ( iRace = 0; iRace < MAX_PC_RACE; iRace++ )
@@ -1870,7 +1866,6 @@ void do_who( CHAR_DATA *ch, char *argument )
 	/*
 	 * Parse arguments.
 	 */
-	nNumber = 0;
 	for ( ;; )
 	{
 		char arg[MSL]={'\0'};
@@ -1944,7 +1939,6 @@ void do_who( CHAR_DATA *ch, char *argument )
 	/*
 	 * Now show matching chars.
 	 */
-	nMatch = 0;
 	buf[0] = '\0';
 	output = new_buf();
 	for ( d = descriptor_list; d != NULL; d = d->next )
@@ -2052,10 +2046,9 @@ void do_equipment( CHAR_DATA *ch, char *argument )
 {
 	OBJ_DATA *obj;
 	int iWear;
-	bool found;
+	bool found = FALSE;
 
 	send_to_char( "\tWYou are using:\tn\n\r", ch );
-	found = FALSE;
 	for ( iWear = 0; iWear < MAX_WEAR; iWear++ )
 	{
 		if ( ( obj = get_eq_char( ch, iWear ) ) == NULL )
@@ -2087,8 +2080,8 @@ void do_compare( CHAR_DATA *ch, char *argument )
 	char arg2[MAX_INPUT_LENGTH];
 	OBJ_DATA *obj1;
 	OBJ_DATA *obj2;
-	int value1;
-	int value2;
+	int value1 = 0;
+	int value2 = 0;
 	char *msg;
 
 	argument = one_argument( argument, arg1 );
@@ -2130,9 +2123,7 @@ void do_compare( CHAR_DATA *ch, char *argument )
 	}
 
 	msg		= NULL;
-	value1	= 0;
-	value2	= 0;
-
+	
 	if ( obj1 == obj2 )
 	{
 	msg = "You compare $p to itself.  It looks about the same.";
@@ -2448,9 +2439,8 @@ void do_practice( CHAR_DATA *ch, char *argument )
 
 	if ( argument[0] == '\0' )
 	{
-		int col;
+		int col = 0;
 
-		col    = 0;
 		for ( sn = 0; sn < MAX_SKILL; sn++ )
 		{
 			if ( skill_table[sn].name == NULL )

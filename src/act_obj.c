@@ -500,9 +500,9 @@ void do_drop( CHAR_DATA *ch, char *argument )
 	if ( is_number( arg ) )
 	{
 	/* 'drop NNNN coins' */
-	int amount, gold = 0, silver = 0;
+	int gold = 0, silver = 0;
+	int amount   = atoi(arg);
 
-	amount   = atoi(arg);
 	argument = one_argument( argument, arg );
 	if ( amount <= 0
 	|| ( str_cmp( arg, "coins" ) && str_cmp( arg, "coin" ) && 
@@ -666,10 +666,9 @@ void do_give( CHAR_DATA *ch, char *argument )
 	if ( is_number( arg1 ) )
 	{
 	/* 'give NNNN coins victim' */
-	int amount;
+	int amount = atoi(arg1);
 	bool silver;
 
-	amount   = atoi(arg1);
 	if ( amount <= 0
 	|| ( str_cmp( arg2, "coins" ) && str_cmp( arg2, "coin" ) && 
 		 str_cmp( arg2, "gold"  ) && str_cmp( arg2, "silver")) )
@@ -724,11 +723,7 @@ void do_give( CHAR_DATA *ch, char *argument )
 
 	if (IS_NPC(victim) && IS_SET(victim->act,ACT_IS_CHANGER))
 	{
-		int change;
-
-		change = (silver ? 95 * amount / 100 / 100 
-				 : 95 * amount);
-
+		int change = (silver ? 95 * amount / 100 / 100 : 95 * amount);
 
 		if (!silver && change > victim->silver)
 			victim->silver += change;
@@ -1309,9 +1304,8 @@ void do_eat( CHAR_DATA *ch, char *argument )
 	case ITEM_FOOD:
 	if ( !IS_NPC(ch) )
 	{
-		int condition;
+		int condition = ch->pcdata->condition[COND_HUNGER];
 
-		condition = ch->pcdata->condition[COND_HUNGER];
 		gain_condition( ch, COND_FULL, obj->value[0] );
 		gain_condition( ch, COND_HUNGER, obj->value[1]);
 		if ( condition == 0 && ch->pcdata->condition[COND_HUNGER] > 0 )
@@ -1597,8 +1591,9 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace )
 
 	if ( CAN_WEAR( obj, ITEM_WIELD ) )
 	{
-		int sn,skill;
-
+		int sn = get_weapon_sn(ch);
+		int skill = get_weapon_skill(ch,sn);
+		
 		if ( !remove_obj( ch, WEAR_WIELD, fReplace ) )
 			return;
 
@@ -1622,13 +1617,9 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace )
 		act( "You wield $p.", ch, obj, NULL, TO_CHAR );
 		equip_char( ch, obj, WEAR_WIELD );
 
-		sn = get_weapon_sn(ch);
-
 		if (sn == gsn_hand_to_hand)
 			return;
 
-		skill = get_weapon_skill(ch,sn);
-		
 		if (skill >= 100)
 			act("$p feels like a part of you!",ch,obj,NULL,TO_CHAR);
 		else if (skill > 85)
@@ -2235,10 +2226,8 @@ void do_steal( CHAR_DATA *ch, char *argument )
 		||   !str_cmp( arg1, "gold"  ) 
 		||	 !str_cmp( arg1, "silver"))
 	{
-		int gold, silver;
-
-		gold = victim->gold * number_range(1, ch->level) / MAX_LEVEL;
-		silver = victim->silver * number_range(1,ch->level) / MAX_LEVEL;
+		int gold = victim->gold * number_range(1, ch->level) / MAX_LEVEL;
+		int silver = victim->silver * number_range(1,ch->level) / MAX_LEVEL;
 		if ( gold <= 0 && silver <= 0 )
 		{
 			send_to_char( "You couldn't get any coins.\n\r", ch );
@@ -2598,12 +2587,12 @@ void do_buy( CHAR_DATA *ch, char *argument )
 		CHAR_DATA *keeper;
 		OBJ_DATA *obj,*t_obj;
 		char arg[MAX_INPUT_LENGTH];
-		int number, count = 1;
-
+		int count = 1;
+		int number = mult_argument(argument,arg);
+		
 		if ( ( keeper = find_keeper( ch ) ) == NULL )
 			return;
 
-		number = mult_argument(argument,arg);
 		obj  = get_obj_keeper( ch,keeper, arg );
 		cost = get_cost( keeper, obj, TRUE );
 
@@ -2765,14 +2754,13 @@ void do_list( CHAR_DATA *ch, char *argument )
 		CHAR_DATA *keeper;
 		OBJ_DATA *obj;
 		int cost,count;
-		bool found;
+		bool found = FALSE;
 		char arg[MAX_INPUT_LENGTH];
 
 		if ( ( keeper = find_keeper( ch ) ) == NULL )
 			return;
 		one_argument(argument,arg);
 
-		found = FALSE;
 		for ( obj = keeper->carrying; obj; obj = obj->next_content )
 		{
 			if ( obj->wear_loc == WEAR_NONE

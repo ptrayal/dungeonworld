@@ -1776,7 +1776,7 @@ void do_split( CHAR_DATA *ch, char *argument )
 	char buf[MSL]={'\0'};
 	char arg1[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
 	CHAR_DATA *gch;
-	int members;
+	int members = 0;
 	int amount_gold = 0, amount_silver = 0;
 	int share_gold, share_silver;
 	int extra_gold, extra_silver;
@@ -1813,7 +1813,6 @@ void do_split( CHAR_DATA *ch, char *argument )
 		return;
 	}
 	
-	members = 0;
 	for ( gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room )
 	{
 		if ( is_same_group( gch, ch ) && !IS_AFFECTED(gch,AFF_CHARM))
