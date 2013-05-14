@@ -1569,9 +1569,7 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 		attack_table[victim->dam_type].noun);
 	send_to_char(buf,ch);
 	}
-	sprintf( buf, "Fighting: %s\n\r",
-	victim->fighting ? victim->fighting->name : "(none)" );
-	send_to_char( buf, ch );
+	send_to_char( Format("Fighting: %s\n\r", victim->fighting ? victim->fighting->name : "(none)"), ch );
 
 	if ( !IS_NPC(victim) )
 	{
@@ -1584,8 +1582,7 @@ void do_mstat( CHAR_DATA *ch, char *argument )
 	send_to_char( buf, ch );
 	}
 
-	sprintf( buf, "Carry number: %d  Carry weight: %ld\n\r",
-	victim->carry_number, get_carry_weight(victim) / 10 );
+	sprintf( buf, "Carry number: %d  Carry weight: %ld\n\r", victim->carry_number, get_carry_weight(victim) / 10 );
 	send_to_char( buf, ch );
 
 
