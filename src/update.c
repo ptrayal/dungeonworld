@@ -68,8 +68,7 @@ void advance_level( CHAR_DATA *ch, bool hide )
 	int add_move = 0;
 	int add_prac = 0;
 
-	ch->pcdata->last_level = 
-	( ch->played + (int) (current_time - ch->logon) ) / 3600;
+	ch->pcdata->last_level = ( ch->played + (int) (current_time - ch->logon) ) / 3600;
 
 	add_hp	= con_app[get_curr_stat(ch,STAT_CON)].hitp + number_range( class_table[ch->iclass].hp_min, class_table[ch->iclass].hp_max );
 	add_mana 	= number_range(2,(2*get_curr_stat(ch,STAT_INT) + get_curr_stat(ch,STAT_WIS))/5);
@@ -77,10 +76,6 @@ void advance_level( CHAR_DATA *ch, bool hide )
 		add_mana /= 2;
 	add_move	= number_range( 1, (get_curr_stat(ch,STAT_CON) + get_curr_stat(ch,STAT_DEX))/6 );
 	add_prac	= wis_app[get_curr_stat(ch,STAT_WIS)].practice;
-
-	add_hp = add_hp * 9/10;
-	add_mana = add_mana * 9/10;
-	add_move = add_move * 9/10;
 
 	add_hp	= UMAX(  2, add_hp   );
 	add_mana	= UMAX(  2, add_mana );
@@ -117,8 +112,7 @@ void gain_exp( CHAR_DATA *ch, int gain )
 		return;
 
 	ch->exp = UMAX( exp_per_level(ch,ch->pcdata->points), ch->exp + gain );
-	while ( ch->level < LEVEL_HERO && ch->exp >= 
-		exp_per_level(ch,ch->pcdata->points) * (ch->level+1) )
+	while ( ch->level < LEVEL_HERO && ch->exp >= exp_per_level(ch,ch->pcdata->points) * (ch->level+1) )
 	{
 		send_to_char( "You raise a level!!  ", ch );
 		ch->level += 1;
@@ -472,7 +466,6 @@ void mobile_update( void )
 }
 
 
-
 /*
  * Update the weather.
  */
@@ -608,7 +601,6 @@ void weather_update( void )
 
 	 return;
 }
-
 
 
 /*
