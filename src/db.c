@@ -736,7 +736,7 @@ void load_old_mob( FILE *fp )
 	 	pMobIndex->imm_flags = 0;
 	 	pMobIndex->res_flags = 0;
 	 	pMobIndex->vuln_flags = 0;
-	 	pMobIndex->form = FORM_EDIBLE|FORM_SENTIENT|FORM_HUMANOID|FORM_MAMMAL;
+	 	pMobIndex->form = FORM_EDIBLE|FORM_HUMANOID;
 	 	pMobIndex->parts = PART_HEAD|PART_ARMS|PART_LEGS|PART_HEART|
 	 	PART_BRAINS|PART_GUTS;
 	 }

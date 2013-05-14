@@ -849,7 +849,7 @@ struct	kill_data
 #define FORM_OUTSIDER               (R)
 #define FORM_OOZE		(S)
  
-#define FORM_MAMMAL             (V)
+#define FORM_MAMMAL             (V)  //Not in use.
 #define FORM_PLANT               (W)
 #define FORM_REPTILE            (X)
 #define FORM_SNAKE              (Y)
