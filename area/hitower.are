@@ -1159,7 +1159,7 @@ container 0 0
 key old~
 an old key~
 An old key is here~
-oldstyle~
+iron~
 key 0 A
 0 0 0 0 0
 0 10 0 P
@@ -1893,6 +1893,11 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1307
 D2
 The shadows cloud your vision.
 ~
@@ -1903,11 +1908,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1303
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1307
 D1
 The shadows cloud your vision.
 ~
@@ -1922,26 +1922,26 @@ sounds moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1305
 D0
 You see a small clearing in the shadows.
 ~
 (null)~
 0 -1 1311
-D3
+D2
 The shadows cloud your vision.
 ~
 (null)~
-0 -1 1301
+0 -1 1305
 D1
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1303
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1301
 S
 #1303
 The Shadow Grove~
@@ -1951,16 +1951,6 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1306
 D1
 The shadows cloud your vision.
 ~
@@ -1971,6 +1961,16 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1302
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1309
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1306
 S
 #1304
 The Shadow Grove~
@@ -1980,26 +1980,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1301
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1305
-D3
-Dark gates loom in the mist.
-~
-(null)~
-0 -1 2201
 D2
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1307
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1301
+D3
+Dark gates loom in the mist.
+~
+(null)~
+0 -1 2201
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1305
 S
 #1305
 The Shadow Grove~
@@ -2014,6 +2014,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1302
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1304
 D2
 The shadows cloud your vision.
 ~
@@ -2024,11 +2029,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1306
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1304
 S
 #1306
 The Shadow Grove~
@@ -2038,26 +2038,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1303
-D1
-You see a shadowy tavern.
-~
-(null)~
-0 -1 9301
 D3
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1305
+D1
+You see a shadowy tavern.
+~
+(null)~
+0 -1 9301
 D2
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1309
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1303
 S
 #1307
 The Shadow Grove~
@@ -2067,6 +2067,16 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1309
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1308
 D0
 The shadows cloud your vision.
 ~
@@ -2077,16 +2087,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1301
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1308
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
 S
 #1308
 The Shadow Grove~
@@ -2130,16 +2130,16 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1303
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1308
 D0
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1306
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1308
 D1
 The shadows cloud your vision.
 ~
@@ -3538,14 +3538,6 @@ D2
 (null)~
 (null)~
 0 0 9141
-D4
-(null)~
-(null)~
-0 0 938
-D5
-(null)~
-(null)~
-0 0 3460
 D1
 (null)~
 (null)~
@@ -3554,6 +3546,14 @@ D3
 (null)~
 (null)~
 0 0 7428
+D4
+(null)~
+(null)~
+0 0 938
+D5
+(null)~
+(null)~
+0 0 3460
 S
 #1393
 A hallway~

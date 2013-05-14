@@ -117,20 +117,20 @@ EFNU 0 0 0
 stand stand male 1250
 AHMV ABCDEFGHIJK medium unknown
 #2307
-oldstyle ogre villager~
+ogre villager~
 the Ogre Villager~
 The ogre villager is here, going about its chores.
 ~
-You see a pitifully overworked ogre. It is dressed in rags and shuffles along
-with its head hung low. It sees you and cringes in mortal terror.
+You see a pitifully overworked ogre.  It is dressed in rags and shuffles
+along with its head hung low.  It sees you and cringes in mortal terror.  
 ~
-human~
+ogre~
 AGH 0 -200 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
 stand stand none 10
-AHMV ABCDEFGHIJK medium unknown
+Aa ABCDEFGHIJK large flesh
 #2308
 oldstyle warrior ogre~
 the Ogre Warrior~
@@ -139,58 +139,59 @@ The ogre warrior stands here, growling fiercely.
 The ogre warrior is dressed in thick fur armor. He looks quite large and
 formidable.
 ~
-human~
+ogre~
 ACFGH 0 -350 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
 stand stand male 250
-AHMV ABCDEFGHIJK medium unknown
+Aa ABCDEFGHIJK large flesh
 #2309
-oldstyle guard ogre~
+guard ogre~
 the Ogre Guard~
 The ogre guard is here manning his post faithfully.
 ~
 The ogre guard stands here manning his post. It appears as though he would
 fight to the death before abandoning his post.
 ~
-human~
+ogre~
 ABCFG 0 -500 0
 19 0 3d9+308 9d9+100 2d7+5 none
 -4 -4 -4 7
 EFNU 0 0 0
 stand stand male 500
-AHMV ABCDEFGHIJK medium unknown
+Aa ABCDEFGHIJK large flesh
 #2310
-oldstyle shaman ogre~
+ogre shaman~
 The Ogre Shaman~
 The ogre shaman is here chanting arcane words and waving his arms.
 ~
-The ogre shaman is draped in thick fur cloaks and pelts. He has all types of
-charms and holy symbols draped about him. He looks at you and snarls.
+The ogre shaman is draped in thick fur cloaks and pelts.  He has all
+types of charms and holy symbols draped about him.  He looks at you and
+snarls.  
 ~
-human~
+ogre~
 ABCFGHQ DH -750 0
 20 0 3d9+333 20d9+100 2d7+5 none
 -4 -4 -4 6
 EIKU 0 0 0
 stand stand male 2500
-AHMV ABCDEFGHIJK medium unknown
+Aa ABCDEFGHIJK large flesh
 #2311
-oldstyle chief chieftain ogre~
+ogre chief chieftain~
 the Ogre Chieftain~
 The ogre chieftain is here, observing his subjects.
 ~
-This is the biggest ogre you have ever seen. He is heavily equipped and looks
-quite formidable. He towers high above you and growls menacingly.
+This is the biggest ogre you have ever seen.  He is heavily equipped and
+looks quite formidable.  He towers high above you and growls menacingly.  
 ~
-human~
+ogre~
 ABCFGH DH -1000 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
 stand stand male 2500
-AHMV ABCDEFGHIJK medium unknown
+Aa ABCDEFGHIJK large flesh
 #2312
 oldstyle barbarian~
 the Plains Barbarian~
@@ -626,7 +627,7 @@ shield shadow~
 the shadow shield~
 A shadowy shield rests here.~
 shadow~
-armor AGJL AJ
+armor GJL AJ
 D D D AB 0
 27 150 4900 P
 A
@@ -744,7 +745,7 @@ globe minor~
 a minor globe of invulnerability~
 A small globe rests here. It shimmers and radiates power.~
 energy~
-armor AG AK
+armor AG AQ
 D D D C 0
 27 10 3200 P
 A
@@ -1018,7 +1019,7 @@ globe major~
 a major globe of invulnerability~
 A large globe rests here, pulsing uneasily.~
 energy~
-armor ABG AK
+armor ABG AQ
 AD AD AD BC 0
 31 10 4100 P
 A
@@ -3818,9 +3819,9 @@ E 0 2324 0 4
 M 0 2328 1 2391 1
 E 0 2315 0 1
 E 0 2316 0 2
-E 0 2317 0 12
 E 0 2318 0 16
 E 0 2319 0 13
+E 0 2317 0 18
 M 0 2322 5 2393 5
 M 0 2322 5 2393 5
 M 0 2322 5 2393 5
@@ -3834,12 +3835,12 @@ E 0 2328 0 12
 E 0 2329 0 16
 M 0 2323 1 2395 1
 M 0 2333 1 2396 1
-E 0 2340 0 12
 E 0 2341 0 5
 E 0 2342 0 14
 E 0 2343 0 2
 E 0 2344 0 6
 E 0 2345 0 16
+E 0 2340 0 18
 M 0 2332 1 2398 1
 E 0 2335 0 12
 E 0 2336 0 6

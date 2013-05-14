@@ -92,9 +92,9 @@ oldstyle king draconian~
 the Draconian King~
 A Draconian wearing fine clothes is here, pondering his greatness.          
 ~
-The king of the draconians sits here on a golden throne.  He looks as 
-though he could crush your head with a single blow.  Yet you sense that he 
-is controlled by a greater power. 
+The king of the draconians sits here on a golden throne.  He looks as
+though he could crush your head with a single blow.  Yet you sense that he
+is controlled by a greater power.  
 ~
 human~
 ABC DH -900 0
@@ -102,7 +102,7 @@ ABC DH -900 0
 -7 -7 -7 6
 EFNU 0 0 0
 stand stand male 40
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #2206
 oldstyle concubine draconian~
 a concubine~

@@ -169,7 +169,7 @@ EFNU 0 0 0
 stand stand none 3750
 AHMV ABCDEFGHIJK medium unknown
 #5011
-oldstyle drider drow~
+drider drow~
 The drider~
 The drider looks at you viciously while it draws its sword.
 ~
@@ -181,7 +181,8 @@ AFG D -1000 0
 3 3 3 9
 EFNU 0 0 0
 stand stand female 10
-AHMV ABCDEFGHIJK medium unknown
+AHN ABCDEFGHIJK large flesh
+F for MV
 #5012
 oldstyle duergar dwarf~
 The dark dwarf~

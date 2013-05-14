@@ -442,7 +442,7 @@ It looks to be a very heavy old iron key.
 flask wineflask~
 a wineflask~
 A wineflask has been been left here.~
-oldstyle~
+leather~
 drink 0 AO
 30 30 'red wine' 0 0
 0 10 400 P
@@ -1000,8 +1000,8 @@ D2
 S
 #3424
 The Tomb of Crotus~
-A sarcophagus lies in the middle of the room and seems undisturbed.
-A hole has been knocked into the east wall.
+A sarcophagus lies in the middle of the room and seems undisturbed.  A
+hole has been knocked into the east wall.  
 ~
 0 9 0
 D0

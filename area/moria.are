@@ -50,7 +50,7 @@ ABU Z 100 0
 6 7 9 10
 FR 0 FI E
 stand stand none 0
-ABO ACK tiny unknown
+ABO ACK tiny flesh
 #4003
 kobold~
 the kobold~
@@ -64,7 +64,7 @@ ACGT J -100 0
 7 7 7 10
 R 0 L C
 stand stand either 18
-AHMV ABCDEFGHIJKQ small unknown
+AHM ABCDEFGHIJKQ small flesh
 #4004
 orc~
 the orc~
@@ -165,7 +165,7 @@ ABU Z -100 0
 4 7 5 10
 FR 0 FI E
 stand stand none 0
-ABO ACK small unknown
+ABO ACK small flesh
 #4055
 hobgoblin~
 the large hobgoblin~
@@ -305,8 +305,8 @@ centipede~
 a centipede~
 A small harmless centipede is here looking for some vegetation to eat.
 ~
-It doesn't seem to pay any attention towards you.  You are probably
-not important.
+It doesn't seem to pay any attention towards you.  You are probably not
+important.  
 ~
 centipede~
 ABU Z 300 0
@@ -314,7 +314,7 @@ ABU Z 300 0
 3 6 4 10
 FR 0 FI E
 stand stand none 0
-ABO ACK small unknown
+ABO ACK small flesh
 #4106
 warrior~
 the Warrior~
@@ -342,7 +342,7 @@ ACFGT J -100 0
 5 5 5 10
 NR 0 L C
 stand stand either 25
-AHMV ABCDEFGHIJKQ small unknown
+AHM ABCDEFGHIJKQ small flesh
 #4150
 bat blue~
 the blue bat~
@@ -354,7 +354,7 @@ bat~
 ABF TZ -100 0
 7 1 3d10+70 1d1+99 1d9+1 shbite
 4 4 4 6
-FHR J 0 RSYZ
+FHR J 0 RSTYZ
 stand stand either 0
 AGV ACDEFHJKP tiny unknown
 #4151
@@ -368,7 +368,7 @@ bat~
 ABF TZ -100 0
 7 1 3d10+70 1d1+99 1d9+1 flbite
 4 4 4 6
-FHR H 0 IRS
+FHR H 0 IRST
 stand stand either 0
 AGV ACDEFHJKP tiny unknown
 #4152
@@ -382,7 +382,7 @@ bat~
 ABF TZ -100 0
 7 1 3d10+70 1d1+99 1d9+1 bite
 4 4 4 6
-FHR L 0 S
+FHR L 0 ST
 stand stand either 0
 ABGV ACDEFHJKP tiny unknown
 #4153
@@ -396,7 +396,7 @@ bat~
 ABF TZ -100 0
 7 1 3d10+70 1d1+99 1d9+1 frbite
 4 4 4 6
-FHR I 0 HS
+FHR I 0 HST
 stand stand either 0
 AGV ACDEFHJKP tiny unknown
 #4154
@@ -410,7 +410,7 @@ bat~
 ABF TZ -100 0
 7 1 3d10+70 1d1+99 1d9+1 acbite
 4 4 4 6
-FHR K 0 S
+FHR K 0 ST
 stand stand either 0
 AGV ACDEFHJKP tiny unknown
 #4155

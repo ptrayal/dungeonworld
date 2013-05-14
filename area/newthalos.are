@@ -133,7 +133,7 @@ ACGHS 0 -20 0
 9 9 9 10
 EFNU 0 0 0
 stand stand male 1
-AHMV ABCDEF tiny unknown
+AHMV ABCDEF tiny flesh
 F par GHIJK
 #9510
 oldstyle baker~
@@ -4038,7 +4038,12 @@ secret door~
 S
 #9633
 The Whet Stone~
-Very large men with very large swords drink beer from very large mugs. Every-thing in this room is BIG. The large round tables are scuffed and nicked fromthe numerous bar brawls that have sprung up. It might be a good idea to holdyour tounge for a while as you soak up the atmosphere. There is an exit tothe east where the master swordsman awaits pupils to train with.~
+Very large men with very large swords drink beer from very large mugs. 
+Every-thing in this room is BIG.  The large round tables are scuffed and
+nicked fromthe numerous bar brawls that have sprung up.  It might be a good
+idea to holdyour tounge for a while as you soak up the atmosphere.  There is
+an exit tothe east where the master swordsman awaits pupils to train with.  
+~
 0 8 0
 D0
 (null)~
@@ -4051,7 +4056,10 @@ D1
 S
 #9634
 Tournament and Practice Yard~
-This is a wide expanse of grass filled with dummies, punching bags andswordpupils. To the north you see a man dressed in black robes, unlikehis iron clad comrades, who you assume to be your master.~
+This is a wide expanse of grass filled with dummies, punching bags
+andswordpupils.  To the north you see a man dressed in black robes,
+unlikehis iron clad comrades, who you assume to be your master.  
+~
 0 124 0
 D1
 You see the grass near the base of the wall here is slightly torn.~

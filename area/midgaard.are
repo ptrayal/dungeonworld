@@ -184,9 +184,11 @@ giant~
 ABTV CDFJVZ 1000 3000
 45 30 1d1+3999 1d1+499 5d4+40 crush
 -25 -25 -25 -15
-ACDEFHIKLNOT ABP CDHI JP
+ACDEFHIKLNOT ABP CDHI 0
 stand stand male 0
-AHMVa ABCDEFGHIJK huge unknown
+AHVa ABCDEFGHIJK huge flesh
+F vul JP
+F for M
 #3012
 healer~
 the healer~
@@ -510,7 +512,7 @@ AB 0 400 0
 8 8 8 10
 FJNU 0 0 C
 stand stand female 0
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #3066
 cat~
 an alley cat~
@@ -5421,9 +5423,9 @@ S
 #3030
 The Dump~
 The dump, where the people from the city drop their garbage.  Through the
-garbage you can see a large junction of pipes, looks like the entrance to the
-sewer system.  South of here you see the river and to the north is the common
-square.  A rickety old bridge leads south to the promenade.
+garbage you can see a large junction of pipes, looks like the entrance to
+the sewer system.  South of here you see the river and to the north is the
+common square.  A rickety old bridge leads south to the promenade.  
 ~
 0 262148 2
 D0

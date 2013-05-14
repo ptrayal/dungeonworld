@@ -26,12 +26,13 @@ EFNU 0 0 0
 stand stand male 2
 AHMV ABCDEFGHIJK medium unknown
 #6002
-oldstyle bear~
+brown bear~
 the brown bear~
 A big, brown, angry-looking bear is here.
 ~
-The bear is a big, brown, furry animal with very large claws and very sharp
-teeth.  It doesn't resemble those cute little thingies from toy shops at all.
+The bear is a big, brown, furry animal with very large claws and very
+sharp teeth.  It doesn't resemble those cute little thingies from toy shops
+at all.  
 ~
 bear~
 AFG 0 -50 0
@@ -39,7 +40,7 @@ AFG 0 -50 0
 3 3 3 9
 DEFNOR 0 EI 0
 sleep stand none 0
-AGV ABCDEFHJKUV medium unknown
+AG ABCDEFHJKUV large fur
 #6003
 oldstyle rabbit~
 the ferocious rabbit~
@@ -72,11 +73,11 @@ EFNU 0 0 0
 stand stand female 0
 AHMV ABCDEFGHIJK medium unknown
 #6005
-oldstyle fox~
+brown fox~
 the brown fox~
 A brown fox is here, looking for some rabbits to chew up.
 ~
-It is a large fox with beautiful, red-brown fur and a long, thick brush.
+It is a large fox with beautiful, red-brown fur and a long, thick brush.  
 ~
 fox~
 AG Z -50 0
@@ -84,7 +85,7 @@ AG Z -50 0
 8 8 8 10
 EFHNR 0 0 0
 stand stand none 0
-AGV ACDEFHJKQV medium unknown
+AG ACDEFHJKQV small flesh
 #6100
 oldstyle warg vicious~
 the vicious warg~
@@ -154,7 +155,7 @@ the nicks in the horns on its head.  It smells as disgusting as only dragons
 do.
 ~
 dragon~
-ABFG DJT -1000 0
+ABFG DJTZ -1000 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNR 0 BEH FI

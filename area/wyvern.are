@@ -94,19 +94,19 @@ EFNU 0 0 0
 stand stand none 0
 AHMV ABCDEFGHIJK medium unknown
 #1607
-oldstyle gruesome ogre~
+gruesome ogre~
 a gruesome ogre~
 A huge, gruesome ogre is sprawled here, gnawing some strange meat.
 ~
 It thinks that perhaps you would make a better meal.
 ~
-human~
+ogre~
 ABCFG 0 -200 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
 sit stand none 60
-AHMV ABCDEFGHIJK large flesh
+Aa ABCDEFGHIJK large flesh
 #1608
 oldstyle shadow~
 a shadow~

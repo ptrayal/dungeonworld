@@ -279,16 +279,16 @@ oldstyle king hobgoblin~
 the king of the hobgoblins~
 There is a great king here, sitting in his throne.
 ~
-The king is a silly looking hobgoblin whose muscles bulge out of his robes,
-destroying the sophisticated effect he was trying to create.
+The king is a silly looking hobgoblin whose muscles bulge out of his
+robes, destroying the sophisticated effect he was trying to create.  
 ~
-human~
-ABR 0 -500 0
+hobgoblin~
+ABR J -500 0
 12 0 2d8+134 12d9+100 1d8+2 none
 1 1 1 6
-FU 0 0 0
+FU 0 LQ 0
 sit stand male 300
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJKY medium flesh
 #1520
 oldstyle miner hobgoblin~
 a hobgoblin miner~
@@ -456,7 +456,7 @@ jewelry G AB
 A
 14 15
 #1509
-necklace bead~
+necklace bead beads~
 a bead necklace~
 A string of beads is here.~
 bead~
@@ -911,12 +911,12 @@ and a small hut is to the west.
 ~
 0 0 2
 E
-hut~
-The hut looks well built, but it seems to have taken some damage.
-~
-E
 stream~
 The stream is pretty small, but it looks too cold to swim.
+~
+E
+hut~
+The hut looks well built, but it seems to have taken some damage.
 ~
 D1
 You see a small path.
@@ -1416,18 +1416,18 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D0
-(null)~
-(null)~
-0 -1 1547
-D1
-(null)~
-(null)~
-0 -1 1549
 D3
 (null)~
 (null)~
 0 -1 1551
+D1
+(null)~
+(null)~
+0 -1 1549
+D0
+(null)~
+(null)~
+0 -1 1547
 S
 #1549
 A Damp Hallway~
@@ -1435,14 +1435,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D3
-(null)~
-(null)~
-0 -1 1548
 D2
 (null)~
 (null)~
 0 -1 1550
+D3
+(null)~
+(null)~
+0 -1 1548
 S
 #1550
 A Damp Hallway~
@@ -1450,14 +1450,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D2
-(null)~
-(null)~
-0 -1 1555
 D0
 (null)~
 (null)~
 0 -1 1549
+D2
+(null)~
+(null)~
+0 -1 1555
 S
 #1551
 A Damp Hallway~
@@ -1480,14 +1480,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D0
-(null)~
-(null)~
-0 -1 1551
 D2
 (null)~
 (null)~
 0 -1 1553
+D0
+(null)~
+(null)~
+0 -1 1551
 S
 #1553
 A Damp Hallway~
@@ -1510,10 +1510,6 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D1
-(null)~
-(null)~
-0 -1 1555
 D0
 (null)~
 (null)~
@@ -1522,6 +1518,10 @@ D3
 (null)~
 (null)~
 0 -1 1553
+D1
+(null)~
+(null)~
+0 -1 1555
 S
 #1555
 A Damp Hallway~

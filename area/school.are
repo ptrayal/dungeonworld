@@ -197,7 +197,7 @@ AGHU Z 100 0
 8 8 8 10
 FHNR 0 0 0
 stand stand either 0
-AGV ACDEFHJKQV small unknown
+AG ACDEFHJKQV small flesh
 #3713
 snail~
 the snail~
@@ -239,7 +239,7 @@ AGU 0 0 0
 6 5 6 7
 CDEOR 0 EI 0
 stand stand either 0
-AGV ABCDEFHJKUV large unknown
+AG ABCDEFHJKUV large fur
 #3716
 wolf~
 the wolf~
