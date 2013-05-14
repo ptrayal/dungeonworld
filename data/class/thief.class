@@ -15,144 +15,8 @@ Base thief basics~
 Default thief default~
 End
 #SKILLS
-acid blast~
-35 2
-armor~
-10 2
-blindness~
-17 2
-burning hands~
-10 2
-call lightning~
-31 2
-calm~
-50 2
-cancellation~
-34 2
-chain lightning~
-39 2
-charm person~
-25 2
-chill touch~
-6 2
-colour spray~
-22 2
-continual light~
-6 2
-control weather~
-28 2
-create food~
-11 2
-create rose~
-10 2
-create spring~
-23 2
-create water~
-12 2
-curse~
-26 2
-detect evil~
-12 2
-detect good~
-12 2
 detect hidden~
 12 2
-detect invis~
-6 2
-detect magic~
-5 2
-detect poison~
-9 2
-dispel magic~
-30 2
-energy drain~
-26 2
-faerie fire~
-5 2
-faerie fog~
-16 2
-farsight~
-16 2
-fireball~
-30 2
-fireproof~
-19 2
-fly~
-20 2
-floating disc~
-7 2
-gate~
-32 2
-giant strength~
-22 2
-haste~
-26 2
-heal~
-33 2
-identify~
-18 2
-infravision~
-10 2
-invisibility~
-9 2
-know alignment~
-20 2
-lightning bolt~
-18 2
-locate object~
-11 2
-magic missile~
-2 2
-mass invis~
-31 2
-nexus~
-50 4
-pass door~
-25 2
-plague~
-36 2
-poison~
-15 2
-portal~
-45 4
-protection evil~
-17 2
-protection good~
-17 2
-refresh~
-12 2
-sanctuary~
-42 2
-shield~
-35 2
-shocking grasp~
-14 2
-sleep~
-11 2
-slow~
-29 2
-stone skin~
-40 2
-summon~
-29 2
-teleport~
-25 2
-ventriloquate~
-2 2
-weaken~
-16 2
-word of recall~
-40 2
-acid breath~
-33 2
-fire breath~
-50 2
-frost breath~
-38 2
-gas breath~
-47 2
-lightning breath~
-43 2
 axe~
 1 5
 dagger~
@@ -179,8 +43,6 @@ disarm~
 12 6
 dodge~
 1 4
-enhanced damage~
-25 5
 envenom~
 10 4
 hand to hand~
@@ -201,10 +63,6 @@ haggle~
 1 3
 hide~
 1 4
-lore~
-6 4
-meditation~
-15 8
 peek~
 1 3
 pick lock~

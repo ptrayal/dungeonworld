@@ -1717,6 +1717,8 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 {
 	extern int top_mob_index;
 	char arg[MAX_INPUT_LENGTH];
+	char buf[MSL]={'\0'};
+	BUFFER *output;
 	MOB_INDEX_DATA *pMobIndex;
 	int vnum;
 	int nMatch = 0;
@@ -1729,6 +1731,8 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 		send_to_char( "Find whom?\n\r", ch );
 		return;
 	}
+
+	output = new_buf();
 
 	/*
 	 * Yeah, so iterating over all vnum's takes 10,000 loops.
@@ -1746,15 +1750,18 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 	 		if ( fAll || is_name( argument, pMobIndex->player_name ) )
 	 		{
 	 			found = TRUE;
-	 			send_to_char( Format("[%5d] %-20s %-15s\n\r", pMobIndex->vnum, pMobIndex->short_descr, pMobIndex->material), ch );
+	 			sprintf(buf, "[%5d] %-20s %-15s\n\r", pMobIndex->vnum, pMobIndex->short_descr, pMobIndex->material);
+	 			add_buf(output, buf);
 	 		}
 	 	}
 	 }
 
-	 if ( !found )
-	 	send_to_char( "No mobiles by that name.\n\r", ch );
+	if ( !found )
+		send_to_char( "No mobiles by that name.\n\r", ch );
 
-	 return;
+	page_to_char(buf_string(output),ch);
+	free_buf(output);
+	return;
 }
 
 
@@ -1764,6 +1771,8 @@ void do_ofind( CHAR_DATA *ch, char *argument )
 	extern int top_obj_index;
 	char arg[MAX_INPUT_LENGTH];
 	OBJ_INDEX_DATA *pObjIndex;
+	char buf[MSL]={'\0'};
+	BUFFER *output;
 	int vnum;
 	int nMatch = 0;
 	bool fAll = FALSE;
@@ -1775,6 +1784,8 @@ void do_ofind( CHAR_DATA *ch, char *argument )
 		send_to_char( "Find what?\n\r", ch );
 		return;
 	}
+
+	output = new_buf();
 
 	/*
 	 * Yeah, so iterating over all vnum's takes 10,000 loops.
@@ -1792,15 +1803,18 @@ void do_ofind( CHAR_DATA *ch, char *argument )
 	 		if ( fAll || is_name( argument, pObjIndex->name ) )
 	 		{
 	 			found = TRUE;
-	 			send_to_char( Format("[%5d] %-20s %-15s\n\r", pObjIndex->vnum, pObjIndex->short_descr, pObjIndex->material), ch );
+	 			sprintf(buf, "[%5d] %-20s %-15s\n\r", pObjIndex->vnum, pObjIndex->short_descr, pObjIndex->material);
+	 			add_buf(output, buf);
 	 		}
 	 	}
 	 }
 
-	 if ( !found )
-	 	send_to_char( "No objects by that name.\n\r", ch );
+	if ( !found )
+		send_to_char( "No objects by that name.\n\r", ch );
 
-	 return;
+	page_to_char(buf_string(output),ch);
+	free_buf(output);
+	return;
 }
 
 

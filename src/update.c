@@ -77,7 +77,7 @@ void advance_level( CHAR_DATA *ch, bool hide )
 	add_move	= number_range( 1, (get_curr_stat(ch,STAT_CON) + get_curr_stat(ch,STAT_DEX))/6 );
 	add_prac	= wis_app[get_curr_stat(ch,STAT_WIS)].practice;
 
-	add_hp	= UMAX(  2, add_hp   );
+	add_hp		= UMAX(  2, add_hp   );
 	add_mana	= UMAX(  2, add_mana );
 	add_move	= UMAX(  6, add_move );
 
@@ -116,6 +116,7 @@ void gain_exp( CHAR_DATA *ch, int gain )
 	{
 		send_to_char( "You raise a level!!  ", ch );
 		ch->level += 1;
+		
 		sprintf(buf,"%s gained level %d",ch->name,ch->level);
 		log_string(buf);
 		sprintf(buf,"$N has attained level %d!",ch->level);
