@@ -3727,64 +3727,64 @@ void spell_poison( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 
 	if (target == TARGET_OBJ)
 	{
-	obj = (OBJ_DATA *) vo;
+		obj = (OBJ_DATA *) vo;
 
-	if (obj->item_type == ITEM_FOOD || obj->item_type == ITEM_DRINK_CON)
-	{
-		if (IS_OBJ_STAT(obj,ITEM_BLESS) || IS_OBJ_STAT(obj,ITEM_BURN_PROOF))
+		if (obj->item_type == ITEM_FOOD || obj->item_type == ITEM_DRINK_CON)
 		{
-		act("Your spell fails to corrupt $p.",ch,obj,NULL,TO_CHAR);
-		return;
-		}
-		obj->value[3] = 1;
-		act("$p is infused with poisonous vapors.",ch,obj,NULL,TO_ALL);
-		return;
-	}
-
-	if (obj->item_type == ITEM_WEAPON)
-	{
-		if (IS_WEAPON_STAT(obj,WEAPON_FLAMING)
-		||  IS_WEAPON_STAT(obj,WEAPON_FROST)
-		||  IS_WEAPON_STAT(obj,WEAPON_VAMPIRIC)
-		||  IS_WEAPON_STAT(obj,WEAPON_SHARP)
-		||  IS_WEAPON_STAT(obj,WEAPON_VORPAL)
-		||  IS_WEAPON_STAT(obj,WEAPON_SHOCKING)
-		||  IS_OBJ_STAT(obj,ITEM_BLESS) || IS_OBJ_STAT(obj,ITEM_BURN_PROOF))
-		{
-		act("You can't seem to envenom $p.",ch,obj,NULL,TO_CHAR);
-		return;
+			if (IS_OBJ_STAT(obj,ITEM_BLESS) || IS_OBJ_STAT(obj,ITEM_BURN_PROOF))
+			{
+				act("Your spell fails to corrupt $p.",ch,obj,NULL,TO_CHAR);
+				return;
+			}
+			obj->value[3] = 1;
+			act("$p is infused with poisonous vapors.",ch,obj,NULL,TO_ALL);
+			return;
 		}
 
-		if (IS_WEAPON_STAT(obj,WEAPON_POISON))
+		if (obj->item_type == ITEM_WEAPON)
 		{
-		act("$p is already envenomed.",ch,obj,NULL,TO_CHAR);
-		return;
+			if (IS_WEAPON_STAT(obj,WEAPON_FLAMING)
+				||  IS_WEAPON_STAT(obj,WEAPON_FROST)
+				||  IS_WEAPON_STAT(obj,WEAPON_VAMPIRIC)
+				||  IS_WEAPON_STAT(obj,WEAPON_SHARP)
+				||  IS_WEAPON_STAT(obj,WEAPON_VORPAL)
+				||  IS_WEAPON_STAT(obj,WEAPON_SHOCKING)
+				||  IS_OBJ_STAT(obj,ITEM_BLESS) || IS_OBJ_STAT(obj,ITEM_BURN_PROOF))
+			{
+				act("You can't seem to envenom $p.",ch,obj,NULL,TO_CHAR);
+				return;
+			}
+
+			if (IS_WEAPON_STAT(obj,WEAPON_POISON))
+			{
+				act("$p is already envenomed.",ch,obj,NULL,TO_CHAR);
+				return;
+			}
+
+			af.where	 = TO_WEAPON;
+			af.type	 = sn;
+			af.level	 = level / 2;
+			af.duration	 = level/8;
+			af.location	 = 0;
+			af.modifier	 = 0;
+			af.bitvector = WEAPON_POISON;
+			affect_to_obj(obj,&af);
+
+			act("$p is coated with deadly venom.",ch,obj,NULL,TO_ALL);
+			return;
 		}
 
-		af.where	 = TO_WEAPON;
-		af.type	 = sn;
-		af.level	 = level / 2;
-		af.duration	 = level/8;
-		af.location	 = 0;
-		af.modifier	 = 0;
-		af.bitvector = WEAPON_POISON;
-		affect_to_obj(obj,&af);
-
-		act("$p is coated with deadly venom.",ch,obj,NULL,TO_ALL);
+		act("You can't poison $p.",ch,obj,NULL,TO_CHAR);
 		return;
-	}
-
-	act("You can't poison $p.",ch,obj,NULL,TO_CHAR);
-	return;
 	}
 
 	victim = (CHAR_DATA *) vo;
 
 	if ( saves_spell( level, victim,DAM_POISON) )
 	{
-	act("$n turns slightly green, but it passes.",victim,NULL,NULL,TO_ROOM);
-	send_to_char("You feel momentarily ill, but it passes.\n\r",victim);
-	return;
+		act("$n turns slightly green, but it passes.",victim,NULL,NULL,TO_ROOM);
+		send_to_char("You feel momentarily ill, but it passes.\n\r",victim);
+		return;
 	}
 
 	af.where     = TO_AFFECTS;
