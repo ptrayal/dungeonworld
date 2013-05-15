@@ -15,8 +15,8 @@ The mighty beholder~
 You meet a beholder's deadly gaze!
 ~
 It has a large central eye that projects an anti-magic ray and ten
-eyestalks atop the round body which can do anything from charm you
-to disintegrate you.  Beholders are not known for their personality.
+eyestalks atop the round body which can do anything from charm you to
+disintegrate you.  Beholders are not known for their personality.  
 ~
 human~
 ABFHR D -870 0
@@ -24,14 +24,14 @@ ABFHR D -870 0
 -6 -6 -6 2
 FU 0 0 0
 stand stand none 1128
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK large flesh
 #5201
 lamia beast~
 The lamia~
 A strange lamia stands here waiting for her next meal.
 ~
-This is a creature with the upper torso of a beautiful woman, but the lower
-body of a four-legged beast.  She licks her lips as she looks at you greedily.
+This creature's upper torso is that of a comely woman with cat's eyes and
+sharp fangs, while her lower body is that of a lion.  
 ~
 human~
 ACFG 0 -999 0
@@ -39,7 +39,7 @@ ACFG 0 -999 0
 2 2 2 8
 EFNU 0 0 0
 stand stand female 50
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK large flesh
 #5202
 mimic chest~
 The mimic~

@@ -14,8 +14,8 @@ wyvern~
 the wyvern~
 A monstrous wyvern slowly circles just above your head.
 ~
-This huge winged creature looks really menacing.  You are happy it doesn't
-APPEAR to be very hungry ... yet.
+A dark blue dragon, its wings immense and its tail tipped with a hooked
+stinger, lands on two taloned feet and roars a challenge.  
 ~
 wyvern~
 AG DFT -200 0
@@ -23,7 +23,7 @@ AG DFT -200 0
 5 4 5 6
 CDFHNR L 0 S
 stand stand either 0
-ABZ ACDEFHJKQVX huge unknown
+ABZ ACDEFHJKQVX large flesh
 #3501
 goblin mountain~
 the goblin~
@@ -1022,6 +1022,11 @@ return to the forest.
 ~
 0 0 3
 E
+sign~
+The sign reads:
+   The Woodsman
+~
+E
 credits credit author~
 +-------------------------------------------------+
 | This zone originally written for Copper II DIKU |
@@ -1029,11 +1034,6 @@ credits credit author~
 | Modification and alterations for MERCmud DIKU   |
 |   by VampLestat                        1 JAN 93 |
 +-------------------------------------------------+
-~
-E
-sign~
-The sign reads:
-   The Woodsman
 ~
 D0
 You can go north around the inn.

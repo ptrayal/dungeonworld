@@ -10,13 +10,13 @@ End
 
 #MOBILES
 #7800
-oldstyle dog cooshee~
+dog cooshee~
 a cooshee~
 A rather large dog is here, wandering the valley.
 ~
-A beast is the size of the largest common dog.  It has a greenish coat with
-brown spots.  Its shape, along with its colors, make this cooshee almost
-undetectable as it moves.
+A beast is the size of the largest common dog.  It has a greenish coat
+with brown spots.  Its shape, along with its colors, make this cooshee
+almost undetectable as it moves.  
 ~
 dog~
 AGH P 0 0
@@ -24,7 +24,7 @@ AGH P 0 0
 5 5 5 9
 EFHNR 0 0 0
 stand stand none 0
-AGV ACDEFHJKUV medium unknown
+AG ACDEFHJKUV medium flesh
 #7801
 oldstyle elf valley~
 a valley elf~
@@ -149,12 +149,12 @@ FR 0 B Z
 stand stand female 0
 AHMV ABCDEFGHIJK medium unknown
 #7809
-oldstyle pyrohydra pyro hydra~
+pyrohydra pyro hydra~
 the pyrohydra~
 A big beast with many heads, each breathing fire, stares at you with malice.
 ~
-This big beast looks like a small red dragon, but has many more heads than a
-regular dragon, too.  It doesn't look happy.
+This big beast looks like a small red dragon, but has many more heads
+than a regular dragon, too.  It doesn't look happy.  
 ~
 human~
 ABF 0 0 0
@@ -162,7 +162,7 @@ ABF 0 0 0
 -4 -4 -4 7
 EFNU 0 0 0
 stand stand none 0
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK huge unknown
 #7810
 oldstyle hermit man old~
 an old hermit~
@@ -178,7 +178,7 @@ EFNU 0 0 0
 stand stand male 0
 AHMV ABCDEFGHIJK medium unknown
 #7811
-oldstyle talemon wizard mage~
+talemon wizard mage~
 Talemon~
 An old mage busies himself with some chemicals.
 ~
@@ -186,11 +186,11 @@ Talemon looks harmless, but the fireballs he throws at you don't.
 ~
 human~
 ABCFR 0 0 0
-25 0 5d10+500 25d9+100 4d4+6 none
+25 0 5d10+500 25d9+100 4d4+6 pound
 -6 -6 -6 2
 FU 0 0 0
 stand stand male 50
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #7812
 oldstyle guardian daemon~
 the guardian daemon~
@@ -207,7 +207,7 @@ EFNU 0 0 0
 stand stand none 0
 AHMV ABCDEFGHIJK medium unknown
 #7813
-oldstyle wolf~
+wolf~
 a wolf~
 A wolf is here, looking for small prey.
 ~
@@ -215,11 +215,11 @@ The wolf is covered with brown hair.  It looks at you with fright.
 ~
 wolf~
 AFH Z 0 0
-4 0 2d7+46 2d9+100 1d5+1 none
+4 0 2d7+46 2d9+100 1d5+1 bite
 6 6 6 9
 EFHNR 0 0 0
 stand stand none 0
-AGV ACDEFJKQV medium unknown
+AG ACDEFJKQV medium flesh
 #7814
 oldstyle antelope~
 an antelope~

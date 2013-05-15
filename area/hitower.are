@@ -793,12 +793,13 @@ FU 0 0 0
 stand stand male 336
 AHMV ABCDEFGHIJK medium unknown
 #1355
-oldstyle cat grey familiar~
+cat grey familiar~
 a grey cat~
 A grey cat is lounging lazily here.
 ~
 The grey cat cocks an ear towards you, sensing your scrutiny, then purrs
-contentedly.  It looks rather harmless, until you notice its very large claws.
+contentedly.  It looks rather harmless, until you notice its very large
+claws.  
 ~
 cat~
 ABGR BPZ 0 0
@@ -806,7 +807,7 @@ ABGR BPZ 0 0
 -1 -1 -1 5
 FHR 0 0 0
 stand stand female 0
-AGV ACDEFHJKQUV medium unknown
+AG ACDEFHJKQUV medium flesh
 #1356
 oldstyle master guildmaster grey~
 the master of Neutrality~
@@ -838,12 +839,12 @@ FU 0 0 0
 stand stand female 693
 AHMV ABCDEFGHIJK medium unknown
 #1358
-oldstyle cat black familiar~
+cat black familiar~
 a black cat~
 A black cat with its fur up hisses at you.
 ~
 It looks both mean and dangerous.  Petting seems to be completely out of
-the question.
+the question.  
 ~
 cat~
 ABGR DPZ -800 0
@@ -851,7 +852,7 @@ ABGR DPZ -800 0
 -2 -2 -2 4
 FHR 0 0 0
 stand stand none 0
-AGV ACDEFHJKQUV medium unknown
+AG ACDEFHJKQUV medium flesh
 #1359
 oldstyle master guildmaster black~
 the master of the black robes~
@@ -882,11 +883,11 @@ FU 0 0 0
 stand stand male 370
 AHMV ABCDEFGHIJK medium unknown
 #1361
-oldstyle cat white familiar~
+cat white familiar~
 a white cat~
 A white cat is here preening its fur.
 ~
-It seems to be nothing more than a large ball of fluff with claws.
+It seems to be nothing more than a large ball of fluff with claws.  
 ~
 cat~
 ABGR DPZ 800 0
@@ -894,7 +895,7 @@ ABGR DPZ 800 0
 -1 -1 -1 5
 FHR 0 0 0
 stand stand none 0
-AGV ACDEFHJKQUV medium unknown
+AG ACDEFHJKQUV medium flesh
 #1362
 oldstyle master guildmaster white~
 The master of goodness~
@@ -910,12 +911,12 @@ FU 0 0 0
 stand stand male 1095
 AHMV ABCDEFGHIJK medium unknown
 #1363
-oldstyle cat calico familiar~
+cat calico familiar~
 A calico cat~
 A large calico cat is here
 ~
-It looks incredibly large for a cat, no doubt a giant of its species.
-A beautiful jewel encrusted collar about its neck is its only adornment.
+It looks incredibly large for a cat, no doubt a giant of its species.  A
+beautiful jewel encrusted collar about its neck is its only adornment.  
 ~
 cat~
 ABGR DPZ 800 0
@@ -923,7 +924,7 @@ ABGR DPZ 800 0
 -6 -6 -6 2
 FHR 0 0 0
 stand stand female 0
-AGV ACDEFHJKQUV medium unknown
+AG ACDEFHJKQUV medium flesh
 #1364
 oldstyle guildmaster grand mistress~
 The Grand Mistress~
@@ -1106,9 +1107,9 @@ weapon 0 AN
 sword 1 8 slash 0
 6 80 720 P
 A
-19 2
-A
 18 1
+A
+19 2
 #1318
 dagger silver~
 a silver dagger~
@@ -1118,9 +1119,9 @@ weapon 0 AN
 dagger 3 4 pierce 0
 10 50 970 P
 A
-19 2
-A
 18 2
+A
+19 2
 #1319
 scimitar~
 a curved scimitar~
@@ -1260,9 +1261,9 @@ clothing G AE
 0 0 0 0 0
 7 40 1140 P
 A
-4 1
-A
 3 1
+A
+4 1
 #1336
 altar~
 a golden altar~
@@ -1280,9 +1281,9 @@ jewelry GI AC
 0 0 0 0 0
 13 30 2200 P
 A
-5 -1
-A
 4 2
+A
+5 -1
 #1338
 chest~
 a large chest~
@@ -1318,9 +1319,9 @@ clothing 0 AC
 0 0 0 0 0
 35 50 4300 P
 A
-20 -3
-A
 17 -5
+A
+20 -3
 #1342
 chameleon poncho~
 a chameleon poncho~
@@ -1330,9 +1331,9 @@ clothing G AK
 0 0 0 0 0
 17 40 3600 P
 A
-17 -3
-A
 2 2
+A
+17 -3
 #1343
 boots worn~
 a pair of old boots~
@@ -1392,9 +1393,9 @@ trash GH A
 0 0 0 0 0
 0 150 0 P
 A
-14 -82
-A
 12 -100
+A
+14 -82
 #1357
 dagger silvery~
 a silvery dagger~
@@ -1560,9 +1561,9 @@ weapon AG AN
 dagger 3 6 pierce 0
 20 60 2100 P
 A
-19 2
-A
 2 1
+A
+19 2
 #1377
 pouch belt beltpouch~
 a beltpouch~
@@ -1588,9 +1589,9 @@ clothing GJ AC
 0 0 0 0 0
 26 50 2900 P
 A
-20 -2
-A
 17 -6
+A
+20 -2
 #1380
 wand ashen~
 an ashen wand~
@@ -1616,9 +1617,9 @@ container GJKY AK
 50 0 0 10 75
 26 80 2900 P
 A
-20 -2
-A
 17 -6
+A
+20 -2
 #1383
 cloak grey~
 a long grey cloak~
@@ -1628,9 +1629,9 @@ clothing GJK AC
 0 0 0 0 0
 29 70 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1384
 bracelet silver~
 a glinting silver bracelet~
@@ -1670,9 +1671,9 @@ container GJLY AK
 50 0 0 10 75
 22 80 2400 P
 A
-20 -2
-A
 17 -5
+A
+20 -2
 #1388
 bracelet onyx~
 an onyx bracelet~
@@ -1692,9 +1693,9 @@ clothing GJL AC
 0 0 0 0 0
 29 80 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1390
 shard black obsidian~
 a sharp shard of obsidian~
@@ -1714,9 +1715,9 @@ container GKLY AK
 50 0 0 10 75
 22 70 2400 P
 A
-20 -2
-A
 17 -5
+A
+20 -2
 #1392
 bracelet white gold~
 a white gold bracelet~
@@ -1736,9 +1737,9 @@ clothing GIKL AC
 0 0 0 0 0
 29 70 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1394
 ivory dagger~
 an ivory hilted dagger~
@@ -1748,9 +1749,9 @@ weapon GIK AN
 dagger 3 4 pierce 0
 27 10 2100 P
 A
-19 2
-A
 18 1
+A
+19 2
 #1395
 collar spiked~
 a spiked collar~
@@ -1760,9 +1761,9 @@ armor G AC
 B B B 0 0
 20 90 1970 P
 A
-19 2
-A
 17 -2
+A
+19 2
 #1396
 cloak shimmering~
 a shimmering cloak of many colors~
@@ -1772,9 +1773,9 @@ armor AGY AC
 0 0 0 0 0
 50 80 10800 P
 A
-20 -4
-A
 17 -12
+A
+20 -4
 #1397
 emerald ring~
 a small emerald ring~
@@ -1794,9 +1795,9 @@ jewelry G AM
 0 0 0 0 0
 20 50 2200 P
 A
-3 1
-A
 17 -5
+A
+3 1
 #1399
 ward major clear crystal~
 a ward major~
@@ -1806,9 +1807,9 @@ gem AG AO
 0 0 0 0 0
 40 60 5100 P
 A
-20 -2
-A
 17 -10
+A
+20 -2
 #1400
 ebony kris~
 the ebony kris~
@@ -1818,9 +1819,9 @@ weapon G AN
 dagger 6 6 pierce 0
 46 30 10700 P
 A
-19 5
-A
 2 2
+A
+19 5
 #1401
 green scale shirt~
 a tight fitting green dragon scale shirt~
@@ -1830,9 +1831,9 @@ armor G AD
 BD BD BD AC 0
 37 90 17800 P
 A
-17 -5
-A
 2 3
+A
+17 -5
 E
 green scale shirt~
 Green dragon scale shirt was made from a poor unfortunate green dragon.
@@ -1898,16 +1899,16 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1307
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1304
 D3
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1303
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1304
 D1
 The shadows cloud your vision.
 ~
@@ -1922,26 +1923,26 @@ sounds moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-You see a small clearing in the shadows.
-~
-(null)~
-0 -1 1311
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1305
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1303
 D3
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1301
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1305
+D0
+You see a small clearing in the shadows.
+~
+(null)~
+0 -1 1311
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1303
 S
 #1303
 The Shadow Grove~
@@ -1956,11 +1957,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1301
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1302
 D0
 The shadows cloud your vision.
 ~
@@ -1971,6 +1967,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1306
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1302
 S
 #1304
 The Shadow Grove~
@@ -1980,11 +1981,6 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1307
 D0
 The shadows cloud your vision.
 ~
@@ -2000,6 +1996,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1305
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1307
 S
 #1305
 The Shadow Grove~
@@ -2014,11 +2015,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1302
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1304
 D2
 The shadows cloud your vision.
 ~
@@ -2029,6 +2025,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1306
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1304
 S
 #1306
 The Shadow Grove~
@@ -2038,26 +2039,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1305
-D1
-You see a shadowy tavern.
-~
-(null)~
-0 -1 9301
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
 D0
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1303
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1309
+D1
+You see a shadowy tavern.
+~
+(null)~
+0 -1 9301
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1305
 S
 #1307
 The Shadow Grove~
@@ -2067,26 +2068,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
 D1
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1308
-D0
+D3
 The shadows cloud your vision.
 ~
 (null)~
-0 -1 1304
+0 -1 1309
 D2
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1301
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1304
 S
 #1308
 The Shadow Grove~
@@ -2096,26 +2097,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1305
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1307
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1300
 D1
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1309
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1307
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1305
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1300
 S
 #1309
 The Shadow Grove~
@@ -2125,26 +2126,26 @@ sounds of moaning and growling come from all directions.
   All directions lead into shadows, you are very confused.
 ~
 0 8193 3
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1303
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1306
 D3
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1308
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1303
 D1
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1307
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1306
 S
 #1311
 A small clearing~
@@ -3534,26 +3535,26 @@ Nice going!  You might as well wait here until the wizard who built this
 trap comes back to imprison your soul as well as your body.
 ~
 0 8200 0
-D2
-(null)~
-(null)~
-0 0 9141
-D1
-(null)~
-(null)~
-0 0 5113
-D3
-(null)~
-(null)~
-0 0 7428
-D4
-(null)~
-(null)~
-0 0 938
 D5
 (null)~
 (null)~
 0 0 3460
+D2
+(null)~
+(null)~
+0 0 9141
+D4
+(null)~
+(null)~
+0 0 938
+D3
+(null)~
+(null)~
+0 0 7428
+D1
+(null)~
+(null)~
+0 0 5113
 S
 #1393
 A hallway~

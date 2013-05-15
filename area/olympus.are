@@ -194,20 +194,20 @@ EFNU 0 0 0
 stand stand male 25
 AHMV ABCDEFGHIJK medium unknown
 #913
-oldstyle hound dog war~
+hound dog war~
 A hound of war~
 A large hound snarls at you.
 ~
-This great beast can barely be called a dog.  It has been bred to cause fear
-on the battle field, and you have no doubt that it does its job well.
+This great beast can barely be called a dog.  It has been bred to cause
+fear on the battle field, and you have no doubt that it does its job well.  
 ~
-human~
+dog~
 ABCF BDFHT -600 0
 35 0 10d10+1300 17d9+100 4d7+11 none
 -11 -11 -11 5
-EFNU 0 0 0
+EFHNU 0 0 0
 stand stand none 0
-AHMV ABCDEFGHIJK medium unknown
+AG ABCDEFGHIJKUV medium flesh
 #914
 oldstyle Odin~
 Odin~
@@ -304,12 +304,12 @@ EFHNR 0 0 0
 stand stand male 5000
 AGV ACDEFHJK medium unknown
 #920
-oldstyle chimera~
+chimera~
 a chimera~
 A chimera prowls the cell.
 ~
-This bizarre creature has three heads - one of a goat, one of a lion, and one
-of a dragon.  It growls at you as you enter the cell, then suddenly attacks!
+This winged monster has the body of a lion, though two more heads flank
+its central feline one - a dragon and a horned goat.  
 ~
 human~
 ABCF BDFHT -1000 0
@@ -317,7 +317,7 @@ ABCF BDFHT -1000 0
 -11 -11 -11 5
 EFNU 0 0 0
 stand stand male 50
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK large flesh
 #921
 oldstyle hera~
 Hera~
@@ -430,9 +430,9 @@ weapon FGK AN
 mace 7 6 blast G
 50 240 5400 P
 A
-18 3
-A
 4 -1
+A
+18 3
 #902
 helmet winged~
 a Winged Helmet~
@@ -452,9 +452,9 @@ weapon FGJ AN
 staff 5 8 thrust 0
 48 180 2000 P
 A
-19 2
-A
 18 2
+A
+19 2
 #904
 sandals winged~
 a pair of winged sandals~
@@ -492,9 +492,9 @@ weapon FGK AN
 exotic 6 7 pierce F
 47 150 10300 P
 A
-19 1
-A
 18 1
+A
+19 1
 #908
 gauntlets flaming~
 flaming gauntlets~
@@ -532,9 +532,9 @@ jewelry FGK AB
 0 0 0 0 0
 35 10 6900 P
 A
-19 3
-A
 4 2
+A
+19 3
 #912
 shield glowing~
 a brightly glowing shield~

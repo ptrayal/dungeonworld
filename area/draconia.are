@@ -18,14 +18,12 @@ This small dragon hisses at you as you enter the room.  Although it is only a
 few feet long, its sharp teeth make you think twice about petting it.
 ~
 dragon~
-ABG JT -900 0
+ABG JTZ -900 0
 7 0 2d6+85 3d9+100 1d8+1 none
 4 4 4 9
 EFNU 0 BE F
 stand stand none 100
 AHZ ACDEFGHIJKPQUVX medium unknown
-F res H
-F vul I
 #2201
 oldstyle draconian~
 the Draconian~
@@ -158,13 +156,12 @@ This huge red dragon dominates the chamber.  As you turn to flee, he grins at
 you and invites you to stay ... forever! 
 ~
 dragon~
-ABCF DFJT -1000 0
+ABCF DFJTZ -1000 0
 45 0 25d10+3000 22d9+100 8d4+16 none
 -15 -15 -15 4
 EFNR H BE FI
 stand stand male 500
 AHZ ACDEFGHIJKPQUVX medium unknown
-F res H
 #2222
 oldstyle dragon black~
 the Great Black Dragon~
@@ -174,14 +171,12 @@ This huge black wyrm laughs at your puny weapons.  You realize that he is not
 going to roll over and die for you.
 ~
 dragon~
-ABCF DFJT -900 0
+ABCF DFJTZ -900 0
 39 0 15d10+1700 19d9+100 5d6+13 none
 -13 -13 -13 5
 EFNR K BE FJ
 stand stand male 1000
 AHZ ACDEFGHIJKPQUVX medium unknown
-F res H
-F vul I
 #2223
 oldstyle dragon white~
 the Great White Dragon~
@@ -192,14 +187,12 @@ dragons, you are not afraid.  She smiles at you and says 'I think you will find
 me a greater challenge than my offspring.'
 ~
 dragon~
-ABCF DFJT -1000 0
+ABCF DFJTZ -1000 0
 37 0 10d10+1500 18d9+100 3d10+12 none
 -12 -12 -12 5
 EFNR I BE FH
 stand stand female 1750
 AHZ ACDEFGHIJKPQUVX medium unknown
-F res H
-F vul I
 #2225
 oldstyle dragon green~
 the Ancient Green Dragon~
@@ -210,21 +203,19 @@ She looks at you with sorrow in her eyes and says 'You have slaughtered my
 children.  Prepare to die.'
 ~
 dragon~
-ABCF DFJT -1000 0
+ABCF DFJTZ -1000 0
 41 0 25d10+2000 20d9+100 4d8+14 none
 -14 -14 -14 4
 EFNR L BE FP
 stand stand female 1000
 AHZ ACDEFGHIJKPQUVX medium unknown
-F res H
-F vul I
 #2226
 oldstyle hydra~
 a large hydra~
 A hydra is here, blocking the doorway. 
 ~
-A hydra is here, guarding the entrance to a sealed vault.  You have the feeling
-it isn't happy to see you.
+A hydra is here, guarding the entrance to a sealed vault.  You have the
+feeling it isn't happy to see you.  
 ~
 human~
 ABCF DF -800 0
@@ -232,7 +223,7 @@ ABCF DF -800 0
 -3 -3 -3 7
 EFNU 0 0 0
 stand stand none 250
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK huge flesh
 #2227
 oldstyle slave human~
 A human slave~
@@ -271,7 +262,7 @@ A Phase Dragon is darting around the room.
 This small dragon looks like he's up to no good. 
 ~
 dragon~
-ACFGH DFJT -300 0
+ACFGH DFJTZ -300 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNR 0 BEH FI
@@ -339,9 +330,9 @@ weapon 0 AN
 dagger 5 5 pierce 0
 30 80 3200 P
 A
-2 1
-A
 19 2
+A
+2 1
 #2203
 bracelet dragon~
 a dragon skin bracelet~
@@ -423,9 +414,9 @@ jewelry 0 AB
 0 0 0 0 0
 37 60 6800 P
 A
-18 3
-A
 19 3
+A
+18 3
 #2230
 ring copper~
 a copper ring~
@@ -554,7 +545,7 @@ potion 0 A
 potion magenta~
 a magenta potion~
 A magenta potion.~
-oldstyle~
+glass~
 potion H A
 30 'cure critical' 'protection evil' '' ''
 7 10 600 P
@@ -567,9 +558,9 @@ armor AG AH
 C C C 0 0
 20 100 2500 P
 A
-19 2
-A
 1 1
+A
+19 2
 #2260
 scimitar golden~
 a golden scimitar~
@@ -579,9 +570,9 @@ weapon A AN
 sword 3 5 slash 0
 16 100 2500 P
 A
-3 1
-A
 4 1
+A
+3 1
 #2261
 brooch diamond~
 a diamond brooch~
@@ -629,9 +620,9 @@ armor 0 AK
 BC BC BC A 0
 16 100 1910 P
 A
-1 1
-A
 13 10
+A
+1 1
 #2280
 leggings dragon scale~
 a pair of dragon scale leggings~
@@ -657,9 +648,9 @@ weapon BJ AN
 whip 4 5 whip 0
 24 140 1530 P
 A
-18 2
-A
 19 2
+A
+18 2
 #2286
 hammer copper~
 a copper hammer~
@@ -756,12 +747,12 @@ You trudge down the hallway.  You notice doors to the east and west.
 ~
 0 8 0
 E
-sign~
-The sign says "NURSERY" in bold letters.     
-~
-E
 inscription~
 It says "STORAGE"
+~
+E
+sign~
+The sign says "NURSERY" in bold letters.     
 ~
 D0
 The hall continues. 
@@ -1375,17 +1366,17 @@ path leads up the mountain.  The small opening is back to the north.
 ~
 0 0 2
 E
-well~
-You peer over the side of the well.  It looks VERY, VERY deep.  It appears
-to be ENDLESS.
-~
-E
 sign~
 The sign reads:
          This is a bottomless pit cleverly disguised as a well.  People have
 fallen in and never been heard from again.  Trust me, you don't want to go 
 down there.
                         The All Powerful Well Keeper
+~
+E
+well~
+You peer over the side of the well.  It looks VERY, VERY deep.  It appears
+to be ENDLESS.
 ~
 D0
 the small opening

@@ -131,9 +131,9 @@ armor G AG
 AB AB AB 0 0
 13 100 2800 P
 A
-2 2
-A
 20 1
+A
+2 2
 #9102
 bronze bracer~
 A carved bronze bracer~
@@ -151,14 +151,14 @@ jewelry F AC
 0 0 0 0 0
 7 100 1140 P
 A
-3 1
-A
 4 1
+A
+3 1
 #9104
 magenta potion~
 magenta potion~
 Bright magenta potion gathers dust.~
-oldstyle~
+glass~
 potion J AO
 8 'armor' 'cure light' 'poison' ''
 3 20 320 P

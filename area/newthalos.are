@@ -565,18 +565,19 @@ stand stand male 11
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9543
-oldstyle alley cat feline~
+alley cat feline~
 the alley cat~
-A small harmless feline searches for food.~
-You see a small starved cat.~
-human~
-ACHU 0 -10 0
+A small, harmless feline searches for food
+~
+You see a small starved cat.  
+~
+cat~
+ACHU Z -10 0
 2 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 EFNU 0 0 0
 stand stand male 1
-AHMV ABCDEF tiny unknown
-F par GHIJK
+AG ABCDEFHJKQUV tiny flesh
 #9544
 oldstyle vulture~
 the vulture~
@@ -617,10 +618,12 @@ sit sit male 345
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9547
-oldstyle dirt devil~
+dirt devil~
 the dirt devil~
-The wind kicks up some dust.~
-What you see before you is really a baby air elemental.~
+The wind kicks up some dust.
+~
+What you see before you is really a baby air elemental.  
+~
 human~
 ACFU 0 -1000 0
 1 0 2d6+10 0d9+100 1d4+0 none
@@ -630,30 +633,35 @@ stand stand male 1
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9548
-oldstyle lamia~
+lamia~
 the lamia~
-A lamia stands here.~
-A half snake half woman creature rears back to attack you.~
+A lamia stands here.
+~
+This creature's upper torso is that of a comely woman with cat's eyes and
+sharp fangs, while her lower body is that of a lion.  
+~
 human~
 ACFRT 0 -500 0
 8 0 2d6+85 8d9+100 1d6+1 none
 4 4 4 7
 FU 0 0 0
 stand stand female 18
-AHMV ABCDEF tiny unknown
+AHMV ABCDEF large flesh
 F par GHIJK
 #9549
-oldstyle dervish~
+dervish~
 the raggety dervish~
-A raggety dervish stands here.~
-This man looks like he could use a lot of rest.~
+A raggety dervish stands here.
+~
+This man looks like he could use a lot of rest.  
+~
 human~
 AEFR U -750 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNU 0 0 0
 stand stand male 30
-AHMV ABCDEF tiny unknown
+AHMV ABCDEF medium flesh
 F par GHIJK
 #9550
 oldstyle sultan~
@@ -941,17 +949,19 @@ EFNR 0 HI JP
 stand stand none 18
 AHMVa ABCDEFGHIJK tiny unknown
 #9572
-oldstyle dog death~
+dog death~
 the death dog~
-The death dog stands here.~
-A large two-headed hound barks at you viciously.~
+The death dog stands here.
+~
+A large two-headed hound barks at you viciously.  
+~
 dog~
 AFGU 0 0 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFHNR 0 0 0
 stand stand none 18
-AGV ACDEFHJKUV tiny unknown
+AG ACDEFHJKUV medium flesh
 #9573
 oldstyle lion spotted~
 the spotted lion~
@@ -979,17 +989,20 @@ stand stand male 60
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9575
-oldstyle chimera~
+chiemra~
 the chimera~
-A creature with three heads: lion, goat, and dragon stands here.~
-The chimera is still a mystery, better left unexplored. This creature hasthe hindquarters of a goat, the forepaws of a lion and the body of a reddragon.~
+A creature with three heads is here.
+~
+This winged monster has the body of a lion, though two more heads flank
+its central feline one - a dragon and a horned goat.  
+~
 human~
 ABFT D -500 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNU 0 0 0
 stand stand male 30
-AHMV ABCDEF tiny unknown
+AHMV ABCDEF large flesh
 F par GHIJK
 #9576
 oldstyle couatl~
@@ -1992,9 +2005,9 @@ armor G AG
 A A A 0 0
 7 10 770 P
 A
-14 10
-A
 2 1
+A
+14 10
 #9598
 daemon claw~
 claws of the Daemon~
@@ -2022,9 +2035,9 @@ weapon GI AN
 polearm 3 7 chop F
 22 160 1240 P
 A
-19 2
-A
 18 2
+A
+19 2
 #9601
 fountain water~
 a fountain~
@@ -2071,17 +2084,17 @@ The Reception Area~
 You are now standing in the reception of New Thalos. A huge mahoganydesk is here along with two sofas and a coffee table covered in magazines.The plush carpeting under your feet is a nice change from the rugged pathsyou are used to travelling. A chrome stairway spirals downstairs to thetavern of the Dancing Daemon Inn, and your future adventures in New Thalos.~
 0 124 0
 E
-1.1picture~
-You see a picture of Felix here, standing before the arena.He seems to be doing a body count.~
-E
-2.picture~
-You see a picture of Shark standing behind his desk screaming at a newbie.Through a window in the back you see a large aquarium. The newbie seems tobe cowering in fear.~
+4.picture~
+You see a picture of Loki... at least you think it's Loki.He seems to be hiding from the camera.~
 E
 3.picture~
 You see a picture of Hammor on the front porch of the Danjerhaus,drinking a guinness stout and petting Big Guy the Cat.~
 E
-4.picture~
-You see a picture of Loki... at least you think it's Loki.He seems to be hiding from the camera.~
+2.picture~
+You see a picture of Shark standing behind his desk screaming at a newbie.Through a window in the back you see a large aquarium. The newbie seems tobe cowering in fear.~
+E
+1.1picture~
+You see a picture of Felix here, standing before the arena.He seems to be doing a body count.~
 D5
 The stairs lead down to the Daemon.~
 (null)~
@@ -2256,7 +2269,9 @@ D3
 S
 #9511
 Outside the Southern Gate of New Thalos~
-You see before you the expanse of the Sands of Sorrow.  The shifting sands stretch on endlessly to the south, hiding treasure and adventure.~
+You see before you the expanse of the Sands of Sorrow.  The shifting
+sands stretch on endlessly to the south, hiding treasure and adventure.  
+~
 0 0 1
 D0
 (null)~
@@ -3915,11 +3930,11 @@ The Butchary~
 This shop has the aroma of freshly slaughterd beasts.  You feel right at home.You see a fairly simple set up.  The corpses..er...selections hang on hooks,still bleeding into catch pans that drain into a single underground vat.You wonder where that leads....  Taped to the counter, almost obscured byblood, there is a barely readable sign.~
 0 120 0
 E
-note sign~
-LIST : gives you a list of items for sale.VALUE : tells you how much an item is worthSELL : sells an item to Butch for a generous sumBUY : Butch's FAVORITE command lets you have an item for his low low price.                                        NEWBEE INTRUCTOR COMMITEE~
-E
 vat~
 You think you hear noises from the vat....nah.~
+E
+note sign~
+LIST : gives you a list of items for sale.VALUE : tells you how much an item is worthSELL : sells an item to Butch for a generous sumBUY : Butch's FAVORITE command lets you have an item for his low low price.                                        NEWBEE INTRUCTOR COMMITEE~
 D3
 (null)~
 (null)~
@@ -4584,11 +4599,11 @@ Guest Room~
 This is a simple room used for visiting noblemen. A small dresser standson the east wall with a mirror hung right above it. A queen sized bed madeup in satin sheets stands in the middle of the room against the southwall under a window. The only obvious exit is north back out into thehallway.~
 0 8 0
 E
-mirror~
-You see a the fighting image of some armor clad humanoid wielding a weapon.~
-E
 window~
 Looking out this window you can see the grounds of the palace thatseperate the walls of the palace from the building itself.~
+E
+mirror~
+You see a the fighting image of some armor clad humanoid wielding a weapon.~
 D0
 (null)~
 (null)~

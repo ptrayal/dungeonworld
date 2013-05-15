@@ -15,28 +15,28 @@ the Elven Wizard~
 An Elven Wizard is here, creating fireworks for the festivities.
 ~
 The Elven Wizard looks at you in a solemn sort of way.  His gaze seems to
-penetrate through your innermost being.  He is wearing a silvery cloak
-and holding a multi-colored staff.  Although he appears to be older
-than the oldest man, he seems to have an inner strength which most mortals
-cannot overcome.
+penetrate through your innermost being.  He is wearing a silvery cloak and
+holding a multi-colored staff.  Although he appears to be older than the
+oldest man, he seems to have an inner strength which most mortals cannot
+overcome.  
 ~
-human~
-ABGR D 500 0
-18 0 3d9+258 18d9+100 2d6+3 none
+elf~
+ABGR DJ 500 0
+18 0 3d9+258 18d9+100 2d6+3 pound
 -3 -3 -3 4
-FU 0 0 0
+FU 0 B Z
 stand stand male 105
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #1101
-oldstyle ring keeper~
+ring keeper~
 the Keeper of the Ring~
 The Keeper of the Ring is here, guarding his treasure jealously.
 ~
-The Ring Keeper is a rather big but short halfling.  His short stature and
-bulbous nose belie his true nature.  An elven sword that glows with a blue
-light hangs from his belt, and on his finger you see the One Ring.  Although
-usually a halfling of peace, he will fight you to the death if you attempt
-to take away that which belongs to him.
+The Ring Keeper is a rather big but short halfling.  His short stature
+and bulbous nose belie his true nature.  An elven sword that glows with a
+blue light hangs from his belt, and on his finger you see the One Ring. 
+Although usually a halfling of peace, he will fight you to the death if you
+attempt to take away that which belongs to him.  
 ~
 human~
 ABGS BDF 0 0
@@ -44,7 +44,7 @@ ABGS BDF 0 0
 -4 -4 -4 6
 BEFJNU 0 0 0
 stand stand male 61
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #1102
 oldstyle farmer gamgee~
 Farmer Gamgee~
@@ -203,14 +203,14 @@ CDEIKLU 0 0 0
 sit sit male 2
 AHMV ABCDEFGHIJK medium unknown
 #1112
-oldstyle thain~
+thain~
 the Thain~
 The Thain commands respect from all Shire folk.
 ~
 A personable yet serious halfling, the Thain looks at you and yells a
-deep 'Hullo'.  He walks about comfortably, secure in the knowledge that
-as long as he's in office, the Shire will always remain a safe haven for
-Shire folk.
+deep 'Hullo'.  He walks about comfortably, secure in the knowledge that as
+long as he's in office, the Shire will always remain a safe haven for Shire
+folk.  
 ~
 human~
 AGT 0 400 0
@@ -218,7 +218,7 @@ AGT 0 400 0
 -1 -1 -1 8
 CDEIKLU 0 0 0
 sit sit male 25
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #1113
 oldstyle innkeeper~
 the Innkeeper~
@@ -267,37 +267,37 @@ EFNU 0 0 0
 stand stand male 2
 AHMV ABCDEFGHIJK medium unknown
 #1116
-oldstyle elven warrior~
+elven warrior~
 the elven warrior~
 The elven warrior watches you solemnly.
 ~
-The tall elven warrior is light and fair-skinned.  The expression that he wears
-on his countenance is solemn and tragic.  He cares not for this world any
-longer and wearies of it.
+The tall elven warrior is light and fair-skinned.  The expression that he
+wears on his countenance is solemn and tragic.  He cares not for this world
+any longer and wearies of it.  
 ~
-human~
-ABR 0 600 0
-17 0 3d9+233 17d9+100 1d12+3 none
+elf~
+ABR J 600 0
+17 0 3d9+233 17d9+100 1d12+3 pound
 -2 -2 -2 4
-FU 0 0 0
+FU 0 B Z
 sit sit male 25
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #1117
-oldstyle dwarven prince~
+dwarven prince~
 the dwarven prince~
 The dwarven prince sits here patiently for the return of his king.
 ~
 Grim and cold, the dwarven prince is quite strong and bulky, even for the
 dwarves of his land.  His glowing eyes peer out of his bushy face and stare
-beyond your gaze.
+beyond your gaze.  
 ~
-human~
-ABQ 0 200 0
-17 0 3d9+258 17d9+100 2d6+4 none
+dwarf~
+ABQ J 200 0
+17 0 3d9+258 17d9+100 2d6+4 pound
 -3 -3 -3 6
-EIKU 0 0 0
+EIKU 0 LQ R
 sit sit male 35
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #1118
 oldstyle shopkeeper~
 the shopkeeper~
@@ -359,12 +359,12 @@ CDEIKLU 0 0 0
 stand stand male 75
 AHMV ABCDEFGHIJK medium unknown
 #1122
-oldstyle halfling youth~
+halfling youth~
 a halfling youth~
 A halfling youth stands here, waiting for nothing in particular.
 ~
 The halfling youth is not yet quite in the prime of his youth.  He's knee
-high and you get the sudden urge to step on him.
+high and you get the sudden urge to step on him.  
 ~
 human~
 AGHS DF 0 0
@@ -372,7 +372,7 @@ AGHS DF 0 0
 8 8 8 10
 BEFJNU 0 0 0
 stand stand male 0
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK small flesh
 #1123
 oldstyle seasoned adventurer~
 a seasoned adventurer~
@@ -528,11 +528,11 @@ light G A
 A
 4 1
 #1101
-sting~
-sting~
-Sting lies here.~
+sting mithril dagger~
+the dagger 'Sting'~
+A mithril dagger lies here.~
 mithril~
-weapon ABK AN
+weapon AK AN
 dagger 2 7 bite 0
 17 10 3500 P
 A
@@ -576,15 +576,15 @@ BC BC BC B 0
 A
 20 -1
 #1105
-one ring~
+one ring mithril~
 the One Ring~
-The One Ring is here.~
-oldstyle~
+A mithril ring lies here.~
+mithril~
 jewelry G AB
 0 0 0 0 0
 20 30 1660 P
-F
-A 0 0 B
+A
+5 2
 A
 1 -1
 #1106
@@ -592,27 +592,31 @@ elven spear~
 an elven spear~
 An elven spear lies here.~
 wood~
-weapon BGK AN
+weapon G AN
 staff 2 8 thrust 0
 16 50 500 P
 A
+19 2
+A
 18 2
 #1107
-mithril axe~
-a mithril axe~
-A mithril axe lies here.~
+mithril battle axe~
+a mithril battle axe~
+A mithril battle axe lies here.~
 mithril~
-weapon ACMO AN
+weapon A AN
 axe 2 8 chop 0
 17 120 1440 P
 A
+18 2
+A
 19 2
 #1108
-thain girth~
-the thain girth~
-The girth of the thain lies here.~
-oldstyle~
-armor 0 AL
+headband inspired wisdom~
+headband of Inspired Wisdom (+2)~
+A simple bronze headband lies here.~
+bronze~
+armor G AE
 AC AC AC 0 0
 17 40 3600 P
 A
@@ -686,11 +690,11 @@ weapon 0 AN
 dagger 2 4 pierce 0
 6 10 480 P
 A
-19 1
-A
 18 1
+A
+19 1
 #1117
-club heavy~
+club heavy thain~
 the Thain's club~
 You see see a heavy club. Looks just right for whomping heads.~
 wood~
@@ -1825,7 +1829,7 @@ E 0 616 0 5
 M 0 1112 1 1111 1
 E 0 1117 0 16
 E 0 616 0 5
-E 0 1108 0 13
+E 0 1108 0 6
 M 0 1128 4 1114 1
 G 0 1103 0
 M 0 1128 4 1115 1

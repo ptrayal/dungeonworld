@@ -122,11 +122,12 @@ EFNU 0 0 0
 stand stand none 45
 AHMV ABCDEFGHIJK medium unknown
 #1609
-oldstyle evil wight~
+evil wight~
 an evil wight~
 An evil wight lurks in the shadows!
 ~
-He glares at you savagely and charges!
+The flesh of this walking corpse is rotting and putrid, its body skeletal
+in places and its eye sockets glowing with red light.  
 ~
 human~
 ABCFG DF -1000 0
@@ -134,7 +135,7 @@ ABCFG DF -1000 0
 0 0 0 8
 EFNU 0 0 0
 stand stand male 110
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
 #1610
 oldstyle burly minotaur~
 A burly minotaur~
@@ -210,15 +211,16 @@ oldstyle ancient wyvern~
 the ancient wyvern~
 An enormous, ancient wyvern stares down at your tiny form...
 ~
-It thunders loudly 'I must protect my Master's wealth!'
+A dark blue dragon, its wings immense and its tail tipped with a hooked
+stinger, lands on two taloned feet and roars a challenge.  
 ~
-human~
-ACFG DF -1000 0
+wyvern~
+ACFG DFT -1000 0
 18 0 3d9+283 9d9+100 2d7+4 none
 -3 -3 -3 7
-EFNU 0 0 0
+CEFHNU L 0 S
 stand rest male 0
-AHMV ABCDEFGHIJK medium unknown
+ABZ ABCDEFGHIJKQVX large flesh
 #1617
 oldstyle spectre~
 the spectre~
@@ -443,9 +445,9 @@ weapon AG AN
 sword 2 6 slash 0
 11 120 910 P
 A
-18 1
-A
 19 1
+A
+18 1
 #1605
 steel broad sword~
 a steel broad sword~
@@ -455,9 +457,9 @@ weapon AG AN
 sword 2 7 slash 0
 15 120 1510 P
 A
-18 2
-A
 19 2
+A
+18 2
 #1606
 rod might~
 the rod of might~
@@ -467,9 +469,9 @@ weapon BG AN
 mace 2 7 blast 0
 14 130 1550 P
 A
-18 2
-A
 1 1
+A
+18 2
 #1612
 black kite shield~
 a black kite shield~
@@ -589,9 +591,9 @@ weapon BG AN
 sword 2 8 slash 0
 19 100 2500 P
 A
-18 3
-A
 19 3
+A
+18 3
 #1711
 fur cap~
 a fur cap~
@@ -1658,7 +1660,7 @@ S
 M 1605 spec_cast_cleric
 M 1609 spec_cast_undead
 M 1614 spec_breath_acid
-M 1616 spec_breath_any
+M 1616 spec_poison
 M 1617 spec_cast_undead
 M 1716 spec_cast_undead
 S
