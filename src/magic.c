@@ -1315,26 +1315,33 @@ void spell_charm_person( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 	if ( victim == ch )
 	{
-	send_to_char( "You like yourself even better!\n\r", ch );
-	return;
+		send_to_char( "You like yourself even better!\n\r", ch );
+		return;
 	}
 
 	if ( IS_AFFECTED(victim, AFF_CHARM)
-	||   IS_AFFECTED(ch, AFF_CHARM)
-	||   level < victim->level
-	||   IS_SET(victim->imm_flags,IMM_CHARM)
-	||   saves_spell( level, victim,DAM_CHARM) )
-	return;
+		||   IS_AFFECTED(ch, AFF_CHARM)
+		||   level < victim->level
+		||   IS_SET(victim->imm_flags,IMM_CHARM)
+		||   saves_spell( level, victim,DAM_CHARM) )
+		return;
+
+	if (!IS_SET(ch->form,FORM_HUMANOID))
+	{
+		send_to_char("You can only charm humanoids.\n\r", ch);
+		return;
+	}
 
 
 	if (IS_SET(victim->in_room->room_flags,ROOM_LAW))
 	{
-	send_to_char( "The mayor does not allow charming in the city limits.\n\r",ch);
-	return;
+		send_to_char( "The mayor does not allow charming in the city limits.\n\r",ch);
+		return;
 	}
-  
+
 	if ( victim->master )
-	stop_follower( victim );
+		stop_follower( victim );
+
 	add_follower( victim, ch );
 	victim->leader = ch;
 	af.where     = TO_AFFECTS;
@@ -1346,8 +1353,9 @@ void spell_charm_person( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 	af.bitvector = AFF_CHARM;
 	affect_to_char( victim, &af );
 	act( "Isn't $n just so nice?", ch, NULL, victim, TO_VICT );
+	
 	if ( ch != victim )
-	act("$N looks at you with adoring eyes.",ch,NULL,victim,TO_CHAR);
+		act("$N looks at you with adoring eyes.",ch,NULL,victim,TO_CHAR);
 	return;
 }
 

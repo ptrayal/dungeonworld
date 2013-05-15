@@ -388,6 +388,13 @@ const 	struct	race_type	race_table	[]		=
 	},
 
 	{
+	"undead",		FALSE,
+	0,		0,		0,
+	IMM_NEGATIVE,		0,		VULN_HOLY,
+	D|I|cc,	A|B|C|D|E|F|G|H|I|J|K
+	},
+
+	{
 	"unique",		FALSE,
 	0,		0,		0,
 	0,		0,		0,		
