@@ -1437,23 +1437,23 @@ void spell_continual_light(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 
 	if (target_name[0] != '\0')  /* do a glow on some object */
 	{
-	light = get_obj_carry(ch,target_name,ch);
-	
-	if (light == NULL)
-	{
-		send_to_char("You don't see that here.\n\r",ch);
-		return;
-	}
+		light = get_obj_carry(ch,target_name,ch);
+		
+		if (light == NULL)
+		{
+			send_to_char("You don't see that here.\n\r",ch);
+			return;
+		}
 
-	if (IS_OBJ_STAT(light,ITEM_GLOW))
-	{
-		act("$p is already glowing.",ch,light,NULL,TO_CHAR);
-		return;
-	}
+		if (IS_OBJ_STAT(light,ITEM_GLOW))
+		{
+			act("$p is already glowing.",ch,light,NULL,TO_CHAR);
+			return;
+		}
 
-	SET_BIT(light->extra_flags,ITEM_GLOW);
-	act("$p glows with a white light.",ch,light,NULL,TO_ALL);
-	return;
+		SET_BIT(light->extra_flags,ITEM_GLOW);
+		act("$p glows with a white light.",ch,light,NULL,TO_ALL);
+		return;
 	}
 
 	light = create_object( get_obj_index( OBJ_VNUM_LIGHT_BALL ), 0 );
@@ -1599,19 +1599,19 @@ void spell_cure_disease( int sn, int level, CHAR_DATA *ch,void *vo,int target)
 	if ( !is_affected( victim, gsn_plague ) )
 	{
 		if (victim == ch)
-		  send_to_char("You aren't ill.\n\r",ch);
+			send_to_char("You aren't ill.\n\r",ch);
 		else
-		  act("$N doesn't appear to be diseased.",ch,NULL,victim,TO_CHAR);
+			act("$N doesn't appear to be diseased.",ch,NULL,victim,TO_CHAR);
 		return;
 	}
 	
 	if (check_dispel(level,victim,gsn_plague))
 	{
-	send_to_char("Your sores vanish.\n\r",victim);
-	act("$n looks relieved as $s sores vanish.",victim,NULL,NULL,TO_ROOM);
+		send_to_char("Your sores vanish.\n\r",victim);
+		act("$n looks relieved as $s sores vanish.",victim,NULL,NULL,TO_ROOM);
 	}
 	else
-	send_to_char("Spell failed.\n\r",ch);
+		send_to_char("Spell failed.\n\r",ch);
 }
 
 
