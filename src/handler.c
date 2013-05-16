@@ -1859,6 +1859,9 @@ void return_key(OBJ_DATA *key)
 
 	for(pch = char_list;pch;pch = pch->next)
 	{
+		if(!IS_NPC(pch))
+   			continue;
+
 		if(pch->pIndexData->vnum == key->value[1])
 		{
 			obj_to_char(key, pch);

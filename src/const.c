@@ -395,6 +395,13 @@ const 	struct	race_type	race_table	[]		=
 	},
 
 	{
+	"golem",		FALSE,
+	0,		0,		0,
+	IMM_MENTAL|IMM_DISEASE|IMM_POISON,		0,		0,
+	C|D|J,	A|B|C|D|E|F|G|H|I|J|K
+	},
+
+	{
 	"unique",		FALSE,
 	0,		0,		0,
 	0,		0,		0,		
