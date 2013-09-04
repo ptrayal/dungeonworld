@@ -20,7 +20,7 @@ bat~
 ABF FTZ 0 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
-EFHNR 0 0 S
+EFHNR 0 0 ST
 stand stand none 0
 AGV ACDEFHJKP medium unknown
 #2002
@@ -98,20 +98,20 @@ EFNU 0 0 0
 stand stand none 50
 AHMV ABCDEFGHIJK medium unknown
 #2007
-oldstyle skeleton skeletal soldier~
+skeleton skeletal soldier undead~
 a skeleton~
 A skeletal soldier fights in the battle of the underworld.
 ~
-Even though he has died in the physical sense of the word, the battle
-continues for him in his charmed state.
+The pile of bones suddenly stirs, rising up to take on a human shape. 
+Its long, bony fingers reach out to claw at the living.  
 ~
-human~
+undead~
 ACF 0 -290 0
-11 0 2d8+134 5d9+100 1d10+2 none
+11 0 2d8+134 5d9+100 1d10+2 pound
 1 1 1 8
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 55
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium bone
 #2008
 oldstyle templar~
 a templar~
@@ -131,19 +131,20 @@ EFNU 0 0 0
 stand stand male 25
 AHMV ABCDEFGHIJK medium unknown
 #2009
-oldstyle wraith~
+wraith undead~
 a mysterious wraith~
 A mysterious ghostly wraith forms before your eyes.
 ~
-Hard to tell much about the mysterious form even upon further inspection.
+This ghostly creature is little more than a dark shape with two
+flickering pinpoints of light where its eyes should be.  
 ~
-human~
+undead~
 ACF FU 0 0
-12 0 2d10+150 6d9+100 1d10+3 none
+12 0 2d10+150 6d9+100 1d10+3 drain
 0 0 0 8
-EFNU 0 0 0
+EFNU M D N
 stand stand male 30
-AHMV ABCDEFGHIJK medium unknown
+DILc ABCDEFGHIJK medium energy
 #2010
 oldstyle officer templar~
 the templar officer~
@@ -159,19 +160,20 @@ EFNU 0 0 0
 stand stand male 30
 AHMV ABCDEFGHIJK medium unknown
 #2011
-oldstyle zombie mage~
+zombie mage undead~
 zombie~
 A blank-faced zombie mage joins the battle.
 ~
-He seems to lack real interest in what he is doing.
+This walking corpse wears only a few soiled rags, its flesh rotting off
+its bones as it stumbles forward, arms outstretched.  
 ~
-human~
+undead~
 ACFR 0 -100 0
-13 0 2d10+150 13d9+100 2d4+2 none
+13 0 2d10+150 13d9+100 2d4+2 pound
 0 0 0 5
-FU 0 0 0
+FU M 0 N
 stand stand male 27
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium flesh
 #2012
 oldstyle shadow shadows~
 the shadow~
@@ -187,7 +189,7 @@ EFNU 0 0 0
 stand stand none 40
 AHMV ABCDEFGHIJK medium unknown
 #2013
-oldstyle bat vampire~
+bat vampire~
 The vampire~
 A bat flaps wildly at you!
 ~
@@ -197,7 +199,7 @@ bat~
 ABF FTZ -100 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
-EFHNR 0 0 S
+EFHNR 0 0 ST
 stand stand male 50
 AGV ACDEFHJKP medium unknown
 #2014
@@ -290,9 +292,9 @@ jewelry J AB
 0 0 0 0 0
 7 10 800 P
 A
-17 -1
-A
 4 1
+A
+17 -1
 #2004
 neutralizer sword~
 the neutralizer~
@@ -302,9 +304,9 @@ weapon BJK AN
 sword 3 5 slash 0
 16 90 1280 P
 A
-18 1
-A
 19 1
+A
+18 1
 #2005
 sword excalibur~
 the sword Excalibur~
@@ -314,9 +316,9 @@ weapon AGKL AN
 sword 5 4 slash 0
 24 150 3400 P
 A
-18 3
-A
 1 1
+A
+18 3
 #2006
 crown~
 a kingly crown~
@@ -1645,7 +1647,6 @@ S
 
 #SPECIALS
 M 2007 spec_cast_undead
-M 2009 spec_cast_undead
 M 2011 spec_cast_mage
 M 2013 spec_cast_undead
 M 2014 spec_cast_undead

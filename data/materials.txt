@@ -190,4 +190,8 @@ MAT
 NAME bone~
 VAL 0
 ENDMAT
+MAT
+NAME mushroom~
+VAL 0
+ENDMAT
 End

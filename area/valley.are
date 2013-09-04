@@ -162,7 +162,8 @@ ABF 0 0 0
 -4 -4 -4 7
 EFNU 0 0 0
 stand stand none 0
-AHMV ABCDEFGHIJK huge unknown
+ACH ABCDEFGHIJK huge unknown
+F for M
 #7810
 oldstyle hermit man old~
 an old hermit~
@@ -316,11 +317,11 @@ A
 19 2
 #7808
 potion~
-a potion~
+a potion of armor~
 A potion is on the floor.~
-oldstyle~
+glass~
 potion G A
-10 'armor' 'invisibility' '' ''
+10 'armor' '' '' ''
 0 10 200 P
 #7809
 potion~

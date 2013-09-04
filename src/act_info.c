@@ -2654,3 +2654,23 @@ void do_password( CHAR_DATA *ch, char *argument )
 	send_to_char( "Ok.\n\r", ch );
 	return;
 }
+
+void do_attributes( CHAR_DATA *ch, char *argument )
+{
+	send_to_char( Format("\tW[\tR+\tW]\tB=-=-=-=-=-=-\tW[\tR+\tW] \tR%s \tW[\tR+\tW]\tB=-=-=-=-=-=-\tW[\tR+\tW]\tn\n\r", "Attributes"), ch);
+
+	send_to_char( "\n\r", ch);
+
+	send_to_char( Format("   \tW%-12s    Cur  Max  Tmp  Total\tn\n\r", "Attribute"), ch);
+
+	send_to_char( Format("   \tY%-12s\tn    %3d  %3d  %3d    %3d\n\r", "Strength", ch->perm_stat[STAT_STR], pc_race_table[ch->race].max_stats[STAT_STR], (get_curr_stat(ch,STAT_STR) - ch->perm_stat[STAT_STR]), get_curr_stat(ch,STAT_STR)), ch);
+	send_to_char( Format("   \tY%-12s\tn    %3d  %3d  %3d    %3d\n\r", "Intelligence", ch->perm_stat[STAT_INT], pc_race_table[ch->race].max_stats[STAT_INT], (get_curr_stat(ch,STAT_INT) - ch->perm_stat[STAT_INT]), get_curr_stat(ch,STAT_INT)), ch);
+	send_to_char( Format("   \tY%-12s\tn    %3d  %3d  %3d    %3d\n\r", "Wisdom", ch->perm_stat[STAT_WIS], pc_race_table[ch->race].max_stats[STAT_WIS], (get_curr_stat(ch,STAT_WIS) - ch->perm_stat[STAT_WIS]), get_curr_stat(ch,STAT_WIS)), ch);
+	send_to_char( Format("   \tY%-12s\tn    %3d  %3d  %3d    %3d\n\r", "Dexterity", ch->perm_stat[STAT_DEX], pc_race_table[ch->race].max_stats[STAT_DEX], (get_curr_stat(ch,STAT_DEX) - ch->perm_stat[STAT_DEX]), get_curr_stat(ch,STAT_DEX)), ch);
+	send_to_char( Format("   \tY%-12s\tn    %3d  %3d  %3d    %3d\n\r", "Constitution", ch->perm_stat[STAT_CON], pc_race_table[ch->race].max_stats[STAT_CON], (get_curr_stat(ch,STAT_CON) - ch->perm_stat[STAT_CON]), get_curr_stat(ch,STAT_CON)), ch);
+
+	send_to_char( "\n\r", ch);
+
+	send_to_char("\tW[\tR+\tW]\tB=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\tW[\tR+\tW]\tn\n\r", ch);
+
+}

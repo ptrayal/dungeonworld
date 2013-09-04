@@ -10,7 +10,7 @@ End
 
 #MOBILES
 #5100
-oldstyle goblin slave~
+goblin slave~
 the goblin slave~
 A goblin slave lies here asleep.
 ~
@@ -94,19 +94,19 @@ EFNU 0 0 0
 stand stand male 500
 AHMV ABCDEFGHIJK medium unknown
 #5106
-oldstyle drow weapons master~
+drow weapons master~
 The weapons master~
 The drow weapons master is here shadow boxing.
 ~
-He definitely knows his way around in combat.
+He definitely knows his way around in combat.  
 ~
-human~
-ABF D -1000 0
-23 0 5d10+450 11d9+100 3d6+6 none
+elf~
+ABF DJ -1000 0
+23 0 5d10+450 11d9+100 3d6+6 pound
 -6 -6 -6 6
-EFNU 0 0 0
+EFKU 0 B Z
 stand stand male 750
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #5107
 oldstyle drow matron mother~
 the matron mother~
@@ -164,36 +164,35 @@ EFNU 0 0 0
 stand stand male 250
 AHMV ABCDEFGHIJK medium unknown
 #5111
-oldstyle drow scout~
+drow scout~
 the drow scout~
 The drow scout is here sneaking among the shadows.
 ~
 The drow scout blends so well with her environment, you barely see her form.
 ~
-human~
-AFH PQ -1000 0
-11 0 2d8+134 5d9+100 1d10+2 none
+elf~
+AFH PQZ -1000 0
+11 0 2d8+134 5d9+100 1d10+2 pound
 1 1 1 8
-EFNU 0 0 0
+EFNU 0 B Z
 stand stand female 50
-AHMV ABCDEFGHIJK medium unknown
+AHMV ABCDEFGHIJK medium flesh
+F aff J
 #0
 
 
 
 #OBJECTS
 #5100
-longsword commoner~
-a commoner's longsword~
+longsword commoner adamantite~
+an adamantite longsword~
 A commoner's longsword made of adamantite has been left here.~
-oldstyle~
+adamantite~
 weapon 0 AN
-sword 2 6 slash 0
+sword 1 8 slash 0
 11 20 910 P
 A
-18 1
-A
-19 1
+19 5
 #5101
 longsword noble~
 a noble's longsword~
@@ -203,81 +202,81 @@ weapon 0 AN
 sword 2 7 slash 0
 15 10 1510 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5102
 whip snake two-headed~
 a snake headed whip~
 A whip with two snakes heads lies here.~
-oldstyle~
-weapon AG AN
-whip 2 6 whip F
+leather~
+weapon G AN
+whip 2 6 whip 0
 11 10 920 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5103
 whip snake three-headed~
 a snake headed whip~
 A whip with three snake heads has been left here.~
-oldstyle~
-weapon AG AN
+leather~
+weapon G AN
 whip 2 7 whip 0
 15 10 1020 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5104
 whip snake four-headed~
 a snake headed whip~
 A whip with four snake heads has been left here.~
-oldstyle~
+leather~
 weapon AG AN
 whip 4 5 whip 0
 24 10 1530 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5105
 longsword black~
 a black longsword~
 A black longsword has been carelessly left here.~
 adamantite~
-weapon AG AN
+weapon G AN
 sword 3 6 slash 0
 21 0 2100 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5106
 whip snake five-headed~
 a snake headed whip~
 A whip with five snake heads is lying here.~
-oldstyle~
-weapon AGJ AN
+leather~
+weapon GJ AN
 whip 3 6 whip 0
 14 0 10 P
 A
-1 -1
+18 2
 A
-3 -1
+19 2
 #5107
 whip snake six-headed~
 a snake headed whip~
 A whip with six snake heads has been dropped here.~
-oldstyle~
+leather~
 weapon AGJ AN
-whip 4 5 whip 0
+whip 4 5 whip H
 13 0 0 P
 A
-1 -2
+18 2
 A
-3 -2
+19 2
 #5108
 bracer iron~
 an iron bracer~
@@ -333,9 +332,9 @@ weapon GJ AN
 dagger 4 6 stab 0
 30 20 3300 P
 A
-18 3
-A
 19 3
+A
+18 3
 #5114
 hat green~
 a small bright green hat~
@@ -858,12 +857,12 @@ gate lies open to the west allowing entrance into the city.
 ~
 0 9 0
 E
-gate~
-A large adamantite gate with giant spider shaped emblems stands here.
-~
-E
 hole~
 A small hole that looks to have been sealed at one time.
+~
+E
+gate~
+A large adamantite gate with giant spider shaped emblems stands here.
 ~
 D3
 A huge gate opens to the west allowing entrance into the city.~

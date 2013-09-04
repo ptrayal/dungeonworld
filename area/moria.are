@@ -22,7 +22,7 @@ ABF D -200 0
 -1 0 3 6
 FHNOR 0 FL I
 stand stand either 0
-AGc ADEFKLQVX large unknown
+AGc ADEFKLQVX large flesh
 #4001
 garter snake~
 the garter snake~
@@ -216,9 +216,9 @@ giant hill~
 the hill giant~
 A hill giant is here tossing rocks around.  Marbles perhaps?
 ~
-The hill giant looks like he's about 9 feet tall. By his actions you
-come to the conclusion that he's not very intelligent.  A perfect
-playmate for you.
+The hill giant looks like he's about 9 feet tall.  By his actions you
+come to the conclusion that he's not very intelligent.  A perfect playmate
+for you.  
 ~
 giant~
 AGT 0 0 0
@@ -226,7 +226,7 @@ AGT 0 0 0
 0 -2 0 4
 DOR 0 DHI JP
 stand stand male 500
-AHMVa ABCDEFGHIJK huge unknown
+AHa ABCDEFGHIJK huge flesh
 #4100
 mage~
 the Mage~

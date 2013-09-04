@@ -1,0 +1,121 @@
+# PLAYER
+Name Testplayer~
+Id 1366228163
+LogO 1366228203
+Ver 5
+Prompt <%hhp %mm %vmv> ~
+Race human~
+Sex 1
+Cla 3
+Levl 1
+Tru 0
+Sec 0
+Playd 40
+Not  0 0 0 1366209212 0
+Scro 22
+Room 3700
+HMV  20 20 100 100 100 100
+Gold 0
+Silv 0
+Exp 1000
+Act Q~
+Comm NO~
+Invi 0
+Pos 8
+Prac 5
+Trai 3
+Save -1
+Alig 0
+Hit 1
+ACs 95 95 95 99
+Attr 13 10 10 10 10
+AMod 0 0 0 0 0
+Pass Te.dKEP1Tav0c~
+Titl  the Swordpupil~
+Pnts 40
+TSex 1
+LLev 0
+HMVP 20 100 100
+Cnd  0 48 48 48
+Sk 1 'axe'
+Sk 1 'dagger'
+Sk 1 'flail'
+Sk 1 'mace'
+Sk 1 'polearm'
+Sk 1 'shield block'
+Sk 1 'spear'
+Sk 40 'sword'
+Sk 1 'whip'
+Sk 1 'bash'
+Sk 1 'disarm'
+Sk 1 'enhanced damage'
+Sk 1 'parry'
+Sk 1 'rescue'
+Sk 1 'second attack'
+Sk 1 'third attack'
+Sk 1 'scrolls'
+Sk 1 'staves'
+Sk 1 'wands'
+Sk 50 'recall'
+Gr 'rom basics'
+Gr 'warrior basics'
+Gr 'warrior default'
+Gr 'weaponsmaster'
+End
+
+#O
+Vnum 3716
+Nest 0
+Name banner war merc~
+ShD  a war banner~
+Desc A war banner is on the floor here.~
+Cond 0
+Wear 0
+Cost 0
+End
+
+#O
+Vnum 3703
+Nest 0
+Name vest sub merc~
+ShD  a sub issue vest~
+Desc You see a sub issue vest here.~
+Cond 0
+Wear 5
+Cost 0
+End
+
+#O
+Vnum 3702
+Nest 0
+Name sword sub merc~
+ShD  a sub issue sword~
+Desc You see a sub issue sword here.~
+Cond 0
+Wear 16
+Cost 360
+End
+
+#O
+Vnum 3704
+Nest 0
+Name shield sub merc~
+ShD  a sub issue shield~
+Desc You see a sub issue shield here.~
+Cond 0
+Wear 11
+Cost 0
+End
+
+#O
+Vnum 3162
+Nest 0
+Name map midgaard~
+ShD  a map of the city of Midgaard~
+Desc A rolled up map is here.~
+Cond 0
+Wear -1
+Cost 500
+End
+
+#END

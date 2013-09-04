@@ -13,3 +13,6 @@
 [ 6516] Rayal: noloot
 [    0] Maeldiar: draconnian
 [ 3716] Maeldiar: damage
+[ 7201] Rayal: olc
+[ 7201] Rayal: ITEM_WEAPON
+[ 1409] Rayal: ITEM_WEAPON

@@ -101,21 +101,21 @@ EFNU 0 0 0
 stand stand none 50
 AHMV ABCDEFGHIJK medium unknown
 #2306
-oldstyle swamp wraith~
+swamp wraith undead~
 the Swamp Wraith~
 A swamp wraith emerges from the mist here.
 ~
-The swamp wraith is made of mist and is in the image of a great warrior. He
-appears to emerge from the mist. You feel the cold radiating from his form as
-he nears you.
+The swamp wraith is made of mist and is in the image of a great warrior. 
+He appears to emerge from the mist.  You feel the cold radiating from his
+form as he nears you.  
 ~
-human~
+undead~
 ABCF 0 -1000 0
-20 0 3d9+333 10d9+100 2d8+5 none
+20 0 3d9+333 10d9+100 2d8+5 drain
 -4 -4 -4 7
-EFNU 0 0 0
+EFNU M D N
 stand stand male 1250
-AHMV ABCDEFGHIJK medium unknown
+DILc ABCDEFGHIJK medium energy
 #2307
 ogre villager~
 the Ogre Villager~
@@ -937,8 +937,8 @@ stone blood red~
 a blood red stone~
 A blood red stone lies here collecting dust.~
 stone~
-warp_stone BGT AO
-AB 0 0 0 0
+gem BGT AO
+0 0 0 0 0
 20 20 580 P
 A
 13 20
@@ -1212,7 +1212,7 @@ B 0 0 0 0
 key runed~
 a runed key~
 A small runed key lies here.~
-oldstyle~
+iron~
 key 0 A
 B 0 0 0 0
 0 10 0 P

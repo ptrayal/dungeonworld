@@ -109,21 +109,21 @@ EFNU 0 0 0
 rest rest none 0
 AHMV ABCDEFGHIJK medium unknown
 #1106
-oldstyle pig~
+pig~
 a pig~
 A pig wallows in the mud and oinks in contentment.
 ~
-The pig appears quite happy to be a pig.  He is oblivious to your presence
-and cares only for the care-free life that he leads.  It is enormously fat
-and consequently cannot move around very quickly.
+The pig appears quite happy to be a pig.  He is oblivious to your
+presence and cares only for the care-free life that he leads.  It is
+enormously fat and consequently cannot move around very quickly.  
 ~
 pig~
 AGI 0 0 0
-3 0 2d6+35 1d9+100 1d6+0 none
+3 0 2d6+35 1d9+100 1d6+0 pound
 7 7 7 10
 EFNR 0 0 0
 rest rest none 0
-AGV ACDEFHJK medium unknown
+AG ACDEFHJK medium unknown
 #1107
 oldstyle chicken~
 a chicken~

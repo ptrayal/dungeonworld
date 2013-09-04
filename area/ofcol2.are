@@ -267,19 +267,20 @@ EFNU 0 0 0
 stand stand none 0
 AHMV ABCDEFGHIJK medium unknown
 #616
-oldstyle pig~
+pig~
 the pig~
 A pig is playing here, getting itself and you dirty.
 ~
-The pig looks dirty.  It snorts and sniffs at you, then goes back to its slop.
+The pig looks dirty.  It snorts and sniffs at you, then goes back to its
+slop.  
 ~
 pig~
 ABI 0 0 0
-4 0 2d7+46 2d9+100 1d5+1 none
+4 0 2d7+46 2d9+100 1d5+1 pound
 6 6 6 9
 EFNR 0 0 0
 stand stand none 0
-AGV ACDEFHJK medium unknown
+AG ACDEFHJK medium flesh
 #617
 oldstyle citizen man~
 the citizen~

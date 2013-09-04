@@ -1,0 +1,162 @@
+Fri May 10 10:13:59 2013 :: Last compiled on May 10 2013 at 07:21:42.
+Fri May 10 10:13:59 2013 :: Boot - Initializing RNG
+Fri May 10 10:13:59 2013 :: Boot - Generating Weather
+Fri May 10 10:13:59 2013 :: Boot - Assigning GSNs
+Fri May 10 10:13:59 2013 :: Boot - Loading Classes
+Fri May 10 10:13:59 2013 :: Boot - Loading Mage.
+Fri May 10 10:13:59 2013 :: Boot - Loading Cleric.
+Fri May 10 10:13:59 2013 :: Boot - Loading Thief.
+Fri May 10 10:13:59 2013 :: Boot - Loading Warrior.
+Fri May 10 10:13:59 2013 :: Boot - Loading Materials
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file social.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file help.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file rom.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file group.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file limbo.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file plains.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file ofcol2.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file olympus.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file air.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file shire.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file immort.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file hitower.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file gnome.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file wyvern.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file catacomb.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file draconia.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file mahntor.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file trollden.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file midgaard.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file chapel.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file midennir.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file grave.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file school.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file moria.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file eastern.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file drow.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file thalos.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file mirror.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file ofcol.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file haon.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file arachnos.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file dwarven.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file quifael.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file sewer.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file astral.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file valley.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file marsh.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file pyramid.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file grove.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file nirvana.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file dylan.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file canyon.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file galaxy.are
+Fri May 10 10:13:59 2013 :: Boot - Reading Area file newthalos.are
+Fri May 10 10:13:59 2013 :: Boot - Fixing Exits
+Fri May 10 10:13:59 2013 :: [*****] BUG: Fix_exits: 8705:4 -> 8706:5 -> 8708.
+Fri May 10 10:13:59 2013 :: Boot - Fixing mobprogs
+Fri May 10 10:13:59 2013 :: Boot - Changing fBootDb state
+Fri May 10 10:13:59 2013 :: Boot - Converting Objects(modern format)
+Fri May 10 10:13:59 2013 :: Boot - Initial world respawn initiating
+Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
+Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
+Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
+Err: obj a dagger (3351) -- 1, mob the thief (3005) -- 8
+Err: obj a dagger (3351) -- 1, mob the thief (3005) -- 8
+Err: obj a dagger (3351) -- 1, mob the Mage (4100) -- 13
+Err: obj a dagger (3351) -- 1, mob the Mage (4157) -- 11
+Err: obj a dagger (3351) -- 1, mob the Mage (4157) -- 11
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj an ice staff (9216) -- 15, mob a puddle (9214) -- 8
+Err: obj an icicle (9227) -- 28, mob the Ice Bandit (9228) -- 24
+Fri May 10 10:13:59 2013 :: Boot - Loading Notes
+Fri May 10 10:13:59 2013 :: Boot - Loading Bans
+Fri May 10 10:13:59 2013 :: Boot - Loading Songs
+Fri May 10 10:13:59 2013 :: Boot - Loading Wizlist
+Fri May 10 10:13:59 2013 :: Boot - Saving Materials File
+Fri May 10 10:13:59 2013 :: Boot - Detecting greeting
+Fri May 10 10:13:59 2013 :: Boot - Greeting detected!
+Fri May 10 10:13:59 2013 :: DungeonWorld(00.01.34 (build: 134)) is now running on port 9080
+Fri May 10 10:19:27 2013 :: Sock.sinaddr: 152.228.147.82
+Fri May 10 10:19:28 2013 :: Loading Rayal.
+Fri May 10 10:19:28 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Fri May 10 10:19:28 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Fri May 10 10:19:29 2013 :: Rayal@LEH-0002-025264.valpo.edu has connected.
+Err: obj a dagger (3351) -- 1, mob the thief (3005) -- 8
+Err: obj a dagger (3351) -- 1, mob the thief (3005) -- 8
+Err: obj an ice staff (9216) -- 15, mob a puddle (9214) -- 8
+Fri May 10 12:56:44 2013 :: Rayal has quit.
+Fri May 10 16:14:30 2013 :: Sock.sinaddr: 66.249.73.6
+Fri May 10 16:29:29 2013 :: EOF encountered on read.
+Fri May 10 16:35:51 2013 :: Sock.sinaddr: 66.249.73.6
+Fri May 10 16:50:51 2013 :: EOF encountered on read.
+Sat May 11 03:39:36 2013 :: Sock.sinaddr: 204.209.44.14
+Sat May 11 03:39:36 2013 :: EOF encountered on read.
+Sun May 12 03:40:53 2013 :: Sock.sinaddr: 204.209.44.14
+Sun May 12 03:40:53 2013 :: EOF encountered on read.
+Sun May 12 13:04:54 2013 :: Sock.sinaddr: 50.104.44.96
+Sun May 12 13:04:54 2013 :: Loading Rayal.
+Sun May 12 13:04:54 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Sun May 12 13:04:54 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Sun May 12 13:04:56 2013 :: Rayal@50-104-44-96.prtg.in.frontiernet.net has connected.
+Sun May 12 13:49:44 2013 :: Rayal has quit.
+Sun May 12 23:16:57 2013 :: Sock.sinaddr: 66.249.73.6
+Sun May 12 23:31:56 2013 :: EOF encountered on read.
+Sun May 12 23:39:17 2013 :: Sock.sinaddr: 66.249.73.6
+Sun May 12 23:54:17 2013 :: EOF encountered on read.
+Mon May 13 03:39:26 2013 :: Sock.sinaddr: 204.209.44.14
+Mon May 13 03:39:26 2013 :: EOF encountered on read.
+Mon May 13 06:43:40 2013 :: Sock.sinaddr: 152.228.147.82
+Mon May 13 06:43:42 2013 :: Loading Rayal.
+Mon May 13 06:43:42 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Mon May 13 06:43:42 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Mon May 13 06:43:43 2013 :: Rayal@LEH-0002-025264.valpo.edu has connected.
+Mon May 13 11:44:01 2013 :: Log Rayal: sw
+Mon May 13 11:48:20 2013 :: Rayal has quit.
+Tue May 14 03:39:49 2013 :: Sock.sinaddr: 204.209.44.14
+Tue May 14 03:39:50 2013 :: EOF encountered on read.
+Tue May 14 05:56:12 2013 :: Sock.sinaddr: 152.228.147.82
+Tue May 14 05:56:14 2013 :: Loading Rayal.
+Tue May 14 05:56:14 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Tue May 14 05:56:14 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Tue May 14 05:56:14 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Tue May 14 05:56:15 2013 :: Rayal@LEH-0002-025264.valpo.edu has connected.
+Tue May 14 06:14:41 2013 :: [*****] BUG: Buffer overflow. Closing.
+
+Write_to_descriptor: Resource temporarily unavailable
+Tue May 14 06:14:41 2013 :: Closing link to Rayal.
+Tue May 14 06:15:12 2013 :: Sock.sinaddr: 152.228.147.82
+Tue May 14 06:15:13 2013 :: Loading Rayal.
+Tue May 14 06:15:13 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Tue May 14 06:15:13 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Tue May 14 06:15:13 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Tue May 14 06:15:14 2013 :: Rayal@LEH-0002-025264.valpo.edu reconnected.
+Tue May 14 06:15:17 2013 :: Log Rayal: shutdown
+Tue May 14 06:15:17 2013 :: Closing link to Rayal.
+Tue May 14 06:15:17 2013 :: Cleaning: initial purge
+Tue May 14 06:15:17 2013 :: Cleaning: descriptors
+Tue May 14 06:15:17 2013 :: Cleaning: char_list
+Tue May 14 06:15:17 2013 :: Cleaning: obj_list
+Tue May 14 06:15:17 2013 :: Cleaning: ban_list
+Tue May 14 06:15:17 2013 :: Cleaning: mprog_list
+Tue May 14 06:15:17 2013 :: Cleaning: note_list
+Tue May 14 06:15:17 2013 :: Cleaning: idea_list
+Tue May 14 06:15:17 2013 :: Cleaning: penalty_list
+Tue May 14 06:15:17 2013 :: Cleaning: news_list
+Tue May 14 06:15:17 2013 :: Cleaning: changes_list
+Tue May 14 06:15:17 2013 :: Cleaning: wiz_list
+Tue May 14 06:15:17 2013 :: Cleaning: buffer_list
+Tue May 14 06:15:17 2013 :: Cleaning: mat_list
+Tue May 14 06:15:17 2013 :: Cleaning: second purge
+Tue May 14 06:15:17 2013 :: Freeing Hash's.  THIS COULD TAKE AWHILE!
+Tue May 14 06:15:17 2013 :: Cleaning: areas
+Tue May 14 06:15:17 2013 :: Cleaning: final purge
+Tue May 14 06:15:17 2013 :: ------------------------------------------
+Tue May 14 06:15:17 2013 ::               HASH's FREED!               
+Tue May 14 06:15:17 2013 :: ------------------------------------------
+Tue May 14 06:15:17 2013 :: Normal termination of game.

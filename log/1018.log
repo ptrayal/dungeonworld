@@ -1,0 +1,113 @@
+Wed May 15 07:25:07 2013 :: Last compiled on May 14 2013 at 13:06:11.
+Wed May 15 07:25:07 2013 :: Boot - Initializing RNG
+Wed May 15 07:25:07 2013 :: Boot - Generating Weather
+Wed May 15 07:25:07 2013 :: Boot - Assigning GSNs
+Wed May 15 07:25:07 2013 :: Boot - Loading Classes
+Wed May 15 07:25:07 2013 :: Boot - Loading Mage.
+Wed May 15 07:25:07 2013 :: Boot - Loading Cleric.
+Wed May 15 07:25:07 2013 :: Boot - Loading Thief.
+Wed May 15 07:25:07 2013 :: Boot - Loading Warrior.
+Wed May 15 07:25:07 2013 :: Boot - Loading Materials
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file social.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file group.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file rom.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file help.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file limbo.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file plains.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file ofcol2.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file olympus.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file air.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file shire.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file immort.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file hitower.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file gnome.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file wyvern.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file catacomb.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file draconia.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file mahntor.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file trollden.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file midgaard.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file chapel.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file midennir.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file grave.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file school.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file moria.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file eastern.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file drow.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file thalos.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file mirror.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file ofcol.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file haon.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file arachnos.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file dwarven.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file quifael.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file sewer.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file astral.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file valley.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file marsh.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file pyramid.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file grove.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file nirvana.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file dylan.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file canyon.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file galaxy.are
+Wed May 15 07:25:07 2013 :: Boot - Reading Area file newthalos.are
+Wed May 15 07:25:07 2013 :: Boot - Fixing Exits
+Wed May 15 07:25:07 2013 :: [*****] BUG: Fix_exits: 8705:4 -> 8706:5 -> 8708.
+Wed May 15 07:25:07 2013 :: Boot - Fixing mobprogs
+Wed May 15 07:25:07 2013 :: Boot - Changing fBootDb state
+Wed May 15 07:25:07 2013 :: Boot - Converting Objects(modern format)
+Wed May 15 07:25:07 2013 :: Boot - Initial world respawn initiating
+Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
+Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
+Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
+Err: obj a dagger (3351) -- 1, mob the thief (3005) -- 8
+Err: obj a dagger (3351) -- 1, mob the thief (3005) -- 8
+Err: obj a dagger (3351) -- 1, mob the Mage (4100) -- 13
+Err: obj a dagger (3351) -- 1, mob the Mage (4157) -- 11
+Err: obj a dagger (3351) -- 1, mob the Mage (4157) -- 11
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
+Err: obj an ice staff (9216) -- 15, mob a puddle (9214) -- 8
+Err: obj an icicle (9227) -- 28, mob the Ice Bandit (9228) -- 24
+Wed May 15 07:25:07 2013 :: Boot - Loading Notes
+Wed May 15 07:25:07 2013 :: Boot - Loading Bans
+Wed May 15 07:25:07 2013 :: Boot - Loading Songs
+Wed May 15 07:25:07 2013 :: Boot - Loading Wizlist
+Wed May 15 07:25:07 2013 :: Boot - Saving Materials File
+Wed May 15 07:25:07 2013 :: Boot - Detecting greeting
+Wed May 15 07:25:07 2013 :: Boot - Greeting detected!
+Wed May 15 07:25:07 2013 :: DungeonWorld(00.01.52 (build: 152)) is now running on port 9080
+Wed May 15 07:25:16 2013 :: Sock.sinaddr: 152.228.147.82
+Wed May 15 07:25:18 2013 :: Loading Rayal.
+Wed May 15 07:25:18 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Wed May 15 07:25:18 2013 :: [*****] BUG: Fread_char: no match for word (~)
+Wed May 15 07:25:19 2013 :: Rayal@LEH-0002-025264.valpo.edu has connected.
+Wed May 15 07:56:49 2013 :: Log Rayal: reboot now
+Wed May 15 07:56:49 2013 :: Closing link to Rayal.
+Wed May 15 07:56:49 2013 :: Cleaning: initial purge
+Wed May 15 07:56:49 2013 :: Cleaning: descriptors
+Wed May 15 07:56:49 2013 :: Cleaning: char_list
+Wed May 15 07:56:49 2013 :: Cleaning: obj_list
+Wed May 15 07:56:49 2013 :: Cleaning: ban_list
+Wed May 15 07:56:49 2013 :: Cleaning: mprog_list
+Wed May 15 07:56:49 2013 :: Cleaning: note_list
+Wed May 15 07:56:49 2013 :: Cleaning: idea_list
+Wed May 15 07:56:49 2013 :: Cleaning: penalty_list
+Wed May 15 07:56:49 2013 :: Cleaning: news_list
+Wed May 15 07:56:49 2013 :: Cleaning: changes_list
+Wed May 15 07:56:49 2013 :: Cleaning: wiz_list
+Wed May 15 07:56:49 2013 :: Cleaning: buffer_list
+Wed May 15 07:56:49 2013 :: Cleaning: mat_list
+Wed May 15 07:56:49 2013 :: Cleaning: second purge
+Wed May 15 07:56:49 2013 :: Freeing Hash's.  THIS COULD TAKE AWHILE!
+Wed May 15 07:56:49 2013 :: Cleaning: areas
+Wed May 15 07:56:49 2013 :: Cleaning: final purge
+Wed May 15 07:56:49 2013 :: ------------------------------------------
+Wed May 15 07:56:49 2013 ::               HASH's FREED!               
+Wed May 15 07:56:49 2013 :: ------------------------------------------
+Wed May 15 07:56:49 2013 :: Normal termination of game.

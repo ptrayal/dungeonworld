@@ -10,82 +10,82 @@ End
 
 #MOBILES
 #3400
-oldstyle skeleton bony~
+skeleton bony undead~
 the bony skeleton~
 A bony skeleton is here.
 ~
-Brown bones with tufts of clothing still hanging from them.  This
-skeleton looks very mindless but still dangerous ...
+The pile of bones suddenly stirs, rising up to take on a human shape. 
+Its long, bony fingers reach out to claw at the living.  
 ~
-human~
+undead~
 AF 0 0 0
 1 0 2d6+10 0d9+100 1d4+0 none
 9 9 9 10
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 0
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium bone
 #3401
-oldstyle undead zombie~
+undead zombie~
 the undead zombie~
 An undead zombie sits here munching on something ...
 ~
 His body is totally white and slowly rotting away.  Each Zombie looks
 quite different from the next because they were, of course, once alive and
-human.
+human.  
 ~
-human~
+undead~
 ABF DF -100 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 2
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium flesh
 #3402
-oldstyle undead ghoul~
+undead ghoul~
 The ghoul~
 A ghoul is here staring at you hungrily.
 ~
-The ghoul no longer resembles the adventurer he once was.  Nonetheless
-he looks like he hasn't forgot his fighting skills.
+This humanoid creature has long, sharp teeth, and its pallid flesh is
+stretched tightly over its starved frame.  
 ~
-human~
+undead~
 AF D -500 0
-6 0 2d7+71 3d9+100 1d7+1 none
+6 0 2d7+71 3d9+100 1d7+1 claw
 4 4 4 9
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 7
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium flesh
 #3403
-oldstyle undead wraith~
+undead wraith~
 The wraith~
 You spot a wraith advancing towards you from the shadows.
 ~
-The wraith no longer has a material form.  He is wearing a tattered
-black robe which hides all but the darkness of his face and the glimmer
-in his eyes.
+The wraith no longer has a material form.  He is wearing a tattered black
+robe which hides all but the darkness of his face and the glimmer in his
+eyes.  
 ~
-human~
+undead~
 ABF BDF -750 0
-12 0 2d10+150 6d9+100 1d10+3 none
+12 0 2d10+150 6d9+100 1d10+3 drain
 0 0 0 8
-EFNU 0 0 0
+EFNU M D NO
 stand stand male 50
-AHMV ABCDEFGHIJK medium unknown
+DILc ABCDEFGHIJK medium energy
 #3404
-oldstyle undead guardian vampire~
+undead guardian vampire~
 The guardian vampire~
 A vampire is here hiding his face from your light source.
 ~
-The guardian vampire looks quite EVIL.  Just by looking at him the hair on your
-arms raises. He looks mighty tough to be just a minor minion.
+The guardian vampire looks quite EVIL.  Just by looking at him the hair
+on your arms raises.  He looks mighty tough to be just a minor minion.  
 ~
-human~
+undead~
 ABF DF -1000 0
-28 0 6d12+703 14d9+100 5d4+8 none
+28 0 6d12+703 14d9+100 5d4+8 drain
 -8 -8 -8 6
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 750
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium flesh
 #3405
 oldstyle priest~
 the priest~
@@ -321,9 +321,9 @@ weapon H AN
 whip 2 4 slime 0
 7 80 540 P
 A
-19 2
-A
 18 1
+A
+19 2
 E
 tickler~
 A horrid black mass of gooey tentacles obviously ripped from the corpse
@@ -389,9 +389,9 @@ treasure GK AB
 0 0 0 0 0
 3 20 26 P
 A
-20 1
-A
 14 10
+A
+20 1
 E
 black marble ring~
 It is pitch black and has beautiful swirls characteristic of marble all
@@ -406,9 +406,9 @@ weapon B AN
 sword 4 2 pierce 0
 16 40 3500 P
 A
-18 1
-A
 2 2
+A
+18 1
 E
 thin rapier~
 It seems so thin that it would be useless but at the same time it looks deadly.
@@ -578,9 +578,9 @@ armor G AK
 AC AC AC 0 0
 0 100 100 P
 A
-17 10
-A
 13 10
+A
+17 10
 E
 dark black cape~
 The cape is gently flows and pulls in the light so evenly and perfectly
@@ -638,12 +638,12 @@ do not let much light through.  A few rows of worn wooden benches stand here.
 ~
 0 0 1
 E
-benches rows~
-The benches are not of the comfortable kind.
-~
-E
 glass windows~
 The windows must be meant to be dark.  At least they are completely clean.
+~
+E
+benches rows~
+The benches are not of the comfortable kind.
 ~
 D0
 The chapel door is made of dark wood.
@@ -718,13 +718,13 @@ blood stains, but their color seems a little wrong.
 ~
 0 9 0
 E
+stain stains~
+That's odd ... they seem a little GREEN.
+~
+E
 door writing~
 Above the door is some strange writing!  It is worn with age, but it refers
 to an ancient ruler named 'Shohan'.
-~
-E
-stain stains~
-That's odd ... they seem a little GREEN.
 ~
 D1
 (null)~
@@ -841,6 +841,13 @@ leading down.  The Ghost of Cristis the Kind stands here.
 ~
 0 9 0
 E
+altar~
+It stands 2 feet high with the remnants of candle-wax on top.  There is
+an inscription on the side:  'Praise the almighty Cristis the bringer of
+good and justice to the world.  He who fought the evilest finally is at
+peace.  May the Gods remember him forever ...'
+~
+E
 ghost cristis~
 His rest has been disturbed by evil creatures who have invaded his domain
 and grave.  He holds up a parchment for you to read:
@@ -854,13 +861,6 @@ and grave.  He holds up a parchment for you to read:
      Roch'tar, the reincarnate Vampire, now rules these tombs.
    You must find and defeat him and his minions!
      May God bless you on your Quest!
-~
-E
-altar~
-It stands 2 feet high with the remnants of candle-wax on top.  There is
-an inscription on the side:  'Praise the almighty Cristis the bringer of
-good and justice to the world.  He who fought the evilest finally is at
-peace.  May the Gods remember him forever ...'
 ~
 D2
 (null)~
@@ -910,23 +910,10 @@ doors lead off to the south and a large stone staircase leads up.
 ~
 0 9 0
 E
-letters graffiti~
-'Beware here all of man, because past here lies only death.'
-
-    Insho'rkthon brsskra-lehsn Roch'tar
-
-Beneath, there are two criss-crossing scratchmarks in an X formation that
-look like someone (or something) raked their claws across the wood.
-~
-E
-oak~
-They're HUGE!  They are at least 12 feet tall and about 10 feet wide.
-If not for one thing they would be perfectly preserved.  There appears
-to be some letters crudely scratched into the wood.
-~
-E
-staircase stairs~
-Though quite cracked they do look very stable.
+stone door trapdoor~
+It's rather small and looks quite heavy but maybe with some kind of leverage
+you could move it.  It has a queerly shaped hole that looks big enough
+for an equally queerly shaped pole to fit inside.  If only you had it!
 ~
 E
 tapestry tapestries~
@@ -936,10 +923,23 @@ Benevolent and Hroth Kragen's forces that eventually Jubal's army won (of
 course).
 ~
 E
-stone door trapdoor~
-It's rather small and looks quite heavy but maybe with some kind of leverage
-you could move it.  It has a queerly shaped hole that looks big enough
-for an equally queerly shaped pole to fit inside.  If only you had it!
+staircase stairs~
+Though quite cracked they do look very stable.
+~
+E
+oak~
+They're HUGE!  They are at least 12 feet tall and about 10 feet wide.
+If not for one thing they would be perfectly preserved.  There appears
+to be some letters crudely scratched into the wood.
+~
+E
+letters graffiti~
+'Beware here all of man, because past here lies only death.'
+
+    Insho'rkthon brsskra-lehsn Roch'tar
+
+Beneath, there are two criss-crossing scratchmarks in an X formation that
+look like someone (or something) raked their claws across the wood.
 ~
 D2
 Finely polished oak doors stand to the south.
@@ -1836,7 +1836,6 @@ S
 
 
 #SPECIALS
-M 3400 spec_cast_undead
 M 3401 spec_cast_undead
 M 3402 spec_cast_undead
 M 3403 spec_cast_undead

@@ -136,20 +136,20 @@ EIKU 0 0 0
 stand stand male 5
 AHMV ABCDEFGHIJK medium unknown
 #5308
-oldstyle golem stone~
+stone golem~
 the stone golem~
 In the corner you see a large, stone golem faithfully standing watch.
 ~
-It is a big chunk of rock that has been magically formed into a giant
-stone creature.  It stands here guarding the city.
+This towering stone automaton bears the likeness of an archaic, armored
+warrior.  It moves with ponderous but inexorable steps.  
 ~
-human~
-AB N 1000 0
-30 0 6d12+853 15d9+100 4d6+8 none
+golem~
+AB N 0 0
+30 0 6d12+853 15d9+100 4d6+8 crush
 -9 -9 -9 6
-EFNU 0 0 0
+EFNU LPQ D 0
 stand stand none 212
-AHMV ABCDEFGHIJK large stone
+CDJ ABCDEFGHIJK large stone
 #5309
 oldstyle mayor~
 the mayor of Thalos~
@@ -238,7 +238,7 @@ EFNU 0 0 0
 stand stand male 50
 AHMV ABCDEFGHIJK medium unknown
 #5315
-oldstyle librarian~
+librarian~
 the librarian~
 The librarian is here shelving books away neatly.
 ~
@@ -246,11 +246,11 @@ The librarian looks busy and whispers, 'Shhh!'
 ~
 human~
 ABH 0 500 0
-8 0 2d7+96 4d9+100 1d7+2 none
+8 0 2d7+96 4d9+100 1d7+2 punch
 3 3 3 9
-EFNU 0 0 0
+U 0 0 0
 stand stand female 0
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #5316
 oldstyle scholar boy~
 a young scholar~
@@ -2410,26 +2410,26 @@ rainbow then back to its normal state.  In the middle of this room is
 a ladder standing vertical.
 ~
 0 0 3
-D3
-You see stars.
-~
-(null)~
-0 0 5378
-D4
-You see stars.
-~
-(null)~
-0 0 5376
-D2
-You see a fuzzy portal of some sort and a little green.
-~
-(null)~
-0 0 5368
 D1
 You see stars.
 ~
 (null)~
 0 0 5378
+D3
+You see stars.
+~
+(null)~
+0 0 5378
+D2
+You see a fuzzy portal of some sort and a little green.
+~
+(null)~
+0 0 5368
+D4
+You see stars.
+~
+(null)~
+0 0 5376
 D5
 You see stars.
 ~
@@ -2445,21 +2445,11 @@ either.  Occasionally, the starry 'sky' fades into a fuzzy, yet bright,
 rainbow then back to its normal state.
 ~
 0 0 3
-D0
+D4
 You see stars.
 ~
 (null)~
-0 0 5377
-D2
-You see stars.
-~
-(null)~
-0 0 5377
-D3
-You see stars.
-~
-(null)~
-0 0 5376
+0 0 5375
 D5
 You see stars.
 ~
@@ -2470,11 +2460,21 @@ You see stars.
 ~
 (null)~
 0 0 5376
-D4
+D0
 You see stars.
 ~
 (null)~
-0 0 5375
+0 0 5377
+D2
+You see stars.
+~
+(null)~
+0 0 5377
+D3
+You see stars.
+~
+(null)~
+0 0 5376
 S
 #5377
 The Void~
@@ -2485,21 +2485,11 @@ either.  Occasionally, the starry 'sky' fades into a fuzzy, yet bright,
 rainbow then back to its normal state.
 ~
 0 0 3
-D2
-You see stars.
-~
-(null)~
-0 0 5376
 D0
 You see stars.
 ~
 (null)~
 0 0 5376
-D4
-You see stars.
-~
-(null)~
-0 0 5378
 D5
 You see stars.
 ~
@@ -2510,6 +2500,16 @@ You see stars.
 ~
 (null)~
 0 0 5377
+D2
+You see stars.
+~
+(null)~
+0 0 5376
+D4
+You see stars.
+~
+(null)~
+0 0 5378
 D1
 You see stars.
 ~
@@ -2531,21 +2531,21 @@ You see stars.
 ~
 (null)~
 0 0 5375
-D4
-You see stars.
-~
-(null)~
-0 0 5377
-D2
-You see a fuzzy portal of some sort and a little green.
-~
-(null)~
-0 0 8903
 D3
 You see stars.
 ~
 (null)~
 0 0 5375
+D2
+You see a fuzzy portal of some sort and a little green.
+~
+(null)~
+0 0 8903
+D4
+You see stars.
+~
+(null)~
+0 0 5377
 D5
 You see stars.
 ~
@@ -3012,7 +3012,7 @@ M 0 5301 20 5354 1
 E 0 5300 0 3
 M 0 5308 8 5354 2
 E 0 5221 0 16
-E 0 5237 0 17
+E 0 5237 0 18
 M 0 5326 4 5356 2
 M 0 5323 3 5358 2
 M 0 5304 9 5361 1

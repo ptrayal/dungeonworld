@@ -38,19 +38,20 @@ EFNR 0 LQ R
 stand stand male 175
 AHMV ABCDEFGHIJK medium unknown
 #6502
-oldstyle wraith~
+wraith undead~
 the wraith~
 A wraith is awaiting your first move here.
 ~
-A black, almost transparent wraith.
+This ghostly creature is little more than a dark shape with two
+flickering pinpoints of light where its eyes should be.  
 ~
-human~
+undead~
 AB DF -900 0
-29 0 6d12+778 14d9+100 2d12+8 none
+29 0 6d12+778 14d9+100 2d12+8 drain
 -9 -9 -9 6
-EFNU 0 0 0
+EFNU M D N
 stand stand male 2500
-AHMV ABCDEFGHIJK medium unknown
+DILc ABCDEFGHIJK medium energy
 #6503
 oldstyle storekeeper~
 the storekeeper~
@@ -80,12 +81,12 @@ EFNU 0 0 0
 stand stand male 50
 AHMV ABCDEFGHIJK medium unknown
 #6505
-oldstyle lizard~
+giant lizard~
 the giant lizard~
 A giant lizard is here.
 ~
 This scaly creature looks like it is well adapted to it's underground
-habitat.  He looks very powerful.
+habitat.  He looks very powerful.  
 ~
 lizard~
 AG D 100 0
@@ -93,13 +94,13 @@ AG D 100 0
 -3 -3 -3 7
 EFNR 0 L I
 stand stand male 60
-AGc ACDEFHKQV medium unknown
+AGc ACDEFHKQV large flesh
 #6506
-oldstyle giant~
+giant~
 the giant~
 A giant is here.
 ~
-The giant is about 8 feet tall, with arms of steel, and looks very strong.
+The giant is about 8 feet tall, with arms of steel, and looks very strong.  
 ~
 giant~
 AG 0 0 0
@@ -107,7 +108,7 @@ AG 0 0 0
 -2 -2 -2 7
 EFNR 0 HI JP
 stand stand male 100
-AHMVa ABCDEFGHIJK medium unknown
+AHa ABCDEFGHIJK large flesh
 #6507
 oldstyle dwarf miner~
 the dwarven miner~

@@ -916,9 +916,9 @@ lister green tree snake~
 Lister~
 A green tree snake is sitting here on a pile of books.
 ~
-This is Melancholy's pet tree snake, Lister.  Something seems odd about his 
-jaw, almost as if he were smiling at you.  He's quite friendly, but don't
-get him drunk.
+This is Melancholy's pet tree snake, Lister.  Something seems odd about
+his jaw, almost as if he were smiling at you.  He's quite friendly, but
+don't get him drunk.  
 ~
 snake~
 ABV D 200 0
@@ -926,7 +926,7 @@ ABV D 200 0
 -6 -5 -2 4
 FHNR 0 FL I
 stand stand male 0
-AGc ADEFKLQVX small unknown
+AGc ADEFKLQVX small flesh
 #3162
 otho money changer moneychanger~
 Otho the Changer~

@@ -122,20 +122,20 @@ EFNU 0 0 0
 stand stand none 45
 AHMV ABCDEFGHIJK medium unknown
 #1609
-evil wight~
+evil wight undead~
 an evil wight~
 An evil wight lurks in the shadows!
 ~
 The flesh of this walking corpse is rotting and putrid, its body skeletal
 in places and its eye sockets glowing with red light.  
 ~
-human~
+undead~
 ABCFG DF -1000 0
-12 0 2d10+150 6d9+100 1d10+3 none
+12 0 2d10+150 6d9+100 1d10+3 drain
 0 0 0 8
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 110
-AHMV ABCDEFGHIJK medium flesh
+DIc ABCDEFGHIJK medium flesh
 #1610
 oldstyle burly minotaur~
 A burly minotaur~
@@ -222,19 +222,20 @@ CEFHNU L 0 S
 stand rest male 0
 ABZ ABCDEFGHIJKQVX large flesh
 #1617
-oldstyle spectre~
+spectre undead~
 the spectre~
 A spectre has begun to materialize in front of you!
 ~
-Terror fills your heart as you view this master of the undead.
+This translucent, ghostly figure fades into view from the damp mist, its
+face distorted by wrath into a hideous mask.  
 ~
-human~
-ACFG BDH -1000 0
-19 0 3d9+308 9d9+100 2d7+5 none
+undead~
+ACFG BDZ -1000 0
+19 0 3d9+308 9d9+100 2d7+5 drain
 -4 -4 -4 7
-EFNU 0 0 0
+EFNU M D N
 stand stand male 0
-AHMV ABCDEFGHIJK medium unknown
+DILc ABCDEFGHIJK medium energy
 #1702
 oldstyle trapper~
 a trapper~
@@ -510,7 +511,7 @@ dark blue cloak~
 a dark blue cloak~
 A valuable cloak of dark blue cloth lies on the floor.~
 cloth~
-clothing AG AC
+clothing G AC
 0 0 0 0 0
 0 20 100 P
 A

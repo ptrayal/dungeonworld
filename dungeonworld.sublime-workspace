@@ -123,6 +123,32 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/act_info.c",
+			"settings":
+			{
+				"buffer_size": 65093,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 62 files for \"max = 100\"\n\nC:\\Users\\bmorris2\\Documents\\GitHub\\dungeonworld\\src\\handler.c:\n  719  \n  720  	if (IS_NPC(ch) || ch->level > LEVEL_IMMORTAL)\n  721: 		max = 100;\n  722  \n  723  	else\n\n1 match in 1 file\n",
+			"settings":
+			{
+				"buffer_size": 221,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "src/handler.c",
+			"settings":
+			{
+				"buffer_size": 70397,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -152,22 +178,35 @@
 	},
 	"file_history":
 	[
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_wiz.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/merc.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/const.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/special.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/db.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/handler.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/Makefile",
+		"/C/Users/bmorris2/Documents/GitHub/mpv-legend/src/Makefile",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_info.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/data/class/thief.class",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/data/class/warrior.class",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.h",
+		"/C/Users/bmorris2/Documents/GitHub/mpv-legend/src/act_info.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/db.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/special_table.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/ban.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/area/startup",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/merc.h",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/save.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/protocol.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/comm.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_comm.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/skills.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/update.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/fight.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/save.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/olc_act.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/mem.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/olc.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/tables.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_wiz.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/special.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/data/class/thief.class",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/data/class/warrior.class",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/skills.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/fight.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/recycle.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/scan.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/hedit.c",
@@ -179,18 +218,14 @@
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/mob_cmds.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic2.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/bit.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/ban.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/alias.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_obj.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_move.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_enter.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/olc_act.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/olc_save.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/olc_mpcode.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/mob_prog.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/data/class/cleric.class",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.h",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/lookup.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/string.c",
 		"/E/Brandon/Course_Development/aemud/Archive/Snippets/class-remove/class-remove/Class_Snippet/README",
@@ -199,7 +234,6 @@
 		"/E/Brandon/Course_Development/aemud/Archive/Snippets/class-remove/class-remove/Class_Snippet/snippet.c",
 		"/E/Brandon/Course_Development/aemud/Archive/Snippets/class-remove/class-remove/Class_Snippet/install.txt",
 		"/E/Brandon/Course_Development/aemud/Archive/Snippets/clan-2.2/install.txt",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/handler.c",
 		"/E/Brandon/Course_Development/aemud/Archive/Snippets/Completed/protocol/README.TXT",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/.version",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/special_table.c",
@@ -271,15 +305,7 @@
 		"/E/Brandon/Course_Development/aemud/src/mob_prog.c",
 		"/E/Brandon/Course_Development/aemud/src/music.c",
 		"/E/Brandon/Course_Development/aemud/src/olc.c",
-		"/E/Brandon/Course_Development/aemud/src/olc_mpcode.c",
-		"/E/Brandon/Course_Development/aemud/src/olc_act.c",
-		"/E/Brandon/Course_Development/aemud/src/olc_save.c",
-		"/E/Brandon/Course_Development/aemud/src/protocol.c",
-		"/E/Brandon/Course_Development/aemud/src/wizutil.c",
-		"/E/Brandon/Course_Development/aemud/src/recycle.c",
-		"/E/Brandon/Course_Development/aemud/src/save.c",
-		"/E/Brandon/Course_Development/aemud/src/scan.c",
-		"/E/Brandon/Course_Development/aemud/src/string.c"
+		"/E/Brandon/Course_Development/aemud/src/olc_mpcode.c"
 	],
 	"find":
 	{
@@ -298,6 +324,36 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"max = 100",
+			"do_score",
+			"giant",
+			"stat",
+			"50",
+			"perm_stat",
+			"MAX_STAT",
+			"giant",
+			"IS_NULLSTR",
+			"WriteNumber",
+			"WriteToFile",
+			"WriteNumber",
+			"show_char_to_char_0",
+			"MUD_NAME",
+			"getversion",
+			"gerversion",
+			"mudVersion",
+			"getVersion",
+			"VERSION",
+			"IS_NULL",
+			"MSL",
+			"advance_level",
+			"read_from_descriptor",
+			"strcmp",
+			"reset_room",
+			"pRoom->exit",
+			"pRoom->exit[door]->vnum",
+			"pRoom->exit",
+			"void redit",
+			"BEAST",
 			"sword",
 			"FORM_",
 			"FORM_UNDEAD",
@@ -395,37 +451,7 @@
 			"MAX_STRING_LENGTH",
 			"EXIT_DATA",
 			"free_exit",
-			"sprintf",
-			"delete",
-			"sprintf",
-			"sprinf",
-			"\"\"",
-			"sprintf",
-			"springf",
-			"MAX_STRING_LENGTH",
-			"sprintf",
-			"int ",
-			"\\0",
-			"MAX_STRING_LENGTH",
-			"MAX_s",
-			"MSL",
-			"MAX_S",
-			"\\0",
-			"MAX_S",
-			"\\0",
-			"IS_NULLSTR",
-			"edit_room",
-			"edit_room_reset",
-			"load_mobiles",
-			"load_mob",
-			"load_reset",
-			"[MAX_STRING_LENGTH]",
-			"\\0",
-			"pLastObj",
-			"buf",
-			"i",
-			"format_string",
-			"hash"
+			"sprintf"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -444,8 +470,106 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/act_info.c",
+					"settings":
+					{
+						"buffer_size": 65093,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								65093,
+								65093
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 239.0,
+						"translation.y": 39408.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 221,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										170,
+										179
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								175,
+								175
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/handler.c",
+					"settings":
+					{
+						"buffer_size": 70397,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18310,
+								18310
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 10426.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],

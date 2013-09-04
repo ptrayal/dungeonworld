@@ -55,19 +55,19 @@ EFNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #1303
-oldstyle diamond golem~
+diamond golem~
 the golem~
 A huge diamond golem is standing guard here.
 ~
 It looks quite strong.
 ~
-human~
+golem~
 ABG D 500 0
-23 0 5d10+450 11d9+100 3d6+6 none
+23 0 5d10+450 11d9+100 3d6+6 pound
 -6 -6 -6 6
-EFNU 0 0 0
+FU LPQ 0 0
 stand stand none 49
-AHMV ABCDEFGHIJK large diamond
+CDJ ABCDEFGHIJK large diamond
 #1304
 oldstyle mage young~
 a mage~
@@ -561,19 +561,20 @@ FU 0 0 0
 stand stand male 233
 AHMV ABCDEFGHIJK medium unknown
 #1339
-oldstyle golem wooden~
+wood wooden golem~
 a wooden golem~
 A wooden golem stands a silent vigil here, guarding the stairs.
 ~
-He looks flammable.
+This human-sized automaton resembles a crude humanoid figure made of
+cast-off pieces of wood.  
 ~
-human~
+golem~
 ABFG D 100 0
-16 0 3d9+233 8d9+100 2d6+4 none
+16 0 3d9+233 8d9+100 2d6+4 pound
 -2 -2 -2 7
-EFNU 0 0 0
+DU LPQ 0 H
 stand stand none 50
-AHMV ABCDEFGHIJK medium wood
+CDJ ABCDEFGHIJK large wood
 #1340
 oldstyle master binder~
 the master spell binder~
@@ -589,32 +590,34 @@ FU 0 0 0
 stand stand male 115
 AHMV ABCDEFGHIJK medium unknown
 #1341
-oldstyle master maker~
+master maker golem~
 the golem maker~
 The golem maker is here chiseling some stone.
 ~
-(null)~
+The master golem maker is here.
+~
 human~
 ABFGR D 300 0
-21 0 3d9+333 21d9+100 2d7+4 none
+21 0 3d9+333 21d9+100 2d7+4 pound
 -4 -4 -4 3
 FU 0 0 0
 stand stand male 133
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #1342
-oldstyle golem granite~
-a granite golem~
-A granite golem stands here waiting to do its master's bidding.
+stone golem~
+a stone golem~
+A stone golem is here, waiting to do its master's bidding
 ~
-It looks like a statue, until you see it shamble towards you.
+This towering stone automaton bears the likeness of an archaic, armored
+warrior.  It moves with ponderous but inexorable steps.  
 ~
-human~
-ABFG 0 300 0
+golem~
+ABFG 0 0 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
-EFNU 0 0 0
+U LPQ D 0
 stand stand none 0
-AHMV ABCDEFGHIJK medium stone
+CDJ ABCDEFGHIJK large stone
 #1343
 oldstyle golem bronze~
 a bronze golem~
@@ -630,20 +633,20 @@ EFNU 0 0 0
 stand stand none 0
 AHMV ABCDEFGHIJK medium bronze
 #1344
-oldstyle golem flesh~
+flesh golem~
 a flesh golem~
 A flesh golem stands guard here
 ~
-It looks to be made of a potpourri of different body parts; some don't
-even resemble anything human.  
+A hideous monstrosity crafted from body parts stitched together with
+thick string, wire, and metal staples lurches to horrific life.  
 ~
-human~
+golem~
 ABFG 0 200 0
-12 0 2d10+150 6d9+100 1d10+3 none
+12 0 2d10+150 6d9+100 1d10+3 pound
 0 0 0 8
-EFNU 0 0 0
+DU LPQ 0 0
 stand stand none 0
-AHMV ABCDEFGHIJK medium flesh
+CDJ ABCDEFGHIJK large flesh
 #1345
 oldstyle golem cloth~
 a cloth golem~
@@ -659,48 +662,50 @@ EFNU 0 0 0
 stand stand none 0
 AHMV ABCDEFGHIJK medium clay
 #1346
-oldstyle golem adamantite~
+adamantite golem~
 an adamantite golem~
 An adamantite golem stands here looking very dangerous.
 ~
 It seems to be forged of dark metal.  It looks strong and durable,
 but somewhat un-intelligent.
 ~
-human~
+golem~
 ABCG 0 350 0
-25 0 5d10+550 12d9+100 2d10+7 none
+25 0 5d10+550 12d9+100 2d10+7 pound
 -7 -7 -7 6
-EFNU 0 0 0
+CU LPQ CD 0
 stand stand none 500
-AHMV ABCDEFGHIJK medium adamantite
+CDJ ABCDEFGHIJK large adamantite
 #1347
-oldstyle golem clay~
+clay golem~
 a clay golem~
 A clay golem stands guard here.
 ~
-(null)~
-human~
+This lumbering figure is sculpted from soft clay.  It wears filthy rags
+and crude jewelry, and its face is only vaguely humanoid.  
+~
+golem~
 ABCFG D 200 0
-15 0 3d9+208 7d9+100 2d6+3 none
+15 0 3d9+208 7d9+100 2d6+3 pound
 -2 -2 -2 7
-EFNU 0 0 0
+DU LPQ 0 0
 stand stand none 0
-AHMV ABCDEFGHIJK medium clay
+CDJ ABCDEFGHIJK large clay
 #1348
-oldstyle master illusionist mage~
+master illustionist mage~
 the master of illusions~
 An enormous multi-colored three-headed dragon growls at you.
 ~
 The image of an ugly dragon flickers slightly, and where the dragon was
-now stands a small harmless looking old man.
+now stands a small harmless looking old man.  
 ~
 human~
 ABCGHR D 150 0
-21 0 3d9+333 21d9+100 2d7+4 none
+21 0 3d9+333 21d9+100 2d7+4 pound
 -4 -4 -4 3
 FU 0 0 0
 stand stand male 117
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #1349
 oldstyle necromancer master~
 the Necromancer~
@@ -719,32 +724,33 @@ FU 0 0 0
 stand stand male 584
 AHMV ABCDEFGHIJK medium unknown
 #1350
-oldstyle skeleton undead~
+skeleton animated undead~
 an animated skeleton~
 An animated skeleton screams silently and attacks.
 ~
 It feels no pain, and hacks at you ruthlessly.
 ~
-human~
+undead~
 ABFG D -500 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
-EFNU 0 0 0
+EFNU M 0 N
 stand stand none 0
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium bone
 #1351
-oldstyle undead giant~
+undead giant~
 an undead giant~
 An undead giant lumbers towards you.
 ~
-(null)~
-human~
+A rotting giant stands here.
+~
+undead~
 ABCFG D -500 0
-18 0 3d9+283 9d9+100 2d7+4 none
+18 0 3d9+283 9d9+100 2d7+4 pound
 -3 -3 -3 7
-EFNU 0 0 0
+EFNU M 0 N
 stand stand none 0
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK huge flesh
 #1352
 oldstyle witch hag~
 an ugly witch~
@@ -926,22 +932,22 @@ FHR 0 0 0
 stand stand female 0
 AG ACDEFHJKQUV medium flesh
 #1364
-oldstyle guildmaster grand mistress~
+guildmaster grand mistress~
 The Grand Mistress~
 The Grand Mistress of Magic is sitting here.
 ~
-She looks quite comfortable on her emerald throne. Amazingly young and
+She looks quite comfortable on her emerald throne.  Amazingly young and
 pretty for one of such stature in the guild, no doubt she has kept her
-youthful appearance through the use of strong magics.
-The Grand Master pets her familiar and smiles at you in confidence.
+youthful appearance through the use of strong magics.  The Grand Master pets
+her familiar and smiles at you in confidence.  
 ~
 human~
 ABGR DH 0 0
-50 0 50d10+4000 50d9+100 6d6+17 none
+50 0 50d10+4000 50d9+100 6d6+17 pound
 -19 -19 -19 -4
 FU 0 0 0
 stand stand female 2500
-AHMV ABCDEFGHIJK medium unknown
+AHM ABCDEFGHIJK medium flesh
 #1365
 oldstyle wizard~
 a wizard~
@@ -1248,7 +1254,7 @@ trash 0 AO
 book tome~
 the book of magic~
 An enormous book is lying open here~
-oldstyle~
+vellum~
 container A 0
 500 0 0 500 100
 0 0 0 P
@@ -1267,8 +1273,8 @@ A
 #1336
 altar~
 a golden altar~
-(null)~
-oldstyle~
+A golden altar is here.~
+gold~
 container 0 0
 1000 AC 0 100 100
 0 0 0 P
@@ -1296,9 +1302,9 @@ container AG 0
 key intricate~
 an intricately carved key~
 An intricately carved key has been left here.~
-oldstyle~
+iron~
 key AG AO
-BDEFIK 0 0 0 0
+0 0 0 0 0
 0 10 150 P
 A
 20 -1
@@ -1553,17 +1559,17 @@ wand G AO
 17 5 1 'fireball' 0
 14 40 3800 P
 #1376
-chisel runed~
-a runed chisel~
-A runed chisel is here.~
-diamond~
-weapon AG AN
-dagger 3 6 pierce 0
+masterwork crystal dagger~
+a masterwork crystal dagger~
+A crystal dagger is here.~
+crystal~
+weapon G AN
+dagger 2 3 pierce 0
 20 60 2100 P
 A
-2 1
+18 3
 A
-19 2
+19 4
 #1377
 pouch belt beltpouch~
 a beltpouch~
@@ -1576,7 +1582,7 @@ container 0 AL
 dust~
 some sparkling dust~
 Some sparkling dust is in a pile here.~
-oldstyle~
+crystal~
 staff 0 AO
 20 1 1 'sleep' 0
 5 20 1930 P
@@ -1636,7 +1642,7 @@ A
 bracelet silver~
 a glinting silver bracelet~
 A glinting hoop of silvery metal is here.~
-oldstyle~
+silver~
 jewelry G AM
 0 0 0 0 0
 20 50 1440 P
@@ -1678,7 +1684,7 @@ A
 bracelet onyx~
 an onyx bracelet~
 A hoop of black onyx is here.~
-oldstyle~
+stone~
 jewelry G AM
 0 0 0 0 0
 20 60 1150 P
@@ -1741,22 +1747,22 @@ A
 A
 20 -2
 #1394
-ivory dagger~
-an ivory hilted dagger~
+ivory dagger holy holiness~
+an ivory-hilted holy dagger~
 An ivory hilted dagger has been left here~
 iron~
 weapon GIK AN
 dagger 3 4 pierce 0
 27 10 2100 P
 A
-18 1
-A
 19 2
+A
+18 2
 #1395
 collar spiked~
 a spiked collar~
 A small spiked collar is here.~
-oldstyle~
+leather~
 armor G AC
 B B B 0 0
 20 90 1970 P
@@ -1787,10 +1793,10 @@ jewelry G AB
 A
 12 20
 #1398
-bracelet emerald~
-an emerald bracelet~
+hoop bracer emerald spellguard~
+bracers of spellguard~
 A beautifully crafted hoop of emerald is here.~
-oldstyle~
+emerald~
 jewelry G AM
 0 0 0 0 0
 20 50 2200 P
@@ -1811,17 +1817,17 @@ A
 A
 20 -2
 #1400
-ebony kris~
-the ebony kris~
-A wavy bladed knife made of ebony is here.~
-oldstyle~
+dagger death wavy knife~
+dagger of death~
+A wavy bladed knife is here.~
+iron~
 weapon G AN
-dagger 6 6 pierce 0
+dagger 5 5 pierce 0
 46 30 10700 P
 A
-2 2
+19 2
 A
-19 5
+18 1
 #1401
 green scale shirt~
 a tight fitting green dragon scale shirt~
@@ -1894,26 +1900,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1307
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1303
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1304
 D1
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1302
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1304
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1303
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1307
 S
 #1302
 The Shadow Grove~
@@ -1923,11 +1929,6 @@ sounds moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1301
 D2
 The shadows cloud your vision.
 ~
@@ -1938,6 +1939,11 @@ You see a small clearing in the shadows.
 ~
 (null)~
 0 -1 1311
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1301
 D1
 The shadows cloud your vision.
 ~
@@ -1957,21 +1963,21 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1301
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
-D2
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1306
 D3
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1302
+D2
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1306
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1309
 S
 #1304
 The Shadow Grove~
@@ -2015,6 +2021,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1302
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1304
 D2
 The shadows cloud your vision.
 ~
@@ -2025,11 +2036,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1306
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1304
 S
 #1306
 The Shadow Grove~
@@ -2039,6 +2045,11 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
+D1
+You see a shadowy tavern.
+~
+(null)~
+0 -1 9301
 D0
 The shadows cloud your vision.
 ~
@@ -2049,11 +2060,6 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1309
-D1
-You see a shadowy tavern.
-~
-(null)~
-0 -1 9301
 D3
 The shadows cloud your vision.
 ~
@@ -2068,26 +2074,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1308
-D3
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
 D2
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1301
+D3
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1309
 D0
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1304
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1308
 S
 #1308
 The Shadow Grove~
@@ -2097,26 +2103,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D1
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1309
 D3
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1307
-D0
-The shadows cloud your vision.
-~
-(null)~
-0 -1 1305
 D2
 The shadows cloud your vision.
 ~
 (null)~
 0 -1 1300
+D1
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1309
+D0
+The shadows cloud your vision.
+~
+(null)~
+0 -1 1305
 S
 #1309
 The Shadow Grove~
@@ -2126,11 +2132,11 @@ sounds of moaning and growling come from all directions.
   All directions lead into shadows, you are very confused.
 ~
 0 8193 3
-D3
+D0
 The shadows cloud your vision.
 ~
 (null)~
-0 -1 1308
+0 -1 1306
 D2
 The shadows cloud your vision.
 ~
@@ -2141,11 +2147,11 @@ The shadows cloud your vision.
 ~
 (null)~
 0 -1 1307
-D0
+D3
 The shadows cloud your vision.
 ~
 (null)~
-0 -1 1306
+0 -1 1308
 S
 #1311
 A small clearing~
@@ -3535,18 +3541,6 @@ Nice going!  You might as well wait here until the wizard who built this
 trap comes back to imprison your soul as well as your body.
 ~
 0 8200 0
-D5
-(null)~
-(null)~
-0 0 3460
-D2
-(null)~
-(null)~
-0 0 9141
-D4
-(null)~
-(null)~
-0 0 938
 D3
 (null)~
 (null)~
@@ -3555,6 +3549,18 @@ D1
 (null)~
 (null)~
 0 0 5113
+D5
+(null)~
+(null)~
+0 0 3460
+D4
+(null)~
+(null)~
+0 0 938
+D2
+(null)~
+(null)~
+0 0 9141
 S
 #1393
 A hallway~
@@ -3948,10 +3954,10 @@ D3
 S
 #1417
 The master of illusion's chamber~
-You are in the chamber of the master of illusions. The walls here are
+You are in the chamber of the master of illusions.  The walls here are
 ever-changing in color and texture, as if they were reforming before your
-very eyes. Many splendorous treasures lie all around in heaps and piles, or
-at least they seem to be treasures...
+very eyes.  Many splendorous treasures lie all around in heaps and piles, or
+at least they seem to be treasures...  
 ~
 0 8 0
 D0

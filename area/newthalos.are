@@ -279,109 +279,124 @@ stand stand male 45
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9521
-oldstyle statue~
-the statue of Nati~
-The statue of Nati stands here.~
-(null)~
-human~
+statue~
+statue of Nati~
+The statue of Natis is here.
+~
+The statue of Nati is here.
+~
+golem~
 ABQTX 0 1000 0
-35 0 10d10+1300 35d9+100 6d4+11 none
+35 0 10d10+1300 35d9+100 6d4+11 pound
 -11 -11 -11 3
-EIKU 0 0 0
+EIKU LPQ 0 0
 stand stand female 1150
-AHMV ABCDEF huge unknown
-F par GHIJK
+CDJ ABCDEFGHIJK large stone
 #9522
-oldstyle statue~
+statue~
 the statue of Alander~
-The statue of Alander stands here.~
-Alander has been caught in the pose of casting a bolt of flamedown to some hapless victim.  He is dressed in the robes of a mage,yet bears a sword carved into the glittering stone of his statue.~
-human~
+The statue of Alander is here.
+~
+Alander has been caught in the pose of casting a bolt of flamedown to
+some hapless victim.  He is dressed in the robes of a mage, yet bears a
+sword carved into the glittering stone of his statue.  
+~
+golem~
 ABQTX 0 1000 0
 31 0 6d12+928 31d9+100 2d12+9 none
 -10 -10 -10 4
-EIKU 0 0 0
+EIKU LPQ 0 0
 stand stand male 1150
-AHMV ABCDEF huge unknown
-F par GHIJK
+CDJ ABCDEFGHIJK large stone
 #9523
-oldstyle statue~
+Statue~
 the statue of Zump~
-The statue of Zump stands here.~
-A statue of a stocky, angry looking dwarf with a cigarette in his mouth.~
-human~
+The statue of Zump stands here.
+~
+A statue of a stocky, angry looking dwarf with a cigarette in his mouth.  
+~
+golem~
 ABQTX 0 1000 0
-31 0 6d12+928 31d9+100 2d12+9 none
+31 0 6d12+928 31d9+100 2d12+9 pound
 -10 -10 -10 4
-EIKU 0 0 0
+EIKU LPQ 0 0
 stand stand male 1150
-AHMV ABCDEF tiny unknown
-F par GHIJK
+CDJ ABCDEFGHIJK large stone
 #9524
-oldstyle statue~
+statue~
 the statue of Nightshade~
-The statue of Nightshade stands here.~
-A tall, swirling dark stone formed this statue.  As you peer at himlonger, it seems to chuckle.~
-human~
+The status of Nightshade is here.
+~
+A tall, swirling dark stone formed this statue.  As you peer at
+himlonger, it seems to chuckle.  
+~
+golem~
 ABQTX 0 1000 0
-31 0 6d12+928 31d9+100 2d12+9 none
+31 0 6d12+928 31d9+100 2d12+9 pound
 -10 -10 -10 4
-EIKU 0 0 0
+EIKU LPQ 0 0
 stand stand male 1190
-AHMV ABCDEF tiny unknown
-F par GHIJK
+CDJ ABCDEFGHIJK large stone
 #9525
-oldstyle statue~
+statue~
 the statue of Satin~
-The statue of Satin stands here.~
-The statue of Satin, a small elven woman in mage robes, smiles serenelyand her eyes twinkle with gentle humour.  You take a step back in fear.~
-human~
+The statue of Satin is here.
+~
+The statue of Satin, a small elven woman in mage robes, smiles
+serenelyand her eyes twinkle with gentle humour.  You take a step back in
+fear.  
+~
+golem~
 ABQTX 0 1000 0
-31 0 6d12+928 31d9+100 2d12+9 none
+31 0 6d12+928 31d9+100 2d12+9 pound
 -10 -10 -10 4
-EIKU 0 0 0
+EIKU LPQ 0 0
 stand stand female 1150
-AHMV ABCDEF tiny unknown
-F par GHIJK
+CDJ ABCDEFGHIJK large stone
 #9526
-oldstyle statue~
+statue~
 the statue of Shandra~
-The statue of Shandra stands here.~
-This statue poses the Lady of the Mountains in a simple robe, withher long tresses sensibly pulled back from her smooth, smiling face.~
-human~
+The Statue of Shandra is here.
+~
+This statue poses the Lady of the Mountains in a simple robe, withher
+long tresses sensibly pulled back from her smooth, smiling face.  
+~
+golem~
 ABQTX 0 1000 0
-31 0 6d12+928 31d9+100 2d12+9 none
+31 0 6d12+928 31d9+100 2d12+9 pound
 -10 -10 -10 4
-EIKU 0 0 0
+EIKU LPQ 0 0
 stand stand female 1150
-AHMV ABCDEF tiny unknown
-F par GHIJK
+CDJ ABCDEFGHIJK large stone
 #9527
-oldstyle statue~
+statue~
 the statue of Furey~
-There a statue of Furey standing here.~
-A statue of Furey.~
-human~
+The statue of Furey is here.
+~
+A statue of Furey.  
+~
+golem~
 ABQRTX 0 1000 0
-34 0 10d10+1200 34d9+100 6d4+10 none
+34 0 10d10+1200 34d9+100 6d4+10 pound
 -11 -11 -11 3
-EIKU 0 0 0
+EIKU LPQ 0 0
 stand stand male 3250
-AHMV ABCDEF tiny unknown
-F par GHIJK
+CDJ ABCDEFGHIJK large stone
 #9528
-oldstyle statue~
+statue~
 the statue of Landru~
-The statue of Landru stands here.~
-Landru is carved from shimmering polished hematite, and a smile seemsto flicker over his face.  A pair of dice are enclosed in one hand.~
-human~
+The statue of Landru is here.
+~
+Landru is carved from shimmering polished hematite, and a smile seemsto
+flicker over his face.  A pair of dice are enclosed in one hand.  
+~
+golem~
 ABQRTUWX 0 1000 0
-35 0 10d10+1300 35d9+100 6d4+11 none
+35 0 10d10+1300 35d9+100 6d4+11 pound
 -11 -11 -11 3
-EIKU 0 0 0
+EIKU LPQ 0 0
 stand stand male 3250
-AHMV ABCDEF tiny unknown
-F par GHIJK
+CDJ ABCDEFGHIJK large stone
 #9529
 oldstyle aziz~
 Aziz~
@@ -526,31 +541,33 @@ stand stand male 615
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9540
-oldstyle raistlin~
+raistlin~
 Raistlin~
-Raistlin, the Arch-Magician stands here.~
-You see nothing special.~
+Raistlin, the Arch-Mage is here.
+~
+You see nothing special.  
+~
 human~
 ACGHR D 200 0
-25 0 5d10+500 25d9+100 4d4+6 none
+25 0 5d10+500 25d9+100 4d4+6 pound
 -6 -6 -6 2
 FU 0 0 0
 stand stand male 615
-AHMV ABCDEF tiny unknown
-F par GHIJK
+AHMV ABCDEFGHIJK medium flesh
 #9541
-oldstyle curley greenleaf~
+curley greenleaf~
 Curley GreenLeaf~
-Curley GreenLeaf stands here.~
-You see nothing special.~
+Curley Greenleaf is here.
+~
+You see nothing special.  
+~
 human~
 AGQT D 0 0
-25 0 5d10+550 25d9+100 3d6+7 none
+25 0 5d10+550 25d9+100 3d6+7 pound
 -7 -7 -7 5
 EIKU 0 0 0
 stand stand male 615
-AHMV ABCDEF tiny unknown
-F par GHIJK
+AHMV ABCDEFGHIJK medium flesh
 #9542
 oldstyle man wandering prophet~
 the wandering prophet~
@@ -820,18 +837,19 @@ stand stand male 45
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9562
-oldstyle sultans guard~
+sultan sultans guard~
 the sultans guard~
-A guard stands here, watching the gate.~
-You see a trained fighter, ready to defend the city.~
+A guard is here, watching the gate.
+~
+You see a trained fighter, ready to defend the city.  
+~
 human~
 ABGT 0 1000 0
-10 0 2d8+134 5d9+100 2d4+2 none
+10 0 2d8+134 5d9+100 2d4+2 punch
 1 1 1 8
 CDEIKLU 0 0 0
 stand stand male 45
-AHMV ABCDEF tiny unknown
-F par GHIJK
+AHM ABCDEFGHIJK medium flesh
 #9563
 oldstyle sultans guard chief~
 The chief guard~
@@ -924,30 +942,35 @@ stand stand male 1150
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9570
-oldstyle cryohydra~
+cryohydra hydra~
 the cryohydra~
-The cryohydra stands here.~
-A grey-brown reptillian creature with amber eyes stands before you.~
+The cryohydra is here.
+~
+A grey-brown reptillian creature with amber eyes stands before you.  
+~
 human~
 AFGTW 0 0 0
-8 0 2d7+96 4d9+100 1d7+2 none
+8 0 2d7+96 4d9+100 1d7+2 bite
 3 3 3 9
-EFNU 0 0 0
+CU 0 0 0
 stand stand none 18
-AHMV ABCDEF tiny unknown
+C ABCDEF huge flesh
+F for AM
 F par GHIJK
 #9571
-oldstyle giant minotaur lizard~
+giant minotaur lizard~
 the minotaur lizard~
-The minotaur lizard stands here.~
-A huge lizard like reptile with horns like a minotaur.~
-giant~
+The minotaur lizard is here.
+~
+A huge lizard like reptile with horns like a minotaur.  
+~
+lizard~
 AFGT 0 0 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
-EFNR 0 HI JP
+R 0 L I
 stand stand none 18
-AHMVa ABCDEFGHIJK tiny unknown
+AGc ABCDEFGHIJKQVW large flesh
 #9572
 dog death~
 the death dog~
@@ -1082,18 +1105,20 @@ stand stand male 1190
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9582
-oldstyle royal guard elite~
+royal guard elite~
 The Royal Guard~
-An Elite Royal Guard stands here smiling happily.~
-You see one of the Royal Guards from Midgaard who seems to have gonethrough some training.~
+An elite royal guard is here, smiling happily
+~
+You see one of the Royal Guards from Midgaard who seems to have gone
+through some training.  
+~
 human~
 AGHTU D 1000 0
-31 0 10d10+1000 15d9+100 4d6+9 none
+31 0 10d10+1000 15d9+100 4d6+9 punch
 -10 -10 -10 5
 CDEIKLU 0 0 0
 stand stand male 1250
-AHMV ABCDEF tiny unknown
-F par GHIJK
+AHM ABCDEFGHIJK medium flesh
 #9583
 oldstyle patch bartender~
 Patch the bartender~
@@ -1212,17 +1237,19 @@ stand stand none 1190
 AHMV ABCDEF tiny unknown
 F par GHIJK
 #9592
-oldstyle guard bodyguard~
+guard bodyguard~
 the bodyguard~
-A bodyguard stands here.~
-A big, strong, helpful, trustworthy guard.~
+A bodyguard is here.
+~
+A big, strong, helpful, trustworthy guard.  
+~
 human~
 AT 0 1000 0
-10 0 2d8+134 5d9+100 2d4+2 none
+10 0 2d8+134 5d9+100 2d4+2 pound
 1 1 1 8
 CDEIKLU 0 0 0
 stand stand male 45
-AHMV ABCDEF tiny unknown
+AHM ABCDEF medium flesh
 F par GHIJK
 #0
 
@@ -1329,7 +1356,7 @@ sword 3 5 cleave F
 scimitar~
 a scimitar~
 A scimitar lies here.~
-oldstyle~
+iron~
 weapon 0 AN
 sword 1 9 slash 0
 5 100 490 P
@@ -1379,7 +1406,7 @@ A
 splintmail splint mail suit~
 a suit of splintmail~
 A suit of splintmail armor lies here.~
-oldstyle~
+iron~
 armor 0 AD
 AC AC AC 0 0
 8 450 1280 P
@@ -2005,9 +2032,9 @@ armor G AG
 A A A 0 0
 7 10 770 P
 A
-2 1
-A
 14 10
+A
+2 1
 #9598
 daemon claw~
 claws of the Daemon~
@@ -2035,9 +2062,9 @@ weapon GI AN
 polearm 3 7 chop F
 22 160 1240 P
 A
-18 2
-A
 19 2
+A
+18 2
 #9601
 fountain water~
 a fountain~
@@ -2084,17 +2111,17 @@ The Reception Area~
 You are now standing in the reception of New Thalos. A huge mahoganydesk is here along with two sofas and a coffee table covered in magazines.The plush carpeting under your feet is a nice change from the rugged pathsyou are used to travelling. A chrome stairway spirals downstairs to thetavern of the Dancing Daemon Inn, and your future adventures in New Thalos.~
 0 124 0
 E
-4.picture~
-You see a picture of Loki... at least you think it's Loki.He seems to be hiding from the camera.~
-E
-3.picture~
-You see a picture of Hammor on the front porch of the Danjerhaus,drinking a guinness stout and petting Big Guy the Cat.~
+1.1picture~
+You see a picture of Felix here, standing before the arena.He seems to be doing a body count.~
 E
 2.picture~
 You see a picture of Shark standing behind his desk screaming at a newbie.Through a window in the back you see a large aquarium. The newbie seems tobe cowering in fear.~
 E
-1.1picture~
-You see a picture of Felix here, standing before the arena.He seems to be doing a body count.~
+3.picture~
+You see a picture of Hammor on the front porch of the Danjerhaus,drinking a guinness stout and petting Big Guy the Cat.~
+E
+4.picture~
+You see a picture of Loki... at least you think it's Loki.He seems to be hiding from the camera.~
 D5
 The stairs lead down to the Daemon.~
 (null)~
@@ -3930,11 +3957,11 @@ The Butchary~
 This shop has the aroma of freshly slaughterd beasts.  You feel right at home.You see a fairly simple set up.  The corpses..er...selections hang on hooks,still bleeding into catch pans that drain into a single underground vat.You wonder where that leads....  Taped to the counter, almost obscured byblood, there is a barely readable sign.~
 0 120 0
 E
-vat~
-You think you hear noises from the vat....nah.~
-E
 note sign~
 LIST : gives you a list of items for sale.VALUE : tells you how much an item is worthSELL : sells an item to Butch for a generous sumBUY : Butch's FAVORITE command lets you have an item for his low low price.                                        NEWBEE INTRUCTOR COMMITEE~
+E
+vat~
+You think you hear noises from the vat....nah.~
 D3
 (null)~
 (null)~
@@ -4599,11 +4626,11 @@ Guest Room~
 This is a simple room used for visiting noblemen. A small dresser standson the east wall with a mirror hung right above it. A queen sized bed madeup in satin sheets stands in the middle of the room against the southwall under a window. The only obvious exit is north back out into thehallway.~
 0 8 0
 E
-window~
-Looking out this window you can see the grounds of the palace thatseperate the walls of the palace from the building itself.~
-E
 mirror~
 You see a the fighting image of some armor clad humanoid wielding a weapon.~
+E
+window~
+Looking out this window you can see the grounds of the palace thatseperate the walls of the palace from the building itself.~
 D0
 (null)~
 (null)~

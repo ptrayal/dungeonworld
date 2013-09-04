@@ -26,78 +26,81 @@ EFNU 0 0 0
 sit sit male 2
 AHMV ABCDEFGHIJK medium unknown
 #3601
-oldstyle zombie~
+rotting zombie undead~
 the rotting zombie~
 A rotting zombie is staggering towards you with outstretched hands.
 ~
-Maggots crawl all over its decaying body.
+This walking corpse wears only a few soiled rags, its flesh rotting off
+its bones as it stumbles forward, arms outstretched.  
 ~
-human~
+undead~
 ABF J -750 0
-4 0 2d7+46 2d9+100 1d5+1 none
+4 0 2d7+46 2d9+100 1d5+1 pound
 6 6 6 9
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 2
-AHMV ABCDEFGHIJK medium unknown
+CDIVc ABCDEFGHIJK medium flesh
 #3602
-oldstyle ghoul~
+ghastly ghoul undead~
 the ghastly ghoul~
 A ghastly ghoul is here.
 ~
 It is a walking corpse with long fangs and long, sharp nails that most of
-resemble claws.  Its eyes are a dark yellow colour and glare hungrily at you.
+resemble claws.  Its eyes are a dark yellow colour and glare hungrily at
+you.  
 ~
-human~
+undead~
 ABF J -750 0
-6 0 2d7+71 3d9+100 1d7+1 none
+6 0 2d7+71 3d9+100 1d7+1 claw
 4 4 4 9
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 5
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium flesh
 #3603
-oldstyle skeleton~
+skeleton dusty undead~
 a dusty skeleton~
 A dusty skeleton lies here.
 ~
-The dusty bones are almost brown.  It must have been buried for a very long
-time.
+The pile of dusty bones suddenly stirs, rising up to take on a human
+shape.  Its long, bony fingers reach out to claw at the living.  
 ~
-human~
+undead~
 ABF J -750 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 0
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium bone
 #3604
-oldstyle skeleton~
+dusty skeleton undead~
 a dusty skeleton~
 A dusty skeleton lies here.
 ~
-The dusty bones are almost brown.  It must have been buried for a very long
-time.
+The pile of dusty bones suddenly stirs, rising up to take on a human
+shape.  Its long, bony fingers reach out to claw at the living.  
 ~
-human~
+undead~
 AF J -750 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 0
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium bone
 #3605
-oldstyle zombie~
+rotting zombie undead~
 the rotting zombie~
 A rotting zombie is staggering towards you with outstretched hands.
 ~
-Maggots crawl all over its decaying body.
+This walking corpse wears only a few soiled rags, its flesh rotting off
+its bones as it stumbles forward, arms outstretched.  
 ~
-human~
+undead~
 AF J -750 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
-EFNU 0 0 0
+EFNU M 0 N
 stand stand male 5
-AHMV ABCDEFGHIJK medium unknown
+DIc ABCDEFGHIJK medium flesh
 #0
 
 
@@ -216,9 +219,9 @@ jewelry 0 AC
 0 0 0 0 0
 7 10 800 P
 A
-17 -1
-A
 1 1
+A
+17 -1
 E
 pendant silver~
 It resembles Thor's hammer and appears to be made of solid silver.
@@ -869,11 +872,6 @@ S
 
 
 #SPECIALS
-M 3601 spec_cast_undead
-M 3602 spec_cast_undead
-M 3603 spec_cast_undead
-M 3604 spec_cast_undead
-M 3605 spec_cast_undead
 S
 
 

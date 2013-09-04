@@ -304,13 +304,19 @@ AHMV ABCDEFGHIJK medium unknown
 
 #OBJECTS
 #2200
-spear jagged~
-a jagged spear~
-A jagged spear has been left here.~
+barbed spear might~
+barbed spear of might~
+A barbed spear is here.~
 iron~
-weapon 0 AN
-staff 2 6 thrust 0
+weapon G AN
+staff 1 8 thrust 0
 10 150 153 P
+A
+19 3
+A
+1 2
+A
+5 2
 #2201
 dagger silver~
 a silver dagger~
@@ -330,9 +336,9 @@ weapon 0 AN
 dagger 5 5 pierce 0
 30 80 3200 P
 A
-19 2
-A
 2 1
+A
+19 2
 #2203
 bracelet dragon~
 a dragon skin bracelet~
@@ -363,9 +369,9 @@ A
 1 2
 #2211
 bracelet platinum~
-a platinum bracelet.~
+a platinum bracelet~
 A tarnished platinum bracelet has been dropped here.~
-oldstyle~
+platinum~
 armor A AM
 ABC ABC ABC 0 0
 20 50 1450 P
@@ -414,9 +420,9 @@ jewelry 0 AB
 0 0 0 0 0
 37 60 6800 P
 A
-19 3
-A
 18 3
+A
+19 3
 #2230
 ring copper~
 a copper ring~
@@ -558,9 +564,9 @@ armor AG AH
 C C C 0 0
 20 100 2500 P
 A
-1 1
-A
 19 2
+A
+1 1
 #2260
 scimitar golden~
 a golden scimitar~
@@ -570,9 +576,9 @@ weapon A AN
 sword 3 5 slash 0
 16 100 2500 P
 A
-4 1
-A
 3 1
+A
+4 1
 #2261
 brooch diamond~
 a diamond brooch~
@@ -620,9 +626,9 @@ armor 0 AK
 BC BC BC A 0
 16 100 1910 P
 A
-13 10
-A
 1 1
+A
+13 10
 #2280
 leggings dragon scale~
 a pair of dragon scale leggings~
@@ -643,14 +649,14 @@ ABC ABC ABC AB 0
 whip dragon tail~
 a dragon tailed whip~
 A dragon tailed whip is lying on the ground.~
-oldstyle~
+leather~
 weapon BJ AN
 whip 4 5 whip 0
 24 140 1530 P
 A
-19 2
-A
 18 2
+A
+19 2
 #2286
 hammer copper~
 a copper hammer~
@@ -747,12 +753,12 @@ You trudge down the hallway.  You notice doors to the east and west.
 ~
 0 8 0
 E
-inscription~
-It says "STORAGE"
-~
-E
 sign~
 The sign says "NURSERY" in bold letters.     
+~
+E
+inscription~
+It says "STORAGE"
 ~
 D0
 The hall continues. 
@@ -1366,17 +1372,17 @@ path leads up the mountain.  The small opening is back to the north.
 ~
 0 0 2
 E
+well~
+You peer over the side of the well.  It looks VERY, VERY deep.  It appears
+to be ENDLESS.
+~
+E
 sign~
 The sign reads:
          This is a bottomless pit cleverly disguised as a well.  People have
 fallen in and never been heard from again.  Trust me, you don't want to go 
 down there.
                         The All Powerful Well Keeper
-~
-E
-well~
-You peer over the side of the well.  It looks VERY, VERY deep.  It appears
-to be ENDLESS.
 ~
 D0
 the small opening
