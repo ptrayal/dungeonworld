@@ -2288,6 +2288,8 @@ void clone_mobile(CHAR_DATA *parent, CHAR_DATA *clone)
  		obj->cost	= number_fuzzy( 10 )
  	* number_fuzzy( level ) * number_fuzzy( level );
 
+ 	obj->condition = pObjIndex->condition;
+
 	/*
 	 * Mess with object properties.
 	 */
