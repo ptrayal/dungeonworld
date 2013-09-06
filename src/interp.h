@@ -267,7 +267,7 @@ DECLARE_DO_FUN(	do_stand	);
 DECLARE_DO_FUN( do_stat		);
 DECLARE_DO_FUN(	do_steal	);
 DECLARE_DO_FUN( do_story	);
-DECLARE_DO_FUN( do_string	);
+DECLARE_DO_FUN( do_restring	);
 DECLARE_DO_FUN(	do_surrender	);
 DECLARE_DO_FUN(	do_switch	);
 DECLARE_DO_FUN(	do_tell		);

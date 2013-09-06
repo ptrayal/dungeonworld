@@ -3648,7 +3648,7 @@ void do_mset( CHAR_DATA *ch, char *argument )
 	return;
 }
 
-void do_string( CHAR_DATA *ch, char *argument )
+void do_restring( CHAR_DATA *ch, char *argument )
 {
 	char type [MAX_INPUT_LENGTH];
 	char arg1 [MAX_INPUT_LENGTH];
@@ -3807,7 +3807,7 @@ void do_string( CHAR_DATA *ch, char *argument )
 	
 		
 	/* echo bad use message */
-	do_function(ch, &do_string, "");
+	do_function(ch, &do_restring, "");
 }
 
 

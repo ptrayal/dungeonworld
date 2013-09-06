@@ -342,7 +342,7 @@ const	struct	cmd_type	cmd_table	[] =
 	{ "return",         do_return,      POS_DEAD,       L6,  LOG_NORMAL, 1 },
 	{ "snoop",		do_snoop,	POS_DEAD,	L5,  LOG_ALWAYS, 1 },
 	{ "stat",		do_stat,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
-	{ "string",		do_string,	POS_DEAD,	L5,  LOG_ALWAYS, 1 },
+	// { "restring",		do_restring,	POS_DEAD,	L5,  LOG_ALWAYS, 1 },
 	{ "switch",		do_switch,	POS_DEAD,	L6,  LOG_ALWAYS, 1 },
 	{ "wizinvis",	do_invis,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
 	{ "vnum",		do_vnum,	POS_DEAD,	L4,  LOG_NORMAL, 1 },
@@ -805,7 +805,7 @@ void do_wizhelp( CHAR_DATA *ch, char *argument )
 				&& cmd_table[cmd].show
 				&& cmd_table[cmd].level == clevel)
 			{
-				send_to_char( Format("[\tC%-3d\tn] %-12s", cmd_table[cmd].level, cmd_table[cmd].name), ch );
+				send_to_char( Format("[\tC%-3d\tn] \t<send href='help %s' hint='Click to see help on %s'>%-12s\t</send> |", cmd_table[cmd].level, cmd_table[cmd].name, cmd_table[cmd].name, cmd_table[cmd].name), ch );
 				if ( ++col % 4 == 0 )
 					send_to_char( "\n\r", ch );
 			}

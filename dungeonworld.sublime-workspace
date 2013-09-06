@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"con",
+				"condition"
+			],
+			[
 				"add",
 				"add_buf"
 			],
@@ -124,28 +128,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/act_info.c",
+			"file": "src/interp.c",
 			"settings":
 			{
-				"buffer_size": 65093,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Searching 62 files for \"max = 100\"\n\nC:\\Users\\bmorris2\\Documents\\GitHub\\dungeonworld\\src\\handler.c:\n  719  \n  720  	if (IS_NPC(ch) || ch->level > LEVEL_IMMORTAL)\n  721: 		max = 100;\n  722  \n  723  	else\n\n1 match in 1 file\n",
-			"settings":
-			{
-				"buffer_size": 221,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "src/handler.c",
-			"settings":
-			{
-				"buffer_size": 70397,
+				"buffer_size": 26803,
 				"line_ending": "Windows"
 			}
 		}
@@ -178,20 +164,24 @@
 	},
 	"file_history":
 	[
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/const.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.h",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_wiz.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/gsn.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/handler.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/save.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/recycle.h",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/special_table.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/.version",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/db.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_info.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/const.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/Makefile",
 		"/C/Users/bmorris2/Documents/GitHub/mpv-legend/src/Makefile",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_info.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.h",
 		"/C/Users/bmorris2/Documents/GitHub/mpv-legend/src/act_info.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/db.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/special_table.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/ban.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/area/startup",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/merc.h",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/save.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/protocol.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/comm.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_comm.c",
@@ -200,7 +190,6 @@
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/mem.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/olc.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/tables.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_wiz.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/special.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/data/class/thief.class",
@@ -235,7 +224,6 @@
 		"/E/Brandon/Course_Development/aemud/Archive/Snippets/class-remove/class-remove/Class_Snippet/install.txt",
 		"/E/Brandon/Course_Development/aemud/Archive/Snippets/clan-2.2/install.txt",
 		"/E/Brandon/Course_Development/aemud/Archive/Snippets/Completed/protocol/README.TXT",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/.version",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/special_table.c",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/special.h",
 		"/C/Users/valpo/Documents/GitHub/dungeonworld/src/Makefile",
@@ -303,9 +291,7 @@
 		"/E/Brandon/Course_Development/aemud/src/lookup.c",
 		"/E/Brandon/Course_Development/aemud/src/mob_cmds.c",
 		"/E/Brandon/Course_Development/aemud/src/mob_prog.c",
-		"/E/Brandon/Course_Development/aemud/src/music.c",
-		"/E/Brandon/Course_Development/aemud/src/olc.c",
-		"/E/Brandon/Course_Development/aemud/src/olc_mpcode.c"
+		"/E/Brandon/Course_Development/aemud/src/music.c"
 	],
 	"find":
 	{
@@ -324,6 +310,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"hedit",
+			"do_string",
+			"string",
 			"max = 100",
 			"do_score",
 			"giant",
@@ -448,10 +437,7 @@
 			"/area/rom",
 			"/area//rom",
 			"/area//rom'",
-			"MAX_STRING_LENGTH",
-			"EXIT_DATA",
-			"free_exit",
-			"sprintf"
+			"MAX_STRING_LENGTH"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -470,93 +456,23 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/act_info.c",
+					"file": "src/interp.c",
 					"settings":
 					{
-						"buffer_size": 65093,
+						"buffer_size": 26803,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								65093,
-								65093
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 239.0,
-						"translation.y": 39408.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"settings":
-					{
-						"buffer_size": 221,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										170,
-										179
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								175,
-								175
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/handler.c",
-					"settings":
-					{
-						"buffer_size": 70397,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								18310,
-								18310
+								26801,
+								26076
 							]
 						],
 						"settings":
@@ -565,7 +481,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 10426.0,
+						"translation.y": 11553.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
