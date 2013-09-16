@@ -172,3 +172,37 @@ void spell_nexus( int sn, int level, CHAR_DATA *ch, void *vo, int target)
 	act("$p rises up from the ground.",to_room->people,portal,NULL,TO_CHAR);
     }
 }
+
+void spell_gain_attributes( int sn, int level, CHAR_DATA *ch, void *vo,int target)
+{
+    int random_stat = 0;
+
+    random_stat = dice(1,5);
+
+    if(random_stat=1)
+    {
+        ch->perm_stat[STAT_STR] += 1;
+        log_string( Format("%s has used gain attributes to increase their strength.", ch->name ) );
+    }
+    else if (random_stat=2)
+    {
+        ch->perm_stat[STAT_DEX] += 1;
+        log_string( Format("%s has used gain attributes to increase their dexterity.", ch->name ) );
+    }
+    else if (random_stat=3)
+    {
+        ch->perm_stat[STAT_CON] += 1;
+        log_string( Format("%s has used gain attributes to increase their constitution.", ch->name ) );
+    }
+    else if (random_stat = 4)
+    {
+        ch->perm_stat[STAT_INT] += 1;
+        log_string( Format("%s has used gain attributes to increase their intelligence.", ch->name ) );
+    }
+    else
+    {
+        ch->perm_stat[STAT_WIS] += 1;
+        log_string( Format("%s has used gain attributes to increase their wisdom.", ch->name ) );
+    }
+
+}

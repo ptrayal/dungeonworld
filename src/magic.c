@@ -3561,12 +3561,9 @@ void spell_locate_object( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 	else
 	{
 		if (IS_IMMORTAL(ch) && in_obj->in_room != NULL)
-		sprintf( buf, "one is in %s [Room %d]\n\r",
-			in_obj->in_room->name, in_obj->in_room->vnum);
+		sprintf( buf, "one is in %s [Room %d]\n\r", in_obj->in_room->name, in_obj->in_room->vnum);
 		else 
-			sprintf( buf, "one is in %s\n\r",
-			in_obj->in_room == NULL
-				? "somewhere" : in_obj->in_room->name );
+			sprintf( buf, "one is in %s\n\r", in_obj->in_room == NULL ? "somewhere" : in_obj->in_room->name );
 	}
 
 	buf[0] = UPPER(buf[0]);
@@ -3720,8 +3717,7 @@ void spell_plague( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 	af.bitvector = AFF_PLAGUE;
 	affect_join(victim,&af);
    
-	send_to_char
-	  ("You scream in agony as plague sores erupt from your skin.\n\r",victim);
+	send_to_char ("You scream in agony as plague sores erupt from your skin.\n\r",victim);
 	act("$n screams in agony as plague sores erupt from $s skin.",
 	victim,NULL,NULL,TO_ROOM);
 }
@@ -3882,11 +3878,8 @@ void spell_ray_of_truth (int sn, int level, CHAR_DATA *ch, void *vo,int target)
  
 	if (victim != ch)
 	{
-		act("$n raises $s hand, and a blinding ray of light shoots forth!",
-			ch,NULL,NULL,TO_ROOM);
-		send_to_char(
-	   "You raise your hand and a blinding ray of light shoots forth!\n\r",
-	   ch);
+		act("$n raises $s hand, and a blinding ray of light shoots forth!", ch,NULL,NULL,TO_ROOM);
+		send_to_char( "You raise your hand and a blinding ray of light shoots forth!\n\r", ch);
 	}
 
 	if (IS_GOOD(victim))

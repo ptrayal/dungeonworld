@@ -127,14 +127,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/interp.c",
-			"settings":
-			{
-				"buffer_size": 26803,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -164,8 +156,9 @@
 	},
 	"file_history":
 	[
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.h",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_wiz.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/gsn.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/handler.c",
@@ -190,7 +183,6 @@
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/mem.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/olc.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/tables.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/special.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/data/class/thief.class",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/data/class/warrior.class",
@@ -299,7 +291,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 90.0,
+		"height": 0.0,
 		"where_history":
 		[
 			""
@@ -456,36 +448,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/interp.c",
-					"settings":
-					{
-						"buffer_size": 26803,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								26801,
-								26076
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 11553.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
