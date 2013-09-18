@@ -1836,6 +1836,9 @@ void do_quaff( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
+	// Set it so that mummy's cannot quaff potions.
+	// if (ch->race = )
+
 	if ( ( obj = get_obj_carry( ch, arg, ch ) ) == NULL )
 	{
 		send_to_char( "You do not have that potion.\n\r", ch );

@@ -196,7 +196,14 @@ const 	struct	race_type	race_table	[]		=
 	},
 
 	{
-	"giant",		TRUE,
+	"mummy",		TRUE,
+	0,		0,		0,
+	IMM_NEGATIVE,		RES_POISON|RES_COLD|RES_DISEASE,		VULN_HOLY|VULN_FIRE,
+	D|I|cc,	A|B|C|D|E|F|G|H|I|J|K
+	},
+
+	{
+	"giant",		FALSE,
 	0,		0,		0,
 	0,		0,		0,
 	A|aa,	A|B|C|D|E|F|G|H|I|J|K
@@ -445,9 +452,9 @@ const	struct	pc_race_type	pc_race_table	[]	=
 	},
 
 	{
-	"giant",	"Giant",	10,	{ 100, 100, 100, 100 },
-	{ "bash", "fast healing" },
-	{ 12, 8, 10, 8, 12 },	{ 25, 25, 25, 25, 25 }, SIZE_LARGE
+	"mummy",	"Mummy",	10,	{ 100, 100, 100, 100 },
+	{ "" },
+	{ 10, 10, 10, 10, 10 },	{ 25, 25, 25, 25, 25 }, SIZE_MEDIUM
 	}
 };
 
