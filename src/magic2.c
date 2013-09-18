@@ -179,30 +179,35 @@ void spell_gain_attributes( int sn, int level, CHAR_DATA *ch, void *vo,int targe
 
     random_stat = dice(1,5);
 
-    if(random_stat=1)
+    if(random_stat==1)
     {
         ch->perm_stat[STAT_STR] += 1;
         log_string( Format("%s has used gain attributes to increase their strength.", ch->name ) );
+        send_to_char( "You feel stronger.\n\r", ch);
     }
-    else if (random_stat=2)
+    else if (random_stat==2)
     {
         ch->perm_stat[STAT_DEX] += 1;
         log_string( Format("%s has used gain attributes to increase their dexterity.", ch->name ) );
+        send_to_char( "You feel more agile.\n\r", ch);
     }
-    else if (random_stat=3)
+    else if (random_stat==3)
     {
         ch->perm_stat[STAT_CON] += 1;
         log_string( Format("%s has used gain attributes to increase their constitution.", ch->name ) );
+        send_to_char( "You feel tougher.\n\r", ch);
     }
-    else if (random_stat = 4)
+    else if (random_stat == 4)
     {
         ch->perm_stat[STAT_INT] += 1;
         log_string( Format("%s has used gain attributes to increase their intelligence.", ch->name ) );
+        send_to_char( "You feel smarter.\n\r", ch);
     }
     else
     {
         ch->perm_stat[STAT_WIS] += 1;
         log_string( Format("%s has used gain attributes to increase their wisdom.", ch->name ) );
+        send_to_char( "You feel wiser.\n\r", ch);
     }
 
 }

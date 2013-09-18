@@ -1372,6 +1372,13 @@ struct	skill_type	skill_table	[MAX_SKILL]	=
 	},
 
 	{
+	"gain attributes",		{}, {},
+	spell_gain_attributes,		TAR_IGNORE,		POS_STANDING,
+	NULL,			SLOT(530),	500,	20,
+	"gain attributes",		"!gain attributes!",		""
+	},	
+
+	{
 	"gate",			{}, {},
 	spell_gate,		TAR_IGNORE,		POS_FIGHTING,
 	NULL,			SLOT(83),	80,	12,

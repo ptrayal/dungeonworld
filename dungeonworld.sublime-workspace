@@ -156,19 +156,21 @@
 	},
 	"file_history":
 	[
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/const.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_info.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_wiz.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic2.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/comm.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/.version",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/gsn.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.h",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_wiz.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/gsn.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/handler.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/save.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/recycle.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/special_table.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/.version",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/db.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_info.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/const.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/Makefile",
 		"/C/Users/bmorris2/Documents/GitHub/mpv-legend/src/Makefile",
 		"/C/Users/bmorris2/Documents/GitHub/mpv-legend/src/act_info.c",
@@ -176,7 +178,6 @@
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/area/startup",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/merc.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/protocol.h",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/comm.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_comm.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/update.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/olc_act.c",
@@ -197,7 +198,6 @@
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/note.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/music.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/mob_cmds.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic2.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/bit.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/alias.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_obj.c",
@@ -291,7 +291,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 			""
@@ -302,6 +302,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"player",
+			"log",
+			"logstr",
+			"do_log",
+			"log",
 			"hedit",
 			"do_string",
 			"string",
@@ -424,12 +429,7 @@
 			"PLAYER_DIR",
 			"save_materials",
 			"bust_a_prompt",
-			"../gods",
-			"/rom",
-			"/area/rom",
-			"/area//rom",
-			"/area//rom'",
-			"MAX_STRING_LENGTH"
+			"../gods"
 		],
 		"highlight": true,
 		"in_selection": false,

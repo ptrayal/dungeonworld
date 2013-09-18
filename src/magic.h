@@ -85,6 +85,7 @@ DECLARE_SPELL_FUN(	spell_flamestrike	);
 DECLARE_SPELL_FUN(	spell_floating_disc	);
 DECLARE_SPELL_FUN(	spell_fly		);
 DECLARE_SPELL_FUN(      spell_frenzy		);
+DECLARE_SPELL_FUN(	spell_gain_attributes	);
 DECLARE_SPELL_FUN(	spell_gate		);
 DECLARE_SPELL_FUN(	spell_giant_strength	);
 DECLARE_SPELL_FUN(	spell_harm		);
