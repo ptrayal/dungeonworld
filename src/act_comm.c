@@ -137,7 +137,7 @@ void do_channels( CHAR_DATA *ch, char *argument)
 
 	if (IS_IMMORTAL(ch))
 	{
-		send_to_char( Format("\tW|\tn %-16s \tW|\tn", "God Channel"), ch);
+		send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Imm Talk   "), ch);
 		if(!IS_SET(ch->comm,COMM_NOWIZ))
 			send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 		else

@@ -1837,7 +1837,11 @@ void do_quaff( CHAR_DATA *ch, char *argument )
 	}
 
 	// Set it so that mummy's cannot quaff potions.
-	// if (ch->race = )
+	if (race_table[ch->race].name == "mummy")
+	{
+			send_to_char("Mummy's cannot drink potions.\n\r", ch);
+			return;
+	}
 
 	if ( ( obj = get_obj_carry( ch, arg, ch ) ) == NULL )
 	{
