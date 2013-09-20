@@ -1837,7 +1837,7 @@ void do_quaff( CHAR_DATA *ch, char *argument )
 	}
 
 	// Set it so that mummy's cannot quaff potions.
-	if (race_table[ch->race].name == "mummy")
+	if (!strcmp(race_table[ch->race].name, "mummy"))
 	{
 			send_to_char("Mummy's cannot drink potions.\n\r", ch);
 			return;

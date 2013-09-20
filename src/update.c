@@ -325,7 +325,7 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
 	if ( value == 0 || IS_NPC(ch) || ch->level >= LEVEL_IMMORTAL)
 		return;
 
-	if (race_table[ch->race].name =="mummy")
+	if (!strcmp(race_table[ch->race].name, "mummy"))
 		return;
 
 	if (condition == -1)

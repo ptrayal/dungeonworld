@@ -164,11 +164,13 @@
 	},
 	"file_history":
 	[
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/gsn.h",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.c",
+		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/update.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/flags.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/merc.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/handler.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_comm.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/update.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_obj.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_info.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/const.c",
@@ -179,11 +181,9 @@
 		"/E/Brandon/Course_Development/aemud/src/db.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/db2.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic2.c",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/magic.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/act_wiz.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/.version",
-		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/gsn.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.c",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/interp.h",
 		"/C/Users/bmorris2/Documents/GitHub/dungeonworld/src/save.c",
@@ -310,6 +310,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"POISON",
+			"disease",
 			"VULN_SILVER",
 			"silver",
 			"do_channels",
@@ -435,9 +437,7 @@
 			"can_carry_w",
 			"in the west",
 			"Red Aura",
-			"where_name",
-			"do_inv",
-			"void show_char_to_char"
+			"where_name"
 		],
 		"highlight": true,
 		"in_selection": false,
