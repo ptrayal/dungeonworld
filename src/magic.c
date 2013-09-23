@@ -3503,22 +3503,11 @@ void spell_know_alignment(int sn,int level,CHAR_DATA *ch,void *vo,int target )
 void spell_lightning_bolt(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 {
 	CHAR_DATA *victim = (CHAR_DATA *) vo;
-	static const sh_int dam_each[] = 
-	{
-	 0,
-	 0,  0,  0,  0,  0,	 0,  0,  0, 25, 28,
-	31, 34, 37, 40, 40,	41, 42, 42, 43, 44,
-	44, 45, 46, 46, 47,	48, 48, 49, 50, 50,
-	51, 52, 52, 53, 54,	54, 55, 56, 56, 57,
-	58, 58, 59, 60, 60,	61, 62, 62, 63, 64
-	};
-	int dam;
+	int dam = 0;
 
-	level	= UMIN(level, sizeof(dam_each)/sizeof(dam_each[0]) - 1);
-	level	= UMAX(0, level);
-	dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+	dam		= dice(UMIN(level,20),6);
 	if ( saves_spell( level, victim,DAM_LIGHTNING) )
-	dam /= 2;
+		dam /= 2;
 	damage( ch, victim, dam, sn, DAM_LIGHTNING ,TRUE);
 	return;
 }
@@ -3531,11 +3520,9 @@ void spell_locate_object( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 	BUFFER *buffer;
 	OBJ_DATA *obj;
 	OBJ_DATA *in_obj;
-	bool found;
+	bool found = FALSE;
 	int number = 0, max_found;
 
-	found = FALSE;
-	number = 0;
 	max_found = IS_IMMORTAL(ch) ? 200 : 2 * level;
 
 	buffer = new_buf();
@@ -3618,12 +3605,12 @@ void spell_mass_healing(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 
 	for ( gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room )
 	{
-	if ((IS_NPC(ch) && IS_NPC(gch)) ||
-		(!IS_NPC(ch) && !IS_NPC(gch)))
-	{
-		spell_heal(heal_num,level,ch,(void *) gch,TARGET_CHAR);
-		spell_refresh(refresh_num,level,ch,(void *) gch,TARGET_CHAR);  
-	}
+		if ((IS_NPC(ch) && IS_NPC(gch)) ||
+			(!IS_NPC(ch) && !IS_NPC(gch)))
+		{
+			spell_heal(heal_num,level,ch,(void *) gch,TARGET_CHAR);
+			spell_refresh(refresh_num,level,ch,(void *) gch,TARGET_CHAR);  
+		}
 	}
 }
 		
