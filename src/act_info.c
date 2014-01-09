@@ -1104,7 +1104,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 	for ( obj = ch->carrying; obj != NULL; obj = obj->next_content )
 	{
 		if ( can_see_obj( ch, obj ) )
-	{  /* player can see object */
+		{  /* player can see object */
 			pdesc = get_extra_descr( arg3, obj->extra_descr );
 		if ( pdesc != NULL )
 			{	if (++count == number)
@@ -1124,6 +1124,7 @@ void do_look( CHAR_DATA *ch, char *argument )
 					else continue;
 				}
 				if ( is_name( arg3, obj->name ) )
+				{
 					if (++count == number)
 					{
 						send_to_char( obj->description, ch );
@@ -1132,96 +1133,95 @@ void do_look( CHAR_DATA *ch, char *argument )
 					}
 				}
 			}
+		}
 
-			for ( obj = ch->in_room->contents; obj != NULL; obj = obj->next_content )
-			{
-				if ( can_see_obj( ch, obj ) )
+	for ( obj = ch->in_room->contents; obj != NULL; obj = obj->next_content )
+	{
+		if ( can_see_obj( ch, obj ) )
+		{
+			pdesc = get_extra_descr( arg3, obj->extra_descr );
+			if ( pdesc != NULL )
+				if (++count == number)
 				{
-					pdesc = get_extra_descr( arg3, obj->extra_descr );
-					if ( pdesc != NULL )
-						if (++count == number)
-						{
-							send_to_char( pdesc, ch );
-							return;
-						}
+					send_to_char( pdesc, ch );
+					return;
+				}
 
-						pdesc = get_extra_descr( arg3, obj->pIndexData->extra_descr );
-						if ( pdesc != NULL )
-							if (++count == number)
-							{
-								send_to_char( pdesc, ch );
-								return;
-							}
-
-							if ( is_name( arg3, obj->name ) )
-								if (++count == number)
-								{
-									send_to_char( obj->description, ch );
-									send_to_char("\n\r",ch);
-									return;
-								}
-							}
-						}
-
-						pdesc = get_extra_descr(arg3,ch->in_room->extra_descr);
-						if (pdesc != NULL)
-						{
-							if (++count == number)
-							{
-								send_to_char(pdesc,ch);
-								return;
-							}
-						}
-
-						if (count > 0 && count != number)
-						{
-							if (count == 1)
-								send_to_char( Format("You only see one %s here.\n\r",arg3), ch);
-							else
-								send_to_char( Format("You only see %d of those here.\n\r",count), ch);
-							return;
-						}
-
-						if ( !str_cmp( arg1, "n" ) || !str_cmp( arg1, "north" ) ) door = 0;
-						else if ( !str_cmp( arg1, "e" ) || !str_cmp( arg1, "east"  ) ) door = 1;
-						else if ( !str_cmp( arg1, "s" ) || !str_cmp( arg1, "south" ) ) door = 2;
-						else if ( !str_cmp( arg1, "w" ) || !str_cmp( arg1, "west"  ) ) door = 3;
-						else if ( !str_cmp( arg1, "u" ) || !str_cmp( arg1, "up"    ) ) door = 4;
-						else if ( !str_cmp( arg1, "d" ) || !str_cmp( arg1, "down"  ) ) door = 5;
-						else
-						{
-							send_to_char( "You do not see that here.\n\r", ch );
-							return;
-						}
-
-	/* 'look direction' */
-						if ( ( pexit = ch->in_room->exit[door] ) == NULL )
-						{
-							send_to_char( "Nothing special there.\n\r", ch );
-							return;
-						}
-
-						if ( pexit->description != NULL && pexit->description[0] != '\0' )
-							send_to_char( pexit->description, ch );
-						else
-							send_to_char( "Nothing special there.\n\r", ch );
-
-						if ( pexit->keyword    != NULL
-							&&   pexit->keyword[0] != '\0'
-							&&   pexit->keyword[0] != ' ' )
-						{
-							if ( IS_SET(pexit->exit_info, EX_CLOSED) )
-							{
-								act( "The $d is closed.", ch, NULL, pexit->keyword, TO_CHAR );
-							}
-							else if ( IS_SET(pexit->exit_info, EX_ISDOOR) )
-							{
-								act( "The $d is open.",   ch, NULL, pexit->keyword, TO_CHAR );
-							}
-						}
-
+				pdesc = get_extra_descr( arg3, obj->pIndexData->extra_descr );
+				if ( pdesc != NULL )
+					if (++count == number)
+					{
+						send_to_char( pdesc, ch );
 						return;
 					}
+
+					if ( is_name( arg3, obj->name ) )
+						if (++count == number)
+						{
+							send_to_char( obj->description, ch );
+							send_to_char("\n\r",ch);
+							return;
+						}
+					}
+				}
+
+				pdesc = get_extra_descr(arg3,ch->in_room->extra_descr);
+				if (pdesc != NULL)
+				{
+					if (++count == number)
+					{
+						send_to_char(pdesc,ch);
+						return;
+					}
+				}
+
+				if (count > 0 && count != number)
+				{
+					if (count == 1)
+						send_to_char( Format("You only see one %s here.\n\r",arg3), ch);
+					else
+						send_to_char( Format("You only see %d of those here.\n\r",count), ch);
+					return;
+				}
+
+				if ( !str_cmp( arg1, "n" ) || !str_cmp( arg1, "north" ) ) door = 0;
+				else if ( !str_cmp( arg1, "e" ) || !str_cmp( arg1, "east"  ) ) door = 1;
+				else if ( !str_cmp( arg1, "s" ) || !str_cmp( arg1, "south" ) ) door = 2;
+				else if ( !str_cmp( arg1, "w" ) || !str_cmp( arg1, "west"  ) ) door = 3;
+				else if ( !str_cmp( arg1, "u" ) || !str_cmp( arg1, "up"    ) ) door = 4;
+				else if ( !str_cmp( arg1, "d" ) || !str_cmp( arg1, "down"  ) ) door = 5;
+				else
+				{
+					send_to_char( "You do not see that here.\n\r", ch );
+					return;
+				}
+
+	/* 'look direction' */
+				if ( ( pexit = ch->in_room->exit[door] ) == NULL )
+				{
+					send_to_char( "Nothing special there.\n\r", ch );
+					return;
+				}
+
+				if ( pexit->description != NULL && pexit->description[0] != '\0' )
+					send_to_char( pexit->description, ch );
+				else
+					send_to_char( "Nothing special there.\n\r", ch );
+
+				if ( pexit->keyword    != NULL && pexit->keyword[0] != '\0' && pexit->keyword[0] != ' ' )
+				{
+					if ( IS_SET(pexit->exit_info, EX_CLOSED) )
+					{
+						act( "The $d is closed.", ch, NULL, pexit->keyword, TO_CHAR );
+					}
+					else if ( IS_SET(pexit->exit_info, EX_ISDOOR) )
+					{
+						act( "The $d is open.", ch, NULL, pexit->keyword, TO_CHAR );
+					}
+				}
+
+				return;
+			}
 
 /* RT added back for the hell of it */
 void do_read (CHAR_DATA *ch, char *argument )
