@@ -33,58 +33,6 @@ Twas dial-up, and the failing mudders did toil and struggle in the fray
 All checksummed were the compressed files
 And the man pages, outdate.
 ~
--1 WIZLIST~
-.
-        ________            *********************           ________
-      /+_+_+_+_+_\          ** The Gods of ROM **         /+_+_+_+_+_\
-      \__________/          *********************         \__________/
-        |::XXXX|                                            |::XXXX|
-        |X::XXX|              Implementors [60]             |X::XXX|
-        |XX::XX|              *****************             |XX::XX|
-        |XXX::X|     				            |XXX::X|
-        |XXXX::|                                            |XXXX::|
-        |::XXXX|                                            |::XXXX|
-        |X::XXX|                Creators [59]               |X::XXX|
-        |XX::XX|                *************               |XX::XX|
-        |XXXX::|         			            |XXXX::|
-        |::XXXX|                                            |::XXXX|
-/<<>>\/<<>>\/<<>>\/<<>>\                            /<<>>\/<<>>\/<<>>\/<<>>\
-\<<>>/\<<>>/\<<>>/\<<>>/      Supremacies [58]      \<<>>/\<<>>/\<<>>/\<<>>/
-       |.  /  . |             ****************             |.  /  . |
-       | .//\.  |            		                   | .//\.  |
-       |.  /  . |            		                   |.  /  . |
-       | .//\.  |                                          | .//\.  |
-       |.  /  . |               Deities [57]               |.  /  . |
-       | .//\.  |               ************               | .//\.  |
-       |.  /  . |           		      	           |.  /  . |
-       | .//\.  |                                          | .//\.  |
-       | .//\.  |                Gods [56]                 | .//\.  |
-       |.  /  . |                *********                 |.  /  . |
-       | .//\.  |              	                           | .//\.  |
-       | .//\.  |                                          | .//\.  |
-       |.  /\ . |              Immortals [55]              |.  /  . |
-       | .//\.  |              **************              | .//\.  |
-       |.  /  . |              		                   |.  /  . |
-       | .//\.  |                                          | .//\.  |
-       |.  /  . |               DemiGods [54]              |.  /  . |
-       | .//\.  |               *************              | .//\.  |
-       |.  /\ . |                  	  	           |.  /  . |
-       |.  /  . |                                          |.  /  . |
-       | .//\.  |               Angels [53]                | .//\.  |
-       |.  /  . |               ***********                |.  /  . |
-       |.  /  . |             	   	                   |.  /  . |
-       | .//\.  |             		                   | .//\.  |
-       | .//\.  |                                          | .//\.  |
-       |.  /  . |               Avatars [52]               |.  /  . |
-       | .//\.  |               ************               | .//\.  |
-       |.  /  . |                 	                   |.  /  . |
-       |.  /  . |                  	                   |.  /  . |
-        \ //\. /                                            \ //\. /
-         \ /. /                                              \ /. /
-          \ //                                                \ //
-           \/                                                  \/
--By Liralen
-~
 -1 ROM~
 ROM started in early February 1993, using Merc 1.0 code. In July of 1993,  
 ROM II was started, eventually replacing the original ROM.  ROM was up for
@@ -245,8 +193,17 @@ Thanks to Ezra for drawing the originals of several maps on ROM.
 
 -1 GREETING~
 .
-THIS IS A MUD BASED ON.....
+    ____   __ __ __  __   ___   ____   ___   __  __
+    || \\  || || ||\ ||  // \\ ||     // \\  ||\ ||
+    ||  )) || || ||\\|| (( ___ ||==  ((   )) ||\\||
+    ||_//  \\_// || \||  \\_|| ||___  \\_//  || \||
 
+    __    __   ___   ____  __    ____
+    ||    ||  // \\  || \\ ||    || \\
+    \\ /\ // ((   )) ||_// ||    ||  ))
+     \V/\V/   \\_//  || \\ ||__| ||_//
+
+                                    is based on 
                                 ROM Version 2.4 beta
 
                Original DikuMUD by Hans Staerfeldt, Katja Nyboe,

@@ -32,12 +32,12 @@ Yevaud the Usurper of Midgaard is here, grinning evilly at you.
 Old, scaly, but still with a lot of bite in him left.
 ~
 dragon~
-ABCG DJT -1000 0
+ABCG DJTZ -1000 0
 24 0 5d10+500 12d9+100 2d10+6 none
 -6 -6 -6 6
 EFNR 0 BEH FI
 stand stand male 500
-AHZ ACDEFGHIJKPQUVX medium unknown
+AZ ACDEFGHIJKPQUVX huge scale
 #6303
 oldstyle spider wolf~
 the Wolf Spider~
@@ -235,7 +235,7 @@ A wormkin with no teeth plays here.
 Rather small, you almost feel sad in killing it.
 ~
 dragon~
-AB DJT 1000 0
+AB DJTZ 1000 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNR 0 BEH FI
@@ -249,7 +249,7 @@ A wormkin that has grown a bit stares at you inquisitively.
 A medium-sized dragon--seems it hasn't killed anything yet by itself.
 ~
 dragon~
-AB DJT 100 0
+AB DJTZ 100 0
 13 0 2d10+170 6d9+100 2d5+3 none
 -1 -1 -1 8
 EFNR 0 BEH FI
@@ -301,9 +301,9 @@ armor FG AE
 BC BC BC AB 0
 18 50 4600 P
 A
-4 2
-A
 17 -2
+A
+4 2
 #6304
 visor black knight's~
 a black knight's visor~
@@ -313,9 +313,9 @@ armor FG AE
 BC BC BC B 0
 17 50 4600 P
 A
-1 1
-A
 5 2
+A
+1 1
 #6308
 coins silver gold~
 a big pile of coins~

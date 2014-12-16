@@ -4003,6 +4003,8 @@ void do_sockets( CHAR_DATA *ch, char *argument )
 
 	buf[0]	= '\0';
 
+	send_to_char("[Num Con_State] Name           Host\n\r",ch);
+	send_to_char("-----------------------------------\n\r",ch);
 	one_argument(argument,arg);
 	for ( d = descriptor_list; d != NULL; d = d->next )
 	{
