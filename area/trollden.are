@@ -193,7 +193,7 @@ and feels bad.
 ring opal~
 an opal ring~
 A ring of black opal lies here gathering dust.~
-silver~
+oldstyle~
 jewelry G AB
 0 0 0 0 0
 20 10 1150 P
@@ -224,9 +224,9 @@ weapon 0 AN
 mace 3 3 pound 0
 6 30 350 P
 A
-18 -1
-A
 19 -1
+A
+18 -1
 E
 bone~
 This piece of bone looks sturdy enough to be used as a weapon, but you

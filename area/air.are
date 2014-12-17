@@ -10,20 +10,20 @@ End
 
 #MOBILES
 #1000
-fairy dragon~
+oldstyle fairy dragon~
 A fairy dragon~
-A fairy dragon is here, fluttering around.
+A fairy dragon is fluttering around here looking for something to do...
 ~
 It's a cute little multi-colored dragon...about 2 foot long.
 It gracefully dances around your head.
 ~
-dragon~
-AGR DETZ 500 0
-5 0 2d7+46 5d9+100 1d5+0 claw
+human~
+AGR DE 500 0
+5 0 2d7+46 5d9+100 1d5+0 none
 6 6 6 8
-0 0 B 0
-stand stand either 1
-AZ ABCDEFGHIJKPQUVX small scale
+FU 0 0 0
+stand stand none 1
+AHMV ABCDEFGHIJK medium unknown
 #1001
 oldstyle griffin~
 A griffin~

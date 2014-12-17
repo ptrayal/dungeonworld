@@ -123,7 +123,7 @@ EIKU 0 0 0
 stand stand none 5000
 AHMV ABCDEFGHIJK medium unknown
 #9209
-fire elemental ruler~
+oldstyle fire elemental ruler~
 the Fire Ruler~
 The Ruler of the fire elementals.
 ~
@@ -131,14 +131,13 @@ As you look at him he seems to blend in with the fire in his throne.
 ~
 human~
 AB H 0 0
-30 0 6d12+853 15d9+100 4d6+8 flame
+30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
-DFNU H 0 I
+EFNU 0 0 0
 stand stand none 5000
-R ABCDEFGHIJK huge fire
-F for AM
+AHMV ABCDEFGHIJK medium unknown
 #9210
-air elemental ruler~
+oldstyle air elemental ruler~
 The Air Ruler~
 The Ruler of the air elementals.
 ~
@@ -146,44 +145,41 @@ As you peer at him you seem to be looking at the sky itself.
 ~
 human~
 AB H 0 0
-30 0 6d12+853 15d9+100 4d6+8 shock
+30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
-EFGHNU J 0 0
+EFNU 0 0 0
 stand stand none 5000
-R ABCDEFGHIJK large energy
-F for AM
+AHMV ABCDEFGHIJK medium unknown
 #9211
-lightning elemental ruler~
+oldstyle lightning elemental ruler~
 The Lightning Ruler~
 The Ruler of the lightning elementals.
 ~
-As you examine him there is a blinding flash of light and a deafening
-boom!  You rub your eyes and look and the ruler is there grinning at you.  
+As you examine him there is a blinding flash of light and a deafening boom!
+You rub your eyes and look and the ruler is there grinning at you.
 ~
 human~
 AB H 0 0
-30 0 6d12+853 15d9+100 4d6+8 shock
+30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
-EFHNU J 0 0
+EFNU 0 0 0
 stand stand none 5000
-R ABCDEFGHIJK large energy
-F for AM
+AHMV ABCDEFGHIJK medium unknown
 #9212
-water elemental ruler~
+oldstyle water elemental ruler~
 The Water Ruler~
 The Ruler of the water elementals.
 ~
-As you look at him he changes to mist, which swirls around you.  Just as
-you get scared, it reforms in elemental form.  
+As you look at him he changes to mist, which swirls around you.  Just
+as you get scared, it reforms in elemental form.
 ~
-human~
+water fowl~
 AB HTb 0 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
-EFNR 0 IR H
+EFNR 0 R 0
 stand stand none 5000
-R ABCDEFGHIJKP huge water
-F for AM
+AG ACDEFHKP medium unknown
 #9214
 oldstyle water puddle elemental~
 a puddle~
@@ -241,7 +237,7 @@ EFNU 0 0 0
 stand stand none 4
 AHMV ABCDEFGHIJK medium unknown
 #9218
-spark lightning energy elemental~
+oldstyle spark lightning energy elemental~
 a small spark~
 A small spark of electricity fizzles here.
 ~
@@ -249,13 +245,11 @@ Zipping from place to place at the speed of light is tough work.
 ~
 human~
 AG 0 0 0
-4 0 2d7+46 2d9+100 1d5+1 shock
+4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
-FHU J 0 0
+EFNU 0 0 0
 stand stand none 7
-R AEFJK small energy
-F for AM
-F par BCDGHI
+AHMV ABCDEFGHIJK medium unknown
 #9219
 oldstyle acid blob elemental~
 a small blob of acid~
@@ -313,7 +307,7 @@ EFNU 0 0 0
 stand stand none 15
 AHMV ABCDEFGHIJK medium unknown
 #9223
-particle elemental~
+oldstyle particle elemental~
 a particle~
 A sub-atomic particle is too small for you to see.
 ~
@@ -321,12 +315,11 @@ The magical manifestation of energy.
 ~
 human~
 AG 0 0 0
-5 0 2d6+60 2d9+100 1d6+1 shock
+5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
-FHU 0 0 0
+EFNU 0 0 0
 stand stand none 0
-R ABCDEFGHIJK tiny energy
-F for AM
+AHMV ABCDEFGHIJK medium unknown
 #9224
 oldstyle dust elemental~
 a dust cloud~
@@ -487,19 +480,19 @@ BEFJNU 0 0 0
 stand stand none 95
 AHMV ABCDEFGHIJK medium unknown
 #9235
-baby rainbow dragon~
+oldstyle baby rainbow dragon~
 a baby rainbow dragon~
 A baby rainbow dragon plays among the elements here.
 ~
 It's only a baby by dragon standards.
 ~
-dragon~
-ABG DFTZ 0 0
-16 0 3d9+233 8d9+100 2d6+4 claw
+human~
+ABG DF 0 0
+16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
-FU 0 B 0
+EFNU 0 0 0
 stand stand none 500
-AZ ABCDEFGHIJKPQUVX small scale
+AHMV ABCDEFGHIJK medium unknown
 #9236
 oldstyle imp~
 a little imp~
@@ -556,9 +549,9 @@ jewelry I AB
 0 0 0 0 0
 7 50 1140 P
 A
-4 1
-A
 3 1
+A
+4 1
 #9202
 breastplate stoney breast plate~
 a stoney breastplate~
@@ -568,9 +561,9 @@ armor 0 AD
 BD BD BD B 0
 31 700 5500 P
 A
-5 1
-A
 2 -2
+A
+5 1
 #9203
 dagger fiery~
 a fiery dagger~
@@ -585,7 +578,7 @@ A
 cape flame flaming red~
 a flame red cape~
 A cape made of ethereal red fiber lies neatly folded on the ground here.~
-cloth~
+oldstyle~
 armor A AC
 AD AD AD AB 0
 30 30 3100 P
@@ -605,7 +598,7 @@ A
 helmet hurricane~
 a hurricane helmet~
 A helmet that looks like it has weathered many storms has been set here.~
-iron~
+oldstyle~
 armor B AE
 AD AD AD AB 0
 31 40 3800 P
@@ -630,14 +623,14 @@ armor B AJ
 AD AD AD C 0
 28 80 4500 P
 A
-5 1
-A
 1 -1
+A
+5 1
 #9209
 girth icy~
 an icy girth~
 A girth made of magical ice has been left here.~
-ice~
+oldstyle~
 armor 0 AL
 BD BD BD AB 0
 31 100 1540 P
@@ -652,9 +645,9 @@ armor 0 AK
 AD AD AD B 0
 30 60 3000 P
 A
-18 -2
-A
 12 25
+A
+18 -2
 #9211
 amulet elemental~
 an elemental amulet~
@@ -684,9 +677,9 @@ armor 0 AM
 AD AD AD B 0
 26 40 1700 P
 A
-4 -2
-A
 1 1
+A
+4 -2
 #9214
 legbands platinum bands~
 some platinum leg bands~
@@ -696,14 +689,14 @@ armor 0 AF
 AD AD AD B 0
 26 40 1700 P
 A
-3 -2
-A
 2 1
+A
+3 -2
 #9215
-fire wand~
+wand~
 elemental wand of fire~
 A fire wand lies forgotten on the ground.~
-wood~
+oldstyle~
 wand A AO
 5 3 3 'fireball' 0
 5 70 3900 P
@@ -732,10 +725,10 @@ wand A AO
 5 1 1 'gas breath' 0
 5 70 12600 P
 #9219
-wand lightning~
+wand~
 elemental wand of lightning~
 A lightning wand lies forgotten on the ground.~
-wood~
+oldstyle~
 wand A AO
 9 1 1 'lightning bolt' 0
 7 70 1420 P
@@ -748,9 +741,9 @@ weapon 0 AN
 mace 2 8 pound F
 13 160 730 P
 A
-19 1
-A
 18 -2
+A
+19 1
 #9221
 lode load lodestone loadstone stone~
 a lodestone~
@@ -812,9 +805,9 @@ weapon 0 AN
 dagger 4 4 pierce B
 28 10 1630 P
 A
-1 -1
-A
 19 2
+A
+1 -1
 #9228
 avalanche~
 the avalanche~
@@ -834,9 +827,9 @@ weapon A AN
 flail 6 3 crush 0
 23 110 3300 P
 A
-17 -3
-A
 20 -2
+A
+17 -3
 #9230
 shock whip~
 the Shock Whip~
@@ -846,9 +839,9 @@ weapon B AN
 whip 4 5 slash G
 20 100 64 P
 A
-1 -2
-A
 19 3
+A
+1 -2
 #9231
 elixir anti~
 anti-cyclops elixir~
@@ -1622,14 +1615,14 @@ east around the mountain.
 ~
 0 0 5
 E
-bodies body dead~
-They look as if their necks have been broken and their flesh, chewed.
-~
-E
 heaps stones tombs~
 You are sure glad that YOU aren't under one of those piles!
 Many of the tombstones have the same name on them, 'Raff'.  He must come
 here a lot.
+~
+E
+bodies body dead~
+They look as if their necks have been broken and their flesh, chewed.
 ~
 D4
 (null)~

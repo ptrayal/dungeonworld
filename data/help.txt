@@ -16,7 +16,3 @@
 [ 7201] Rayal: olc
 [ 7201] Rayal: ITEM_WEAPON
 [ 1409] Rayal: ITEM_WEAPON
-[    2] Rayal: nochannels
-[    2] Rayal: nochannels
-[ 3001] Rayal: guild
-[ 3001] Rayal: color
