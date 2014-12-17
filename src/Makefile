@@ -54,7 +54,7 @@ ${ENGINE}: $(OBJECT_FILES)
 		@rm $(BINDIR)/$(ENGINE)
 		@cp -p $(ENGINE) $(BINDIR)
 		@make backup # Force the Makefile to backup ALL successfully completed builds (failed don't backup)
-		@echo "Compiling completed for build $(BUILD_NUM) at $(shell date +"%y-%m-%d @ %X) and copied rom TO ../area."
+		@echo "Compiling completed for build $(BUILD_NUM) at $(shell date +"%y-%m-%d @ %X") and copied rom TO ../area."
 ######################################################################################################
 
 ######################################################################################################
