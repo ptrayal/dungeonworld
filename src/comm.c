@@ -2395,7 +2395,7 @@ void nanny_read_imotd(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 
 void nanny_read_motd(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 
-	write_to_buffer( d, Format("\n\rWelcome to DungeonWorld (%s)\n\r", getVersion()), 0 );
+	write_to_buffer( d, Format("\n\r\tWWelcome to DungeonWorld (%s)\tn\n\r", getVersion()), 0 );
 	ch->next	= char_list;
 	char_list	= ch;
 	
