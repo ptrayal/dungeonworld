@@ -1738,7 +1738,7 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 	 * -- Furey
 	 */
 	 send_to_char("Mobiles\n\r", ch);
-	 send_to_char( Format("[VNUM ] %-20s %-15s\n\r", "Name", "Material"), ch);
+	 send_to_char( Format("|  VNUM | %-30s | %-15s| %-10s\n\r", "Name", "Material", "Race"), ch);
 	 for ( vnum = 0; nMatch < top_mob_index; vnum++ )
 	 {
 	 	if ( ( pMobIndex = get_mob_index( vnum ) ) != NULL )
@@ -1747,7 +1747,7 @@ void do_mfind( CHAR_DATA *ch, char *argument )
 	 		if ( fAll || is_name( argument, pMobIndex->player_name ) )
 	 		{
 	 			found = TRUE;
-	 			sprintf(buf, "[%5d] %-20s %-15s\n\r", pMobIndex->vnum, pMobIndex->short_descr, pMobIndex->material);
+	 			sprintf(buf, "| %5d | %-30s | %-15s| %-10s\n\r", pMobIndex->vnum, pMobIndex->short_descr, pMobIndex->material, race_table[pMobIndex->race].name);
 	 			add_buf(output, buf);
 	 		}
 	 	}
