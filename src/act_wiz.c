@@ -3996,41 +3996,62 @@ void do_rset( CHAR_DATA *ch, char *argument )
 void do_sockets( CHAR_DATA *ch, char *argument )
 {
 	char buf[2 * MSL]={'\0'};
-	char buf2[MSL]={'\0'};
-	char arg[MAX_INPUT_LENGTH];
 	DESCRIPTOR_DATA *d;
 	int count = 0;
 
 	buf[0]	= '\0';
 
-	one_argument(argument,arg);
-	send_to_char("[Dsc CN] Name               Host\n\r", ch);
+	send_to_char( Format("%-15s | %-15s | %-10s | %-10s | %-15s\n\r", "User", "Client", "MXP", "MSDP", "Host"), ch);
+	send_to_char("-----------------------------------------------------------------------------\n\r", ch);
+
 	for ( d = descriptor_list; d != NULL; d = d->next )
 	{
-		if ( d->character != NULL && can_see( ch, d->character ) 
-			&& (IS_NULLSTR(arg) || is_name(arg,d->character->name)
-				|| (d->original && is_name(arg,d->original->name))))
-		{
-			count++;
-			sprintf( buf + strlen(buf), "[%3d %2d] %-19s%s\n\r",
-				d->descriptor,
-				d->connected,
-				d->original  ? d->original->name  :
-				d->character ? d->character->name : "(none)",
-				d->host
-				);
-		}
-	}
-	if (count == 0)
-	{
-		send_to_char("No one by that name is connected.\n\r",ch);
-		return;
-	}
+		send_to_char( Format("%-15s | ", ( d->original ) ? d->original->name : ( d->character ) ? d->character->name : "(None!)"), ch);
+		send_to_char( Format("%-15s | ", d->pProtocol->pVariables[eMSDP_CLIENT_ID]->pValueString), ch);
+		if (d !=NULL && d->pProtocol && d->pProtocol->pVariables[eMSDP_MXP]->ValueInt == 1)
+			send_to_char( Format("%-10s | ", "Yes"), ch);
+		else
+			send_to_char( Format("%-10s | ", "No"), ch);
 
-	strncat( buf2, Format("\n\r\tY%d user%s\tn\n\r", count, count == 1 ? "" : "s"), sizeof(buf2) );
-	strcat(buf,buf2);
-	page_to_char( buf, ch );
+		if (d !=NULL && d->pProtocol && d->pProtocol->bMSDP == 1)
+			send_to_char( Format("%-10s | ", "Yes"), ch);
+		else
+			send_to_char( Format("%-10s | ", "No"), ch);
+
+		send_to_char( Format("%-15s\n\r", d->host), ch);
+		count++;
+	}
+	send_to_char( Format("\n\r\tY%d user%s\tn\n\r", count, count == 1 ? "" : "s"), ch);
 	return;
+
+	// one_argument(argument,arg);
+	// send_to_char("[Dsc CN] Name               Host\n\r", ch);
+	// for ( d = descriptor_list; d != NULL; d = d->next )
+	// {
+	// 	if ( d->character != NULL && can_see( ch, d->character ) 
+	// 		&& (IS_NULLSTR(arg) || is_name(arg,d->character->name)
+	// 			|| (d->original && is_name(arg,d->original->name))))
+	// 	{
+	// 		count++;
+	// 		sprintf( buf + strlen(buf), "[%3d %2d] %-19s%s\n\r",
+	// 			d->descriptor,
+	// 			d->connected,
+	// 			d->original  ? d->original->name  :
+	// 			d->character ? d->character->name : "(none)",
+	// 			d->host
+	// 			);
+	// 	}
+	// }
+	// if (count == 0)
+	// {
+	// 	send_to_char("No one by that name is connected.\n\r",ch);
+	// 	return;
+	// }
+
+	// strncat( buf2, Format("\n\r\tY%d user%s\tn\n\r", count, count == 1 ? "" : "s"), sizeof(buf2) );
+	// strcat(buf,buf2);
+	// page_to_char( buf, ch );
+	// return;
 }
 
 
