@@ -71,7 +71,7 @@ ${ENGINE}: $(OBJECT_FILES)
 .PHONY: backup
 backup:
 		@tar -czf $(BACKUP_NAME) *.c *.h Makefile .version
-		@mv *.tgz ../
+		@mv *.tgz ../backup
 		@echo "Backup completed."
 ######################################################################################################
 
