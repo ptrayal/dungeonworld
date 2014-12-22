@@ -4004,6 +4004,7 @@ void do_sockets( CHAR_DATA *ch, char *argument )
 	buf[0]	= '\0';
 
 	one_argument(argument,arg);
+	send_to_char("[Dsc CN] Name               Host\n\r", ch);
 	for ( d = descriptor_list; d != NULL; d = d->next )
 	{
 		if ( d->character != NULL && can_see( ch, d->character ) 
@@ -4011,7 +4012,7 @@ void do_sockets( CHAR_DATA *ch, char *argument )
 				|| (d->original && is_name(arg,d->original->name))))
 		{
 			count++;
-			sprintf( buf + strlen(buf), "[%3d %2d] %s@%s\n\r",
+			sprintf( buf + strlen(buf), "[%3d %2d] %-19s%s\n\r",
 				d->descriptor,
 				d->connected,
 				d->original  ? d->original->name  :
@@ -4026,7 +4027,7 @@ void do_sockets( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
-	sprintf( buf2, "%d user%s\n\r", count, count == 1 ? "" : "s" );
+	strncat( buf2, Format("\n\r\tY%d user%s\tn\n\r", count, count == 1 ? "" : "s"), sizeof(buf2) );
 	strcat(buf,buf2);
 	page_to_char( buf, ch );
 	return;

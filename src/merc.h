@@ -279,6 +279,8 @@ struct	weather_data
 #define CON_NOTE_TEXT			18
 #define CON_NOTE_POST			19
 
+#define MAX_CON_STATE			19
+
 
 
 /*
