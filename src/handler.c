@@ -43,7 +43,6 @@
 #include "tables.h"
 #include "version.h"
 
-
 /*
  * Local functions.
  */

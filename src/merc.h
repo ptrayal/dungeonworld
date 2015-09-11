@@ -38,6 +38,7 @@
 #include <unistd.h>
 #include "protocol.h"
 
+
 // for MAC OS support (Daves Computer compiling troubles :P)
 #ifndef unix
 	#define unix

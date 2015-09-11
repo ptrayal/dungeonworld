@@ -94,7 +94,7 @@ const struct flag_stat_type flag_stat_table[] =
  ****************************************************************************/
 bool is_stat( const struct flag_type *flag_table )
 {
-    int flag;
+    int flag = 0;
 
     for (flag = 0; flag_stat_table[flag].structure; flag++)
     {
@@ -113,7 +113,7 @@ bool is_stat( const struct flag_type *flag_table )
 int flag_value( const struct flag_type *flag_table, char *argument)
 {
     char word[MAX_INPUT_LENGTH];
-    int  bit;
+    int  bit = 0;
     int  marked = 0;
     bool found = FALSE;
 
@@ -154,7 +154,7 @@ char *flag_string( const struct flag_type *flag_table, int bits )
 {
     static char buf[2][512];
     static int cnt = 0;
-    int  flag;
+    int flag = 0;
 
     if ( ++cnt > 1 )
     	cnt = 0;

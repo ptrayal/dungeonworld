@@ -60,8 +60,8 @@ const struct rmob_orc_other_type rmob_orc_other_table[] =
 {
  
 {-3,	3,	3,	5,	3,	5,	8,
-AFF_DETECT_HIDDEN|AFF_INFRARED|AFF_BERSERK},
+AFF_INFRARED},
  
 {-4,	4,	4,	6,	2,	8,	9,
-AFF_DETECT_HIDDEN|AFF_INFRARED|AFF_BERSERK},
+AFF_INFRARED},
 };
