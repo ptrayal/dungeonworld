@@ -37,7 +37,7 @@
 * work... har har har!!! *
 ***************************************************************************/
  
-#if defined(macintosh)
+#if defined(Macintosh)
 #include <types.h>
 #include <time.h>
 #else

@@ -18,7 +18,7 @@
  */
  
  
-#if defined(macintosh)
+#if defined(Macintosh)
 #include <types.h>
 #include <time.h>
 #else

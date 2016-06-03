@@ -36,7 +36,7 @@
 #include <unistd.h>
 
 
-#if defined(macintosh)
+#if defined(Macintosh)
 #include <types.h>
 #else
 #include <sys/types.h>
@@ -59,12 +59,12 @@ bool logFail = FALSE;           // this can be turned into a global value, it do
                                 // however if you want to log which pointers are NULL when cleared
                                 // then be my guest and change this value to true.
 
-#if !defined(macintosh)
+#if !defined(Macintosh)
 extern	int	_filbuf		args( (FILE *) );
 #endif
 
 #if !defined(OLD_RAND)
-#if !defined(linux)
+#if !defined(__linux__)
 long random();
 #endif
 void srandom(unsigned int);

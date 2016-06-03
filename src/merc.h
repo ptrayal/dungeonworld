@@ -2021,13 +2021,13 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 char *	crypt		args( ( const char *key, const char *salt ) );
 #endif
 
-#if	defined(linux)
+#if	defined(__linux__)
 char *	crypt		args( ( const char *key, const char *salt ) );
 #endif
 
-#if	defined(macintosh)
+#if	defined(Macintosh)
 #define NOCRYPT
-#if	defined(unix)
+#if	defined(__unix__)
 #undef	unix
 #endif
 #endif
@@ -2036,9 +2036,9 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 char *	crypt		args( ( const char *key, const char *salt ) );
 #endif
 
-#if	defined(MSDOS)
+#if	defined(__MSDOS__)
 #define NOCRYPT
-#if	defined(unix)
+#if	defined(__unix__)
 #undef	unix
 #endif
 #endif
@@ -2057,11 +2057,11 @@ void	perror		args( ( const char *s ) );
 int	ungetc		args( ( int c, FILE *stream ) );
 #endif
 
-#if	defined(sun)
+#if	defined(__sun)
 char *	crypt		args( ( const char *key, const char *salt ) );
 int	fclose		args( ( FILE *stream ) );
 int	fprintf		args( ( FILE *stream, const char *format, ... ) );
-#if	defined(SYSV)
+#if	defined(__sysv__)
 siz_t	fread		args( ( void *ptr, size_t size, size_t n, 
 				FILE *stream) );
 #elif !defined(__SVR4)
@@ -2101,19 +2101,19 @@ char *	crypt		args( ( const char *key, const char *salt ) );
  *   so players can go ahead and telnet to all the other descriptors.
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
-#if defined(macintosh)
+#if defined(Macintosh)
 #define PLAYER_DIR	""			/* Player files	*/
 #define TEMP_FILE	"romtmp"
 #define NULL_FILE	"proto.are"		/* To reserve one stream */
 #endif
 
-#if defined(MSDOS)
+#if defined(__MSDOS__)
 #define PLAYER_DIR	""			/* Player files */
 #define TEMP_FILE	"romtmp"
 #define NULL_FILE	"nul"			/* To reserve one stream */
 #endif
 
-#if defined(unix)
+#if defined(__unix__)
 #define PLAYER_DIR		"../player/"        	/* Player files */
 #define GOD_DIR			"../gods/"  		/* list of gods */
 #define TEMP_FILE		"../player/romtmp"

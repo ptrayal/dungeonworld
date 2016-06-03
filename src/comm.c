@@ -43,7 +43,7 @@
  * -- Furey  26 Jan 1993
  */
 
-#if defined(macintosh)
+#if defined(Macintosh)
 #include <types.h>
 #else
 #include <sys/types.h>
@@ -67,7 +67,7 @@
 /*
  * Malloc debugging stuff.
  */
-#if defined(sun)
+#if defined(__sun)
 #undef MALLOC_DEBUG
 #endif
 
@@ -88,7 +88,7 @@ extern	int	malloc_verify	args( ( void ) );
 #define __attribute(x)
 #endif
 
-#if defined(unix)
+#if defined(__unix__)
 #include <signal.h>
 #endif
 
@@ -101,13 +101,13 @@ extern	int	malloc_verify	args( ( void ) );
 /*
  * Socket and TCP/IP stuff.
  */
-#if	defined(macintosh) || defined(MSDOS)
+#if	defined(Macintosh) || defined(__MSDOS__)
 const	char	echo_off_str	[] = { '\0' };
 const	char	echo_on_str	[] = { '\0' };
 const	char 	go_ahead_str	[] = { '\0' };
 #endif
 
-#if	defined(unix)
+#if	defined(__unix__)
 #include <fcntl.h>
 #include <netdb.h>
 #include <netinet/in.h>
@@ -160,7 +160,7 @@ int	socket		args( ( int domain, int type, int protocol ) );
 #include <sys/fnctl.h>
 #endif
 
-#if	defined(linux)
+#if	defined(__linux__)
 /* 
 	Linux shouldn't need these. If you have a problem compiling, try
 	uncommenting these functions.
@@ -182,7 +182,7 @@ int	socket		args( ( int domain, int type, int protocol ) );
 /* int	write		args( ( int fd, char *buf, int nbyte ) ); */ /* read,write in unistd.h */
 #endif
 
-#if	defined(macintosh)
+#if	defined(Macintosh)
 #include <console.h>
 #include <fcntl.h>
 #include <unix.h>
@@ -203,7 +203,7 @@ int	gettimeofday		args( ( struct timeval *tp, void *tzp ) );
 extern	int		errno;
 #endif
 
-#if	defined(MSDOS)
+#if	defined(__MSDOS__)
 int	gettimeofday	args( ( struct timeval *tp, void *tzp ) );
 int	kbhit		args( ( void ) );
 #endif
@@ -248,7 +248,7 @@ int	write		args( ( int fd, char *buf, int nbyte ) );
 #endif
 
 /* This includes Solaris Sys V as well */
-#if defined(sun)
+#if defined(__sun)
 int	accept		args( ( int s, struct sockaddr *addr, int *addrlen ) );
 int	bind		args( ( int s, struct sockaddr *name, int namelen ) );
 void	bzero		args( ( char *b, int length ) );
@@ -263,7 +263,7 @@ int	select		args( ( int width, fd_set *readfds, fd_set *writefds,
 #if !defined(__SVR4)
 int	gettimeofday	args( ( struct timeval *tp, struct timezone *tzp ) );
 
-#if defined(SYSV)
+#if defined(__sysv__)
 int setsockopt		args( ( int s, int level, int optname,
 				const char *optval, int optlen ) );
 #else
@@ -314,13 +314,13 @@ bool		    MOBtrigger = TRUE;  /* act() switch                 */
 /*
  * OS-dependent local functions.
  */
-#if defined(macintosh) || defined(MSDOS)
+#if defined(Macintosh) || defined(__MSDOS__)
 void	game_loop_mac_msdos	args( ( void ) );
 bool	read_from_descriptor	args( ( DESCRIPTOR_DATA *d ) );
 bool	write_to_descriptor	args( ( int desc, char *txt, int length ) );
 #endif
 
-#if defined(unix)
+#if defined(__unix__)
 void	game_loop_unix		args( ( int control ) );
 int	init_socket		args( ( int port ) );
 void	init_descriptor		args( ( int control ) );
@@ -532,7 +532,7 @@ int main( int argc, char **argv )
 	struct timeval now_time;
 	int port;
 
-#if defined(unix)
+#if defined(__unix__)
 	int control;
 #endif
 
@@ -553,7 +553,7 @@ int main( int argc, char **argv )
 	/*
 	 * Macintosh console initialization.
 	 */
-#if defined(macintosh)
+#if defined(Macintosh)
 	console_options.nrows = 31;
 	cshow( stdout );
 	csetmode( C_RAW, stdin );
@@ -595,13 +595,13 @@ int main( int argc, char **argv )
 	/*
 	 * Run the game.
 	 */
-#if defined(macintosh) || defined(MSDOS)
+#if defined(Macintosh) || defined(__MSDOS__)
 	boot_db( );
 	log_string( "Merc is ready to rock." );
 	game_loop_mac_msdos( );
 #endif
 
-#if defined(unix)
+#if defined(__unix__)
 	control = init_socket( port );
 	boot_db( );
 	log_string( Format("DungeonWorld(%s) is now running on port %d", getVersion(), port) );
@@ -619,7 +619,7 @@ int main( int argc, char **argv )
 	return 0;
 }
 
-#if defined(unix)
+#if defined(__unix__)
 int init_socket( int port )
 {
 	static struct sockaddr_in sa_zero;
@@ -641,7 +641,7 @@ int init_socket( int port )
 	exit( 1 );
 	}
 
-#if defined(SO_DONTLINGER) && !defined(SYSV)
+#if defined(SO_DONTLINGER) && !defined(__sysv__)
 	{
 	struct	linger	ld;
 
@@ -683,7 +683,7 @@ int init_socket( int port )
 
 
 
-#if defined(macintosh) || defined(MSDOS)
+#if defined(Macintosh) || defined(__MSDOS__)
 void game_loop_mac_msdos( void )
 {
 	struct timeval last_time;
@@ -733,7 +733,7 @@ void game_loop_mac_msdos( void )
 		d_next	= d->next;
 		d->fcommand	= FALSE;
 
-#if defined(MSDOS)
+#if defined(__MSDOS__)
 		if ( kbhit( ) )
 #endif
 		{
@@ -827,7 +827,7 @@ void game_loop_mac_msdos( void )
 	{
 		int delta;
 
-#if defined(MSDOS)
+#if defined(__MSDOS__)
 		if ( kbhit( ) )
 #endif
 		{
@@ -840,7 +840,7 @@ void game_loop_mac_msdos( void )
 			dcon.outtop	= 0;
 			close_socket( &dcon );
 		}
-#if defined(MSDOS)
+#if defined(__MSDOS__)
 		break;
 #endif
 		}
@@ -861,7 +861,7 @@ void game_loop_mac_msdos( void )
 
 
 
-#if defined(unix)
+#if defined(__unix__)
 void game_loop_unix( int control )
 {
 	static struct timeval null_time;
@@ -1073,7 +1073,7 @@ void game_loop_unix( int control )
 
 
 
-#if defined(unix)
+#if defined(__unix__)
 void init_descriptor( int control )
 {
 	char buf[MSL]={'\0'};
@@ -1244,7 +1244,7 @@ void close_socket( DESCRIPTOR_DATA *dclose )
 
 	close( dclose->descriptor );
 	free_descriptor(dclose);
-#if defined(MSDOS) || defined(macintosh)
+#if defined(__MSDOS__) || defined(Macintosh)
 	exit(1);
 #endif
 	return;
@@ -1274,7 +1274,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 	}
 
 	/* Snarf input. */
-#if defined(macintosh)
+#if defined(Macintosh)
 	for ( ; ; )
 	{
 	int c;
@@ -1290,7 +1290,7 @@ bool read_from_descriptor( DESCRIPTOR_DATA *d )
 	}
 #endif
 
-#if defined(MSDOS) || defined(unix)
+#if defined(__MSDOS__) || defined(__unix__)
 	while(true)
 	{
 		int nRead;
@@ -1766,7 +1766,7 @@ bool write_to_descriptor( int desc, char *txt, int length )
 	int nWrite;
 	int nBlock;
 
-#if defined(macintosh) || defined(MSDOS)
+#if defined(Macintosh) || defined(__MSDOS__)
 	if ( desc == 0 )
 	desc = 1;
 #endif
@@ -1929,7 +1929,7 @@ void nanny_get_name(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 }
 
 void nanny_get_old_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
-#if defined(unix)
+#if defined(__unix__)
 	write_to_buffer( d, "\n\r", 2 );
 #endif
 
@@ -2067,7 +2067,7 @@ void nanny_get_new_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	char *pwdnew;
 	char *p;
 	
-#if defined(unix)
+#if defined(__unix__)
 	write_to_buffer( d, "\n\r", 2 );
 #endif
 
@@ -2095,7 +2095,7 @@ void nanny_get_new_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 
 void nanny_confirm_new_password(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	int race;
-#if defined(unix)
+#if defined(__unix__)
 	write_to_buffer( d, "\n\r", 2 );
 #endif
 
@@ -2640,12 +2640,12 @@ bool check_parse_name( char *name )
 	if ( strlen(name) <  2 )
 	return FALSE;
 
-#if defined(MSDOS)
+#if defined(__MSDOS__)
 	if ( strlen(name) >  8 )
 	return FALSE;
 #endif
 
-#if defined(macintosh) || defined(unix)
+#if defined(Macintosh) || defined(__unix__)
 	if ( strlen(name) > 12 )
 	return FALSE;
 #endif
@@ -3059,7 +3059,7 @@ void act_new( const char *format, CHAR_DATA *ch, const void *arg1,
 /*
  * Macintosh support functions.
  */
-#if defined(macintosh)
+#if defined(Macintosh)
 int gettimeofday( struct timeval *tp, void *tzp )
 {
 	tp->tv_sec  = time( NULL );

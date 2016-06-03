@@ -25,7 +25,7 @@
 *	ROM license, in the file Rom24/doc/rom.license			   *
 ***************************************************************************/
 
-#if defined(macintosh)
+#if defined(Macintosh)
 #include <types.h>
 #else
 #include <sys/types.h>
@@ -41,7 +41,7 @@
 #include "tables.h"
 #include "lookup.h"
  
-#if !defined(macintosh)
+#if !defined(Macintosh)
 extern  int     _filbuf         args( (FILE *) );
 #endif
 
@@ -125,7 +125,7 @@ void save_char_obj( CHAR_DATA *ch )
 		ch->pcdata->security = 9;
 	}
 
-#if defined(unix)
+#if defined(__unix__)
 	/* create god log */
 	if (IS_IMMORTAL(ch) || ch->level >= LEVEL_IMMORTAL)
 	{
@@ -588,7 +588,7 @@ bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 	found = FALSE;
 	closeReserve();
 	
-	#if defined(unix)
+	#if defined(__unix__)
 	/* decompress if .gz file exists */
 	sprintf( strsave, "%s%s%s", PLAYER_DIR, capitalize(name),".gz");
 	if ( ( fp = fopen( strsave, "r" ) ) != NULL )

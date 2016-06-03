@@ -25,7 +25,7 @@
 *	ROM license, in the file Rom24/doc/rom.license			   *
 ***************************************************************************/
 
-#if defined(macintosh)
+#if defined(Macintosh)
 #include <types.h>
 #else
 #include <sys/types.h>
@@ -41,7 +41,7 @@
 #include "tables.h"
 
 /* globals from db.c for load_notes */
-#if !defined(macintosh)
+#if !defined(Macintosh)
 extern  int     _filbuf         args( (FILE *) );
 #endif
 extern FILE *                  fpArea;
