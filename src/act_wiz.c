@@ -4365,3 +4365,39 @@ void do_trackbuffer(CHAR_DATA *ch, char *argument)
 	return;
 }
 
+void do_roomdump (CHAR_DATA *ch, char *argument)
+{
+	FILE *fp;
+	ROOM_INDEX_DATA	*pRoomIndex;
+	AREA_DATA		*pArea;
+	int vnum = 0;
+	bool found = FALSE;
+
+	pArea = ch->in_room->area;
+
+	closeReserve();
+	if ( !( fp = fopen( "room.txt", "w" ) ) )
+	{
+		log_string("RoomDump: fopen");
+		perror( "room.txt" );
+	}
+
+	fprintf(fp, "rooms:[");
+
+	for ( vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++ )
+	{
+		if ( ( pRoomIndex = get_room_index( vnum ) ) )
+			{
+				found = TRUE;
+				fprintf(fp,"{num: %d, name: '%s', zone: '%s' },", vnum, capitalize( pRoomIndex->name ), pRoomIndex->area->name);
+			}
+	}
+	
+	fprintf( fp, "]\n" );
+
+	fclose( fp );
+	openReserve();
+
+	send_to_char("Room Dump saved.\n\r", ch);
+	return;
+}

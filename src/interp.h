@@ -315,4 +315,5 @@ DECLARE_DO_FUN( do_hedit	);
 DECLARE_DO_FUN( do_matedit  );
 DECLARE_DO_FUN( do_matlist );
 DECLARE_DO_FUN( do_trackbuffer );
+DECLARE_DO_FUN( do_roomdump );
 #endif // EOF

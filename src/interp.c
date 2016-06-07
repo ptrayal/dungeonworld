@@ -375,6 +375,7 @@ const	struct	cmd_type	cmd_table	[] =
 	{ "matedit",	do_matedit, POS_DEAD,	 ML, LOG_NORMAL, 1 },
 	{ "matlist",	do_matlist, POS_DEAD,	 IM, LOG_NORMAL, 1 },
 	{ "trackbuffer", do_trackbuffer, POS_DEAD, ML, LOG_NORMAL, 1 },
+	{ "roomdump",	do_roomdump, POS_DEAD,	 ML, LOG_NORMAL, 1},
 	/*
 	 * End of list.
 	 */
