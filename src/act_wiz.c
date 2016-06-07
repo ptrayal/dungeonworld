@@ -4371,6 +4371,7 @@ void do_roomdump (CHAR_DATA *ch, char *argument)
 	ROOM_INDEX_DATA	*pRoomIndex;
 	AREA_DATA		*pArea;
 	int vnum = 0;
+	int	door = 0;
 	bool found = FALSE;
 
 	pArea = ch->in_room->area;
@@ -4389,7 +4390,19 @@ void do_roomdump (CHAR_DATA *ch, char *argument)
 		if ( ( pRoomIndex = get_room_index( vnum ) ) )
 			{
 				found = TRUE;
-				fprintf(fp,"{num: %d, name: '%s', zone: '%s' },", vnum, capitalize( pRoomIndex->name ), pRoomIndex->area->name);
+				fprintf(fp,"{num: %d, name: '%s', zone: '%s', ", vnum, capitalize( pRoomIndex->name ), pRoomIndex->area->name);
+
+				for ( door = 0; door < MAX_DIR; door++ )
+					{
+						EXIT_DATA *pexit;
+
+						if ( ( pexit = pRoomIndex->exit[door] ) )
+							{
+								fprintf(fp, "exits {%s: %d}", capitalize(dir_name[door]), pexit->u1.to_room ? pexit->u1.to_room->vnum : 0);
+							}
+					}
+
+				fprintf(fp, "},");
 			}
 	}
 	
