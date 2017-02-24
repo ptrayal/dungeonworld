@@ -202,8 +202,8 @@ void say_spell( CHAR_DATA *ch, int sn )
 		length = 1;
 	}
 
-	sprintf( buf2, "$n utters the words, '%s'.", buf );
-	sprintf( buf,  "$n utters the words, '%s'.", skill_table[sn].name );
+	snprintf( buf2, sizeof(buf2), "$n utters the words, '%s'.", buf );
+	snprintf( buf, sizeof(buf),  "$n utters the words, '%s'.", skill_table[sn].name );
 
 	for ( rch = ch->in_room->people; rch; rch = rch->next_in_room )
 	{
@@ -1542,7 +1542,7 @@ void spell_create_water( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 		{
 			char buf[MSL]={'\0'};
 
-			sprintf( buf, "%s water", obj->name );
+			snprintf( buf, sizeof(buf), "%s water", obj->name );
 			PURGE_DATA( obj->name );
 			obj->name = str_dup( buf );
 		}
