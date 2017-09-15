@@ -350,6 +350,7 @@ const struct olc_cmd_type medit_table[] =
 	{   "short",	medit_short	},
 	{	"show",		medit_show	},
 	{   "spec",		medit_spec	},
+	{   "balance",	medit_balance },
 
 	{   "sex",          medit_sex       },  /* ROM */
 	{   "act",          medit_act       },  /* ROM */
@@ -443,44 +444,44 @@ void aedit( CHAR_DATA *ch, char *argument )
 
 	if ( !IS_BUILDER( ch, pArea ) )
 	{
-	send_to_char( "AEdit:  Insufficient security to modify area.\n\r", ch );
-	edit_done( ch );
-	return;
+		send_to_char( "AEdit:  Insufficient security to modify area.\n\r", ch );
+		edit_done( ch );
+		return;
 	}
 
 	if ( !str_cmp(command, "done") )
 	{
-	edit_done( ch );
-	return;
+		edit_done( ch );
+		return;
 	}
 
 	if ( IS_NULLSTR(command) )
 	{
-	aedit_show( ch, argument );
-	return;
+		aedit_show( ch, argument );
+		return;
 	}
 
 	if ( ( value = flag_value( area_flags, command ) ) != NO_FLAG )
 	{
-	TOGGLE_BIT(pArea->area_flags, value);
+		TOGGLE_BIT(pArea->area_flags, value);
 
-	send_to_char( "Flag toggled.\n\r", ch );
-	return;
+		send_to_char( "Flag toggled.\n\r", ch );
+		return;
 	}
 
 	/* Search Table and Dispatch Command. */
 	for ( cmd = 0; aedit_table[cmd].name != NULL; cmd++ )
 	{
-	if ( !str_prefix( command, aedit_table[cmd].name ) )
-	{
-		if ( (*aedit_table[cmd].olc_fun) ( ch, argument ) )
+		if ( !str_prefix( command, aedit_table[cmd].name ) )
 		{
-		SET_BIT( pArea->area_flags, AREA_CHANGED );
-		return;
+			if ( (*aedit_table[cmd].olc_fun) ( ch, argument ) )
+			{
+				SET_BIT( pArea->area_flags, AREA_CHANGED );
+				return;
+			}
+			else
+				return;
 		}
-		else
-		return;
-	}
 	}
 
 	/* Default to Standard Interpreter. */

@@ -1042,9 +1042,9 @@ bool spec_thief( CHAR_DATA *ch )
 
 bool spec_random_orc (CHAR_DATA * ch)
 {
-	char mob_long[MSL];
-	char mob_name[MSL];
-	char mob_short[MSL];
+	char mob_long[MSL]={'\0'};
+	char mob_name[MSL]={'\0'};
+	char mob_short[MSL]={'\0'};
 	int name_range = number_range(1, MAX_RMOB_ORC_NAME - 1);
 	int long_range = number_range(1, MAX_RMOB_ORC_LONG - 1);
 	int other_range = number_range(1, MAX_RMOB_OTHER - 1);
@@ -1058,7 +1058,7 @@ bool spec_random_orc (CHAR_DATA * ch)
 		return false;
 	}
 	
-	
+
 	/* Wimpy isn't used by mobs, so we'll use this as a check. if Wimpy == 1, dont do the script
 	prevents mobs from changing every 8 pulses. */
 	ch->wimpy = 1;

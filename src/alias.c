@@ -40,9 +40,10 @@ void substitute_alias(DESCRIPTOR_DATA *d, char *argument)
 {
 	CHAR_DATA *ch;
 	char buf[MSL]={'\0'};
-	char prefix[MAX_INPUT_LENGTH],name[MAX_INPUT_LENGTH];
+	char prefix[MIL]={'\0'};
+	char name[MIL]={'\0'};
 	char *point;
-	int alias;
+	int alias = 0;
 
 	ch = d->original ? d->original : d->character;
 
@@ -105,164 +106,149 @@ void do_alia(CHAR_DATA *ch, char *argument)
 void do_alias(CHAR_DATA *ch, char *argument)
 {
 	CHAR_DATA *rch;
-	char arg[MAX_INPUT_LENGTH];
-	int pos;
+	char arg[MIL]={'\0'};
+	int pos = 0;
 
 	smash_tilde(argument);
 
 	if (ch->desc == NULL)
-	rch = ch;
+		rch = ch;
 	else
-	rch = ch->desc->original ? ch->desc->original : ch;
+		rch = ch->desc->original ? ch->desc->original : ch;
 
 	if (IS_NPC(rch))
-	return;
+		return;
 
 	argument = one_argument(argument,arg);
 	
 
-	if (arg[0] == '\0')
+	if (IS_NULLSTR(arg))
 	{
 
-	if (rch->pcdata->alias[0] == NULL)
-	{
-		send_to_char("You have no aliases defined.\n\r",ch);
+		if (rch->pcdata->alias[0] == NULL)
+		{
+			send_to_char("You have no aliases defined.\n\r",ch);
+			return;
+		}
+		send_to_char("Your current aliases are:\n\r",ch);
+
+		for (pos = 0; pos < MAX_ALIAS; pos++)
+		{
+			if (rch->pcdata->alias[pos] == NULL
+				||	rch->pcdata->alias_sub[pos] == NULL)
+				break;
+
+			send_to_char( Format("    %s:  %s\n\r",rch->pcdata->alias[pos], rch->pcdata->alias_sub[pos]), ch);
+		}
 		return;
-	}
-	send_to_char("Your current aliases are:\n\r",ch);
-
-	for (pos = 0; pos < MAX_ALIAS; pos++)
-	{
-		if (rch->pcdata->alias[pos] == NULL
-		||	rch->pcdata->alias_sub[pos] == NULL)
-		break;
-
-		send_to_char( Format("    %s:  %s\n\r",rch->pcdata->alias[pos], rch->pcdata->alias_sub[pos]), ch);
-	}
-	return;
 	}
 
 	if (!str_prefix("una",arg) || !str_cmp("alias",arg))
 	{
-	send_to_char("Sorry, that word is reserved.\n\r",ch);
-	return;
-	}
-
-	if (argument[0] == '\0')
-	{
-	for (pos = 0; pos < MAX_ALIAS; pos++)
-	{
-		if (rch->pcdata->alias[pos] == NULL
-		||	rch->pcdata->alias_sub[pos] == NULL)
-		break;
-
-		if (!str_cmp(arg,rch->pcdata->alias[pos]))
-		{
-		send_to_char( Format("%s aliases to '%s'.\n\r",rch->pcdata->alias[pos], rch->pcdata->alias_sub[pos]), ch);
+		send_to_char("Sorry, that word is reserved.\n\r",ch);
 		return;
-		}
 	}
 
-	send_to_char("That alias is not defined.\n\r",ch);
-	return;
+	if (IS_NULLSTR(argument) )
+	{
+		for (pos = 0; pos < MAX_ALIAS; pos++)
+		{
+			if (rch->pcdata->alias[pos] == NULL
+				||	rch->pcdata->alias_sub[pos] == NULL)
+				break;
+
+			if (!str_cmp(arg,rch->pcdata->alias[pos]))
+			{
+				send_to_char( Format("%s aliases to '%s'.\n\r",rch->pcdata->alias[pos], rch->pcdata->alias_sub[pos]), ch);
+				return;
+			}
+		}
+
+		send_to_char("That alias is not defined.\n\r",ch);
+		return;
 	}
 
 	if (!str_prefix(argument,"delete") || !str_prefix(argument,"prefix"))
 	{
-	send_to_char("That shall not be done!\n\r",ch);
-	return;
+		send_to_char("That shall not be done!\n\r",ch);
+		return;
 	}
 
 	for (pos = 0; pos < MAX_ALIAS; pos++)
 	{
-	if (rch->pcdata->alias[pos] == NULL)
-		break;
+		if (rch->pcdata->alias[pos] == NULL)
+			break;
 
 	if (!str_cmp(arg,rch->pcdata->alias[pos])) /* redefine an alias */
+		{
+			PURGE_DATA(rch->pcdata->alias_sub[pos]);
+			rch->pcdata->alias_sub[pos] = str_dup(argument);
+			send_to_char( Format("%s is now realiased to '%s'.\n\r",arg,argument), ch);
+			return;
+		}
+	}
+
+	if (pos >= MAX_ALIAS)
 	{
-		PURGE_DATA(rch->pcdata->alias_sub[pos]);
-		rch->pcdata->alias_sub[pos] = str_dup(argument);
-		send_to_char( Format("%s is now realiased to '%s'.\n\r",arg,argument), ch);
+		send_to_char("Sorry, you have reached the alias limit.\n\r",ch);
 		return;
 	}
-	 }
 
-	 if (pos >= MAX_ALIAS)
-	 {
-	send_to_char("Sorry, you have reached the alias limit.\n\r",ch);
-	return;
-	 }
-  
 	 /* make a new alias */
-	 rch->pcdata->alias[pos]		= str_dup(arg);
-	 rch->pcdata->alias_sub[pos]	= str_dup(argument);
-	 send_to_char( Format("%s is now aliased to '%s'.\n\r",arg,argument), ch);
+	rch->pcdata->alias[pos]		= str_dup(arg);
+	rch->pcdata->alias_sub[pos]	= str_dup(argument);
+	send_to_char( Format("%s is now aliased to '%s'.\n\r",arg,argument), ch);
 }
 
 
 void do_unalias(CHAR_DATA *ch, char *argument)
 {
 	CHAR_DATA *rch;
-	char arg[MAX_INPUT_LENGTH];
-	int pos;
+	char arg[MIL]={'\0'};
+	int pos = 0;
 	bool found = FALSE;
- 
+
 	if (ch->desc == NULL)
-	rch = ch;
+		rch = ch;
 	else
-	rch = ch->desc->original ? ch->desc->original : ch;
- 
+		rch = ch->desc->original ? ch->desc->original : ch;
+
 	if (IS_NPC(rch))
-	return;
- 
+		return;
+
 	argument = one_argument(argument,arg);
 
 	if (arg[0] == '\0')
 	{
-	send_to_char("Unalias what?\n\r",ch);
-	return;
+		send_to_char("Unalias what?\n\r",ch);
+		return;
 	}
 
 	for (pos = 0; pos < MAX_ALIAS; pos++)
 	{
-	if (rch->pcdata->alias[pos] == NULL)
-		break;
+		if (rch->pcdata->alias[pos] == NULL)
+			break;
 
-	if (found)
-	{
-		rch->pcdata->alias[pos-1]		= rch->pcdata->alias[pos];
-		rch->pcdata->alias_sub[pos-1]	= rch->pcdata->alias_sub[pos];
-		rch->pcdata->alias[pos]		= NULL;
-		rch->pcdata->alias_sub[pos]		= NULL;
-		continue;
-	}
+		if (found)
+		{
+			rch->pcdata->alias[pos-1]		= rch->pcdata->alias[pos];
+			rch->pcdata->alias_sub[pos-1]	= rch->pcdata->alias_sub[pos];
+			rch->pcdata->alias[pos]		= NULL;
+			rch->pcdata->alias_sub[pos]		= NULL;
+			continue;
+		}
 
-	if(!strcmp(arg,rch->pcdata->alias[pos]))
-	{
-		send_to_char("Alias removed.\n\r",ch);
-		PURGE_DATA(rch->pcdata->alias[pos]);
-		PURGE_DATA(rch->pcdata->alias_sub[pos]);
-		rch->pcdata->alias[pos] = NULL;
-		rch->pcdata->alias_sub[pos] = NULL;
-		found = TRUE;
-	}
+		if(!strcmp(arg,rch->pcdata->alias[pos]))
+		{
+			send_to_char("Alias removed.\n\r",ch);
+			PURGE_DATA(rch->pcdata->alias[pos]);
+			PURGE_DATA(rch->pcdata->alias_sub[pos]);
+			rch->pcdata->alias[pos] = NULL;
+			rch->pcdata->alias_sub[pos] = NULL;
+			found = TRUE;
+		}
 	}
 
 	if (!found)
-	send_to_char("No alias of that name to remove.\n\r",ch);
+		send_to_char("No alias of that name to remove.\n\r",ch);
 }
-
-	 
-
-
-
-
-
-
-
-
-
-
-
-
-

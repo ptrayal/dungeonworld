@@ -41,9 +41,9 @@
 void do_heal(CHAR_DATA *ch, char *argument)
 {
 	CHAR_DATA *mob;
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	int cost = 0;
-	int sn;
+	int sn = 0;
 	SPELL_FUN *spell;
 	char *words;	
 

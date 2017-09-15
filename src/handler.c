@@ -52,7 +52,8 @@ CHAR_DATA *worldExtractedCharacters;
 OBJ_DATA *worldExtractedObjects;
 
 
-void purgeExtracted(void) {
+void purgeExtracted(void) 
+{
 	CHAR_DATA *c, *cn;
 	OBJ_DATA *o, *on;
 	
@@ -79,42 +80,41 @@ void purgeExtracted(void) {
 bool is_friend(CHAR_DATA *ch,CHAR_DATA *victim)
 {
 	if (is_same_group(ch,victim))
-	return TRUE;
-
+		return TRUE;
 	
 	if (!IS_NPC(ch))
-	return FALSE;
+		return FALSE;
 
 	if (!IS_NPC(victim))
 	{
-	if (IS_SET(ch->off_flags,ASSIST_PLAYERS))
-		return TRUE;
-	else
-		return FALSE;
+		if (IS_SET(ch->off_flags,ASSIST_PLAYERS))
+			return TRUE;
+		else
+			return FALSE;
 	}
 
 	if (IS_AFFECTED(ch,AFF_CHARM))
-	return FALSE;
+		return FALSE;
 
 	if (IS_SET(ch->off_flags,ASSIST_ALL))
-	return TRUE;
+		return TRUE;
 
 	if (ch->group && ch->group == victim->group)
-	return TRUE;
+		return TRUE;
 
 	if (IS_SET(ch->off_flags,ASSIST_VNUM) 
-	&&  ch->pIndexData == victim->pIndexData)
-	return TRUE;
+		&&  ch->pIndexData == victim->pIndexData)
+		return TRUE;
 
 	if (IS_SET(ch->off_flags,ASSIST_RACE) && ch->race == victim->race)
-	return TRUE;
-	 
+		return TRUE;
+
 	if (IS_SET(ch->off_flags,ASSIST_ALIGN)
-	&&  !IS_SET(ch->act,ACT_NOALIGN) && !IS_SET(victim->act,ACT_NOALIGN)
-	&&  ((IS_GOOD(ch) && IS_GOOD(victim))
-	||	 (IS_EVIL(ch) && IS_EVIL(victim))
-	||   (IS_NEUTRAL(ch) && IS_NEUTRAL(victim))))
-	return TRUE;
+		&&  !IS_SET(ch->act,ACT_NOALIGN) && !IS_SET(victim->act,ACT_NOALIGN)
+		&&  ((IS_GOOD(ch) && IS_GOOD(victim))
+			||	 (IS_EVIL(ch) && IS_EVIL(victim))
+			||   (IS_NEUTRAL(ch) && IS_NEUTRAL(victim))))
+		return TRUE;
 
 	return FALSE;
 }
@@ -126,15 +126,19 @@ int count_users(OBJ_DATA *obj)
 	int count = 0;
 
 	if (obj->in_room == NULL)
-	return 0;
+		return 0;
 
 	for (fch = obj->in_room->people; fch != NULL; fch = fch->next_in_room)
-	if (fch->on == obj)
-		count++;
+	{
+		if (fch->on == obj)
+		{
+			count++;
+		}
+	}
 
 	return count;
 }
-	 
+
 /* returns material number */
 int material_lookup (const char *name)
 {
@@ -1286,25 +1290,22 @@ bool is_affected( CHAR_DATA *ch, int sn )
 void affect_join( CHAR_DATA *ch, AFFECT_DATA *paf )
 {
 	AFFECT_DATA *paf_old;
-	bool found;
 
-	found = FALSE;
 	for ( paf_old = ch->affected; paf_old != NULL; paf_old = paf_old->next )
 	{
-	if ( paf_old->type == paf->type )
-	{
-		paf->level = (paf->level += paf_old->level) / 2;
-		paf->duration += paf_old->duration;
-		paf->modifier += paf_old->modifier;
-		affect_remove( ch, paf_old );
-		break;
-	}
+		if ( paf_old->type == paf->type )
+		{
+			paf->level = (paf->level += paf_old->level) / 2;
+			paf->duration += paf_old->duration;
+			paf->modifier += paf_old->modifier;
+			affect_remove( ch, paf_old );
+			break;
+		}
 	}
 
 	affect_to_char( ch, paf );
 	return;
 }
-
 
 
 /*
@@ -1617,12 +1618,12 @@ void unequip_char( CHAR_DATA *ch, OBJ_DATA *obj )
 	AFFECT_DATA *paf = NULL;
 	AFFECT_DATA *lpaf = NULL;
 	AFFECT_DATA *lpaf_next = NULL;
-	int i;
+	int i = 0;
 
 	if ( obj->wear_loc == WEAR_NONE )
 	{
-	bug( "Unequip_char: already unequipped.", 0 );
-	return;
+		bug( "Unequip_char: already unequipped.", 0 );
+		return;
 	}
 
 	for (i = 0; i < 4; i++)
@@ -1635,20 +1636,20 @@ void unequip_char( CHAR_DATA *ch, OBJ_DATA *obj )
 		{
 			for ( lpaf = ch->affected; lpaf != NULL; lpaf = lpaf_next )
 			{
-			lpaf_next = lpaf->next;
-			if ((lpaf->type == paf->type) &&
-				(lpaf->level == paf->level) &&
-				(lpaf->location == APPLY_SPELL_AFFECT))
-			{
-				affect_remove( ch, lpaf );
-			lpaf_next = NULL;
-			}
+				lpaf_next = lpaf->next;
+				if ((lpaf->type == paf->type) &&
+					(lpaf->level == paf->level) &&
+					(lpaf->location == APPLY_SPELL_AFFECT))
+				{
+					affect_remove( ch, lpaf );
+					lpaf_next = NULL;
+				}
 			}
 		}
 		else
 		{
 			affect_modify( ch, paf, FALSE );
-		affect_check(ch,paf->where,paf->bitvector);
+			affect_check(ch,paf->where,paf->bitvector);
 		}
 
 	for ( paf = obj->affected; paf != NULL; paf = paf->next )
@@ -2642,6 +2643,8 @@ char *act_bit_name( int act_flags )
 	strcat(buf," npc");
 		if (act_flags & ACT_SENTINEL 	) strcat(buf, " sentinel");
 		if (act_flags & ACT_SCAVENGER	) strcat(buf, " scavenger");
+		if (act_flags & ACT_NEWBIE      ) strcat(buf, " newbie");
+		if (act_flags & ACT_HERO      ) strcat(buf, " hero");
 	if (act_flags & ACT_AGGRESSIVE	) strcat(buf, " aggressive");
 	if (act_flags & ACT_STAY_AREA	) strcat(buf, " stay_area");
 	if (act_flags & ACT_WIMPY	) strcat(buf, " wimpy");

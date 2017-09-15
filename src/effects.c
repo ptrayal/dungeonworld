@@ -160,8 +160,12 @@ void acid_effect(void *vo, int level, int dam, int target)
 			}
 			
 			if (obj->carried_by != NULL && obj->wear_loc != WEAR_NONE)
-				for (i = 0; i < 4; i++)
-					obj->carried_by->armor[i] += 1;
+				{
+					for (i = 0; i < 4; i++)
+						{
+							obj->carried_by->armor[i] += 1;
+						}
+				}
 				return;
 			}
 
@@ -605,4 +609,3 @@ void shock_effect(void *vo,int level, int dam, int target)
 		return;
 	}
 }
-

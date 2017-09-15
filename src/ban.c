@@ -54,28 +54,28 @@ void save_bans(void)
 
 	for (pban = ban_list; pban != NULL; pban = pban->next)
 	{
-	if (IS_SET(pban->ban_flags,BAN_PERMANENT))
-	{
-		found = TRUE;
-		fprintf(fp,"%-20s %-2d %s\n",pban->name,pban->level,
-		print_flags(pban->ban_flags));
+		if (IS_SET(pban->ban_flags,BAN_PERMANENT))
+		{
+			found = TRUE;
+			fprintf(fp,"%-20s %-2d %s\n",pban->name,pban->level,
+				print_flags(pban->ban_flags));
+		}
 	}
-	 }
 
-	 fclose(fp);
-	 openReserve();
-	 if (!found)
-	unlink(BAN_FILE);
+	fclose(fp);
+	openReserve();
+	if (!found)
+		unlink(BAN_FILE);
 }
 
 void load_bans(void)
 {
 	FILE *fp;
 	BAN_DATA *ban_last;
- 
+	
 	if ( ( fp = fopen( BAN_FILE, "r" ) ) == NULL )
 		return;
- 
+	
 	ban_last = NULL;
 	for ( ; ; )
 	{
@@ -85,19 +85,19 @@ void load_bans(void)
 			fclose( fp );
 			return;
 		}
- 
+		
 		pban = new_ban();
- 
+		
 		pban->name = str_dup(fread_word(fp));
-	pban->level = fread_number(fp);
-	pban->ban_flags = fread_flag(fp);
-	fread_to_eol(fp);
+		pban->level = fread_number(fp);
+		pban->ban_flags = fread_flag(fp);
+		fread_to_eol(fp);
 
 		if (ban_list == NULL)
-		ban_list = pban;
-	else
-		ban_last->next = pban;
-	ban_last = pban;
+			ban_list = pban;
+		else
+			ban_last->next = pban;
+		ban_last = pban;
 	}
 }
 

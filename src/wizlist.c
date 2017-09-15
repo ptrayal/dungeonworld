@@ -133,14 +133,14 @@ void load_wizlist(void)
  
 void do_wizlist(CHAR_DATA *ch, char *argument)
 {
-	char arg1[MAX_INPUT_LENGTH];
-	char arg2[MAX_INPUT_LENGTH];
-	char arg3[MAX_INPUT_LENGTH];
+	char arg1[MIL]={'\0'};
+	char arg2[MIL]={'\0'};
+	char arg3[MIL]={'\0'};
 	char buf[MSL]={'\0'};
 	char title[MSL]={'\0'};
 	BUFFER *buffer;
-	int level = 0;
 	WIZ_DATA *pwiz;
+	int level = 0;
 	int lngth = 0;
 	int amt = 0;
 	bool found;
@@ -332,7 +332,7 @@ void update_wizlist(CHAR_DATA *ch, int level)
  
 void change_wizlist(CHAR_DATA *ch, bool add, int level, char *argument)
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	WIZ_DATA *curr;
 
 	one_argument( argument, arg );
@@ -384,7 +384,8 @@ void change_wizlist(CHAR_DATA *ch, bool add, int level, char *argument)
 }
 
 
-void clear_wizlist(void) {
+void clear_wizlist(void) 
+{
 	WIZ_DATA *wiz, *wiz_next;
 
 	log_string("Cleaning: wiz_list");

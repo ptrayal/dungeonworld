@@ -38,15 +38,17 @@
 
 char *const distance[4]=
 {
-"right here.", "nearby to the %s.", "not far %s.", "off in the distance %s."
+   "right here.", "nearby to the %s.", "not far %s.", "off in the distance %s."
 };
 
 void scan_list           args((ROOM_INDEX_DATA *scan_room, CHAR_DATA *ch, sh_int depth, sh_int door));
 void scan_char           args((CHAR_DATA *victim, CHAR_DATA *ch, sh_int depth, sh_int door));
+
 void do_scan(CHAR_DATA *ch, char *argument)
 {
    extern char *const dir_name[];
-   char arg1[MAX_INPUT_LENGTH], buf[MAX_INPUT_LENGTH];
+   char arg1[MIL]={'\0'};
+   char buf[MIL]={'\0'};
    ROOM_INDEX_DATA *scan_room;
    EXIT_DATA *pExit;
    sh_int door, depth;
@@ -57,7 +59,7 @@ void do_scan(CHAR_DATA *ch, char *argument)
    {
       act("$n looks all around.", ch, NULL, NULL, TO_ROOM);
       send_to_char("Looking around you see:\n\r", ch);
-                scan_list(ch->in_room, ch, 0, -1);
+      scan_list(ch->in_room, ch, 0, -1);
 
       for (door=0;door<6;door++)
       {
@@ -77,7 +79,7 @@ void do_scan(CHAR_DATA *ch, char *argument)
    act("You peer intently $T.", ch, NULL, dir_name[door], TO_CHAR);
    act("$n peers intently $T.", ch, NULL, dir_name[door], TO_ROOM);
    sprintf(buf, "Looking %s you see:\n\r", dir_name[door]);
-                                                                                  
+   
    scan_room = ch->in_room;
 
    for (depth = 1; depth < 4; depth++)
@@ -119,9 +121,8 @@ void scan_char(CHAR_DATA *victim, CHAR_DATA *ch, sh_int depth, sh_int door)
 {
    extern char *const dir_name[];
    extern char *const distance[];
-   char buf[MAX_INPUT_LENGTH], buf2[MAX_INPUT_LENGTH];
-
-   buf[0] = '\0';
+   char buf[MIL]={'\0'};
+   char buf2[MIL]={'\0'};
 
    strcat(buf, PERS(victim, ch));
    strcat(buf, ", ");

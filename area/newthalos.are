@@ -2032,9 +2032,9 @@ armor G AG
 A A A 0 0
 7 10 770 P
 A
-14 10
-A
 2 1
+A
+14 10
 #9598
 daemon claw~
 claws of the Daemon~
@@ -2062,9 +2062,9 @@ weapon GI AN
 polearm 3 7 chop F
 22 160 1240 P
 A
-19 2
-A
 18 2
+A
+19 2
 #9601
 fountain water~
 a fountain~
@@ -2111,17 +2111,17 @@ The Reception Area~
 You are now standing in the reception of New Thalos. A huge mahoganydesk is here along with two sofas and a coffee table covered in magazines.The plush carpeting under your feet is a nice change from the rugged pathsyou are used to travelling. A chrome stairway spirals downstairs to thetavern of the Dancing Daemon Inn, and your future adventures in New Thalos.~
 0 124 0
 E
-1.1picture~
-You see a picture of Felix here, standing before the arena.He seems to be doing a body count.~
-E
-2.picture~
-You see a picture of Shark standing behind his desk screaming at a newbie.Through a window in the back you see a large aquarium. The newbie seems tobe cowering in fear.~
+4.picture~
+You see a picture of Loki... at least you think it's Loki.He seems to be hiding from the camera.~
 E
 3.picture~
 You see a picture of Hammor on the front porch of the Danjerhaus,drinking a guinness stout and petting Big Guy the Cat.~
 E
-4.picture~
-You see a picture of Loki... at least you think it's Loki.He seems to be hiding from the camera.~
+2.picture~
+You see a picture of Shark standing behind his desk screaming at a newbie.Through a window in the back you see a large aquarium. The newbie seems tobe cowering in fear.~
+E
+1.1picture~
+You see a picture of Felix here, standing before the arena.He seems to be doing a body count.~
 D5
 The stairs lead down to the Daemon.~
 (null)~
@@ -3957,11 +3957,11 @@ The Butchary~
 This shop has the aroma of freshly slaughterd beasts.  You feel right at home.You see a fairly simple set up.  The corpses..er...selections hang on hooks,still bleeding into catch pans that drain into a single underground vat.You wonder where that leads....  Taped to the counter, almost obscured byblood, there is a barely readable sign.~
 0 120 0
 E
-note sign~
-LIST : gives you a list of items for sale.VALUE : tells you how much an item is worthSELL : sells an item to Butch for a generous sumBUY : Butch's FAVORITE command lets you have an item for his low low price.                                        NEWBEE INTRUCTOR COMMITEE~
-E
 vat~
 You think you hear noises from the vat....nah.~
+E
+note sign~
+LIST : gives you a list of items for sale.VALUE : tells you how much an item is worthSELL : sells an item to Butch for a generous sumBUY : Butch's FAVORITE command lets you have an item for his low low price.                                        NEWBEE INTRUCTOR COMMITEE~
 D3
 (null)~
 (null)~
@@ -4626,11 +4626,11 @@ Guest Room~
 This is a simple room used for visiting noblemen. A small dresser standson the east wall with a mirror hung right above it. A queen sized bed madeup in satin sheets stands in the middle of the room against the southwall under a window. The only obvious exit is north back out into thehallway.~
 0 8 0
 E
-mirror~
-You see a the fighting image of some armor clad humanoid wielding a weapon.~
-E
 window~
 Looking out this window you can see the grounds of the palace thatseperate the walls of the palace from the building itself.~
+E
+mirror~
+You see a the fighting image of some armor clad humanoid wielding a weapon.~
 D0
 (null)~
 (null)~

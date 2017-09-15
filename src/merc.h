@@ -36,6 +36,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <zlib.h>
 #include "protocol.h"
 
 
@@ -568,10 +569,6 @@ struct	kill_data
 #define MOB_VNUM_CITYGUARD	   3060
 #define MOB_VNUM_VAMPIRE	   3404
 
-// #define MOB_VNUM_PATROLMAN	   2106
-// #define GROUP_VNUM_TROLLS	   2100
-// #define GROUP_VNUM_OGRES	   2101
-
 /*
  * Well known object virtual numbers.
  * Defined in #OBJECTS.
@@ -615,8 +612,6 @@ struct	kill_data
 #define OBJ_VNUM_SCHOOL_SHIELD		3704
 #define OBJ_VNUM_SCHOOL_BANNER		3716
 #define OBJ_VNUM_MAP				3162
-
-// #define OBJ_VNUM_WHISTLE	   2116
 
 /*
  * Object defined in limbo.are
@@ -683,6 +678,8 @@ struct	kill_data
 #define ACT_IS_NPC		(A)		/* Auto set for mobs	*/
 #define ACT_SENTINEL	    	(B)		/* Stays in one room	*/
 #define ACT_SCAVENGER	      	(C)		/* Picks up objects	*/
+#define ACT_NEWBIE		(D)			/* Newbie Monsters */
+#define ACT_HERO		(E)			/* Hero Monsters */
 #define ACT_AGGRESSIVE		(F)    		/* Attacks PC's		*/
 #define ACT_STAY_AREA		(G)		/* Won't leave area	*/
 #define ACT_WIMPY		(H)
@@ -2526,6 +2523,9 @@ MAT_TYPE *find_mat(const char *name);
 #define         AREA_CHANGED    1	/* Area has been modified. */
 #define         AREA_ADDED      2	/* Area has been added to. */
 #define         AREA_LOADING    4	/* Used for counting in db.c */
+#define         AREA_NEWBIE     5
+#define         AREA_HERO       6
+#define         AREA_WARZONE    7
 
 #define MAX_DIR	6
 #define NO_FLAG -99	/* Must not be used in flags or stats. */

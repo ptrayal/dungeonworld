@@ -1,63 +1,63 @@
-Thu May  9 08:33:20 2013 :: Last compiled on May  9 2013 at 08:32:45.
-Thu May  9 08:33:20 2013 :: Boot - Initializing RNG
-Thu May  9 08:33:20 2013 :: Boot - Generating Weather
-Thu May  9 08:33:20 2013 :: Boot - Assigning GSNs
-Thu May  9 08:33:20 2013 :: Boot - Loading Classes
-Thu May  9 08:33:20 2013 :: Boot - Loading Mage.
-Thu May  9 08:33:20 2013 :: Boot - Loading Cleric.
-Thu May  9 08:33:20 2013 :: Boot - Loading Thief.
-Thu May  9 08:33:20 2013 :: Boot - Loading Warrior.
-Thu May  9 08:33:20 2013 :: Boot - Loading Materials
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file social.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file group.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file rom.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file help.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file limbo.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file plains.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file ofcol2.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file olympus.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file air.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file shire.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file immort.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file hitower.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file gnome.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file wyvern.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file catacomb.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file draconia.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file mahntor.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file trollden.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file midgaard.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file chapel.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file midennir.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file grave.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file school.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file moria.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file eastern.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file drow.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file thalos.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file mirror.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file ofcol.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file haon.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file arachnos.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file dwarven.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file quifael.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file sewer.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file astral.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file valley.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file marsh.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file pyramid.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file grove.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file nirvana.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file dylan.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file canyon.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file galaxy.are
-Thu May  9 08:33:20 2013 :: Boot - Reading Area file newthalos.are
-Thu May  9 08:33:20 2013 :: Boot - Fixing Exits
-Thu May  9 08:33:20 2013 :: [*****] BUG: Fix_exits: 8705:4 -> 8706:5 -> 8708.
-Thu May  9 08:33:20 2013 :: Boot - Fixing mobprogs
-Thu May  9 08:33:20 2013 :: Boot - Changing fBootDb state
-Thu May  9 08:33:20 2013 :: Boot - Converting Objects(modern format)
-Thu May  9 08:33:20 2013 :: Boot - Initial world respawn initiating
+Fri Sep 15 12:47:52 2017 :: Last compiled on Sep  4 2017 at 20:20:26.
+Fri Sep 15 12:47:52 2017 :: Boot - Initializing RNG
+Fri Sep 15 12:47:52 2017 :: Boot - Generating Weather
+Fri Sep 15 12:47:52 2017 :: Boot - Assigning GSNs
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Classes
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Mage.
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Cleric.
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Thief.
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Warrior.
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Materials
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file social.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file help.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file rom.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file group.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file limbo.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file plains.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file ofcol2.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file olympus.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file air.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file shire.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file immort.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file hitower.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file gnome.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file wyvern.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file catacomb.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file draconia.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file mahntor.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file trollden.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file midgaard.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file chapel.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file midennir.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file grave.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file school.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file moria.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file eastern.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file drow.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file thalos.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file mirror.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file ofcol.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file haon.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file arachnos.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file dwarven.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file quifael.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file sewer.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file astral.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file valley.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file marsh.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file pyramid.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file grove.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file nirvana.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file dylan.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file canyon.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file galaxy.are
+Fri Sep 15 12:47:52 2017 :: Boot - Reading Area file newthalos.are
+Fri Sep 15 12:47:52 2017 :: Boot - Fixing Exits
+Fri Sep 15 12:47:52 2017 :: [*****] BUG: Fix_exits: 8705:4 -> 8706:5 -> 8708.
+Fri Sep 15 12:47:52 2017 :: Boot - Fixing mobprogs
+Fri Sep 15 12:47:52 2017 :: Boot - Changing fBootDb state
+Fri Sep 15 12:47:52 2017 :: Boot - Converting Objects(modern format)
+Fri Sep 15 12:47:52 2017 :: Boot - Initial world respawn initiating
 Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
 Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
 Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
@@ -74,69 +74,17 @@ Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
 Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
 Err: obj an ice staff (9216) -- 15, mob a puddle (9214) -- 8
 Err: obj an icicle (9227) -- 28, mob the Ice Bandit (9228) -- 24
-Thu May  9 08:33:20 2013 :: Boot - Loading Notes
-Thu May  9 08:33:20 2013 :: Boot - Loading Bans
-Thu May  9 08:33:20 2013 :: Boot - Loading Songs
-Thu May  9 08:33:20 2013 :: Boot - Loading Wizlist
-Thu May  9 08:33:20 2013 :: Boot - Saving Materials File
-Thu May  9 08:33:20 2013 :: Boot - Detecting greeting
-Thu May  9 08:33:20 2013 :: Boot - Greeting detected!
-Thu May  9 08:33:20 2013 :: DungeonWorld(00.01.31 (build: 131)) is now running on port 9080
-Thu May  9 08:33:44 2013 :: Sock.sinaddr: 152.228.147.82
-Thu May  9 08:33:45 2013 :: Loading Rayal.
-Thu May  9 08:33:45 2013 :: [*****] BUG: Fread_char: no match for word (~)
-Thu May  9 08:33:45 2013 :: [*****] BUG: Fread_char: no match for word (~)
-Thu May  9 08:33:46 2013 :: Rayal@LEH-0002-025264.valpo.edu has connected.
-Err: obj a dagger (3351) -- 1, mob the thief (3005) -- 8
-Err: obj a dagger (3351) -- 1, mob the thief (3005) -- 8
-Thu May  9 09:04:30 2013 :: Rayal has quit.
-Err: obj an ice staff (9216) -- 15, mob a puddle (9214) -- 8
-Thu May  9 09:34:10 2013 :: Sock.sinaddr: 152.228.147.82
-Thu May  9 09:34:11 2013 :: Loading Rayal.
-Thu May  9 09:34:11 2013 :: [*****] BUG: Fread_char: no match for word (~)
-Thu May  9 09:34:11 2013 :: [*****] BUG: Fread_char: no match for word (~)
-Thu May  9 09:34:12 2013 :: Rayal@LEH-0002-025264.valpo.edu has connected.
-Thu May  9 09:57:44 2013 :: Log Rayal: load mob beggar
-Thu May  9 09:57:51 2013 :: Log Rayal: load mob 3065
-Thu May  9 10:47:27 2013 :: Rayal has quit.
-Thu May  9 12:03:51 2013 :: Sock.sinaddr: 152.228.147.82
-Thu May  9 12:03:52 2013 :: Loading Rayal.
-Thu May  9 12:03:52 2013 :: [*****] BUG: Fread_char: no match for word (~)
-Thu May  9 12:03:52 2013 :: [*****] BUG: Fread_char: no match for word (~)
-Thu May  9 12:03:53 2013 :: Rayal@LEH-0002-025264.valpo.edu has connected.
-Thu May  9 12:24:44 2013 :: Rayal has quit.
-Thu May  9 22:26:31 2013 :: Sock.sinaddr: 66.249.73.6
-Thu May  9 22:41:31 2013 :: EOF encountered on read.
-Thu May  9 22:48:37 2013 :: Sock.sinaddr: 66.249.73.6
-Thu May  9 23:03:37 2013 :: EOF encountered on read.
-Fri May 10 03:39:27 2013 :: Sock.sinaddr: 204.209.44.14
-Fri May 10 03:39:28 2013 :: EOF encountered on read.
-Fri May 10 06:48:02 2013 :: Sock.sinaddr: 152.228.147.82
-Fri May 10 06:48:03 2013 :: Loading Rayal.
-Fri May 10 06:48:03 2013 :: [*****] BUG: Fread_char: no match for word (~)
-Fri May 10 06:48:03 2013 :: [*****] BUG: Fread_char: no match for word (~)
-Fri May 10 06:48:04 2013 :: Rayal@LEH-0002-025264.valpo.edu has connected.
-Fri May 10 07:22:23 2013 :: Log Rayal: reboot now
-Fri May 10 07:22:23 2013 :: Closing link to Rayal.
-Fri May 10 07:22:23 2013 :: Cleaning: initial purge
-Fri May 10 07:22:23 2013 :: Cleaning: descriptors
-Fri May 10 07:22:23 2013 :: Cleaning: char_list
-Fri May 10 07:22:23 2013 :: Cleaning: obj_list
-Fri May 10 07:22:23 2013 :: Cleaning: ban_list
-Fri May 10 07:22:23 2013 :: Cleaning: mprog_list
-Fri May 10 07:22:23 2013 :: Cleaning: note_list
-Fri May 10 07:22:23 2013 :: Cleaning: idea_list
-Fri May 10 07:22:23 2013 :: Cleaning: penalty_list
-Fri May 10 07:22:23 2013 :: Cleaning: news_list
-Fri May 10 07:22:23 2013 :: Cleaning: changes_list
-Fri May 10 07:22:23 2013 :: Cleaning: wiz_list
-Fri May 10 07:22:23 2013 :: Cleaning: buffer_list
-Fri May 10 07:22:23 2013 :: Cleaning: mat_list
-Fri May 10 07:22:23 2013 :: Cleaning: second purge
-Fri May 10 07:22:23 2013 :: Freeing Hash's.  THIS COULD TAKE AWHILE!
-Fri May 10 07:22:23 2013 :: Cleaning: areas
-Fri May 10 07:22:23 2013 :: Cleaning: final purge
-Fri May 10 07:22:23 2013 :: ------------------------------------------
-Fri May 10 07:22:23 2013 ::               HASH's FREED!               
-Fri May 10 07:22:23 2013 :: ------------------------------------------
-Fri May 10 07:22:23 2013 :: Normal termination of game.
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Notes
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Bans
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Songs
+Fri Sep 15 12:47:52 2017 :: Boot - Loading Wizlist
+Fri Sep 15 12:47:52 2017 :: Boot - Saving Materials File
+Fri Sep 15 12:47:52 2017 :: Boot - Detecting greeting
+Fri Sep 15 12:47:52 2017 :: Boot - Greeting detected!
+Fri Sep 15 12:47:52 2017 :: DungeonWorld(00.02.48 (build: 248)) is now running on port 9080
+Fri Sep 15 12:48:27 2017 :: Sock.sinaddr: 127.0.0.1
+Fri Sep 15 12:48:30 2017 :: Loading Rayal.
+Fri Sep 15 12:48:30 2017 :: [*****] BUG: Fread_char: no match for word (~)
+Fri Sep 15 12:48:30 2017 :: [*****] BUG: Fread_char: no match for word (~)
+Fri Sep 15 12:48:30 2017 :: [*****] BUG: Fread_char: no match for word (~)
+Fri Sep 15 12:48:32 2017 :: Rayal@localhost has connected.

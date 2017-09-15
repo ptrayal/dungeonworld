@@ -42,7 +42,7 @@
 
 void do_delet( CHAR_DATA *ch, char *argument)
 {
-		send_to_char("You must type the full command to delete yourself.\n\r",ch);
+		send_to_char("\tYWarning\tn: You must type the full command to delete yourself.\n\r",ch);
 }
 
 void do_delete( CHAR_DATA *ch, char *argument)
@@ -77,7 +77,7 @@ void do_delete( CHAR_DATA *ch, char *argument)
 
 	if (!IS_NULLSTR(argument))
 	{
-		send_to_char("Just type delete. No argument.\n\r",ch);
+		send_to_char("\tYWarning\tn: Just type delete. No argument.\n\r",ch);
 		return;
 	}
 
@@ -95,6 +95,7 @@ void do_delete( CHAR_DATA *ch, char *argument)
 void do_channels( CHAR_DATA *ch, char *argument)
 {
 		/* lists all channels and their status */
+	send_to_char("\n\r", ch);
 	send_to_char("\tW|---------------------------|\tn\n\r",ch);
 	send_to_char( Format("\tW| \tY%-16s \tW| \tY%s \tW|\tn\n\r", "Channel", "Status"), ch);
 	send_to_char("\tW|---------------------------|\tn\n\r",ch);
@@ -1459,7 +1460,7 @@ void do_save( CHAR_DATA *ch, char *argument )
 void do_follow( CHAR_DATA *ch, char *argument )
 {
 /* RT changed to allow unlimited following and follow the NOFOLLOW rules */
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	CHAR_DATA *victim;
 
 	one_argument( argument, arg );
@@ -1605,7 +1606,8 @@ void die_follower( CHAR_DATA *ch )
 void do_order( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
-	char arg[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
+	char arg2[MIL]={'\0'};
 	CHAR_DATA *victim;
 	CHAR_DATA *och;
 	CHAR_DATA *och_next;
@@ -1687,7 +1689,6 @@ void do_order( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_group( CHAR_DATA *ch, char *argument )
 {
 	char arg[MAX_INPUT_LENGTH];
@@ -1767,7 +1768,6 @@ void do_group( CHAR_DATA *ch, char *argument )
 }
 
 
-
 /*
  * 'Split' originally by Gnort, God of Chaos.
  */
@@ -1786,7 +1786,7 @@ void do_split( CHAR_DATA *ch, char *argument )
 
 	if ( IS_NULLSTR(arg1) )
 	{
-		send_to_char( "Split how much?\n\r", ch );
+		send_to_char( "\tYWarning\tn: You must specify how much to split.\n\r", ch );
 		return;
 	}
 
@@ -1878,7 +1878,6 @@ void do_split( CHAR_DATA *ch, char *argument )
 
 	return;
 }
-
 
 
 void do_gtell( CHAR_DATA *ch, char *argument )

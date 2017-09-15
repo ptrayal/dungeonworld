@@ -129,10 +129,10 @@ void string_add( CHAR_DATA *ch, char *argument )
 
 		if ( *argument == '.' )
 		{
-				char arg1 [MAX_INPUT_LENGTH];
-				char arg2 [MAX_INPUT_LENGTH];
-				char arg3 [MAX_INPUT_LENGTH];
-				char tmparg3 [MAX_INPUT_LENGTH];
+				char arg1 [MIL]={'\0'};
+				char arg2 [MIL]={'\0'};
+				char arg3 [MIL]={'\0'};
+				char tmparg3 [MIL]={'\0'};
 
 				argument = one_argument( argument, arg1 );
 				argument = first_arg( argument, arg2, FALSE );
@@ -293,8 +293,6 @@ char *format_string (char *oldstring /*, bool fSpace */ )
  	bool bFormat = TRUE;
 
  	xbuf[0] = xbuf2[0] = 0;
-
- 	i = 0;
 
  	for (rdesc = oldstring; *rdesc; rdesc++)
  	{

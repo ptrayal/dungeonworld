@@ -103,7 +103,6 @@ void advance_level( CHAR_DATA *ch, bool hide )
 }   
 
 
-
 void gain_exp( CHAR_DATA *ch, int gain )
 {
 	char buf[MSL]={'\0'};
@@ -127,7 +126,6 @@ void gain_exp( CHAR_DATA *ch, int gain )
 
 	return;
 }
-
 
 
 /*
@@ -203,7 +201,6 @@ int hit_gain( CHAR_DATA *ch )
 }
 
 
-
 int mana_gain( CHAR_DATA *ch )
 {
 	int gain = 0;
@@ -270,7 +267,6 @@ int mana_gain( CHAR_DATA *ch )
 }
 
 
-
 int move_gain( CHAR_DATA *ch )
 {
 	int gain = 0;
@@ -317,7 +313,6 @@ int move_gain( CHAR_DATA *ch )
 }
 
 
-
 void gain_condition( CHAR_DATA *ch, int iCond, int value )
 {
 	int condition = ch->pcdata->condition[iCond];
@@ -355,7 +350,6 @@ void gain_condition( CHAR_DATA *ch, int iCond, int value )
 }
 
 
-
 /*
  * Mob autonomous action.
  * This function takes 25% to 35% of ALL Merc cpu time.
@@ -366,7 +360,7 @@ void mobile_update( void )
 	CHAR_DATA *ch;
 	CHAR_DATA *ch_next;
 	EXIT_DATA *pexit;
-	int door;
+	int door = 0;
 
 	/* Examine all mobs. */
 	for ( ch = char_list; ch != NULL; ch = ch_next )
@@ -477,9 +471,7 @@ void weather_update( void )
 {
 	char buf[MSL]={'\0'};
 	DESCRIPTOR_DATA *d;
-	int diff;
-
-	buf[0] = '\0';
+	int diff = 0;
 
 	switch ( ++time_info.hour )
 	{
@@ -748,7 +740,7 @@ void char_update( void )
 		{
 			AFFECT_DATA *af, plague;
 			CHAR_DATA *vch;
-			int dam;
+			int dam = 0;
 
 		if (ch->in_room == NULL)
 		continue;
@@ -843,8 +835,6 @@ void char_update( void )
 
 	return;
 }
-
-
 
 
 /*
@@ -990,7 +980,6 @@ void obj_update( void )
 }
 
 
-
 /*
  * Aggress.
  *
@@ -1072,13 +1061,11 @@ void aggr_update( void )
 }
 
 
-
 /*
  * Handle all kinds of updates.
  * Called once per pulse from game loop.
  * Random times to defeat tick-timing clients and players.
  */
-
 void update_handler( void )
 {
 	static  int     pulse_area;

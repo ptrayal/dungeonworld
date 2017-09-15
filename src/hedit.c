@@ -71,7 +71,7 @@ HEDIT(hedit_show)
 HEDIT(hedit_level)
 {
 	HELP_DATA *help;
-	int lev;
+	int lev = 0;
 
 	EDIT_HELP(ch, help);
 
@@ -115,7 +115,8 @@ HEDIT(hedit_keyword)
 
 HEDIT(hedit_new)
 {
-	char arg[MIL], fullarg[MIL];
+	char arg[MIL]={'\0'};
+	char fullarg[MIL]={'\0'};
 	HELP_AREA *had;
 	HELP_DATA *help;
 	extern HELP_DATA *help_last;
@@ -207,9 +208,9 @@ void hedit( CHAR_DATA *ch, char *argument)
 {
 	HELP_DATA * pHelp;
 	HELP_AREA *had;
-	char arg[MAX_INPUT_LENGTH];
-	char command[MAX_INPUT_LENGTH];
-	int cmd;
+	char arg[MIL]={'\0'};
+	char command[MIL]={'\0'};
+	int cmd = 0;
 
 	smash_tilde(argument);
 	strcpy(arg, argument);
@@ -342,7 +343,7 @@ HEDIT(hedit_delete)
 
 HEDIT(hedit_list)
 {
-	char buf[MIL];
+	char buf[MIL]={'\0'};
 	int cnt = 0;
 	HELP_DATA *pHelp;
 	BUFFER *buffer;

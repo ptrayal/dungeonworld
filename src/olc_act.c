@@ -153,6 +153,64 @@ void show_flag_cmds( CHAR_DATA *ch, const struct flag_type *flag_table )
 }
 
 
+void mobile_balance( MOB_INDEX_DATA *pMob, sh_int type )
+{
+	sh_int level = 0;
+	sh_int pos = 0;
+
+	// Easy Setting
+	if ( type == 1 )
+		level = URANGE( 1, pMob->level-10, 200 );
+
+	// Medium Setting
+	else if ( type == 2 )
+		level = URANGE( 5, pMob->level, 200 );
+
+	// Hard Setting
+	else
+		level = URANGE( 10, pMob->level + 10, 200 );
+
+
+	for ( pos = 0; pos < 4; pos++ )
+		pMob->ac[pos]      = -number_range( level * 10, level * 20 );
+
+	pMob->wealth		= number_range( level * 60, level * 70 );
+	pMob->hitroll		= number_range( level * 3/4, level * 3/2 );
+	pMob->hit[1]		= number_range( level * 350, level * 400 );
+	pMob->hit[0]		= pMob->hit[1];
+	pMob->mana[1]		= number_range( level * 350, level * 400 );
+	pMob->mana[0]		= pMob->mana[1];
+	pMob->damage[DICE_NUMBER]	= number_range( level / 6, level / 5 );
+	pMob->damage[DICE_TYPE]		= number_range( level / 6, level / 5 );
+	pMob->damage[DICE_BONUS]	= level;
+
+
+	// Mobiles in areas flagged as Newbie area receive 25% less HP.
+	if ( IS_SET(pMob->act, ACT_NEWBIE)  )
+	{
+		pMob->hit[1] -= pMob->hit[0]/4;
+		pMob->hit[0] = pMob->hit[1];
+	}
+
+	// Mobiles in areas flagged as Hero area receive 25% more HP.
+	if ( IS_SET( pMob->act, ACT_HERO) )
+	{
+		pMob->hit[1] += pMob->hit[0]/4;
+		pMob->hit[0] = pMob->hit[1];
+	}
+
+	// Mobiles in areas flagged as Warzone area receive 25% more HP.
+	if ( IS_SET( pMob->area->area_flags, AREA_WARZONE) )
+	{
+		pMob->hit[1] += pMob->hit[0] * 17/20;
+		pMob->hit[0] = pMob->hit[1];
+		pMob->damage[DICE_NUMBER]	+= 5;
+		pMob->damage[DICE_TYPE]		+= 55;
+		pMob->damage[DICE_BONUS]	+= 150;
+	}
+
+}
+
 /*****************************************************************************
  Name:		show_skill_cmds
  Purpose:	Displays all skill functions.
@@ -3853,36 +3911,36 @@ MEDIT( medit_create )
 	value = atoi( argument );
 	if ( IS_NULLSTR(argument) || value == 0 )
 	{
-	send_to_char( "Syntax:  medit create [vnum]\n\r", ch );
-	return FALSE;
+		send_to_char( "Syntax:  medit create [vnum]\n\r", ch );
+		return FALSE;
 	}
 
 	pArea = get_vnum_area( value );
 
 	if ( !pArea )
 	{
-	send_to_char( "MEdit:  That vnum is not assigned an area.\n\r", ch );
-	return FALSE;
+		send_to_char( "MEdit:  That vnum is not assigned an area.\n\r", ch );
+		return FALSE;
 	}
 
 	if ( !IS_BUILDER( ch, pArea ) )
 	{
-	send_to_char( "MEdit:  Vnum in an area you cannot build in.\n\r", ch );
-	return FALSE;
+		send_to_char( "MEdit:  Vnum in an area you cannot build in.\n\r", ch );
+		return FALSE;
 	}
 
 	if ( get_mob_index( value ) )
 	{
-	send_to_char( "MEdit:  Mobile vnum already exists.\n\r", ch );
-	return FALSE;
+		send_to_char( "MEdit:  Mobile vnum already exists.\n\r", ch );
+		return FALSE;
 	}
 
 	pMob			= new_mob_index();
 	pMob->vnum			= value;
 	pMob->area			= pArea;
-		
+
 	if ( value > top_vnum_mob )
-	top_vnum_mob = value;        
+		top_vnum_mob = value;        
 
 	pMob->act			= ACT_IS_NPC;
 	iHash			= value % MAX_KEY_HASH;
@@ -3894,6 +3952,46 @@ MEDIT( medit_create )
 	return TRUE;
 }
 
+MEDIT( medit_balance )
+{
+	MOB_INDEX_DATA *pMob;
+	sh_int type = 0;
+
+	EDIT_MOB(ch,pMob);
+
+	if ( pMob->level <= 0 || pMob->level > LEVEL_HERO*2 )
+	{
+		send_to_char(Format("Valid mobile levels are 1 to %d.\n\r",LEVEL_HERO*2), ch);
+		return FALSE;
+	}
+
+	if ( IS_NULLSTR(argument) )
+	{
+		send_to_char("Valid balance arguments are 'easy', 'medium', or 'hard'.\n\r",ch);
+		return FALSE;
+	}
+
+	else if ( !str_prefix(argument,"easy") )
+		type = 1;
+
+	else if ( !str_prefix(argument,"medium") )
+		type = 2;
+
+	else if ( !str_prefix(argument,"hard") )
+		type = 3;
+
+	else
+	{
+		send_to_char("Valid balance arguments are 'easy', 'medium', or 'hard'.\n\r",ch);
+		return FALSE;
+	}
+
+	mobile_balance( pMob, type );
+
+	send_to_char("Mobile balanced.\n\r",ch);
+
+	return TRUE;
+}
 
 
 MEDIT( medit_spec )

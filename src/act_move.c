@@ -72,145 +72,145 @@ void move_char( CHAR_DATA *ch, int door, bool follow )
 
 	if ( door < 0 || door > 5 )
 	{
-	bug( "Do_move: bad door %d.", door );
-	return;
+		bug( "Do_move: bad door %d.", door );
+		return;
 	}
 
 	/*
 	 * Exit trigger, if activated, bail out. Only PCs are triggered.
 	 */
 	if ( !IS_NPC(ch) && mp_exit_trigger( ch, door ) )
-	return;
+		return;
 
 	in_room = ch->in_room;
 	if ( ( pexit   = in_room->exit[door] ) == NULL
-	||   ( to_room = pexit->u1.to_room   ) == NULL 
-	||	 !can_see_room(ch,pexit->u1.to_room))
+		||   ( to_room = pexit->u1.to_room   ) == NULL 
+		||	 !can_see_room(ch,pexit->u1.to_room))
 	{
-	send_to_char( "Alas, you cannot go that way.\n\r", ch );
-	return;
+		send_to_char( "Alas, you cannot go that way.\n\r", ch );
+		return;
 	}
 
 	if (( in_room->room_flags == ROOM_UNDER_WATER ||    to_room->room_flags == ROOM_UNDER_WATER )
 		&&   (!IS_AFFECTED(ch,AFF_SWIM) && !IS_IMMORTAL(ch) ))
-		{
-			send_to_char("You can't swim!!\n\r", ch);
-			return;
-		}
+	{
+		send_to_char("You can't swim!!\n\r", ch);
+		return;
+	}
 
 	if (IS_SET(pexit->exit_info, EX_CLOSED)
-	&&  (!IS_AFFECTED(ch, AFF_PASS_DOOR) || IS_SET(pexit->exit_info,EX_NOPASS))
-	&&   !IS_TRUSTED(ch,ANGEL))
+		&&  (!IS_AFFECTED(ch, AFF_PASS_DOOR) || IS_SET(pexit->exit_info,EX_NOPASS))
+		&&   !IS_TRUSTED(ch,ANGEL))
 	{
-	act( "The $d is closed.", ch, NULL, pexit->keyword, TO_CHAR );
-	return;
+		act( "The $d is closed.", ch, NULL, pexit->keyword, TO_CHAR );
+		return;
 	}
 
 	if ( IS_AFFECTED(ch, AFF_CHARM)
-	&&   ch->master != NULL
-	&&   in_room == ch->master->in_room )
+		&&   ch->master != NULL
+		&&   in_room == ch->master->in_room )
 	{
-	send_to_char( "What?  And leave your beloved master?\n\r", ch );
-	return;
+		send_to_char( "What?  And leave your beloved master?\n\r", ch );
+		return;
 	}
 
 	if ( !is_room_owner(ch,to_room) && room_is_private( to_room ) )
 	{
-	send_to_char( "That room is private right now.\n\r", ch );
-	return;
+		send_to_char( "That room is private right now.\n\r", ch );
+		return;
 	}
 
 	if ( !IS_NPC(ch) )
 	{
-	int iClass, iGuild;
-	int move;
+		int iClass, iGuild;
+		int move;
 
-	for ( iClass = 0; iClass < MAX_CLASS; iClass++ )
-	{
-		for ( iGuild = 0; iGuild < MAX_GUILD; iGuild ++)	
+		for ( iClass = 0; iClass < MAX_CLASS; iClass++ )
 		{
-			if ( iClass != ch->iclass
-			&&   to_room->vnum == class_table[iClass].guild[iGuild] )
+			for ( iGuild = 0; iGuild < MAX_GUILD; iGuild ++)	
 			{
-			send_to_char( "You aren't allowed in there.\n\r", ch );
-			return;
+				if ( iClass != ch->iclass
+					&&   to_room->vnum == class_table[iClass].guild[iGuild] )
+				{
+					send_to_char( "You aren't allowed in there.\n\r", ch );
+					return;
+				}
+			}
 		}
-		}
-	}
 
-	if ( in_room->sector_type == SECT_AIR
-	||   to_room->sector_type == SECT_AIR )
-	{
-		if ( !IS_AFFECTED(ch, AFF_FLYING) && !IS_IMMORTAL(ch))
+		if ( in_room->sector_type == SECT_AIR
+			||   to_room->sector_type == SECT_AIR )
 		{
-		send_to_char( "You can't fly.\n\r", ch );
-		return;
+			if ( !IS_AFFECTED(ch, AFF_FLYING) && !IS_IMMORTAL(ch))
+			{
+				send_to_char( "You can't fly.\n\r", ch );
+				return;
+			}
 		}
-	}
 
-	if (( in_room->sector_type == SECT_WATER_NOSWIM
-	||    to_room->sector_type == SECT_WATER_NOSWIM )
-	&&    !IS_AFFECTED(ch,AFF_FLYING))
-	{
-		OBJ_DATA *obj;
-		bool found;
+		if (( in_room->sector_type == SECT_WATER_NOSWIM
+			||    to_room->sector_type == SECT_WATER_NOSWIM )
+			&&    !IS_AFFECTED(ch,AFF_FLYING))
+		{
+			OBJ_DATA *obj;
+			bool found;
 
 		/*
 		 * Look for a boat.
 		 */
-		found = FALSE;
+			found = FALSE;
 
-		if (IS_IMMORTAL(ch))
-		found = TRUE;
+			if (IS_IMMORTAL(ch))
+				found = TRUE;
 
-		for ( obj = ch->carrying; obj != NULL; obj = obj->next_content )
-		{
-		if ( obj->item_type == ITEM_BOAT )
-		{
-			found = TRUE;
-			break;
+			for ( obj = ch->carrying; obj != NULL; obj = obj->next_content )
+			{
+				if ( obj->item_type == ITEM_BOAT )
+				{
+					found = TRUE;
+					break;
+				}
+			}
+			if ( !found )
+			{
+				send_to_char( "You need a boat to go there.\n\r", ch );
+				return;
+			}
 		}
-		}
-		if ( !found )
-		{
-		send_to_char( "You need a boat to go there.\n\r", ch );
-		return;
-		}
-	}
 
-	move = movement_loss[UMIN(SECT_MAX-1, in_room->sector_type)]
-		 + movement_loss[UMIN(SECT_MAX-1, to_room->sector_type)]
-		 ;
+		move = movement_loss[UMIN(SECT_MAX-1, in_room->sector_type)]
+		+ movement_loss[UMIN(SECT_MAX-1, to_room->sector_type)]
+		;
 
 		move /= 2;  /* i.e. the average */
 
 
 	/* conditional effects */
-	if (IS_AFFECTED(ch,AFF_FLYING) || IS_AFFECTED(ch,AFF_HASTE))
-		move /= 2;
+		if (IS_AFFECTED(ch,AFF_FLYING) || IS_AFFECTED(ch,AFF_HASTE))
+			move /= 2;
 
-	if (IS_AFFECTED(ch,AFF_SLOW))
-		move *= 2;
+		if (IS_AFFECTED(ch,AFF_SLOW))
+			move *= 2;
 
-	if ( ch->move < move )
-	{
-		send_to_char( "You are too exhausted.\n\r", ch );
-		return;
-	}
+		if ( ch->move < move )
+		{
+			send_to_char( "You are too exhausted.\n\r", ch );
+			return;
+		}
 
-	WAIT_STATE( ch, 1 );
-	ch->move -= move;
+		WAIT_STATE( ch, 1 );
+		ch->move -= move;
 	}
 
 	if ( !IS_AFFECTED(ch, AFF_SNEAK)
-	&&   ch->invis_level < LEVEL_HERO)
-	act( "$n leaves $T.", ch, NULL, dir_name[door], TO_ROOM );
+		&&   ch->invis_level < LEVEL_HERO)
+		act( "$n leaves $T.", ch, NULL, dir_name[door], TO_ROOM );
 
 	char_from_room( ch );
 	char_to_room( ch, to_room );
 	if ( !IS_AFFECTED(ch, AFF_SNEAK)
-	&&   ch->invis_level < LEVEL_HERO)
-	act( "$n has arrived.", ch, NULL, NULL, TO_ROOM );
+		&&   ch->invis_level < LEVEL_HERO)
+		act( "$n has arrived.", ch, NULL, NULL, TO_ROOM );
 
 	do_function(ch, &do_look, "auto" );
 
@@ -219,27 +219,27 @@ void move_char( CHAR_DATA *ch, int door, bool follow )
 
 	for ( fch = in_room->people; fch != NULL; fch = fch_next )
 	{
-	fch_next = fch->next_in_room;
+		fch_next = fch->next_in_room;
 
-	if ( fch->master == ch && IS_AFFECTED(fch,AFF_CHARM) 
-	&&   fch->position < POS_STANDING)
-		do_function(fch, &do_stand, "");
+		if ( fch->master == ch && IS_AFFECTED(fch,AFF_CHARM) 
+			&&   fch->position < POS_STANDING)
+			do_function(fch, &do_stand, "");
 
-	if ( fch->master == ch && fch->position == POS_STANDING 
-	&&   can_see_room(fch,to_room))
-	{
-
-		if (IS_SET(ch->in_room->room_flags,ROOM_LAW)
-		&&  (IS_NPC(fch) && IS_SET(fch->act,ACT_AGGRESSIVE)))
+		if ( fch->master == ch && fch->position == POS_STANDING 
+			&&   can_see_room(fch,to_room))
 		{
-		act("You can't bring $N into the city.", ch,NULL,fch,TO_CHAR);
-		act("You aren't allowed in the city.", fch,NULL,NULL,TO_CHAR);
-		continue;
-		}
 
-		act( "You follow $N.", fch, NULL, ch, TO_CHAR );
-		move_char( fch, door, TRUE );
-	}
+			if (IS_SET(ch->in_room->room_flags,ROOM_LAW)
+				&&  (IS_NPC(fch) && IS_SET(fch->act,ACT_AGGRESSIVE)))
+			{
+				act("You can't bring $N into the city.", ch,NULL,fch,TO_CHAR);
+				act("You aren't allowed in the city.", fch,NULL,NULL,TO_CHAR);
+				continue;
+			}
+
+			act( "You follow $N.", fch, NULL, ch, TO_CHAR );
+			move_char( fch, door, TRUE );
+		}
 	}
 
 	if (IS_SET (ch->in_room->room_flags, ROOM_NOMAGIC))
@@ -256,7 +256,7 @@ void move_char( CHAR_DATA *ch, int door, bool follow )
 	 * for the followers before the char, but it's safer this way...
 	 */
 	if ( IS_NPC( ch ) && HAS_TRIGGER( ch, TRIG_ENTRY ) )
-	mp_percent_trigger( ch, NULL, NULL, NULL, TRIG_ENTRY );
+		mp_percent_trigger( ch, NULL, NULL, NULL, TRIG_ENTRY );
 	if ( !IS_NPC( ch ) )
 		mp_greet_trigger( ch );
 

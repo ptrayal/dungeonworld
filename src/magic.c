@@ -55,15 +55,15 @@ void 	wear_obj	args( ( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace ) );
  */
 int skill_lookup( const char *name )
 {
-	int sn;
+	int sn = 0;
 
 	for ( sn = 0; sn < MAX_SKILL; sn++ )
 	{
-	if ( skill_table[sn].name == NULL )
-		break;
-	if ( LOWER(name[0]) == LOWER(skill_table[sn].name[0])
-	&&   !str_prefix( name, skill_table[sn].name ) )
-		return sn;
+		if ( skill_table[sn].name == NULL )
+			break;
+		if ( LOWER(name[0]) == LOWER(skill_table[sn].name[0])
+			&&   !str_prefix( name, skill_table[sn].name ) )
+			return sn;
 	}
 
 	return -1;
@@ -75,25 +75,24 @@ int find_spell( CHAR_DATA *ch, const char *name )
 	int sn, found = -1;
 
 	if (IS_NPC(ch))
-	return skill_lookup(name);
+		return skill_lookup(name);
 
 	for ( sn = 0; sn < MAX_SKILL; sn++ )
 	{
-	if (skill_table[sn].name == NULL)
-		break;
-	if (LOWER(name[0]) == LOWER(skill_table[sn].name[0])
-	&&  !str_prefix(name,skill_table[sn].name))
-	{
-		if ( found == -1)
-		found = sn;
-		if (ch->level >= skill_table[sn].skill_level[ch->iclass]
-		&&  ch->pcdata->learned[sn] > 0)
-			return sn;
-	}
+		if (skill_table[sn].name == NULL)
+			break;
+		if (LOWER(name[0]) == LOWER(skill_table[sn].name[0])
+			&&  !str_prefix(name,skill_table[sn].name))
+		{
+			if ( found == -1)
+				found = sn;
+			if (ch->level >= skill_table[sn].skill_level[ch->iclass]
+				&&  ch->pcdata->learned[sn] > 0)
+				return sn;
+		}
 	}
 	return found;
 }
-
 
 
 /*
@@ -103,26 +102,25 @@ int find_spell( CHAR_DATA *ch, const char *name )
 int slot_lookup( int slot )
 {
 	extern bool fBootDb;
-	int sn;
+	int sn = 0;
 
 	if ( slot <= 0 )
-	return -1;
+		return -1;
 
 	for ( sn = 0; sn < MAX_SKILL; sn++ )
 	{
-	if ( slot == skill_table[sn].slot )
-		return sn;
+		if ( slot == skill_table[sn].slot )
+			return sn;
 	}
 
 	if ( fBootDb )
 	{
-	bug( "Slot_lookup: bad slot %d.", slot );
-	abort( );
+		bug( "Slot_lookup: bad slot %d.", slot );
+		abort( );
 	}
 
 	return -1;
 }
-
 
 
 /*
@@ -134,72 +132,71 @@ void say_spell( CHAR_DATA *ch, int sn )
 	char buf2 [MSL]={'\0'};
 	CHAR_DATA *rch;
 	char *pName;
-	int iSyl;
-	int length;
+	int iSyl = 0;
+	int length = 0;
 
 	struct syl_type
 	{
-	char *	old;
-	char *	inew;
+		char *	old;
+		char *	inew;
 	};
 
 	static const struct syl_type syl_table[] =
 	{
-	{ " ",		" "		},
-	{ "ar",		"abra"		},
-	{ "au",		"kada"		},
-	{ "ball",	"orbis"		},
-	{ "bless",	"fido"		},
-	{ "blind",	"caecus"	},
-	{ "breath",	"spiritus"	},
-	{ "bur",	"mosa"		},
-	{ "cold",	"gelidus"	},
-	{ "cu",		"judi"		},
-	{ "de",		"oculo"		},
-	{ "detect",	"invenio"	},
-	{ "en",		"unso"		},
-	{ "fire",	"fervens"	},
-	{ "light",	"lumen"		},
-	{ "lo",		"hi"		},
-	{ "hi",		"lo"		},
-	{ "mor",	"zak"		},
-	{ "move",	"agito"		},
-	{ "ness",	"lacri"		},
-	{ "ning",	"illa"		},
-	{ "per",	"duda"		},
-	{ "ra",		"gru"		},
-	{ "fresh",	"vegetus"	},
-	{ "ray",	"funis"		},
-	{ "re",		"candus"	},
-	{ "son",	"sabru"		},
-	{ "tect",	"infra"		},
-	{ "tri",	"cula"		},
-	{ "try",	"tendo"		},
-	{ "ven",	"nofo"		},
-	{ "a", "a" }, { "b", "b" }, { "c", "q" }, { "d", "e" },
-	{ "e", "z" }, { "f", "y" }, { "g", "o" }, { "h", "p" },
-	{ "i", "u" }, { "j", "y" }, { "k", "t" }, { "l", "r" },
-	{ "m", "w" }, { "n", "i" }, { "o", "a" }, { "p", "s" },
-	{ "q", "d" }, { "r", "f" }, { "s", "g" }, { "t", "h" },
-	{ "u", "j" }, { "v", "z" }, { "w", "x" }, { "x", "n" },
-	{ "y", "l" }, { "z", "k" },
-	{ "", "" }
+		{ " ",		" "		},
+		{ "ar",		"abra"		},
+		{ "au",		"kada"		},
+		{ "ball",	"orbis"		},
+		{ "bless",	"fido"		},
+		{ "blind",	"caecus"	},
+		{ "breath",	"spiritus"	},
+		{ "bur",	"mosa"		},
+		{ "cold",	"gelidus"	},
+		{ "cu",		"judi"		},
+		{ "de",		"oculo"		},
+		{ "detect",	"invenio"	},
+		{ "en",		"unso"		},
+		{ "fire",	"fervens"	},
+		{ "light",	"lumen"		},
+		{ "lo",		"hi"		},
+		{ "hi",		"lo"		},
+		{ "mor",	"zak"		},
+		{ "move",	"agito"		},
+		{ "ness",	"lacri"		},
+		{ "ning",	"illa"		},
+		{ "per",	"duda"		},
+		{ "ra",		"gru"		},
+		{ "fresh",	"vegetus"	},
+		{ "ray",	"funis"		},
+		{ "re",		"candus"	},
+		{ "son",	"sabru"		},
+		{ "tect",	"infra"		},
+		{ "tri",	"cula"		},
+		{ "try",	"tendo"		},
+		{ "ven",	"nofo"		},
+		{ "a", "a" }, { "b", "b" }, { "c", "q" }, { "d", "e" },
+		{ "e", "z" }, { "f", "y" }, { "g", "o" }, { "h", "p" },
+		{ "i", "u" }, { "j", "y" }, { "k", "t" }, { "l", "r" },
+		{ "m", "w" }, { "n", "i" }, { "o", "a" }, { "p", "s" },
+		{ "q", "d" }, { "r", "f" }, { "s", "g" }, { "t", "h" },
+		{ "u", "j" }, { "v", "z" }, { "w", "x" }, { "x", "n" },
+		{ "y", "l" }, { "z", "k" },
+		{ "", "" }
 	};
 
-	buf[0]	= '\0';
 	for ( pName = skill_table[sn].name; *pName != '\0'; pName += length )
 	{
-	for ( iSyl = 0; (length = strlen(syl_table[iSyl].old)) != 0; iSyl++ )
-	{
-		if ( !str_prefix( syl_table[iSyl].old, pName ) )
+		for ( iSyl = 0; (length = strlen(syl_table[iSyl].old)) != 0; iSyl++ )
 		{
-		strcat( buf, syl_table[iSyl].inew );
-		break;
+			if ( !str_prefix( syl_table[iSyl].old, pName ) )
+			{
+				strcat( buf, syl_table[iSyl].inew );
+				break;
+			}
 		}
-	}
 
-	if ( length == 0 )
-		length = 1;
+		if ( length == 0 )
+			length = 1;
 	}
 
 	snprintf( buf2, sizeof(buf2), "$n utters the words, '%s'.", buf );
@@ -207,14 +204,13 @@ void say_spell( CHAR_DATA *ch, int sn )
 
 	for ( rch = ch->in_room->people; rch; rch = rch->next_in_room )
 	{
-	if ( rch != ch )
-		act((!IS_NPC(rch) && ch->iclass==rch->iclass) ? buf : buf2,
-			ch, NULL, rch, TO_VICT );
+		if ( rch != ch )
+			act((!IS_NPC(rch) && ch->iclass==rch->iclass) ? buf : buf2,
+				ch, NULL, rch, TO_VICT );
 	}
 
 	return;
 }
-
 
 
 /*
@@ -225,10 +221,6 @@ bool saves_spell( int level, CHAR_DATA *victim, int dam_type )
 {
 	int save = 50 + ( victim->level - level) * 5 - victim->saving_throw * 2;
 
-	// Not sure what berserking has to do with making your save?  Commented out for time being.
-	// if (IS_AFFECTED(victim,AFF_BERSERK))
-	// 	save += victim->level/2;
-
 	switch(check_immune(victim,dam_type))
 	{
 		case IS_IMMUNE:		return TRUE;
@@ -237,13 +229,15 @@ bool saves_spell( int level, CHAR_DATA *victim, int dam_type )
 	}
 
 	if (!IS_NPC(victim) && class_table[victim->iclass].fMana)
-		save = 9 * save / 10;
+		{
+			save = 9 * save / 10;
+		}
+
 	save = URANGE( 5, save, 95 );
 	return number_percent( ) < save;
 }
 
 /* RT save for dispels */
-
 bool saves_dispel( int dis_level, int spell_level, int duration)
 {
 	int save = 0;
@@ -258,7 +252,6 @@ bool saves_dispel( int dis_level, int spell_level, int duration)
 }
 
 /* co-routine for dispel magic and cancellation */
-
 bool check_dispel( int dis_level, CHAR_DATA *victim, int sn)
 {
 	AFFECT_DATA *af;
@@ -295,8 +288,6 @@ int mana_cost (CHAR_DATA *ch, int min_mana, int level)
 	return UMAX(min_mana,(100/(2 + ch->level - level)));
 }
 
-
-
 /*
  * The kludgy global is for spells who want more stuff from command line.
  */
@@ -304,14 +295,14 @@ char *target_name;
 
 void do_cast( CHAR_DATA *ch, char *argument )
 {
-	char arg1[MAX_INPUT_LENGTH];
-	char arg2[MAX_INPUT_LENGTH];
+	char arg1[MIL]={'\0'};
+	char arg2[MIL]={'\0'};
 	CHAR_DATA *victim;
 	OBJ_DATA *obj;
 	void *vo;
-	int mana;
-	int sn;
-	int target;
+	int mana = 0;
+	int sn = 0;
+	int target = 0;
 
 	/*
 	 * Switched NPC's can cast spells, but others can't.
@@ -322,7 +313,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 	 target_name = one_argument( argument, arg1 );
 	 one_argument( target_name, arg2 );
 
-	 if ( arg1[0] == '\0' )
+	 if ( IS_NULLSTR(arg1) )
 	 {
 		send_to_char( "Cast which what where?\n\r", ch );
 		return;
@@ -374,7 +365,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 		break;
 
 		case TAR_CHAR_OFFENSIVE:
-		if ( arg2[0] == '\0' )
+		if ( IS_NULLSTR(arg2) )
 		{
 			if ( ( victim = ch->fighting ) == NULL )
 			{
@@ -390,14 +381,6 @@ void do_cast( CHAR_DATA *ch, char *argument )
 				return;
 			}
 		}
-/*
-		if ( ch == victim )
-		{
-			send_to_char( "You can't do that to yourself.\n\r", ch );
-			return;
-		}
-*/
-
 
 		if ( !IS_NPC(ch) )
 		{
@@ -412,8 +395,7 @@ void do_cast( CHAR_DATA *ch, char *argument )
 
 		if ( IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim )
 		{
-			send_to_char( "You can't do that on your own follower.\n\r",
-				ch );
+			send_to_char( "You can't do that on your own follower.\n\r", ch );
 			return;
 		}
 

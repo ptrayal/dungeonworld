@@ -40,6 +40,7 @@
 #include "recycle.h"
 #include "tables.h"
 #include "lookup.h"
+#include <mysql/mysql.h>
 
 /*
  * Local functions.
@@ -51,7 +52,7 @@ void do_wiznet( CHAR_DATA *ch, char *argument )
 	int flag;
 	char buf[MSL]={'\0'};
 
-	if ( argument[0] == '\0' )
+	if ( IS_NULLSTR(argument) )
 	{
 		if (IS_SET(ch->wiznet,WIZ_ON))
 		{
@@ -61,6 +62,7 @@ void do_wiznet( CHAR_DATA *ch, char *argument )
 		else
 		{
 			send_to_char("Welcome to Wiznet!\n\r",ch);
+			send_to_char("Type wiznet show to see the options available to you.\n\r", ch);
 			SET_BIT(ch->wiznet,WIZ_ON);
 		}
 		return;
@@ -173,7 +175,6 @@ void wiznet(const char *string, CHAR_DATA *ch, OBJ_DATA *obj,
 void do_guild( CHAR_DATA *ch, char *argument )
 {
 	char arg1[MAX_INPUT_LENGTH],arg2[MAX_INPUT_LENGTH];
-	char buf[MSL]={'\0'};
 	CHAR_DATA *victim;
 	int clan;
 
@@ -193,27 +194,27 @@ void do_guild( CHAR_DATA *ch, char *argument )
 	
 	if (!str_prefix(arg2,"none"))
 	{
-	send_to_char("They are now clanless.\n\r",ch);
-	send_to_char("You are now a member of no clan!\n\r",victim);
-	victim->clan = 0;
-	return;
+		send_to_char("They are now clanless.\n\r",ch);
+		send_to_char("You are now a member of no clan!\n\r",victim);
+		victim->clan = 0;
+		return;
 	}
 
 	if ((clan = clan_lookup(arg2)) == 0)
 	{
-	send_to_char("No such clan exists.\n\r",ch);
-	return;
+		send_to_char("No such clan exists.\n\r",ch);
+		return;
 	}
 
 	if (clan_table[clan].independent)
 	{
-	send_to_char( Format("They are now a %s.\n\r",clan_table[clan].name),ch);
-	send_to_char( Format("You are now a %s.\n\r",clan_table[clan].name),victim);
+		send_to_char( Format("They are now a %s.\n\r",clan_table[clan].name),ch);
+		send_to_char( Format("You are now a %s.\n\r",clan_table[clan].name),victim);
 	}
 	else
 	{
-	send_to_char( Format("They are now a member of clan %s.\n\r", capitalize(clan_table[clan].name)),ch);
-	sprintf(buf,"You are now a member of clan %s.\n\r", capitalize(clan_table[clan].name));
+		send_to_char( Format("They are now a member of clan %s.\n\r", capitalize(clan_table[clan].name)),ch);
+		send_to_char( Format("You are now a member of clan %s.\n\r", capitalize(clan_table[clan].name)), ch);
 	}
 
 	victim->clan = clan;
@@ -223,26 +224,26 @@ void do_guild( CHAR_DATA *ch, char *argument )
 void do_outfit ( CHAR_DATA *ch, char *argument )
 {
 	OBJ_DATA *obj;
-	int i;
+	int i = 0;
 
-	if (ch->level > 5 || IS_NPC(ch))
+	if ( ch->level > 5 || IS_NPC(ch) )
 	{
-	send_to_char("Find it yourself!\n\r",ch);
-	return;
+		send_to_char("\tYWarning\tn: You are experienced enough to find your own equipment.\n\r",ch);
+		return;
 	}
 
 	if ( ( obj = get_eq_char( ch, WEAR_LIGHT ) ) == NULL )
 	{
 		obj = create_object( get_obj_index(OBJ_VNUM_SCHOOL_BANNER), 0 );
-	obj->cost = 0;
+		obj->cost = 0;
 		obj_to_char( obj, ch );
 		equip_char( ch, obj, WEAR_LIGHT );
 	}
- 
+
 	if ( ( obj = get_eq_char( ch, WEAR_BODY ) ) == NULL )
 	{
-	obj = create_object( get_obj_index(OBJ_VNUM_SCHOOL_VEST), 0 );
-	obj->cost = 0;
+		obj = create_object( get_obj_index(OBJ_VNUM_SCHOOL_VEST), 0 );
+		obj->cost = 0;
 		obj_to_char( obj, ch );
 		equip_char( ch, obj, WEAR_BODY );
 	}
@@ -255,12 +256,12 @@ void do_outfit ( CHAR_DATA *ch, char *argument )
 
 		for (i = 0; weapon_table[i].name != NULL; i++)
 		{
-		if (ch->pcdata->learned[sn] < 
-		ch->pcdata->learned[*weapon_table[i].gsn])
-		{
-			sn = *weapon_table[i].gsn;
-			vnum = weapon_table[i].vnum;
-		}
+			if (ch->pcdata->learned[sn] < 
+				ch->pcdata->learned[*weapon_table[i].gsn])
+			{
+				sn = *weapon_table[i].gsn;
+				vnum = weapon_table[i].vnum;
+			}
 		}
 
 		obj = create_object(get_obj_index(vnum),0);
@@ -269,11 +270,11 @@ void do_outfit ( CHAR_DATA *ch, char *argument )
 	}
 
 	if (((obj = get_eq_char(ch,WEAR_WIELD)) == NULL 
-	||   !IS_WEAPON_STAT(obj,WEAPON_TWO_HANDS)) 
-	&&  (obj = get_eq_char( ch, WEAR_SHIELD ) ) == NULL )
+		||   !IS_WEAPON_STAT(obj,WEAPON_TWO_HANDS)) 
+		&&  (obj = get_eq_char( ch, WEAR_SHIELD ) ) == NULL )
 	{
 		obj = create_object( get_obj_index(OBJ_VNUM_SCHOOL_SHIELD), 0 );
-	obj->cost = 0;
+		obj->cost = 0;
 		obj_to_char( obj, ch );
 		equip_char( ch, obj, WEAR_SHIELD );
 	}
@@ -336,25 +337,25 @@ void do_smote(CHAR_DATA *ch, char *argument )
 {
 	CHAR_DATA *vch;
 	char *letter,*name;
-	char last[MAX_INPUT_LENGTH];
+	char last[MAX_INPUT_LENGTH]={'\0'};
 	char temp[MSL]={'\0'};
 	int matches = 0;
  
 	if ( !IS_NPC(ch) && IS_SET(ch->comm, COMM_NOEMOTE) )
 	{
-		send_to_char( "You can't show your emotions.\n\r", ch );
+		send_to_char( "\tYWarning\tn:  You cannot show emotions.\n\r", ch );
 		return;
 	}
  
-	if ( argument[0] == '\0' )
+	if ( IS_NULLSTR(argument) )
 	{
-		send_to_char( "Emote what?\n\r", ch );
+		send_to_char( "\tYWarning\tn: What are you trying to emote?\n\r", ch );
 		return;
 	}
 	
 	if (strstr(argument,ch->name) == NULL)
 	{
-	send_to_char("You must include your name in an smote.\n\r",ch);
+	send_to_char("\tYWarning\tn: You must include your name in an smote.\n\r",ch);
 	return;
 	}
    
@@ -1186,7 +1187,7 @@ void do_rstat( CHAR_DATA *ch, char *argument )
 void do_ostat( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	AFFECT_DATA *paf;
 	OBJ_DATA *obj;
 
@@ -1415,7 +1416,7 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 		send_to_char( Format("Affects %s by %d, level %d", affect_loc_name( paf->location ), paf->modifier,paf->level), ch);
 		if ( paf->duration > -1)
 			send_to_char( Format(", %d hours.\n\r",paf->duration), ch );
-			else
+		else
 			send_to_char( ".\n\r", ch );
 		if (paf->bitvector)
 		{
@@ -1448,45 +1449,45 @@ void do_ostat( CHAR_DATA *ch, char *argument )
 	}
 
 	if (!obj->enchanted)
-		for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
 		{
-			send_to_char( Format("Affects %s by %d, level %d.\n\r", affect_loc_name( paf->location ), paf->modifier,paf->level), ch );
-			if (paf->bitvector)
-			{
-				switch(paf->where)
+			for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
 				{
-					case TO_AFFECTS:
-					sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
-					break;
-					case TO_OBJECT:
-					sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
-					break;
-					case TO_IMMUNE:
-					sprintf(buf,"Adds immunity to %s.\n", imm_bit_name(paf->bitvector));
-					break;
-					case TO_RESIST:
-					sprintf(buf,"Adds resistance to %s.\n\r", imm_bit_name(paf->bitvector));
-					break;
-					case TO_VULN:
-					sprintf(buf,"Adds vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
-					break;
-					default:
-					sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
-					break;
+					send_to_char( Format("Affects %s by %d, level %d.\n\r", affect_loc_name( paf->location ), paf->modifier,paf->level), ch );
+					if (paf->bitvector)
+					{
+						switch(paf->where)
+						{
+							case TO_AFFECTS:
+							sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
+							break;
+							case TO_OBJECT:
+							sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
+							break;
+							case TO_IMMUNE:
+							sprintf(buf,"Adds immunity to %s.\n", imm_bit_name(paf->bitvector));
+							break;
+							case TO_RESIST:
+							sprintf(buf,"Adds resistance to %s.\n\r", imm_bit_name(paf->bitvector));
+							break;
+							case TO_VULN:
+							sprintf(buf,"Adds vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
+							break;
+							default:
+							sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
+							break;
+						}
+						send_to_char(buf,ch);
+					}
 				}
-				send_to_char(buf,ch);
-			}
 		}
-
 		return;
-}
-
+	}
 
 
 void do_mstat( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	AFFECT_DATA *paf;
 	CHAR_DATA *victim;
 
@@ -1966,10 +1967,10 @@ void do_reboot( CHAR_DATA *ch, char *argument )
 	merc_down = TRUE;
 	for ( d = descriptor_list; d != NULL; d = d_next )
 	{
-	d_next = d->next;
-	vch = d->original ? d->original : d->character;
-	if (vch != NULL)
-		save_char_obj(vch);
+		d_next = d->next;
+		vch = d->original ? d->original : d->character;
+		if (vch != NULL)
+			save_char_obj(vch);
 		close_socket(d);
 	}
 	
@@ -3995,11 +3996,9 @@ void do_rset( CHAR_DATA *ch, char *argument )
 
 void do_sockets( CHAR_DATA *ch, char *argument )
 {
-	char buf[2 * MSL]={'\0'};
+	// char buf[2 * MSL]={'\0'};
 	DESCRIPTOR_DATA *d;
 	int count = 0;
-
-	buf[0]	= '\0';
 
 	send_to_char( Format("%-15s | %-15s | %-5s | %-5s | %-15s\n\r", "User", "Client", "MXP", "MSDP", "Host"), ch);
 	send_to_char("-----------------------------------------------------------------------------\n\r", ch);
@@ -4413,4 +4412,11 @@ void do_roomdump (CHAR_DATA *ch, char *argument)
 
 	send_to_char("Room Dump saved.\n\r", ch);
 	return;
+}
+
+void do_sql_test(CHAR_DATA *ch, char *argument)
+{
+    send_to_char(Format("MySQL client version: %s\n\r", mysql_get_client_info()), ch);
+
+    return;
 }

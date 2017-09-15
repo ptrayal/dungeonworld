@@ -175,9 +175,9 @@ weapon BG AN
 mace 7 6 divine A
 50 100 0 P
 A
-19 8
-A
 18 1
+A
+19 8
 #0
 
 
@@ -196,7 +196,7 @@ matter, surrounded by swirling glowing light, which fades into the relative
 darkness around you without any trace of edges or shadow.
    There is a "No Tipping" notice pinned to the darkness.
 ~
-0 8 1
+0 8 0
 D4
 (null)~
 (null)~

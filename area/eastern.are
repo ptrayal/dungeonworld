@@ -276,9 +276,9 @@ armor AG AD
 ABC ABC ABC 0 0
 23 0 7300 P
 A
-17 -4
-A
 2 2
+A
+17 -4
 #5002
 halberd~
 the halberd~
@@ -288,9 +288,9 @@ weapon GI AN
 polearm 2 14 cleave F
 29 160 1620 P
 A
-19 2
-A
 18 2
+A
+19 2
 #5003
 amulet~
 the amulet~
@@ -476,9 +476,9 @@ jewelry GH AM
 0 0 0 0 0
 20 100 1300 P
 A
-19 2
-A
 13 10
+A
+19 2
 #5026
 gem ruby~
 a large ruby~

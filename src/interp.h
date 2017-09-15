@@ -316,4 +316,5 @@ DECLARE_DO_FUN( do_matedit  );
 DECLARE_DO_FUN( do_matlist );
 DECLARE_DO_FUN( do_trackbuffer );
 DECLARE_DO_FUN( do_roomdump );
+DECLARE_DO_FUN( do_sql_test );
 #endif // EOF

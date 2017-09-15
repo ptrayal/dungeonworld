@@ -949,19 +949,19 @@ void load_classes( void )
 		switch (class)
 		{
 			case 0: 
-			sprintf( buf, "%smage.class", CLASS_DIR );
+			sprintf( buf, "%smage.txt", CLASS_DIR );
 			log_string( "Boot - Loading Mage." ); 
 			break; 
 			case 1:
-			sprintf( buf, "%scleric.class", CLASS_DIR );
+			sprintf( buf, "%scleric.txt", CLASS_DIR );
 			log_string( "Boot - Loading Cleric." );
 			break;
 			case 2:
-			sprintf( buf, "%sthief.class", CLASS_DIR );
+			sprintf( buf, "%sthief.txt", CLASS_DIR );
 			log_string( "Boot - Loading Thief." );
 			break;
 			case 3:
-			sprintf( buf, "%swarrior.class", CLASS_DIR );
+			sprintf( buf, "%swarrior.txt", CLASS_DIR );
 			log_string( "Boot - Loading Warrior." );
 			break;
 		}

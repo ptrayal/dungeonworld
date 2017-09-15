@@ -87,7 +87,9 @@ const struct flag_type act_flags[] =
 {
     {	"npc",			A,	FALSE	},
     {	"sentinel",		B,	TRUE	},
-    {	"scavenger",		C,	TRUE	},
+    {   "scavenger",    C,  TRUE    },
+    {   "newbie",       D,  TRUE    },
+    {   "hero",         E,  TRUE    },
     {	"aggressive",		F,	TRUE	},
     {	"stay_area",		G,	TRUE	},
     {	"wimpy",		H,	TRUE	},
@@ -333,6 +335,9 @@ const struct flag_type area_flags[] =
     {	"changed",		AREA_CHANGED,		TRUE	},
     {	"added",		AREA_ADDED,		TRUE	},
     {	"loading",		AREA_LOADING,		FALSE	},
+    {    "newbie",      AREA_NEWBIE,     TRUE },
+    {    "hero",        AREA_HERO,     TRUE },
+    {    "warzone",     AREA_WARZONE,     TRUE },
     {	NULL,			0,			0	}
 };
 

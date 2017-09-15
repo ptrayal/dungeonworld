@@ -1,7 +1,7 @@
 # PLAYER
 Name Rayal~
 Id 1365777504
-LogO 1368899346
+LogO 1505497912
 Ver 5
 Prompt <%hhp %mm %vmv> ~
 Race human~
@@ -10,16 +10,17 @@ Cla 1
 Levl 60
 Tru 60
 Sec 9
-Playd 325865
+Playd 359881
 Not  0 0 0 1366209212 0
 Scro 22
-Room 2
+Room 3701
 HMV  50 50 125 125 100 100
 Gold 0
 Silv 3
 Exp 1000
 Act DEFNQ~
 Comm GNO~
+Wizn A~
 Invi 0
 Pos 8
 Prac 5
@@ -28,7 +29,7 @@ Alig 750
 Hit 2
 Dam 8
 ACs 83 83 83 95
-Wimp 4
+Wimp 10
 Attr 13 13 16 13 13
 AMod 0 2 0 0 3
 Pass Ra.FZ0d1wpmAI~

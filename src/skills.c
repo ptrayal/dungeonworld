@@ -43,7 +43,7 @@
 /* used to get new skills */
 void do_gain(CHAR_DATA *ch, char *argument)
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	CHAR_DATA *trainer;
 	int gn = 0, sn = 0;
 
@@ -51,11 +51,11 @@ void do_gain(CHAR_DATA *ch, char *argument)
 		return;
 
 	/* find a trainer */
-	for ( trainer = ch->in_room->people; 
-		trainer != NULL; 
-		trainer = trainer->next_in_room)
+	for ( trainer = ch->in_room->people; trainer != NULL; trainer = trainer->next_in_room)
 		if (IS_NPC(trainer) && IS_SET(trainer->act,ACT_GAIN))
-			break;
+			{
+				break;
+			}
 
 		if (trainer == NULL || !can_see(ch,trainer))
 		{
@@ -337,17 +337,21 @@ void do_spells(CHAR_DATA *ch, char *argument)
 
 	buffer = new_buf();
 	for (level = 0; level < LEVEL_HERO + 1; level++)
-		if (spell_list[level][0] != '\0')
-			add_buf(buffer,spell_list[level]);
-		add_buf(buffer,"\n\r");
-		page_to_char(buf_string(buffer),ch);
-		free_buf(buffer);
-	}
+		{
+			if (spell_list[level][0] != '\0')
+					{
+						add_buf(buffer,spell_list[level]);
+					}
+			add_buf(buffer,"\n\r");
+			page_to_char(buf_string(buffer),ch);
+			free_buf(buffer);
+		}
+}
 
 void do_skills(CHAR_DATA *ch, char *argument)
 {
 	BUFFER *buffer;
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	char skill_list[LEVEL_HERO + 1][MSL];
 	char skill_columns[LEVEL_HERO + 1];
 	int sn, level, min_lev = 1, max_lev = LEVEL_HERO;

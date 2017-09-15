@@ -90,8 +90,8 @@ void get_obj( CHAR_DATA *ch, OBJ_DATA *obj, OBJ_DATA *container )
 {
 	/* variables for AUTOSPLIT */
 	CHAR_DATA *gch;
-	int members;
-	char buffer[100];
+	int members = 0;
+	char buffer[100] = {'\0'};
 
 	if ( !CAN_WEAR(obj, ITEM_TAKE) )
 	{
@@ -838,72 +838,72 @@ void do_envenom(CHAR_DATA *ch, char *argument)
 	/* find out what */
 	if (argument[0] == '\0')
 	{
-	send_to_char("Envenom what item?\n\r",ch);
-	return;
+		send_to_char("Envenom what item?\n\r",ch);
+		return;
 	}
 
 	obj =  get_obj_list(ch,argument,ch->carrying);
 
 	if (obj== NULL)
 	{
-	send_to_char("You don't have that item.\n\r",ch);
-	return;
+		send_to_char("You don't have that item.\n\r",ch);
+		return;
 	}
 
 	if ((skill = get_skill(ch,gsn_envenom)) < 1)
 	{
-	send_to_char("Are you crazy? You'd poison yourself!\n\r",ch);
-	return;
+		send_to_char("Are you crazy? You'd poison yourself!\n\r",ch);
+		return;
 	}
 
 	if (obj->item_type == ITEM_FOOD || obj->item_type == ITEM_DRINK_CON)
 	{
-	if (IS_OBJ_STAT(obj,ITEM_BLESS) || IS_OBJ_STAT(obj,ITEM_BURN_PROOF))
-	{
-		act("You fail to poison $p.",ch,obj,NULL,TO_CHAR);
-		return;
-	}
+		if (IS_OBJ_STAT(obj,ITEM_BLESS) || IS_OBJ_STAT(obj,ITEM_BURN_PROOF))
+		{
+			act("You fail to poison $p.",ch,obj,NULL,TO_CHAR);
+			return;
+		}
 
 	if (number_percent() < skill)  /* success! */
-	{
-		act("$n treats $p with deadly poison.",ch,obj,NULL,TO_ROOM);
-		act("You treat $p with deadly poison.",ch,obj,NULL,TO_CHAR);
-		if (!obj->value[3])
 		{
-		obj->value[3] = 1;
-		check_improve(ch,gsn_envenom,TRUE,4);
+			act("$n treats $p with deadly poison.",ch,obj,NULL,TO_ROOM);
+			act("You treat $p with deadly poison.",ch,obj,NULL,TO_CHAR);
+			if (!obj->value[3])
+			{
+				obj->value[3] = 1;
+				check_improve(ch,gsn_envenom,TRUE,4);
+			}
+			WAIT_STATE(ch,skill_table[gsn_envenom].beats);
+			return;
 		}
+
+		act("You fail to poison $p.",ch,obj,NULL,TO_CHAR);
+		if (!obj->value[3])
+			check_improve(ch,gsn_envenom,FALSE,4);
 		WAIT_STATE(ch,skill_table[gsn_envenom].beats);
 		return;
 	}
 
-	act("You fail to poison $p.",ch,obj,NULL,TO_CHAR);
-	if (!obj->value[3])
-		check_improve(ch,gsn_envenom,FALSE,4);
-	WAIT_STATE(ch,skill_table[gsn_envenom].beats);
-	return;
-	 }
-
 	if (obj->item_type == ITEM_WEAPON)
 	{
 		if (IS_WEAPON_STAT(obj,WEAPON_FLAMING)
-		||  IS_WEAPON_STAT(obj,WEAPON_FROST)
-		||  IS_WEAPON_STAT(obj,WEAPON_VAMPIRIC)
-		||  IS_WEAPON_STAT(obj,WEAPON_SHARP)
-		||  IS_WEAPON_STAT(obj,WEAPON_VORPAL)
-		||  IS_WEAPON_STAT(obj,WEAPON_SHOCKING)
-		||  IS_OBJ_STAT(obj,ITEM_BLESS) || IS_OBJ_STAT(obj,ITEM_BURN_PROOF))
+			||  IS_WEAPON_STAT(obj,WEAPON_FROST)
+			||  IS_WEAPON_STAT(obj,WEAPON_VAMPIRIC)
+			||  IS_WEAPON_STAT(obj,WEAPON_SHARP)
+			||  IS_WEAPON_STAT(obj,WEAPON_VORPAL)
+			||  IS_WEAPON_STAT(obj,WEAPON_SHOCKING)
+			||  IS_OBJ_STAT(obj,ITEM_BLESS) || IS_OBJ_STAT(obj,ITEM_BURN_PROOF))
 		{
 			act("You can't seem to envenom $p.",ch,obj,NULL,TO_CHAR);
 			return;
 		}
 
-	if (obj->value[3] < 0 
-	||  attack_table[obj->value[3]].damage == DAM_BASH)
-	{
-		send_to_char("You can only envenom edged weapons.\n\r",ch);
-		return;
-	}
+		if (obj->value[3] < 0 
+			||  attack_table[obj->value[3]].damage == DAM_BASH)
+		{
+			send_to_char("You can only envenom edged weapons.\n\r",ch);
+			return;
+		}
 
 		if (IS_WEAPON_STAT(obj,WEAPON_POISON))
 		{
@@ -911,10 +911,10 @@ void do_envenom(CHAR_DATA *ch, char *argument)
 			return;
 		}
 
-	percent = number_percent();
-	if (percent < skill)
-	{
- 
+		percent = number_percent();
+		if (percent < skill)
+		{
+			
 			af.where     = TO_WEAPON;
 			af.type      = gsn_poison;
 			af.level     = ch->level * percent / 100;
@@ -923,22 +923,22 @@ void do_envenom(CHAR_DATA *ch, char *argument)
 			af.modifier  = 0;
 			af.bitvector = WEAPON_POISON;
 			affect_to_obj(obj,&af);
- 
+			
 			act("$n coats $p with deadly venom.",ch,obj,NULL,TO_ROOM);
-		act("You coat $p with venom.",ch,obj,NULL,TO_CHAR);
-		check_improve(ch,gsn_envenom,TRUE,3);
-		WAIT_STATE(ch,skill_table[gsn_envenom].beats);
+			act("You coat $p with venom.",ch,obj,NULL,TO_CHAR);
+			check_improve(ch,gsn_envenom,TRUE,3);
+			WAIT_STATE(ch,skill_table[gsn_envenom].beats);
 			return;
 		}
-	else
-	{
-		act("You fail to envenom $p.",ch,obj,NULL,TO_CHAR);
-		check_improve(ch,gsn_envenom,FALSE,3);
-		WAIT_STATE(ch,skill_table[gsn_envenom].beats);
-		return;
+		else
+		{
+			act("You fail to envenom $p.",ch,obj,NULL,TO_CHAR);
+			check_improve(ch,gsn_envenom,FALSE,3);
+			WAIT_STATE(ch,skill_table[gsn_envenom].beats);
+			return;
+		}
 	}
-	}
- 
+	
 	act("You can't poison $p.",ch,obj,NULL,TO_CHAR);
 	return;
 }
