@@ -1714,7 +1714,7 @@ void do_vnum(CHAR_DATA *ch, char *argument)
 void do_mfind( CHAR_DATA *ch, char *argument )
 {
 	extern int top_mob_index;
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MAX_INPUT_LENGTH]={'\0'};
 	char buf[MSL]={'\0'};
 	BUFFER *output;
 	MOB_INDEX_DATA *pMobIndex;
@@ -3924,14 +3924,13 @@ void do_oset( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_rset( CHAR_DATA *ch, char *argument )
 {
-	char arg1 [MAX_INPUT_LENGTH];
-	char arg2 [MAX_INPUT_LENGTH];
-	char arg3 [MAX_INPUT_LENGTH];
+	char arg1 [MIL]={'\0'};
+	char arg2 [MIL]={'\0'};
+	char arg3 [MIL]={'\0'};
 	ROOM_INDEX_DATA *location;
-	int value;
+	int value = 0;
 
 	smash_tilde( argument );
 	argument = one_argument( argument, arg1 );
@@ -3940,21 +3939,21 @@ void do_rset( CHAR_DATA *ch, char *argument )
 
 	if ( IS_NULLSTR(arg1) || IS_NULLSTR(arg2) || IS_NULLSTR(arg3) )
 	{
-	send_to_char( "Syntax:\n\r",ch);
-	send_to_char( "  set room <location> <field> <value>\n\r",ch);
-	send_to_char( "  Field being one of:\n\r",			ch );
-	send_to_char( "    flags sector\n\r",				ch );
-	return;
+		send_to_char( "Syntax:\n\r",ch);
+		send_to_char( "  set room <location> <field> <value>\n\r",ch);
+		send_to_char( "  Field being one of:\n\r",			ch );
+		send_to_char( "    flags sector\n\r",				ch );
+		return;
 	}
 
 	if ( ( location = find_location( ch, arg1 ) ) == NULL )
 	{
-	send_to_char( "No such location.\n\r", ch );
-	return;
+		send_to_char( "No such location.\n\r", ch );
+		return;
 	}
 
 	if (!is_room_owner(ch,location) && ch->in_room != location 
-	&&  room_is_private(location) && !IS_TRUSTED(ch,IMPLEMENTOR))
+		&&  room_is_private(location) && !IS_TRUSTED(ch,IMPLEMENTOR))
 	{
 		send_to_char("That room is private right now.\n\r",ch);
 		return;
@@ -3965,8 +3964,8 @@ void do_rset( CHAR_DATA *ch, char *argument )
 	 */
 	if ( !is_number( arg3 ) )
 	{
-	send_to_char( "Value must be numeric.\n\r", ch );
-	return;
+		send_to_char( "Value must be numeric.\n\r", ch );
+		return;
 	}
 	value = atoi( arg3 );
 
@@ -3975,14 +3974,14 @@ void do_rset( CHAR_DATA *ch, char *argument )
 	 */
 	if ( !str_prefix( arg2, "flags" ) )
 	{
-	location->room_flags	= value;
-	return;
+		location->room_flags	= value;
+		return;
 	}
 
 	if ( !str_prefix( arg2, "sector" ) )
 	{
-	location->sector_type	= value;
-	return;
+		location->sector_type	= value;
+		return;
 	}
 
 	/*
@@ -3991,7 +3990,6 @@ void do_rset( CHAR_DATA *ch, char *argument )
 	do_function(ch, &do_rset, "");
 	return;
 }
-
 
 
 void do_sockets( CHAR_DATA *ch, char *argument )
@@ -4054,73 +4052,72 @@ void do_sockets( CHAR_DATA *ch, char *argument )
 }
 
 
-
 /*
  * Thanks to Grodyn for pointing out bugs in this function.
  */
 void do_force( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
-	char arg[MAX_INPUT_LENGTH];
-	char arg2[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
+	char arg2[MIL]={'\0'};
 
 	argument = one_argument( argument, arg );
 
 	if ( IS_NULLSTR(arg) || IS_NULLSTR(argument) )
 	{
-	send_to_char( "Force whom to do what?\n\r", ch );
-	return;
+		send_to_char( "Force whom to do what?\n\r", ch );
+		return;
 	}
 
 	one_argument(argument,arg2);
-  
+
 	if (!str_cmp(arg2,"delete") || !str_prefix(arg2,"mob"))
 	{
-	send_to_char("That will NOT be done.\n\r",ch);
-	return;
+		send_to_char("That will NOT be done.\n\r",ch);
+		return;
 	}
 
 	sprintf( buf, "$n forces you to '%s'.", argument );
 
 	if ( !str_cmp( arg, "all" ) )
 	{
-	CHAR_DATA *vch;
-	CHAR_DATA *vch_next;
+		CHAR_DATA *vch;
+		CHAR_DATA *vch_next;
 
-	if (get_trust(ch) < MAX_LEVEL - 3)
-	{
-		send_to_char("Not at your level!\n\r",ch);
-		return;
-	}
-
-	for ( vch = char_list; vch != NULL; vch = vch_next )
-	{
-		vch_next = vch->next;
-
-		if ( !IS_NPC(vch) && get_trust( vch ) < get_trust( ch ) )
+		if (get_trust(ch) < MAX_LEVEL - 3)
 		{
-		act( buf, ch, NULL, vch, TO_VICT );
-		interpret( vch, argument );
+			send_to_char("Not at your level!\n\r",ch);
+			return;
 		}
-	}
+
+		for ( vch = char_list; vch != NULL; vch = vch_next )
+		{
+			vch_next = vch->next;
+
+			if ( !IS_NPC(vch) && get_trust( vch ) < get_trust( ch ) )
+			{
+				act( buf, ch, NULL, vch, TO_VICT );
+				interpret( vch, argument );
+			}
+		}
 	}
 	else if (!str_cmp(arg,"players"))
 	{
 		CHAR_DATA *vch;
 		CHAR_DATA *vch_next;
- 
+
 		if (get_trust(ch) < MAX_LEVEL - 2)
 		{
 			send_to_char("Not at your level!\n\r",ch);
 			return;
 		}
- 
+
 		for ( vch = char_list; vch != NULL; vch = vch_next )
 		{
 			vch_next = vch->next;
- 
+
 			if ( !IS_NPC(vch) && get_trust( vch ) < get_trust( ch ) 
-		&&	 vch->level < LEVEL_HERO)
+				&&	 vch->level < LEVEL_HERO)
 			{
 				act( buf, ch, NULL, vch, TO_VICT );
 				interpret( vch, argument );
@@ -4131,19 +4128,19 @@ void do_force( CHAR_DATA *ch, char *argument )
 	{
 		CHAR_DATA *vch;
 		CHAR_DATA *vch_next;
- 
+
 		if (get_trust(ch) < MAX_LEVEL - 2)
 		{
 			send_to_char("Not at your level!\n\r",ch);
 			return;
 		}
- 
+
 		for ( vch = char_list; vch != NULL; vch = vch_next )
 		{
 			vch_next = vch->next;
- 
+
 			if ( !IS_NPC(vch) && get_trust( vch ) < get_trust( ch )
-			&&   vch->level >= LEVEL_HERO)
+				&&   vch->level >= LEVEL_HERO)
 			{
 				act( buf, ch, NULL, vch, TO_VICT );
 				interpret( vch, argument );
@@ -4152,42 +4149,42 @@ void do_force( CHAR_DATA *ch, char *argument )
 	}
 	else
 	{
-	CHAR_DATA *victim;
+		CHAR_DATA *victim;
 
-	if ( ( victim = get_char_world( ch, arg ) ) == NULL )
-	{
-		send_to_char( "They aren't here.\n\r", ch );
-		return;
-	}
+		if ( ( victim = get_char_world( ch, arg ) ) == NULL )
+		{
+			send_to_char( "They aren't here.\n\r", ch );
+			return;
+		}
 
-	if ( victim == ch )
-	{
-		send_to_char( "Aye aye, right away!\n\r", ch );
-		return;
-	}
+		if ( victim == ch )
+		{
+			send_to_char( "Aye aye, right away!\n\r", ch );
+			return;
+		}
 
 		if (!is_room_owner(ch,victim->in_room) 
-	&&  ch->in_room != victim->in_room 
-		&&  room_is_private(victim->in_room) && !IS_TRUSTED(ch,IMPLEMENTOR))
+			&&  ch->in_room != victim->in_room 
+			&&  room_is_private(victim->in_room) && !IS_TRUSTED(ch,IMPLEMENTOR))
 		{
 			send_to_char("That character is in a private room.\n\r",ch);
 			return;
 		}
 
-	if ( get_trust( victim ) >= get_trust( ch ) )
-	{
-		send_to_char( "Do it yourself!\n\r", ch );
-		return;
-	}
+		if ( get_trust( victim ) >= get_trust( ch ) )
+		{
+			send_to_char( "Do it yourself!\n\r", ch );
+			return;
+		}
 
-	if ( !IS_NPC(victim) && get_trust(ch) < MAX_LEVEL -3)
-	{
-		send_to_char("Not at your level!\n\r",ch);
-		return;
-	}
+		if ( !IS_NPC(victim) && get_trust(ch) < MAX_LEVEL -3)
+		{
+			send_to_char("Not at your level!\n\r",ch);
+			return;
+		}
 
-	act( buf, ch, NULL, victim, TO_VICT );
-	interpret( victim, argument );
+		act( buf, ch, NULL, victim, TO_VICT );
+		interpret( victim, argument );
 	}
 
 	send_to_char( "Ok.\n\r", ch );
@@ -4195,13 +4192,12 @@ void do_force( CHAR_DATA *ch, char *argument )
 }
 
 
-
 /*
  * New routines by Dionysos.
  */
 void do_invis( CHAR_DATA *ch, char *argument )
 {
-	int level;
+	int level = 0;
 	char arg[MSL]={'\0'};
 
 	/* RT code for taking a level argument */
@@ -4246,7 +4242,7 @@ void do_invis( CHAR_DATA *ch, char *argument )
 
 void do_incognito( CHAR_DATA *ch, char *argument )
 {
-	int level;
+	int level = 0;
 	char arg[MSL]={'\0'};
 	
 	/* RT code for taking a level argument */
@@ -4364,6 +4360,48 @@ void do_trackbuffer(CHAR_DATA *ch, char *argument)
 	return;
 }
 
+void do_mobdump(CHAR_DATA *ch, char *argument)
+{
+    FILE *fp;
+    AREA_DATA *pArea;
+    MOB_INDEX_DATA *pMobIndex;
+    int vnum = 0;
+    char error_buffer[MAX_STRING_LENGTH] = {'\0'};
+
+    // Information for sendmail command
+    // char cmd[100] = {'\0'};
+
+    // Create the mobdump files.
+    pArea = ch->in_room->area;
+
+    if ( !(fp = fopen("mobdump.txt", "w") ) )
+    {
+        snprintf(error_buffer, sizeof(error_buffer), "There was an error accessing roomdump.txt.");
+        send_to_char(error_buffer, ch);
+        perror("mobdump.txt");        
+    }
+
+    fprintf(fp, "VNUM | Mob Short Name | Race | Level\n");
+
+    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++ )
+    {
+        if (( pMobIndex = get_mob_index (vnum) ) )
+        {
+            fprintf(fp, "%8d | %-40s | %s | %d\n", vnum, pMobIndex->short_descr, race_table[pMobIndex->race].name, pMobIndex->level);
+        }
+    }
+
+    fclose (fp);
+    send_to_char("Mob Dump Saved.\n\r", ch);
+
+    // Send an e-mail with the attachment as the body of the e-mail.
+    // snprintf(cmd, sizeof(cmd), "sendmail %s < mobdump.txt", ch->pcdata->email );
+    // if (system(cmd));
+
+    return;
+}
+
+
 void do_roomdump (CHAR_DATA *ch, char *argument)
 {
 	FILE *fp;
@@ -4420,3 +4458,5 @@ void do_sql_test(CHAR_DATA *ch, char *argument)
 
     return;
 }
+
+

@@ -230,7 +230,7 @@ void do_gain(CHAR_DATA *ch, char *argument)
 void do_spells(CHAR_DATA *ch, char *argument)
 {
 	BUFFER *buffer;
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	char spell_list[LEVEL_HERO + 1][MSL];
 	char spell_columns[LEVEL_HERO + 1];
 	int sn, level, min_lev = 1, max_lev = LEVEL_HERO, mana;
@@ -465,12 +465,12 @@ void do_skills(CHAR_DATA *ch, char *argument)
 /* shows skills, groups and costs (only if not bought) */
 void list_group_costs(CHAR_DATA *ch)
 {
-	int gn,sn,col;
+	int gn = 0;
+	int sn = 0;
+	int col = 0;
 
 	if (IS_NPC(ch))
 		return;
-
-	col = 0;
 
 	send_to_char( Format("%-18s %-5s %-18s %-5s %-18s %-5s\n\r","group","cp","group","cp","group","cp"), ch);
 
@@ -523,8 +523,8 @@ void list_group_costs(CHAR_DATA *ch)
 
 void list_group_chosen(CHAR_DATA *ch)
 {
-	int gn;
-	int sn;
+	int gn = 0;
+	int sn = 0;
 	int col = 0;
  
 	if (IS_NPC(ch))
@@ -605,7 +605,7 @@ int exp_per_level(CHAR_DATA *ch, int points)
 /* this procedure handles the input parsing for the skill generator */
 bool parse_gen_groups(CHAR_DATA *ch,char *argument)
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MAX_INPUT_LENGTH]={'\0'};
 	int gn,sn;
 
 	if (argument[0] == '\0')
@@ -771,8 +771,8 @@ bool parse_gen_groups(CHAR_DATA *ch,char *argument)
 /* shows all groups, or the sub-members of a group */
 void do_groups(CHAR_DATA *ch, char *argument)
 {
-	int gn;
-	int sn;
+	int gn = 0;
+	int sn = 0;
 	int col = 0;
 
 	if (IS_NPC(ch))
@@ -850,7 +850,7 @@ void check_improve( CHAR_DATA *ch, int sn, bool success, int multiplier )
 	return;  /* skill is not known */ 
 
 	/* check to see if the character has a chance to learn */
-		chance = 10 * int_app[get_curr_stat(ch,STAT_INT)].learn;
+	chance = 10 * int_app[get_curr_stat(ch,STAT_INT)].learn;
 	chance /= (	multiplier * skill_table[sn].rating[ch->iclass] * 4);
 	chance += ch->level;
 
@@ -886,7 +886,7 @@ void check_improve( CHAR_DATA *ch, int sn, bool success, int multiplier )
 /* returns a group index number given the name */
 int group_lookup( const char *name )
 {
-	int gn;
+	int gn = 0;
  
 	for ( gn = 0; gn < MAX_GROUP; gn++ )
 	{
@@ -903,7 +903,7 @@ int group_lookup( const char *name )
 /* recursively adds a group given its number -- uses group_add */
 void gn_add( CHAR_DATA *ch, int gn)
 {
-	int i;
+	int i = 0;
 	
 	ch->pcdata->group_known[gn] = TRUE;
 	for ( i = 0; i < MAX_IN_GROUP; i++)
@@ -917,15 +917,15 @@ void gn_add( CHAR_DATA *ch, int gn)
 /* recusively removes a group given its number -- uses group_remove */
 void gn_remove( CHAR_DATA *ch, int gn)
 {
-	int i;
+	int i = 0;
 
 	ch->pcdata->group_known[gn] = FALSE;
 
 	for ( i = 0; i < MAX_IN_GROUP; i ++)
 	{
-	if (group_table[gn].spells[i] == NULL)
-		break;
-	group_remove(ch,group_table[gn].spells[i]);
+		if (group_table[gn].spells[i] == NULL)
+			break;
+		group_remove(ch,group_table[gn].spells[i]);
 	}
 }
 	

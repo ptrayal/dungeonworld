@@ -188,8 +188,8 @@ void get_obj( CHAR_DATA *ch, OBJ_DATA *obj, OBJ_DATA *container )
 
 void do_get( CHAR_DATA *ch, char *argument )
 {
-	char arg1[MAX_INPUT_LENGTH];
-	char arg2[MAX_INPUT_LENGTH];
+	char arg1[MIL]={'\0'};
+	char arg2[MIL]={'\0'};
 	OBJ_DATA *obj;
 	OBJ_DATA *obj_next;
 	OBJ_DATA *container;
@@ -335,11 +335,10 @@ void do_get( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_put( CHAR_DATA *ch, char *argument )
 {
-	char arg1[MAX_INPUT_LENGTH];
-	char arg2[MAX_INPUT_LENGTH];
+	char arg1[MIL]={'\0'};
+	char arg2[MIL]={'\0'};
 	OBJ_DATA *container;
 	OBJ_DATA *obj;
 	OBJ_DATA *obj_next;
@@ -348,12 +347,14 @@ void do_put( CHAR_DATA *ch, char *argument )
 	argument = one_argument( argument, arg2 );
 
 	if (!str_cmp(arg2,"in") || !str_cmp(arg2,"on"))
-	argument = one_argument(argument,arg2);
+	{
+		argument = one_argument(argument,arg2);
+	}
 
 	if ( arg1[0] == '\0' || arg2[0] == '\0' )
 	{
-	send_to_char( "Put what in what?\n\r", ch );
-	return;
+		send_to_char( "Put what in what?\n\r", ch );
+		return;
 	}
 
 	if ( !str_cmp( arg2, "all" ) || !str_prefix( "all.", arg2 ) )
@@ -481,10 +482,9 @@ void do_put( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_drop( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	OBJ_DATA *obj;
 	OBJ_DATA *obj_next;
 	bool found;
@@ -645,11 +645,10 @@ void do_drop( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_give( CHAR_DATA *ch, char *argument )
 {
-	char arg1 [MAX_INPUT_LENGTH];
-	char arg2 [MAX_INPUT_LENGTH];
+	char arg1 [MAX_INPUT_LENGTH]={'\0'};
+	char arg2 [MAX_INPUT_LENGTH]={'\0'};
 	char buf[MSL]={'\0'};
 	CHAR_DATA *victim;
 	OBJ_DATA  *obj;
@@ -836,7 +835,7 @@ void do_envenom(CHAR_DATA *ch, char *argument)
 	int percent,skill;
 
 	/* find out what */
-	if (argument[0] == '\0')
+	if (IS_NULLSTR(argument))
 	{
 		send_to_char("Envenom what item?\n\r",ch);
 		return;
@@ -945,7 +944,7 @@ void do_envenom(CHAR_DATA *ch, char *argument)
 
 void do_fill( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	char buf[MSL]={'\0'};
 	OBJ_DATA *obj;
 	OBJ_DATA *fountain;
@@ -955,56 +954,56 @@ void do_fill( CHAR_DATA *ch, char *argument )
 
 	if ( arg[0] == '\0' )
 	{
-	send_to_char( "Fill what?\n\r", ch );
-	return;
+		send_to_char( "Fill what?\n\r", ch );
+		return;
 	}
 
 	if ( ( obj = get_obj_carry( ch, arg, ch ) ) == NULL )
 	{
-	send_to_char( "You do not have that item.\n\r", ch );
-	return;
+		send_to_char( "You do not have that item.\n\r", ch );
+		return;
 	}
 
 	found = FALSE;
 	for ( fountain = ch->in_room->contents; fountain != NULL;
-	fountain = fountain->next_content )
+		fountain = fountain->next_content )
 	{
-	if ( fountain->item_type == ITEM_FOUNTAIN )
-	{
-		found = TRUE;
-		break;
-	}
+		if ( fountain->item_type == ITEM_FOUNTAIN )
+		{
+			found = TRUE;
+			break;
+		}
 	}
 
 	if ( !found )
 	{
-	send_to_char( "There is no fountain here!\n\r", ch );
-	return;
+		send_to_char( "There is no fountain here!\n\r", ch );
+		return;
 	}
 
 	if ( obj->item_type != ITEM_DRINK_CON )
 	{
-	send_to_char( "You can't fill that.\n\r", ch );
-	return;
+		send_to_char( "You can't fill that.\n\r", ch );
+		return;
 	}
 
 	if ( obj->value[1] != 0 && obj->value[2] != fountain->value[2] )
 	{
-	send_to_char( "There is already another liquid in it.\n\r", ch );
-	return;
+		send_to_char( "There is already another liquid in it.\n\r", ch );
+		return;
 	}
 
 	if ( obj->value[1] >= obj->value[0] )
 	{
-	send_to_char( "Your container is full.\n\r", ch );
-	return;
+		send_to_char( "Your container is full.\n\r", ch );
+		return;
 	}
 
 	sprintf(buf,"You fill $p with %s from $P.",
-	liq_table[fountain->value[2]].liq_name);
+		liq_table[fountain->value[2]].liq_name);
 	act( buf, ch, obj,fountain, TO_CHAR );
 	sprintf(buf,"$n fills $p with %s from $P.",
-	liq_table[fountain->value[2]].liq_name);
+		liq_table[fountain->value[2]].liq_name);
 	act(buf,ch,obj,fountain,TO_ROOM);
 	obj->value[2] = fountain->value[2];
 	obj->value[1] = obj->value[0];
@@ -1017,7 +1016,7 @@ void do_pour (CHAR_DATA *ch, char *argument)
 	char buf[MSL]={'\0'};
 	OBJ_DATA *out, *in;
 	CHAR_DATA *vch = NULL;
-	int amount;
+	int amount = 0;
 
 	argument = one_argument(argument,arg);
 	
@@ -1027,7 +1026,6 @@ void do_pour (CHAR_DATA *ch, char *argument)
 	return;
 	}
 	
-
 	if ((out = get_obj_carry(ch,arg, ch)) == NULL)
 	{
 	send_to_char("You don't have that item.\n\r",ch);
@@ -1141,10 +1139,10 @@ void do_pour (CHAR_DATA *ch, char *argument)
 
 void do_drink( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	OBJ_DATA *obj;
-	int amount;
-	int liquid;
+	int amount = 0;
+	int liquid = 0;
 
 	one_argument( argument, arg );
 
@@ -1261,10 +1259,9 @@ void do_drink( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_eat( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	OBJ_DATA *obj;
 
 	one_argument( argument, arg );
@@ -1345,7 +1342,6 @@ void do_eat( CHAR_DATA *ch, char *argument )
 }
 
 
-
 /*
  * Remove an object.
  */
@@ -1370,7 +1366,6 @@ bool remove_obj( CHAR_DATA *ch, int iWear, bool fReplace )
 	act( "You stop using $p.", ch, obj, NULL, TO_CHAR );
 	return TRUE;
 }
-
 
 
 /*
@@ -1666,10 +1661,9 @@ void wear_obj( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace )
 }
 
 
-
 void do_wear( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	OBJ_DATA *obj;
 
 	one_argument( argument, arg );
@@ -1709,7 +1703,7 @@ void do_wear( CHAR_DATA *ch, char *argument )
 
 void do_remove( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	OBJ_DATA *obj;
 
 	one_argument( argument, arg );
@@ -1734,7 +1728,7 @@ void do_remove( CHAR_DATA *ch, char *argument )
 
 void do_sacrifice( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	OBJ_DATA *obj;
 	int silver = 0;
 	
@@ -1822,10 +1816,9 @@ void do_sacrifice( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_quaff( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	OBJ_DATA *obj;
 
 	one_argument( argument, arg );
@@ -1873,11 +1866,10 @@ void do_quaff( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_recite( CHAR_DATA *ch, char *argument )
 {
-	char arg1[MAX_INPUT_LENGTH];
-	char arg2[MAX_INPUT_LENGTH];
+	char arg1[MIL]={'\0'};
+	char arg2[MIL]={'\0'};
 	CHAR_DATA *victim;
 	OBJ_DATA *scroll;
 	OBJ_DATA *obj;
@@ -1940,13 +1932,12 @@ void do_recite( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_brandish( CHAR_DATA *ch, char *argument )
 {
 	CHAR_DATA *vch;
 	CHAR_DATA *vch_next;
 	OBJ_DATA *staff;
-	int sn;
+	int sn = 0;
 
 	if ( ( staff = get_eq_char( ch, WEAR_HOLD ) ) == NULL )
 	{
@@ -2029,15 +2020,15 @@ void do_brandish( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_zap( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	CHAR_DATA *victim;
 	OBJ_DATA *wand;
 	OBJ_DATA *obj;
 
 	one_argument( argument, arg );
+
 	if ( arg[0] == '\0' && ch->fighting == NULL )
 	{
 		send_to_char( "Zap whom or what?\n\r", ch );
@@ -2120,12 +2111,11 @@ void do_zap( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_steal( CHAR_DATA *ch, char *argument )
 {
 	char buf  [MSL]={'\0'};
-	char arg1 [MAX_INPUT_LENGTH];
-	char arg2 [MAX_INPUT_LENGTH];
+	char arg1 [MIL]={'\0'};
+	char arg2 [MIL]={'\0'};
 	CHAR_DATA *victim;
 	OBJ_DATA *obj;
 	int percent = 0;
@@ -2291,7 +2281,6 @@ void do_steal( CHAR_DATA *ch, char *argument )
 }
 
 
-
 /*
  * Shopping commands.
  */
@@ -2405,7 +2394,7 @@ void obj_to_keeper( OBJ_DATA *obj, CHAR_DATA *ch )
 /* get an object from a shopkeeper's list */
 OBJ_DATA *get_obj_keeper( CHAR_DATA *ch, CHAR_DATA *keeper, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	OBJ_DATA *obj;
 	int number = number_argument( argument, arg );
 	int count = 0;
@@ -2483,11 +2472,11 @@ int get_cost( CHAR_DATA *keeper, OBJ_DATA *obj, bool fBuy )
 		}
 
 
-
 void do_buy( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
-	int cost,roll;
+	int cost = 0;
+	int roll = 0;
 
 	if ( IS_NULLSTR(argument) )
 	{
@@ -2497,7 +2486,7 @@ void do_buy( CHAR_DATA *ch, char *argument )
 
 	if ( IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP) )
 	{
-		char arg[MAX_INPUT_LENGTH];
+		char arg[MIL]={'\0'};
 		char buf[MSL]={'\0'};
 		CHAR_DATA *pet;
 		ROOM_INDEX_DATA *pRoomIndexNext;
@@ -2593,7 +2582,7 @@ void do_buy( CHAR_DATA *ch, char *argument )
 	{
 		CHAR_DATA *keeper;
 		OBJ_DATA *obj,*t_obj;
-		char arg[MAX_INPUT_LENGTH];
+		char arg[MIL]={'\0'};
 		int count = 1;
 		int number = mult_argument(argument,arg);
 		
@@ -2715,7 +2704,6 @@ void do_buy( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_list( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
@@ -2724,7 +2712,7 @@ void do_list( CHAR_DATA *ch, char *argument )
 	{
 		ROOM_INDEX_DATA *pRoomIndexNext;
 		CHAR_DATA *pet;
-		bool found;
+		bool found = FALSE;
 
 		/* hack to make new thalos pets work */
 		if (ch->in_room->vnum == 9621)
@@ -2739,7 +2727,6 @@ void do_list( CHAR_DATA *ch, char *argument )
 			return;
 		}
 
-		found = FALSE;
 		for ( pet = pRoomIndexNext->people; pet; pet = pet->next_in_room )
 		{
 			if ( IS_SET(pet->act, ACT_PET) )
@@ -2762,7 +2749,7 @@ void do_list( CHAR_DATA *ch, char *argument )
 		OBJ_DATA *obj;
 		int cost,count;
 		bool found = FALSE;
-		char arg[MAX_INPUT_LENGTH];
+		char arg[MIL]={'\0'};
 
 		if ( ( keeper = find_keeper( ch ) ) == NULL )
 			return;
@@ -2809,11 +2796,10 @@ void do_list( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_sell( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	CHAR_DATA *keeper;
 	OBJ_DATA *obj;
 	int cost = 0;
@@ -2899,11 +2885,10 @@ void do_sell( CHAR_DATA *ch, char *argument )
 }
 
 
-
 void do_value( CHAR_DATA *ch, char *argument )
 {
 	char buf[MSL]={'\0'};
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	CHAR_DATA *keeper;
 	OBJ_DATA *obj;
 	int cost = 0;

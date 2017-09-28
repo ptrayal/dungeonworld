@@ -148,12 +148,12 @@ EFNU AB CD 0
 stand stand female 2500
 AHMV ABCDEFGHIJK medium unknown
 #2221
-oldstyle dragon red~
+dragon red~
 the Great Red Dragon~
 A red dragon is here, contemplating your existence. 
 ~
-This huge red dragon dominates the chamber.  As you turn to flee, he grins at
-you and invites you to stay ... forever! 
+This huge red dragon dominates the chamber.  As you turn to flee, he
+grins at you and invites you to stay ...  Forever!  
 ~
 dragon~
 ABCF DFJTZ -1000 0
@@ -161,7 +161,7 @@ ABCF DFJTZ -1000 0
 -15 -15 -15 4
 EFNR H BE FI
 stand stand male 500
-AHZ ACDEFGHIJKPQUVX medium unknown
+AHZ ACDEFGHIJKPQUVX giant flesh
 #2222
 oldstyle dragon black~
 the Great Black Dragon~

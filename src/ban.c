@@ -136,7 +136,8 @@ void ban_site(CHAR_DATA *ch, char *argument, bool fPerm)
 {
 	char buf[MSL]={'\0'};
 	char buf2[MSL]={'\0'};
-	char arg1[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH];
+	char arg1[MIL]={'\0'};
+	char arg2[MIL]={'\0'};
 	char *name;
 	BUFFER *buffer;
 	BAN_DATA *pban, *prev;
@@ -148,66 +149,65 @@ void ban_site(CHAR_DATA *ch, char *argument, bool fPerm)
 
 	if ( arg1[0] == '\0' )
 	{
-	if (ban_list == NULL)
-	{
-		send_to_char("No sites banned at this time.\n\r",ch);
-		return;
-	}
-	buffer = new_buf();
+		if (ban_list == NULL)
+		{
+			send_to_char("No sites banned at this time.\n\r",ch);
+			return;
+		}
+		buffer = new_buf();
 
 		add_buf(buffer,"Banned sites  level  type     status\n\r");
 		for (pban = ban_list;pban != NULL;pban = pban->next)
 		{
-		sprintf(buf2,"%s%s%s",
-		IS_SET(pban->ban_flags,BAN_PREFIX) ? "*" : "",
-		pban->name,
-		IS_SET(pban->ban_flags,BAN_SUFFIX) ? "*" : "");
-		sprintf(buf,"%-12s    %-3d  %-7s  %s\n\r",
-		buf2, pban->level,
-		IS_SET(pban->ban_flags,BAN_NEWBIES) ? "newbies" :
-		IS_SET(pban->ban_flags,BAN_PERMIT)  ? "permit"  :
-		IS_SET(pban->ban_flags,BAN_ALL)     ? "all"	: "",
-			IS_SET(pban->ban_flags,BAN_PERMANENT) ? "perm" : "temp");
-		add_buf(buffer,buf);
+			sprintf(buf2,"%s%s%s",
+				IS_SET(pban->ban_flags,BAN_PREFIX) ? "*" : "",
+				pban->name,
+				IS_SET(pban->ban_flags,BAN_SUFFIX) ? "*" : "");
+			sprintf(buf,"%-12s    %-3d  %-7s  %s\n\r",
+				buf2, pban->level,
+				IS_SET(pban->ban_flags,BAN_NEWBIES) ? "newbies" :
+				IS_SET(pban->ban_flags,BAN_PERMIT)  ? "permit"  :
+				IS_SET(pban->ban_flags,BAN_ALL)     ? "all"	: "",
+				IS_SET(pban->ban_flags,BAN_PERMANENT) ? "perm" : "temp");
+			add_buf(buffer,buf);
 		}
 
 		page_to_char( buf_string(buffer), ch );
-	free_buf(buffer);
+		free_buf(buffer);
 		return;
 	}
 
 	/* find out what type of ban */
 	if (arg2[0] == '\0' || !str_prefix(arg2,"all"))
-	type = BAN_ALL;
+		type = BAN_ALL;
 	else if (!str_prefix(arg2,"newbies"))
-	type = BAN_NEWBIES;
+		type = BAN_NEWBIES;
 	else if (!str_prefix(arg2,"permit"))
-	type = BAN_PERMIT;
+		type = BAN_PERMIT;
 	else
 	{
-	send_to_char("Acceptable ban types are all, newbies, and permit.\n\r",
-		ch); 
-	return;
+		send_to_char("Acceptable ban types are all, newbies, and permit.\n\r", ch); 
+		return;
 	}
 
 	name = arg1;
 
 	if (name[0] == '*')
 	{
-	prefix = TRUE;
-	name++;
+		prefix = TRUE;
+		name++;
 	}
 
 	if (name[strlen(name) - 1] == '*')
 	{
-	suffix = TRUE;
-	name[strlen(name) - 1] = '\0';
+		suffix = TRUE;
+		name[strlen(name) - 1] = '\0';
 	}
 
 	if (strlen(name) == 0)
 	{
-	send_to_char("You have to ban SOMETHING.\n\r",ch);
-	return;
+		send_to_char("You have to ban SOMETHING.\n\r",ch);
+		return;
 	}
 
 	prev = NULL;
@@ -215,19 +215,19 @@ void ban_site(CHAR_DATA *ch, char *argument, bool fPerm)
 	{
 		if (!str_cmp(name,pban->name))
 		{
-		if (pban->level > get_trust(ch))
-		{
+			if (pban->level > get_trust(ch))
+			{
 				send_to_char( "That ban was set by a higher power.\n\r", ch );
 				return;
-		}
-		else
-		{
-		if (prev == NULL)
-			ban_list = pban->next;
-		else
-			prev->next = pban->next;
-		free_ban(pban);
-		}
+			}
+			else
+			{
+				if (prev == NULL)
+					ban_list = pban->next;
+				else
+					prev->next = pban->next;
+				free_ban(pban);
+			}
 		}
 	}
 
@@ -239,11 +239,11 @@ void ban_site(CHAR_DATA *ch, char *argument, bool fPerm)
 	pban->ban_flags = type;
 
 	if (prefix)
-	SET_BIT(pban->ban_flags,BAN_PREFIX);
+		SET_BIT(pban->ban_flags,BAN_PREFIX);
 	if (suffix)
-	SET_BIT(pban->ban_flags,BAN_SUFFIX);
+		SET_BIT(pban->ban_flags,BAN_SUFFIX);
 	if (fPerm)
-	SET_BIT(pban->ban_flags,BAN_PERMANENT);
+		SET_BIT(pban->ban_flags,BAN_PERMANENT);
 
 	pban->next  = ban_list;
 	ban_list    = pban;
@@ -264,7 +264,7 @@ void do_permban(CHAR_DATA *ch, char *argument)
 
 void do_allow( CHAR_DATA *ch, char *argument )                        
 {
-	char arg[MAX_INPUT_LENGTH];
+	char arg[MIL]={'\0'};
 	BAN_DATA *prev;
 	BAN_DATA *curr;
 

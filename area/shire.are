@@ -584,9 +584,9 @@ jewelry G AB
 0 0 0 0 0
 20 30 1660 P
 A
-1 -1
-A
 5 2
+A
+1 -1
 #1106
 elven spear~
 an elven spear~
@@ -596,9 +596,9 @@ weapon G AN
 staff 2 8 thrust 0
 16 50 500 P
 A
-18 2
-A
 19 2
+A
+18 2
 #1107
 mithril battle axe~
 a mithril battle axe~
@@ -608,9 +608,9 @@ weapon A AN
 axe 2 8 chop 0
 17 120 1440 P
 A
-19 2
-A
 18 2
+A
+19 2
 #1108
 headband inspired wisdom~
 headband of Inspired Wisdom (+2)~
@@ -690,9 +690,9 @@ weapon 0 AN
 dagger 2 4 pierce 0
 6 10 480 P
 A
-19 1
-A
 18 1
+A
+19 1
 #1117
 club heavy thain~
 the Thain's club~

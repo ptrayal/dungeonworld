@@ -202,9 +202,9 @@ weapon 0 AN
 sword 2 7 slash 0
 15 10 1510 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5102
 whip snake two-headed~
 a snake headed whip~
@@ -214,9 +214,9 @@ weapon G AN
 whip 2 6 whip 0
 11 10 920 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5103
 whip snake three-headed~
 a snake headed whip~
@@ -226,9 +226,9 @@ weapon G AN
 whip 2 7 whip 0
 15 10 1020 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5104
 whip snake four-headed~
 a snake headed whip~
@@ -238,9 +238,9 @@ weapon AG AN
 whip 4 5 whip 0
 24 10 1530 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5105
 longsword black~
 a black longsword~
@@ -250,9 +250,9 @@ weapon G AN
 sword 3 6 slash 0
 21 0 2100 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5106
 whip snake five-headed~
 a snake headed whip~
@@ -262,9 +262,9 @@ weapon GJ AN
 whip 3 6 whip 0
 14 0 10 P
 A
-19 2
-A
 18 2
+A
+19 2
 #5107
 whip snake six-headed~
 a snake headed whip~
@@ -274,9 +274,9 @@ weapon AGJ AN
 whip 4 5 whip H
 13 0 0 P
 A
-19 2
-A
 18 2
+A
+19 2
 #5108
 bracer iron~
 an iron bracer~
@@ -332,9 +332,9 @@ weapon GJ AN
 dagger 4 6 stab 0
 30 20 3300 P
 A
-18 3
-A
 19 3
+A
+18 3
 #5114
 hat green~
 a small bright green hat~
@@ -857,12 +857,12 @@ gate lies open to the west allowing entrance into the city.
 ~
 0 9 0
 E
-gate~
-A large adamantite gate with giant spider shaped emblems stands here.
-~
-E
 hole~
 A small hole that looks to have been sealed at one time.
+~
+E
+gate~
+A large adamantite gate with giant spider shaped emblems stands here.
 ~
 D3
 A huge gate opens to the west allowing entrance into the city.~

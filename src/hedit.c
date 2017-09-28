@@ -27,7 +27,7 @@ const struct olc_cmd_type hedit_table[] =
 
 	{	"keyword",	hedit_keyword	},
 	{	"texto",	hedit_text	},
-	{	"new",		hedit_new	},
+	{	"create",	hedit_new	},
 	{	"nivel",	hedit_level	},
 	{	"commands",	show_commands	},
 	{	"delete",	hedit_delete	},
@@ -123,8 +123,8 @@ HEDIT(hedit_new)
 
 	if ( IS_NULLSTR(argument) )
 	{
-		send_to_char( "Sintaxis : new [name]\n\r", ch );
-		send_to_char( "           new [area] [name]\n\r", ch );
+		send_to_char( "Syntax : create [name]\n\r", ch );
+		send_to_char( "         create [area] [name]\n\r", ch );
 		return FALSE;
 	}
 

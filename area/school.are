@@ -28,9 +28,9 @@ blob~
 the blob~
 The blob is here, waiting to eat you up.
 ~
-He is big, he is bad.  You don't want to fight him when he isn't chained up.
-Perhaps now would be a good time to flee from him!!!  If you don't flee, you
-would really suffer the consequences.
+He is big, he is bad.  You don't want to fight him when he isn't chained
+up.  Perhaps now would be a good time to flee from him!!!  If you don't
+flee, you would really suffer the consequences.  
 ~
 unique~
 ABG C 0 0
@@ -164,11 +164,11 @@ A lizard slithers up to you.
 It smiles at you, and tries to eat your leg.
 ~
 lizard~
-ADGU 0 -100 0
-2 0 2d2+20 1d1+99 1d4+1 bite
-8 8 8 10
+AGU 0 -100 0
+2 0 4d8+2 1873d1873+99 0d0+5 bite
+7 7 7 9
 R 0 L I
-stand stand either 0
+stand stand either 346
 AGc ACDEFHKQV small flesh
 #3711
 boar~

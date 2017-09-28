@@ -100,14 +100,20 @@ void do_channels( CHAR_DATA *ch, char *argument)
 	send_to_char( Format("\tW| \tY%-16s \tW| \tY%s \tW|\tn\n\r", "Channel", "Status"), ch);
 	send_to_char("\tW|---------------------------|\tn\n\r",ch);
 
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Auction"), ch);
+	if (!IS_SET(ch->comm,COMM_NOAUCTION))
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
+	else
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
+
 	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Gossip"), ch);
 	if (!IS_SET(ch->comm,COMM_NOGOSSIP))
 		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
 		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Auction"), ch);
-	if (!IS_SET(ch->comm,COMM_NOAUCTION))
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Grats"), ch);
+	if (!IS_SET(ch->comm,COMM_NOGRATS))
 		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
 		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
@@ -130,8 +136,14 @@ void do_channels( CHAR_DATA *ch, char *argument)
 	else
 		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Grats"), ch);
-	if (!IS_SET(ch->comm,COMM_NOGRATS))
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Shouts"), ch);
+	if (!IS_SET(ch->comm,COMM_SHOUTSOFF))
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
+	else
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
+
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Tells"), ch);
+	if (!IS_SET(ch->comm,COMM_DEAF))
 		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
 		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
@@ -144,18 +156,6 @@ void do_channels( CHAR_DATA *ch, char *argument)
 		else
 			send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 	}
-
-	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Shouts"), ch);
-	if (!IS_SET(ch->comm,COMM_SHOUTSOFF))
-		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
-	else
-		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
-
-	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Tells"), ch);
-	if (!IS_SET(ch->comm,COMM_DEAF))
-		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
-	else
-		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
 	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Quiet Mode"), ch);
 	if (IS_SET(ch->comm,COMM_QUIET))

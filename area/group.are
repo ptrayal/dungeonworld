@@ -1,5 +1,4 @@
 #HELPS
-
 -1 'RACE HELP' 'RACE' 'RACES'~
 ROM has the following races for player characters:
   Human  the standard race
@@ -24,7 +23,7 @@ mages or thieves.
 Dwarves are very resistant to poison and disease, but cannot swim, and so
 are very vulnerable to drowning.  They recieve the berserk skill for free
 (if warriors), and can see in the dark with infravision.
-~ 
+~
 
 -1 ELF ELVES~
 Elves are slightly taller than humans, but have a much lighter build.  They
@@ -69,7 +68,7 @@ scrolls     The reading of magical scrolls and books (see 'help recite')
 staves      The use of staves and similar devices (see 'help brandish')
 wands       The use of wands and similar items (see 'help zap') 
 ~
- 
+
 -1 'GROUP HEADER'~
 The following skills and groups are available to your chacter:
 (this list may be seen again by typing list)
@@ -392,7 +391,6 @@ infravision allows monsters to be seen in the dark
 refresh     restores energy to tired adventurers
 ~
 
-
 -1 HARMFUL~
 This spell group is the opposite of healing.  The harmful spells are designed
 to tear flesh from bone, rupture arteries, and generally turn the body against
@@ -566,10 +564,10 @@ may also learn it.
 ~
 
 -1 KICK~
-Kicking allows the adventurer to receive an extra attack in combat, a powerful
-kick. However, a failed kick may throw an unwary fighter off balance.  Fighters
-and clerics are the most skilled at kicking, although thieves may also learn
-it.
+Kicking allows the adventurer to receive an extra attack in combat, a
+powerful kick.  However, a failed kick may throw an unwary fighter off
+balance.  Fighters and clerics are the most skilled at kicking, although
+thieves may also learn it.  
 ~
 
 -1 PARRY~
@@ -671,7 +669,7 @@ It allows items to be stolen from the inventory of monsters and characters,
 and even from shops!  But beware, shop keepers gaurd their merchandise 
 carefully, and attempting to steal from a character earns you a THIEF flag
 if you are caught (making you free game for killing).
-~ 
+~
 
 -1 'DETECT GOOD'~
 Syntax: cast 'detect good'
@@ -687,7 +685,6 @@ Dispel good brings forth evil energies that inflict horrific torment on
 the pure of heart.  Good-aligned characters use this dark magic at their
 peril.
 ~
-
 
 -1 'RECHARGE'~
 Syntax: cast 'recharge' <item>
@@ -828,6 +825,7 @@ ethos, and improve saving throws against all forms of magic. They may not
 be cast on others, and one person cannot carry both defenses at the same
 time.
 ~
+
 0 'GIANT STRENGTH'~
 Syntax: cast 'giant strength' <character>
  
@@ -905,5 +903,7 @@ alias ff cast 'fireball' --> ff orc will equal 'cast 'fireball' orc'
 
 Only the first word on the line will be subsituted at this time.
 ~
-0 $~
+
+-1 $~
+
 #$

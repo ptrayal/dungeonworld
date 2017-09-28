@@ -262,7 +262,7 @@ void save_mobile( FILE *fp, MOB_INDEX_DATA *pMobIndex )
  ****************************************************************************/
 void save_mobiles( FILE *fp, AREA_DATA *pArea )
 {
-	int i;
+	int i = 0;
 	MOB_INDEX_DATA *pMob;
 
 	fprintf( fp, "#MOBILES\n" );
@@ -447,7 +447,7 @@ void save_object( FILE *fp, OBJ_INDEX_DATA *pObjIndex )
  ****************************************************************************/
 void save_objects( FILE *fp, AREA_DATA *pArea )
 {
-	int i;
+	int i = 0;
 	OBJ_INDEX_DATA *pObj;
 
 	fprintf( fp, "#OBJECTS\n" );
@@ -476,8 +476,8 @@ void save_rooms( FILE *fp, AREA_DATA *pArea )
 	ROOM_INDEX_DATA *pRoomIndex;
 	EXTRA_DESCR_DATA *pEd;
 	EXIT_DATA *pExit;
-	int iHash;
-	int door;
+	int iHash = 0;
+	int door = 0;
 
 	fprintf( fp, "#ROOMS\n" );
 	for( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )

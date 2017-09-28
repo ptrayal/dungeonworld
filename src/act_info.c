@@ -84,40 +84,56 @@ char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 
 	buf[0] = '\0';
 
-	if ((fShort && (IS_NULLSTR(obj->short_descr)))
-	||  (IS_NULLSTR(obj->description)))
-	return buf;
+	if ((fShort && (IS_NULLSTR(obj->short_descr))) ||  (IS_NULLSTR(obj->description)))
+		return buf;
 
 	if ( IS_OBJ_STAT(obj, ITEM_INVIS)     )
 		strcat( buf, "\tW(\tnInvis\tW)\tn "     );
 	if ( IS_AFFECTED(ch, AFF_DETECT_EVIL) && IS_OBJ_STAT(obj, ITEM_EVIL)   )
-		strcat( buf, "\tW(\tRRed Aura\tW)\tn "  );
+		strcat( buf, "\tW(\tREvil\tW)\tn "  );
 	if (IS_AFFECTED(ch, AFF_DETECT_GOOD) &&  IS_OBJ_STAT(obj,ITEM_BLESS))
-		strcat(buf,"\tW(\tBBlue Aura\tW)\tn "	);
+		strcat(buf,"\tW(\tBBlessed\tW)\tn "	);
 	if ( IS_AFFECTED(ch, AFF_DETECT_MAGIC) && IS_OBJ_STAT(obj, ITEM_MAGIC) )
 		strcat( buf, "\tW(\tn\tWMagical\tW)\tn "   );
 	if ( IS_OBJ_STAT(obj, ITEM_GLOW) )
-		strcat( buf, "\tW(\tn\tYGlowing\tW)\tn "   );
+		strcat( buf, "\tW(\tn\tYGlows\tW)\tn "   );
 	if ( IS_OBJ_STAT(obj, ITEM_HUM) )
-		strcat( buf, "\tW(\tnHumming\tW)\tn "   );
+		strcat( buf, "\tW(\tnHums\tW)\tn "   );
 
 	if ( fShort )
 	{
-	if ( !IS_NULLSTR(obj->short_descr))
-		strcat( buf, obj->short_descr );
+		if ( !IS_NULLSTR(obj->short_descr))
+			{
+				strcat( buf, obj->short_descr );
+			}
 	}
 	else
 	{
-	if ( !IS_NULLSTR(obj->description))
-		strcat( buf, obj->description );
+		if ( !IS_NULLSTR(obj->description))
+			{
+				strcat( buf, obj->description );
+			}
 	}
+
+	// If skilled in smithing, sees the damage of a weapon.
+	if ( get_skill(ch,gsn_smithing > 0) )
+	{
+		switch ( obj->item_type )
+		{
+			case ITEM_WEAPON:
+				strcat(buf, Format(" (%dd%d)", obj->value[1],obj->value[2]));
+				break;
+			default:
+				break;
+		}
+	}
+
 
 	if (strlen(buf)<=0)
 		strcpy(buf, Format("This object has no description(Virtual Number: %d). Please inform the staff immediately", obj->pIndexData->vnum));
- 
+
 	return buf;
 }
-
 
 
 /*
@@ -143,18 +159,20 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	/*
 	 * Alloc space for output lines.
 	 */
-	 output = new_buf();
+	output = new_buf();
 
-	 for ( obj = list; obj != NULL; obj = obj->next_content )
+	for ( obj = list; obj != NULL; obj = obj->next_content )
+	{
 		count++;
-	 ALLOC_DATA(prgpstrShow, char*, (count *sizeof(char*)));
-	 ALLOC_DATA(prgnShow, int, count);
+	}
+	ALLOC_DATA(prgpstrShow, char*, (count *sizeof(char*)));
+	ALLOC_DATA(prgnShow, int, count);
 	
 	/*
 	 * Format the list of objects.
 	 */
-	 for ( obj = list; obj != NULL; obj = obj->next_content )
-	 { 
+	for ( obj = list; obj != NULL; obj = obj->next_content )
+	{ 
 		if ( obj->wear_loc == WEAR_NONE && can_see_obj( ch, obj )) 
 		{
 			pstrShow = format_obj_to_char( obj, ch, fShort );
@@ -181,20 +199,20 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 		/*
 		 * Couldn't combine, or didn't want to.
 		 */
-		 if ( !fCombine )
-		 {
-			prgpstrShow [nShow] = str_dup( pstrShow );
-			prgnShow    [nShow] = 1;
-			nShow++;
-		 }
+			if ( !fCombine )
+			{
+				prgpstrShow [nShow] = str_dup( pstrShow );
+				prgnShow    [nShow] = 1;
+				nShow++;
+			}
 		}
 	}
 
 	/*
 	 * Output the formatted list.
 	 */
-	 for ( iShow = 0; iShow < nShow; iShow++ )
-	 {
+	for ( iShow = 0; iShow < nShow; iShow++ )
+	{
 		if (prgpstrShow[iShow][0] == '\0')
 		{
 			PURGE_DATA(prgpstrShow[iShow]);
@@ -216,34 +234,33 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 		add_buf(output,prgpstrShow[iShow]);
 		add_buf(output,"\n\r");
 		PURGE_DATA( prgpstrShow[iShow] );
-	 }
+	}
 
-	 if ( fShowNothing && nShow == 0 )
-	 {
+	if ( fShowNothing && nShow == 0 )
+	{
 		if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
+		{
 			send_to_char( "     ", ch );
+		}
 		send_to_char( "Nothing.\n\r", ch );
-	 }
-	 page_to_char(buf_string(output),ch);
+	}
+	page_to_char(buf_string(output),ch);
 
 	/*
 	 * Clean up.
 	 */
-	 free_buf(output);
-	 PURGE_DATA( prgpstrShow );
-	 PURGE_DATA( prgnShow );
+	free_buf(output);
+	PURGE_DATA( prgpstrShow );
+	PURGE_DATA( prgnShow );
 
-	 return;
-	}
-
+	return;
+}
 
 
 void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
 {
 	char buf[MSL]={'\0'};
 	char message[MSL]={'\0'};
-
-	buf[0] = '\0';
 
 	if ( IS_SET(victim->comm,COMM_AFK	  )   ) strcat( buf, "[AFK] "	     );
 	if ( IS_AFFECTED(victim, AFF_INVISIBLE)   ) strcat( buf, "(Invis) "      );
@@ -391,8 +408,8 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 {
 	char buf[MSL]={'\0'};
 	OBJ_DATA *obj;
-	int iWear;
-	int percent;
+	int iWear = 0;
+	int percent = 0;
 	bool found = FALSE;
 
 	if ( can_see( victim, ch ) )
@@ -450,7 +467,7 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 			if ( !found )
 			{
 				send_to_char( "\n\r", ch );
-				act( "$N is using:", ch, NULL, victim, TO_CHAR );
+				act( "\tW$N has equipped\tn:", ch, NULL, victim, TO_CHAR );
 				found = TRUE;
 			}
 			send_to_char( where_name[iWear], ch );
@@ -609,7 +626,7 @@ void do_autolist(CHAR_DATA *ch, char *argument)
 		return;
 
 	send_to_char("\tW|---------------------------|\tn\n\r",ch);
-	send_to_char( Format("\tW| \tY%-16s \tW| \tY%s \tW|\tn\n\r", "Action", "Status"), ch);
+	send_to_char( Format("\tW| \tY%-16s \tW| \tY%s \tW|\tn\n\r", "Config", "Status"), ch);
 	send_to_char("\tW|---------------------------|\tn\n\r",ch);
 
 	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Autoassist"), ch);
@@ -648,29 +665,17 @@ void do_autolist(CHAR_DATA *ch, char *argument)
 	else
 		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Compact Mode"), ch);
-	if (IS_SET(ch->comm,COMM_COMPACT))
-		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
-	else
-		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
-
-	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Prompt"), ch);
-	if (IS_SET(ch->comm,COMM_PROMPT))
-		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
-	else
-		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
-
 	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Combine Items"), ch);
 	if (IS_SET(ch->comm,COMM_COMBINE))
 		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
 		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
-	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Summonable"), ch);
-	if (IS_SET(ch->act,PLR_NOSUMMON))
-		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "YES"), ch);
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Compact Mode"), ch);
+	if (IS_SET(ch->comm,COMM_COMPACT))
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
 	else
-		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "NO"), ch);
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
 
 	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Corpse Safe"), ch);
 	if (!IS_SET(ch->act,PLR_CANLOOT))
@@ -684,6 +689,24 @@ void do_autolist(CHAR_DATA *ch, char *argument)
 	else
 		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "NO"), ch);
 
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Prompt"), ch);
+	if (IS_SET(ch->comm,COMM_PROMPT))
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "ON"), ch);
+	else
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "OFF"), ch);
+
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Summonable"), ch);
+	if (IS_SET(ch->act,PLR_NOSUMMON))
+		send_to_char( Format(" \tG%-6s\tn \tW|\tn\n\r", "YES"), ch);
+	else
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "NO"), ch);
+
+	send_to_char( Format("\tW|\tn %-16s \tW|\tn", "Wimpy"), ch);
+	if (ch->wimpy > 0)
+		send_to_char( Format(" \tG%-6d\tn \tW|\tn\n\r", ch->wimpy), ch);
+	else
+		send_to_char( Format(" \tR%-6s\tn \tW|\tn\n\r", "Zero"), ch);
+
 	send_to_char("\tW|---------------------------|\tn\n\r",ch);
 }
 
@@ -694,12 +717,12 @@ void do_autoassist(CHAR_DATA *ch, char *argument)
 	
 	if (IS_SET(ch->act,PLR_AUTOASSIST))
 	{
-		send_to_char("Autoassist removed.\n\r",ch);
+		send_to_char("\tW[\tRAutoAssist\tW]\tn is turned off.\n\r",ch);
 		REMOVE_BIT(ch->act,PLR_AUTOASSIST);
 	}
 	else
 	{
-		send_to_char("You will now assist when needed.\n\r",ch);
+		send_to_char("\tW[\tRAutoAssist\tW]\tn is turned on.\n\r",ch);
 		SET_BIT(ch->act,PLR_AUTOASSIST);
 	}
 }
@@ -711,12 +734,12 @@ void do_autoexit(CHAR_DATA *ch, char *argument)
 
 	if (IS_SET(ch->act,PLR_AUTOEXIT))
 	{
-		send_to_char("Exits will no longer be displayed.\n\r",ch);
+		send_to_char("\tW[\tRAutoexits\tW]\tn is turned off.  Exits will no longer be displayed.\n\r",ch);
 		REMOVE_BIT(ch->act,PLR_AUTOEXIT);
 	}
 	else
 	{
-		send_to_char("Exits will now be displayed.\n\r",ch);
+		send_to_char("\tW[\tRAutoexits\tW]\tn is turned on.  Exits will now be displayed.\n\r",ch);
 		SET_BIT(ch->act,PLR_AUTOEXIT);
 	}
 }
@@ -728,12 +751,12 @@ void do_autogold(CHAR_DATA *ch, char *argument)
 
 	if (IS_SET(ch->act,PLR_AUTOGOLD))
 	{
-		send_to_char("Autogold removed.\n\r",ch);
+		send_to_char("\tW[\tRAutogold\tW]\tn is turned off.\n\r",ch);
 		REMOVE_BIT(ch->act,PLR_AUTOGOLD);
 	}
 	else
 	{
-		send_to_char("Automatic gold looting set.\n\r",ch);
+		send_to_char("\tW[\tRAutogold\tW]\tn is turned on.  Gold will be looted automatically.\n\r",ch);
 		SET_BIT(ch->act,PLR_AUTOGOLD);
 	}
 }
@@ -745,12 +768,12 @@ void do_autoloot(CHAR_DATA *ch, char *argument)
 
 	if (IS_SET(ch->act,PLR_AUTOLOOT))
 	{
-		send_to_char("Autolooting removed.\n\r",ch);
+		send_to_char("\tW[\tRAutoloot\tW]\tn is turned off.\n\r",ch);
 		REMOVE_BIT(ch->act,PLR_AUTOLOOT);
 	}
 	else
 	{
-		send_to_char("Automatic corpse looting set.\n\r",ch);
+		send_to_char("\tW[\tRAutogold\tW]\tn is turned off.\n\r",ch);
 		SET_BIT(ch->act,PLR_AUTOLOOT);
 	}
 }
@@ -762,12 +785,12 @@ void do_autosac(CHAR_DATA *ch, char *argument)
 
 	if (IS_SET(ch->act,PLR_AUTOSAC))
 	{
-		send_to_char("Autosacrificing removed.\n\r",ch);
+		send_to_char("\tW[\tRAutosac\tW]\tn is turned off. Corpses will not be automatically sacrificed.\n\r",ch);
 		REMOVE_BIT(ch->act,PLR_AUTOSAC);
 	}
 	else
 	{
-		send_to_char("Automatic corpse sacrificing set.\n\r",ch);
+		send_to_char("\tW[\tRAutosac\tW]\tn is turned on. Corpses will be automatically sacrificed.\n\r",ch);
 		SET_BIT(ch->act,PLR_AUTOSAC);
 	}
 }
@@ -779,12 +802,12 @@ void do_autosplit(CHAR_DATA *ch, char *argument)
 
 	if (IS_SET(ch->act,PLR_AUTOSPLIT))
 	{
-		send_to_char("Autosplitting removed.\n\r",ch);
+		send_to_char("\tW[\tRAutosplit\tW]\tn is turned off.\n\r",ch);
 		REMOVE_BIT(ch->act,PLR_AUTOSPLIT);
 	}
 	else
 	{
-		send_to_char("Automatic gold splitting set.\n\r",ch);
+		send_to_char("\tW[\tRAutosplit\tW]\tn is turned on.  Gold will split with party members.\n\r",ch);
 		SET_BIT(ch->act,PLR_AUTOSPLIT);
 	}
 }
@@ -793,12 +816,12 @@ void do_brief(CHAR_DATA *ch, char *argument)
 {
 	if (IS_SET(ch->comm,COMM_BRIEF))
 	{
-		send_to_char("Full descriptions activated.\n\r",ch);
+		send_to_char("\tW[\tRBrief\tW]\tn is turned off.  Full descriptions activated.\n\r",ch);
 		REMOVE_BIT(ch->comm,COMM_BRIEF);
 	}
 	else
 	{
-		send_to_char("Short descriptions activated.\n\r",ch);
+		send_to_char("\tW[\tRBrief\tW]\tn is turned on.  Short descriptions activated.\n\r",ch);
 		SET_BIT(ch->comm,COMM_BRIEF);
 	}
 }
@@ -807,12 +830,12 @@ void do_compact(CHAR_DATA *ch, char *argument)
 {
 	if (IS_SET(ch->comm,COMM_COMPACT))
 	{
-		send_to_char("Compact mode removed.\n\r",ch);
+		send_to_char("\tW[\tRCompact\tW]\tn mode is turned off.\n\r",ch);
 		REMOVE_BIT(ch->comm,COMM_COMPACT);
 	}
 	else
 	{
-		send_to_char("Compact mode set.\n\r",ch);
+		send_to_char("\tW[\tRCompact\tW]\tn is turned on.\n\r",ch);
 		SET_BIT(ch->comm,COMM_COMPACT);
 	}
 }
@@ -839,12 +862,12 @@ void do_prompt(CHAR_DATA *ch, char *argument)
 	{
 		if (IS_SET(ch->comm,COMM_PROMPT))
 		{
-			send_to_char("You will no longer see prompts.\n\r",ch);
+			send_to_char("\tW[\tRPrompt\tW]\tn is turned off.  You will no longer see the prompt.\n\r",ch);
 			REMOVE_BIT(ch->comm,COMM_PROMPT);
 		}
 		else
 		{
-			send_to_char("You will now see prompts.\n\r",ch);
+			send_to_char("\tW[\tRPrompt\tW]\tn is turned on.\n\r",ch);
 			SET_BIT(ch->comm,COMM_PROMPT);
 		}
 		return;
@@ -865,7 +888,7 @@ void do_prompt(CHAR_DATA *ch, char *argument)
 	
 	PURGE_DATA( ch->prompt );
 	ch->prompt = str_dup( buf );
-	send_to_char( Format("Prompt set to %s\n\r",ch->prompt), ch);
+	send_to_char( Format("\tW[\tRCompact\tW]\tn set to %s\n\r",ch->prompt), ch);
 	return;
 }
 
@@ -959,7 +982,8 @@ void do_look( CHAR_DATA *ch, char *argument )
 	OBJ_DATA *obj;
 	char *pdesc;
 	int door = 0;
-	int number = 0,count = 0;
+	int number = 0;
+	int count = 0;
 
 	if ( ch->desc == NULL )
 		return;
@@ -991,7 +1015,6 @@ void do_look( CHAR_DATA *ch, char *argument )
 	argument = one_argument( argument, arg1 );
 	argument = one_argument( argument, arg2 );
 	number = number_argument(arg1,arg3);
-	count = 0;
 
 	if ( IS_NULLSTR(arg1) || !str_cmp( arg1, "auto" ) )
 	{
@@ -1150,11 +1173,13 @@ void do_look( CHAR_DATA *ch, char *argument )
 					}
 
 					if ( is_name( arg3, obj->name ) )
-						if (++count == number)
 						{
-							send_to_char( obj->description, ch );
-							send_to_char("\n\r",ch);
-							return;
+							if (++count == number)
+								{
+									send_to_char( obj->description, ch );
+									send_to_char("\n\r",ch);
+									return;
+								}
 						}
 					}
 				}
@@ -1359,9 +1384,14 @@ void do_worth( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
-	send_to_char( Format("You have %ld gold, %ld silver, and %d experience (%d exp to level).\n\r",	ch->gold, ch->silver, ch->exp,
+	send_to_char(Format("\tW[\tR+\tW]\tn\tG=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$\tW[\tR+\tW]\tn\n\r"), ch);
+	
+	send_to_char(Format("\tW[\tR+\tW]\tn Gold: %-20ld   \tW[\tR+\tW]\tn Experience Points: %-17d \tW[\tR+\tW]\tn\n\r", ch->gold, ch->exp), ch);
+	send_to_char(Format("\tW[\tR+\tW]\tn Silver: %-20ld \tW[\tR+\tW]\tn To Next Level:     %-17d \tW[\tR+\tW]\tn\n\r", ch->silver, 
 		(ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp), ch);
-
+	
+	send_to_char(Format("\tW[\tR+\tW]\tn\tG=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$-=-$\tW[\tR+\tW]\tn\n\r"), ch);
+	
 	return;
 }
 
@@ -1371,64 +1401,48 @@ void do_score( CHAR_DATA *ch, char *argument )
 	char buf[MSL]={'\0'};
 	int i = 0;
 
-	sprintf( buf,
-		"You are %s%s, level %d, %d years old (%d hours).\n\r",
-		ch->name,
-		IS_NPC(ch) ? "" : ch->pcdata->title,
-		ch->level, get_age(ch),
-		( ch->played + (int) (current_time - ch->logon) ) / 3600);
-	send_to_char( buf, ch );
+	// Making the width for score 80 characters.
+	send_to_char("\tW[\tR+\tW]\tB=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\tW[\tR+\tW]\tn\n\r", ch);
+
+	send_to_char(Format("\tW[\tR+\tW]\tn Name: %-15s  ", ch->name), ch);
+
+	send_to_char( "\tW[\tR+\tW]\tn Alignment: ", ch );
+	if ( ch->alignment >  900 ) send_to_char( "angelic  \tW[\tR+\tW]\tn ", ch );
+	else if ( ch->alignment >  700 ) send_to_char( "saintly  \tW[\tR+\tW]\tn ", ch );
+	else if ( ch->alignment >  350 ) send_to_char( "good     \tW[\tR+\tW]\tn ",    ch );
+	else if ( ch->alignment >  100 ) send_to_char( "kind     \tW[\tR+\tW]\tn ",    ch );
+	else if ( ch->alignment > -100 ) send_to_char( "neutral  \tW[\tR+\tW]\tn ", ch );
+	else if ( ch->alignment > -350 ) send_to_char( "mean     \tW[\tR+\tW]\tn ",    ch );
+	else if ( ch->alignment > -700 ) send_to_char( "evil     \tW[\tR+\tW]\tn ",    ch );
+	else if ( ch->alignment > -900 ) send_to_char( "demonic  \tW[\tR+\tW]\tn ", ch );
+	else                             send_to_char( "satanic  \tW[\tR+\tW]\tn ", ch );
+
+	send_to_char(Format("Age: %d (%5d hrs) \tW[\tR+\tW]\tn\n\r", get_age(ch), 
+		( ch->played + (int) (current_time - ch->logon) ) / 3600), ch);
+
+	send_to_char(Format("\tW[\tR+\tW]\tn Level: %-10d      \tW[\tR+\tW]\tn Experience Points: %-7d \tW[\tR+\tW]\tn TNL: %-7d \tW[\tR+\tW]\tn\n\r", 
+		ch->level, ch->exp, 
+		(ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp), ch);
 
 	if ( get_trust( ch ) != ch->level )
 	{
-		send_to_char( Format("Trust Level: %d.\n\r", get_trust( ch )), ch );
+		send_to_char( Format("\tW[\tR+\tW]\tn Trust Level: %d.\n\r", get_trust( ch )), ch );
 	}
 
-	sprintf(buf, "Race: %s  Sex: %s  Class: %s\n\r",
-		race_table[ch->race].name,
-		ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female",
-		IS_NPC(ch) ? "mobile" : class_table[ch->iclass].name);
-	send_to_char(buf,ch);
-	
+	send_to_char(Format("\tW[\tR+\tW]\tn Class: %-10s      \tW[\tR+\tW]\tn Race: %-20s \tW[\tR+\tW]\tn Sex: %-7s \tW[\tR+\tW]\tn\n\r", IS_NPC(ch) ? "mobile" : class_table[ch->iclass].name, 
+		race_table[ch->race].name, ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female"), ch);
 
-	sprintf( buf, "You have %d/%d hit, %d/%d mana, %d/%d movement.\n\r",
-		ch->hit,  ch->max_hit,
-		ch->mana, ch->max_mana,
-		ch->move, ch->max_move);
-	send_to_char( buf, ch );
+	send_to_char( Format("\tW[\tR+\tW]\tB=-=-=-=-=-=-\tW[\tR+\tW] \tR%s \tW[\tR+\tW]\tB=-=-=-=-=-=-\tW[\tR+\tW]\tB=-=-=-=-=-=-=-=-=-=-=-=-=-=\tW[\tR+\tW]\tn\n\r", "Attributes"), ch);
 
-	send_to_char( Format("Practices: %d     Training: %d\n\r", ch->practice, ch->train), ch );
+	send_to_char( Format("\tW[\tR+\tW]\tn \tW%-12s    Cur  Max  Tmp  Total\tn     \tW[\tR+\tW]\tn                           \tW[\tR+\tW]\tn\n\r", "Attribute"), ch);
 
-	sprintf( buf,
-		"You are carrying %d/%d items with weight %ld/%d pounds.\n\r",
-		ch->carry_number, can_carry_n(ch),
-		get_carry_weight(ch) / 10, can_carry_w(ch) /10 );
-	send_to_char( buf, ch );
+	send_to_char( Format("\tW[\tR+\tW]\tn \tY%-12s\tn    %3d  %3d  %3d    %3d     \tW[\tR+\tW]\tn %s: %5d/%-5d       \tW[\tR+\tW]\tn\n\r", "Strength", ch->perm_stat[STAT_STR], pc_race_table[ch->race].max_stats[STAT_STR], (get_curr_stat(ch,STAT_STR) - ch->perm_stat[STAT_STR]), get_curr_stat(ch,STAT_STR), "Health", ch->hit, ch->max_hit), ch);
+	send_to_char( Format("\tW[\tR+\tW]\tn \tY%-12s\tn    %3d  %3d  %3d    %3d     \tW[\tR+\tW]\tn %s: %5d/%-5d         \tW[\tR+\tW]\tn\n\r", "Intelligence", ch->perm_stat[STAT_INT], pc_race_table[ch->race].max_stats[STAT_INT], (get_curr_stat(ch,STAT_INT) - ch->perm_stat[STAT_INT]), get_curr_stat(ch,STAT_INT), "Mana", ch->mana, ch->max_mana), ch);
+	send_to_char( Format("\tW[\tR+\tW]\tn \tY%-12s\tn    %3d  %3d  %3d    %3d     \tW[\tR+\tW]\tn %s: %5d/%-5d      \tW[\tR+\tW]\tn\n\r", "Wisdom", ch->perm_stat[STAT_WIS], pc_race_table[ch->race].max_stats[STAT_WIS], (get_curr_stat(ch,STAT_WIS) - ch->perm_stat[STAT_WIS]), get_curr_stat(ch,STAT_WIS), "Stamina",ch->move, ch->max_move), ch);
+	send_to_char( Format("\tW[\tR+\tW]\tn \tY%-12s\tn    %3d  %3d  %3d    %3d     \tW[\tR+\tW]\tn %s: %-2d             \tW[\tR+\tW]\tn\n\r", "Dexterity", ch->perm_stat[STAT_DEX], pc_race_table[ch->race].max_stats[STAT_DEX], (get_curr_stat(ch,STAT_DEX) - ch->perm_stat[STAT_DEX]), get_curr_stat(ch,STAT_DEX), "Trainings", ch->train), ch);
+	send_to_char( Format("\tW[\tR+\tW]\tn \tY%-12s\tn    %3d  %3d  %3d    %3d     \tW[\tR+\tW]\tn %s: %-3d            \tW[\tR+\tW]\tn\n\r", "Constitution", ch->perm_stat[STAT_CON], pc_race_table[ch->race].max_stats[STAT_CON], (get_curr_stat(ch,STAT_CON) - ch->perm_stat[STAT_CON]), get_curr_stat(ch,STAT_CON), "Practices", ch->practice), ch);
 
-	sprintf( buf,
-		"Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\n\r",
-		ch->perm_stat[STAT_STR],
-		get_curr_stat(ch,STAT_STR),
-		ch->perm_stat[STAT_INT],
-		get_curr_stat(ch,STAT_INT),
-		ch->perm_stat[STAT_WIS],
-		get_curr_stat(ch,STAT_WIS),
-		ch->perm_stat[STAT_DEX],
-		get_curr_stat(ch,STAT_DEX),
-		ch->perm_stat[STAT_CON],
-		get_curr_stat(ch,STAT_CON) );
-	send_to_char( buf, ch );
-
-	send_to_char( Format("You have scored %d exp, and have %ld gold and %ld silver coins.\n\r", ch->exp,  ch->gold, ch->silver), ch );
-
-	/* RT shows exp to level */
-	if (!IS_NPC(ch) && ch->level < LEVEL_HERO)
-	{
-		sprintf (buf, "You need %d exp to level.\n\r", ((ch->level + 1) * exp_per_level(ch,ch->pcdata->points) - ch->exp));
-		send_to_char( buf, ch );
-	}
-
-	send_to_char( Format("Wimpy: %d\n\r", ch->wimpy), ch );
+	send_to_char("\tW[\tR+\tW]\tB=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\tW[\tR+\tW]\tn\n\r", ch);
 
 	if ( !IS_NPC(ch) && ch->pcdata->condition[COND_DRUNK]   > 10 )
 		send_to_char( "You are drunk.\n\r",   ch );
@@ -1467,7 +1481,6 @@ void do_score( CHAR_DATA *ch, char *argument )
 		send_to_char( "You are fighting.\n\r",		ch );
 		break;
 	}
-
 
 	/* print AC values */
 	if (ch->level >= 25)
@@ -1523,7 +1536,6 @@ void do_score( CHAR_DATA *ch, char *argument )
 		send_to_char(buf,ch);
 	}
 
-
 	/* RT wizinvis and holy light */
 	if ( IS_IMMORTAL(ch))
 	{
@@ -1546,18 +1558,6 @@ void do_score( CHAR_DATA *ch, char *argument )
 	}
 
 	send_to_char( Format("Hitroll: %d  Damroll: %d.\n\r", GET_HITROLL(ch), GET_DAMROLL(ch)), ch );
-	send_to_char( Format("Alignment: %d.  ", ch->alignment), ch );
-	
-	send_to_char( "You are ", ch );
-	if ( ch->alignment >  900 ) send_to_char( "angelic.\n\r", ch );
-	else if ( ch->alignment >  700 ) send_to_char( "saintly.\n\r", ch );
-	else if ( ch->alignment >  350 ) send_to_char( "good.\n\r",    ch );
-	else if ( ch->alignment >  100 ) send_to_char( "kind.\n\r",    ch );
-	else if ( ch->alignment > -100 ) send_to_char( "neutral.\n\r", ch );
-	else if ( ch->alignment > -350 ) send_to_char( "mean.\n\r",    ch );
-	else if ( ch->alignment > -700 ) send_to_char( "evil.\n\r",    ch );
-	else if ( ch->alignment > -900 ) send_to_char( "demonic.\n\r", ch );
-	else                             send_to_char( "satanic.\n\r", ch );
 
 	if (IS_SET(ch->comm,COMM_SHOW_AFFECTS))
 		do_function(ch, &do_affects, "");
@@ -1674,7 +1674,7 @@ void do_help( CHAR_DATA *ch, char *argument )
 	bool found = FALSE;
 	char argall[MIL] = {'\0'};
 	char argone[MIL] = {'\0'};
-	int level;
+	int level = 0;
 	char nohelp[MSL]={'\0'};
 
 	output = new_buf();
@@ -2036,6 +2036,9 @@ void do_inventory( CHAR_DATA *ch, char *argument )
 {
 	send_to_char( "\tWYou are carrying:\tn\n\r", ch );
 	show_list_to_char( ch->carrying, ch, TRUE, TRUE );
+
+	send_to_char(Format("\n\r\tYItems Carried: %d out of %d.\tn",ch->carry_number, can_carry_n(ch) ), ch);
+
 	return;
 }
 
@@ -2084,7 +2087,7 @@ void do_compare( CHAR_DATA *ch, char *argument )
 
 	argument = one_argument( argument, arg1 );
 	argument = one_argument( argument, arg2 );
-	if ( arg1[0] == '\0' )
+	if ( IS_NULLSTR(arg1) )
 	{
 		send_to_char( "Compare what to what?\n\r", ch );
 		return;
@@ -2096,7 +2099,7 @@ void do_compare( CHAR_DATA *ch, char *argument )
 		return;
 	}
 
-	if (arg2[0] == '\0')
+	if (IS_NULLSTR(arg2))
 	{
 		for (obj2 = ch->carrying; obj2 != NULL; obj2 = obj2->next_content)
 		{
@@ -2192,46 +2195,46 @@ void do_where( CHAR_DATA *ch, char *argument )
 
 	if ( IS_NULLSTR(arg) )
 	{
-	send_to_char( "Players near you:\n\r", ch );
-	found = FALSE;
-	for ( d = descriptor_list; d; d = d->next )
-	{
-		if ( d->connected == CON_PLAYING
-		&& ( victim = d->character ) != NULL
-		&&   !IS_NPC(victim)
-		&&   victim->in_room != NULL
-		&&   !IS_SET(victim->in_room->room_flags,ROOM_NOWHERE)
-		&&   (is_room_owner(ch,victim->in_room) 
-		||    !room_is_private(victim->in_room))
-		&&   victim->in_room->area == ch->in_room->area
-		&&   can_see( ch, victim ) )
+		send_to_char( "Players near you:\n\r", ch );
+		found = FALSE;
+		for ( d = descriptor_list; d; d = d->next )
 		{
-		found = TRUE;
-		send_to_char( Format("%-28s %s\n\r", victim->name, victim->in_room->name), ch );
+			if ( d->connected == CON_PLAYING
+				&& ( victim = d->character ) != NULL
+				&&   !IS_NPC(victim)
+				&&   victim->in_room != NULL
+				&&   !IS_SET(victim->in_room->room_flags,ROOM_NOWHERE)
+				&&   (is_room_owner(ch,victim->in_room) 
+					||    !room_is_private(victim->in_room))
+				&&   victim->in_room->area == ch->in_room->area
+				&&   can_see( ch, victim ) )
+			{
+				found = TRUE;
+				send_to_char( Format("%-28s %s\n\r", victim->name, victim->in_room->name), ch );
+			}
 		}
-	}
-	if ( !found )
-		send_to_char( "None\n\r", ch );
+		if ( !found )
+			send_to_char( "None\n\r", ch );
 	}
 	else
 	{
-	found = FALSE;
-	for ( victim = char_list; victim != NULL; victim = victim->next )
-	{
-		if ( victim->in_room != NULL
-		&&   victim->in_room->area == ch->in_room->area
-		&&   !IS_AFFECTED(victim, AFF_HIDE)
-		&&   !IS_AFFECTED(victim, AFF_SNEAK)
-		&&   can_see( ch, victim )
-		&&   is_name( arg, victim->name ) )
+		found = FALSE;
+		for ( victim = char_list; victim != NULL; victim = victim->next )
 		{
-		found = TRUE;
-		send_to_char( Format("%-28s %s\n\r", PERS(victim, ch), victim->in_room->name), ch );
-		break;
+			if ( victim->in_room != NULL
+				&&   victim->in_room->area == ch->in_room->area
+				&&   !IS_AFFECTED(victim, AFF_HIDE)
+				&&   !IS_AFFECTED(victim, AFF_SNEAK)
+				&&   can_see( ch, victim )
+				&&   is_name( arg, victim->name ) )
+			{
+				found = TRUE;
+				send_to_char( Format("%-28s %s\n\r", PERS(victim, ch), victim->in_room->name), ch );
+				break;
+			}
 		}
-	}
-	if ( !found )
-		act( "You didn't find any $T.", ch, NULL, arg, TO_CHAR );
+		if ( !found )
+			act( "You didn't find any $T.", ch, NULL, arg, TO_CHAR );
 	}
 
 	return;
@@ -2525,7 +2528,6 @@ void do_practice( CHAR_DATA *ch, char *argument )
 }
 
 
-
 /*
  * 'Wimpy' originally by Dionysos.
  */
@@ -2557,7 +2559,6 @@ void do_wimpy( CHAR_DATA *ch, char *argument )
 	send_to_char( Format("\tW[\tRWimpy\tW]\tn set at %d hit points.\n\r", wimpy), ch );
 	return;
 }
-
 
 
 void do_password( CHAR_DATA *ch, char *argument )

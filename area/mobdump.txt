@@ -1,0 +1,10 @@
+VNUM | Mob Short Name | Race | Level
+     300 | Aruncus the Druid                        | human | 13
+     301 | Sorbus the Hermit                        | human | 4
+     303 | the citizen                              | human | 6
+     304 | the citizen                              | human | 5
+     305 | Shudde-M'ell                             | human | 24
+     306 | Luxan                                    | human | 23
+     308 | the Innkeeper                            | human | 23
+     309 | the cute rabbit                          | rabbit | 1
+     350 | the pet dragon                           | dragon | 10

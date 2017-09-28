@@ -1,7 +1,7 @@
 # PLAYER
 Name Testplayer~
 Id 1366228163
-LogO 1366228203
+LogO 1506606939
 Ver 5
 Prompt <%hhp %mm %vmv> ~
 Race human~
@@ -10,7 +10,7 @@ Cla 3
 Levl 1
 Tru 0
 Sec 0
-Playd 40
+Playd 92
 Not  0 0 0 1366209212 0
 Scro 22
 Room 3700
@@ -36,7 +36,7 @@ Pnts 40
 TSex 1
 LLev 0
 HMVP 20 100 100
-Cnd  0 48 48 48
+Cnd  0 46 47 47
 Sk 1 'axe'
 Sk 1 'dagger'
 Sk 1 'flail'
@@ -72,6 +72,7 @@ Desc A war banner is on the floor here.~
 Cond 0
 Wear 0
 Cost 0
+Val  0 0 199 0 0
 End
 
 #O

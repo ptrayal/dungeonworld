@@ -61,6 +61,8 @@ GSN(gsn_staves)
 GSN(gsn_wands)
 GSN(gsn_recall)
 
+GSN(gsn_smithing)
+
 
 
 #endif

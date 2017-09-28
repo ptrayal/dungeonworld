@@ -1608,6 +1608,20 @@ Merc-based muds which wish to eliminate the built-in ability while still
 providing the spell.
 ~
 
+0 CHECK~
+This imm command is to fight cheaters.  Allow you to quick detect/compare 
+modified chars...
+
+Syntax: 'check'       display info about players of all players
+        'check stats' display info and resume stats of all players
+        'check eq'    resume eq of all players
+        'check snoop' show who snoop who ( to avoid lowest imm abuse )
+
+Use the stat command in case of doubt about someone.
+
+Coded for Fallen Angels by : Zilber laurent,Despret jerome.
+~
+
 0 'ACID BREATH' 'FIRE BREATH' 'FROST BREATH' 'GAS BREATH' 'LIGHTNING BREATH'~
 Syntax: cast 'acid breath'      <victim>
 Syntax: cast 'fire breath'      <victim>

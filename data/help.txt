@@ -16,3 +16,4 @@
 [ 7201] Rayal: olc
 [ 7201] Rayal: ITEM_WEAPON
 [ 1409] Rayal: ITEM_WEAPON
+[    1] Rayal: check

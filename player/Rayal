@@ -1,7 +1,7 @@
 # PLAYER
 Name Rayal~
 Id 1365777504
-LogO 1505497912
+LogO 1506606930
 Ver 5
 Prompt <%hhp %mm %vmv> ~
 Race human~
@@ -10,27 +10,26 @@ Cla 1
 Levl 60
 Tru 60
 Sec 9
-Playd 359881
+Playd 549539
 Not  0 0 0 1366209212 0
 Scro 22
-Room 3701
-HMV  50 50 125 125 100 100
-Gold 0
+Room 2391
+HMV  10000 10000 10025 10025 10000 10000
+Gold 1000000
 Silv 3
 Exp 1000
-Act DEFNQ~
+Act DEFGNQ~
 Comm GNO~
 Wizn A~
 Invi 0
 Pos 8
-Prac 5
+Prac 100
 Save -2
 Alig 750
 Hit 2
 Dam 8
 ACs 83 83 83 95
-Wimp 10
-Attr 13 13 16 13 13
+Attr 13 13 25 13 13
 AMod 0 2 0 0 3
 Pass Ra.FZ0d1wpmAI~
 Bin Rayal appears.~
@@ -39,7 +38,7 @@ Titl  is the Master Crafter~
 Pnts 40
 TSex 1
 LLev 1
-HMVP 50 100 100
+HMVP 10000 10000 10000
 Cnd  0 48 48 48
 Sk 100 'reserved'
 Sk 100 'acid blast'
@@ -94,6 +93,7 @@ Sk 100 'flamestrike'
 Sk 100 'fly'
 Sk 100 'floating disc'
 Sk 100 'frenzy'
+Sk 100 'gain attributes'
 Sk 100 'gate'
 Sk 100 'giant strength'
 Sk 100 'harm'
@@ -176,6 +176,7 @@ Sk 100 'scrolls'
 Sk 100 'staves'
 Sk 100 'wands'
 Sk 100 'recall'
+Sk 100 'smithing'
 Gr 'rom basics'
 Gr 'cleric basics'
 Gr 'cleric default'

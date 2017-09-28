@@ -175,9 +175,9 @@ weapon BG AN
 mace 7 6 divine A
 50 100 0 P
 A
-18 1
-A
 19 8
+A
+18 1
 #0
 
 
@@ -187,7 +187,7 @@ A
 The Void~
 You are floating in nothing.
 ~
-0 12 1
+0 12 8
 S
 #2
 Limbo~

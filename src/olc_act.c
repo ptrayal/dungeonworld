@@ -152,61 +152,80 @@ void show_flag_cmds( CHAR_DATA *ch, const struct flag_type *flag_table )
 	return;
 }
 
+int mob_round(double number)
+{
+    return (number >= 0) ? (long)(number + 0.5) : (long)(number - 0.5);
+}
 
 void mobile_balance( MOB_INDEX_DATA *pMob, sh_int type )
 {
-	sh_int level = 0;
-	sh_int pos = 0;
+	int level = 0;
+	int pos = 0;
 
 	// Easy Setting
 	if ( type == 1 )
-		level = URANGE( 1, pMob->level-10, 200 );
+		level = URANGE( 1, pMob->level, 60 );
 
 	// Medium Setting
 	else if ( type == 2 )
-		level = URANGE( 5, pMob->level, 200 );
+		level = URANGE( 10, pMob->level, 60 );
 
 	// Hard Setting
 	else
-		level = URANGE( 10, pMob->level + 10, 200 );
+		level = URANGE( 20, pMob->level + 10, 120 );
 
+	//  Number of dice
+	pMob->hit[0]		= pMob->level * 2 ;
 
-	for ( pos = 0; pos < 4; pos++ )
-		pMob->ac[pos]      = -number_range( level * 10, level * 20 );
+	// Type of dice is based on form.
+	if ( IS_SET(pMob->form,FORM_DRAGON) )
+	{
+		pMob->hit[1]		= 12;
+	}
+	else if ( IS_SET(pMob->form,FORM_CONSTRUCT) || IS_SET(pMob->form,FORM_MAGICAL_BEAST) 
+		|| IS_SET(pMob->form,FORM_MONSTROUS_HUMANOID) || IS_SET(pMob->form,FORM_OUTSIDER) )
+	{
+		pMob->hit[1]		= 10;
+	}
+	else if ( IS_SET(pMob->form,FORM_FEY))
+	{
+		pMob->hit[1]		= 6;
+	}
+	else
+	{
+		pMob->hit[1]		= 8;
+	}
 
-	pMob->wealth		= number_range( level * 60, level * 70 );
-	pMob->hitroll		= number_range( level * 3/4, level * 3/2 );
-	pMob->hit[1]		= number_range( level * 350, level * 400 );
-	pMob->hit[0]		= pMob->hit[1];
-	pMob->mana[1]		= number_range( level * 350, level * 400 );
-	pMob->mana[0]		= pMob->mana[1];
+	// Bonus Dice for HP
+	pMob->hit[2]		= pMob->level * 8 * (mob_round(pMob->level/10));
+
+	// Damage Dice calculations
 	pMob->damage[DICE_NUMBER]	= number_range( level / 6, level / 5 );
 	pMob->damage[DICE_TYPE]		= number_range( level / 6, level / 5 );
 	pMob->damage[DICE_BONUS]	= level;
 
+	// Mana Calulations
+	pMob->mana[1]		= number_range( level * 350, level * 400 );
+	pMob->mana[0]		= pMob->mana[1];
+	pMob->hitroll		= 0;
+	pMob->wealth		= number_range( level * 60, level * 70 );
 
-	// Mobiles in areas flagged as Newbie area receive 25% less HP.
+	// Set Armor classes
+	pMob->ac[AC_PIERCE] = (80 - (pMob->level-1) * 6);
+	pMob->ac[AC_BASH] = (80 - (pMob->level-1) * 6);
+	pMob->ac[AC_SLASH] = (80 - (pMob->level-1) * 6);
+	pMob->ac[AC_EXOTIC] = (100 - (pMob->level-1) * 3/2);
+
+	// Mobiles in areas flagged as Newbie area receive 25% less hit dice.
 	if ( IS_SET(pMob->act, ACT_NEWBIE)  )
 	{
-		pMob->hit[1] -= pMob->hit[0]/4;
-		pMob->hit[0] = pMob->hit[1];
+		pMob->hit[0] -= pMob->hit[0]/4;
 	}
 
-	// Mobiles in areas flagged as Hero area receive 25% more HP.
+	// Mobiles in areas flagged as Hero area receive 25% more hit dice.
 	if ( IS_SET( pMob->act, ACT_HERO) )
 	{
-		pMob->hit[1] += pMob->hit[0]/4;
-		pMob->hit[0] = pMob->hit[1];
-	}
-
-	// Mobiles in areas flagged as Warzone area receive 25% more HP.
-	if ( IS_SET( pMob->area->area_flags, AREA_WARZONE) )
-	{
-		pMob->hit[1] += pMob->hit[0] * 17/20;
-		pMob->hit[0] = pMob->hit[1];
-		pMob->damage[DICE_NUMBER]	+= 5;
-		pMob->damage[DICE_TYPE]		+= 55;
-		pMob->damage[DICE_BONUS]	+= 150;
+		pMob->hit[0] += pMob->hit[0]/4;
 	}
 
 }
@@ -3627,26 +3646,21 @@ MEDIT( medit_show )
 
 	EDIT_MOB(ch, pMob);
 
-	sprintf( buf, "Name:        [%s]\n\rArea:        [%5d] %s\n\r",
-		pMob->player_name,
-		!pMob->area ? -1        : pMob->area->vnum,
-		!pMob->area ? "No Area" : pMob->area->name );
-	send_to_char( buf, ch );
-
-	send_to_char( Format("Act:         [%s]\n\r", flag_string( act_flags, pMob->act )), ch );
-
-	sprintf( buf, "Vnum:        [%5d] Sex:   [%s]   Race: [%s]\n\r",
-		pMob->vnum,
-		pMob->sex == SEX_MALE    ? "male   " :
-		pMob->sex == SEX_FEMALE  ? "female " : 
+	send_to_char("\n\r", ch);
+	send_to_char(Format("\tY%s\tn        [\tW%5d\tn]\n\r", "Vnum:", pMob->vnum), ch);
+	send_to_char(Format("\tY%s\tn        [\tW%s\tn]\n\r", "Name:", pMob->player_name), ch);
+	send_to_char(Format("\tY%s\tn        [\tW%5d\tn] \tG%s\tn\n\r", "Area:", !pMob->area ? -1        : pMob->area->vnum,
+		!pMob->area ? "No Area" : pMob->area->name), ch);
+	send_to_char(Format("\tY%s\tn         [\tW%s\tn]\n\r", "Act:", flag_string( act_flags, pMob->act )), ch );
+	send_to_char(Format("\tY%s\tn         [\tW%s\tn]     \tY%s\tn  [\tW%4d\tn]\n\r", "Sex:",
+		pMob->sex == SEX_MALE    ? "male   " : pMob->sex == SEX_FEMALE  ? "female " : 
 		pMob->sex == 3           ? "random " : "neutral",
-		race_table[pMob->race].name );
-	send_to_char( buf, ch );
+		"Alignment:", pMob->alignment), ch);
+	send_to_char( Format("\tY%s\tn        [\tW%s\tn]\n\r", "Race:", race_table[pMob->race].name), ch );
 
 	sprintf( buf,
-		"Level:       [%2d]    Align: [%4d]      Hitroll: [%2d] Dam Type:    [%s]\n\r",
-		pMob->level,	pMob->alignment,
-		pMob->hitroll,	attack_table[pMob->dam_type].name );
+		"Level:       [%2d]    Hitroll: [%2d] Dam Type:    [%s]\n\r",
+		pMob->level, pMob->hitroll,	attack_table[pMob->dam_type].name );
 	send_to_char( buf, ch );
 
 	if ( pMob->group )
@@ -3698,9 +3712,9 @@ MEDIT( medit_show )
 		send_to_char( Format("Spec fun:    [%s]\n\r",  spec_name( pMob->spec_fun )), ch );
 	}
 
-	send_to_char( Format("Short descr: %s\n\r", pMob->short_descr), ch );
-	send_to_char( Format("Long descr:\n\r%s", pMob->long_descr), ch );
-	send_to_char( Format("Description:\n\r%s", pMob->description), ch );
+	send_to_char( Format("\tYShort description\tn: [\tW%s\tn]\n\r", pMob->short_descr), ch );
+	send_to_char( Format("\tYLong description\tn:\n\r\tW%s\tn", pMob->long_descr), ch );
+	send_to_char( Format("\tYDescription:\tn\n\r\tW%s\tn", pMob->description), ch );
 
 	if ( pMob->pShop )
 	{
@@ -4662,8 +4676,8 @@ MEDIT( medit_hitdice )
 
 	if ( IS_NULLSTR(argument) )
 	{
-	send_to_char( syntax, ch );
-	return FALSE;
+		send_to_char( syntax, ch );
+		return FALSE;
 	}
 
 	num = cp = argument;
@@ -4682,11 +4696,11 @@ MEDIT( medit_hitdice )
 	if ( *cp != '\0' ) *cp = '\0';
 
 	if ( ( !is_number( num   ) || atoi( num   ) < 1 )
-	||   ( !is_number( type  ) || atoi( type  ) < 1 ) 
-	||   ( !is_number( bonus ) || atoi( bonus ) < 0 ) )
+		||   ( !is_number( type  ) || atoi( type  ) < 1 ) 
+		||   ( !is_number( bonus ) || atoi( bonus ) < 0 ) )
 	{
-	send_to_char( syntax, ch );
-	return FALSE;
+		send_to_char( syntax, ch );
+		return FALSE;
 	}
 
 	pMob->hit[DICE_NUMBER] = atoi( num   );
