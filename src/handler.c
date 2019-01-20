@@ -16,13 +16,13 @@
  ***************************************************************************/
 
 /***************************************************************************
-*	ROM 2.4 is copyright 1993-1998 Russ Taylor			   *
-*	ROM has been brought to you by the ROM consortium		   *
-*	    Russ Taylor (rtaylor@hypercube.org)				   *
-*	    Gabrielle Taylor (gtaylor@hypercube.org)			   *
-*	    Brian Moore (zump@rom.org)					   *
-*	By using this code, you have agreed to follow the terms of the	   *
-*	ROM license, in the file Rom24/doc/rom.license			   *
+*	ROM 2.4 is copyright 1993-1998 Russ Taylor			                   *
+*	ROM has been brought to you by the ROM consortium		               *
+*	    Russ Taylor (rtaylor@hypercube.org)				                   *
+*	    Gabrielle Taylor (gtaylor@efn.org)				                   *
+*	    Brian Moore (zump@rom.org)					                       *
+*	By using this code, you have agreed to follow the terms of the	       *
+*	ROM license, in the file Rom24/doc/rom.license			               *
 ***************************************************************************/
 
 #if defined(Macintosh)
@@ -585,9 +585,11 @@ void reset_char(CHAR_DATA *ch)
 		if (obj == NULL)
 			continue;
 	for (i = 0; i < 4; i++)
+	{
 		ch->armor[i] -= apply_ac( obj, loc, i );
+	}
 
-		if (!obj->enchanted)
+	if (!obj->enchanted)
 	for ( af = obj->pIndexData->affected; af != NULL; af = af->next )
 		{
 			mod = af->modifier;
@@ -1627,13 +1629,42 @@ void unequip_char( CHAR_DATA *ch, OBJ_DATA *obj )
 	}
 
 	for (i = 0; i < 4; i++)
+	{
 		ch->armor[i]	+= apply_ac( obj, obj->wear_loc,i );
+	}
 	obj->wear_loc	 = -1;
 
 	if (!obj->enchanted)
-	for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
+	{
+		for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
+		{
+			if ( paf->location == APPLY_SPELL_AFFECT )
+			{
+				for ( lpaf = ch->affected; lpaf != NULL; lpaf = lpaf_next )
+				{
+					lpaf_next = lpaf->next;
+					if ((lpaf->type == paf->type) &&
+						(lpaf->level == paf->level) &&
+						(lpaf->location == APPLY_SPELL_AFFECT))
+					{
+						affect_remove( ch, lpaf );
+						lpaf_next = NULL;
+					}
+				}
+			}
+			else
+			{
+				affect_modify( ch, paf, FALSE );
+				affect_check(ch,paf->where,paf->bitvector);
+			}
+		}
+	}
+
+	for ( paf = obj->affected; paf != NULL; paf = paf->next )
+	{
 		if ( paf->location == APPLY_SPELL_AFFECT )
 		{
+			bug ( "Norm-Apply: %d", 0 );
 			for ( lpaf = ch->affected; lpaf != NULL; lpaf = lpaf_next )
 			{
 				lpaf_next = lpaf->next;
@@ -1641,6 +1672,8 @@ void unequip_char( CHAR_DATA *ch, OBJ_DATA *obj )
 					(lpaf->level == paf->level) &&
 					(lpaf->location == APPLY_SPELL_AFFECT))
 				{
+					bug ( "location = %d", lpaf->location );
+					bug ( "type = %d", lpaf->type );
 					affect_remove( ch, lpaf );
 					lpaf_next = NULL;
 				}
@@ -1649,38 +1682,17 @@ void unequip_char( CHAR_DATA *ch, OBJ_DATA *obj )
 		else
 		{
 			affect_modify( ch, paf, FALSE );
-			affect_check(ch,paf->where,paf->bitvector);
+			affect_check(ch,paf->where,paf->bitvector);	
 		}
-
-	for ( paf = obj->affected; paf != NULL; paf = paf->next )
-	if ( paf->location == APPLY_SPELL_AFFECT )
-	{
-		bug ( "Norm-Apply: %d", 0 );
-		for ( lpaf = ch->affected; lpaf != NULL; lpaf = lpaf_next )
-		{
-		lpaf_next = lpaf->next;
-		if ((lpaf->type == paf->type) &&
-			(lpaf->level == paf->level) &&
-			(lpaf->location == APPLY_SPELL_AFFECT))
-		{
-			bug ( "location = %d", lpaf->location );
-			bug ( "type = %d", lpaf->type );
-			affect_remove( ch, lpaf );
-			lpaf_next = NULL;
-		}
-		}
-	}
-	else
-	{
-		affect_modify( ch, paf, FALSE );
-		affect_check(ch,paf->where,paf->bitvector);	
 	}
 
 	if ( obj->item_type == ITEM_LIGHT
-	&&   obj->value[2] != 0
-	&&   ch->in_room != NULL
-	&&   ch->in_room->light > 0 )
-	--ch->in_room->light;
+		&&   obj->value[2] != 0
+		&&   ch->in_room != NULL
+		&&   ch->in_room->light > 0 )
+	{
+		--ch->in_room->light;
+	}
 
 	return;
 }

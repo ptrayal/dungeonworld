@@ -19,11 +19,8 @@
 /***************************************************************************
 *                                                                          *
 *  To use this snipet you must set the following line in the "check" help  *
-*                                                                          *
 *    Coded for Fallen Angels by : Zilber laurent,Despret jerome.           *
-*                                                                          *
 *  And send a mail to say you use it ( feel free to comment ) at :         *
-*                                                                          *
 *  [despret@ecoledoc.lip6.fr] or/and at [loran@hotmail.com]                *
 ****************************************************************************/
 

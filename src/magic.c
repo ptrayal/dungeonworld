@@ -16,13 +16,13 @@
  ***************************************************************************/
 
 /***************************************************************************
-*	ROM 2.4 is copyright 1993-1998 Russ Taylor			   *
-*	ROM has been brought to you by the ROM consortium		   *
-*	    Russ Taylor (rtaylor@hypercube.org)				   *
-*	    Gabrielle Taylor (gtaylor@hypercube.org)			   *
-*	    Brian Moore (zump@rom.org)					   *
-*	By using this code, you have agreed to follow the terms of the	   *
-*	ROM license, in the file Rom24/doc/rom.license			   *
+* ROM 2.4 is copyright 1993-1998 Russ Taylor                               *
+* ROM has been brought to you by the ROM consortium                        *
+*     Russ Taylor (rtaylor@hypercube.org)                                  *
+*     Gabrielle Taylor (gtaylor@efn.org)                                   *
+*     Brian Moore (zump@rom.org)                                           *
+* By using this code, you have agreed to follow the terms of the           *
+* ROM license, in the file Rom24/doc/rom.license                           *
 ***************************************************************************/
 
 #if defined(Macintosh)
@@ -1699,8 +1699,10 @@ void spell_curse( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 		act("$p glows with a malevolent aura.",ch,obj,NULL,TO_ALL);
 
 	if (obj->wear_loc != WEAR_NONE)
+	{
 		ch->saving_throw += 1;
-		return;
+	}
+	return;
 	}
 
 	/* character curses */
@@ -2216,18 +2218,20 @@ void spell_enchant_armor( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 	/* find the bonuses */
 
 	if (!obj->enchanted)
+	{
 		for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
-		{
-			if ( paf->location == APPLY_AC )
 			{
-				ac_bonus = paf->modifier;
-				ac_found = TRUE;
-				fail += 5 * (ac_bonus * ac_bonus);
+				if ( paf->location == APPLY_AC )
+				{
+					ac_bonus = paf->modifier;
+					ac_found = TRUE;
+					fail += 5 * (ac_bonus * ac_bonus);
+				}
+	
+			else  /* things get a little harder */
+				fail += 20;
 			}
-
-		else  /* things get a little harder */
-			fail += 20;
-		}
+	}
 
 		for ( paf = obj->affected; paf != NULL; paf = paf->next )
 		{
@@ -3301,35 +3305,37 @@ void spell_identify( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 	}
 
 	if (!obj->enchanted)
+	{
 		for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
-		{
-			if ( paf->location != APPLY_NONE && paf->modifier != 0 )
 			{
-				send_to_char( Format("Affects %s by %d.\n\r", affect_loc_name( paf->location ), paf->modifier), ch);
-				if (paf->bitvector)
+				if ( paf->location != APPLY_NONE && paf->modifier != 0 )
 				{
-					switch(paf->where)
+					send_to_char( Format("Affects %s by %d.\n\r", affect_loc_name( paf->location ), paf->modifier), ch);
+					if (paf->bitvector)
 					{
-						case TO_AFFECTS:
-						sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
-						break;
-						case TO_OBJECT:
-						sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
-						break;
-						case TO_IMMUNE:
-						sprintf(buf,"Provides immunity to %s.\n", imm_bit_name(paf->bitvector));
-						break;
-						case TO_RESIST:
-						sprintf(buf,"Provides resistance to %s.\n\r", imm_bit_name(paf->bitvector));
-						break;
-						case TO_VULN:
-						sprintf(buf,"Adds vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
-						break;
-						default:
-						sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
-						break;
+						switch(paf->where)
+						{
+							case TO_AFFECTS:
+							sprintf(buf,"Adds %s affect.\n", affect_bit_name(paf->bitvector));
+							break;
+							case TO_OBJECT:
+							sprintf(buf,"Adds %s object flag.\n", extra_bit_name(paf->bitvector));
+							break;
+							case TO_IMMUNE:
+							sprintf(buf,"Provides immunity to %s.\n", imm_bit_name(paf->bitvector));
+							break;
+							case TO_RESIST:
+							sprintf(buf,"Provides resistance to %s.\n\r", imm_bit_name(paf->bitvector));
+							break;
+							case TO_VULN:
+							sprintf(buf,"Adds vulnerability to %s.\n\r", imm_bit_name(paf->bitvector));
+							break;
+							default:
+							sprintf(buf,"Unknown bit %d: %d\n\r", paf->where,paf->bitvector);
+							break;
+						}
+						send_to_char( buf, ch );
 					}
-					send_to_char( buf, ch );
 				}
 			}
 		}

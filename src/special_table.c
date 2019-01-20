@@ -65,3 +65,4 @@ AFF_INFRARED},
 {-4,	4,	4,	6,	2,	8,	9,
 AFF_INFRARED},
 };
+

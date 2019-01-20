@@ -87,27 +87,29 @@ void save_area_list()
 	}
 	else
 	{
-	/*
-	 * Add any help files that need to be loaded at
-	 * startup to this section.
-	 */
-	fprintf( fp, "social.are\n" );    /* ROM OLC */
+		/*
+		* Add any help files that need to be loaded at
+		* startup to this section.
+		*/
+		/* ROM OLC */
+		fprintf( fp, "social.are\n" );    
 
-	 for ( ha = had_list; ha; ha = ha->next )
-	 	if ( ha->area == NULL )
-	 		fprintf( fp, "%s\n", ha->filename );
+		for ( ha = had_list; ha; ha = ha->next )
+		{
+			if ( ha->area == NULL )
+				fprintf( fp, "%s\n", ha->filename );
+		}
+		for( pArea = area_first; pArea; pArea = pArea->next )
+		{
+			fprintf( fp, "%s\n", pArea->file_name );
+		}
 
-	 	for( pArea = area_first; pArea; pArea = pArea->next )
-	 	{
-	 		fprintf( fp, "%s\n", pArea->file_name );
-	 	}
-
-	 	fprintf( fp, "$\n" );
-	 	fclose( fp );
-	 }
-
-	 return;
+		fprintf( fp, "$\n" );
+		fclose( fp );
 	}
+
+	return;
+}
 
 
 /*
@@ -132,9 +134,10 @@ char *fwrite_flag( long flags, char buf[] )
 		return buf;
 	}
 
-	/* 32 -- number of bits in a long */
+/* 32 -- number of bits in a long */
 
 	for ( offset = 0, cp = buf; offset < 32; offset++ )
+	{
 		if ( flags & ( (long)1 << offset ) )
 		{
 			if ( offset <= 'Z' - 'A' )
@@ -142,11 +145,12 @@ char *fwrite_flag( long flags, char buf[] )
 			else
 				*(cp++) = 'a' + offset - ( 'Z' - 'A' + 1 );
 		}
-
-		*cp = '\0';
-
-		return buf;
 	}
+
+	*cp = '\0';
+
+	return buf;
+}
 
 void save_mobprogs( FILE *fp, AREA_DATA *pArea )
 {
@@ -1169,3 +1173,4 @@ void do_asave( CHAR_DATA *ch, char *argument )
 
 	return;
 }
+

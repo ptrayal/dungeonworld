@@ -1905,8 +1905,6 @@ void do_gtell( CHAR_DATA *ch, char *argument )
 	return;
 }
 
-
-
 /*
  * It is very important that this be an equivalence relation:
  * (1) A ~ A

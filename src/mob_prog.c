@@ -16,13 +16,13 @@
  ***************************************************************************/
 
 /***************************************************************************
-*	ROM 2.4 is copyright 1993-1995 Russ Taylor			   *
-*	ROM has been brought to you by the ROM consortium		   *
-*	    Russ Taylor (rtaylor@pacinfo.com)				   *
-*	    Gabrielle Taylor (gtaylor@pacinfo.com)			   *
-*	    Brian Moore (rom@rom.efn.org)				   *
-*	By using this code, you have agreed to follow the terms of the	   *
-*	ROM license, in the file Rom24/doc/rom.license			   *
+* ROM 2.4 is copyright 1993-1998 Russ Taylor                               *
+* ROM has been brought to you by the ROM consortium                        *
+*     Russ Taylor (rtaylor@hypercube.org)                                  *
+*     Gabrielle Taylor (gtaylor@efn.org)                                   *
+*     Brian Moore (zump@rom.org)                                           *
+* By using this code, you have agreed to follow the terms of the           *
+* ROM license, in the file Rom24/doc/rom.license                           *
 ***************************************************************************/
 
 /***************************************************************************
@@ -373,280 +373,329 @@ int cmd_eval( sh_int vnum, char *line, int check,
     original = line;
     line = one_argument( line, buf );
     if ( buf[0] == '\0' || mob == NULL )
-	return FALSE;
+        return FALSE;
 
     /*
-     * If this mobile has no target, let's assume our victim is the one
-     */
+    * If this mobile has no target, let's assume our victim is the one
+    */
     if ( mob->mprog_target == NULL )
-	mob->mprog_target = ch;
+        mob->mprog_target = ch;
 
     switch ( check )
     {
-	/*
-	 * Case 1: keyword and value
-	 */
-	case CHK_RAND:
-	    return( atoi( buf ) < number_percent() );
-	case CHK_MOBHERE:
-	    if ( is_number( buf ) )
-		return( get_mob_vnum_room( mob, atoi(buf) ) );
-	    else
-		return( (bool) (get_char_room( mob, buf) != NULL) );
-	case CHK_OBJHERE:
-	    if ( is_number( buf ) )
-		return( get_obj_vnum_room( mob, atoi(buf) ) );
-	    else
-		return( (bool) (get_obj_here( mob, buf) != NULL) );
+        /*
+        * Case 1: keyword and value
+        */
+        case CHK_RAND:
+        return( atoi( buf ) < number_percent() );
+        case CHK_MOBHERE:
+        if ( is_number( buf ) )
+            return( get_mob_vnum_room( mob, atoi(buf) ) );
+        else
+            return( (bool) (get_char_room( mob, buf) != NULL) );
+        case CHK_OBJHERE:
+        if ( is_number( buf ) )
+            return( get_obj_vnum_room( mob, atoi(buf) ) );
+        else
+            return( (bool) (get_obj_here( mob, buf) != NULL) );
         case CHK_MOBEXISTS:
-	    return( (bool) (get_char_world( mob, buf) != NULL) );
-	case CHK_OBJEXISTS:
-	    return( (bool) (get_obj_world( mob, buf) != NULL) );
-	/*
-	 * Case 2 begins here: We sneakily use rval to indicate need
-	 * 		       for numeric eval...
-	 */
-	case CHK_PEOPLE:
-	    rval = count_people_room( mob, 0 ); break;
-	case CHK_PLAYERS:
-	    rval = count_people_room( mob, 1 ); break;
-	case CHK_MOBS:
-	    rval = count_people_room( mob, 2 ); break;
-	case CHK_CLONES:
-	    rval = count_people_room( mob, 3 ); break;
-	case CHK_ORDER:
-	    rval = get_order( mob ); break;
-	case CHK_HOUR:
-	    rval = time_info.hour; break;
-	default:;
+        return( (bool) (get_char_world( mob, buf) != NULL) );
+        case CHK_OBJEXISTS:
+        return( (bool) (get_obj_world( mob, buf) != NULL) );
+
+        /*
+        * Case 2 begins here: We sneakily use rval to indicate need
+        * 		       for numeric eval...
+        */
+        case CHK_PEOPLE:
+        rval = count_people_room( mob, 0 ); break;
+        case CHK_PLAYERS:
+        rval = count_people_room( mob, 1 ); break;
+        case CHK_MOBS:
+        rval = count_people_room( mob, 2 ); break;
+        case CHK_CLONES:
+        rval = count_people_room( mob, 3 ); break;
+        case CHK_ORDER:
+        rval = get_order( mob ); break;
+        case CHK_HOUR:
+        rval = time_info.hour; break;
+        default:;
     }
 
     /*
-     * Case 2 continued: evaluate expression
-     */
+    * Case 2 continued: evaluate expression
+    */
     if ( rval >= 0 )
     {
-	if ( (oper = keyword_lookup( fn_evals, buf )) < 0 )
-	{
-	    sprintf( buf, "Cmd_eval: prog %d syntax error(2) '%s'",
-		vnum, original );
-	    bug( buf, 0 );
-	    return FALSE;
-	}
-	one_argument( line, buf );
-	lval = rval;
-	rval = atoi( buf );
-	return( num_eval( lval, oper, rval ) );
+        if ( (oper = keyword_lookup( fn_evals, buf )) < 0 )
+        {
+            sprintf( buf, "Cmd_eval: prog %d syntax error(2) '%s'", vnum, original );
+            bug( buf, 0 );
+            return FALSE;
+        }
+        one_argument( line, buf );
+        lval = rval;
+        rval = atoi( buf );
+        return( num_eval( lval, oper, rval ) );
     }
 
     /*
-     * Case 3,4,5: Grab actors from $* codes
-     */
+    * Case 3,4,5: Grab actors from $* codes
+    */
     if ( buf[0] != '$' || buf[1] == '\0' )
     {
-	sprintf( buf, "Cmd_eval: prog %d syntax error(3) '%s'",
-		vnum, original );
-	bug( buf, 0 );
+        sprintf( buf, "Cmd_eval: prog %d syntax error(3) '%s'", vnum, original );
+        bug( buf, 0 );
         return FALSE;
     }
     else
         code = buf[1];
     switch( code )
     {
-    	case 'i':
-            lval_char = mob; break;
+        case 'i':
+        lval_char = mob; break;
         case 'n':
-            lval_char = ch; break;
+        lval_char = ch; break;
         case 't':
-            lval_char = vch; break;
+        lval_char = vch; break;
         case 'r':
-            lval_char = rch == NULL ? get_random_char( mob ) : rch ; break;
+        lval_char = rch == NULL ? get_random_char( mob ) : rch ; break;
         case 'o':
-            lval_obj = obj1; break;
+        lval_obj = obj1; break;
         case 'p':
-            lval_obj = obj2; break;
-	case 'q':
-	    lval_char = mob->mprog_target; break;
-	default:
-	    sprintf( buf, "Cmd_eval: prog %d syntax error(4) '%s'",
-		vnum, original );
-	    bug( buf, 0 );
-	    return FALSE;
+        lval_obj = obj2; break;
+        case 'q':
+        lval_char = mob->mprog_target; break;
+        default:
+        sprintf( buf, "Cmd_eval: prog %d syntax error(4) '%s'",
+            vnum, original );
+        bug( buf, 0 );
+        return FALSE;
     }
+    
     /*
-     * From now on, we need an actor, so if none was found, bail out
-     */
+    * From now on, we need an actor, so if none was found, bail out
+    */
     if ( lval_char == NULL && lval_obj == NULL )
-    	return FALSE;
+        return FALSE;
 
     /*
-     * Case 3: Keyword, comparison and value
-     */
+    * Case 3: Keyword, comparison and value
+    */
     switch( check )
     {
-	case CHK_ISPC:
-            return( lval_char != NULL && !IS_NPC( lval_char ) );
+        case CHK_ISPC:
+        return( lval_char != NULL && !IS_NPC( lval_char ) );
         case CHK_ISNPC:
-            return( lval_char != NULL && IS_NPC( lval_char ) );
+        return( lval_char != NULL && IS_NPC( lval_char ) );
         case CHK_ISGOOD:
-            return( lval_char != NULL && IS_GOOD( lval_char ) );
+        return( lval_char != NULL && IS_GOOD( lval_char ) );
         case CHK_ISEVIL:
-            return( lval_char != NULL && IS_EVIL( lval_char ) );
+        return( lval_char != NULL && IS_EVIL( lval_char ) );
         case CHK_ISNEUTRAL:
-            return( lval_char != NULL && IS_NEUTRAL( lval_char ) );
-	case CHK_ISIMMORT:
-            return( lval_char != NULL && IS_IMMORTAL( lval_char ) );
-        case CHK_ISCHARM: /* A relic from MERC 2.2 MOBprograms */
-            return( lval_char != NULL && IS_AFFECTED( lval_char, AFF_CHARM ) );
-        case CHK_ISFOLLOW:
-            return( lval_char != NULL && lval_char->master != NULL 
-		 && lval_char->master->in_room == lval_char->in_room );
-	case CHK_ISACTIVE:
-	    return( lval_char != NULL && lval_char->position > POS_SLEEPING );
-	case CHK_ISDELAY:
-	    return( lval_char != NULL && lval_char->mprog_delay > 0 );
-	case CHK_ISVISIBLE:
-            switch( code )
-            {
-                default :
-                case 'i':
-                case 'n':
-                case 't':
-                case 'r':
-		case 'q':
-	    	    return( lval_char != NULL && can_see( mob, lval_char ) );
-		case 'o':
-		case 'p':
-	    	    return( lval_obj != NULL && can_see_obj( mob, lval_obj ) );
-	    }
-	case CHK_HASTARGET:
-	    return( lval_char != NULL && lval_char->mprog_target != NULL
-		&&  lval_char->in_room == lval_char->mprog_target->in_room );
-	case CHK_ISTARGET:
-	    return( lval_char != NULL && mob->mprog_target == lval_char );
-	default:;
-     }
+        return( lval_char != NULL && IS_NEUTRAL( lval_char ) );
+        case CHK_ISIMMORT:
+        return( lval_char != NULL && IS_IMMORTAL( lval_char ) );
 
-     /* 
-      * Case 4: Keyword, actor and value
-      */
-     line = one_argument( line, buf );
-     switch( check )
-     {
-	case CHK_AFFECTED:
-	    return( lval_char != NULL 
-		&&  IS_SET(lval_char->affected_by, flag_lookup(buf, affect_flags)) );
-	case CHK_ACT:
-	    return( lval_char != NULL 
-		&&  IS_SET(lval_char->act, flag_lookup(buf, act_flags)) );
-	case CHK_IMM:
-	    return( lval_char != NULL 
-		&&  IS_SET(lval_char->imm_flags, flag_lookup(buf, imm_flags)) );
-	case CHK_OFF:
-	    return( lval_char != NULL 
-		&&  IS_SET(lval_char->off_flags, flag_lookup(buf, off_flags)) );
-	case CHK_CARRIES:
-	    if ( is_number( buf ) )
-		return( lval_char != NULL && has_item( lval_char, atoi(buf), -1, FALSE ) );
-	    else
-		return( lval_char != NULL && (get_obj_carry( lval_char, buf, lval_char ) != NULL) );
-	case CHK_WEARS:
-	    if ( is_number( buf ) )
-		return( lval_char != NULL && has_item( lval_char, atoi(buf), -1, TRUE ) );
-	    else
-		return( lval_char != NULL && (get_obj_wear( lval_char, buf ) != NULL) );
-	case CHK_HAS:
-	    return( lval_char != NULL && has_item( lval_char, -1, item_lookup(buf), FALSE ) );
-	case CHK_USES:
-	    return( lval_char != NULL && has_item( lval_char, -1, item_lookup(buf), TRUE ) );
-	case CHK_NAME:
-            switch( code )
-            {
-                default :
-                case 'i':
-                case 'n':
-                case 't':
-                case 'r':
-		case 'q':
-		    return( lval_char != NULL && is_name( buf, lval_char->name ) );
-		case 'o':
-		case 'p':
-		    return( lval_obj != NULL && is_name( buf, lval_obj->name ) );
-	    }
-	case CHK_POS:
-	    return( lval_char != NULL && lval_char->position == position_lookup( buf ) );
-	case CHK_CLAN:
-	    return( lval_char != NULL && lval_char->clan == clan_lookup( buf ) );
-	case CHK_RACE:
-	    return( lval_char != NULL && lval_char->race == race_lookup( buf ) );
-	case CHK_CLASS:
-	    return( lval_char != NULL && lval_char->iclass == class_lookup( buf ) );
-	case CHK_OBJTYPE:
-	    return( lval_obj != NULL && lval_obj->item_type == item_lookup( buf ) );
-	default:;
+         /* A relic from MERC 2.2 MOBprograms - ISCHARM*/
+        case CHK_ISCHARM:
+        return( lval_char != NULL && IS_AFFECTED( lval_char, AFF_CHARM ) );
+        case CHK_ISFOLLOW:
+        return( lval_char != NULL && lval_char->master != NULL 
+            && lval_char->master->in_room == lval_char->in_room );
+        case CHK_ISACTIVE:
+        return( lval_char != NULL && lval_char->position > POS_SLEEPING );
+        case CHK_ISDELAY:
+        return( lval_char != NULL && lval_char->mprog_delay > 0 );
+        case CHK_ISVISIBLE:
+        switch( code )
+        {
+            default :
+            case 'i':
+            case 'n':
+            case 't':
+            case 'r':
+            case 'q':
+            return( lval_char != NULL && can_see( mob, lval_char ) );
+            case 'o':
+            case 'p':
+            return( lval_obj != NULL && can_see_obj( mob, lval_obj ) );
+        }
+        case CHK_HASTARGET:
+        return( lval_char != NULL && lval_char->mprog_target != NULL
+            &&  lval_char->in_room == lval_char->mprog_target->in_room );
+        case CHK_ISTARGET:
+        return( lval_char != NULL && mob->mprog_target == lval_char );
+        default:;
+    }
+
+    /* 
+    * Case 4: Keyword, actor and value
+    */
+    line = one_argument( line, buf );
+    switch( check )
+    {
+        case CHK_AFFECTED:
+        return( lval_char != NULL 
+            &&  IS_SET(lval_char->affected_by, flag_lookup(buf, affect_flags)) );
+        case CHK_ACT:
+        return( lval_char != NULL 
+            &&  IS_SET(lval_char->act, flag_lookup(buf, act_flags)) );
+        case CHK_IMM:
+        return( lval_char != NULL 
+            &&  IS_SET(lval_char->imm_flags, flag_lookup(buf, imm_flags)) );
+        case CHK_OFF:
+        return( lval_char != NULL 
+            &&  IS_SET(lval_char->off_flags, flag_lookup(buf, off_flags)) );
+        case CHK_CARRIES:
+        if ( is_number( buf ) )
+            return( lval_char != NULL && has_item( lval_char, atoi(buf), -1, FALSE ) );
+        else
+            return( lval_char != NULL && (get_obj_carry( lval_char, buf, lval_char ) != NULL) );
+        case CHK_WEARS:
+        if ( is_number( buf ) )
+            return( lval_char != NULL && has_item( lval_char, atoi(buf), -1, TRUE ) );
+        else
+            return( lval_char != NULL && (get_obj_wear( lval_char, buf ) != NULL) );
+        case CHK_HAS:
+        return( lval_char != NULL && has_item( lval_char, -1, item_lookup(buf), FALSE ) );
+        case CHK_USES:
+        return( lval_char != NULL && has_item( lval_char, -1, item_lookup(buf), TRUE ) );
+        case CHK_NAME:
+        switch( code )
+        {
+            default :
+            case 'i':
+            case 'n':
+            case 't':
+            case 'r':
+            case 'q':
+            return( lval_char != NULL && is_name( buf, lval_char->name ) );
+            case 'o':
+            case 'p':
+            return( lval_obj != NULL && is_name( buf, lval_obj->name ) );
+        }
+        case CHK_POS:
+        return( lval_char != NULL && lval_char->position == position_lookup( buf ) );
+        case CHK_CLAN:
+        return( lval_char != NULL && lval_char->clan == clan_lookup( buf ) );
+        case CHK_RACE:
+        return( lval_char != NULL && lval_char->race == race_lookup( buf ) );
+        case CHK_CLASS:
+        return( lval_char != NULL && lval_char->iclass == class_lookup( buf ) );
+        case CHK_OBJTYPE:
+        return( lval_obj != NULL && lval_obj->item_type == item_lookup( buf ) );
+        default:;
     }
 
     /*
-     * Case 5: Keyword, actor, comparison and value
-     */
+    * Case 5: Keyword, actor, comparison and value
+    */
     if ( (oper = keyword_lookup( fn_evals, buf )) < 0 )
     {
-	sprintf( buf, "Cmd_eval: prog %d syntax error(5): '%s'",
-		vnum, original );
-	bug( buf, 0 );
-	return FALSE;
+        sprintf( buf, "Cmd_eval: prog %d syntax error(5): '%s'",
+            vnum, original );
+        bug( buf, 0 );
+        return FALSE;
     }
     one_argument( line, buf );
     rval = atoi( buf );
 
     switch( check )
     {
-	case CHK_VNUM:
-	    switch( code )
-            {
-                default :
-                case 'i':
-                case 'n':
-                case 't':
-                case 'r':
-		case 'q':
-                    if( lval_char != NULL && IS_NPC( lval_char ) )
-                        lval = lval_char->pIndexData->vnum;
-                    break;
-                case 'o':
-                case 'p':
-                     if ( lval_obj != NULL )
-                        lval = lval_obj->pIndexData->vnum;
-            }
+        case CHK_VNUM:
+        switch( code )
+        {
+            default :
+            case 'i':
+            case 'n':
+            case 't':
+            case 'r':
+            case 'q':
+            if( lval_char != NULL && IS_NPC( lval_char ) )
+                lval = lval_char->pIndexData->vnum;
             break;
-	case CHK_HPCNT:
-	    if ( lval_char != NULL ) lval = (lval_char->hit * 100)/(UMAX(1,lval_char->max_hit)); break;
-	case CHK_ROOM:
-	    if ( lval_char != NULL && lval_char->in_room != NULL )
-		lval = lval_char->in_room->vnum; break;
+            case 'o':
+            case 'p':
+            if ( lval_obj != NULL )
+                lval = lval_obj->pIndexData->vnum;
+        }
+        break;
+        case CHK_HPCNT:
+        if ( lval_char != NULL ) 
+        {
+            lval = (lval_char->hit * 100)/(UMAX(1,lval_char->max_hit)); 
+        }
+        break;
+        case CHK_ROOM:
+        if ( lval_char != NULL && lval_char->in_room != NULL )
+        {
+            lval = lval_char->in_room->vnum; 
+        }
+        break;
         case CHK_SEX:
-	    if ( lval_char != NULL ) lval = lval_char->sex; break;
+        if ( lval_char != NULL ) 
+        {
+            lval = lval_char->sex; 
+        }
+        break;
         case CHK_LEVEL:
-            if ( lval_char != NULL ) lval = lval_char->level; break;
-	case CHK_ALIGN:
-            if ( lval_char != NULL ) lval = lval_char->alignment; break;
-	case CHK_MONEY:  /* Money is converted to silver... */
-	    if ( lval_char != NULL ) 
-		lval = lval_char->gold + (lval_char->silver * 100); break;
-	case CHK_OBJVAL0:
-            if ( lval_obj != NULL ) lval = lval_obj->value[0]; break;
+        if ( lval_char != NULL ) 
+        {
+            lval = lval_char->level; 
+        }
+        break;
+        case CHK_ALIGN:
+        if ( lval_char != NULL ) 
+        {
+            lval = lval_char->alignment; 
+        }
+        break;
+        /* Money is converted to silver... */
+        case CHK_MONEY:
+        if ( lval_char != NULL ) 
+        {
+            lval = lval_char->gold + (lval_char->silver * 100); 
+        }
+        break;
+        case CHK_OBJVAL0:
+        if ( lval_obj != NULL ) 
+        {
+            lval = lval_obj->value[0]; 
+        }
+        break;
         case CHK_OBJVAL1:
-            if ( lval_obj != NULL ) lval = lval_obj->value[1]; break;
+        if ( lval_obj != NULL ) 
+        {
+            lval = lval_obj->value[1]; 
+        }
+        break;
         case CHK_OBJVAL2: 
-            if ( lval_obj != NULL ) lval = lval_obj->value[2]; break;
+        if ( lval_obj != NULL ) 
+        {
+            lval = lval_obj->value[2]; 
+        }
+        break;
         case CHK_OBJVAL3:
-            if ( lval_obj != NULL ) lval = lval_obj->value[3]; break;
-	case CHK_OBJVAL4:
-	    if ( lval_obj != NULL ) lval = lval_obj->value[4]; break;
-	case CHK_GRPSIZE:
-	    if( lval_char != NULL ) lval = count_people_room( lval_char, 4 ); break;
-	default:
-            return FALSE;
+        if ( lval_obj != NULL ) 
+        {
+            lval = lval_obj->value[3]; 
+        }
+        break;
+        case CHK_OBJVAL4:
+        if ( lval_obj != NULL )
+        {
+            lval = lval_obj->value[4]; 
+        }
+        break;
+        case CHK_GRPSIZE:
+        if( lval_char != NULL ) 
+        {
+            lval = count_people_room( lval_char, 4 ); 
+        }
+        break;
+        default:
+        return FALSE;
     }
     return( num_eval( lval, oper, rval ) );
 }

@@ -16,13 +16,13 @@
  ***************************************************************************/
 
 /***************************************************************************
-*	ROM 2.4 is copyright 1993-1998 Russ Taylor			   *
-*	ROM has been brought to you by the ROM consortium		   *
-*	    Russ Taylor (rtaylor@hypercube.org)				   *
-*	    Gabrielle Taylor (gtaylor@hypercube.org)			   *
-*	    Brian Moore (zump@rom.org)					   *
-*	By using this code, you have agreed to follow the terms of the	   *
-*	ROM license, in the file Rom24/doc/rom.license			   *
+*	ROM 2.4 is copyright 1993-1998 Russ Taylor			                   *
+*	ROM has been brought to you by the ROM consortium		               *
+*	    Russ Taylor (rtaylor@hypercube.org)				                   *
+*	    Gabrielle Taylor (gtaylor@efn.org)				                   *
+*	    Brian Moore (zump@rom.org)					                       *
+*	By using this code, you have agreed to follow the terms of the	       *
+*	ROM license, in the file Rom24/doc/rom.license			               *
 ***************************************************************************/
 
 #if defined(Macintosh)
@@ -1773,7 +1773,7 @@ int xp_compute( CHAR_DATA *gch, CHAR_DATA *victim, int total_levels )
 		case  3 :	base_exp = 143;		break;
 		case  4 :	base_exp = 165;		break;
 	} 
-	
+
 	if (level_range > 4)
 		base_exp = 160 + 20 * (level_range - 4);
 
@@ -1803,7 +1803,7 @@ int xp_compute( CHAR_DATA *gch, CHAR_DATA *victim, int total_levels )
 		change =  gch->alignment * base_exp/500 * gch->level/total_levels;  
 		gch->alignment -= change;
 	}
-	
+
 	/* calculate exp multiplier */
 	if (IS_SET(victim->act,ACT_NOALIGN))
 		xp = base_exp;
@@ -1902,17 +1902,19 @@ int xp_compute( CHAR_DATA *gch, CHAR_DATA *victim, int total_levels )
 	if (gch->level > 35 )
 		xp =  15 * xp / (gch->level - 25 );
 
-	/* reduce for playing time */
-	
+		/* reduce for playing time */
+
 	{
-	/* compute quarter-hours per level */
+		/* compute quarter-hours per level */
 		time_per_level = 4 *
 		(gch->played + (int) (current_time - gch->logon))/3600
 		/ gch->level;
 
 		time_per_level = URANGE(2,time_per_level,12);
-	if (gch->level < 15)  /* make it a curve */
-		time_per_level = UMAX(time_per_level,(15 - gch->level));
+		if (gch->level < 15)  /* make it a curve */
+		{
+			time_per_level = UMAX(time_per_level,(15 - gch->level));
+		}
 		xp = xp * time_per_level / 12;
 	}
 

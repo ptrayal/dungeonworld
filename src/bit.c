@@ -10,6 +10,17 @@
  *  all the previous coders who released their source code.                *
  *                                                                         *
  ***************************************************************************/
+
+/***************************************************************************
+*   ROM 2.4 is copyright 1993-1998 Russ Taylor                             *
+*   ROM has been brought to you by the ROM consortium                      *
+*       Russ Taylor (rtaylor@hypercube.org)                                *
+*       Gabrielle Taylor (gtaylor@efn.org)                                 *
+*       Brian Moore (zump@rom.org)                                         *
+*   By using this code, you have agreed to follow the terms of the         *
+*   ROM license, in the file Rom24/doc/rom.license                         *
+***************************************************************************/
+
 /*
  The code below uses a table lookup system that is based on suggestions
  from Russ Taylor.  There are many routines in handler.c that would benefit

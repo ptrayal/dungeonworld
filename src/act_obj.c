@@ -16,13 +16,13 @@
  ***************************************************************************/
 
 /***************************************************************************
-*	ROM 2.4 is copyright 1993-1998 Russ Taylor			   *
-*	ROM has been brought to you by the ROM consortium		   *
-*	    Russ Taylor (rtaylor@hypercube.org)				   *
-*	    Gabrielle Taylor (gtaylor@hypercube.org)			   *
-*	    Brian Moore (zump@rom.org)					   *
-*	By using this code, you have agreed to follow the terms of the	   *
-*	ROM license, in the file Rom24/doc/rom.license			   *
+*	ROM 2.4 is copyright 1993-1998 Russ Taylor			                   *
+*	ROM has been brought to you by the ROM consortium		               *
+*	    Russ Taylor (rtaylor@hypercube.org)				                   *
+*	    Gabrielle Taylor (gtaylor@efn.org)				                   *
+*	    Brian Moore (zump@rom.org)					                       *
+*	By using this code, you have agreed to follow the terms of the	       *
+*	ROM license, in the file Rom24/doc/rom.license			               *
 ***************************************************************************/
 
 #if defined(Macintosh)
@@ -67,22 +67,24 @@ bool can_loot(CHAR_DATA *ch, OBJ_DATA *obj)
 
 	owner = NULL;
 	for ( wch = char_list; wch != NULL ; wch = wch->next )
+	{
 		if (!str_cmp(wch->name,obj->owner))
 			owner = wch;
+	}
 
-		if (owner == NULL)
-			return TRUE;
+	if (owner == NULL)
+		return TRUE;
 
-		if (!str_cmp(ch->name,owner->name))
-			return TRUE;
+	if (!str_cmp(ch->name,owner->name))
+		return TRUE;
 
-		if (!IS_NPC(owner) && IS_SET(owner->act,PLR_CANLOOT))
-			return TRUE;
+	if (!IS_NPC(owner) && IS_SET(owner->act,PLR_CANLOOT))
+		return TRUE;
 
-		if (is_same_group(ch,owner))
-			return TRUE;
+	if (is_same_group(ch,owner))
+		return TRUE;
 
-		return FALSE;
+	return FALSE;
 }
 
 

@@ -19,13 +19,13 @@
  ***************************************************************************/
 
 /***************************************************************************
-*	ROM 2.4 is copyright 1993-1998 Russ Taylor			   *
-*	ROM has been brought to you by the ROM consortium		   *
-*	    Russ Taylor (rtaylor@hypercube.org)				   *
-*	    Gabrielle Taylor (gtaylor@hypercube.org)			   *
-*	    Brian Moore (zump@rom.org)					   *
-*	By using this code, you have agreed to follow the terms of the	   *
-*	ROM license, in the file Rom24/doc/rom.license			   *
+*	ROM 2.4 is copyright 1993-1998 Russ Taylor			                   *
+*	ROM has been brought to you by the ROM consortium		               *
+*	    Russ Taylor (rtaylor@hypercube.org)				                   *
+*	    Gabrielle Taylor (gtaylor@efn.org)				                   *
+*	    Brian Moore (zump@rom.org)					                       *
+*	By using this code, you have agreed to follow the terms of the	       *
+*	ROM license, in the file Rom24/doc/rom.license			               *
 ***************************************************************************/
 
 /*
@@ -977,16 +977,18 @@ void game_loop_unix( int control )
 	if ( d->pString )
 		string_add( d->character, d->incomm );
 	else
-		switch ( d->connected )
 		{
-			case CON_PLAYING:
-			if ( !run_olc_editor( d ) )
-					substitute_alias( d, d->incomm );
-			break;
-			default:
-			nanny( d, d->incomm );
-			break;
-		}
+			switch ( d->connected )
+				{
+					case CON_PLAYING:
+					if ( !run_olc_editor( d ) )
+							substitute_alias( d, d->incomm );
+					break;
+					default:
+					nanny( d, d->incomm );
+					break;
+				}
+			}
 
 		d->incomm[0]	= '\0';
 		}
@@ -2332,13 +2334,14 @@ void nanny_pick_weapon(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 	d->connected = CON_READ_MOTD;
 }
 
-void nanny_gen_groups(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
-		char gen_buf[MSL] = {'\0'};
-		
-		send_to_char("\n\r",ch);
+void nanny_gen_groups(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) 
+{
+	char gen_buf[MSL] = {'\0'};
 
-		if (!str_cmp(argument,"done"))
-		{
+	send_to_char("\n\r",ch);
+
+	if (!str_cmp(argument,"done"))
+	{
 		if (ch->pcdata->points == pc_race_table[ch->race].points)
 		{
 			send_to_char("You didn't pick anything.\n\r",ch);
@@ -2355,36 +2358,37 @@ void nanny_gen_groups(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
 		send_to_char(Format("Creation points: %d\n\r",ch->pcdata->points),ch);
 		sprintf(gen_buf,"Experience per level: %d\n\r", exp_per_level(ch,ch->gen_data->points_chosen));
 		if (ch->pcdata->points < 40)
+		{
 			ch->train = (40 - ch->pcdata->points + 1) / 2;
-			free_gen_data(ch->gen_data);
-			ch->gen_data = NULL;
-			send_to_char(gen_buf,ch);
-			write_to_buffer( d, "\n\r", 2 );
-			write_to_buffer(d,
-				"Please pick a weapon from the following choices:\n\r",0);
-			gen_buf[0] = '\0';
-			int i = 0;
-			
-			for ( i = 0; weapon_table[i].name != NULL; i++) {
-				if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
-				{
-					if(IS_NULLSTR(gen_buf))
-						strcpy(gen_buf, weapon_table[i].name);
-					else
-						strcat(gen_buf,weapon_table[i].name);
-					strcat(gen_buf," ");
-				}
-			}
-			strcat(gen_buf,"\n\rYour choice? ");
-			write_to_buffer(d,gen_buf,0);
-			d->connected = CON_PICK_WEAPON;
-			return;
 		}
+		free_gen_data(ch->gen_data);
+		ch->gen_data = NULL;
+		send_to_char(gen_buf,ch);
+		write_to_buffer( d, "\n\r", 2 );
+		write_to_buffer(d, "Please pick a weapon from the following choices:\n\r",0);
+		gen_buf[0] = '\0';
+		int i = 0;
 
-		if (!parse_gen_groups(ch,argument))
+		for ( i = 0; weapon_table[i].name != NULL; i++) {
+			if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
+			{
+				if(IS_NULLSTR(gen_buf))
+					strcpy(gen_buf, weapon_table[i].name);
+				else
+					strcat(gen_buf,weapon_table[i].name);
+				strcat(gen_buf," ");
+			}
+		}
+		strcat(gen_buf,"\n\rYour choice? ");
+		write_to_buffer(d,gen_buf,0);
+		d->connected = CON_PICK_WEAPON;
+		return;
+	}
+
+	if (!parse_gen_groups(ch,argument))
 		send_to_char("Choices are: list,learned,premise,add,drop,info,help, and done.\n\r",ch);
 
-		do_function(ch, &do_help, "menu choice");
+	do_function(ch, &do_help, "menu choice");
 }
 
 void nanny_read_imotd(DESCRIPTOR_DATA *d, CHAR_DATA *ch, char *argument) {
@@ -2868,44 +2872,45 @@ void show_string(struct descriptor_data *d, char *input)
 	one_argument(input,buf);
 	if (buf[0] != '\0')
 	{
-	if (d->showstr_head)
-	{
-		PURGE_DATA(d->showstr_head);
-		d->showstr_head = 0;
-	}
+		if (d->showstr_head)
+		{
+			PURGE_DATA(d->showstr_head);
+			d->showstr_head = 0;
+		}
 		d->showstr_point  = 0;
-	return;
+		return;
 	}
 
 	if (d->character)
-	show_lines = d->character->lines;
+		show_lines = d->character->lines;
 	else
-	show_lines = 0;
+		show_lines = 0;
 
 	for (scan = buffer; ; scan++, d->showstr_point++)
 	{
-	if (((*scan = *d->showstr_point) == '\n' || *scan == '\r')
-		&& (toggle = -toggle) < 0)
-		lines++;
+		if (((*scan = *d->showstr_point) == '\n' || *scan == '\r') && (toggle = -toggle) < 0)
+		{
+			lines++;
+		}
 
-	else if (!*scan || (show_lines > 0 && lines >= show_lines))
-	{
-		*scan = '\0';
-		write_to_buffer(d,buffer,strlen(buffer));
-		for (chk = d->showstr_point; isspace(*chk); chk++);
+		else if (!*scan || (show_lines > 0 && lines >= show_lines))
 		{
-		if (!*chk)
-		{
-			if (d->showstr_head)
+			*scan = '\0';
+			write_to_buffer(d,buffer,strlen(buffer));
+			for (chk = d->showstr_point; isspace(*chk); chk++)
+				;
+			
+			if (!*chk)
+			{
+				if (d->showstr_head)
 				{
 					PURGE_DATA(d->showstr_head);
 					d->showstr_head = 0;
 				}
 				d->showstr_point  = 0;
 			}
+			return;
 		}
-		return;
-	}
 	}
 	return;
 }
@@ -2954,8 +2959,10 @@ void act_new( const char *format, CHAR_DATA *ch, const void *arg1,
 			return;
 		}
 
-	if (vch->in_room == NULL)
-		return;
+		if (vch->in_room == NULL)
+		{
+			return;
+		}
 
 		to = vch->in_room->people;
 	}

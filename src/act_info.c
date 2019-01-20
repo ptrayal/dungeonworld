@@ -16,13 +16,13 @@
  ***************************************************************************/
 
 /***************************************************************************
-*	ROM 2.4 is copyright 1993-1998 Russ Taylor			   *
-*	ROM has been brought to you by the ROM consortium		   *
-*	    Russ Taylor (rtaylor@hypercube.org)				   *
-*	    Gabrielle Taylor (gtaylor@hypercube.org)			   *
-*	    Brian Moore (zump@rom.org)					   *
-*	By using this code, you have agreed to follow the terms of the	   *
-*	ROM license, in the file Rom24/doc/rom.license			   *
+*	ROM 2.4 is copyright 1993-1998 Russ Taylor			                   *
+*	ROM has been brought to you by the ROM consortium		               *
+*	    Russ Taylor (rtaylor@hypercube.org)				                   *
+*	    Gabrielle Taylor (gtaylor@efn.org)				                   *
+*	    Brian Moore (zump@rom.org)					                       *
+*	By using this code, you have agreed to follow the terms of the	       *
+*	ROM license, in the file Rom24/doc/rom.license			               *
 ***************************************************************************/
 
 #include <sys/types.h>
@@ -1158,19 +1158,23 @@ void do_look( CHAR_DATA *ch, char *argument )
 		{
 			pdesc = get_extra_descr( arg3, obj->extra_descr );
 			if ( pdesc != NULL )
-				if (++count == number)
 				{
-					send_to_char( pdesc, ch );
-					return;
-				}
-
-				pdesc = get_extra_descr( arg3, obj->pIndexData->extra_descr );
-				if ( pdesc != NULL )
 					if (++count == number)
 					{
 						send_to_char( pdesc, ch );
 						return;
 					}
+				}
+
+				pdesc = get_extra_descr( arg3, obj->pIndexData->extra_descr );
+				if ( pdesc != NULL )
+				{
+					if (++count == number)
+					{
+						send_to_char( pdesc, ch );
+						return;
+					}
+				}
 
 					if ( is_name( arg3, obj->name ) )
 						{

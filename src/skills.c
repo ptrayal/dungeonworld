@@ -16,13 +16,13 @@
  ***************************************************************************/
  
 /***************************************************************************
-*	ROM 2.4 is copyright 1993-1998 Russ Taylor			   *
-*	ROM has been brought to you by the ROM consortium		   *
-*	    Russ Taylor (rtaylor@hypercube.org)				   *
-*	    Gabrielle Taylor (gtaylor@hypercube.org)			   *
-*	    Brian Moore (zump@rom.org)					   *
-*	By using this code, you have agreed to follow the terms of the	   *
-*	ROM license, in the file Rom24/doc/rom.license			   *
+* ROM 2.4 is copyright 1993-1998 Russ Taylor                               *
+* ROM has been brought to you by the ROM consortium                        *
+*     Russ Taylor (rtaylor@hypercube.org)                                  *
+*     Gabrielle Taylor (gtaylor@efn.org)                                   *
+*     Brian Moore (zump@rom.org)                                           *
+* By using this code, you have agreed to follow the terms of the           *
+* ROM license, in the file Rom24/doc/rom.license                           *
 ***************************************************************************/
 
 #if defined(Macintosh)
@@ -48,185 +48,185 @@ void do_gain(CHAR_DATA *ch, char *argument)
 	int gn = 0, sn = 0;
 
 	if (IS_NPC(ch))
+	{
 		return;
+	}
 
 	/* find a trainer */
 	for ( trainer = ch->in_room->people; trainer != NULL; trainer = trainer->next_in_room)
+	{
 		if (IS_NPC(trainer) && IS_SET(trainer->act,ACT_GAIN))
-			{
+		{
+			break;
+		}
+	}
+
+	if (trainer == NULL || !can_see(ch,trainer))
+	{
+		send_to_char("You can't do that here.\n\r",ch);
+		return;
+	}
+
+	one_argument(argument,arg);
+
+	if (arg[0] == '\0')
+	{
+		do_function(trainer, &do_say, "Pardon me?");
+		return;
+	}
+
+	if (!str_prefix(arg,"list"))
+	{
+		int col = 0;
+
+		send_to_char( Format("%-18s %-5s %-18s %-5s %-18s %-5s\n\r", "group","cost","group","cost","group","cost"), ch);
+
+		for (gn = 0; gn < MAX_GROUP; gn++)
+		{
+			if (group_table[gn].name == NULL)
 				break;
-			}
 
-		if (trainer == NULL || !can_see(ch,trainer))
+			if (!ch->pcdata->group_known[gn]
+				&&  group_table[gn].rating[ch->iclass] > 0)
+			{
+				send_to_char( Format("%-18s %-5d ", group_table[gn].name,group_table[gn].rating[ch->iclass]), ch);
+				if (++col % 3 == 0)
+					send_to_char("\n\r",ch);
+			}
+		}
+		if (col % 3 != 0)
+			send_to_char("\n\r",ch);
+
+		send_to_char("\n\r",ch);		
+
+		col = 0;
+
+		send_to_char( Format("%-18s %-5s %-18s %-5s %-18s %-5s\n\r", "skill","cost","skill","cost","skill","cost"), ch);
+
+		for (sn = 0; sn < MAX_SKILL; sn++)
 		{
-			send_to_char("You can't do that here.\n\r",ch);
+			if (skill_table[sn].name == NULL)
+				break;
+
+			if (!ch->pcdata->learned[sn]
+				&&  skill_table[sn].rating[ch->iclass] > 0
+				&&  skill_table[sn].spell_fun == spell_null)
+			{
+				send_to_char( Format("%-18s %-5d ", skill_table[sn].name,skill_table[sn].rating[ch->iclass]), ch);
+				if (++col % 3 == 0)
+					send_to_char("\n\r",ch);
+			}
+		}
+		if (col % 3 != 0)
+			send_to_char("\n\r",ch);
+		return;
+	}
+
+	if (!str_prefix(arg,"convert"))
+	{
+		if (ch->practice < 10)
+		{
+			act("$N tells you 'You are not yet ready.'", ch,NULL,trainer,TO_CHAR);
 			return;
 		}
 
-		one_argument(argument,arg);
+		act("$N helps you apply your practice to training", ch,NULL,trainer,TO_CHAR);
+		ch->practice -= 10;
+		ch->train +=1 ;
+		return;
+	}
 
-		if (arg[0] == '\0')
+	if (!str_prefix(arg,"points"))
+	{
+		if (ch->train < 2)
 		{
-			do_function(trainer, &do_say, "Pardon me?");
+			act("$N tells you 'You are not yet ready.'", ch,NULL,trainer,TO_CHAR);
 			return;
 		}
 
-		if (!str_prefix(arg,"list"))
+		if (ch->pcdata->points <= 40)
 		{
-			int col = 0;
-
-			send_to_char( Format("%-18s %-5s %-18s %-5s %-18s %-5s\n\r", "group","cost","group","cost","group","cost"), ch);
-
-			for (gn = 0; gn < MAX_GROUP; gn++)
-			{
-				if (group_table[gn].name == NULL)
-					break;
-
-				if (!ch->pcdata->group_known[gn]
-					&&  group_table[gn].rating[ch->iclass] > 0)
-				{
-					send_to_char( Format("%-18s %-5d ", group_table[gn].name,group_table[gn].rating[ch->iclass]), ch);
-					if (++col % 3 == 0)
-						send_to_char("\n\r",ch);
-				}
-			}
-			if (col % 3 != 0)
-				send_to_char("\n\r",ch);
-
-			send_to_char("\n\r",ch);		
-
-			col = 0;
-
-			send_to_char( Format("%-18s %-5s %-18s %-5s %-18s %-5s\n\r", "skill","cost","skill","cost","skill","cost"), ch);
-
-			for (sn = 0; sn < MAX_SKILL; sn++)
-			{
-				if (skill_table[sn].name == NULL)
-					break;
-
-				if (!ch->pcdata->learned[sn]
-					&&  skill_table[sn].rating[ch->iclass] > 0
-					&&  skill_table[sn].spell_fun == spell_null)
-				{
-					send_to_char( Format("%-18s %-5d ", skill_table[sn].name,skill_table[sn].rating[ch->iclass]), ch);
-					if (++col % 3 == 0)
-						send_to_char("\n\r",ch);
-				}
-			}
-			if (col % 3 != 0)
-				send_to_char("\n\r",ch);
+			act("$N tells you 'There would be no point in that.'", ch,NULL,trainer,TO_CHAR);
 			return;
 		}
 
-		if (!str_prefix(arg,"convert"))
-		{
-			if (ch->practice < 10)
-			{
-				act("$N tells you 'You are not yet ready.'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
+		act("$N trains you, and you feel more at ease with your skills.", ch,NULL,trainer,TO_CHAR);
 
-			act("$N helps you apply your practice to training", ch,NULL,trainer,TO_CHAR);
-			ch->practice -= 10;
-			ch->train +=1 ;
-			return;
-		}
-
-		if (!str_prefix(arg,"points"))
-		{
-			if (ch->train < 2)
-			{
-				act("$N tells you 'You are not yet ready.'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
-
-			if (ch->pcdata->points <= 40)
-			{
-				act("$N tells you 'There would be no point in that.'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
-
-			act("$N trains you, and you feel more at ease with your skills.", ch,NULL,trainer,TO_CHAR);
-
-			ch->train -= 2;
-			ch->pcdata->points -= 1;
-			ch->exp = exp_per_level(ch,ch->pcdata->points) * ch->level;
-			return;
-		}
+		ch->train -= 2;
+		ch->pcdata->points -= 1;
+		ch->exp = exp_per_level(ch,ch->pcdata->points) * ch->level;
+		return;
+	}
 
 	/* else add a group/skill */
 
-		gn = group_lookup(argument);
-		if (gn > 0)
+	gn = group_lookup(argument);
+	if (gn > 0)
+	{
+		if (ch->pcdata->group_known[gn])
 		{
-			if (ch->pcdata->group_known[gn])
-			{
-				act("$N tells you 'You already know that group!'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
+			act("$N tells you 'You already know that group!'", ch,NULL,trainer,TO_CHAR);
+			return;
+		}
 
-			if (group_table[gn].rating[ch->iclass] <= 0)
-			{
-				act("$N tells you 'That group is beyond your powers.'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
+		if (group_table[gn].rating[ch->iclass] <= 0)
+		{
+			act("$N tells you 'That group is beyond your powers.'", ch,NULL,trainer,TO_CHAR);
+			return;
+		}
 
-			if (ch->train < group_table[gn].rating[ch->iclass])
-			{
-				act("$N tells you 'You are not yet ready for that group.'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
+		if (ch->train < group_table[gn].rating[ch->iclass])
+		{
+			act("$N tells you 'You are not yet ready for that group.'", ch,NULL,trainer,TO_CHAR);
+			return;
+		}
 
 	/* add the group */
-			gn_add(ch,gn);
-			act("$N trains you in the art of $t", ch,group_table[gn].name,trainer,TO_CHAR);
-			ch->train -= group_table[gn].rating[ch->iclass];
+		gn_add(ch,gn);
+		act("$N trains you in the art of $t", ch,group_table[gn].name,trainer,TO_CHAR);
+		ch->train -= group_table[gn].rating[ch->iclass];
+		return;
+	}
+
+	sn = skill_lookup(argument);
+	if (sn > -1)
+	{
+		if (skill_table[sn].spell_fun != spell_null)
+		{
+			act("$N tells you 'You must learn the full group.'", ch,NULL,trainer,TO_CHAR);
 			return;
 		}
 
-		sn = skill_lookup(argument);
-		if (sn > -1)
+
+		if (ch->pcdata->learned[sn])
 		{
-			if (skill_table[sn].spell_fun != spell_null)
-			{
-				act("$N tells you 'You must learn the full group.'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
+			act("$N tells you 'You already know that skill!'", ch,NULL,trainer,TO_CHAR);
+			return;
+		}
 
+		if (skill_table[sn].rating[ch->iclass] <= 0)
+		{
+			act("$N tells you 'That skill is beyond your powers.'", ch,NULL,trainer,TO_CHAR);
+			return;
+		}
 
-			if (ch->pcdata->learned[sn])
-			{
-				act("$N tells you 'You already know that skill!'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
-
-			if (skill_table[sn].rating[ch->iclass] <= 0)
-			{
-				act("$N tells you 'That skill is beyond your powers.'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
-
-			if (ch->train < skill_table[sn].rating[ch->iclass])
-			{
-				act("$N tells you 'You are not yet ready for that skill.'", ch,NULL,trainer,TO_CHAR);
-				return;
-			}
+		if (ch->train < skill_table[sn].rating[ch->iclass])
+		{
+			act("$N tells you 'You are not yet ready for that skill.'", ch,NULL,trainer,TO_CHAR);
+			return;
+		}
 
 		/* add the skill */
-			ch->pcdata->learned[sn] = 1;
-			act("$N trains you in the art of $t", ch,skill_table[sn].name,trainer,TO_CHAR);
-			ch->train -= skill_table[sn].rating[ch->iclass];
-			return;
-		}
+		ch->pcdata->learned[sn] = 1;
+		act("$N trains you in the art of $t", ch,skill_table[sn].name,trainer,TO_CHAR);
+		ch->train -= skill_table[sn].rating[ch->iclass];
+		return;
+	}
 
-		act("$N tells you 'I do not understand...'",ch,NULL,trainer,TO_CHAR);
+	act("$N tells you 'I do not understand...'",ch,NULL,trainer,TO_CHAR);
 }
 	
-
-
-
 /* RT spells and skills show the players spells (or skills) */
-
 void do_spells(CHAR_DATA *ch, char *argument)
 {
 	BUFFER *buffer;
