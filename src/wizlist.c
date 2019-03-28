@@ -54,6 +54,10 @@
  
 WIZ_DATA *wiz_list;
  
+/**************************************************
+ * This needs to match what is found in interp.c  *
+ **************************************************/
+
 char * const wiz_titles [] =
 {
 	"Implementors",

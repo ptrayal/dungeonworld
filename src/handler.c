@@ -2169,13 +2169,13 @@ OBJ_DATA *get_obj_here( CHAR_DATA *ch, char *argument )
 
 	obj = get_obj_list( ch, argument, ch->in_room->contents );
 	if ( obj != NULL )
-	return obj;
+		return obj;
 
 	if ( ( obj = get_obj_carry( ch, argument, ch ) ) != NULL )
-	return obj;
+		return obj;
 
 	if ( ( obj = get_obj_wear( ch, argument ) ) != NULL )
-	return obj;
+		return obj;
 
 	return NULL;
 }
