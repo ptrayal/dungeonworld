@@ -2565,97 +2565,100 @@ void do_wimpy( CHAR_DATA *ch, char *argument )
 }
 
 
-void do_password( CHAR_DATA *ch, char *argument )
-{
-	char arg1[MIL] = {'\0'};
-	char arg2[MIL] = {'\0'};
-	char *pArg;
-	char *pwdnew;
-	char *p;
-	char cEnd;
+bool is_valid_password(const char *password) {
+    int length = strlen(password);
+    bool has_alphabet = false;
+    bool has_number = false;
 
-	if ( IS_NPC(ch) )
-		return;
+    if (length < 6)
+        return false;
 
-	/*
-	 * Can't use one_argument here because it smashes case.
-	 * So we just steal all its code.  Bleagh.
-	 */
-	pArg = arg1;
-	while ( isspace(*argument) )
-		argument++;
+    for (int i = 0; i < length; i++) {
+        if (isalpha(password[i]))
+            has_alphabet = true;
+        else if (isdigit(password[i]))
+            has_number = true;
+    }
 
-	cEnd = ' ';
-	if ( *argument == '\'' || *argument == '"' )
-		cEnd = *argument++;
+    return has_alphabet && has_number;
+}
 
-	while ( *argument != '\0' )
-	{
-		if ( *argument == cEnd )
-		{
-			argument++;
-			break;
-		}
-		*pArg++ = *argument++;
-	}
-	*pArg = '\0';
+void do_password(CHAR_DATA *ch, char *argument) {
+    char arg1[MIL] = {'\0'};
+    char arg2[MIL] = {'\0'};
+    char *pArg;
+    char *pwdnew;
+    char *p;
+    char cEnd;
 
-	pArg = arg2;
-	while ( isspace(*argument) )
-		argument++;
+    if (IS_NPC(ch))
+        return;
 
-	cEnd = ' ';
-	if ( *argument == '\'' || *argument == '"' )
-		cEnd = *argument++;
+    pArg = arg1;
+    while (isspace(*argument))
+        argument++;
 
-	while ( *argument != '\0' )
-	{
-		if ( *argument == cEnd )
-		{
-			argument++;
-			break;
-		}
-		*pArg++ = *argument++;
-	}
-	*pArg = '\0';
+    cEnd = ' ';
+    if (*argument == '\'' || *argument == '"')
+        cEnd = *argument++;
 
-	if ( arg1[0] == '\0' || arg2[0] == '\0' )
-	{
-		send_to_char( "Syntax: password <old> <new>.\n\r", ch );
-		return;
-	}
+    while (*argument != '\0') {
+        if (*argument == cEnd) {
+            argument++;
+            break;
+        }
+        *pArg++ = *argument++;
+    }
+    *pArg = '\0';
 
-	if ( strcmp( crypt( arg1, ch->pcdata->pwd ), ch->pcdata->pwd ) )
-	{
-		WAIT_STATE( ch, 40 );
-		send_to_char( "Wrong password.  Wait 10 seconds.\n\r", ch );
-		return;
-	}
+    pArg = arg2;
+    while (isspace(*argument))
+        argument++;
 
-	if ( strlen(arg2) < 5 )
-	{
-		send_to_char( "New password must be at least five characters long.\n\r", ch );
-		return;
-	}
+    cEnd = ' ';
+    if (*argument == '\'' || *argument == '"')
+        cEnd = *argument++;
 
-	/*
-	 * No tilde allowed because of player file format.
-	 */
-	pwdnew = crypt( arg2, ch->name );
-	for ( p = pwdnew; *p != '\0'; p++ )
-	{
-		if ( *p == '~' )
-		{
-			send_to_char( "New password not acceptable, try again.\n\r", ch );
-			return;
-		}
-	}
+    while (*argument != '\0') {
+        if (*argument == cEnd) {
+            argument++;
+            break;
+        }
+        *pArg++ = *argument++;
+    }
+    *pArg = '\0';
 
-	PURGE_DATA( ch->pcdata->pwd );
-	ch->pcdata->pwd = str_dup( pwdnew );
-	save_char_obj( ch );
-	send_to_char( "Ok.\n\r", ch );
-	return;
+    if (arg1[0] == '\0' || arg2[0] == '\0') {
+        send_to_char("Syntax: password <old> <new>.\n\r", ch);
+        return;
+    }
+
+    if (strcmp(crypt(arg1, ch->pcdata->pwd), ch->pcdata->pwd)) {
+        WAIT_STATE(ch, 40);
+        send_to_char("Wrong password.  Wait 10 seconds.\n\r", ch);
+        return;
+    }
+
+    if (!is_valid_password(arg2)) {
+        send_to_char("New password must be at least six characters long and include both a letter and a number.\n\r", ch);
+        return;
+    }
+
+    /*
+     * No tilde allowed because of player file format.
+     */
+    pwdnew = crypt(arg2, ch->name);
+    for (p = pwdnew; *p != '\0'; p++) {
+        if (*p == '~') {
+            send_to_char("New password not acceptable, try again.\n\r", ch);
+            return;
+        }
+    }
+
+    PURGE_DATA(ch->pcdata->pwd);
+    ch->pcdata->pwd = strdup(pwdnew);
+    save_char_obj(ch);
+    send_to_char("Password changed successfully.\n\r", ch);
 }
 
 void do_attributes( CHAR_DATA *ch, char *argument )
