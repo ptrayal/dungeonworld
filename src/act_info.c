@@ -27,7 +27,6 @@
 
 #include <sys/types.h>
 #include <sys/time.h>
-
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
@@ -2436,99 +2435,101 @@ void do_report( CHAR_DATA *ch, char *argument )
 
 void do_practice( CHAR_DATA *ch, char *argument )
 {
-	int sn = 0;
+    int sn = 0;
 
-	if ( IS_NPC(ch) )
-		return;
+    if ( IS_NPC(ch) )
+        return;
 
-	if ( IS_NULLSTR(argument) )
-	{
-		int col = 0;
+    if ( IS_NULLSTR(argument) )
+    {
+        int col = 0;
 
-		for ( sn = 0; sn < MAX_SKILL; sn++ )
-		{
-			if ( skill_table[sn].name == NULL )
-				break;
-			if ( ch->level < skill_table[sn].skill_level[ch->iclass] || ch->pcdata->learned[sn] < 1 /* skill is not known */)
-				{
-					continue;
-				}
+        for ( sn = 0; sn < MAX_SKILL; sn++ )
+        {
+            if ( skill_table[sn].name == NULL )
+                break;
 
-				send_to_char( Format("%-18s %3d%%  ", skill_table[sn].name, ch->pcdata->learned[sn]), ch );
-				if ( ++col % 3 == 0 )
-					send_to_char( "\n\r", ch );
-			}
+            if ( ch->level < skill_table[sn].skill_level[ch->iclass] || ch->pcdata->learned[sn] < 1 /* skill is not known */)
+            {
+                continue;
+            }
 
-			if ( col % 3 != 0 )
-				send_to_char( "\n\r", ch );
+            send_to_char( Format("%-18s %3d%%  ", skill_table[sn].name, ch->pcdata->learned[sn]), ch );
 
-			send_to_char( Format ("You have %d practice sessions left.\n\r", ch->practice), ch );
-		}
-		else
-		{
-			CHAR_DATA *mob;
-			int adept = 0;
+            if ( ++col % 3 == 0 )
+                send_to_char( "\n\r", ch );
+        }
 
-			if ( !IS_AWAKE(ch) )
-			{
-				send_to_char( "In your dreams, or what?\n\r", ch );
-				return;
-			}
+        if ( col % 3 != 0 )
+            send_to_char( "\n\r", ch );
 
-			for ( mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room )
-			{
-				if ( IS_NPC(mob) && IS_SET(mob->act, ACT_PRACTICE) )
-					break;
-			}
+        send_to_char( Format ("You have %d practice sessions left.\n\r", ch->practice), ch );
+    }
+    else
+    {
+        CHAR_DATA *mob;
+        int adept = 0;
 
-			if ( mob == NULL )
-			{
-				send_to_char( "You can't do that here.\n\r", ch );
-				return;
-			}
+        if ( !IS_AWAKE(ch) )
+        {
+            send_to_char( "In your dreams, or what?\n\r", ch );
+            return;
+        }
 
-			if ( ch->practice <= 0 )
-			{
-				send_to_char( "You have no practice sessions left.\n\r", ch );
-				return;
-			}
+        for ( mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room )
+        {
+            if ( IS_NPC(mob) && IS_SET(mob->act, ACT_PRACTICE) )
+                break;
+        }
 
-			if ( ( sn = find_spell( ch,argument ) ) < 0
-				|| ( !IS_NPC(ch)
-					&&   (ch->level < skill_table[sn].skill_level[ch->iclass] 
-	||    ch->pcdata->learned[sn] < 1 /* skill is not known */
-						||    skill_table[sn].rating[ch->iclass] == 0)))
-			{
-				send_to_char( "You can't practice that.\n\r", ch );
-				return;
-			}
+        if ( mob == NULL )
+        {
+            send_to_char( "You can't do that here.\n\r", ch );
+            return;
+        }
 
-			adept = IS_NPC(ch) ? 100 : class_table[ch->iclass].skill_adept;
+        if ( ch->practice <= 0 )
+        {
+            send_to_char( "You have no practice sessions left.\n\r", ch );
+            return;
+        }
 
-			if ( ch->pcdata->learned[sn] >= adept )
-			{
-				send_to_char( Format("You are already learned at %s.\n\r", skill_table[sn].name), ch );
-			}
-			else
-			{
-				ch->practice--;
-				ch->pcdata->learned[sn] += 
-				int_app[get_curr_stat(ch,STAT_INT)].learn / 
-				skill_table[sn].rating[ch->iclass];
-				if ( ch->pcdata->learned[sn] < adept )
-				{
-					act( "You practice $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
-					act( "$n practices $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
-				}
-				else
-				{
-					ch->pcdata->learned[sn] = adept;
-					act( "You are now learned at $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
-					act( "$n is now learned at $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
-				}
-			}
-		}
-		return;
+        if ( ( sn = find_spell( ch, argument ) ) < 0
+                || ( !IS_NPC(ch)
+                     &&   (ch->level < skill_table[sn].skill_level[ch->iclass]
+                           ||    ch->pcdata->learned[sn] < 1 /* skill is not known */
+                           ||    skill_table[sn].rating[ch->iclass] == 0)))
+        {
+            send_to_char( "You can't practice that.\n\r", ch );
+            return;
+        }
+
+        adept = IS_NPC(ch) ? 100 : class_table[ch->iclass].skill_adept;
+
+        if ( ch->pcdata->learned[sn] >= adept )
+        {
+            send_to_char( Format("You are already learned at %s.\n\r", skill_table[sn].name), ch );
+        }
+        else
+        {
+            ch->practice--;
+            ch->pcdata->learned[sn] +=
+                int_app[get_curr_stat(ch, STAT_INT)].learn /
+                skill_table[sn].rating[ch->iclass];
+            if ( ch->pcdata->learned[sn] < adept )
+            {
+                act( "You practice $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
+                act( "$n practices $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
+            }
+            else
+            {
+                ch->pcdata->learned[sn] = adept;
+                act( "You are now learned at $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
+                act( "$n is now learned at $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
+            }
+        }
+    }
+    return;
 }
 
 

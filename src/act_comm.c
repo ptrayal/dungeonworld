@@ -27,10 +27,8 @@
 
 #include <sys/types.h>
 #include <sys/time.h>
-
 #include <time.h>
 #include <string.h>
-
 
 #include "merc.h"
 #include "interp.h"
