@@ -2242,8 +2242,8 @@ void	append_file	args( ( CHAR_DATA *ch, char *file, char *str ) );
 void	bug		args( ( const char *str, int param ) );
 void	log_string	args( ( const char *str ) );
 void	tail_chain	args( ( void ) );
-char *_str_dup args( (const char *str, const char *file, const char *function, int line) );
 const char *Format args( (const char *fmt, ...) );
+char *_str_dup args( (const char *str, const char *file, const char *function, int line) );
 char *CapitalSentence args( (const char *str) );
 
 /* db2.c */

@@ -1,10 +1,66 @@
 VNUM | Mob Short Name | Race | Level
-     300 | Aruncus the Druid                        | human | 13
-     301 | Sorbus the Hermit                        | human | 4
-     303 | the citizen                              | human | 6
-     304 | the citizen                              | human | 5
-     305 | Shudde-M'ell                             | human | 24
-     306 | Luxan                                    | human | 23
-     308 | the Innkeeper                            | human | 23
-     309 | the cute rabbit                          | rabbit | 1
-     350 | the pet dragon                           | dragon | 10
+    3000 | the wizard                               | human | 23
+    3001 | the baker                                | human | 23
+    3002 | the grocer                               | human | 23
+    3003 | the weaponsmith                          | human | 23
+    3004 | the armourer                             | human | 23
+    3005 | the thief                                | human | 8
+    3006 | the captain                              | human | 23
+    3007 | the sailor                               | human | 23
+    3008 | the pet shop boy                         | human | 23
+    3009 | the jeweller                             | human | 23
+    3010 | the leather worker                       | human | 23
+    3011 | Hassan                                   | giant | 45
+    3012 | the healer                               | human | 40
+    3020 | the guildmaster                          | elf | 36
+    3021 | the guildmaster                          | human | 36
+    3022 | the guildmaster                          | unique | 36
+    3023 | the guildmaster                          | dwarf | 36
+    3024 | the sorcerer                             | elf | 30
+    3025 | the knight templar                       | human | 30
+    3026 | the assassin                             | human | 30
+    3027 | the knight                               | human | 30
+    3040 | the bartender                            | human | 23
+    3041 | the waiter                               | human | 23
+    3042 | the waiter                               | human | 23
+    3043 | the waiter                               | human | 23
+    3044 | the waiter                               | human | 23
+    3045 | the waiter                               | human | 23
+    3046 | Filthy                                   | human | 23
+    3060 | the cityguard                            | human | 15
+    3061 | the janitor                              | human | 1
+    3062 | the beastly fido                         | fido | 0
+    3063 | the vagabond                             | human | 5
+    3064 | the drunk                                | human | 2
+    3065 | the beggar                               | human | 1
+    3066 | an alley cat                             | cat | 0
+    3067 | the cityguard                            | human | 15
+    3068 | the cityguard                            | human | 15
+    3069 | the cityguard                            | human | 20
+    3070 | the ancient potion-brewer                | human | 32
+    3071 | the cityguard                            | human | 15
+    3072 | the cityguard                            | human | 15
+    3090 | the kitten                               | cat | 1
+    3091 | the puppy                                | dog | 3
+    3092 | the beagle                               | dog | 5
+    3093 | the rottweiler                           | dog | 7
+    3094 | the wolf                                 | wolf | 9
+    3095 | the eagle                                | song bird | 12
+    3096 | the lion                                 | cat | 15
+    3097 | the tiger                                | cat | 20
+    3100 | the maid                                 | human | 23
+    3120 | the sexton                               | human | 3
+    3121 | the swan                                 | water fowl | 1
+    3122 | the duckling                             | water fowl | 0
+    3123 | the sparrow                              | song bird | 0
+    3124 | the duck                                 | water fowl | 1
+    3140 | the captain                              | human | 17
+    3141 | the cityguard                            | human | 15
+    3142 | the secretary                            | human | 12
+    3143 | the mayor                                | human | 23
+    3144 | the town crier                           | human | 1
+    3150 | Esme                                     | human | 25
+    3160 | Melancholy                               | human | 25
+    3161 | Lister                                   | snake | 15
+    3162 | Otho the Changer                         | human | 25
+    3163 | the thief                                | human | 30

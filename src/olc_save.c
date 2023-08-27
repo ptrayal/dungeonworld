@@ -25,6 +25,7 @@
 #include <sys/types.h>
 #endif
 #include <ctype.h>
+#include <errno.h> // Add this include at the beginning
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -75,41 +76,42 @@ char *fix_string( const char *str )
  ****************************************************************************/
 void save_area_list()
 {
-	FILE *fp;
-	AREA_DATA *pArea;
-	extern HELP_AREA * had_list;
-	HELP_AREA * ha;
+    FILE *fp;
+    AREA_DATA *pArea;
+    extern HELP_AREA *had_list;
+    HELP_AREA *ha;
 
-	if ( ( fp = fopen( "area.lst", "w" ) ) == NULL )
-	{
-		bug( "Save_area_list: fopen", 0 );
-		perror( "area.lst" );
-	}
-	else
-	{
-		/*
-		* Add any help files that need to be loaded at
-		* startup to this section.
-		*/
-		/* ROM OLC */
-		fprintf( fp, "social.are\n" );    
+    if ((fp = fopen("area.lst", "w")) == NULL)
+    {
+        bug("Save_area_list: fopen", 0);
+        bug("area.lst", errno); // Using the bug function for error reporting
+    }
+    else
+    {
+        /*
+        * Add any help files that need to be loaded at
+        * startup to this section.
+        */
+        /* ROM OLC */
+        fprintf(fp, "social.are\n");
 
-		for ( ha = had_list; ha; ha = ha->next )
-		{
-			if ( ha->area == NULL )
-				fprintf( fp, "%s\n", ha->filename );
-		}
-		for( pArea = area_first; pArea; pArea = pArea->next )
-		{
-			fprintf( fp, "%s\n", pArea->file_name );
-		}
+        for (ha = had_list; ha; ha = ha->next)
+        {
+            if (ha->area == NULL)
+                fprintf(fp, "%s\n", ha->filename);
+        }
+        for (pArea = area_first; pArea; pArea = pArea->next)
+        {
+            fprintf(fp, "%s\n", pArea->file_name);
+        }
 
-		fprintf( fp, "$\n" );
-		fclose( fp );
-	}
+        fprintf(fp, "$\n");
+        fclose(fp);
+    }
 
-	return;
+    return;
 }
+
 
 
 /*
@@ -884,32 +886,34 @@ void save_helps( FILE *fp, HELP_AREA *ha )
 
 void save_other_helps( CHAR_DATA *ch )
 {
-	extern HELP_AREA * had_list;
-	HELP_AREA *ha;
-	FILE *fp;
+    extern HELP_AREA *had_list;
+    HELP_AREA *ha;
+    FILE *fp;
 
-	for ( ha = had_list; ha; ha = ha->next )
-		if ( ha->changed == TRUE )
-		{
-			fp = fopen( ha->filename, "w" );
+    for ( ha = had_list; ha; ha = ha->next )
+        if ( ha->changed == TRUE )
+        {
+            fp = fopen( ha->filename, "w" );
 
-			if ( !fp )
-			{
-				perror( ha->filename );
-				return;
-			}
+            if ( !fp )
+            {
+                bug("save_other_helps: fopen", 0);
+                bug(ha->filename, errno); // Using the bug function for error reporting
+                return;
+            }
 
-			save_helps( fp, ha );
+            save_helps( fp, ha );
 
-			if (ch)
-				printf_to_char( ch, "%s\n\r", ha->filename );
+            if (ch)
+                printf_to_char( ch, "%s\n\r", ha->filename );
 
-			fprintf( fp, "#$\n" );
-			fclose( fp );
-		}
+            fprintf( fp, "#$\n" );
+            fclose( fp );
+        }
 
-	return;
+    return;
 }
+
 
 /*****************************************************************************
  Name:		save_area
@@ -924,16 +928,16 @@ void save_area( AREA_DATA *pArea )
 
 	if ( !( fp = fopen( pArea->file_name, "w" ) ) )
 	{
-	bug( "Open_area: fopen", 0 );
-	perror( pArea->file_name );
+		bug( "Open_area: fopen", 0 );
+		bug( pArea->file_name, errno ); // Using the bug function for error reporting
 	}
 
 	fprintf( fp, "#AREADATA\n" );
 	fprintf( fp, "Name %s~\n",        pArea->name );
-	fprintf( fp, "Builders %s~\n",        fix_string( pArea->builders ) );
+	fprintf( fp, "Builders %s~\n",    fix_string( pArea->builders ) );
 	fprintf( fp, "VNUMs %d %d\n",      pArea->min_vnum, pArea->max_vnum );
-	fprintf( fp, "Credits %s~\n",	 pArea->credits );
-	fprintf( fp, "Security %d\n",         pArea->security );
+	fprintf( fp, "Credits %s~\n",     pArea->credits );
+	fprintf( fp, "Security %d\n",     pArea->security );
 	fprintf( fp, "End\n\n\n\n" );
 
 	save_mobiles( fp, pArea );
@@ -945,7 +949,7 @@ void save_area( AREA_DATA *pArea )
 	save_mobprogs( fp, pArea );
 
 	if ( pArea->helps && pArea->helps->first )
-	save_helps( fp, pArea->helps );
+		save_helps( fp, pArea->helps );
 
 	fprintf( fp, "#$\n" );
 
@@ -953,6 +957,7 @@ void save_area( AREA_DATA *pArea )
 	openReserve();
 	return;
 }
+
 
 
 /*****************************************************************************

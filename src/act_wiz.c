@@ -25,13 +25,10 @@
 *	ROM license, in the file Rom24/doc/rom.license			               *
 ***************************************************************************/
 
-#if defined(Macintosh)
-#include <types.h>
-#include <time.h>
-#else
 #include <sys/types.h>
 #include <sys/time.h>
-#endif
+
+#include <errno.h> // Add this include at the beginning
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -4368,89 +4365,82 @@ void do_mobdump(CHAR_DATA *ch, char *argument)
     int vnum = 0;
     char error_buffer[MAX_STRING_LENGTH] = {'\0'};
 
-    // Information for sendmail command
-    // char cmd[100] = {'\0'};
-
     // Create the mobdump files.
     pArea = ch->in_room->area;
 
-    if ( !(fp = fopen("mobdump.txt", "w") ) )
+    if (!(fp = fopen("mobdump.txt", "w")))
     {
         snprintf(error_buffer, sizeof(error_buffer), "There was an error accessing roomdump.txt.");
         send_to_char(error_buffer, ch);
-        perror("mobdump.txt");        
+        bug("do_mobdump: fopen", errno); // Using the custom 'bug' function
     }
 
     fprintf(fp, "VNUM | Mob Short Name | Race | Level\n");
 
-    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++ )
+    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
     {
-        if (( pMobIndex = get_mob_index (vnum) ) )
+        if ((pMobIndex = get_mob_index(vnum)))
         {
             fprintf(fp, "%8d | %-40s | %s | %d\n", vnum, pMobIndex->short_descr, race_table[pMobIndex->race].name, pMobIndex->level);
         }
     }
 
-    fclose (fp);
+    fclose(fp);
     send_to_char("Mob Dump Saved.\n\r", ch);
-
-    // Send an e-mail with the attachment as the body of the e-mail.
-    // snprintf(cmd, sizeof(cmd), "sendmail %s < mobdump.txt", ch->pcdata->email );
-    // if (system(cmd));
 
     return;
 }
 
 
-void do_roomdump (CHAR_DATA *ch, char *argument)
+void do_roomdump(CHAR_DATA *ch, char *argument)
 {
-	FILE *fp;
-	ROOM_INDEX_DATA	*pRoomIndex;
-	AREA_DATA		*pArea;
-	int vnum = 0;
-	int	door = 0;
-	bool found = FALSE;
+    FILE *fp;
+    ROOM_INDEX_DATA *pRoomIndex;
+    AREA_DATA *pArea;
+    int vnum = 0;
+    int door = 0;
 
-	pArea = ch->in_room->area;
+    pArea = ch->in_room->area;
 
-	closeReserve();
-	if ( !( fp = fopen( "room.txt", "w" ) ) )
-	{
-		log_string("RoomDump: fopen");
-		perror( "room.txt" );
-	}
+    closeReserve();
+    if (!(fp = fopen("room.txt", "w")))
+    {
+        log_string("RoomDump: fopen");
+        bug("do_roomdump: fopen", errno); // Using the custom 'bug' function
+    }
 
-	fprintf(fp, "rooms:[");
+    fprintf(fp, "rooms:[");
 
-	for ( vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++ )
-	{
-		if ( ( pRoomIndex = get_room_index( vnum ) ) )
-			{
-				found = TRUE;
-				fprintf(fp,"{num: %d, name: \"%s\", zone: \"%s\", exits: {", vnum, capitalize( pRoomIndex->name ), pRoomIndex->area->name);
+    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
+    {
+        if ((pRoomIndex = get_room_index(vnum)))
+        {
+            fprintf(fp,"{num: %d, name: \"%s\", zone: \"%s\", exits: {", vnum, capitalize(pRoomIndex->name), pRoomIndex->area->name);
 
-				for ( door = 0; door < MAX_DIR; door++ )
-					{
-						EXIT_DATA *pexit;
+            for (door = 0; door < MAX_DIR; door++)
+            {
+                EXIT_DATA *pexit;
 
-						if ( ( pexit = pRoomIndex->exit[door] ) )
-							{
-								fprintf(fp, "\"%s\": %d,", capitalize(dir_name[door]), pexit->u1.to_room ? pexit->u1.to_room->vnum : 0);
-							}
-					}
-				fprintf(fp, "}");
-				fprintf(fp, "},");
-			}
-	}
-	
-	fprintf( fp, "]\n" );
+                if ((pexit = pRoomIndex->exit[door]))
+                {
+                    fprintf(fp, "\"%s\": %d,", capitalize(dir_name[door]), pexit->u1.to_room ? pexit->u1.to_room->vnum : 0);
+                }
+            }
+            fprintf(fp, "}");
+            fprintf(fp, "},");
+        }
+    }
+    
+    fprintf(fp, "]\n");
 
-	fclose( fp );
-	openReserve();
+    fclose(fp);
+    openReserve();
 
-	send_to_char("Room Dump saved.\n\r", ch);
-	return;
+    send_to_char("Room Dump saved.\n\r", ch);
+    return;
 }
+
+
 
 void do_sql_test(CHAR_DATA *ch, char *argument)
 {

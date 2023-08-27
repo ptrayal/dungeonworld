@@ -174,7 +174,7 @@ int	listen		args( ( int s, int backlog ) );
 */
 
 int	close		args( ( int fd ) );
-int	gettimeofday	args( ( struct timeval *tp, struct timezone *tzp ) );
+int gettimeofday(struct timeval *__restrict __tv, void * restrict);
 /* int	read		args( ( int fd, char *buf, int nbyte ) ); */
 int	select		args( ( int width, fd_set *readfds, fd_set *writefds,
 				fd_set *exceptfds, struct timeval *timeout ) );
@@ -1701,7 +1701,7 @@ void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
 {
 
 	// don't write NULL data!
-	if(txt == NULL || txt == '\0')
+	if(IS_NULLSTR(txt))
 		return;
 
 	length = 0;
@@ -3067,12 +3067,14 @@ void act_new( const char *format, CHAR_DATA *ch, const void *arg1,
  * Macintosh support functions.
  */
 #if defined(Macintosh)
-int gettimeofday( struct timeval *tp, void *tzp )
+int gettimeofday(struct timeval *__restrict tp, void *tzp)
 {
-	tp->tv_sec  = time( NULL );
-	tp->tv_usec = 0;
+    tp->tv_sec = time(NULL);
+    tp->tv_usec = 0;
+    return 0; // You need to return a value from the function
 }
 #endif
+
 
 void logfmt (char * fmt, ...)
 {

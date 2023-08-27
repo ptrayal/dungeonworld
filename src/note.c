@@ -14,7 +14,7 @@
  *  benefitting.  We hope that you share your changes too.  What goes      *
  *  around, comes around.                                                  *
  ***************************************************************************/
- 
+
 /***************************************************************************
 * ROM 2.4 is copyright 1993-1998 Russ Taylor                               *
 * ROM has been brought to you by the ROM consortium                        *
@@ -25,13 +25,11 @@
 * ROM license, in the file Rom24/doc/rom.license                           *
 ***************************************************************************/
 
-#if defined(Macintosh)
-#include <types.h>
-#else
 #include <sys/types.h>
 #include <sys/time.h>
-#endif
+
 #include <ctype.h>
+#include <errno.h> // Add this include at the beginning
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -44,7 +42,7 @@
 #if !defined(Macintosh)
 extern  int     _filbuf         args( (FILE *) );
 #endif
-extern FILE *                  fpArea;
+extern FILE                   *fpArea;
 extern char                    strArea[MAX_INPUT_LENGTH];
 
 /* local procedures */
@@ -59,362 +57,382 @@ NOTE_DATA *penalty_list;
 NOTE_DATA *news_list;
 NOTE_DATA *changes_list;
 
-void clear_notes(void) {
-	NOTE_DATA *curr, *next;
+void clear_notes(void)
+{
+    NOTE_DATA *curr, *next;
 
-	log_string("Cleaning: note_list");
-	for(curr = note_list; curr; curr = next) {
-		next = curr->next;
-		free_note(curr);
-	}
-	note_list = NULL;
+    log_string("Cleaning: note_list");
+    for(curr = note_list; curr; curr = next)
+    {
+        next = curr->next;
+        free_note(curr);
+    }
+    note_list = NULL;
 
-	log_string("Cleaning: idea_list");
-	for(curr = idea_list; curr; curr = next) {
-		next = curr->next;
-		free_note(curr);
-	}
-	idea_list = NULL;
+    log_string("Cleaning: idea_list");
+    for(curr = idea_list; curr; curr = next)
+    {
+        next = curr->next;
+        free_note(curr);
+    }
+    idea_list = NULL;
 
-	log_string("Cleaning: penalty_list");
-	for(curr = penalty_list; curr; curr = next) {
-		next = curr->next;
-		free_note(curr);
-	}
-	penalty_list = NULL;
+    log_string("Cleaning: penalty_list");
+    for(curr = penalty_list; curr; curr = next)
+    {
+        next = curr->next;
+        free_note(curr);
+    }
+    penalty_list = NULL;
 
-	log_string("Cleaning: news_list");
-	for(curr = news_list; curr; curr = next) {
-		next = curr->next;
-		free_note(curr);
-	}
-	news_list = NULL;
+    log_string("Cleaning: news_list");
+    for(curr = news_list; curr; curr = next)
+    {
+        next = curr->next;
+        free_note(curr);
+    }
+    news_list = NULL;
 
-	log_string("Cleaning: changes_list");
-	for(curr = changes_list; curr; curr = next) {
-		next = curr->next;
-		free_note(curr);
-	}
-	changes_list = NULL;
+    log_string("Cleaning: changes_list");
+    for(curr = changes_list; curr; curr = next)
+    {
+        next = curr->next;
+        free_note(curr);
+    }
+    changes_list = NULL;
 
 }
 
 int count_spool(CHAR_DATA *ch, NOTE_DATA *spool)
 {
-	int count = 0;
-	NOTE_DATA *pnote;
+    int count = 0;
+    NOTE_DATA *pnote;
 
-	for (pnote = spool; pnote != NULL; pnote = pnote->next)
-	if (!hide_note(ch,pnote))
-		count++;
+    for (pnote = spool; pnote != NULL; pnote = pnote->next)
+        if (!hide_note(ch, pnote))
+            count++;
 
-	return count;
+    return count;
 }
 
 bool hide_note_ignore_stamp ( CHAR_DATA *ch, NOTE_DATA *pnote )
 {
-		time_t last_read;
-						
-		if ( IS_NPC ( ch ) )  
-		{ return true; }
-						
-		switch ( pnote->type ) {
-				default:
-						return true;
-				case NOTE_NOTE:
-						last_read = ch->pcdata->last_note;
-						break;
-				case NOTE_IDEA:
-						last_read = ch->pcdata->last_idea;
-						break;
-				case NOTE_PENALTY:
-						last_read = ch->pcdata->last_penalty;
-						break;
-				case NOTE_NEWS:
-						last_read = ch->pcdata->last_news;
-						break;
-				case NOTE_CHANGES:
-						last_read = ch->pcdata->last_changes;
-						break;
-		}
- 
-		if ( !str_cmp ( ch->name, pnote->sender ) )
-		{ return true; }
-		
-		if ( !is_note_to ( ch, pnote ) )
-		{ return true; }
-		
-		return false;   
+    time_t last_read;
+
+    if ( IS_NPC ( ch ) )
+    {
+        return true;
+    }
+
+    switch ( pnote->type )
+    {
+    default:
+        return true;
+    case NOTE_NOTE:
+        last_read = ch->pcdata->last_note;
+        break;
+    case NOTE_IDEA:
+        last_read = ch->pcdata->last_idea;
+        break;
+    case NOTE_PENALTY:
+        last_read = ch->pcdata->last_penalty;
+        break;
+    case NOTE_NEWS:
+        last_read = ch->pcdata->last_news;
+        break;
+    case NOTE_CHANGES:
+        last_read = ch->pcdata->last_changes;
+        break;
+    }
+
+    if ( !str_cmp ( ch->name, pnote->sender ) )
+    {
+        return true;
+    }
+
+    if ( !is_note_to ( ch, pnote ) )
+    {
+        return true;
+    }
+
+    return false;
 }
-				
+
 
 int count_spool_ignore_stamp ( CHAR_DATA *ch, NOTE_DATA *spool )
 {
-		int count = 0;
-		NOTE_DATA *pnote;
+    int count = 0;
+    NOTE_DATA *pnote;
 
-		for ( pnote = spool; pnote != NULL; pnote = pnote->next )
-				if ( !hide_note_ignore_stamp ( ch, pnote ) )
-				{ count++; }
+    for ( pnote = spool; pnote != NULL; pnote = pnote->next )
+        if ( !hide_note_ignore_stamp ( ch, pnote ) )
+        {
+            count++;
+        }
 
-		return count;
+    return count;
 }
 
 
 void do_unread(CHAR_DATA *ch, char *argument)
 {
-	if (IS_NPC(ch))
-	return; 
+    if (IS_NPC(ch))
+        return;
 
-		send_to_char ( "\ay+\aW-------------------------------\ay+\n\r", ch );
-		send_to_char ( Format ( "\aW| \aGNews              \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, news_list ), count_spool ( ch, news_list ) ), ch );
-		send_to_char ( Format ( "\aW| \aGChanges           \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, changes_list ), count_spool ( ch, changes_list ) ), ch );
-		send_to_char ( Format ( "\aW| \aGIdeas             \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, idea_list ), count_spool ( ch, idea_list ) ), ch );
-		send_to_char ( Format ( "\aW| \aGNotes             \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, note_list ), count_spool ( ch, note_list ) ), ch );
-		if ( IS_TRUSTED ( ch, ANGEL ) )
-		{ send_to_char ( Format ( "\aW| \aGPenalties         \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, penalty_list ), count_spool ( ch, penalty_list ) ), ch ); }
-		send_to_char ( "\ay+\aW-------------------------------\ay+\an\n\r", ch );
+    send_to_char ( "\ay+\aW-------------------------------\ay+\n\r", ch );
+    send_to_char ( Format ( "\aW| \aGNews              \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, news_list ), count_spool ( ch, news_list ) ), ch );
+    send_to_char ( Format ( "\aW| \aGChanges           \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, changes_list ), count_spool ( ch, changes_list ) ), ch );
+    send_to_char ( Format ( "\aW| \aGIdeas             \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, idea_list ), count_spool ( ch, idea_list ) ), ch );
+    send_to_char ( Format ( "\aW| \aGNotes             \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, note_list ), count_spool ( ch, note_list ) ), ch );
+    if ( IS_TRUSTED ( ch, ANGEL ) )
+    {
+        send_to_char ( Format ( "\aW| \aGPenalties         \ay%3d  \aW| \aY%3d  \aW|\n\r", count_spool_ignore_stamp ( ch, penalty_list ), count_spool ( ch, penalty_list ) ), ch );
+    }
+    send_to_char ( "\ay+\aW-------------------------------\ay+\an\n\r", ch );
 }
 
-void do_note(CHAR_DATA *ch,char *argument)
+void do_note(CHAR_DATA *ch, char *argument)
 {
-	parse_note(ch,argument,NOTE_NOTE);
+    parse_note(ch, argument, NOTE_NOTE);
 }
 
-void do_idea(CHAR_DATA *ch,char *argument)
+void do_idea(CHAR_DATA *ch, char *argument)
 {
-	parse_note(ch,argument,NOTE_IDEA);
+    parse_note(ch, argument, NOTE_IDEA);
 }
 
-void do_penalty(CHAR_DATA *ch,char *argument)
+void do_penalty(CHAR_DATA *ch, char *argument)
 {
-	parse_note(ch,argument,NOTE_PENALTY);
+    parse_note(ch, argument, NOTE_PENALTY);
 }
 
-void do_news(CHAR_DATA *ch,char *argument)
+void do_news(CHAR_DATA *ch, char *argument)
 {
-	parse_note(ch,argument,NOTE_NEWS);
+    parse_note(ch, argument, NOTE_NEWS);
 }
 
-void do_changes(CHAR_DATA *ch,char *argument)
+void do_changes(CHAR_DATA *ch, char *argument)
 {
-	parse_note(ch,argument,NOTE_CHANGES);
+    parse_note(ch, argument, NOTE_CHANGES);
 }
 
 void save_notes(int type)
 {
-	FILE *fp;
-	char *name;
-	NOTE_DATA *pnote;
+    FILE *fp;
+    char *name;
+    NOTE_DATA *pnote;
 
-	switch (type)
-	{
-	default:
-		return;
-	case NOTE_NOTE:
-		name = NOTE_FILE;
-		pnote = note_list;
-		break;
-	case NOTE_IDEA:
-		name = IDEA_FILE;
-		pnote = idea_list;
-		break;
-	case NOTE_PENALTY:
-		name = PENALTY_FILE;
-		pnote = penalty_list;
-		break;
-	case NOTE_NEWS:
-		name = NEWS_FILE;
-		pnote = news_list;
-		break;
-	case NOTE_CHANGES:
-		name = CHANGES_FILE;
-		pnote = changes_list;
-		break;
-	}
+    switch (type)
+    {
+    default:
+        return;
+    case NOTE_NOTE:
+        name = NOTE_FILE;
+        pnote = note_list;
+        break;
+    case NOTE_IDEA:
+        name = IDEA_FILE;
+        pnote = idea_list;
+        break;
+    case NOTE_PENALTY:
+        name = PENALTY_FILE;
+        pnote = penalty_list;
+        break;
+    case NOTE_NEWS:
+        name = NEWS_FILE;
+        pnote = news_list;
+        break;
+    case NOTE_CHANGES:
+        name = CHANGES_FILE;
+        pnote = changes_list;
+        break;
+    }
 
-	closeReserve();
-	if ( ( fp = fopen( name, "w" ) ) == NULL )
-	{
-	perror( name );
-	}
-	else
-	{
-	for ( ; pnote != NULL; pnote = pnote->next )
-	{
-		fprintf( fp, "Sender  %s~\n", pnote->sender);
-		fprintf( fp, "Date    %s~\n", pnote->date);
-		fprintf( fp, "Stamp   %ld\n", pnote->date_stamp);
-		fprintf( fp, "To      %s~\n", pnote->to_list);
-		fprintf( fp, "Subject %s~\n", pnote->subject);
-		fprintf( fp, "Text\n%s~\n",   pnote->text);
-	}
-	fclose( fp );
-	openReserve();
-	return;
-	}
+    closeReserve();
+    if ((fp = fopen(name, "w")) == NULL)
+    {
+        bug("save_notes: fopen", errno); // Using the custom 'bug' function
+    }
+    else
+    {
+        for (; pnote != NULL; pnote = pnote->next)
+        {
+            fprintf(fp, "Sender  %s~\n", pnote->sender);
+            fprintf(fp, "Date    %s~\n", pnote->date);
+            fprintf(fp, "Stamp   %ld\n", pnote->date_stamp);
+            fprintf(fp, "To      %s~\n", pnote->to_list);
+            fprintf(fp, "Subject %s~\n", pnote->subject);
+            fprintf(fp, "Text\n%s~\n", pnote->text);
+        }
+        fclose(fp);
+        openReserve();
+        return;
+    }
 }
+
+
 void load_notes(void)
 {
-	load_thread(NOTE_FILE,&note_list, NOTE_NOTE, 14*24*60*60);
-	load_thread(IDEA_FILE,&idea_list, NOTE_IDEA, 28*24*60*60);
-	load_thread(PENALTY_FILE,&penalty_list, NOTE_PENALTY, 0);
-	load_thread(NEWS_FILE,&news_list, NOTE_NEWS, 0);
-	load_thread(CHANGES_FILE,&changes_list,NOTE_CHANGES, 0);
+    load_thread(NOTE_FILE, &note_list, NOTE_NOTE, 14 * 24 * 60 * 60);
+    load_thread(IDEA_FILE, &idea_list, NOTE_IDEA, 28 * 24 * 60 * 60);
+    load_thread(PENALTY_FILE, &penalty_list, NOTE_PENALTY, 0);
+    load_thread(NEWS_FILE, &news_list, NOTE_NEWS, 0);
+    load_thread(CHANGES_FILE, &changes_list, NOTE_CHANGES, 0);
 }
 
 void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time)
 {
-	FILE *fp;
-	NOTE_DATA *pnotelast;
- 
-	if ( ( fp = fopen( name, "r" ) ) == NULL )
-	return;
-	 
-	pnotelast = NULL;
-	for ( ; ; )
-	{
-	NOTE_DATA *pnote;
-	char letter;
-	 
-	do
-	{
-		letter = getc( fp );
-			if ( feof(fp) )
-			{
-				fclose( fp );
-				return;
-			}
-		}
-		while ( isspace(letter) );
-		ungetc( letter, fp );
- 
-		ALLOC_DATA(pnote, NOTE_DATA, 1);
- 
-		if ( str_cmp( fread_word( fp ), "sender" ) )
-			break;
-		pnote->sender   = fread_string( fp );
- 
-		if ( str_cmp( fread_word( fp ), "date" ) )
-			break;
-		pnote->date     = fread_string( fp );
- 
-		if ( str_cmp( fread_word( fp ), "stamp" ) )
-			break;
-		pnote->date_stamp = fread_number(fp);
- 
-		if ( str_cmp( fread_word( fp ), "to" ) )
-			break;
-		pnote->to_list  = fread_string( fp );
- 
-		if ( str_cmp( fread_word( fp ), "subject" ) )
-			break;
-		pnote->subject  = fread_string( fp );
- 
-		if ( str_cmp( fread_word( fp ), "text" ) )
-			break;
-		pnote->text     = fread_string( fp );
- 
-		if (free_time && pnote->date_stamp < current_time - free_time)
-		{
-		free_note(pnote);
-			continue;
-		}
+    FILE *fp;
+    NOTE_DATA *pnotelast;
 
-	pnote->type = type;
- 
-		if (*list == NULL)
-			*list           = pnote;
-		else
-			pnotelast->next     = pnote;
- 
-		pnotelast       = pnote;
-	}
- 
-	strcpy( strArea, NOTE_FILE );
-	fpArea = fp;
-	bug( "Load_notes: bad key word.", 0 );
-	exit( 1 );
-	return;
+    if ( ( fp = fopen( name, "r" ) ) == NULL )
+        return;
+
+    pnotelast = NULL;
+    for ( ; ; )
+    {
+        NOTE_DATA *pnote;
+        char letter;
+
+        do
+        {
+            letter = getc( fp );
+            if ( feof(fp) )
+            {
+                fclose( fp );
+                return;
+            }
+        }
+        while ( isspace(letter) );
+        ungetc( letter, fp );
+
+        ALLOC_DATA(pnote, NOTE_DATA, 1);
+
+        if ( str_cmp( fread_word( fp ), "sender" ) )
+            break;
+        pnote->sender   = fread_string( fp );
+
+        if ( str_cmp( fread_word( fp ), "date" ) )
+            break;
+        pnote->date     = fread_string( fp );
+
+        if ( str_cmp( fread_word( fp ), "stamp" ) )
+            break;
+        pnote->date_stamp = fread_number(fp);
+
+        if ( str_cmp( fread_word( fp ), "to" ) )
+            break;
+        pnote->to_list  = fread_string( fp );
+
+        if ( str_cmp( fread_word( fp ), "subject" ) )
+            break;
+        pnote->subject  = fread_string( fp );
+
+        if ( str_cmp( fread_word( fp ), "text" ) )
+            break;
+        pnote->text     = fread_string( fp );
+
+        if (free_time && pnote->date_stamp < current_time - free_time)
+        {
+            free_note(pnote);
+            continue;
+        }
+
+        pnote->type = type;
+
+        if (*list == NULL)
+            *list           = pnote;
+        else
+            pnotelast->next     = pnote;
+
+        pnotelast       = pnote;
+    }
+
+    strcpy( strArea, NOTE_FILE );
+    fpArea = fp;
+    bug( "Load_notes: bad key word.", 0 );
+    exit( 1 );
+    return;
 }
 
 void append_note(NOTE_DATA *pnote)
 {
-	FILE *fp;
-	char *name;
-	NOTE_DATA **list;
-	NOTE_DATA *last;
+    FILE *fp;
+    char *name;
+    NOTE_DATA **list;
+    NOTE_DATA *last;
 
-	switch(pnote->type)
-	{
-	default:
-		return;
-	case NOTE_NOTE:
-		name = NOTE_FILE;
-		list = &note_list;
-		break;
-	case NOTE_IDEA:
-		name = IDEA_FILE;
-		list = &idea_list;
-		break;
-	case NOTE_PENALTY:
-		name = PENALTY_FILE;
-		list = &penalty_list;
-		break;
-	case NOTE_NEWS:
-		 name = NEWS_FILE;
-		 list = &news_list;
-		 break;
-	case NOTE_CHANGES:
-		 name = CHANGES_FILE;
-		 list = &changes_list;
-		 break;
-	}
+    switch(pnote->type)
+    {
+    default:
+        return;
+    case NOTE_NOTE:
+        name = NOTE_FILE;
+        list = &note_list;
+        break;
+    case NOTE_IDEA:
+        name = IDEA_FILE;
+        list = &idea_list;
+        break;
+    case NOTE_PENALTY:
+        name = PENALTY_FILE;
+        list = &penalty_list;
+        break;
+    case NOTE_NEWS:
+        name = NEWS_FILE;
+        list = &news_list;
+        break;
+    case NOTE_CHANGES:
+        name = CHANGES_FILE;
+        list = &changes_list;
+        break;
+    }
 
-	if (*list == NULL)
-	*list = pnote;
-	else
-	{
-	for ( last = *list; last->next != NULL; last = last->next);
-	last->next = pnote;
-	}
+    if (*list == NULL)
+        *list = pnote;
+    else
+    {
+        for (last = *list; last->next != NULL; last = last->next);
+        last->next = pnote;
+    }
 
-	closeReserve();
-	if ( ( fp = fopen(name, "a" ) ) == NULL )
-	{
-		perror(name);
-	}
-	else
-	{
-		fprintf( fp, "Sender  %s~\n", pnote->sender);
-		fprintf( fp, "Date    %s~\n", pnote->date);
-		fprintf( fp, "Stamp   %ld\n", pnote->date_stamp);
-		fprintf( fp, "To      %s~\n", pnote->to_list);
-		fprintf( fp, "Subject %s~\n", pnote->subject);
-		fprintf( fp, "Text\n%s~\n", pnote->text);
-		fclose( fp );
-	}
-	openReserve();
+    closeReserve();
+    if ((fp = fopen(name, "a")) == NULL)
+    {
+        bug("append_note: fopen", errno); // Using the custom 'bug' function
+    }
+    else
+    {
+        fprintf(fp, "Sender  %s~\n", pnote->sender);
+        fprintf(fp, "Date    %s~\n", pnote->date);
+        fprintf(fp, "Stamp   %ld\n", pnote->date_stamp);
+        fprintf(fp, "To      %s~\n", pnote->to_list);
+        fprintf(fp, "Subject %s~\n", pnote->subject);
+        fprintf(fp, "Text\n%s~\n", pnote->text);
+        fclose(fp);
+    }
+    openReserve();
 }
+
 
 bool is_note_to( CHAR_DATA *ch, NOTE_DATA *pnote )
 {
-	if ( !str_cmp( ch->name, pnote->sender ) )
-	return TRUE;
+    if ( !str_cmp( ch->name, pnote->sender ) )
+        return TRUE;
 
-	if ( is_exact_name( "all", pnote->to_list ) )
-	return TRUE;
+    if ( is_exact_name( "all", pnote->to_list ) )
+        return TRUE;
 
-	if ( IS_IMMORTAL(ch) && is_exact_name( "immortal", pnote->to_list ) )
-	return TRUE;
+    if ( IS_IMMORTAL(ch) && is_exact_name( "immortal", pnote->to_list ) )
+        return TRUE;
 
-	if (ch->clan && is_exact_name(clan_table[ch->clan].name,pnote->to_list))
-	return TRUE;
+    if (ch->clan && is_exact_name(clan_table[ch->clan].name, pnote->to_list))
+        return TRUE;
 
-	if (is_exact_name( ch->name, pnote->to_list ) )
-	return TRUE;
+    if (is_exact_name( ch->name, pnote->to_list ) )
+        return TRUE;
 
-	return FALSE;
+    return FALSE;
 }
 
 
@@ -830,4 +848,3 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 	send_to_char( "You can't do that.\n\r", ch );
 	return;
 }
-

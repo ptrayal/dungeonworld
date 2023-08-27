@@ -1,63 +1,63 @@
-Thu Sep 28 08:35:21 2017 :: Last compiled on Sep  4 2017 at 20:20:26.
-Thu Sep 28 08:35:21 2017 :: Boot - Initializing RNG
-Thu Sep 28 08:35:21 2017 :: Boot - Generating Weather
-Thu Sep 28 08:35:21 2017 :: Boot - Assigning GSNs
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Classes
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Mage.
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Cleric.
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Thief.
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Warrior.
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Materials
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file social.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file help.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file rom.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file group.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file limbo.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file plains.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file ofcol2.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file olympus.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file air.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file shire.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file immort.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file hitower.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file gnome.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file wyvern.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file catacomb.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file draconia.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file mahntor.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file trollden.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file midgaard.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file chapel.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file midennir.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file grave.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file school.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file moria.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file eastern.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file drow.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file thalos.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file mirror.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file ofcol.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file haon.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file arachnos.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file dwarven.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file quifael.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file sewer.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file astral.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file valley.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file marsh.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file pyramid.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file grove.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file nirvana.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file dylan.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file canyon.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file galaxy.are
-Thu Sep 28 08:35:21 2017 :: Boot - Reading Area file newthalos.are
-Thu Sep 28 08:35:21 2017 :: Boot - Fixing Exits
-Thu Sep 28 08:35:21 2017 :: [*****] BUG: Fix_exits: 8705:4 -> 8706:5 -> 8708.
-Thu Sep 28 08:35:21 2017 :: Boot - Fixing mobprogs
-Thu Sep 28 08:35:21 2017 :: Boot - Changing fBootDb state
-Thu Sep 28 08:35:21 2017 :: Boot - Converting Objects(modern format)
-Thu Sep 28 08:35:21 2017 :: Boot - Initial world respawn initiating
+Sun Aug 27 08:56:24 2023 :: Last compiled on Aug 27 2023 at 08:08:47.
+Sun Aug 27 08:56:24 2023 :: Boot - Initializing RNG
+Sun Aug 27 08:56:24 2023 :: Boot - Generating Weather
+Sun Aug 27 08:56:24 2023 :: Boot - Assigning GSNs
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Classes
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Mage.
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Cleric.
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Thief.
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Warrior.
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Materials
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file social.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file group.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file rom.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file help.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file limbo.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file plains.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file ofcol2.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file olympus.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file air.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file shire.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file immort.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file hitower.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file gnome.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file wyvern.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file catacomb.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file draconia.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file mahntor.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file trollden.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file midgaard.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file chapel.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file midennir.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file grave.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file school.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file moria.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file eastern.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file drow.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file thalos.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file mirror.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file ofcol.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file haon.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file arachnos.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file dwarven.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file quifael.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file sewer.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file astral.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file valley.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file marsh.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file pyramid.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file grove.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file nirvana.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file dylan.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file canyon.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file galaxy.are
+Sun Aug 27 08:56:24 2023 :: Boot - Reading Area file newthalos.are
+Sun Aug 27 08:56:24 2023 :: Boot - Fixing Exits
+Sun Aug 27 08:56:24 2023 :: [*****] BUG: Fix_exits: 8705:4 -> 8706:5 -> 8708. 0
+Sun Aug 27 08:56:24 2023 :: Boot - Fixing mobprogs
+Sun Aug 27 08:56:24 2023 :: Boot - Changing fBootDb state
+Sun Aug 27 08:56:24 2023 :: Boot - Converting Objects(modern format)
+Sun Aug 27 08:56:24 2023 :: Boot - Initial world respawn initiating
 Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
 Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
 Err: obj a dagger (3351) -- 1, mob a young mage (1326) -- 9
@@ -74,41 +74,43 @@ Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
 Err: obj a dagger (3351) -- 1, mob A tomb thief (8704) -- 10
 Err: obj an ice staff (9216) -- 15, mob a puddle (9214) -- 8
 Err: obj an icicle (9227) -- 28, mob the Ice Bandit (9228) -- 24
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Notes
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Bans
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Songs
-Thu Sep 28 08:35:21 2017 :: Boot - Loading Wizlist
-Thu Sep 28 08:35:21 2017 :: Boot - Saving Materials File
-Thu Sep 28 08:35:21 2017 :: Boot - Detecting greeting
-Thu Sep 28 08:35:21 2017 :: Boot - Greeting detected!
-Thu Sep 28 08:35:21 2017 :: DungeonWorld(00.02.48 (build: 248)) is now running on port 9080
-Thu Sep 28 08:35:34 2017 :: Sock.sinaddr: 127.0.0.1
-Thu Sep 28 08:35:35 2017 :: Loading Rayal.
-Thu Sep 28 08:35:35 2017 :: [*****] BUG: Fread_char: no match for word (~)
-Thu Sep 28 08:35:35 2017 :: [*****] BUG: Fread_char: no match for word (~)
-Thu Sep 28 08:35:35 2017 :: [*****] BUG: Fread_char: no match for word (~)
-Thu Sep 28 08:35:36 2017 :: Rayal@localhost has connected.
-Thu Sep 28 08:38:25 2017 :: Log Rayal: reboot now
-Thu Sep 28 08:38:25 2017 :: Closing link to Rayal.
-Thu Sep 28 08:38:25 2017 :: Cleaning: initial purge
-Thu Sep 28 08:38:25 2017 :: Cleaning: descriptors
-Thu Sep 28 08:38:25 2017 :: Cleaning: char_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: obj_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: ban_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: mprog_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: note_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: idea_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: penalty_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: news_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: changes_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: wiz_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: buffer_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: mat_list
-Thu Sep 28 08:38:25 2017 :: Cleaning: second purge
-Thu Sep 28 08:38:25 2017 :: Freeing Hash's.  THIS COULD TAKE AWHILE!
-Thu Sep 28 08:38:25 2017 :: Cleaning: areas
-Thu Sep 28 08:38:25 2017 :: Cleaning: final purge
-Thu Sep 28 08:38:25 2017 :: ------------------------------------------
-Thu Sep 28 08:38:25 2017 ::               HASH's FREED!               
-Thu Sep 28 08:38:25 2017 :: ------------------------------------------
-Thu Sep 28 08:38:25 2017 :: Normal termination of game.
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Notes
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Bans
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Songs
+Sun Aug 27 08:56:24 2023 :: Boot - Loading Wizlist
+Sun Aug 27 08:56:24 2023 :: Boot - Saving Materials File
+Sun Aug 27 08:56:24 2023 :: Boot - Detecting greeting
+Sun Aug 27 08:56:24 2023 :: Boot - Greeting detected!
+Sun Aug 27 08:56:24 2023 :: DungeonWorld(00.04.81 (build: 481)) is now running on port 9080
+Sun Aug 27 08:56:28 2023 :: Sock.sinaddr: 127.0.0.1
+Sun Aug 27 08:56:30 2023 :: Loading Rayal.
+Sun Aug 27 08:56:30 2023 :: [*****] BUG: Fread_char: no match for word (~) 0
+Sun Aug 27 08:56:30 2023 :: [*****] BUG: Fread_char: no match for word (~) 0
+Sun Aug 27 08:56:30 2023 :: [*****] BUG: Fread_char: no match for word (~) 0
+Sun Aug 27 08:56:31 2023 :: Rayal@localhost has connected.
+Sun Aug 27 08:56:47 2023 :: Log Rayal: mob_dump
+Sun Aug 27 08:57:11 2023 :: Log Rayal: mob_dump
+Sun Aug 27 08:57:59 2023 :: Log Rayal: shutdown
+Sun Aug 27 08:57:59 2023 :: Closing link to Rayal.
+Sun Aug 27 08:57:59 2023 :: Cleaning: initial purge
+Sun Aug 27 08:57:59 2023 :: Cleaning: descriptors
+Sun Aug 27 08:57:59 2023 :: Cleaning: char_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: obj_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: ban_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: mprog_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: note_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: idea_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: penalty_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: news_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: changes_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: wiz_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: buffer_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: mat_list
+Sun Aug 27 08:57:59 2023 :: Cleaning: second purge
+Sun Aug 27 08:57:59 2023 :: Freeing Hash's.  THIS COULD TAKE AWHILE!
+Sun Aug 27 08:57:59 2023 :: Cleaning: areas
+Sun Aug 27 08:57:59 2023 :: Cleaning: final purge
+Sun Aug 27 08:57:59 2023 :: ------------------------------------------
+Sun Aug 27 08:57:59 2023 ::               HASH's FREED!               
+Sun Aug 27 08:57:59 2023 :: ------------------------------------------
+Sun Aug 27 08:57:59 2023 :: Normal termination of game.

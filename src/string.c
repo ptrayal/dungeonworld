@@ -110,8 +110,6 @@ char * string_replace( char * orig, char * old, char * inew )
 		return str_dup( xbuf );
 }
 
-
-
 /*****************************************************************************
  Name:		string_add
  Purpose:	Interpreter for string editing.
@@ -268,8 +266,6 @@ void string_add( CHAR_DATA *ch, char *argument )
 		*ch->desc->pString = str_dup( buf );
 		return;
 }
-
-
 
 /*
  * Thanks to Kalgen for the new procedure (no more bug!)
@@ -549,8 +545,6 @@ char *format_string (char *oldstring /*, bool fSpace */ )
  	return (str_dup (xbuf));
  }
 
-
-
 /*
  * Used above in string_add.  Because this function does not
  * modify case if fCase is FALSE and because it understands
@@ -602,8 +596,6 @@ char *first_arg( char *argument, char *arg_first, bool fCase )
 
 		return argument;
 }
-
-
 
 
 /*

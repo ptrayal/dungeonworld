@@ -17,3 +17,4 @@
 [ 7201] Rayal: ITEM_WEAPON
 [ 1409] Rayal: ITEM_WEAPON
 [    1] Rayal: check
+[ 2391] Rayal: fighter

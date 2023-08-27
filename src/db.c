@@ -84,7 +84,7 @@ extern  AFFECT_DATA	*affect_free;
  * Globals.
  */
 HELP_DATA *		help_first;
-HELP_DATA *		help_last;
+extern HELP_DATA *		help_last;
 
 HELP_AREA *		had_list;
 
@@ -98,7 +98,7 @@ MPROG_CODE *		mprog_list;
 CHAR_DATA *		char_list;
 char *			help_greeting;
 KILL_DATA		kill_table	[MAX_LEVEL];
-NOTE_DATA *		note_list;
+extern NOTE_DATA *		note_list;
 OBJ_DATA *		object_list;
 TIME_INFO_DATA		time_info;
 WEATHER_DATA		weather_info;
@@ -3466,61 +3466,80 @@ void append_file( CHAR_DATA *ch, char *file, char *str )
 
 
 
-/*
- * Reports a bug.
- */
-void bug( const char *str, int param )
+// /*
+//  * Reports a bug.
+//  */
+// void bug( const char *str, int param )
+// {
+// 	char buf[MSL]={'\0'};
+
+// 	if ( fpArea != NULL )
+// 	{
+// 	int iLine;
+// 	int iChar;
+
+// 	if ( fpArea == stdin )
+// 	{
+// 		iLine = 0;
+// 	}
+// 	else
+// 	{
+// 		iChar = ftell( fpArea );
+// 		fseek( fpArea, 0, 0 );
+// 		for ( iLine = 0; ftell( fpArea ) < iChar; iLine++ )
+// 		{
+// 		while ( getc( fpArea ) != '\n' )
+// 			;
+// 		}
+// 		fseek( fpArea, iChar, 0 );
+// 	}
+
+// 	sprintf( buf, "[*****] FILE: %s LINE: %d", strArea, iLine );
+// 	log_string( buf );
+// 	}
+
+// 	strcpy( buf, "[*****] BUG: " );
+// 	sprintf( buf + strlen(buf), str, param );
+// 	log_string( buf );
+
+// 	return;
+// }
+
+// Updated bug function with better buffer management
+void bug(const char *str, int param)
 {
-	char buf[MSL]={'\0'};
+    char buf[MSL] = {'\0'};
 
-	if ( fpArea != NULL )
-	{
-	int iLine;
-	int iChar;
+    if (fpArea != NULL)
+    {
+        int iLine;
+        int iChar;
 
-	if ( fpArea == stdin )
-	{
-		iLine = 0;
-	}
-	else
-	{
-		iChar = ftell( fpArea );
-		fseek( fpArea, 0, 0 );
-		for ( iLine = 0; ftell( fpArea ) < iChar; iLine++ )
-		{
-		while ( getc( fpArea ) != '\n' )
-			;
-		}
-		fseek( fpArea, iChar, 0 );
-	}
+        if (fpArea == stdin)
+        {
+            iLine = 0;
+        }
+        else
+        {
+            iChar = ftell(fpArea);
+            fseek(fpArea, 0, 0);
+            for (iLine = 0; ftell(fpArea) < iChar; iLine++)
+            {
+                while (getc(fpArea) != '\n')
+                    ;
+            }
+            fseek(fpArea, iChar, 0);
+        }
 
-	sprintf( buf, "[*****] FILE: %s LINE: %d", strArea, iLine );
-	log_string( buf );
-/* RT removed because we don't want bugs shutting the mud 
-	if ( ( fp = fopen( "shutdown.txt", "a" ) ) != NULL )
-	{
-		fprintf( fp, "[*****] %s\n", buf );
-		fclose( fp );
-	}
-*/
-	}
+        snprintf(buf, sizeof(buf), "[*****] FILE: %s LINE: %d", strArea, iLine);
+        log_string(buf);
+    }
 
-	strcpy( buf, "[*****] BUG: " );
-	sprintf( buf + strlen(buf), str, param );
-	log_string( buf );
-/* RT removed due to bug-file spamming 
-	closeReserve();
-	if ( ( fp = fopen( BUG_FILE, "a" ) ) != NULL )
-	{
-	fprintf( fp, "%s\n", buf );
-	fclose( fp );
-	}
-	openReserve();
-*/
+    snprintf(buf, sizeof(buf), "[*****] BUG: %s %d", str, param);
+    log_string(buf);
 
-	return;
+    return;
 }
-
 
 
 /*
