@@ -18,9 +18,11 @@
 #include <string.h>
 #include <time.h>
 
+
+// Tables.h must be before olc.h or else it gives compiler warnings.
 #include "merc.h"
-#include "olc.h"
 #include "tables.h"
+#include "olc.h"
 
 char *string_linedel( char *, int );
 char *string_lineadd( char *, char *, int );
