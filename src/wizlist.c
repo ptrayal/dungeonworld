@@ -204,7 +204,16 @@ void do_wizlist(CHAR_DATA *ch, char *argument)
     {
         strcat(title, " ");
     }
-    snprintf(buf, sizeof(buf), "|/\\\\_\\\tW%-76s\tn\\_\\\n\r", title);
+    
+    // Clear the buffer
+    buf[0] = '\0';
+
+    // Concatenate the parts to the buffer
+    strncat(buf, "|/\\\\_\\                      \tW", sizeof(buf) - strlen(buf) - 1); // Leave space for null terminator
+    strncat(buf, title, sizeof(buf) - strlen(buf) - 1);        // Leave space for null terminator
+    strncat(buf, "\tn\\_|\n\r", sizeof(buf) - strlen(buf) - 1);   // Leave space for null terminator
+
+    // snprintf(buf, sizeof(buf), "|/\\\\_\\\tW%-76s\tn\\_\\\n\r", title);
     add_buf(buffer, buf);
     snprintf(buf, sizeof(buf), "\\_/_|_|%69s|_|\n\r", " ");
     add_buf(buffer, buf);
