@@ -24,7 +24,8 @@
 
 char *string_linedel( char *, int );
 char *string_lineadd( char *, char *, int );
-char *numlineas( char * );
+char *numlineas(char *string);
+char *get_line(char *str, char *buf);
 
 /*****************************************************************************
  Name:		string_edit
@@ -59,27 +60,28 @@ void string_edit( CHAR_DATA *ch, char **pString )
  Purpose:	Puts player into append mode for given string.
  Called by:	(many)olc_act.c
  ****************************************************************************/
-void string_append( CHAR_DATA *ch, char **pString )
+void string_append(CHAR_DATA *ch, char **pString)
 {
-		send_to_char( "-=======- Entering APPEND Mode -========-\n\r", ch );
-		send_to_char( "    Type .h on a new line for help\n\r", ch );
-		send_to_char( " Terminate with a ~ or @ on a blank line.\n\r", ch );
-		send_to_char( "-=======================================-\n\r", ch );
+    send_to_char("-=======- Entering APPEND Mode -========-\n\r", ch);
+    send_to_char("    Type .h on a new line for help\n\r", ch);
+    send_to_char(" Terminate with a ~ or @ on a blank line.\n\r", ch);
+    send_to_char("-=======================================-\n\r", ch);
 
-		if ( *pString == NULL )
-		{
-				*pString = NULL;
-		}
-		send_to_char( numlineas(*pString), ch );
+    if (*pString == NULL)
+    {
+        *pString = NULL;
+    }
+    send_to_char(numlineas(*pString), ch);
 
-/* numlineas entrega el string con \n\r */
-/*  if ( *(*pString + strlen( *pString ) - 1) != '\r' )
-	send_to_char( "\n\r", ch ); */
+    /* numlines provides the string with \n\r */
+    /* if (*(*pString + strlen(*pString) - 1) != '\r')
+        send_to_char("\n\r", ch); */
 
-		ch->desc->pString = pString;
+    ch->desc->pString = pString;
 
-		return;
+    return;
 }
+
 
 
 
@@ -759,24 +761,28 @@ char *get_line( char *str, char *buf )
 	return str;
 }
 
-char *numlineas( char *string )
+char *numlineas(char *string)
 {
-	int cnt = 1;
-	static char buf[MSL*2]={'\0'};
-	char buf2[MSL]={'\0'};
-	char tmpb[MSL]={'\0'};
+    int cnt = 1;
+    static char buf[MSL * 2] = {'\0'};
+    char buf2[MSL] = {'\0'};
+    char tmpb[MSL] = {'\0'};
 
-	buf[0] = '\0';
+    buf[0] = '\0';
 
-	if(IS_NULLSTR(string))
-		return "";
+    if (string == NULL || *string == '\0')
+        return "";
 
-	while ( *string )
-	{
-		string = get_line( string, tmpb );
-		sprintf( buf2, "%2d. %s\n\r", cnt++, tmpb );
-		strcat( buf, buf2 );
-	}
+    while (*string)
+    {
+        string = get_line(string, tmpb);
 
-	return buf;
+        // Using snprintf with size limitation
+        snprintf(buf2, sizeof(buf2), "%2d. %.220s\n\r", cnt++, tmpb);
+
+        // Using strncat instead of strcat
+        strncat(buf, buf2, sizeof(buf) - strlen(buf) - 1);
+    }
+
+    return buf;
 }
