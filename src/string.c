@@ -11,19 +11,16 @@
  *                                                                         *
  ***************************************************************************/
 
-#if defined(Macintosh)
-#include <types.h>
-#else
 #include <sys/types.h>
-#endif
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
 #include "merc.h"
-#include "tables.h"
 #include "olc.h"
+#include "tables.h"
 
 char *string_linedel( char *, int );
 char *string_lineadd( char *, char *, int );
@@ -732,7 +729,7 @@ char *string_lineadd( char *string, char *newstr, int line )
 	return str_dup(buf);
 }
 
-/* buf queda con la linea sin \n\r */
+/* 'buf' holds the line without \n\r */
 char *get_line( char *str, char *buf )
 {
 	int tmp = 0;
@@ -755,7 +752,7 @@ char *get_line( char *str, char *buf )
 			str += 2;
 		else
 			str += 1;
-	} /* para que quedemos en el inicio de la prox linea */
+	} /* to stay at the beginning of the next line */
 
 	buf[tmp] = '\0';
 
