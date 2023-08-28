@@ -1565,49 +1565,49 @@ OBJ_DATA *get_eq_char( CHAR_DATA *ch, int iWear )
  */
 void equip_char( CHAR_DATA *ch, OBJ_DATA *obj, int iWear )
 {
-	AFFECT_DATA *paf;
-	int i;
+    AFFECT_DATA *paf;
+    int i;
 
-	if ( get_eq_char( ch, iWear ) != NULL )
-	{
-	bug( "Equip_char: already equipped (%d).", iWear );
-	return;
-	}
+    if ( get_eq_char( ch, iWear ) != NULL )
+    {
+        bug( "Equip_char: already equipped (%d).", iWear );
+        return;
+    }
 
-	if ( ( IS_OBJ_STAT(obj, ITEM_ANTI_EVIL)    && IS_EVIL(ch)    )
-	||   ( IS_OBJ_STAT(obj, ITEM_ANTI_GOOD)    && IS_GOOD(ch)    )
-	||   ( IS_OBJ_STAT(obj, ITEM_ANTI_NEUTRAL) && IS_NEUTRAL(ch) ) )
-	{
-	/*
-	 * Thanks to Morgenes for the bug fix here!
-	 */
-	act( "You are zapped by $p and drop it.", ch, obj, NULL, TO_CHAR );
-	act( "$n is zapped by $p and drops it.",  ch, obj, NULL, TO_ROOM );
-	obj_from_char( obj );
-	obj_to_room( obj, ch->in_room );
-	return;
-	}
+    if ( ( IS_OBJ_STAT(obj, ITEM_ANTI_EVIL)    && IS_EVIL(ch)    )
+            ||   ( IS_OBJ_STAT(obj, ITEM_ANTI_GOOD)    && IS_GOOD(ch)    )
+            ||   ( IS_OBJ_STAT(obj, ITEM_ANTI_NEUTRAL) && IS_NEUTRAL(ch) ) )
+    {
+        /*
+         * Thanks to Morgenes for the bug fix here!
+         */
+        act( "You are zapped by $p and drop it.", ch, obj, NULL, TO_CHAR );
+        act( "$n is zapped by $p and drops it.",  ch, obj, NULL, TO_ROOM );
+        obj_from_char( obj );
+        obj_to_room( obj, ch->in_room );
+        return;
+    }
 
-	for (i = 0; i < 4; i++)
-		ch->armor[i]      	-= apply_ac( obj, iWear,i );
-	obj->wear_loc	 = iWear;
+    for (i = 0; i < 4; i++)
+        ch->armor[i]      	-= apply_ac( obj, iWear, i );
+    obj->wear_loc	 = iWear;
 
-	if (!obj->enchanted)
-	for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
-		if ( paf->location != APPLY_SPELL_AFFECT )
-			affect_modify( ch, paf, TRUE );
-	for ( paf = obj->affected; paf != NULL; paf = paf->next )
-	if ( paf->location == APPLY_SPELL_AFFECT )
-			affect_to_char ( ch, paf );
-	else
-		affect_modify( ch, paf, TRUE );
+    if (!obj->enchanted)
+        for ( paf = obj->pIndexData->affected; paf != NULL; paf = paf->next )
+            if ( paf->location != APPLY_SPELL_AFFECT )
+                affect_modify( ch, paf, TRUE );
+    for ( paf = obj->affected; paf != NULL; paf = paf->next )
+        if ( paf->location == APPLY_SPELL_AFFECT )
+            affect_to_char ( ch, paf );
+        else
+            affect_modify( ch, paf, TRUE );
 
-	if ( obj->item_type == ITEM_LIGHT
-	&&   obj->value[2] != 0
-	&&   ch->in_room != NULL )
-	++ch->in_room->light;
+    if ( obj->item_type == ITEM_LIGHT
+            &&   obj->value[2] != 0
+            &&   ch->in_room != NULL )
+        ++ch->in_room->light;
 
-	return;
+    return;
 }
 
 
@@ -2910,20 +2910,21 @@ char *off_bit_name(int off_flags)
 
 bool isDirectoryEmpty(const char *dirname) 
 {
-	int n = 0;
-	struct dirent *d;
-	DIR *dir = opendir(dirname);
-  if (dir == NULL) //Not a directory or doesn't exist
-  	return 1;
-  while ((d = readdir(dir)) != NULL) {
-  	if(++n > 2)
-  		break;
-  }
-  closedir(dir);
-  if (n <= 2) //Directory Empty
-  	return true;
+    int n = 0;
+    struct dirent *d;
+    DIR *dir = opendir(dirname);
+    if (dir == NULL) //Not a directory or doesn't exist
+        return 1;
+    while ((d = readdir(dir)) != NULL)
+    {
+        if(++n > 2)
+            break;
+    }
+    closedir(dir);
+    if (n <= 2) //Directory Empty
+        return true;
 
-  return false;
+    return false;
 }
 
 const char *issueSystemCommand(const char *argument)
@@ -2955,43 +2956,49 @@ const char *issueSystemCommand(const char *argument)
 
 void buildDirectories()
 {
-	const char *directory_table[] = {
-		PLAYER_DIR,
-		DATA_DIR,
-		GOD_DIR,
-		LOG_DIR,
-		AREA_DIR,
-		NULL
-	};
-	int dl = 0;
-	// build our directories!
-	for ( dl = 0; directory_table[dl] != NULL; dl++ ) {
-			struct stat st;
-			// does our directory exit ?  If not, MAKE IT!
-			if ( stat ( directory_table[dl], &st ) != 0 ) {
-					issueSystemCommand ( Format("mkdir %s", directory_table[dl] ) );
-			}
-	}
+    const char *directory_table[] = {
+        PLAYER_DIR,
+        DATA_DIR,
+        GOD_DIR,
+        LOG_DIR,
+        AREA_DIR,
+        NULL
+    };
+    int dl = 0;
+    // build our directories!
+    for ( dl = 0; directory_table[dl] != NULL; dl++ )
+    {
+        struct stat st;
+        // does our directory exit ?  If not, MAKE IT!
+        if ( stat ( directory_table[dl], &st ) != 0 )
+        {
+            issueSystemCommand ( Format("mkdir %s", directory_table[dl] ) );
+        }
+    }
 }
 
-const char *getVersion ( void ) {
-	static char versionNumber[200];
-	unsigned long x = 0;
-	int major, minor, revision;
-	major = minor = revision = 0;
-	while ( x < mudVersion ) { // sentinel will take care of this.
-		revision++;
-		if ( revision >= 100 ) {
-			revision = 0;
-			minor++;
-			if ( minor >= 100 ) {
-				major++;
-				minor = 0;
-			}
-		}
-		x++;
-	}
-	// create our version display string. x.y.z (build: w)
-	snprintf ( versionNumber, 200, "%02d.%02d.%02d (build: %ld)", major, minor, revision, mudVersion );
-	return versionNumber;
+const char *getVersion ( void )
+{
+    static char versionNumber[200];
+    unsigned long x = 0;
+    int major, minor, revision;
+    major = minor = revision = 0;
+    while ( x < mudVersion )   // sentinel will take care of this.
+    {
+        revision++;
+        if ( revision >= 100 )
+        {
+            revision = 0;
+            minor++;
+            if ( minor >= 100 )
+            {
+                major++;
+                minor = 0;
+            }
+        }
+        x++;
+    }
+    // create our version display string. x.y.z (build: w)
+    snprintf ( versionNumber, 200, "%02d.%02d.%02d (build: %ld)", major, minor, revision, mudVersion );
+    return versionNumber;
 }
