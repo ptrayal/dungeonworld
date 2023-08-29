@@ -12,16 +12,13 @@
  ***************************************************************************/
 
 
-#if defined(Macintosh)
-#include <types.h>
-#else
 #include <sys/types.h>
-#endif
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
 #include "merc.h"
 #include "tables.h"
 #include "olc.h"
@@ -918,60 +915,60 @@ AEDIT( aedit_security )
 
 AEDIT( aedit_builder )
 {
-	AREA_DATA *pArea;
-	char name[MSL]={'\0'};
-	char buf[MSL]={'\0'};
+    AREA_DATA *pArea;
+    char name[MSL] = {'\0'};
+    char buf[MSL] = {'\0'};
 
-	EDIT_AREA(ch, pArea);
+    EDIT_AREA(ch, pArea);
 
-	one_argument( argument, name );
+    one_argument( argument, name );
 
-	if ( IS_NULLSTR(name) )
-	{
-		send_to_char( "Syntax:  builder [$name]  -toggles builder\n\r", ch );
-		send_to_char( "Syntax:  builder All      -allows everyone\n\r", ch );
-		return FALSE;
-	}
+    if ( IS_NULLSTR(name) )
+    {
+        send_to_char( "Syntax:  builder [$name]  -toggles builder\n\r", ch );
+        send_to_char( "Syntax:  builder All      -allows everyone\n\r", ch );
+        return FALSE;
+    }
 
-	name[0] = UPPER( name[0] );
+    name[0] = UPPER( name[0] );
 
-	if ( strstr( pArea->builders, name ) != '\0' )
-	{
-		pArea->builders = string_replace( pArea->builders, name, "\0" );
-		pArea->builders = string_unpad( pArea->builders );
+    if ( strstr( pArea->builders, name ) != NULL )
+    {
+        pArea->builders = string_replace( pArea->builders, name, "\0" );
+        pArea->builders = string_unpad( pArea->builders );
 
-		if ( pArea->builders[0] == '\0' )
-		{
-			PURGE_DATA( pArea->builders );
-			pArea->builders = str_dup( "None" );
-		}
-		send_to_char( "Builder removed.\n\r", ch );
-		return TRUE;
-	}
-	else
-	{
-		buf[0] = '\0';
-		if ( strstr( pArea->builders, "None" ) != '\0' )
-		{
-			pArea->builders = string_replace( pArea->builders, "None", "\0" );
-			pArea->builders = string_unpad( pArea->builders );
-		}
+        if ( pArea->builders[0] == '\0' )
+        {
+            PURGE_DATA( pArea->builders );
+            pArea->builders = str_dup( "None" );
+        }
+        send_to_char( "Builder removed.\n\r", ch );
+        return TRUE;
+    }
+    else
+    {
+        buf[0] = '\0';
+        if ( strstr( pArea->builders, "None" ) != NULL )
+        {
+            pArea->builders = string_replace( pArea->builders, "None", "\0" );
+            pArea->builders = string_unpad( pArea->builders );
+        }
 
-		if (pArea->builders[0] != '\0' )
-		{
-			strcat( buf, pArea->builders );
-			strcat( buf, " " );
-		}
-		strcat( buf, name );
-		PURGE_DATA( pArea->builders );
-		pArea->builders = string_proper( str_dup( buf ) );
+        if (pArea->builders[0] != '\0' )
+        {
+            strcat( buf, pArea->builders );
+            strcat( buf, " " );
+        }
+        strcat( buf, name );
+        PURGE_DATA( pArea->builders );
+        pArea->builders = string_proper( str_dup( buf ) );
 
-		send_to_char( "Builder added.\n\r", ch );
-		send_to_char( pArea->builders,ch);
-		return TRUE;
-	}
+        send_to_char( "Builder added.\n\r", ch );
+        send_to_char( pArea->builders, ch);
+        return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 
