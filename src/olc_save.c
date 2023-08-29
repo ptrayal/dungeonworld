@@ -19,17 +19,14 @@
  *  mob etc is part of that area.
  */
 
-#if defined(Macintosh)
-#include <types.h>
-#else
 #include <sys/types.h>
-#endif
 #include <ctype.h>
 #include <errno.h> // Add this include at the beginning
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
 #include "merc.h"
 #include "tables.h"
 #include "olc.h"
@@ -967,215 +964,194 @@ void save_area( AREA_DATA *pArea )
  ****************************************************************************/
 void do_asave( CHAR_DATA *ch, char *argument )
 {
-	char arg1 [MAX_INPUT_LENGTH];
-	AREA_DATA *pArea, *pArea_next;
-	FILE *fp;
-	int value, sec;
+    char arg1 [MAX_INPUT_LENGTH];
+    AREA_DATA * pArea, *pArea_next;
+    int value;
 
-	fp = NULL;
+    smash_tilde( argument );
+    strcpy( arg1, argument );
 
-	if ( !ch )       /* Do an autosave */
-	sec = 9;
-	else if ( !IS_NPC(ch) )
-		sec = ch->pcdata->security;
-	else
-		sec = 0;
+    if ( IS_NULLSTR(arg1) )
+    {
+        if (ch)
+        {
+            send_to_char( "Syntax:\n\r", ch );
+            send_to_char( "  asave <vnum>   - saves a particular area\n\r",	ch );
+            send_to_char( "  asave list     - saves the area.lst file\n\r",	ch );
+            send_to_char( "  asave area     - saves the area being edited\n\r",	ch );
+            send_to_char( "  asave changed  - saves all changed zones\n\r",	ch );
+            send_to_char( "  asave world    - saves the world! (db dump)\n\r",	ch );
+            send_to_char( "\n\r", ch );
+        }
 
-/*    {
-	save_area_list();
-	for( pArea = area_first; pArea; pArea = pArea_next )
-	{
-		pArea_next = pArea->next;
-		save_area( pArea );
-		REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
-	}
-	return;
-	} */
+        return;
+    }
 
-	smash_tilde( argument );
-	strcpy( arg1, argument );
+    /* Snarf the value (which need not be numeric). */
+    value = atoi( arg1 );
+    if ( !( pArea = get_area_data( value ) ) && is_number( arg1 ) )
+    {
+        if (ch)
+            send_to_char( "That area does not exist.\n\r", ch );
+        return;
+    }
 
-	if ( IS_NULLSTR(arg1) )
-	{
-	if (ch)
-	{
-		send_to_char( "Syntax:\n\r", ch );
-		send_to_char( "  asave <vnum>   - saves a particular area\n\r",	ch );
-		send_to_char( "  asave list     - saves the area.lst file\n\r",	ch );
-		send_to_char( "  asave area     - saves the area being edited\n\r",	ch );
-		send_to_char( "  asave changed  - saves all changed zones\n\r",	ch );
-		send_to_char( "  asave world    - saves the world! (db dump)\n\r",	ch );
-		send_to_char( "\n\r", ch );
-	}
+    /* Save area of given vnum. */
+    /* ------------------------ */
+    if ( is_number( arg1 ) )
+    {
+        if ( ch && !IS_BUILDER( ch, pArea ) )
+        {
+            send_to_char( "You are not a builder for this area.\n\r", ch );
+            return;
+        }
 
-	return;
-	}
+        save_area_list();
+        save_area( pArea );
 
-	/* Snarf the value (which need not be numeric). */
-	value = atoi( arg1 );
-	if ( !( pArea = get_area_data( value ) ) && is_number( arg1 ) )
-	{
-	if (ch)
-		send_to_char( "That area does not exist.\n\r", ch );
-	return;
-	}
+        return;
+    }
 
-	/* Save area of given vnum. */
-	/* ------------------------ */
-	if ( is_number( arg1 ) )
-	{
-	if ( ch && !IS_BUILDER( ch, pArea ) )
-	{
-		send_to_char( "You are not a builder for this area.\n\r", ch );
-		return;
-	}
+    /* Save the world, only authorized areas. */
+    /* -------------------------------------- */
+    if ( !str_cmp( "world", arg1 ) )
+    {
+        save_area_list();
+        for( pArea = area_first; pArea; pArea = pArea_next )
+        {
+            pArea_next = pArea->next;
+            /* Builder must be assigned this area. */
+            if ( ch && !IS_BUILDER( ch, pArea ) )
+                continue;
 
-	save_area_list();
-	save_area( pArea );
+            save_area( pArea );
+            REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
+        }
 
-	return;
-	}
+        if ( ch )
+            send_to_char( "You saved the world.\n\r", ch );
 
-	/* Save the world, only authorized areas. */
-	/* -------------------------------------- */
-	if ( !str_cmp( "world", arg1 ) )
-	{
-	save_area_list();
-	for( pArea = area_first; pArea; pArea = pArea_next )
-	{
-		pArea_next = pArea->next;
-		/* Builder must be assigned this area. */
-		if ( ch && !IS_BUILDER( ch, pArea ) )
-		continue;
+        save_other_helps( NULL );
 
-		save_area( pArea );
-		REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
-	}
+        return;
+    }
 
-	if ( ch )
-		send_to_char( "You saved the world.\n\r", ch );
+    /* Save changed areas, only authorized areas. */
+    /* ------------------------------------------ */
+    if ( !str_cmp( "changed", arg1 ) )
+    {
+        char buf[MAX_INPUT_LENGTH];
 
-	save_other_helps( NULL );
+        save_area_list();
 
-	return;
-	}
+        if ( ch )
+            send_to_char( "Saved zones:\n\r", ch );
+        else
+            log_string( "Saved zones:" );
 
-	/* Save changed areas, only authorized areas. */
-	/* ------------------------------------------ */
-	if ( !str_cmp( "changed", arg1 ) )
-	{
-	char buf[MAX_INPUT_LENGTH];
+        sprintf( buf, "None.\n\r" );
 
-	save_area_list();
+        for( pArea = area_first; pArea; pArea = pArea_next )
+        {
+            pArea_next = pArea->next;
+            /* Builder must be assigned this area. */
+            if ( ch && !IS_BUILDER( ch, pArea ) )
+                continue;
 
-	if ( ch )
-		send_to_char( "Saved zones:\n\r", ch );
-	else
-		log_string( "Saved zones:" );
+            /* Save changed areas. */
+            if ( IS_SET(pArea->area_flags, AREA_CHANGED) )
+            {
+                save_area( pArea );
+                sprintf( buf, "%24s - '%s'", pArea->name, pArea->file_name );
+                if ( ch )
+                {
+                    send_to_char( buf, ch );
+                    send_to_char( "\n\r", ch );
+                }
+                else
+                    log_string( buf );
+                REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
+            }
+        }
 
-	sprintf( buf, "None.\n\r" );
+        save_other_helps( ch );
 
-	for( pArea = area_first; pArea; pArea = pArea_next )
-	{
-		pArea_next = pArea->next;
-		/* Builder must be assigned this area. */
-		if ( ch && !IS_BUILDER( ch, pArea ) )
-		continue;
+        if ( !str_cmp( buf, "None.\n\r" ) )
+        {
+            if ( ch )
+                send_to_char( buf, ch );
+            else
+                log_string( "None." );
+        }
 
-		/* Save changed areas. */
-		if ( IS_SET(pArea->area_flags, AREA_CHANGED) )
-		{
-		save_area( pArea );
-		sprintf( buf, "%24s - '%s'", pArea->name, pArea->file_name );
-		if ( ch )
-		{
-			send_to_char( buf, ch );
-			send_to_char( "\n\r", ch );
-		}
-		else
-			log_string( buf );
-		REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
-		}
-	}
+        return;
+    }
 
-	save_other_helps( ch );
+    /* Save the area.lst file. */
+    /* ----------------------- */
+    if ( !str_cmp( arg1, "list" ) )
+    {
+        save_area_list();
+        return;
+    }
 
-	if ( !str_cmp( buf, "None.\n\r" ) )
-	{
-		if ( ch )
-			send_to_char( buf, ch );
-		else
-			log_string( "None." );
-	}
+    /* Save area being edited, if authorized. */
+    /* -------------------------------------- */
+    if ( !str_cmp( arg1, "area" ) )
+    {
+        if ( !ch || !ch->desc )
+            return;
 
-	return;
-	}
+        /* Is character currently editing. */
+        if ( ch->desc->editor == ED_NONE )
+        {
+            send_to_char( "You are not editing an area, "
+                          "therefore an area vnum is required.\n\r", ch );
+            return;
+        }
 
-	/* Save the area.lst file. */
-	/* ----------------------- */
-	if ( !str_cmp( arg1, "list" ) )
-	{
-	save_area_list();
-	return;
-	}
+        /* Find the area to save. */
+        switch (ch->desc->editor)
+        {
+        case ED_AREA:
+            pArea = (AREA_DATA *)ch->desc->pEdit;
+            break;
+        case ED_ROOM:
+            pArea = ch->in_room->area;
+            break;
+        case ED_OBJECT:
+            pArea = ( (OBJ_INDEX_DATA *)ch->desc->pEdit )->area;
+            break;
+        case ED_MOBILE:
+            pArea = ( (MOB_INDEX_DATA *)ch->desc->pEdit )->area;
+            break;
+        case ED_HELP:
+            send_to_char( "Saving helps: ", ch );
+            save_other_helps( ch );
+            return;
+        default:
+            pArea = ch->in_room->area;
+            break;
+        }
 
-	/* Save area being edited, if authorized. */
-	/* -------------------------------------- */
-	if ( !str_cmp( arg1, "area" ) )
-	{
-	if ( !ch || !ch->desc )
-		return;
+        if ( !IS_BUILDER( ch, pArea ) )
+        {
+            send_to_char( "You are not a builder for this area.\n\r", ch );
+            return;
+        }
 
-	/* Is character currently editing. */
-	if ( ch->desc->editor == ED_NONE )
-	{
-		send_to_char( "You are not editing an area, "
-		"therefore an area vnum is required.\n\r", ch );
-		return;
-	}
-	
-	/* Find the area to save. */
-	switch (ch->desc->editor)
-	{
-		case ED_AREA:
-		pArea = (AREA_DATA *)ch->desc->pEdit;
-		break;
-		case ED_ROOM:
-		pArea = ch->in_room->area;
-		break;
-		case ED_OBJECT:
-		pArea = ( (OBJ_INDEX_DATA *)ch->desc->pEdit )->area;
-		break;
-		case ED_MOBILE:
-		pArea = ( (MOB_INDEX_DATA *)ch->desc->pEdit )->area;
-		break;
-		case ED_HELP:
-		send_to_char( "Saving helps: ", ch );
-			save_other_helps( ch );
-			return;
-		default:
-		pArea = ch->in_room->area;
-		break;
-	}
+        save_area_list();
+        save_area( pArea );
+        REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
+        send_to_char( "Area saved.\n\r", ch );
+        return;
+    }
 
-	if ( !IS_BUILDER( ch, pArea ) )
-	{
-		send_to_char( "You are not a builder for this area.\n\r", ch );
-		return;
-	}
+    /* Show correct syntax. */
+    /* -------------------- */
+    if (ch)
+        do_asave( ch, "" );
 
-	save_area_list();
-	save_area( pArea );
-	REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
-	send_to_char( "Area saved.\n\r", ch );
-	return;
-	}
-
-	/* Show correct syntax. */
-	/* -------------------- */
-	if (ch)
-	do_asave( ch, "" );
-
-	return;
+    return;
 }
 
