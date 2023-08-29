@@ -25,17 +25,16 @@
 * ROM license, in the file Rom24/doc/rom.license                           *
 ***************************************************************************/
 
-#if defined(Macintosh)
-#include <types.h>
-#else
 #include <sys/types.h>
-#endif
+#include <sys/wait.h>
 #include <ctype.h>
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 //#include <malloc.h>
 #include <stdlib.h>
+
 #include "merc.h"
 #include "recycle.h"
 #include "tables.h"
@@ -549,164 +548,236 @@ void fwrite_obj( CHAR_DATA *ch, OBJ_DATA *obj, FILE *fp, int iNest )
  */
 bool load_char_obj( DESCRIPTOR_DATA *d, char *name )
 {
-	char strsave[MAX_INPUT_LENGTH];
-	CHAR_DATA *ch;
-	FILE *fp;
-	bool found;
-	int stat;
+    char strsave[MAX_INPUT_LENGTH];
+    CHAR_DATA *ch;
+    FILE *fp;
+    bool found;
+    int stat;
 
-	ch = new_char();
-	ch->pcdata = new_pcdata();
+    ch = new_char();
+    ch->pcdata = new_pcdata();
 
-	PURGE_DATA(ch->pcdata->bamfin);
-	PURGE_DATA(ch->pcdata->pwd);
-	PURGE_DATA(ch->pcdata->bamfout);
-	PURGE_DATA(ch->pcdata->title);
+    PURGE_DATA(ch->pcdata->bamfin);
+    PURGE_DATA(ch->pcdata->pwd);
+    PURGE_DATA(ch->pcdata->bamfout);
+    PURGE_DATA(ch->pcdata->title);
 
-	d->character			= ch;
-	ch->desc				= d;
-	ch->name				= str_dup( name );
-	ch->id				= get_pc_id();
-	ch->race				= race_lookup("human");
-	ch->act				= PLR_NOSUMMON;
-	ch->comm				= COMM_COMBINE 
-	| COMM_PROMPT;
-	ch->prompt 				= str_dup("<%hhp %mm %vmv> ");
-	ch->pcdata->confirm_delete		= FALSE;
-	ch->pcdata->pwd			= NULL;
-	ch->pcdata->bamfin			= NULL;
-	ch->pcdata->bamfout			= NULL;
-	ch->pcdata->title			= NULL;
-	for (stat =0; stat < MAX_STATS; stat++)
-		ch->perm_stat[stat]		= 13;
-	ch->pcdata->condition[COND_THIRST]	= 48; 
-	ch->pcdata->condition[COND_FULL]	= 48;
-	ch->pcdata->condition[COND_HUNGER]	= 48;
-	ch->pcdata->security		= 0;	/* OLC */
+    d->character			= ch;
+    ch->desc				= d;
+    ch->name				= str_dup( name );
+    ch->id				= get_pc_id();
+    ch->race				= race_lookup("human");
+    ch->act				= PLR_NOSUMMON;
+    ch->comm				= COMM_COMBINE | COMM_PROMPT;
+    ch->prompt 				= str_dup("<%hhp %mm %vmv> ");
+    ch->pcdata->confirm_delete		= FALSE;
+    ch->pcdata->pwd			= NULL;
+    ch->pcdata->bamfin			= NULL;
+    ch->pcdata->bamfout			= NULL;
+    ch->pcdata->title			= NULL;
+    for (stat = 0; stat < MAX_STATS; stat++)
+        ch->perm_stat[stat]		= 13;
+    ch->pcdata->condition[COND_THIRST]	= 48;
+    ch->pcdata->condition[COND_FULL]	= 48;
+    ch->pcdata->condition[COND_HUNGER]	= 48;
+    ch->pcdata->security		= 0;	/* OLC */
 
-	found = FALSE;
-	closeReserve();
-	
-	#if defined(__unix__)
-	/* decompress if .gz file exists */
-	sprintf( strsave, "%s%s%s", PLAYER_DIR, capitalize(name),".gz");
-	if ( ( fp = fopen( strsave, "r" ) ) != NULL )
-	{
-		char buf[100];
+    found = FALSE;
+    closeReserve();
+
+#if defined(__unix__)
+    /* decompress if .gz file exists */
+    sprintf( strsave, "%s%s%s", PLAYER_DIR, capitalize(name), ".gz");
+    // Ensure that the generated string fits within the buffer size
+	strsave[MAX_INPUT_LENGTH - 1] = '\0'; // Truncate if necessary
+
+    if ( ( fp = fopen( strsave, "r" ) ) != NULL )
+    {
+        char buf[256];
 		fclose(fp);
-		sprintf(buf,"gzip -dfq %s",strsave);
-		system(buf);
-	}
-	#endif
 
-	sprintf( strsave, "%s%s", PLAYER_DIR, capitalize( name ) );
-	if ( ( fp = fopen( strsave, "r" ) ) != NULL )
-	{
-		int iNest;
+		// Limit the length of strsave to fit into the buffer
+		size_t strsave_len = strlen(strsave);
+		size_t max_length = sizeof(buf) - 1;  // Reserve space for null-terminator
 
-		for ( iNest = 0; iNest < MAX_NEST; iNest++ )
-			rgObjNest[iNest] = NULL;
-
-		found = TRUE;
-		for ( ; ; )
-		{
-			char letter;
-			char *word;
-
-			letter = fread_letter( fp );
-			if ( letter == '*' )
-			{
-				fread_to_eol( fp );
-				continue;
-			}
-
-			if ( letter != '#' )
-			{
-				bug( "Load_char_obj: # not found.", 0 );
-				break;
-			}
-
-			word = fread_word( fp );
-			if      ( !str_cmp( word, "PLAYER" ) ) fread_char ( ch, fp );
-			else if ( !str_cmp( word, "OBJECT" ) ) fread_obj  ( ch, fp );
-			else if ( !str_cmp( word, "O"      ) ) fread_obj  ( ch, fp );
-			else if ( !str_cmp( word, "PET"    ) ) fread_pet  ( ch, fp );
-			else if ( !str_cmp( word, "END"    ) ) break;
-			else
-			{
-				bug( "Load_char_obj: bad section.", 0 );
-				break;
-			}
-		}
-		fclose( fp );
-	}
-
-	openReserve();
-
-
-	/* initialize race */
-	if (found)
-	{
-		int i = 0;
-
-		if (ch->race == 0)
-			ch->race = race_lookup("human");
-
-		ch->size = pc_race_table[ch->race].size;
-	ch->dam_type = 17; /*punch */
-
-		for (i = 0; i < 5; i++)
-		{
-			if (pc_race_table[ch->race].skills[i] == NULL)
-				break;
-			group_add(ch,pc_race_table[ch->race].skills[i],FALSE);
-		}
-		ch->affected_by = ch->affected_by|race_table[ch->race].aff;
-		ch->imm_flags	= ch->imm_flags | race_table[ch->race].imm;
-		ch->res_flags	= ch->res_flags | race_table[ch->race].res;
-		ch->vuln_flags	= ch->vuln_flags | race_table[ch->race].vuln;
-		ch->form	= race_table[ch->race].form;
-		ch->parts	= race_table[ch->race].parts;
-	}
-
-	
-	/* RT initialize skills */
-
-	if (found && ch->version < 2)  /* need to add the new skills */
-	{
-		group_add(ch,"rom basics",FALSE);
-		group_add(ch,class_table[ch->iclass].base_group,FALSE);
-		group_add(ch,class_table[ch->iclass].default_group,TRUE);
-		ch->pcdata->learned[gsn_recall] = 50;
-	}
-
-	/* fix levels */
-	if (found && ch->version < 3 && (ch->level > 35 || ch->trust > 35))
-	{
-		switch (ch->level)
-		{
-		case(40) : ch->level = 60;	break;  /* imp -> imp */
-		case(39) : ch->level = 58; 	break;	/* god -> supreme */
-		case(38) : ch->level = 56;  break;	/* deity -> god */
-		case(37) : ch->level = 53;  break;	/* angel -> demigod */
+		if (strsave_len >= max_length) {
+		    // Truncate strsave if it's too long to fit in the buffer
+		    memcpy(buf, strsave, max_length);
+		    buf[max_length] = '\0'; // Ensure null-termination
+		} else {
+		    strcpy(buf, strsave); // Copy the whole string
 		}
 
-		switch (ch->trust)
-		{
-			case(40) : ch->trust = 60;  break;	/* imp -> imp */
-			case(39) : ch->trust = 58;  break;	/* god -> supreme */
-			case(38) : ch->trust = 56;  break;	/* deity -> god */
-			case(37) : ch->trust = 53;  break;	/* angel -> demigod */
-			case(36) : ch->trust = 51;  break;	/* hero -> hero */
-		}
-	}
+		snprintf(buf, sizeof(buf), "gzip -dfq %s", buf);  // Now use the modified buf
 
-	/* ream gold */
-	if (found && ch->version < 4)
-	{
-		ch->gold   /= 100;
-	}
-	return found;
+
+		/////////
+
+        int result = system(buf);
+        if (result == -1)
+        {
+            // An error occurred while trying to execute the command.
+            // You can log an error message using the custom 'bug' function.
+            bug("system error", errno);
+            // Additional error handling code...
+
+        }
+        else
+        {
+            // The command was executed. Check the exit status.
+            if (WIFEXITED(result))
+            {
+                int exit_status = WEXITSTATUS(result);
+                if (exit_status == 0)
+                {
+                    // Command was executed successfully.
+                    // Additional success handling code...
+                }
+                else
+                {
+                    // Command exited with a non-zero status.
+                    // Log an error message using the custom 'bug' function.
+                    bug("command exited with non-zero status", exit_status);
+                    // Additional error handling code...
+                }
+            }
+            else
+            {
+                // The command didn't exit normally.
+                // Log an error message using the custom 'bug' function.
+                bug("command did not exit normally", -1);
+                // Additional error handling code...
+            }
+        }
+    }
+#endif
+
+    sprintf( strsave, "%s%s", PLAYER_DIR, capitalize( name ) );
+    if ( ( fp = fopen( strsave, "r" ) ) != NULL )
+    {
+        int iNest;
+
+        for ( iNest = 0; iNest < MAX_NEST; iNest++ )
+            rgObjNest[iNest] = NULL;
+
+        found = TRUE;
+        for ( ; ; )
+        {
+            char letter;
+            char *word;
+
+            letter = fread_letter( fp );
+            if ( letter == '*' )
+            {
+                fread_to_eol( fp );
+                continue;
+            }
+
+            if ( letter != '#' )
+            {
+                bug( "Load_char_obj: # not found.", 0 );
+                break;
+            }
+
+            word = fread_word( fp );
+            if      ( !str_cmp( word, "PLAYER" ) ) fread_char ( ch, fp );
+            else if ( !str_cmp( word, "OBJECT" ) ) fread_obj  ( ch, fp );
+            else if ( !str_cmp( word, "O"      ) ) fread_obj  ( ch, fp );
+            else if ( !str_cmp( word, "PET"    ) ) fread_pet  ( ch, fp );
+            else if ( !str_cmp( word, "END"    ) ) break;
+            else
+            {
+                bug( "Load_char_obj: bad section.", 0 );
+                break;
+            }
+        }
+        fclose( fp );
+    }
+
+    openReserve();
+
+
+    /* initialize race */
+    if (found)
+    {
+        int i = 0;
+
+        if (ch->race == 0)
+            ch->race = race_lookup("human");
+
+        ch->size = pc_race_table[ch->race].size;
+        ch->dam_type = 17; /*punch */
+
+        for (i = 0; i < 5; i++)
+        {
+            if (pc_race_table[ch->race].skills[i] == NULL)
+                break;
+            group_add(ch, pc_race_table[ch->race].skills[i], FALSE);
+        }
+        ch->affected_by = ch->affected_by | race_table[ch->race].aff;
+        ch->imm_flags	= ch->imm_flags | race_table[ch->race].imm;
+        ch->res_flags	= ch->res_flags | race_table[ch->race].res;
+        ch->vuln_flags	= ch->vuln_flags | race_table[ch->race].vuln;
+        ch->form	= race_table[ch->race].form;
+        ch->parts	= race_table[ch->race].parts;
+    }
+
+
+    /* RT initialize skills */
+
+    if (found && ch->version < 2)  /* need to add the new skills */
+    {
+        group_add(ch, "rom basics", FALSE);
+        group_add(ch, class_table[ch->iclass].base_group, FALSE);
+        group_add(ch, class_table[ch->iclass].default_group, TRUE);
+        ch->pcdata->learned[gsn_recall] = 50;
+    }
+
+    /* fix levels */
+    if (found && ch->version < 3 && (ch->level > 35 || ch->trust > 35))
+    {
+        switch (ch->level)
+        {
+        case(40) :
+            ch->level = 60;
+            break;  /* imp -> imp */
+        case(39) :
+            ch->level = 58;
+            break;	/* god -> supreme */
+        case(38) :
+            ch->level = 56;
+            break;	/* deity -> god */
+        case(37) :
+            ch->level = 53;
+            break;	/* angel -> demigod */
+        }
+
+        switch (ch->trust)
+        {
+        case(40) :
+            ch->trust = 60;
+            break;	/* imp -> imp */
+        case(39) :
+            ch->trust = 58;
+            break;	/* god -> supreme */
+        case(38) :
+            ch->trust = 56;
+            break;	/* deity -> god */
+        case(37) :
+            ch->trust = 53;
+            break;	/* angel -> demigod */
+        case(36) :
+            ch->trust = 51;
+            break;	/* hero -> hero */
+        }
+    }
+
+    /* ream gold */
+    if (found && ch->version < 4)
+    {
+        ch->gold   /= 100;
+    }
+    return found;
 }
 
 
@@ -1402,9 +1473,9 @@ void fread_obj( CHAR_DATA *ch, FILE *fp )
 	fVnum		= TRUE;
 	iNest		= 0;
 
+	const char *word = "";
 	for ( ; ; )
 	{
-		const char *word;
 		if (first)
 			first = FALSE;
 		else
