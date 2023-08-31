@@ -69,9 +69,8 @@ void do_check( CHAR_DATA *ch, char *argument )
     char arg[MIL] = {'\0'};
     BUFFER *buffer;
     CHAR_DATA *victim;
-    AFFECT_DATA *paf;
+    // AFFECT_DATA *paf;
     int count = 1;
-    int last_room = 0;
     
     one_argument( argument, arg );
 
