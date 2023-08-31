@@ -1,4 +1,4 @@
-/***************************************************************************   
+/***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik St{rfeldt, Tom Madsen, and Katja Nyboe.   *
  *                                                                         *
@@ -25,17 +25,13 @@
 *	ROM license, in the file Rom24/doc/rom.license			               *
 ***************************************************************************/
 
-#if defined(Macintosh)
-#include <types.h>
-#include <time.h>
-#else
 #include <sys/types.h>
 #include <sys/time.h>
-#endif
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 #include "merc.h"
 #include "recycle.h"
 
@@ -43,213 +39,232 @@ BAN_DATA *ban_list;
 
 void save_bans(void)
 {
-	BAN_DATA *pban;
-	FILE *fp;
-	bool found = FALSE;
-	closeReserve();
-	if ( ( fp = fopen( BAN_FILE, "w" ) ) == NULL )
-	{
-		perror( BAN_FILE );
-	}
+    BAN_DATA *pban;
+    FILE *fp;
+    bool found = FALSE;
+    closeReserve();
+    if ( ( fp = fopen( BAN_FILE, "w" ) ) == NULL )
+    {
+        perror( BAN_FILE );
+    }
 
-	for (pban = ban_list; pban != NULL; pban = pban->next)
-	{
-		if (IS_SET(pban->ban_flags,BAN_PERMANENT))
-		{
-			found = TRUE;
-			fprintf(fp,"%-20s %-2d %s\n",pban->name,pban->level,
-				print_flags(pban->ban_flags));
-		}
-	}
+    for (pban = ban_list; pban != NULL; pban = pban->next)
+    {
+        if (IS_SET(pban->ban_flags, BAN_PERMANENT))
+        {
+            found = TRUE;
+            fprintf(fp, "%-20s %-2d %s\n", pban->name, pban->level,
+                    print_flags(pban->ban_flags));
+        }
+    }
 
-	fclose(fp);
-	openReserve();
-	if (!found)
-		unlink(BAN_FILE);
+    fclose(fp);
+    openReserve();
+    if (!found)
+        unlink(BAN_FILE);
 }
 
 void load_bans(void)
 {
-	FILE *fp;
-	BAN_DATA *ban_last;
-	
-	if ( ( fp = fopen( BAN_FILE, "r" ) ) == NULL )
-		return;
-	
-	ban_last = NULL;
-	for ( ; ; )
-	{
-		BAN_DATA *pban;
-		if ( feof(fp) )
-		{
-			fclose( fp );
-			return;
-		}
-		
-		pban = new_ban();
-		
-		pban->name = str_dup(fread_word(fp));
-		pban->level = fread_number(fp);
-		pban->ban_flags = fread_flag(fp);
-		fread_to_eol(fp);
+    FILE *fp;
+    BAN_DATA *ban_last;
 
-		if (ban_list == NULL)
-			ban_list = pban;
-		else
-			ban_last->next = pban;
-		ban_last = pban;
-	}
+    if ( ( fp = fopen( BAN_FILE, "r" ) ) == NULL )
+        return;
+
+    ban_last = NULL;
+    for ( ; ; )
+    {
+        BAN_DATA *pban;
+        if ( feof(fp) )
+        {
+            fclose( fp );
+            return;
+        }
+
+        pban = new_ban();
+
+        pban->name = str_dup(fread_word(fp));
+        pban->level = fread_number(fp);
+        pban->ban_flags = fread_flag(fp);
+        fread_to_eol(fp);
+
+        if (ban_list == NULL)
+            ban_list = pban;
+        else
+            ban_last->next = pban;
+        ban_last = pban;
+    }
 }
 
-bool check_ban(char *site,int type)
+bool check_ban(char *site, int type)
 {
-	BAN_DATA *pban;
-	char host[MSL]={'\0'};
+    BAN_DATA *pban;
+    char host[MSL] = {'\0'};
 
-	strcpy(host,capitalize(site));
-	host[0] = LOWER(host[0]);
+    strcpy(host, capitalize(site));
+    host[0] = LOWER(host[0]);
 
-	for ( pban = ban_list; pban != NULL; pban = pban->next ) 
-	{
-	if(!IS_SET(pban->ban_flags,type))
-		continue;
+    for ( pban = ban_list; pban != NULL; pban = pban->next )
+    {
+        if(!IS_SET(pban->ban_flags, type))
+            continue;
 
-	if (IS_SET(pban->ban_flags,BAN_PREFIX) 
-	&&  IS_SET(pban->ban_flags,BAN_SUFFIX)  
-	&&  strstr(pban->name,host) != NULL)
-		return TRUE;
+        if (IS_SET(pban->ban_flags, BAN_PREFIX)
+                &&  IS_SET(pban->ban_flags, BAN_SUFFIX)
+                &&  strstr(pban->name, host) != NULL)
+            return TRUE;
 
-	if (IS_SET(pban->ban_flags,BAN_PREFIX)
-	&&  !str_suffix(pban->name,host))
-		return TRUE;
+        if (IS_SET(pban->ban_flags, BAN_PREFIX)
+                &&  !str_suffix(pban->name, host))
+            return TRUE;
 
-	if (IS_SET(pban->ban_flags,BAN_SUFFIX)
-	&&  !str_prefix(pban->name,host))
-		return TRUE;
-	}
+        if (IS_SET(pban->ban_flags, BAN_SUFFIX)
+                &&  !str_prefix(pban->name, host))
+            return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 
 void ban_site(CHAR_DATA *ch, char *argument, bool fPerm)
 {
-	char buf[MSL]={'\0'};
-	char buf2[MSL]={'\0'};
-	char arg1[MIL]={'\0'};
-	char arg2[MIL]={'\0'};
-	char *name;
-	BUFFER *buffer;
-	BAN_DATA *pban, *prev;
-	bool prefix = FALSE,suffix = FALSE;
-	int type;
+    // char buf[MSL] = {'\0'};
+    char buf2[MSL] = {'\0'};
+    char arg1[MIL] = {'\0'};
+    char arg2[MIL] = {'\0'};
+    char *name;
+    BUFFER *buffer;
+    BAN_DATA *pban, *prev;
+    bool prefix = FALSE, suffix = FALSE;
+    int type;
 
-	argument = one_argument(argument,arg1);
-	argument = one_argument(argument,arg2);
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
 
-	if ( arg1[0] == '\0' )
-	{
-		if (ban_list == NULL)
-		{
-			send_to_char("No sites banned at this time.\n\r",ch);
-			return;
-		}
-		buffer = new_buf();
+    if (arg1[0] == '\0')
+    {
+        if (ban_list == NULL)
+        {
+            send_to_char("No sites banned at this time.\n\r", ch);
+            return;
+        }
+        buffer = new_buf();
 
-		add_buf(buffer,"Banned sites  level  type     status\n\r");
-		for (pban = ban_list;pban != NULL;pban = pban->next)
-		{
-			sprintf(buf2,"%s%s%s",
-				IS_SET(pban->ban_flags,BAN_PREFIX) ? "*" : "",
-				pban->name,
-				IS_SET(pban->ban_flags,BAN_SUFFIX) ? "*" : "");
-			sprintf(buf,"%-12s    %-3d  %-7s  %s\n\r",
-				buf2, pban->level,
-				IS_SET(pban->ban_flags,BAN_NEWBIES) ? "newbies" :
-				IS_SET(pban->ban_flags,BAN_PERMIT)  ? "permit"  :
-				IS_SET(pban->ban_flags,BAN_ALL)     ? "all"	: "",
-				IS_SET(pban->ban_flags,BAN_PERMANENT) ? "perm" : "temp");
-			add_buf(buffer,buf);
-		}
+        send_to_char(Format("%-20s %-5s %-7s %-6s\n\r", "Banned Sites", "Level", "Type", "Status"), ch);
 
-		page_to_char( buf_string(buffer), ch );
-		free_buf(buffer);
-		return;
-	}
+        for (pban = ban_list; pban != NULL; pban = pban->next)
+        {
+            sprintf(buf2, "%s%s%s",
+                    IS_SET(pban->ban_flags, BAN_PREFIX) ? "*" : "",
+                    pban->name,
+                    IS_SET(pban->ban_flags, BAN_SUFFIX) ? "*" : "");
 
-	/* find out what type of ban */
-	if (arg2[0] == '\0' || !str_prefix(arg2,"all"))
-		type = BAN_ALL;
-	else if (!str_prefix(arg2,"newbies"))
-		type = BAN_NEWBIES;
-	else if (!str_prefix(arg2,"permit"))
-		type = BAN_PERMIT;
-	else
-	{
-		send_to_char("Acceptable ban types are all, newbies, and permit.\n\r", ch); 
-		return;
-	}
+            int required_size = snprintf(NULL, 0, "%-20s  %-3d  %-7s  %-4s\n\r",
+                                         buf2, pban->level,
+                                         IS_SET(pban->ban_flags, BAN_NEWBIES) ? "newbies" :
+                                         IS_SET(pban->ban_flags, BAN_PERMIT) ? "permit" :
+                                         IS_SET(pban->ban_flags, BAN_ALL) ? "all" : "",
+                                         IS_SET(pban->ban_flags, BAN_PERMANENT) ? "perm" : "temp");
 
-	name = arg1;
+            char *dynamic_buf = (char *)malloc(required_size + 1);
+            if (dynamic_buf == NULL)
+            {
+                send_to_char("Memory allocation error.\n\r", ch);
+                free_buf(buffer); // Clean up the buffer before returning
+                return;
+            }
 
-	if (name[0] == '*')
-	{
-		prefix = TRUE;
-		name++;
-	}
+            snprintf(dynamic_buf, required_size + 1, "%-20s  %-3d  %-7s  %-4s\n\r",
+                     buf2, pban->level,
+                     IS_SET(pban->ban_flags, BAN_NEWBIES) ? "newbies" :
+                     IS_SET(pban->ban_flags, BAN_PERMIT) ? "permit" :
+                     IS_SET(pban->ban_flags, BAN_ALL) ? "all" : "",
+                     IS_SET(pban->ban_flags, BAN_PERMANENT) ? "perm" : "temp");
 
-	if (name[strlen(name) - 1] == '*')
-	{
-		suffix = TRUE;
-		name[strlen(name) - 1] = '\0';
-	}
+            add_buf(buffer, dynamic_buf);
+            free(dynamic_buf); // Free the dynamically allocated buffer
+        }
 
-	if (strlen(name) == 0)
-	{
-		send_to_char("You have to ban SOMETHING.\n\r",ch);
-		return;
-	}
+        page_to_char(buf_string(buffer), ch);
+        free_buf(buffer);
+        return;
+    }
 
-	prev = NULL;
-	for ( pban = ban_list; pban != NULL; prev = pban, pban = pban->next )
-	{
-		if (!str_cmp(name,pban->name))
-		{
-			if (pban->level > get_trust(ch))
-			{
-				send_to_char( "That ban was set by a higher power.\n\r", ch );
-				return;
-			}
-			else
-			{
-				if (prev == NULL)
-					ban_list = pban->next;
-				else
-					prev->next = pban->next;
-				free_ban(pban);
-			}
-		}
-	}
+    /* find out what type of ban */
+    if (arg2[0] == '\0' || !str_prefix(arg2, "all"))
+        type = BAN_ALL;
+    else if (!str_prefix(arg2, "newbies"))
+        type = BAN_NEWBIES;
+    else if (!str_prefix(arg2, "permit"))
+        type = BAN_PERMIT;
+    else
+    {
+        send_to_char("Acceptable ban types are all, newbies, and permit.\n\r", ch);
+        return;
+    }
 
-	pban = new_ban();
-	pban->name = str_dup(name);
-	pban->level = get_trust(ch);
+    name = arg1;
 
-	/* set ban type */
-	pban->ban_flags = type;
+    if (name[0] == '*')
+    {
+        prefix = TRUE;
+        name++;
+    }
 
-	if (prefix)
-		SET_BIT(pban->ban_flags,BAN_PREFIX);
-	if (suffix)
-		SET_BIT(pban->ban_flags,BAN_SUFFIX);
-	if (fPerm)
-		SET_BIT(pban->ban_flags,BAN_PERMANENT);
+    if (name[strlen(name) - 1] == '*')
+    {
+        suffix = TRUE;
+        name[strlen(name) - 1] = '\0';
+    }
 
-	pban->next  = ban_list;
-	ban_list    = pban;
-	save_bans();
-	send_to_char( Format("%s has been banned.\n\r",pban->name), ch );
-	return;
+    if (strlen(name) == 0)
+    {
+        send_to_char("You have to ban SOMETHING.\n\r", ch);
+        return;
+    }
+
+    prev = NULL;
+    for ( pban = ban_list; pban != NULL; prev = pban, pban = pban->next )
+    {
+        if (!str_cmp(name, pban->name))
+        {
+            if (pban->level > get_trust(ch))
+            {
+                send_to_char( "That ban was set by a higher power.\n\r", ch );
+                return;
+            }
+            else
+            {
+                if (prev == NULL)
+                    ban_list = pban->next;
+                else
+                    prev->next = pban->next;
+                free_ban(pban);
+            }
+        }
+    }
+
+    pban = new_ban();
+    pban->name = str_dup(name);
+    pban->level = get_trust(ch);
+
+    /* set ban type */
+    pban->ban_flags = type;
+
+    if (prefix)
+        SET_BIT(pban->ban_flags, BAN_PREFIX);
+    if (suffix)
+        SET_BIT(pban->ban_flags, BAN_SUFFIX);
+    if (fPerm)
+        SET_BIT(pban->ban_flags, BAN_PERMANENT);
+
+    pban->next  = ban_list;
+    ban_list    = pban;
+    save_bans();
+    send_to_char( Format("%s has been banned.\n\r", pban->name), ch );
+    return;
 }
 
 void do_ban(CHAR_DATA *ch, char *argument)
@@ -301,5 +316,3 @@ void do_allow( CHAR_DATA *ch, char *argument )
 	send_to_char( "Site is not banned.\n\r", ch );
 	return;
 }
-
-
