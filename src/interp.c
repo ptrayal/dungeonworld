@@ -290,6 +290,7 @@ const	struct	cmd_type	cmd_table	[] =
 	{ "advance",	do_advance,	POS_DEAD,	ML,  LOG_ALWAYS, 1 },
 	// { "dump",		do_dump,	POS_DEAD,	ML,  LOG_ALWAYS, 0 },
 	{ "mob_dump",   do_mobdump, POS_DEAD,   ML,  LOG_ALWAYS, 1 },
+	{ "obj_dump",   do_objdump, POS_DEAD,   ML,  LOG_ALWAYS, 1 },
 	{ "trust",		do_trust,	POS_DEAD,	ML,  LOG_ALWAYS, 1 },
 	{ "violate",	do_violate,	POS_DEAD,	ML,  LOG_ALWAYS, 1 },
 	{ "check",      do_check,   POS_DEAD,   ML,  LOG_ALWAYS, 1 },

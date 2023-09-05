@@ -189,6 +189,7 @@ DECLARE_DO_FUN(	do_noshout	);
 DECLARE_DO_FUN( do_nosummon	);
 DECLARE_DO_FUN(	do_note		);
 DECLARE_DO_FUN(	do_notell	);
+DECLARE_DO_FUN( do_objdump  );
 DECLARE_DO_FUN(	do_ofind	);
 DECLARE_DO_FUN(	do_oload	);
 DECLARE_DO_FUN(	do_open		);
