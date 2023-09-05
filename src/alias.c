@@ -25,14 +25,11 @@
 *	ROM license, in the file Rom24/doc/rom.license			               *
 ***************************************************************************/
 
-#if defined(Macintosh)
-#include <types.h>
-#else
 #include <sys/types.h>
-#endif
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+
 #include "merc.h"
 
 /* does aliasing and other fun stuff */

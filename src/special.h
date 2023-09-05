@@ -18,7 +18,7 @@
  */
  
 #define MAX_RMOB_ORC_NAME 20 // Max Names in Table
-#define MAX_RMOB_ORC_LONG 6 // Max Long_descr's in table
+#define MAX_RMOB_ORC_LONG 11 // Max Long_descr's in table
 #define MAX_RMOB_OTHER 2 // Max 'other' stats
  
 struct rmob_orc_name_type

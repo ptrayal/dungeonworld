@@ -122,21 +122,21 @@ bool is_friend(CHAR_DATA *ch,CHAR_DATA *victim)
 /* returns number of people on an object */
 int count_users(OBJ_DATA *obj)
 {
-	CHAR_DATA *fch;
-	int count = 0;
+    CHAR_DATA *fch;
+    int count = 0;
 
-	if (obj->in_room == NULL)
-		return 0;
+    if (obj->in_room == NULL)
+        return 0;
 
-	for (fch = obj->in_room->people; fch != NULL; fch = fch->next_in_room)
-	{
-		if (fch->on == obj)
-		{
-			count++;
-		}
-	}
+    for (fch = obj->in_room->people; fch != NULL; fch = fch->next_in_room)
+    {
+        if (fch->on == obj)
+        {
+            count++;
+        }
+    }
 
-	return count;
+    return count;
 }
 
 /* returns material number */
@@ -147,16 +147,15 @@ int material_lookup (const char *name)
 
 int weapon_lookup (const char *name)
 {
-	int type;
+    int type;
 
-	for (type = 0; weapon_table[type].name != NULL; type++)
-	{
-	if (LOWER(name[0]) == LOWER(weapon_table[type].name[0])
-	&&  !str_prefix(name,weapon_table[type].name))
-		return type;
-	}
- 
-	return -1;
+    for (type = 0; weapon_table[type].name != NULL; type++)
+    {
+        if (LOWER(name[0]) == LOWER(weapon_table[type].name[0]) && !str_prefix(name, weapon_table[type].name))
+            return type;
+    }
+
+    return -1;
 }
 
 int weapon_type (const char *name)
@@ -243,75 +242,110 @@ int class_lookup (const char *name)
 
 int check_immune(CHAR_DATA *ch, int dam_type)
 {
-	int immune, def;
-	int bit;
+    int immune, def;
+    int bit;
 
-	immune = -1;
-	def = IS_NORMAL;
+    immune = -1;
+    def = IS_NORMAL;
 
-	if (dam_type == DAM_NONE)
-	return immune;
+    if (dam_type == DAM_NONE)
+        return immune;
 
-	if (dam_type <= 3)
-	{
-	if (IS_SET(ch->imm_flags,IMM_WEAPON))
-		def = IS_IMMUNE;
-	else if (IS_SET(ch->res_flags,RES_WEAPON))
-		def = IS_RESISTANT;
-	else if (IS_SET(ch->vuln_flags,VULN_WEAPON))
-		def = IS_VULNERABLE;
-	}
-	else /* magical attack */
-	{	
-	if (IS_SET(ch->imm_flags,IMM_MAGIC))
-		def = IS_IMMUNE;
-	else if (IS_SET(ch->res_flags,RES_MAGIC))
-		def = IS_RESISTANT;
-	else if (IS_SET(ch->vuln_flags,VULN_MAGIC))
-		def = IS_VULNERABLE;
-	}
+    if (dam_type <= 3)
+    {
+        if (IS_SET(ch->imm_flags, IMM_WEAPON))
+            def = IS_IMMUNE;
+        else if (IS_SET(ch->res_flags, RES_WEAPON))
+            def = IS_RESISTANT;
+        else if (IS_SET(ch->vuln_flags, VULN_WEAPON))
+            def = IS_VULNERABLE;
+    }
+    else /* magical attack */
+    {
+        if (IS_SET(ch->imm_flags, IMM_MAGIC))
+            def = IS_IMMUNE;
+        else if (IS_SET(ch->res_flags, RES_MAGIC))
+            def = IS_RESISTANT;
+        else if (IS_SET(ch->vuln_flags, VULN_MAGIC))
+            def = IS_VULNERABLE;
+    }
 
-	/* set bits to check -- VULN etc. must ALL be the same or this will fail */
-	switch (dam_type)
-	{
-	case(DAM_BASH):		bit = IMM_BASH;		break;
-	case(DAM_PIERCE):	bit = IMM_PIERCE;	break;
-	case(DAM_SLASH):	bit = IMM_SLASH;	break;
-	case(DAM_FIRE):		bit = IMM_FIRE;		break;
-	case(DAM_COLD):		bit = IMM_COLD;		break;
-	case(DAM_LIGHTNING):	bit = IMM_LIGHTNING;	break;
-	case(DAM_ACID):		bit = IMM_ACID;		break;
-	case(DAM_POISON):	bit = IMM_POISON;	break;
-	case(DAM_NEGATIVE):	bit = IMM_NEGATIVE;	break;
-	case(DAM_HOLY):		bit = IMM_HOLY;		break;
-	case(DAM_ENERGY):	bit = IMM_ENERGY;	break;
-	case(DAM_MENTAL):	bit = IMM_MENTAL;	break;
-	case(DAM_DISEASE):	bit = IMM_DISEASE;	break;
-	case(DAM_DROWNING):	bit = IMM_DROWNING;	break;
-	case(DAM_LIGHT):	bit = IMM_LIGHT;	break;
-	case(DAM_CHARM):	bit = IMM_CHARM;	break;
-	case(DAM_SOUND):	bit = IMM_SOUND;	break;
-	default:		return def;
-	}
+    /* set bits to check -- VULN etc. must ALL be the same or this will fail */
+    switch (dam_type)
+    {
+    case(DAM_BASH):
+        bit = IMM_BASH;
+        break;
+    case(DAM_PIERCE):
+        bit = IMM_PIERCE;
+        break;
+    case(DAM_SLASH):
+        bit = IMM_SLASH;
+        break;
+    case(DAM_FIRE):
+        bit = IMM_FIRE;
+        break;
+    case(DAM_COLD):
+        bit = IMM_COLD;
+        break;
+    case(DAM_LIGHTNING):
+        bit = IMM_LIGHTNING;
+        break;
+    case(DAM_ACID):
+        bit = IMM_ACID;
+        break;
+    case(DAM_POISON):
+        bit = IMM_POISON;
+        break;
+    case(DAM_NEGATIVE):
+        bit = IMM_NEGATIVE;
+        break;
+    case(DAM_HOLY):
+        bit = IMM_HOLY;
+        break;
+    case(DAM_ENERGY):
+        bit = IMM_ENERGY;
+        break;
+    case(DAM_MENTAL):
+        bit = IMM_MENTAL;
+        break;
+    case(DAM_DISEASE):
+        bit = IMM_DISEASE;
+        break;
+    case(DAM_DROWNING):
+        bit = IMM_DROWNING;
+        break;
+    case(DAM_LIGHT):
+        bit = IMM_LIGHT;
+        break;
+    case(DAM_CHARM):
+        bit = IMM_CHARM;
+        break;
+    case(DAM_SOUND):
+        bit = IMM_SOUND;
+        break;
+    default:
+        return def;
+    }
 
-	if (IS_SET(ch->imm_flags,bit))
-	immune = IS_IMMUNE;
-	else if (IS_SET(ch->res_flags,bit) && immune != IS_IMMUNE)
-	immune = IS_RESISTANT;
-	else if (IS_SET(ch->vuln_flags,bit))
-	{
-	if (immune == IS_IMMUNE)
-		immune = IS_RESISTANT;
-	else if (immune == IS_RESISTANT)
-		immune = IS_NORMAL;
-	else
-		immune = IS_VULNERABLE;
-	}
+    if (IS_SET(ch->imm_flags, bit))
+        immune = IS_IMMUNE;
+    else if (IS_SET(ch->res_flags, bit) && immune != IS_IMMUNE)
+        immune = IS_RESISTANT;
+    else if (IS_SET(ch->vuln_flags, bit))
+    {
+        if (immune == IS_IMMUNE)
+            immune = IS_RESISTANT;
+        else if (immune == IS_RESISTANT)
+            immune = IS_NORMAL;
+        else
+            immune = IS_VULNERABLE;
+    }
 
-	if (immune == -1)
-	return def;
-	else
-		return immune;
+    if (immune == -1)
+        return def;
+    else
+        return immune;
 }
 
 bool is_clan(CHAR_DATA *ch)
@@ -321,126 +355,125 @@ bool is_clan(CHAR_DATA *ch)
 
 bool is_same_clan(CHAR_DATA *ch, CHAR_DATA *victim)
 {
-	if (clan_table[ch->clan].independent)
-	return FALSE;
-	else 
-	return (ch->clan == victim->clan);
+    if (clan_table[ch->clan].independent)
+        return FALSE;
+    else
+        return (ch->clan == victim->clan);
 }
 
 /* checks mob format */
 bool is_old_mob(CHAR_DATA *ch)
 {
-	if (ch->pIndexData == NULL)
-	return FALSE;
-	else if (ch->pIndexData->new_format)
-	return FALSE;
-	return TRUE;
+    if (ch->pIndexData == NULL)
+        return FALSE;
+    else if (ch->pIndexData->new_format)
+        return FALSE;
+    return TRUE;
 }
  
 /* for returning skill information */
 int get_skill(CHAR_DATA *ch, int sn)
 {
-	int skill;
+    int skill;
 
-	if (sn == -1) /* shorthand for level based skills */
-	{
-	skill = ch->level * 5 / 2;
-	}
+    if (sn == -1) /* shorthand for level based skills */
+    {
+        skill = ch->level * 5 / 2;
+    }
 
-	else if (sn < -1 || sn > MAX_SKILL)
-	{
-	bug("Bad sn %d in get_skill.",sn);
-	skill = 0;
-	}
+    else if (sn < -1 || sn > MAX_SKILL)
+    {
+        bug("Bad sn %d in get_skill.", sn);
+        skill = 0;
+    }
 
-	else if (!IS_NPC(ch))
-	{
-	if (ch->level < skill_table[sn].skill_level[ch->iclass])
-		skill = 0;
-	else
-		skill = ch->pcdata->learned[sn];
-	}
+    else if (!IS_NPC(ch))
+    {
+        if (ch->level < skill_table[sn].skill_level[ch->iclass])
+            skill = 0;
+        else
+            skill = ch->pcdata->learned[sn];
+    }
 
-	else /* mobiles */
-	{
+    else /* mobiles */
+    {
 
+        if (skill_table[sn].spell_fun != spell_null)
+            skill = 40 + 2 * ch->level;
 
-		if (skill_table[sn].spell_fun != spell_null)
-		skill = 40 + 2 * ch->level;
+        else if (sn == gsn_sneak || sn == gsn_hide)
+            skill = ch->level * 2 + 20;
 
-	else if (sn == gsn_sneak || sn == gsn_hide)
-		skill = ch->level * 2 + 20;
+        else if ((sn == gsn_dodge && IS_SET(ch->off_flags, OFF_DODGE))
+                 ||       (sn == gsn_parry && IS_SET(ch->off_flags, OFF_PARRY)))
+            skill = ch->level * 2;
 
-		else if ((sn == gsn_dodge && IS_SET(ch->off_flags,OFF_DODGE))
-	||       (sn == gsn_parry && IS_SET(ch->off_flags,OFF_PARRY)))
-		skill = ch->level * 2;
+        else if (sn == gsn_shield_block)
+            skill = 10 + 2 * ch->level;
 
-	else if (sn == gsn_shield_block)
-		skill = 10 + 2 * ch->level;
+        else if (sn == gsn_second_attack
+                 && (IS_SET(ch->act, ACT_WARRIOR) || IS_SET(ch->act, ACT_THIEF)))
+            skill = 10 + 3 * ch->level;
 
-	else if (sn == gsn_second_attack 
-	&& (IS_SET(ch->act,ACT_WARRIOR) || IS_SET(ch->act,ACT_THIEF)))
-		skill = 10 + 3 * ch->level;
+        else if (sn == gsn_third_attack && IS_SET(ch->act, ACT_WARRIOR))
+            skill = 4 * ch->level - 40;
 
-	else if (sn == gsn_third_attack && IS_SET(ch->act,ACT_WARRIOR))
-		skill = 4 * ch->level - 40;
+        else if (sn == gsn_hand_to_hand)
+            skill = 40 + 2 * ch->level;
 
-	else if (sn == gsn_hand_to_hand)
-		skill = 40 + 2 * ch->level;
+        else if (sn == gsn_trip && IS_SET(ch->off_flags, OFF_TRIP))
+            skill = 10 + 3 * ch->level;
 
-	else if (sn == gsn_trip && IS_SET(ch->off_flags,OFF_TRIP))
-		skill = 10 + 3 * ch->level;
+        else if (sn == gsn_bash && IS_SET(ch->off_flags, OFF_BASH))
+            skill = 10 + 3 * ch->level;
 
-	else if (sn == gsn_bash && IS_SET(ch->off_flags,OFF_BASH))
-		skill = 10 + 3 * ch->level;
+        else if (sn == gsn_disarm
+                 &&  (IS_SET(ch->off_flags, OFF_DISARM)
+                      ||   IS_SET(ch->act, ACT_WARRIOR)
+                      ||	  IS_SET(ch->act, ACT_THIEF)))
+            skill = 20 + 3 * ch->level;
 
-	else if (sn == gsn_disarm 
-		 &&  (IS_SET(ch->off_flags,OFF_DISARM) 
-		 ||   IS_SET(ch->act,ACT_WARRIOR)
-		 ||	  IS_SET(ch->act,ACT_THIEF)))
-		skill = 20 + 3 * ch->level;
+        else if (sn == gsn_berserk && IS_SET(ch->off_flags, OFF_BERSERK))
+            skill = 3 * ch->level;
 
-	else if (sn == gsn_berserk && IS_SET(ch->off_flags,OFF_BERSERK))
-		skill = 3 * ch->level;
+        else if (sn == gsn_kick)
+            skill = 10 + 3 * ch->level;
 
-	else if (sn == gsn_kick)
-		skill = 10 + 3 * ch->level;
+        else if (sn == gsn_backstab && IS_SET(ch->act, ACT_THIEF))
+            skill = 20 + 2 * ch->level;
 
-	else if (sn == gsn_backstab && IS_SET(ch->act,ACT_THIEF))
-		skill = 20 + 2 * ch->level;
+        else if (sn == gsn_rescue)
+            skill = 40 + ch->level;
 
-	else if (sn == gsn_rescue)
-		skill = 40 + ch->level; 
+        else if (sn == gsn_recall)
+            skill = 40 + ch->level;
 
-	else if (sn == gsn_recall)
-		skill = 40 + ch->level;
+        else if (sn == gsn_sword
+                 ||  sn == gsn_dagger
+                 ||  sn == gsn_spear
+                 ||  sn == gsn_mace
+                 ||  sn == gsn_axe
+                 ||  sn == gsn_flail
+                 ||  sn == gsn_whip
+                 ||  sn == gsn_polearm)
+            skill = 40 + 5 * ch->level / 2;
 
-	else if (sn == gsn_sword
-	||  sn == gsn_dagger
-	||  sn == gsn_spear
-	||  sn == gsn_mace
-	||  sn == gsn_axe
-	||  sn == gsn_flail
-	||  sn == gsn_whip
-	||  sn == gsn_polearm)
-		skill = 40 + 5 * ch->level / 2;
+        else
+            skill = 0;
+    }
 
-	else 
-	   skill = 0;
-	}
+    if (ch->daze > 0)
+    {
+        if (skill_table[sn].spell_fun != spell_null)
+            skill /= 2;
+        else
+            skill = 2 * skill / 3;
+    }
 
-	if (ch->daze > 0)
-	{
-	if (skill_table[sn].spell_fun != spell_null)
-		skill /= 2;
-	else
-		skill = 2 * skill / 3;
-	}
+    if ( !IS_NPC(ch) && ch->pcdata->condition[COND_DRUNK]  > 10 )
+        skill = 9 * skill / 10;
 
-	if ( !IS_NPC(ch) && ch->pcdata->condition[COND_DRUNK]  > 10 )
-	skill = 9 * skill / 10;
-
-	return URANGE(0,skill,100);
+    return URANGE(0, skill, 100);
 }
 
 /* for returning weapon information */

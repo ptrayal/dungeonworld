@@ -954,7 +954,6 @@ bool spec_random_orc (CHAR_DATA * ch)
         return false;
     }
 
-
     /* Wimpy isn't used by mobs, so we'll use this as a check. if Wimpy == 1, dont do the script
     prevents mobs from changing every 8 pulses. */
     ch->wimpy = 1;

@@ -27,11 +27,11 @@
 
 #include <sys/types.h>
 #include <sys/time.h>
-
 #include <errno.h> // Add this include at the beginning
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"

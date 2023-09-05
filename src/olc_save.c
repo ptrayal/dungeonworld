@@ -122,53 +122,53 @@ void save_area_list()
  */
 char *fwrite_flag( long flags, char buf[] )
 {
-	char offset;
-	char *cp;
+    char offset;
+    char *cp;
 
-	buf[0] = '\0';
+    buf[0] = '\0';
 
-	if ( flags == 0 )
-	{
-		strcpy( buf, "0" );
-		return buf;
-	}
+    if ( flags == 0 )
+    {
+        strcpy( buf, "0" );
+        return buf;
+    }
 
-/* 32 -- number of bits in a long */
+    /* 32 -- number of bits in a long */
 
-	for ( offset = 0, cp = buf; offset < 32; offset++ )
-	{
-		if ( flags & ( (long)1 << offset ) )
-		{
-			if ( offset <= 'Z' - 'A' )
-				*(cp++) = 'A' + offset;
-			else
-				*(cp++) = 'a' + offset - ( 'Z' - 'A' + 1 );
-		}
-	}
+    for ( offset = 0, cp = buf; offset < 32; offset++ )
+    {
+        if ( flags & ( (long)1 << offset ) )
+        {
+            if ( offset <= 'Z' - 'A' )
+                *(cp++) = 'A' + offset;
+            else
+                *(cp++) = 'a' + offset - ( 'Z' - 'A' + 1 );
+        }
+    }
 
-	*cp = '\0';
+    *cp = '\0';
 
-	return buf;
+    return buf;
 }
 
 void save_mobprogs( FILE *fp, AREA_DATA *pArea )
 {
-	MPROG_CODE *pMprog;
-	int i = 0;
+    MPROG_CODE *pMprog;
+    int i = 0;
 
-	fprintf(fp, "#MOBPROGS\n");
+    fprintf(fp, "#MOBPROGS\n");
 
-	for( i = pArea->min_vnum; i <= pArea->max_vnum; i++ )
-	{
-		if ( (pMprog = get_mprog_index(i) ) != NULL)
-		{
-			fprintf(fp, "#%d\n", i);
-			fprintf(fp, "%s~\n", fix_string(pMprog->code));
-		}
-	}
+    for( i = pArea->min_vnum; i <= pArea->max_vnum; i++ )
+    {
+        if ( (pMprog = get_mprog_index(i) ) != NULL)
+        {
+            fprintf(fp, "#%d\n", i);
+            fprintf(fp, "%s~\n", fix_string(pMprog->code));
+        }
+    }
 
-	fprintf(fp,"#0\n\n");
-	return;
+    fprintf(fp, "#0\n\n");
+    return;
 }
 
 /*****************************************************************************
@@ -178,82 +178,82 @@ void save_mobprogs( FILE *fp, AREA_DATA *pArea )
  ****************************************************************************/
 void save_mobile( FILE *fp, MOB_INDEX_DATA *pMobIndex )
 {
-	sh_int race = pMobIndex->race;
-	MPROG_LIST *pMprog;
-	char buf[MSL]={'\0'};
-	long temp;
+    sh_int race = pMobIndex->race;
+    MPROG_LIST *pMprog;
+    char buf[MSL] = {'\0'};
+    long temp;
 
-	fprintf( fp, "#%d\n",	pMobIndex->vnum );
-	fprintf( fp, "%s~\n",	pMobIndex->player_name );
-	fprintf( fp, "%s~\n",	pMobIndex->short_descr );
-	fprintf( fp, "%s~\n",	fix_string( pMobIndex->long_descr ) );
-	fprintf( fp, "%s~\n",	fix_string( pMobIndex->description) );
-	fprintf( fp, "%s~\n",	race_table[race].name );
-	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->act,		buf ) );
-	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->affected_by,	buf ) );
-	fprintf( fp, "%d %d\n",	pMobIndex->alignment , pMobIndex->group);
-	fprintf( fp, "%d ",		pMobIndex->level );
-	fprintf( fp, "%d ",		pMobIndex->hitroll );
-	fprintf( fp, "%dd%d+%d ",	pMobIndex->hit[DICE_NUMBER], 
-		pMobIndex->hit[DICE_TYPE], 
-		pMobIndex->hit[DICE_BONUS] );
-	fprintf( fp, "%dd%d+%d ",	pMobIndex->mana[DICE_NUMBER], 
-		pMobIndex->mana[DICE_TYPE], 
-		pMobIndex->mana[DICE_BONUS] );
-	fprintf( fp, "%dd%d+%d ",	pMobIndex->damage[DICE_NUMBER], 
-		pMobIndex->damage[DICE_TYPE], 
-		pMobIndex->damage[DICE_BONUS] );
-	fprintf( fp, "%s\n",	attack_table[pMobIndex->dam_type].name );
-	fprintf( fp, "%d %d %d %d\n",
-		pMobIndex->ac[AC_PIERCE] / 10, 
-		pMobIndex->ac[AC_BASH]   / 10, 
-		pMobIndex->ac[AC_SLASH]  / 10, 
-		pMobIndex->ac[AC_EXOTIC] / 10 );
-	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->off_flags,  buf ) );
-	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->imm_flags,  buf ) );
-	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->res_flags,  buf ) );
-	fprintf( fp, "%s\n",	fwrite_flag( pMobIndex->vuln_flags, buf ) );
-	fprintf( fp, "%s %s %s %ld\n",
-		position_table[pMobIndex->start_pos].short_name,
-		position_table[pMobIndex->default_pos].short_name,
-		sex_table[pMobIndex->sex].name,
-		pMobIndex->wealth );
-	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->form,  buf ) );
-	fprintf( fp, "%s ",		fwrite_flag( pMobIndex->parts, buf ) );
+    fprintf( fp, "#%d\n",	pMobIndex->vnum );
+    fprintf( fp, "%s~\n",	pMobIndex->player_name );
+    fprintf( fp, "%s~\n",	pMobIndex->short_descr );
+    fprintf( fp, "%s~\n",	fix_string( pMobIndex->long_descr ) );
+    fprintf( fp, "%s~\n",	fix_string( pMobIndex->description) );
+    fprintf( fp, "%s~\n",	race_table[race].name );
+    fprintf( fp, "%s ",		fwrite_flag( pMobIndex->act,		buf ) );
+    fprintf( fp, "%s ",		fwrite_flag( pMobIndex->affected_by,	buf ) );
+    fprintf( fp, "%d %d\n",	pMobIndex->alignment, pMobIndex->group);
+    fprintf( fp, "%d ",		pMobIndex->level );
+    fprintf( fp, "%d ",		pMobIndex->hitroll );
+    fprintf( fp, "%dd%d+%d ",	pMobIndex->hit[DICE_NUMBER],
+             pMobIndex->hit[DICE_TYPE],
+             pMobIndex->hit[DICE_BONUS] );
+    fprintf( fp, "%dd%d+%d ",	pMobIndex->mana[DICE_NUMBER],
+             pMobIndex->mana[DICE_TYPE],
+             pMobIndex->mana[DICE_BONUS] );
+    fprintf( fp, "%dd%d+%d ",	pMobIndex->damage[DICE_NUMBER],
+             pMobIndex->damage[DICE_TYPE],
+             pMobIndex->damage[DICE_BONUS] );
+    fprintf( fp, "%s\n",	attack_table[pMobIndex->dam_type].name );
+    fprintf( fp, "%d %d %d %d\n",
+             pMobIndex->ac[AC_PIERCE] / 10,
+             pMobIndex->ac[AC_BASH]   / 10,
+             pMobIndex->ac[AC_SLASH]  / 10,
+             pMobIndex->ac[AC_EXOTIC] / 10 );
+    fprintf( fp, "%s ",		fwrite_flag( pMobIndex->off_flags,  buf ) );
+    fprintf( fp, "%s ",		fwrite_flag( pMobIndex->imm_flags,  buf ) );
+    fprintf( fp, "%s ",		fwrite_flag( pMobIndex->res_flags,  buf ) );
+    fprintf( fp, "%s\n",	fwrite_flag( pMobIndex->vuln_flags, buf ) );
+    fprintf( fp, "%s %s %s %ld\n",
+             position_table[pMobIndex->start_pos].short_name,
+             position_table[pMobIndex->default_pos].short_name,
+             sex_table[pMobIndex->sex].name,
+             pMobIndex->wealth );
+    fprintf( fp, "%s ",		fwrite_flag( pMobIndex->form,  buf ) );
+    fprintf( fp, "%s ",		fwrite_flag( pMobIndex->parts, buf ) );
 
-	fprintf( fp, "%s ",		size_table[pMobIndex->size].name );
-	fprintf( fp, "%s\n",	pMobIndex->material );
+    fprintf( fp, "%s ",		size_table[pMobIndex->size].name );
+    fprintf( fp, "%s\n",	pMobIndex->material );
 
-	if ((temp = DIF(race_table[race].act,pMobIndex->act)))
-		fprintf( fp, "F act %s\n", fwrite_flag(temp, buf) );
+    if ((temp = DIF(race_table[race].act, pMobIndex->act)))
+        fprintf( fp, "F act %s\n", fwrite_flag(temp, buf) );
 
-	if ((temp = DIF(race_table[race].aff,pMobIndex->affected_by)))
-		fprintf( fp, "F aff %s\n", fwrite_flag(temp, buf) );
+    if ((temp = DIF(race_table[race].aff, pMobIndex->affected_by)))
+        fprintf( fp, "F aff %s\n", fwrite_flag(temp, buf) );
 
-	if ((temp = DIF(race_table[race].off,pMobIndex->off_flags)))
-		fprintf( fp, "F off %s\n", fwrite_flag(temp, buf) );
+    if ((temp = DIF(race_table[race].off, pMobIndex->off_flags)))
+        fprintf( fp, "F off %s\n", fwrite_flag(temp, buf) );
 
-	if ((temp = DIF(race_table[race].imm,pMobIndex->imm_flags)))
-		fprintf( fp, "F imm %s\n", fwrite_flag(temp, buf) );
+    if ((temp = DIF(race_table[race].imm, pMobIndex->imm_flags)))
+        fprintf( fp, "F imm %s\n", fwrite_flag(temp, buf) );
 
-	if ((temp = DIF(race_table[race].res,pMobIndex->res_flags)))
-		fprintf( fp, "F res %s\n", fwrite_flag(temp, buf) );
+    if ((temp = DIF(race_table[race].res, pMobIndex->res_flags)))
+        fprintf( fp, "F res %s\n", fwrite_flag(temp, buf) );
 
-	if ((temp = DIF(race_table[race].vuln,pMobIndex->vuln_flags)))
-		fprintf( fp, "F vul %s\n", fwrite_flag(temp, buf) );
+    if ((temp = DIF(race_table[race].vuln, pMobIndex->vuln_flags)))
+        fprintf( fp, "F vul %s\n", fwrite_flag(temp, buf) );
 
-	if ((temp = DIF(race_table[race].form,pMobIndex->form)))
-		fprintf( fp, "F for %s\n", fwrite_flag(temp, buf) );
+    if ((temp = DIF(race_table[race].form, pMobIndex->form)))
+        fprintf( fp, "F for %s\n", fwrite_flag(temp, buf) );
 
-	if ((temp = DIF(race_table[race].parts,pMobIndex->parts)))
-		fprintf( fp, "F par %s\n", fwrite_flag(temp, buf) );
+    if ((temp = DIF(race_table[race].parts, pMobIndex->parts)))
+        fprintf( fp, "F par %s\n", fwrite_flag(temp, buf) );
 
-	for (pMprog = pMobIndex->mprogs; pMprog; pMprog = pMprog->next)
-	{
-		fprintf(fp, "M %s %d %s~\n", mprog_type_to_name(pMprog->trig_type), pMprog->vnum, pMprog->trig_phrase);
-	}
+    for (pMprog = pMobIndex->mprogs; pMprog; pMprog = pMprog->next)
+    {
+        fprintf(fp, "M %s %d %s~\n", mprog_type_to_name(pMprog->trig_type), pMprog->vnum, pMprog->trig_phrase);
+    }
 
-	return;
+    return;
 }
 
 
@@ -265,19 +265,19 @@ void save_mobile( FILE *fp, MOB_INDEX_DATA *pMobIndex )
  ****************************************************************************/
 void save_mobiles( FILE *fp, AREA_DATA *pArea )
 {
-	int i = 0;
-	MOB_INDEX_DATA *pMob;
+    int i = 0;
+    MOB_INDEX_DATA *pMob;
 
-	fprintf( fp, "#MOBILES\n" );
+    fprintf( fp, "#MOBILES\n" );
 
-	for( i = pArea->min_vnum; i <= pArea->max_vnum; i++ )
-	{
-	if ( (pMob = get_mob_index( i )) )
-		save_mobile( fp, pMob );
-	}
+    for( i = pArea->min_vnum; i <= pArea->max_vnum; i++ )
+    {
+        if ( (pMob = get_mob_index( i )) )
+            save_mobile( fp, pMob );
+    }
 
-	fprintf( fp, "#0\n\n\n\n" );
-	return;
+    fprintf( fp, "#0\n\n\n\n" );
+    return;
 }
 
 

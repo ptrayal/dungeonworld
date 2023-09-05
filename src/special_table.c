@@ -47,13 +47,18 @@ const struct rmob_orc_name_type rmob_orc_name_table[] =
  
 const struct rmob_orc_long_type rmob_orc_long_table[] = 
 {
-{"an orcish warrior stands here.\n\r"},	/* 1 */
-{"a huge orcish warrior stands here.\n\r"}, /* 2 */
-{"An orc patrols the area here.\n\r"}, /* 3 */
-{"A strong-looking orcish warrior stands here.\n\r"},	/* 4 */
-{"A medium-sized orc patrols the area here.\n\r"},	/* 5 */
-{"A tusked orc warrior stands here.\n\r"},	/* 6 */
- 
+    {"an orcish warrior stands here.\n\r"},	/* 1 */
+    {"a huge orcish warrior stands here.\n\r"}, /* 2 */
+    {"An orc patrols the area here.\n\r"}, /* 3 */
+    {"A strong-looking orcish warrior stands here.\n\r"},	/* 4 */
+    {"A medium-sized orc patrols the area here.\n\r"},	/* 5 */
+    {"A tusked orc warrior stands here.\n\r"},	/* 6 */
+    {"A battle-scarred orc veteran stands defiant.\n\r"}, /* 7 */
+    {"An orc raider prowls the area hungrily.\n\r"}, /* 8 */
+    {"A scar-faced orc raider eyes you suspiciously.\n\r"}, /* 9 */
+	{"A grizzled orc mercenary sharpens a blade.\n\r"}, /* 10 */
+	{"A bloodthirsty orc marauder seeks prey.\n\r"}, /* 11 */
+	
 };
  
 const struct rmob_orc_other_type rmob_orc_other_table[] = 
