@@ -63,7 +63,5 @@ GSN(gsn_recall)
 
 GSN(gsn_smithing)
 
-
-
 #endif
 

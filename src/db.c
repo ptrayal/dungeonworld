@@ -3490,42 +3490,6 @@ void append_file( CHAR_DATA *ch, char *file, char *str )
 // /*
 //  * Reports a bug.
 //  */
-// void bug( const char *str, int param )
-// {
-// 	char buf[MSL]={'\0'};
-
-// 	if ( fpArea != NULL )
-// 	{
-// 	int iLine;
-// 	int iChar;
-
-// 	if ( fpArea == stdin )
-// 	{
-// 		iLine = 0;
-// 	}
-// 	else
-// 	{
-// 		iChar = ftell( fpArea );
-// 		fseek( fpArea, 0, 0 );
-// 		for ( iLine = 0; ftell( fpArea ) < iChar; iLine++ )
-// 		{
-// 		while ( getc( fpArea ) != '\n' )
-// 			;
-// 		}
-// 		fseek( fpArea, iChar, 0 );
-// 	}
-
-// 	sprintf( buf, "[*****] FILE: %s LINE: %d", strArea, iLine );
-// 	log_string( buf );
-// 	}
-
-// 	strcpy( buf, "[*****] BUG: " );
-// 	sprintf( buf + strlen(buf), str, param );
-// 	log_string( buf );
-
-// 	return;
-// }
-
 // Updated bug function with better buffer management
 void bug(const char *str, int param)
 {

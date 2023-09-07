@@ -2429,116 +2429,115 @@ void do_dirt( CHAR_DATA *ch, char *argument )
 
 void do_trip( CHAR_DATA *ch, char *argument )
 {
-	char arg[MAX_INPUT_LENGTH];
-	CHAR_DATA *victim;
-	int chance;
+    char arg[MAX_INPUT_LENGTH];
+    CHAR_DATA *victim;
+    int chance;
 
-	one_argument(argument,arg);
+    one_argument(argument, arg);
 
-	if ( (chance = get_skill(ch,gsn_trip)) == 0
-	||   (IS_NPC(ch) && !IS_SET(ch->off_flags,OFF_TRIP))
-	||   (!IS_NPC(ch) 
-	  && ch->level < skill_table[gsn_trip].skill_level[ch->iclass]))
-	{
-	send_to_char("Tripping?  What's that?\n\r",ch);
-	return;
-	}
-
-
-	if (arg[0] == '\0')
-	{
-	victim = ch->fighting;
-	if (victim == NULL)
-	{
-		send_to_char("But you aren't fighting anyone!\n\r",ch);
-		return;
-	}
-	}
-
-	else if ((victim = get_char_room(ch,arg)) == NULL)
-	{
-	send_to_char("They aren't here.\n\r",ch);
-	return;
-	}
-
-	if (is_safe(ch,victim))
-	return;
-
-	if (IS_NPC(victim) &&
-	 victim->fighting != NULL && 
-	!is_same_group(ch,victim->fighting))
-	{
-	send_to_char("Kill stealing is not permitted.\n\r",ch);
-	return;
-	}
-	
-	if (IS_AFFECTED(victim,AFF_FLYING))
-	{
-	act("$S feet aren't on the ground.",ch,NULL,victim,TO_CHAR);
-	return;
-	}
-
-	if (victim->position < POS_FIGHTING)
-	{
-	act("$N is already down.",ch,NULL,victim,TO_CHAR);
-	return;
-	}
-
-	if (victim == ch)
-	{
-	send_to_char("You fall flat on your face!\n\r",ch);
-	WAIT_STATE(ch,2 * skill_table[gsn_trip].beats);
-	act("$n trips over $s own feet!",ch,NULL,NULL,TO_ROOM);
-	return;
-	}
-
-	if (IS_AFFECTED(ch,AFF_CHARM) && ch->master == victim)
-	{
-	act("$N is your beloved master.",ch,NULL,victim,TO_CHAR);
-	return;
-	}
-
-	/* modifiers */
-
-	/* size */
-	if (ch->size < victim->size)
-		chance += (ch->size - victim->size) * 10;  /* bigger = harder to trip */
-
-	/* dex */
-	chance += get_curr_stat(ch,STAT_DEX);
-	chance -= get_curr_stat(victim,STAT_DEX) * 3 / 2;
-
-	/* speed */
-	if (IS_SET(ch->off_flags,OFF_FAST) || IS_AFFECTED(ch,AFF_HASTE))
-	chance += 10;
-	if (IS_SET(victim->off_flags,OFF_FAST) || IS_AFFECTED(victim,AFF_HASTE))
-	chance -= 20;
-
-	/* level */
-	chance += (ch->level - victim->level) * 2;
+    if ( (chance = get_skill(ch, gsn_trip)) == 0
+            || (IS_NPC(ch) && !IS_SET(ch->off_flags, OFF_TRIP))
+            || (!IS_NPC(ch) && ch->level < skill_table[gsn_trip].skill_level[ch->iclass]))
+    {
+        send_to_char("Tripping?  What's that?\n\r", ch);
+        return;
+    }
 
 
-	/* now the attack */
-	if (number_percent() < chance)
-	{
-	act("$n trips you and you go down!",ch,NULL,victim,TO_VICT);
-	act("You trip $N and $N goes down!",ch,NULL,victim,TO_CHAR);
-	act("$n trips $N, sending $M to the ground.",ch,NULL,victim,TO_NOTVICT);
-	check_improve(ch,gsn_trip,TRUE,1);
+    if (arg[0] == '\0')
+    {
+        victim = ch->fighting;
+        if (victim == NULL)
+        {
+            send_to_char("But you aren't fighting anyone!\n\r", ch);
+            return;
+        }
+    }
 
-	DAZE_STATE(victim,2 * PULSE_VIOLENCE);
-		WAIT_STATE(ch,skill_table[gsn_trip].beats);
-	victim->position = POS_RESTING;
-	damage(ch,victim,number_range(2, 2 +  2 * victim->size),gsn_trip,
-		DAM_BASH,TRUE);
-	}
-	else
-	{
-	damage(ch,victim,0,gsn_trip,DAM_BASH,TRUE);
-	WAIT_STATE(ch,skill_table[gsn_trip].beats*2/3);
-	check_improve(ch,gsn_trip,FALSE,1);
-	} 
-	check_killer(ch,victim);
+    else if ((victim = get_char_room(ch, arg)) == NULL)
+    {
+        send_to_char("They aren't here.\n\r", ch);
+        return;
+    }
+
+    if (is_safe(ch, victim))
+        return;
+
+    if (IS_NPC(victim) &&
+            victim->fighting != NULL &&
+            !is_same_group(ch, victim->fighting))
+    {
+        send_to_char("Kill stealing is not permitted.\n\r", ch);
+        return;
+    }
+
+    if (IS_AFFECTED(victim, AFF_FLYING))
+    {
+        act("$S feet aren't on the ground.", ch, NULL, victim, TO_CHAR);
+        return;
+    }
+
+    if (victim->position < POS_FIGHTING)
+    {
+        act("$N is already down.", ch, NULL, victim, TO_CHAR);
+        return;
+    }
+
+    if (victim == ch)
+    {
+        send_to_char("You fall flat on your face!\n\r", ch);
+        WAIT_STATE(ch, 2 * skill_table[gsn_trip].beats);
+        act("$n trips over $s own feet!", ch, NULL, NULL, TO_ROOM);
+        return;
+    }
+
+    if (IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim)
+    {
+        act("$N is your beloved master.", ch, NULL, victim, TO_CHAR);
+        return;
+    }
+
+    /* modifiers */
+
+    /* size */
+    if (ch->size < victim->size)
+        chance += (ch->size - victim->size) * 10;  /* bigger = harder to trip */
+
+    /* dex */
+    chance += get_curr_stat(ch, STAT_DEX);
+    chance -= get_curr_stat(victim, STAT_DEX) * 3 / 2;
+
+    /* speed */
+    if (IS_SET(ch->off_flags, OFF_FAST) || IS_AFFECTED(ch, AFF_HASTE))
+        chance += 10;
+    if (IS_SET(victim->off_flags, OFF_FAST) || IS_AFFECTED(victim, AFF_HASTE))
+        chance -= 20;
+
+    /* level */
+    chance += (ch->level - victim->level) * 2;
+
+
+    /* now the attack */
+    if (number_percent() < chance)
+    {
+        act("$n trips you and you go down!", ch, NULL, victim, TO_VICT);
+        act("You trip $N and $N goes down!", ch, NULL, victim, TO_CHAR);
+        act("$n trips $N, sending $M to the ground.", ch, NULL, victim, TO_NOTVICT);
+        check_improve(ch, gsn_trip, TRUE, 1);
+
+        DAZE_STATE(victim, 2 * PULSE_VIOLENCE);
+        WAIT_STATE(ch, skill_table[gsn_trip].beats);
+        victim->position = POS_RESTING;
+        damage(ch, victim, number_range(2, 2 +  2 * victim->size), gsn_trip,
+               DAM_BASH, TRUE);
+    }
+    else
+    {
+        damage(ch, victim, 0, gsn_trip, DAM_BASH, TRUE);
+        WAIT_STATE(ch, skill_table[gsn_trip].beats * 2 / 3);
+        check_improve(ch, gsn_trip, FALSE, 1);
+    }
+    check_killer(ch, victim);
 }
 
 
@@ -2920,8 +2919,6 @@ void do_kick( CHAR_DATA *ch, char *argument )
 	check_killer(ch,victim);
 	return;
 }
-
-
 
 
 void do_disarm( CHAR_DATA *ch, char *argument )
