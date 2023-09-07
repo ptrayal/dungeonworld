@@ -33,17 +33,12 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <time.h>
+#include <errno.h> // Add this include at the beginning
 #include <unistd.h>
-
-
-#if defined(Macintosh)
-#include <types.h>
-#else
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/stat.h>
-#endif
 
 #define IN_DB
 #include "merc.h"
@@ -3426,42 +3421,68 @@ bool str_suffix( const char *astr, const char *bstr )
  */
 char *capitalize( const char *str )
 {
-	static char strcap[MSL]={'\0'};
-	int i;
+    static char strcap[MSL] = {'\0'};
+    int i;
 
-	for ( i = 0; str[i] != '\0'; i++ )
-	strcap[i] = LOWER(str[i]);
-	strcap[i] = '\0';
-	strcap[0] = UPPER(strcap[0]);
-	return strcap;
+    for ( i = 0; str[i] != '\0'; i++ )
+        strcap[i] = LOWER(str[i]);
+    strcap[i] = '\0';
+    strcap[0] = UPPER(strcap[0]);
+    return strcap;
 }
 
 
 /*
  * Append a string to a file.
  */
+// void append_file( CHAR_DATA *ch, char *file, char *str )
+// {
+//     FILE *fp;
+
+//     if ( IS_NPC(ch) || str[0] == '\0' )
+//         return;
+
+//     closeReserve();
+//     if ( ( fp = fopen( file, "a" ) ) == NULL )
+//     {
+//         perror( file );
+//         send_to_char( "Could not open the file!\n\r", ch );
+//     }
+//     else
+//     {
+//         fprintf( fp, "[%5d] %s: %s\n",
+//                  ch->in_room ? ch->in_room->vnum : 0, ch->name, str );
+//         fclose( fp );
+//     }
+
+//     openReserve();
+//     return;
+// }
+
 void append_file( CHAR_DATA *ch, char *file, char *str )
 {
-	FILE *fp;
+    FILE *fp;
 
-	if ( IS_NPC(ch) || str[0] == '\0' )
-	return;
+    if ( IS_NPC(ch) || str[0] == '\0' )
+        return;
 
-	closeReserve();
-	if ( ( fp = fopen( file, "a" ) ) == NULL )
-	{
-	perror( file );
-	send_to_char( "Could not open the file!\n\r", ch );
-	}
-	else
-	{
-	fprintf( fp, "[%5d] %s: %s\n",
-		ch->in_room ? ch->in_room->vnum : 0, ch->name, str );
-	fclose( fp );
-	}
+    closeReserve();
+    if ( ( fp = fopen( file, "a" ) ) == NULL )
+    {
+        char perror_msg[MSL];
+        snprintf(perror_msg, sizeof(perror_msg), "Could not open the file: %s", file);
+        bug(perror_msg, 0);  // Use your custom bug function here
+        send_to_char( "Could not open the file!\n\r", ch );
+    }
+    else
+    {
+        fprintf( fp, "[%5d] %s: %s\n",
+                 ch->in_room ? ch->in_room->vnum : 0, ch->name, str );
+        fclose( fp );
+    }
 
-	openReserve();
-	return;
+    openReserve();
+    return;
 }
 
 

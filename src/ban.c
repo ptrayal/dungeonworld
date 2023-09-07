@@ -45,7 +45,9 @@ void save_bans(void)
     closeReserve();
     if ( ( fp = fopen( BAN_FILE, "w" ) ) == NULL )
     {
-        perror( BAN_FILE );
+        char perror_msg[MSL];
+        snprintf(perror_msg, sizeof(perror_msg), "Could not open the file: %s", BAN_FILE);
+        bug(perror_msg, 0);  // Use your custom bug function here
     }
 
     for (pban = ban_list; pban != NULL; pban = pban->next)
@@ -53,8 +55,7 @@ void save_bans(void)
         if (IS_SET(pban->ban_flags, BAN_PERMANENT))
         {
             found = TRUE;
-            fprintf(fp, "%-20s %-2d %s\n", pban->name, pban->level,
-                    print_flags(pban->ban_flags));
+            fprintf(fp, "%-20s %-2d %s\n", pban->name, pban->level, print_flags(pban->ban_flags));
         }
     }
 
@@ -63,6 +64,7 @@ void save_bans(void)
     if (!found)
         unlink(BAN_FILE);
 }
+
 
 void load_bans(void)
 {

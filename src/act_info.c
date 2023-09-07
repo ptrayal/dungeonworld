@@ -1511,7 +1511,7 @@ void do_score( CHAR_DATA *ch, char *argument )
 
 		send_to_char("You are ", ch);
 
-		if      (GET_AC(ch,i) >=  101 ) 
+		if (GET_AC(ch,i) >=  101 ) 
 			sprintf(buf,"hopelessly vulnerable to %s.\n\r",temp);
 		else if (GET_AC(ch,i) >= 80) 
 			sprintf(buf,"defenseless against %s.\n\r",temp);
@@ -1724,7 +1724,7 @@ void do_help( CHAR_DATA *ch, char *argument )
 		 found = TRUE;
 		/* small hack :) */
 		 if (ch->desc != NULL && ch->desc->connected != CON_PLAYING 
-			&&  		    ch->desc->connected != CON_GEN_GROUPS)
+			&& ch->desc->connected != CON_GEN_GROUPS)
 			break;
 		}
 	}
