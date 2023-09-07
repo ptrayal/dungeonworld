@@ -44,6 +44,10 @@
  */
 ROOM_INDEX_DATA *	find_location	args( ( CHAR_DATA *ch, char *arg ) );
 
+
+// Function Prototypes
+void exportObjDataToCSV(const char *filename, const AREA_DATA *area);
+
 void do_wiznet( CHAR_DATA *ch, char *argument )
 {
 	int flag;
@@ -4458,44 +4462,40 @@ char get_condition_letter(int condition)
         return 'R';
 }
 
-
 void do_objdump(CHAR_DATA *ch, char *argument)
 {
-    FILE *fp;
-    AREA_DATA *pArea;
-    OBJ_INDEX_DATA *pObjIndex;
-    int vnum = 0;
-    char error_buffer[MAX_STRING_LENGTH] = {'\0'};
 
-    // Create the objdump files.
-    pArea = ch->in_room->area;
+	// Create the obj file.
+	const AREA_DATA *currentArea = ch->in_room->area;
+	exportObjDataToCSV("objdump.csv", currentArea);
 
-    if (!(fp = fopen("objdump.txt", "w")))
-    {
-        snprintf(error_buffer, sizeof(error_buffer), "There was an error accessing objdump.txt.");
-        send_to_char(error_buffer, ch);
-        bug("do_objdump: fopen", errno); // Using the custom 'bug' function
-    }
 
-    fprintf(fp, "VNUM | Object Name | Type | Weight | Cost | Condition\n");
-
-    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
-    {
-        if ((pObjIndex = get_obj_index(vnum)))
-        {
-            fprintf(fp, "%8d | %-40s | %s | %d | %d | %c\n",
-                    vnum,
-                    pObjIndex->name,
-                    item_name(pObjIndex->item_type),
-                    pObjIndex->weight,
-                    pObjIndex->cost,
-                    get_condition_letter(pObjIndex->condition));
-        }
-    }
-
-    fclose(fp);
-    send_to_char("Object Dump Saved.\n\r", ch);
+	send_to_char("\tGSuccess\tn: Object Dump Saved.\n\r", ch);
 }
+
+void exportObjDataToCSV(const char *filename, const AREA_DATA *area)
+{
+	FILE *fp = fopen(filename, "w");
+	if (fp == NULL)
+	{
+		perror("Error opening file");
+		return;
+	}
+
+	fprintf(fp, "VNUM,Object Name,Type,Weight,Cost,Condition\n");
+
+	for (int vnum = area->min_vnum; vnum <= area->max_vnum; vnum++)
+	{
+		const OBJ_INDEX_DATA *pObjIndex = get_obj_index(vnum);
+		if (pObjIndex != NULL)
+		{
+			fprintf(fp, "%d,%s,%s,%d,%d,%c\n", vnum, pObjIndex->name, item_name(pObjIndex->item_type), pObjIndex->weight, pObjIndex->cost, get_condition_letter(pObjIndex->condition));
+		}
+	}
+
+	fclose(fp);
+}
+
 
 void do_sql_test(CHAR_DATA *ch, char *argument)
 {
