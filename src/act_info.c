@@ -616,7 +616,7 @@ void do_story(CHAR_DATA *ch, char *argument)
 }
 
 /* RT this following section holds all the auto commands from ROM, as well as
-   replacements for config */
+	replacements for config */
 
 void do_autolist(CHAR_DATA *ch, char *argument)
 {
@@ -1119,37 +1119,48 @@ void do_look( CHAR_DATA *ch, char *argument )
 
 	for ( obj = ch->carrying; obj != NULL; obj = obj->next_content )
 	{
-		if ( can_see_obj( ch, obj ) )
-		{  /* player can see object */
-			pdesc = get_extra_descr( arg3, obj->extra_descr );
-		if ( pdesc != NULL )
-			{	if (++count == number)
-				{
-					send_to_char( pdesc, ch );
-					return;
-				}
-				else continue;
-			}
-			pdesc = get_extra_descr( arg3, obj->pIndexData->extra_descr );
-			if ( pdesc != NULL )
-				{	if (++count == number)
-					{	
-						send_to_char( pdesc, ch );
-						return;
-					}
-					else continue;
-				}
-				if ( is_name( arg3, obj->name ) )
-				{
-					if (++count == number)
-					{
-						send_to_char( obj->description, ch );
-						send_to_char( "\n\r",ch);
-						return;
-					}
-				}
-			}
-		}
+	    if ( can_see_obj( ch, obj ) )
+	    {
+	        /* player can see object */
+	        pdesc = get_extra_descr( arg3, obj->extra_descr );
+	        if ( pdesc != NULL )
+	        {
+	            if (++count == number)
+	            {
+	                send_to_char( pdesc, ch );
+	                send_to_char( "\n\r", ch);
+	                send_to_char(Format("It is made out of %s.", obj->material), ch);
+	                send_to_char( "\n\r", ch);
+	                return;
+	            }
+	            else continue;
+	        }
+	        pdesc = get_extra_descr( arg3, obj->pIndexData->extra_descr );
+	        if ( pdesc != NULL )
+	        {
+	            if (++count == number)
+	            {
+	                send_to_char( pdesc, ch );
+	                send_to_char( "\n\r", ch);
+	                send_to_char(Format("It is made out of %s.", obj->material), ch);
+	                send_to_char( "\n\r", ch);
+	                return;
+	            }
+	            else continue;
+	        }
+	        if ( is_name( arg3, obj->name ) )
+	        {
+	            if (++count == number)
+	            {
+	                send_to_char( obj->description, ch );
+	                send_to_char( "\n\r", ch);
+	                send_to_char(Format("It is made out of %s.", obj->material), ch);
+	                send_to_char( "\n\r", ch);
+	                return;
+	            }
+	        }
+	    }
+	}
 
 	for ( obj = ch->in_room->contents; obj != NULL; obj = obj->next_content )
 	{
@@ -2435,101 +2446,101 @@ void do_report( CHAR_DATA *ch, char *argument )
 
 void do_practice( CHAR_DATA *ch, char *argument )
 {
-    int sn = 0;
+	 int sn = 0;
 
-    if ( IS_NPC(ch) )
-        return;
+	 if ( IS_NPC(ch) )
+		  return;
 
-    if ( IS_NULLSTR(argument) )
-    {
-        int col = 0;
+	 if ( IS_NULLSTR(argument) )
+	 {
+		  int col = 0;
 
-        for ( sn = 0; sn < MAX_SKILL; sn++ )
-        {
-            if ( skill_table[sn].name == NULL )
-                break;
+		  for ( sn = 0; sn < MAX_SKILL; sn++ )
+		  {
+				if ( skill_table[sn].name == NULL )
+					 break;
 
-            if ( ch->level < skill_table[sn].skill_level[ch->iclass] || ch->pcdata->learned[sn] < 1 /* skill is not known */)
-            {
-                continue;
-            }
+				if ( ch->level < skill_table[sn].skill_level[ch->iclass] || ch->pcdata->learned[sn] < 1 /* skill is not known */)
+				{
+					 continue;
+				}
 
-            send_to_char( Format("%-18s %3d%%  ", skill_table[sn].name, ch->pcdata->learned[sn]), ch );
+				send_to_char( Format("%-18s %3d%%  ", skill_table[sn].name, ch->pcdata->learned[sn]), ch );
 
-            if ( ++col % 3 == 0 )
-                send_to_char( "\n\r", ch );
-        }
+				if ( ++col % 3 == 0 )
+					 send_to_char( "\n\r", ch );
+		  }
 
-        if ( col % 3 != 0 )
-            send_to_char( "\n\r", ch );
+		  if ( col % 3 != 0 )
+				send_to_char( "\n\r", ch );
 
-        send_to_char( Format ("You have %d practice sessions left.\n\r", ch->practice), ch );
-    }
-    else
-    {
-        CHAR_DATA *mob;
-        int adept = 0;
+		  send_to_char( Format ("You have %d practice sessions left.\n\r", ch->practice), ch );
+	 }
+	 else
+	 {
+		  CHAR_DATA *mob;
+		  int adept = 0;
 
-        if ( !IS_AWAKE(ch) )
-        {
-            send_to_char( "In your dreams, or what?\n\r", ch );
-            return;
-        }
+		  if ( !IS_AWAKE(ch) )
+		  {
+				send_to_char( "In your dreams, or what?\n\r", ch );
+				return;
+		  }
 
-        for ( mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room )
-        {
-            if ( IS_NPC(mob) && IS_SET(mob->act, ACT_PRACTICE) )
-                break;
-        }
+		  for ( mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room )
+		  {
+				if ( IS_NPC(mob) && IS_SET(mob->act, ACT_PRACTICE) )
+					 break;
+		  }
 
-        if ( mob == NULL )
-        {
-            send_to_char( "You can't do that here.\n\r", ch );
-            return;
-        }
+		  if ( mob == NULL )
+		  {
+				send_to_char( "You can't do that here.\n\r", ch );
+				return;
+		  }
 
-        if ( ch->practice <= 0 )
-        {
-            send_to_char( "You have no practice sessions left.\n\r", ch );
-            return;
-        }
+		  if ( ch->practice <= 0 )
+		  {
+				send_to_char( "You have no practice sessions left.\n\r", ch );
+				return;
+		  }
 
-        if ( ( sn = find_spell( ch, argument ) ) < 0
-                || ( !IS_NPC(ch)
-                     &&   (ch->level < skill_table[sn].skill_level[ch->iclass]
-                           ||    ch->pcdata->learned[sn] < 1 /* skill is not known */
-                           ||    skill_table[sn].rating[ch->iclass] == 0)))
-        {
-            send_to_char( "You can't practice that.\n\r", ch );
-            return;
-        }
+		  if ( ( sn = find_spell( ch, argument ) ) < 0
+					 || ( !IS_NPC(ch)
+							&&   (ch->level < skill_table[sn].skill_level[ch->iclass]
+									||    ch->pcdata->learned[sn] < 1 /* skill is not known */
+									||    skill_table[sn].rating[ch->iclass] == 0)))
+		  {
+				send_to_char( "You can't practice that.\n\r", ch );
+				return;
+		  }
 
-        adept = IS_NPC(ch) ? 100 : class_table[ch->iclass].skill_adept;
+		  adept = IS_NPC(ch) ? 100 : class_table[ch->iclass].skill_adept;
 
-        if ( ch->pcdata->learned[sn] >= adept )
-        {
-            send_to_char( Format("You are already learned at %s.\n\r", skill_table[sn].name), ch );
-        }
-        else
-        {
-            ch->practice--;
-            ch->pcdata->learned[sn] +=
-                int_app[get_curr_stat(ch, STAT_INT)].learn /
-                skill_table[sn].rating[ch->iclass];
-            if ( ch->pcdata->learned[sn] < adept )
-            {
-                act( "You practice $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
-                act( "$n practices $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
-            }
-            else
-            {
-                ch->pcdata->learned[sn] = adept;
-                act( "You are now learned at $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
-                act( "$n is now learned at $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
-            }
-        }
-    }
-    return;
+		  if ( ch->pcdata->learned[sn] >= adept )
+		  {
+				send_to_char( Format("You are already learned at %s.\n\r", skill_table[sn].name), ch );
+		  }
+		  else
+		  {
+				ch->practice--;
+				ch->pcdata->learned[sn] +=
+					 int_app[get_curr_stat(ch, STAT_INT)].learn /
+					 skill_table[sn].rating[ch->iclass];
+				if ( ch->pcdata->learned[sn] < adept )
+				{
+					 act( "You practice $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
+					 act( "$n practices $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
+				}
+				else
+				{
+					 ch->pcdata->learned[sn] = adept;
+					 act( "You are now learned at $T.", ch, NULL, skill_table[sn].name, TO_CHAR );
+					 act( "$n is now learned at $T.", ch, NULL, skill_table[sn].name, TO_ROOM );
+				}
+		  }
+	 }
+	 return;
 }
 
 
@@ -2567,99 +2578,99 @@ void do_wimpy( CHAR_DATA *ch, char *argument )
 
 
 bool is_valid_password(const char *password) {
-    int length = strlen(password);
-    bool has_alphabet = false;
-    bool has_number = false;
+	 int length = strlen(password);
+	 bool has_alphabet = false;
+	 bool has_number = false;
 
-    if (length < 6)
-        return false;
+	 if (length < 6)
+		  return false;
 
-    for (int i = 0; i < length; i++) {
-        if (isalpha(password[i]))
-            has_alphabet = true;
-        else if (isdigit(password[i]))
-            has_number = true;
-    }
+	 for (int i = 0; i < length; i++) {
+		  if (isalpha(password[i]))
+				has_alphabet = true;
+		  else if (isdigit(password[i]))
+				has_number = true;
+	 }
 
-    return has_alphabet && has_number;
+	 return has_alphabet && has_number;
 }
 
 void do_password(CHAR_DATA *ch, char *argument) {
-    char arg1[MIL] = {'\0'};
-    char arg2[MIL] = {'\0'};
-    char *pArg;
-    char *pwdnew;
-    char *p;
-    char cEnd;
+	 char arg1[MIL] = {'\0'};
+	 char arg2[MIL] = {'\0'};
+	 char *pArg;
+	 char *pwdnew;
+	 char *p;
+	 char cEnd;
 
-    if (IS_NPC(ch))
-        return;
+	 if (IS_NPC(ch))
+		  return;
 
-    pArg = arg1;
-    while (isspace(*argument))
-        argument++;
+	 pArg = arg1;
+	 while (isspace(*argument))
+		  argument++;
 
-    cEnd = ' ';
-    if (*argument == '\'' || *argument == '"')
-        cEnd = *argument++;
+	 cEnd = ' ';
+	 if (*argument == '\'' || *argument == '"')
+		  cEnd = *argument++;
 
-    while (*argument != '\0') {
-        if (*argument == cEnd) {
-            argument++;
-            break;
-        }
-        *pArg++ = *argument++;
-    }
-    *pArg = '\0';
+	 while (*argument != '\0') {
+		  if (*argument == cEnd) {
+				argument++;
+				break;
+		  }
+		  *pArg++ = *argument++;
+	 }
+	 *pArg = '\0';
 
-    pArg = arg2;
-    while (isspace(*argument))
-        argument++;
+	 pArg = arg2;
+	 while (isspace(*argument))
+		  argument++;
 
-    cEnd = ' ';
-    if (*argument == '\'' || *argument == '"')
-        cEnd = *argument++;
+	 cEnd = ' ';
+	 if (*argument == '\'' || *argument == '"')
+		  cEnd = *argument++;
 
-    while (*argument != '\0') {
-        if (*argument == cEnd) {
-            argument++;
-            break;
-        }
-        *pArg++ = *argument++;
-    }
-    *pArg = '\0';
+	 while (*argument != '\0') {
+		  if (*argument == cEnd) {
+				argument++;
+				break;
+		  }
+		  *pArg++ = *argument++;
+	 }
+	 *pArg = '\0';
 
-    if (arg1[0] == '\0' || arg2[0] == '\0') {
-        send_to_char("Syntax: password <old> <new>.\n\r", ch);
-        return;
-    }
+	 if (arg1[0] == '\0' || arg2[0] == '\0') {
+		  send_to_char("Syntax: password <old> <new>.\n\r", ch);
+		  return;
+	 }
 
-    if (strcmp(crypt(arg1, ch->pcdata->pwd), ch->pcdata->pwd)) {
-        WAIT_STATE(ch, 40);
-        send_to_char("Wrong password.  Wait 10 seconds.\n\r", ch);
-        return;
-    }
+	 if (strcmp(crypt(arg1, ch->pcdata->pwd), ch->pcdata->pwd)) {
+		  WAIT_STATE(ch, 40);
+		  send_to_char("Wrong password.  Wait 10 seconds.\n\r", ch);
+		  return;
+	 }
 
-    if (!is_valid_password(arg2)) {
-        send_to_char("New password must be at least six characters long and include both a letter and a number.\n\r", ch);
-        return;
-    }
+	 if (!is_valid_password(arg2)) {
+		  send_to_char("New password must be at least six characters long and include both a letter and a number.\n\r", ch);
+		  return;
+	 }
 
-    /*
-     * No tilde allowed because of player file format.
-     */
-    pwdnew = crypt(arg2, ch->name);
-    for (p = pwdnew; *p != '\0'; p++) {
-        if (*p == '~') {
-            send_to_char("New password not acceptable, try again.\n\r", ch);
-            return;
-        }
-    }
+	 /*
+	  * No tilde allowed because of player file format.
+	  */
+	 pwdnew = crypt(arg2, ch->name);
+	 for (p = pwdnew; *p != '\0'; p++) {
+		  if (*p == '~') {
+				send_to_char("New password not acceptable, try again.\n\r", ch);
+				return;
+		  }
+	 }
 
-    PURGE_DATA(ch->pcdata->pwd);
-    ch->pcdata->pwd = strdup(pwdnew);
-    save_char_obj(ch);
-    send_to_char("Password changed successfully.\n\r", ch);
+	 PURGE_DATA(ch->pcdata->pwd);
+	 ch->pcdata->pwd = strdup(pwdnew);
+	 save_char_obj(ch);
+	 send_to_char("Password changed successfully.\n\r", ch);
 }
 
 void do_attributes( CHAR_DATA *ch, char *argument )
