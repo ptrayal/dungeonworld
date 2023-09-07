@@ -199,7 +199,30 @@ void say_spell( CHAR_DATA *ch, int sn )
 			length = 1;
 	}
 
-	snprintf( buf2, sizeof(buf2), "$n utters the words, '%s'.", buf );
+	// snprintf( buf2, sizeof(buf2), "$n utters the words, '%s'.", buf );
+	// Fixed a dynamic buffer size with this code.
+	#define MAX_TEMP_BUF_SIZE 8192 // Adjust the size as needed
+
+	char temp_buf[MAX_TEMP_BUF_SIZE]; // Temporary buffer to hold the formatted string
+
+	snprintf(temp_buf, sizeof(temp_buf), "$n utters the words, '%s'.", buf);
+
+	if (strlen(temp_buf) < sizeof(buf2))
+	{
+	    strcpy(buf2, temp_buf); // Copy the string to buf2 if it fits
+	
+	}
+	else
+	{
+	    // Handle the case where the formatted string is too long for buf2
+	    // Log an error using your custom bug function
+	    bug("Formatted string too long for buf2. Truncating.", 0);
+	    strncpy(buf2, temp_buf, sizeof(buf2) - 1);
+	    buf2[sizeof(buf2) - 1] = '\0'; // Ensure null-termination
+	}
+
+
+
 	snprintf( buf, sizeof(buf),  "$n utters the words, '%s'.", skill_table[sn].name );
 
 	for ( rch = ch->in_room->people; rch; rch = rch->next_in_room )
