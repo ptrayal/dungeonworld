@@ -4482,14 +4482,14 @@ void exportObjDataToCSV(const char *filename, const AREA_DATA *area)
 		return;
 	}
 
-	fprintf(fp, "VNUM,Object Name,Type,Weight,Cost,Condition\n");
+	fprintf(fp, "VNUM,Object Name,Type,Material,Weight,Cost,Condition\n");
 
 	for (int vnum = area->min_vnum; vnum <= area->max_vnum; vnum++)
 	{
 		const OBJ_INDEX_DATA *pObjIndex = get_obj_index(vnum);
 		if (pObjIndex != NULL)
 		{
-			fprintf(fp, "%d,%s,%s,%d,%d,%c\n", vnum, pObjIndex->name, item_name(pObjIndex->item_type), pObjIndex->weight, pObjIndex->cost, get_condition_letter(pObjIndex->condition));
+			fprintf(fp, "%d,%s,%s,%s,%d,%d,%c\n", vnum, pObjIndex->name, item_name(pObjIndex->item_type), pObjIndex->material, pObjIndex->weight, pObjIndex->cost, get_condition_letter(pObjIndex->condition));
 		}
 	}
 
