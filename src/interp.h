@@ -136,6 +136,7 @@ DECLARE_DO_FUN(	do_flee		);
 DECLARE_DO_FUN(	do_follow	);
 DECLARE_DO_FUN(	do_force	);
 DECLARE_DO_FUN(	do_freeze	);
+DECLARE_DO_FUN( do_freevnum );
 DECLARE_DO_FUN( do_gain		);
 DECLARE_DO_FUN(	do_get		);
 DECLARE_DO_FUN(	do_give		);
