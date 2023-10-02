@@ -2133,7 +2133,7 @@ char *	crypt		args( ( const char *key, const char *salt ) );
 #define MUSIC_FILE      "music.txt"
 #define BAN_FILE        "../data/ban.txt"
 #define BUG_FILE        "../data/bugs.txt"  /* For 'bug' and bug()*/
-#define HELP_FILE       "../data/help.txt"   /* For undefined helps */
+#define HELP_FILE       "../data/nohelp.txt"   /* For undefined helps */
 #define TYPO_FILE       "../data/typos.txt" /* For 'typo'*/
 #define WIZ_FILE        "../data/wizlist.txt"
 #define MATERIAL_FILE   "../data/materials.txt"
