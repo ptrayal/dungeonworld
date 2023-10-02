@@ -306,51 +306,51 @@ void free_char (CHAR_DATA *ch)
 
 PC_DATA *new_pcdata(void)
 {
-	int alias = 0;
+    int alias = 0;
 
-	PC_DATA *pcdata;
+    PC_DATA *pcdata;
 
-	ALLOC_DATA(pcdata, PC_DATA, 1);
+    ALLOC_DATA(pcdata, PC_DATA, 1);
 
-	for (alias = 0; alias < MAX_ALIAS; alias++)
-	{
-	pcdata->alias[alias] = NULL;
-	pcdata->alias_sub[alias] = NULL;
-	}
+    for (alias = 0; alias < MAX_ALIAS; alias++)
+    {
+        pcdata->alias[alias] = NULL;
+        pcdata->alias_sub[alias] = NULL;
+    }
 
-	pcdata->bamfin			= NULL;
-	pcdata->bamfout			= NULL;
-	pcdata->pwd				= NULL;
-	pcdata->title			= NULL;
-	pcdata->security		= 0;
-	pcdata->true_sex		= 0;
+    pcdata->bamfin			= NULL;
+    pcdata->bamfout			= NULL;
+    pcdata->pwd				= NULL;
+    pcdata->title			= NULL;
+    pcdata->security		= 0;
+    pcdata->true_sex		= 0;
 
-	pcdata->buffer = new_buf();
-	
-	return pcdata;
+    pcdata->buffer = new_buf();
+
+    return pcdata;
 }
 	
 
 void free_pcdata(PC_DATA *pcdata)
 {
-	int alias = 0;
+    int alias = 0;
 
     Escape(pcdata);
 
-	PURGE_DATA(pcdata->pwd);
-	PURGE_DATA(pcdata->bamfin);
-	PURGE_DATA(pcdata->bamfout);
-	PURGE_DATA(pcdata->title);
-	free_buf(pcdata->buffer);
-	
-	for (alias = 0; alias < MAX_ALIAS; alias++)
-	{
-	PURGE_DATA(pcdata->alias[alias]);
-	PURGE_DATA(pcdata->alias_sub[alias]);
-	}
-	PURGE_DATA(pcdata);
+    PURGE_DATA(pcdata->pwd);
+    PURGE_DATA(pcdata->bamfin);
+    PURGE_DATA(pcdata->bamfout);
+    PURGE_DATA(pcdata->title);
+    free_buf(pcdata->buffer);
 
-	return;
+    for (alias = 0; alias < MAX_ALIAS; alias++)
+    {
+        PURGE_DATA(pcdata->alias[alias]);
+        PURGE_DATA(pcdata->alias_sub[alias]);
+    }
+    PURGE_DATA(pcdata);
+
+    return;
 }
 
 	

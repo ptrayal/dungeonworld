@@ -277,26 +277,26 @@ void show_skill_cmds( CHAR_DATA *ch, int tar )
  ****************************************************************************/
 void show_spec_cmds( CHAR_DATA *ch )
 {
-	char buf  [ MSL ]={'\0'};
-	char buf1 [ MSL ]={'\0'};
-	int  spec = 0;
-	int  col = 0;
- 
-	buf1[0] = '\0';
-	send_to_char( "Preceed special functions with 'spec_'\n\r\n\r", ch );
-	for (spec = 0; spec_table[spec].function != NULL; spec++)
-	{
-	sprintf( buf, "%-19.18s", &spec_table[spec].name[5] );
-	strcat( buf1, buf );
-	if ( ++col % 4 == 0 )
-		strcat( buf1, "\n\r" );
-	}
- 
-	if ( col % 4 != 0 )
-	strcat( buf1, "\n\r" );
+    char buf  [ MSL ] = {'\0'};
+    char buf1 [ MSL ] = {'\0'};
+    int  spec = 0;
+    int  col = 0;
 
-	send_to_char( buf1, ch );
-	return;
+    buf1[0] = '\0';
+    send_to_char( "Preceed special functions with 'spec_'\n\r\n\r", ch );
+    for (spec = 0; spec_table[spec].function != NULL; spec++)
+    {
+        sprintf( buf, "%-19.18s", &spec_table[spec].name[5] );
+        strcat( buf1, buf );
+        if ( ++col % 4 == 0 )
+            strcat( buf1, "\n\r" );
+    }
+
+    if ( col % 4 != 0 )
+        strcat( buf1, "\n\r" );
+
+    send_to_char( buf1, ch );
+    return;
 }
 
 
@@ -5185,20 +5185,20 @@ MEDIT ( medit_delmprog )
 
 REDIT( redit_room )
 {
-	ROOM_INDEX_DATA *room;
-	int value = 0;
+    ROOM_INDEX_DATA *room;
+    int value = 0;
 
-	EDIT_ROOM(ch, room);
+    EDIT_ROOM(ch, room);
 
-	if ( (value = flag_value( room_flags, argument )) == NO_FLAG )
-	{
-		send_to_char( "Syntax: room [flag(s)]\n\r", ch );
-		return FALSE;
-	}
+    if ( (value = flag_value( room_flags, argument )) == NO_FLAG )
+    {
+        send_to_char( "Syntax: room [flag(s)]\n\r", ch );
+        return FALSE;
+    }
 
-		TOGGLE_BIT(room->room_flags, value);
-	send_to_char( "Room flags toggled.\n\r", ch );
-		return TRUE;
+    TOGGLE_BIT(room->room_flags, value);
+    send_to_char( "Room flags toggled.\n\r", ch );
+    return TRUE;
 }
 
 REDIT( redit_sector )
