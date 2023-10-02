@@ -356,8 +356,8 @@ const	struct	cmd_type	cmd_table	[] =
 
 	{ "wiznet",		do_wiznet,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
 	{ "immtalk",	do_immtalk,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
-	{ "imotd",          do_imotd,       POS_DEAD,       IM,  LOG_NORMAL, 1 },
-	{ ":",		do_immtalk,	POS_DEAD,	IM,  LOG_NORMAL, 0 },
+	{ "imotd",      do_imotd,   POS_DEAD,   IM,  LOG_NORMAL, 1 },
+	{ ":",			do_immtalk,	POS_DEAD,	IM,  LOG_NORMAL, 0 },
 	{ "smote",		do_smote,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
 	{ "prefix",		do_prefix,	POS_DEAD,	IM,  LOG_NORMAL, 1 },
 	{ "mpdump",		do_mpdump,	POS_DEAD,	IM,  LOG_NEVER,  1 },
@@ -830,14 +830,14 @@ void do_commands( CHAR_DATA *ch, char *argument )
 char * const wiz_title_list [] =
 {
 	"Implementors",
-	"Creators ",
-	"Supremacies ",
-	"Deities ",
-	"Gods ",
-	"Immortals ",
-	"DemiGods ",
-	"Knights ",
-	"Squires "
+	"Creators",
+	"Supremacies",
+	"Deities",
+	"Gods",
+	"Immortals",
+	"DemiGods",
+	"Knights",
+	"Squires"
 };
 
 

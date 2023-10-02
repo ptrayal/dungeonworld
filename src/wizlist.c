@@ -56,14 +56,14 @@ WIZ_DATA *wiz_list;
 char * const wiz_titles [] =
 {
 	"Implementors",
-	"Creators ",
-	"Supremacies ",
-	"Deities ",
-	"Gods ",
-	"Immortals ",
-	"DemiGods ",
-	"Knights ",
-	"Squires "
+	"Creators",
+	"Supremacies",
+	"Deities",
+	"Gods",
+	"Immortals",
+	"DemiGods",
+	"Knights",
+	"Squires"
 };
  
 /*
