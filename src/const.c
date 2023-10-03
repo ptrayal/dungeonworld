@@ -2021,159 +2021,187 @@ struct	skill_type	skill_table	[MAX_SKILL]	=
 const   struct  group_type      group_table     [MAX_GROUP]     =
 {
 
-	{
-	"rom basics",		{ 0, 0, 0, 0 },
-	{ "scrolls", "staves", "wands", "recall" }
-	},
+    {
+        "rom basics",		{ 0, 0, 0, 0 },
+        { "scrolls", "staves", "wands", "recall" }
+    },
 
-	{
-	"mage basics",		{ 0, -1, -1, -1 },
-	{ "dagger" }
-	},
+    {
+        "mage basics",		{ 0, -1, -1, -1 },
+        { "dagger" }
+    },
 
-	{
-	"cleric basics",	{ -1, 0, -1, -1 },
-	{ "mace" }
-	},
-   
-	{
-	"thief basics",		{ -1, -1, 0, -1 },
-	{ "dagger", "steal" }
-	},
+    {
+        "cleric basics",	{ -1, 0, -1, -1 },
+        { "mace" }
+    },
 
-	{
-	"warrior basics",	{ -1, -1, -1, 0 },
-	{ "sword", "second attack" }
-	},
+    {
+        "thief basics",		{ -1, -1, 0, -1 },
+        { "dagger", "steal" }
+    },
 
-	{
-	"mage default",		{ 40, -1, -1, -1 },
-	{ "lore", "beguiling", "combat", "detection", "enhancement", "illusion",
-	  "maladictions", "protective", "transportation", "weather" }
-	},
+    {
+        "warrior basics",	{ -1, -1, -1, 0 },
+        { "sword", "second attack" }
+    },
 
-	{
-	"cleric default",	{ -1, 40, -1, -1 },
-	{ "flail", "attack", "creation", "curative",  "benedictions", 
-	  "detection", "healing", "maladictions", "protective", "shield block", 
-	  "transportation", "weather" }
-	},
- 
-	{
-	"thief default",	{ -1, -1, 40, -1 },
-	{ "mace", "sword", "backstab", "disarm", "dodge", "second attack",
-	  "trip", "hide", "peek", "pick lock", "sneak" }
-	},
+    {
+        "mage default",		{ 40, -1, -1, -1 },
+        {
+            "lore", "beguiling", "combat", "detection", "enhancement", "illusion",
+            "maladictions", "protective", "transportation", "weather"
+        }
+    },
 
-	{
-	"warrior default",	{ -1, -1, -1, 40 },
-	{ "weaponsmaster", "shield block", "bash", "disarm", "enhanced damage", 
-	  "parry", "rescue", "third attack" }
-	},
+    {
+        "cleric default",	{ -1, 40, -1, -1 },
+        {
+            "flail", "attack", "creation", "curative",  "benedictions",
+            "detection", "healing", "maladictions", "protective", "shield block",
+            "transportation", "weather"
+        }
+    },
 
-	{
-	"weaponsmaster",	{ 40, 40, 40, 20 },
-	{ "axe", "dagger", "flail", "mace", "polearm", "spear", "sword","whip" }
-	},
+    {
+        "thief default",	{ -1, -1, 40, -1 },
+        {
+            "mace", "sword", "backstab", "disarm", "dodge", "second attack",
+            "trip", "hide", "peek", "pick lock", "sneak"
+        }
+    },
 
-	{
-	"attack",		{ -1, 5, -1, 8 },
-	{ "demonfire", "dispel evil", "dispel good", "earthquake", 
-	  "flamestrike", "heat metal", "ray of truth" }
-	},
+    {
+        "warrior default",	{ -1, -1, -1, 40 },
+        {
+            "weaponsmaster", "shield block", "bash", "disarm", "enhanced damage",
+            "parry", "rescue", "third attack"
+        }
+    },
 
-	{
-	"beguiling",		{ 4, -1, 6, -1 },
-	{ "calm", "charm person", "sleep" }
-	},
+    {
+        "weaponsmaster",	{ 40, 40, 40, 20 },
+        { "axe", "dagger", "flail", "mace", "polearm", "spear", "sword", "whip" }
+    },
 
-	{
-	"benedictions",		{ -1, 4, -1, 8 },
-	{ "bless", "calm", "frenzy", "holy word", "remove curse" }
-	},
+    {
+        "attack",		{ -1, 5, -1, 8 },
+        {
+            "demonfire", "dispel evil", "dispel good", "earthquake",
+            "flamestrike", "heat metal", "ray of truth"
+        }
+    },
 
-	{
-	"combat",		{ 6, -1, 10, 9 },
-	{ "acid blast", "burning hands", "chain lightning", "chill touch",
-	  "colour spray", "fireball", "lightning bolt", "magic missile",
-	  "shocking grasp"  }
-	},
+    {
+        "beguiling",		{ 4, -1, 6, -1 },
+        { "calm", "charm person", "sleep" }
+    },
 
-	{
-	"creation",		{ 4, 4, 8, 8 },
-	{ "continual light", "create food", "create spring", "create water",
-	  "create rose", "floating disc" }
-	},
+    {
+        "benedictions",		{ -1, 4, -1, 8 },
+        { "bless", "calm", "frenzy", "holy word", "remove curse" }
+    },
 
-	{
-	"curative",		{ -1, 4, -1, 8 },
-	{ "cure blindness", "cure disease", "cure poison" }
-	}, 
+    {
+        "combat",		{ 6, -1, 10, 9 },
+        {
+            "acid blast", "burning hands", "chain lightning", "chill touch",
+            "colour spray", "fireball", "lightning bolt", "magic missile",
+            "shocking grasp"
+        }
+    },
 
-	{
-	"detection",		{ 4, 3, 6, -1 },
-	{ "detect evil", "detect good", "detect hidden", "detect invis", 
-	  "detect magic", "detect poison", "farsight", "identify", 
-	  "know alignment", "locate object" } 
-	},
+    {
+        "creation",		{ 4, 4, 8, 8 },
+        {
+            "continual light", "create food", "create spring", "create water",
+            "create rose", "floating disc"
+        }
+    },
 
-	{
-	"draconian",		{ 8, -1, -1, -1 },
-	{ "acid breath", "fire breath", "frost breath", "gas breath",
-	  "lightning breath"  }
-	},
+    {
+        "curative",		{ -1, 4, -1, 8 },
+        { "cure blindness", "cure disease", "cure poison" }
+    },
 
-	{
-	"enchantment",		{ 6, -1, -1, -1 },
-	{ "enchant armor", "enchant weapon", "fireproof", "recharge" }
-	},
+    {
+        "detection",		{ 4, 3, 6, -1 },
+        {
+            "detect evil", "detect good", "detect hidden", "detect invis",
+            "detect magic", "detect poison", "farsight", "identify",
+            "know alignment", "locate object"
+        }
+    },
 
-	{ 
-	"enhancement",		{ 5, -1, 9, 9 },
-	{ "giant strength", "haste", "infravision", "refresh" }
-	},
+    {
+        "draconian",		{ 8, -1, -1, -1 },
+        {
+            "acid breath", "fire breath", "frost breath", "gas breath",
+            "lightning breath"
+        }
+    },
 
-	{
-	"harmful",		{ -1, 3, -1, 6 },
-	{ "cause critical", "cause light", "cause serious", "harm" }
-	},
+    {
+        "enchantment",		{ 6, -1, -1, -1 },
+        { "enchant armor", "enchant weapon", "fireproof", "recharge" }
+    },
 
-	{   
-	"healing",		{ -1, 3, -1, 6 },
-	{ "cure critical", "cure light", "cure serious", "heal", 
-	  "mass healing", "refresh" }
-	},
+    {
+        "enhancement",		{ 5, -1, 9, 9 },
+        { "giant strength", "haste", "infravision", "refresh" }
+    },
 
-	{
-	"illusion",		{ 4, -1, 7, -1 },
-	{ "invis", "mass invis", "ventriloquate" }
-	},
-  
-	{
-	"maladictions",		{ 5, 5, 9, 9 },
-	{ "blindness", "change sex", "curse", "energy drain", "plague", 
-	  "poison", "slow", "weaken" }
-	},
+    {
+        "harmful",		{ -1, 3, -1, 6 },
+        { "cause critical", "cause light", "cause serious", "harm" }
+    },
 
-	{ 
-	"protective",		{ 4, 4, 7, 8 },
-	{ "armor", "cancellation", "dispel magic", "fireproof",
-	  "protection evil", "protection good", "sanctuary", "shield", 
-	  "stone skin" }
-	},
+    {
+        "healing",		{ -1, 3, -1, 6 },
+        {
+            "cure critical", "cure light", "cure serious", "heal",
+            "mass healing", "refresh"
+        }
+    },
 
-	{
-	"transportation",	{ 4, 4, 8, 9 },
-	{ "fly", "gate", "nexus", "pass door", "portal", "summon", "teleport", 
-	  "word of recall" }
-	},
-   
-	{
-	"weather",		{ 4, 4, 8, 8 },
-	{ "call lightning", "control weather", "faerie fire", "faerie fog",
-	  "lightning bolt" }
-	}
-	
-   
+    {
+        "illusion",		{ 4, -1, 7, -1 },
+        { "invis", "mass invis", "ventriloquate" }
+    },
+
+    {
+        "maladictions",		{ 5, 5, 9, 9 },
+        {
+            "blindness", "change sex", "curse", "energy drain", "plague",
+            "poison", "slow", "weaken"
+        }
+    },
+
+    {
+        "protective",		{ 4, 4, 7, 8 },
+        {
+            "armor", "cancellation", "dispel magic", "fireproof",
+            "protection evil", "protection good", "sanctuary", "shield",
+            "stone skin"
+        }
+    },
+
+    {
+        "transportation",	{ 4, 4, 8, 9 },
+        {
+            "fly", "gate", "nexus", "pass door", "portal", "summon", "teleport",
+            "word of recall"
+        }
+    },
+
+    {
+        "weather",		{ 4, 4, 8, 8 },
+        {
+            "call lightning", "control weather", "faerie fire", "faerie fog",
+            "lightning bolt"
+        }
+    }
+
+
 
 };
