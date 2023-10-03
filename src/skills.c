@@ -350,116 +350,116 @@ void do_spells(CHAR_DATA *ch, char *argument)
 
 void do_skills(CHAR_DATA *ch, char *argument)
 {
-	BUFFER *buffer;
-	char arg[MIL]={'\0'};
-	char skill_list[LEVEL_HERO + 1][MSL];
-	char skill_columns[LEVEL_HERO + 1];
-	int sn, level, min_lev = 1, max_lev = LEVEL_HERO;
-	bool fAll = FALSE, found = FALSE;
-	char buf[MSL]={'\0'};
- 
-	if (IS_NPC(ch))
-	  return;
+    BUFFER *buffer;
+    char arg[MIL] = {'\0'};
+    char skill_list[LEVEL_HERO + 1][MSL];
+    char skill_columns[LEVEL_HERO + 1];
+    int sn, level, min_lev = 1, max_lev = LEVEL_HERO;
+    bool fAll = FALSE, found = FALSE;
+    char buf[MSL] = {'\0'};
 
-	if (argument[0] != '\0')
-	{
-	fAll = TRUE;
+    if (IS_NPC(ch))
+        return;
 
-	if (str_prefix(argument,"all"))
-	{
-		argument = one_argument(argument,arg);
-		if (!is_number(arg))
-		{
-		send_to_char("Arguments must be numerical or all.\n\r",ch);
-		return;
-		}
-		max_lev = atoi(arg);
+    if (argument[0] != '\0')
+    {
+        fAll = TRUE;
 
-		if (max_lev < 1 || max_lev > LEVEL_HERO)
-		{
-		send_to_char( Format("Levels must be between 1 and %d.\n\r",LEVEL_HERO), ch);
-		return;
-		}
+        if (str_prefix(argument, "all"))
+        {
+            argument = one_argument(argument, arg);
+            if (!is_number(arg))
+            {
+                send_to_char("Arguments must be numerical or all.\n\r", ch);
+                return;
+            }
+            max_lev = atoi(arg);
 
-		if (argument[0] != '\0')
-		{
-		argument = one_argument(argument,arg);
-		if (!is_number(arg))
-		{
-			send_to_char("Arguments must be numerical or all.\n\r",ch);
-			return;
-		}
-		min_lev = max_lev;
-		max_lev = atoi(arg);
+            if (max_lev < 1 || max_lev > LEVEL_HERO)
+            {
+                send_to_char( Format("Levels must be between 1 and %d.\n\r", LEVEL_HERO), ch);
+                return;
+            }
 
-		if (max_lev < 1 || max_lev > LEVEL_HERO)
-		{
-			send_to_char( Format("Levels must be between 1 and %d.\n\r",LEVEL_HERO), ch);
-			return;
-		}
+            if (argument[0] != '\0')
+            {
+                argument = one_argument(argument, arg);
+                if (!is_number(arg))
+                {
+                    send_to_char("Arguments must be numerical or all.\n\r", ch);
+                    return;
+                }
+                min_lev = max_lev;
+                max_lev = atoi(arg);
 
-		if (min_lev > max_lev)
-		{
-			send_to_char("That would be silly.\n\r",ch);
-			return;
-		}
-		}
-	}
-	}
+                if (max_lev < 1 || max_lev > LEVEL_HERO)
+                {
+                    send_to_char( Format("Levels must be between 1 and %d.\n\r", LEVEL_HERO), ch);
+                    return;
+                }
+
+                if (min_lev > max_lev)
+                {
+                    send_to_char("That would be silly.\n\r", ch);
+                    return;
+                }
+            }
+        }
+    }
 
 
-	/* initialize data */
-	for (level = 0; level < LEVEL_HERO + 1; level++)
-	{
-		skill_columns[level] = 0;
-		skill_list[level][0] = '\0';
-	}
- 
-	for (sn = 0; sn < MAX_SKILL; sn++)
-	{
-		if (skill_table[sn].name == NULL )
-		break;
+    /* initialize data */
+    for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
+        skill_columns[level] = 0;
+        skill_list[level][0] = '\0';
+    }
 
-	if ((level = skill_table[sn].skill_level[ch->iclass]) < LEVEL_HERO + 1
-	&&  (fAll || level <= ch->level)
-	&&  level >= min_lev && level <= max_lev
-	&&  skill_table[sn].spell_fun == spell_null
-	&&  ch->pcdata->learned[sn] > 0)
-		{
-		found = TRUE;
-		level = skill_table[sn].skill_level[ch->iclass];
-		if (ch->level < level)
-			sprintf(buf,"%-18s n/a      ", skill_table[sn].name);
-		else
-			sprintf(buf,"%-18s %3d%%      ",skill_table[sn].name,
-			ch->pcdata->learned[sn]);
- 
-		if (skill_list[level][0] == '\0')
-			sprintf(skill_list[level],"\n\rLevel %2d: %s",level,buf);
-		else /* append */
-		{
-			if ( ++skill_columns[level] % 2 == 0)
-			strcat(skill_list[level],"\n\r          ");
-			strcat(skill_list[level],buf);
-		}
-	}
-	}
- 
-	/* return results */
- 
-	if (!found)
-	{
-		send_to_char("No skills found.\n\r",ch);
-		return;
-	}
+    for (sn = 0; sn < MAX_SKILL; sn++)
+    {
+        if (skill_table[sn].name == NULL )
+            break;
 
-	buffer = new_buf();
-	for (level = 0; level < LEVEL_HERO + 1; level++)
-		if (skill_list[level][0] != '\0')
-		add_buf(buffer,skill_list[level]);
-	add_buf(buffer,"\n\r");
-	page_to_char(buf_string(buffer),ch);
-	free_buf(buffer);
+        if ((level = skill_table[sn].skill_level[ch->iclass]) < LEVEL_HERO + 1
+                &&  (fAll || level <= ch->level)
+                &&  level >= min_lev && level <= max_lev
+                &&  skill_table[sn].spell_fun == spell_null
+                &&  ch->pcdata->learned[sn] > 0)
+        {
+            found = TRUE;
+            level = skill_table[sn].skill_level[ch->iclass];
+            if (ch->level < level)
+                sprintf(buf, "%-18s n/a      ", skill_table[sn].name);
+            else
+                sprintf(buf, "%-18s %3d%%      ", skill_table[sn].name,
+                        ch->pcdata->learned[sn]);
+
+            if (skill_list[level][0] == '\0')
+                sprintf(skill_list[level], "\n\rLevel %2d: %s", level, buf);
+            else /* append */
+            {
+                if ( ++skill_columns[level] % 2 == 0)
+                    strcat(skill_list[level], "\n\r          ");
+                strcat(skill_list[level], buf);
+            }
+        }
+    }
+
+    /* return results */
+
+    if (!found)
+    {
+        send_to_char("No skills found.\n\r", ch);
+        return;
+    }
+
+    buffer = new_buf();
+    for (level = 0; level < LEVEL_HERO + 1; level++)
+        if (skill_list[level][0] != '\0')
+            add_buf(buffer, skill_list[level]);
+    add_buf(buffer, "\n\r");
+    page_to_char(buf_string(buffer), ch);
+    free_buf(buffer);
 }
 
 /* shows skills, groups and costs (only if not bought) */

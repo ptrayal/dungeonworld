@@ -932,45 +932,59 @@ AEDIT( aedit_builder )
 
     name[0] = UPPER( name[0] );
 
-    if ( strstr( pArea->builders, name ) != NULL )
+    // Check if pArea->builders is not NULL before manipulating it
+    if (pArea->builders != NULL)
     {
-        pArea->builders = string_replace( pArea->builders, name, "\0" );
-        pArea->builders = string_unpad( pArea->builders );
-
-        if ( pArea->builders[0] == '\0' )
+        if ( strstr( pArea->builders, name ) != NULL )
         {
-            PURGE_DATA( pArea->builders );
-            pArea->builders = str_dup( "None" );
+            bug("aedit_builder: Removing builder", 0);
+
+            pArea->builders = string_replace( pArea->builders, name, "\0" );
+            pArea->builders = string_unpad( pArea->builders );
+
+            if ( pArea->builders[0] == '\0' )
+            {
+                PURGE_DATA( pArea->builders );
+                pArea->builders = str_dup( "None" );
+            }
+            send_to_char( "Builder removed.\n\r", ch );
+            return TRUE;
         }
-        send_to_char( "Builder removed.\n\r", ch );
-        return TRUE;
+        else
+        {
+            bug("aedit_builder: Adding builder", 0);
+
+            buf[0] = '\0';
+            if ( strstr( pArea->builders, "None" ) != NULL )
+            {
+                pArea->builders = string_replace( pArea->builders, "None", "\0" );
+                pArea->builders = string_unpad( pArea->builders );
+            }
+
+            if (pArea->builders[0] != '\0' )
+            {
+                strcat( buf, pArea->builders );
+                strcat( buf, " " );
+            }
+            strcat( buf, name );
+            PURGE_DATA( pArea->builders );
+            pArea->builders = string_proper( str_dup( buf ) );
+
+            send_to_char( "Builder added.\n\r", ch );
+            send_to_char( pArea->builders, ch);
+            return TRUE;
+        }
     }
     else
     {
-        buf[0] = '\0';
-        if ( strstr( pArea->builders, "None" ) != NULL )
-        {
-            pArea->builders = string_replace( pArea->builders, "None", "\0" );
-            pArea->builders = string_unpad( pArea->builders );
-        }
-
-        if (pArea->builders[0] != '\0' )
-        {
-            strcat( buf, pArea->builders );
-            strcat( buf, " " );
-        }
-        strcat( buf, name );
-        PURGE_DATA( pArea->builders );
-        pArea->builders = string_proper( str_dup( buf ) );
-
-        send_to_char( "Builder added.\n\r", ch );
-        send_to_char( pArea->builders, ch);
-        return TRUE;
+        // Handle the case where pArea->builders is NULL
+        bug("aedit_builder: pArea->builders is NULL", 0);
+        send_to_char("Error: The builders list is not initialized.\n\r", ch);
+        return FALSE;
     }
 
     return FALSE;
 }
-
 
 
 AEDIT( aedit_vnum )
