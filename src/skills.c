@@ -339,12 +339,13 @@ void do_spells(CHAR_DATA *ch, char *argument)
         if (spell_list[level][0] != '\0')
         {
             add_buf(buffer, spell_list[level]);
+            add_buf(buffer, "\n\r"); // Add newline only if there are spells for this level
         }
-        add_buf(buffer, "\n\r");
     }
 
     page_to_char(buf_string(buffer), ch);
     free_buf(buffer);
+
 }
 
 void do_skills(CHAR_DATA *ch, char *argument)
