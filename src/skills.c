@@ -229,123 +229,122 @@ void do_gain(CHAR_DATA *ch, char *argument)
 /* RT spells and skills show the players spells (or skills) */
 void do_spells(CHAR_DATA *ch, char *argument)
 {
-	BUFFER *buffer;
-	char arg[MIL]={'\0'};
-	char spell_list[LEVEL_HERO + 1][MSL];
-	char spell_columns[LEVEL_HERO + 1];
-	int sn, level, min_lev = 1, max_lev = LEVEL_HERO, mana;
-	bool fAll = FALSE, found = FALSE;
-	char buf[MSL]={'\0'};
+    BUFFER *buffer;
+    char arg[MIL] = {'\0'};
+    char spell_list[LEVEL_HERO + 1][MSL];
+    char spell_columns[LEVEL_HERO + 1];
+    int sn, level, min_lev = 1, max_lev = LEVEL_HERO, mana;
+    bool fAll = FALSE, found = FALSE;
+    char buf[MSL] = {'\0'};
 
-	if (IS_NPC(ch))
-		return;
+    if (IS_NPC(ch))
+        return;
 
-	if (argument[0] != '\0')
-	{
-		fAll = TRUE;
+    if (argument[0] != '\0')
+    {
+        fAll = TRUE;
 
-		if (str_prefix(argument,"all"))
-		{
-			argument = one_argument(argument,arg);
-			if (!is_number(arg))
-			{
-				send_to_char("Arguments must be numerical or all.\n\r",ch);
-				return;
-			}
-			max_lev = atoi(arg);
+        if (str_prefix(argument, "all"))
+        {
+            argument = one_argument(argument, arg);
+            if (!is_number(arg))
+            {
+                send_to_char("Arguments must be numerical or all.\n\r", ch);
+                return;
+            }
+            max_lev = atoi(arg);
 
-			if (max_lev < 1 || max_lev > LEVEL_HERO)
-			{
-				send_to_char( Format("Levels must be between 1 and %d.\n\r",LEVEL_HERO), ch);
-				return;
-			}
+            if (max_lev < 1 || max_lev > LEVEL_HERO)
+            {
+                send_to_char( Format("Levels must be between 1 and %d.\n\r", LEVEL_HERO), ch);
+                return;
+            }
 
-			if (argument[0] != '\0')
-			{
-				argument = one_argument(argument,arg);
-				if (!is_number(arg))
-				{
-					send_to_char("Arguments must be numerical or all.\n\r",ch);
-					return;
-				}
-				min_lev = max_lev;
-				max_lev = atoi(arg);
+            if (argument[0] != '\0')
+            {
+                argument = one_argument(argument, arg);
+                if (!is_number(arg))
+                {
+                    send_to_char("Arguments must be numerical or all.\n\r", ch);
+                    return;
+                }
+                min_lev = max_lev;
+                max_lev = atoi(arg);
 
-				if (max_lev < 1 || max_lev > LEVEL_HERO)
-				{
-					send_to_char( Format("Levels must be between 1 and %d.\n\r",LEVEL_HERO), ch);
-					return;
-				}
+                if (max_lev < 1 || max_lev > LEVEL_HERO)
+                {
+                    send_to_char( Format("Levels must be between 1 and %d.\n\r", LEVEL_HERO), ch);
+                    return;
+                }
 
-				if (min_lev > max_lev)
-				{
-					send_to_char("That would be silly.\n\r",ch);
-					return;
-				}
-			}
-		}
-	}
+                if (min_lev > max_lev)
+                {
+                    send_to_char("That would be silly.\n\r", ch);
+                    return;
+                }
+            }
+        }
+    }
 
 
-	/* initialize data */
-	for (level = 0; level < LEVEL_HERO + 1; level++)
-	{
-		spell_columns[level] = 0;
-		spell_list[level][0] = '\0';
-	}
+    /* initialize data */
+    for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
+        spell_columns[level] = 0;
+        spell_list[level][0] = '\0';
+    }
 
-	for (sn = 0; sn < MAX_SKILL; sn++)
-	{
-		if (skill_table[sn].name == NULL )
-			break;
+    for (sn = 0; sn < MAX_SKILL; sn++)
+    {
+        if (skill_table[sn].name == NULL )
+            break;
 
-		if ((level = skill_table[sn].skill_level[ch->iclass]) < LEVEL_HERO + 1
-			&&  (fAll || level <= ch->level)
-			&&  level >= min_lev && level <= max_lev
-			&&  skill_table[sn].spell_fun != spell_null
-			&&  ch->pcdata->learned[sn] > 0)
-		{
-			found = TRUE;
-			level = skill_table[sn].skill_level[ch->iclass];
-			if (ch->level < level)
-				sprintf(buf,"%-18s n/a      ", skill_table[sn].name);
-			else
-			{
-				mana = UMAX(skill_table[sn].min_mana,
-					100/(2 + ch->level - level));
-				sprintf(buf,"%-18s  %3d mana  ",skill_table[sn].name,mana);
-			}
+        if ((level = skill_table[sn].skill_level[ch->iclass]) < LEVEL_HERO + 1
+                &&  (fAll || level <= ch->level)
+                &&  level >= min_lev && level <= max_lev
+                &&  skill_table[sn].spell_fun != spell_null
+                &&  ch->pcdata->learned[sn] > 0)
+        {
+            found = TRUE;
+            level = skill_table[sn].skill_level[ch->iclass];
+            if (ch->level < level)
+                sprintf(buf, "%-18s n/a      ", skill_table[sn].name);
+            else
+            {
+                mana = UMAX(skill_table[sn].min_mana, 100 / (2 + ch->level - level));
+                sprintf(buf, "%-18s  %3d mana  ", skill_table[sn].name, mana);
+            }
 
-			if (spell_list[level][0] == '\0')
-				sprintf(spell_list[level],"\n\rLevel %2d: %s",level,buf);
-		else /* append */
-			{
-				if ( ++spell_columns[level] % 2 == 0)
-					strcat(spell_list[level],"\n\r          ");
-				strcat(spell_list[level],buf);
-			}
-		}
-	}
+            if (spell_list[level][0] == '\0')
+                sprintf(spell_list[level], "\n\rLevel %2d: %s", level, buf);
+            else /* append */
+            {
+                if ( ++spell_columns[level] % 2 == 0)
+                    strcat(spell_list[level], "\n\r          ");
+                strcat(spell_list[level], buf);
+            }
+        }
+    }
 
-	/* return results */
+    /* return results */
+    if (!found)
+    {
+        send_to_char("No spells found.\n\r", ch);
+        return;
+    }
 
-	if (!found)
-	{
-		send_to_char("No spells found.\n\r",ch);
-		return;
-	}
+    buffer = new_buf();
+    for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
+        if (spell_list[level][0] != '\0')
+        {
+            add_buf(buffer, spell_list[level]);
+        }
+        add_buf(buffer, "\n\r");
+    }
 
-	buffer = new_buf();
-	for (level = 0; level < LEVEL_HERO + 1; level++)
-		{
-			if (spell_list[level][0] != '\0')
-					{
-						add_buf(buffer,spell_list[level]);
-					}
-			add_buf(buffer,"\n\r");
-			page_to_char(buf_string(buffer),ch);
-			free_buf(buffer);
-		}
+    page_to_char(buf_string(buffer), ch);
+    free_buf(buffer);
 }
 
 void do_skills(CHAR_DATA *ch, char *argument)
