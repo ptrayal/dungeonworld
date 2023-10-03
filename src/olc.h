@@ -166,7 +166,7 @@ DECLARE_OLC_FUN( aedit_age		);
 /* DECLARE_OLC_FUN( aedit_recall	);       ROM OLC */
 DECLARE_OLC_FUN( aedit_reset		);
 DECLARE_OLC_FUN( aedit_security		);
-DECLARE_OLC_FUN( aedit_builder		);
+// DECLARE_OLC_FUN( aedit_builder		);
 DECLARE_OLC_FUN( aedit_vnum		);
 DECLARE_OLC_FUN( aedit_lvnum		);
 DECLARE_OLC_FUN( aedit_uvnum		);

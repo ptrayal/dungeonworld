@@ -92,25 +92,81 @@ void string_append(CHAR_DATA *ch, char **pString)
  Purpose:	Substitutes one string for another.
  Called by:	string_add(string.c) (aedit_builder)olc_act.c.
  ****************************************************************************/
-char * string_replace( char * orig, char * old, char * inew )
-{
-		char xbuf[MSL]={'\0'};
+// char * string_replace( char * orig, char * old, char * inew )
+// {
+// 		char xbuf[MSL]={'\0'};
 		
-		xbuf[0] = '\0';
-		strcpy( xbuf, orig );
-		if ( strstr( orig, old ) != NULL )
-		{
-				int i = 0;
-				i = strlen( orig ) - strlen( strstr( orig, old ) );
-				xbuf[i] = '\0';
-				strcat( xbuf, inew );
-				strcat( xbuf, &orig[i+strlen( old )] );
-				PURGE_DATA( orig );
-		}
+// 		xbuf[0] = '\0';
+// 		strcpy( xbuf, orig );
+// 		if ( strstr( orig, old ) != NULL )
+// 		{
+// 				int i = 0;
+// 				i = strlen( orig ) - strlen( strstr( orig, old ) );
+// 				xbuf[i] = '\0';
+// 				strcat( xbuf, inew );
+// 				strcat( xbuf, &orig[i+strlen( old )] );
+// 				PURGE_DATA( orig );
+// 		}
 
-		return str_dup( xbuf );
+// 		return str_dup( xbuf );
+// }
+char *string_replace(const char *orig, const char *old, const char *inew)
+{
+    const char *p = orig;
+    const char *q = old;
+    size_t orig_len = strlen(orig);
+    size_t old_len = strlen(old);
+    size_t inew_len = strlen(inew);
+
+    // Count the occurrences of 'old' in 'orig'
+    int count = 0;
+    while ((p = strstr(p, old)) != NULL)
+    {
+        p += old_len;
+        count++;
+    }
+
+    if (count == 0)
+    {
+        // No replacements needed, return the original string
+        return strdup(orig);
+    }
+
+    // Calculate the length of the new string
+    size_t new_len = orig_len + (inew_len - old_len) * count;
+
+    // Allocate memory for the new string
+    char *result = (char *)malloc(new_len + 1);
+    if (result == NULL)
+    {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // Copy and replace the substrings
+    p = orig;
+    char *r = result;
+    while ((p = strstr(p, old)) != NULL)
+    {
+        size_t chunk_len = p - orig; // Length of the non-matching chunk
+        memcpy(r, orig, chunk_len);
+        r += chunk_len;
+        memcpy(r, inew, inew_len);
+        r += inew_len;
+        p += old_len; // Skip the 'old' substring
+        orig = p;
+    }
+
+    // Copy the remaining part of the original string
+    size_t remaining_len = strlen(orig);
+    memcpy(r, orig, remaining_len);
+    r += remaining_len;
+
+    // Null-terminate the new string
+    *r = '\0';
+
+    return result;
 }
-
 /*****************************************************************************
  Name:		string_add
  Purpose:	Interpreter for string editing.
@@ -602,33 +658,61 @@ char *first_arg( char *argument, char *arg_first, bool fCase )
 /*
  * Used in olc_act.c for aedit_builders.
  */
-char * string_unpad( char * argument )
+// char * string_unpad( char * argument )
+// {
+// 		char buf[MSL]={'\0'};
+// 		char *s;
+
+// 		s = argument;
+
+// 		while ( *s == ' ' )
+// 				s++;
+
+// 		strcpy( buf, s );
+// 		s = buf;
+
+// 		if ( *s != '\0' )
+// 		{
+// 				while ( *s != '\0' )
+// 						s++;
+// 				s--;
+
+// 				while( *s == ' ' )
+// 						s--;
+// 				s++;
+// 				*s = '\0';
+// 		}
+
+// 		PURGE_DATA( argument );
+// 		return str_dup( buf );
+// }
+char *string_unpad(char *argument)
 {
-		char buf[MSL]={'\0'};
-		char *s;
+    if (argument == NULL || *argument == '\0')
+    {
+        // Handle NULL or empty string input
+        return str_dup("");
+    }
 
-		s = argument;
+    // Remove leading spaces
+    while (*argument == ' ')
+    {
+        argument++;
+    }
 
-		while ( *s == ' ' )
-				s++;
+    // Find the end of the string
+    char *end = argument + strlen(argument) - 1;
 
-		strcpy( buf, s );
-		s = buf;
+    // Remove trailing spaces
+    while (end >= argument && *end == ' ')
+    {
+        end--;
+    }
 
-		if ( *s != '\0' )
-		{
-				while ( *s != '\0' )
-						s++;
-				s--;
+    // Null-terminate the trimmed string
+    *(end + 1) = '\0';
 
-				while( *s == ' ' )
-						s--;
-				s++;
-				*s = '\0';
-		}
-
-		PURGE_DATA( argument );
-		return str_dup( buf );
+    return str_dup(argument);
 }
 
 

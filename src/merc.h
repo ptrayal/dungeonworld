@@ -2476,7 +2476,7 @@ void    underwater_update    args( ( void ) );
 /* string.c */
 void	string_edit	args( ( CHAR_DATA *ch, char **pString ) );
 void    string_append   args( ( CHAR_DATA *ch, char **pString ) );
-char *	string_replace	args( ( char * orig, char * old, char * inew ) );
+char *	string_replace  args( (const char *orig, const char *old, const char *inew) );
 void    string_add      args( ( CHAR_DATA *ch, char *argument ) );
 char *  format_string   args( ( char *oldstring /*, bool fSpace */ ) );
 char *  first_arg       args( ( char *argument, char *arg_first, bool fCase ) );
