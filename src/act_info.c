@@ -1849,191 +1849,157 @@ void do_whois (CHAR_DATA *ch, char *argument)
 /*
  * New 'who' command originally by Alander of Rivers of Mud.
  */
-void do_who( CHAR_DATA *ch, char *argument )
+void do_who(CHAR_DATA *ch, char *argument)
 {
-	char buf[MSL]={'\0'};
-	char buf2[MSL]={'\0'};
-	BUFFER *output;
-	DESCRIPTOR_DATA *d;
-	int iClass = 0;
-	int iRace = 0;
-	int iClan = 0;
-	int iLevelLower = 0;
-	int iLevelUpper = MAX_LEVEL;
-	int nNumber = 0;
-	int nMatch = 0;
-	bool rgfClass[MAX_CLASS];
-	bool rgfRace[MAX_PC_RACE];
-	bool rgfClan[MAX_CLAN];
-	bool fClassRestrict = FALSE;
-	bool fClanRestrict = FALSE;
-	bool fClan = FALSE;
-	bool fRaceRestrict = FALSE;
-	bool fImmortalOnly = FALSE;
- 
-	/*
-	 * Set default arguments.
-	 */
-	for ( iClass = 0; iClass < MAX_CLASS; iClass++ )
-		rgfClass[iClass] = FALSE;
-	for ( iRace = 0; iRace < MAX_PC_RACE; iRace++ )
-		rgfRace[iRace] = FALSE;
-	for (iClan = 0; iClan < MAX_CLAN; iClan++)
-		rgfClan[iClan] = FALSE;
- 
-	/*
-	 * Parse arguments.
-	 */
-	for ( ;; )
-	{
-		char arg[MSL]={'\0'};
- 
-		argument = one_argument( argument, arg );
-		if ( IS_NULLSTR(arg) )
-			break;
- 
-		if ( is_number( arg ) )
-		{
-			switch ( ++nNumber )
-			{
-			case 1: iLevelLower = atoi( arg ); break;
-			case 2: iLevelUpper = atoi( arg ); break;
-			default:
-				send_to_char( "Only two level numbers allowed.\n\r", ch );
-				return;
-			}
-		}
-		else
-		{
- 
-			/*
-			 * Look for classes to turn on.
-			 */
-			if (!str_prefix(arg,"immortals"))
-			{
-				fImmortalOnly = TRUE;
-			}
-			else
-			{
-				iClass = class_lookup(arg);
-				if (iClass == -1)
-				{
-					iRace = race_lookup(arg);
- 
-					if (iRace == 0 || iRace >= MAX_PC_RACE)
-			{
-			if (!str_prefix(arg,"clan"))
-				fClan = TRUE;
-			else
-				{
-				iClan = clan_lookup(arg);
-				if (iClan)
-				{
-				fClanRestrict = TRUE;
-				rgfClan[iClan] = TRUE;
-				}
-				else
-				{
-							send_to_char("That's not a valid race, class, or clan.\n\r", ch);
-								return;
-				}
-						}
-			}
-					else
-					{
-						fRaceRestrict = TRUE;
-						rgfRace[iRace] = TRUE;
-					}
-				}
-				else
-				{
-					fClassRestrict = TRUE;
-					rgfClass[iClass] = TRUE;
-				}
-			}
-		}
-	}
- 
-	/*
-	 * Now show matching chars.
-	 */
-	buf[0] = '\0';
-	output = new_buf();
-	for ( d = descriptor_list; d != NULL; d = d->next )
-	{
-		CHAR_DATA *wch;
-		char const *iclass;
- 
-		/*
-		 * Check for match against restrictions.
-		 * Don't use trust as that exposes trusted mortals.
-		 */
-		if ( d->connected != CON_PLAYING || !can_see( ch, d->character ) )
-			continue;
- 
-		wch   = ( d->original != NULL ) ? d->original : d->character;
+    char buf[MSL] = {'\0'};
+    BUFFER *output;
+    DESCRIPTOR_DATA *d;
+    int iLevelLower = 0;
+    int iLevelUpper = MAX_LEVEL;
+    int nNumber = 0;
+    int nMatch = 0;
+    bool fImmortalOnly = FALSE;
 
-		if (!can_see(ch,wch))
-			continue;
+    bool rgfClass[MAX_CLASS] = {FALSE};
+    bool rgfRace[MAX_PC_RACE] = {FALSE};
+    bool rgfClan[MAX_CLAN] = {FALSE};
+    bool fClassRestrict = FALSE;
+    bool fClanRestrict = FALSE;
+    bool fClan = FALSE;
+    bool fRaceRestrict = FALSE;
 
-		if ( wch->level < iLevelLower
-		||   wch->level > iLevelUpper
-		|| ( fImmortalOnly  && wch->level < LEVEL_IMMORTAL )
-		|| ( fClassRestrict && !rgfClass[wch->iclass] )
-		|| ( fRaceRestrict && !rgfRace[wch->race])
-	|| ( fClan && !is_clan(wch))
-	|| ( fClanRestrict && !rgfClan[wch->clan]))
-			{
-				continue;
-			}
- 
-		nMatch++;
- 
-		/*
-		 * Figure out what to print for class.
-	 */
-	iclass = class_table[wch->iclass].who_name;
-	switch ( wch->level )
-	{
-	default: break;
-			{
-				case MAX_LEVEL - 0 : iclass = "IMP";     break;
-				case MAX_LEVEL - 1 : iclass = "CRE";     break;
-				case MAX_LEVEL - 2 : iclass = "SUP";     break;
-				case MAX_LEVEL - 3 : iclass = "DEI";     break;
-				case MAX_LEVEL - 4 : iclass = "GOD";     break;
-				case MAX_LEVEL - 5 : iclass = "IMM";     break;
-				case MAX_LEVEL - 6 : iclass = "DEM";     break;
-				case MAX_LEVEL - 7 : iclass = "ANG";     break;
-				case MAX_LEVEL - 8 : iclass = "AVA";     break;
-			}
-	}
+    // Set default arguments.
+    for (int iClass = 0; iClass < MAX_CLASS; iClass++)
+        rgfClass[iClass] = FALSE;
+    for (int iRace = 0; iRace < MAX_PC_RACE; iRace++)
+        rgfRace[iRace] = FALSE;
+    for (int iClan = 0; iClan < MAX_CLAN; iClan++)
+        rgfClan[iClan] = FALSE;
 
-	/*
-	 * Format it up.
-	 */
-	sprintf( buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
-		wch->level,
-		wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name 
-					: "     ",
-		iclass,
-		wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
-		wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
-		clan_table[wch->clan].who_name,
-		IS_SET(wch->comm, COMM_AFK) ? "[AFK] " : "",
-			IS_SET(wch->act, PLR_KILLER) ? "(KILLER) " : "",
-			IS_SET(wch->act, PLR_THIEF)  ? "(THIEF) "  : "",
-		wch->name,
-		IS_NPC(wch) ? "" : wch->pcdata->title );
-	add_buf(output,buf);
-	}
+    // Parse arguments.
+    while (!IS_NULLSTR(argument))
+    {
+        char arg[MSL] = {'\0'};
+        argument = one_argument(argument, arg);
 
-	sprintf( buf2, "\n\rPlayers found: %d\n\r", nMatch );
-	add_buf(output,buf2);
-	page_to_char( buf_string(output), ch );
-	free_buf(output);
-	return;
+        if (is_number(arg))
+        {
+            switch (++nNumber)
+            {
+            case 1:
+                iLevelLower = atoi(arg);
+                break;
+            case 2:
+                iLevelUpper = atoi(arg);
+                break;
+            default:
+                send_to_char("Only two level numbers allowed.\n\r", ch);
+                return;
+            }
+        }
+        else
+        {
+            if (!str_prefix(arg, "immortals"))
+            {
+                fImmortalOnly = TRUE;
+            }
+            else
+            {
+                int iClass = class_lookup(arg);
+                int iRace = race_lookup(arg);
+
+                if (iClass != -1)
+                {
+                    fClassRestrict = TRUE;
+                    rgfClass[iClass] = TRUE;
+                }
+                else if (iRace >= 0 && iRace < MAX_PC_RACE)
+                {
+                    fRaceRestrict = TRUE;
+                    rgfRace[iRace] = TRUE;
+                }
+                else if (!str_prefix(arg, "clan"))
+                {
+                    fClan = TRUE;
+                }
+                else
+                {
+                    int iClan = clan_lookup(arg);
+                    if (iClan)
+                    {
+                        fClanRestrict = TRUE;
+                        rgfClan[iClan] = TRUE;
+                    }
+                    else
+                    {
+                        send_to_char("That's not a valid race, class, or clan.\n\r", ch);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    buf[0] = '\0';
+    output = new_buf();
+
+    // Iterate through connected characters.
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        CHAR_DATA *wch;
+
+        if (d->connected != CON_PLAYING || !can_see(ch, d->character))
+            continue;
+
+        wch = (d->original != NULL) ? d->original : d->character;
+
+        if (!can_see(ch, wch))
+            continue;
+
+        if (wch->level < iLevelLower || wch->level > iLevelUpper ||
+            (fImmortalOnly && wch->level < LEVEL_IMMORTAL) ||
+            (fClassRestrict && !rgfClass[wch->iclass]) ||
+            (fRaceRestrict && !rgfRace[wch->race]) ||
+            (fClan && !is_clan(wch)) ||
+            (fClanRestrict && !rgfClan[wch->clan]))
+        {
+            continue;
+        }
+
+        nMatch++;
+
+        const char *iclass = class_table[wch->iclass].who_name;
+        // Handle special cases for class names.
+        if (wch->level >= MAX_LEVEL - 8 && wch->level <= MAX_LEVEL)
+        {
+            static const char *level_names[] = {"IMP", "CRE", "SUP", "DEI", "GOD", "IMM", "DEM", "ANG", "AVA"};
+            iclass = level_names[MAX_LEVEL - wch->level];
+        }
+
+        // Format the output.
+        sprintf(buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
+                wch->level,
+                (wch->race < MAX_PC_RACE) ? pc_race_table[wch->race].who_name : "     ",
+                iclass,
+                (wch->incog_level >= LEVEL_HERO) ? "(Incog) " : "",
+                (wch->invis_level >= LEVEL_HERO) ? "(Wizi) " : "",
+                clan_table[wch->clan].who_name,
+                IS_SET(wch->comm, COMM_AFK) ? "[AFK] " : "",
+                IS_SET(wch->act, PLR_KILLER) ? "(KILLER) " : "",
+                IS_SET(wch->act, PLR_THIEF) ? "(THIEF) " : "",
+                wch->name,
+                IS_NPC(wch) ? "" : wch->pcdata->title);
+        add_buf(output, buf);
+    }
+
+    char buf2[MSL] = {'\0'};
+    sprintf(buf2, "\n\rPlayers found: %d\n\r", nMatch);
+    add_buf(output, buf2);
+
+    page_to_char(buf_string(output), ch);
+    free_buf(output);
 }
+
 
 
 void do_count ( CHAR_DATA *ch, char *argument )
