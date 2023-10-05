@@ -2564,153 +2564,208 @@ void nanny_note_post ( DESCRIPTOR_DATA *d, const char *argument )
 /* Deal with sockets that haven't logged in yet. */
 void nanny( DESCRIPTOR_DATA *d, char *argument )
 {
-	CHAR_DATA *ch;
+    CHAR_DATA *ch;
 
-	while ( isspace(*argument) )
-		argument++;
+    while ( isspace(*argument) )
+        argument++;
 
-	ch = d->character;
+    ch = d->character;
 
-	switch ( d->connected )
-	{
+    switch ( d->connected )
+    {
 
-	default:	nanny_unknown_state(d, ch, argument); break;
-	case CON_GET_NAME: nanny_get_name(d, ch, argument); break;
-	case CON_GET_OLD_PASSWORD: nanny_get_old_password(d, ch, argument); break;
-	case CON_BREAK_CONNECT: nanny_break_connect(d,  ch, argument); break;/* RT code for breaking link */
-	case CON_CONFIRM_NEW_NAME: nanny_confirm_new_name(d,  ch, argument); break;
-	case CON_GET_NEW_PASSWORD: nanny_get_new_password(d,  ch, argument); break;
-	case CON_CONFIRM_NEW_PASSWORD: nanny_confirm_new_password(d,  ch, argument); break;
-	case CON_GET_NEW_RACE: nanny_get_new_race(d,  ch, argument); break;
-	case CON_GET_NEW_SEX: nanny_get_new_sex(d,  ch, argument); break;
-	case CON_GET_NEW_CLASS: nanny_get_new_class(d,  ch, argument); break;
-	case CON_GET_ALIGNMENT: nanny_get_alignment(d,  ch, argument); break;
-	case CON_DEFAULT_CHOICE: nanny_default_choice(d,  ch, argument); break;
-	case CON_PICK_WEAPON: nanny_pick_weapon(d,  ch, argument); break;
-	case CON_GEN_GROUPS: nanny_gen_groups(d,  ch, argument); break;
-	case CON_READ_IMOTD: nanny_read_imotd(d,  ch, argument); break;
-	case CON_READ_MOTD: nanny_read_motd(d,  ch, argument); break;
-                case CON_NOTE_TO:
-                        nanny_note_to ( d, argument );
-                        break;
-                case CON_NOTE_SUBJECT:
-                        nanny_note_subject ( d, argument );
-                        break;
-                case CON_NOTE_TEXT:
-                        nanny_note_text ( d, argument );
-                        break;
-                case CON_NOTE_POST:
-                        nanny_note_post ( d, argument );
-                        break;
-	}
+    default:
+        nanny_unknown_state(d, ch, argument);
+        break;
+    case CON_GET_NAME:
+        nanny_get_name(d, ch, argument);
+        break;
+    case CON_GET_OLD_PASSWORD:
+        nanny_get_old_password(d, ch, argument);
+        break;
+    case CON_BREAK_CONNECT:
+        nanny_break_connect(d,  ch, argument);
+        break;/* RT code for breaking link */
+    case CON_CONFIRM_NEW_NAME:
+        nanny_confirm_new_name(d,  ch, argument);
+        break;
+    case CON_GET_NEW_PASSWORD:
+        nanny_get_new_password(d,  ch, argument);
+        break;
+    case CON_CONFIRM_NEW_PASSWORD:
+        nanny_confirm_new_password(d,  ch, argument);
+        break;
+    case CON_GET_NEW_RACE:
+        nanny_get_new_race(d,  ch, argument);
+        break;
+    case CON_GET_NEW_SEX:
+        nanny_get_new_sex(d,  ch, argument);
+        break;
+    case CON_GET_NEW_CLASS:
+        nanny_get_new_class(d,  ch, argument);
+        break;
+    case CON_GET_ALIGNMENT:
+        nanny_get_alignment(d,  ch, argument);
+        break;
+    case CON_DEFAULT_CHOICE:
+        nanny_default_choice(d,  ch, argument);
+        break;
+    case CON_PICK_WEAPON:
+        nanny_pick_weapon(d,  ch, argument);
+        break;
+    case CON_GEN_GROUPS:
+        nanny_gen_groups(d,  ch, argument);
+        break;
+    case CON_READ_IMOTD:
+        nanny_read_imotd(d,  ch, argument);
+        break;
+    case CON_READ_MOTD:
+        nanny_read_motd(d,  ch, argument);
+        break;
+    case CON_NOTE_TO:
+        nanny_note_to ( d, argument );
+        break;
+    case CON_NOTE_SUBJECT:
+        nanny_note_subject ( d, argument );
+        break;
+    case CON_NOTE_TEXT:
+        nanny_note_text ( d, argument );
+        break;
+    case CON_NOTE_POST:
+        nanny_note_post ( d, argument );
+        break;
+    }
 
-	return;
+    return;
 }
 
 
+#define MAX_NAME_LENGTH 8
+#define FORBIDDEN_NAMES_FILE "../data/forbidden_names.txt"
+
+bool is_forbidden_name(const char *name)
+{
+    FILE *file = fopen(FORBIDDEN_NAMES_FILE, "r");
+    if (!file)
+    {
+        // Handle file open error if needed.
+        return false;
+    }
+
+    char buffer[MAX_NAME_LENGTH + 1];
+    while (fgets(buffer, sizeof(buffer), file))
+    {
+        // Remove trailing newline character, if any.
+        size_t len = strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n')
+        {
+            buffer[len - 1] = '\0';
+        }
+
+        if (strcasecmp(name, buffer) == 0)   // Case-insensitive comparison
+        {
+            fclose(file);
+            return true; // Name is forbidden
+        }
+    }
+
+    fclose(file);
+    return false; // Name is not forbidden
+}
 
 /*
  * Parse a name for acceptability.
  */
 bool check_parse_name( char *name )
 {
-	int clan;
+    int clan;
 
-	/*
-	 * Reserved words.
-	 */
-	if (is_exact_name(name,
-	"all auto immortal self someone something the you loner none"))
-	{
-	return FALSE;
-	}
+    /*
+     * Reserved words.
+     */
+    if (is_forbidden_name(name))
+    {
+        return false;
+    }
+    /* check clans */
+    for (clan = 0; clan < MAX_CLAN; clan++)
+    {
+        if (LOWER(name[0]) == LOWER(clan_table[clan].name[0])
+                &&  !str_cmp(name, clan_table[clan].name))
+            return FALSE;
+    }
 
-	/* check clans */
-	for (clan = 0; clan < MAX_CLAN; clan++)
-	{
-	if (LOWER(name[0]) == LOWER(clan_table[clan].name[0])
-	&&  !str_cmp(name,clan_table[clan].name))
-		return FALSE;
-	}
-	
-	if (str_cmp(capitalize(name),"Alander") && (!str_prefix("Alan",name)
-	|| !str_suffix("Alander",name)))
-	return FALSE;
+    if (str_cmp(capitalize(name), "Alander") && (!str_prefix("Alan", name)
+            || !str_suffix("Alander", name)))
+        return FALSE;
 
-	/*
-	 * Length restrictions.
-	 */
-	 
-	if ( strlen(name) <  2 )
-	return FALSE;
+    /*
+     * Length restrictions.
+     */
 
-#if defined(__MSDOS__)
-	if ( strlen(name) >  8 )
-	return FALSE;
-#endif
+    if ( strlen(name) <  2 )
+        return FALSE;
 
-#if defined(Macintosh) || defined(__unix__)
-	if ( strlen(name) > 12 )
-	return FALSE;
-#endif
+    if ( strlen(name) >  8 )
+        return FALSE;
 
-	/*
-	 * Alphanumerics only.
-	 * Lock out IllIll twits.
-	 */
-	{
-	char *pc;
-	bool fIll,adjcaps = FALSE,cleancaps = FALSE;
-	int total_caps = 0;
+    /*
+     * Alphanumerics only.
+     * Lock out IllIll twits.
+     */
+    {
+        char *pc;
+        bool fIll, adjcaps = FALSE, cleancaps = FALSE;
+        int total_caps = 0;
 
-	fIll = TRUE;
-	for ( pc = name; *pc != '\0'; pc++ )
-	{
-		if ( !isalpha(*pc) )
-		return FALSE;
+        fIll = TRUE;
+        for ( pc = name; *pc != '\0'; pc++ )
+        {
+            if ( !isalpha(*pc) )
+                return FALSE;
 
-		if ( isupper(*pc)) /* ugly anti-caps hack */
-		{
-		if (adjcaps)
-			cleancaps = TRUE;
-		total_caps++;
-		adjcaps = TRUE;
-		}
-		else
-		adjcaps = FALSE;
+            if ( isupper(*pc)) /* ugly anti-caps hack */
+            {
+                if (adjcaps)
+                    cleancaps = TRUE;
+                total_caps++;
+                adjcaps = TRUE;
+            }
+            else
+                adjcaps = FALSE;
 
-		if ( LOWER(*pc) != 'i' && LOWER(*pc) != 'l' )
-		fIll = FALSE;
-	}
+            if ( LOWER(*pc) != 'i' && LOWER(*pc) != 'l' )
+                fIll = FALSE;
+        }
 
-	if ( fIll )
-		return FALSE;
+        if ( fIll )
+            return FALSE;
 
-	if (cleancaps || (total_caps > (strlen(name)) / 2 && strlen(name) < 3))
-		return FALSE;
-	}
+        if (cleancaps || (total_caps > (strlen(name)) / 2 && strlen(name) < 3))
+            return FALSE;
+    }
 
-	/*
-	 * Prevent players from naming themselves after mobs.
-	 */
-	{
-	extern MOB_INDEX_DATA *mob_index_hash[MAX_KEY_HASH];
-	MOB_INDEX_DATA *pMobIndex;
-	int iHash;
+    /*
+     * Prevent players from naming themselves after mobs.
+     */
+    {
+        extern MOB_INDEX_DATA *mob_index_hash[MAX_KEY_HASH];
+        MOB_INDEX_DATA *pMobIndex;
+        int iHash;
 
-	for ( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )
-	{
-		for ( pMobIndex  = mob_index_hash[iHash];
-		  pMobIndex != NULL;
-		  pMobIndex  = pMobIndex->next )
-		{
-		if ( is_name( name, pMobIndex->player_name ) )
-			return FALSE;
-		}
-	}
-	}
+        for ( iHash = 0; iHash < MAX_KEY_HASH; iHash++ )
+        {
+            for ( pMobIndex  = mob_index_hash[iHash];
+                    pMobIndex != NULL;
+                    pMobIndex  = pMobIndex->next )
+            {
+                if ( is_name( name, pMobIndex->player_name ) )
+                    return FALSE;
+            }
+        }
+    }
 
-	return TRUE;
+    return TRUE;
 }
 
 

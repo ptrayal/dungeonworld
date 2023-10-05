@@ -4580,29 +4580,29 @@ void spell_gas_breath( int sn, int level, CHAR_DATA *ch, void *vo,int target )
 
 void spell_lightning_breath(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 {
-	CHAR_DATA *victim = (CHAR_DATA *) vo;
-	int dam,hp_dam,dice_dam,hpch;
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    int dam, hp_dam, dice_dam, hpch;
 
-	act("$n breathes a bolt of lightning at $N.",ch,NULL,victim,TO_NOTVICT);
-	act("$n breathes a bolt of lightning at you!",ch,NULL,victim,TO_VICT);
-	act("You breathe a bolt of lightning at $N.",ch,NULL,victim,TO_CHAR);
+    act("$n breathes a bolt of lightning at $N.", ch, NULL, victim, TO_NOTVICT);
+    act("$n breathes a bolt of lightning at you!", ch, NULL, victim, TO_VICT);
+    act("You breathe a bolt of lightning at $N.", ch, NULL, victim, TO_CHAR);
 
-	hpch = UMAX(10,ch->hit);
-	hp_dam = number_range(hpch/9+1,hpch/5);
-	dice_dam = dice(level,20);
+    hpch = UMAX(10, ch->hit);
+    hp_dam = number_range(hpch / 9 + 1, hpch / 5);
+    dice_dam = dice(level, 20);
 
-	dam = UMAX(hp_dam + dice_dam/10,dice_dam + hp_dam/10);
+    dam = UMAX(hp_dam + dice_dam / 10, dice_dam + hp_dam / 10);
 
-	if (saves_spell(level,victim,DAM_LIGHTNING))
-	{
-	shock_effect(victim,level/2,dam/4,TARGET_CHAR);
-	damage(ch,victim,dam/2,sn,DAM_LIGHTNING,TRUE);
-	}
-	else
-	{
-	shock_effect(victim,level,dam,TARGET_CHAR);
-	damage(ch,victim,dam,sn,DAM_LIGHTNING,TRUE); 
-	}
+    if (saves_spell(level, victim, DAM_LIGHTNING))
+    {
+        shock_effect(victim, level / 2, dam / 4, TARGET_CHAR);
+        damage(ch, victim, dam / 2, sn, DAM_LIGHTNING, TRUE);
+    }
+    else
+    {
+        shock_effect(victim, level, dam, TARGET_CHAR);
+        damage(ch, victim, dam, sn, DAM_LIGHTNING, TRUE);
+    }
 }
 
 /*
@@ -4610,14 +4610,14 @@ void spell_lightning_breath(int sn,int level,CHAR_DATA *ch,void *vo,int target)
  */
 void spell_general_purpose(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 {
-	CHAR_DATA *victim = (CHAR_DATA *) vo;
-	int dam;
- 
-	dam = number_range( 25, 100 );
-	if ( saves_spell( level, victim, DAM_PIERCE) )
-		dam /= 2;
-	damage( ch, victim, dam, sn, DAM_PIERCE ,TRUE);
-	return;
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    int dam;
+
+    dam = number_range( 25, 100 );
+    if ( saves_spell( level, victim, DAM_PIERCE) )
+        dam /= 2;
+    damage( ch, victim, dam, sn, DAM_PIERCE, TRUE);
+    return;
 }
 
 void spell_high_explosive(int sn,int level,CHAR_DATA *ch,void *vo,int target)
