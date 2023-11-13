@@ -2687,6 +2687,7 @@ bool check_parse_name( char *name )
     {
         return false;
     }
+ 
     /* check clans */
     for (clan = 0; clan < MAX_CLAN; clan++)
     {
@@ -2769,7 +2770,6 @@ bool check_parse_name( char *name )
 }
 
 
-
 /*
  * Look for link-dead player to reconnect.
  */
@@ -2810,7 +2810,6 @@ bool check_reconnect( DESCRIPTOR_DATA *d, char *name, bool fConn )
 }
 
 
-
 /*
  * Check if already playing.
  */
@@ -2838,7 +2837,6 @@ bool check_playing( DESCRIPTOR_DATA *d, char *name )
 }
 
 
-
 void stop_idling( CHAR_DATA *ch )
 {
 	if ( ch == NULL
@@ -2855,7 +2853,6 @@ void stop_idling( CHAR_DATA *ch )
 	act( "$n has returned from the void.", ch, NULL, NULL, TO_ROOM );
 	return;
 }
-
 
 
 /*
